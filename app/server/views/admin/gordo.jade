@@ -1,0 +1,56 @@
+extends partials/layout
+
+block head
+    title El Gordo
+
+block content
+    div(ng-app="dashboard")
+        div
+            include partials/navbar
+        div.container-fluid
+            div.row
+                include partials/sidebar
+                div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
+                    h1.page-header(style="padding-top: 5px") El Gordo
+                    div.col-md-12.col-sm-12(ng-controller="GordoController")
+                        div.col-md-12(style="padding-bottom: 15px")
+                            div.pull-left
+                                i.fa.fa-plus-circle(style="color: green; font-size: 22px")
+                            div.pull-left(style="padding-left: 5px")
+                                a(href="/admin/gordo/anadirTicket").mlp-anadirNoticia Añadir ticket
+
+                        div.col-md-12
+                            label.col-md-4.col-sm-4.col-xs-6(style="clear:both; padding-top:5px") Tickets por página:
+                            div.col-md-2.col-sm-2.col-xs-6
+                                input(type="number", min="1", ng-model="ticketsPerPage").form-control
+
+                        table.table(ng-show="tickets.length > 0", ng-cloak)
+                            thead
+                                tr
+                                    th Eliminar
+                                    th Año
+                                    th Fecha
+                                    th Sorteo
+                            tbody
+                                tr(ng-show="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-repeat="ticket in tickets | orderBy:['-fecha']").verEmail
+                                    td(style="font-weight: bold")
+                                        span(ng-click="eliminarTicket(ticket._id)")
+                                            i.fa.fa-trash-o
+                                    td(ng-click="verTicket(ticket._id)", ng-bind-template="{{ticket.anyo}}")
+                                    td(ng-click="verTicket(ticket._id)", ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}")
+                                    td(ng-click="verTicket(ticket._id)", ng-bind-template="{{ticket.sorteo}}")
+
+                            include ../modals/eliminarRegistro
+
+
+                        pagination(ng-show="tickets.length > 0", ng-cloak, items-per-page="ticketsPerPage", boundary-links="true", total-items="totalItems", ng-model="currentPage", previous-text="<", next-text=">", first-text="Inicio", last-text="Fin").pagination-sm.abel
+
+block scripts
+    script(src="/js/jquery.js")
+    script(src="/js/bootstrap.js")
+    script(src="/js/angular.js")
+    script(src='/js/angular/admin/dashboard.js')
+    script(src="/js/angular/admin/gordo.js")
+    script(src="/js/angular/admin/navbar.js")
+    script(src="/js/angular/admin/sidebar.js")
+    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')

@@ -1,0 +1,11 @@
+div.modal.fade#modal-eliminar-registro(data-backdrop="static", data-keyboard="false", tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+    div.modal-dialog
+        div.modal-content
+            div.modal-header
+                button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+                h4.modal-title ¿Está seguro?
+            div.modal-body
+                form
+                    div.alert.alert-info {{mensajeInformativoEliminacion}}
+            div.modal-footer
+                button(type="button", data-dismiss="modal", ng-click="eliminarRegistroDefinitivamente()").btn.btn-primary#confirmarEliminacion Aceptar

@@ -1,0 +1,99 @@
+extends ../layout
+
+block head
+    title Euromillones: Tickets
+    link(rel="stylesheet", href="/css/pronostigol.css")
+    link(rel="stylesheet", href="/css/backgroundImage.css")
+
+
+block content
+    div#wrap(ng-app="qdb")
+
+        div.container(ng-controller="LoguedUserController", style="margin-left: 0px; padding: 0 0 0 0;")
+            div(ng-controller="TicketsController")
+
+                include partials/navbar
+
+                div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0")
+                    div
+                        div.col-md-12.col-sm-12.col-xs-12(style="padding-top: 20px")
+                            script(async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+                            ins.adsbygoogle(style="display:block", data-ad-client="ca-pub-2309187828170787",
+                                data-ad-slot="6542743559", data-ad-format="auto")
+                            script (adsbygoogle = window.adsbygoogle || []).push({});
+
+                        div.col-md-12.col-sm-12.col-xs-12(style="padding-top: 15px")
+
+                            div.col-md-6.col-sm-6.col-xs-12
+                                div.alert.alert-euromillones
+                                    | Aqu&iacute; podr&aacute;s buscar los sorteos de Euromillones de los años que se indican a continuaci&oacute;n.
+
+                        div.col-md-12.col-sm-12.col-xs-12
+
+                            div.col-md-3
+                                ul.list-group.lista-temporadas-euromillones
+                                    li.list-group-item(ng-click="mostrarTickets('2015')").pointer Año 2015
+                                    li.list-group-item(ng-click="mostrarTickets('2016')").pointer Año 2016
+
+                            div.col-md-7.col-md-offset-1(ng-show="tickets.length > 0", ng-cloak, style="background-color: white; margin-bottom: 20px; border: 2px solid #440044 !important; border-radius: 4px")
+                                div.col-md-12(style="padding-top: 20px")
+                                    label.col-md-4.col-sm-4.col-xs-6(style="clear:both; padding-top:5px") Tickets por página:
+                                    div.col-md-2.col-sm-2.col-xs-6
+                                        input(type="number", min="1", ng-model="ticketsPerPage").form-control
+
+                                table.table.tabla-euromilloness
+                                    thead
+                                        tr
+                                            th Sorteo
+                                            th Día de la semana
+                                            th Fecha
+                                            th(ng-show="usuarioEstaLogueado && tickets[0].precio != null", ng-cloak) Apostado
+                                    tbody
+                                        tr(ng-repeat="ticket in tickets | orderBy:propiedad")
+                                            //td(ng-show="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)") {{$index+1}}
+                                            td(ng-show="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-click="verTicket(ticket)", ng-bind-template="{{ticket.sorteo}}").pointer
+                                            td(ng-show="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-click="verTicket(ticket)", ng-bind-template="{{traducirDia(ticket.fecha)}}").pointer
+                                            td(ng-show="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-click="verTicket(ticket)", ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}").pointer
+                                            td(ng-show="usuarioEstaLogueado && ticket.precio != null && ($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage) && apuestaRealizada(ticket)", ng-cloak)
+                                                span
+                                                    i.fa.fa-check.fa-2x(style="color: green")
+                                            td(ng-show="usuarioEstaLogueado && ticket.precio != null && ($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage) && !apuestaRealizada(ticket)", ng-cloak)
+                                                span
+                                                    i.fa.fa-close.fa-2x(style="color: red")
+
+
+                                // Paginador manual - FUNCIONA
+
+                                //ul.pagination(ng-repeat="pagina in paginas")
+                                    li(ng-show="pagina == currentPage").active
+                                        a(href="#", ng-click="actualizarPagina(pagina)").active {{pagina}}
+                                    li(ng-show="pagina != currentPage")
+                                        a(href="#", ng-click="actualizarPagina(pagina)").active {{pagina}}
+
+                                //pre The selected page no: {{currentPage}}
+                                //pre Total items: {{tickets.length}}
+                                //pre Tickets per page: {{numPerPage}}
+
+
+
+                                pagination(items-per-page="ticketsPerPage", boundary-links="true", total-items="totalItems", ng-model="currentPage", previous-text="<", next-text=">", first-text="Inicio", last-text="Fin").pagination-sm.abel
+
+
+                                //pre Total Items: {{totalItems}}
+                                //pre NumOfPages: {{numOfPages}}
+                                //pre Paginas: {{paginas}}
+
+        div#push
+
+    include partials/footer
+
+block scripts
+    script(src='/js/jquery.js')
+    script(src='/js/bootstrap.js')
+    script(src='/js/angular.js')
+    script(src='/js/angular/services.js')
+    script(src='/js/angular/loguedUser.js')
+    script(src='/js/angular/euromillones/tickets.js')
+    script(src='/js/angular/navbar.js')
+    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')
+

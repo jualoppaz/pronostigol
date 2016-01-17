@@ -1,0 +1,195 @@
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 50px;
+}
+
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+    border: 0;
+}
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+
+
+.sidebar {
+    display: block;
+    background-color: #f5f5f5;
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 51px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        display: block;
+        padding: 20px;
+        overflow-x: hidden;
+        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+        background-color: #f5f5f5;
+        border-right: 1px solid #eee;
+    }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+    margin-right: -21px; /* 20px padding + 1px border */
+    margin-bottom: 20px;
+    margin-left: -20px;
+}
+.nav-sidebar > li > a {
+    padding-right: 20px;
+    padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+    color: #fff;
+    background-color: #428bca;
+}
+
+
+/*
+ * Main content
+ */
+
+.main {
+    padding: 20px;
+}
+@media (min-width: 768px) {
+    .main {
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+}
+.main .page-header {
+    margin-top: 0;
+}
+
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+    margin-bottom: 30px;
+    text-align: center;
+}
+.placeholders h4 {
+    margin-bottom: 0;
+}
+.placeholder {
+    margin-bottom: 20px;
+}
+.placeholder img {
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.header-section a, .header-section a:hover{
+    color: grey !important;
+    font-weight: bold !important;
+}
+
+.section a, .section a:hover{
+    color: #428bca !important;
+    /*color: #41B19C !important;*/
+
+}
+
+@font-face {
+    font-family: 'Abel';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Abel'), local('Abel-Regular'), url(/fonts/brdGGFwqYJxjg2CD1E9o7g.woff2) format('woff2'), url(/fonts/EAqh528fFdbUek8UOky4sA.woff) format('woff');
+}
+
+body{
+    background-color: white !important;
+}
+
+.white{
+    color: #FFFFFF !important;
+}
+
+.white:hover{
+    background-color: white !important;
+    color: black !important;
+    border-bottom: 1px solid black;
+}
+
+.navbar{
+    min-height: 51px !important;
+}
+
+.navbar-brand{
+    font-weight: normal !important;
+}
+
+.navbar-brand:hover{
+    color: black !important;
+    background-color: white !important;
+}
+
+.navbar-nav>li>a{
+    color: white;
+    background-color: #222;
+}
+
+#entrar{
+    padding-left: 15px;
+    padding-top:  8px;
+    padding-right: 15px;
+    padding-bottom: 8px;
+    background-color: #222;
+    margin-left: 15px;
+}
+
+#entrar:hover{
+    background-color: white !important;
+    color: black !important;
+    border-color: black !important;
+}
+
+.badge{
+    border-radius: 10px !important;
+    margin-left: 10px;
+}
+
+.verEmail{
+    cursor: pointer !important;
+}
+
+.balanceEconomico .badge-rojo, .balanceEconomico .badge-verde{
+    font-size: 14px !important;
+    font-weight: normal !important;
+}
+
+.navbar-brand-nothing-hover:hover{
+    color: white !important;
+    background-color: #222 !important;
+    cursor: default !important;
+}
+

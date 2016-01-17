@@ -1,0 +1,31 @@
+extends partials/layout
+
+block head
+    title Panel de Administraci&oacute;n
+
+block content
+    div(ng-app="dashboard")
+        div
+            include partials/navbar
+
+        div.container-fluid
+            div.row
+
+                include partials/sidebar
+
+                div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.col-xs-12.main
+
+                    h1.page-header(style="padding-top: 0px") Panel de Administración
+                    div.
+                        Se encuentra en el panel de administración de la página web <b>www.pronostigol.es</b>. A la izquierda se encuentran todas las
+                        secciones y funcionalidades de la web.
+
+
+block scripts
+    script(src="/js/jquery.js")
+    script(src="/js/bootstrap.js")
+    script(src="/js/angular.js")
+    script(src="/js/angular/admin/dashboard.js")
+    script(src="/js/angular/admin/navbar.js")
+    script(src="/js/angular/admin/sidebar.js")
+    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')

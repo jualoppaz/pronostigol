@@ -1,0 +1,68 @@
+extends layout
+
+block head
+    title Preguntas frecuentes
+    link(rel="stylesheet", href="/css/pronostigol.css")
+    //link(rel="stylesheet", href="/css/backgroundImage.css")
+
+block content
+    div#wrap(ng-app="qdb")
+
+        div.container(ng-controller="LoguedUserController")
+            div(ng-controller="IndexController")
+
+                include partials/navbar
+
+                div
+
+                    main
+                        //div.container
+                            div.row
+
+
+                        div.container.col-md-12.col-sm-12.col-xs-12
+                            div.col-md-12.col-sm-12.col-xs-12(style="margin-top: 0px;")
+
+                                h1.page-header ¿Es necesario registrarme en la aplicación web para usarla?
+                                p.cookies-parrafo.
+                                    Para nada. Para ver las quinielas registradas o para realizar consultas no es necesario
+                                    registrarse en la aplicación. Sin embargo, al registrarse se pueden realizar ciertas acciones
+                                    como realizar un comentario.
+
+                            div.col-md-12.col-sm-12.col-xs-12
+                                h1.page-header ¿Para qué sirve el apartado de Quinielas?
+                                p.cookies-parrafo.
+                                    Este apartado sirve para consultar las quinielas que se han jugado desde la temporada 2013-2014.
+
+                                //h2.espacio-letras
+                                    | <div class="letra-azul pull-left">G</div>
+                                    | <div class="letra-roja pull-left">o</div>
+                                    | <div class="letra-amarilla pull-left">o</div>
+                                    | <div class="letra-azul pull-left">g</div>
+                                    | <div class="letra-verde pull-left">l</div>
+                                    | <div class="letra-roja pull-left">e</div>
+                                    | &nbsp;Adsense
+
+                            div.col-md-12.col-sm-12.col-xs-12
+                                h1.page-header ¿Para qué sirve el apartado de Consultas?
+                                p.cookies-parrafo.
+                                    Este apartado sirve para consultar las estadísticas asociadas a las quinielas que se han jugado desde
+                                    la temporada 2013-2014. Se pueden consultar estadísticas en base a un equipo, una competición, una temporada,
+                                    un partido o una combinación de dichos criterios de búsqueda. De esta forma se puede observar con qué
+                                    frecuencia suele ganar el equipo local, el equipo visitante o empatan segun la fila en la que aparece el partido
+                                    en cuestión.
+
+
+        div#push
+
+    include partials/footer
+
+block scripts
+    script(src='/js/jquery.js')
+    script(src='/js/bootstrap.js')
+    script(src='/js/angular.js')
+    script(src='/js/angular/services.js')
+    script(src='/js/angular/loguedUser.js')
+    script(src='/js/angular/index.js')
+    script(src='/js/angular/navbar.js')
+    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')

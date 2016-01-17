@@ -1,0 +1,49 @@
+extends partials/layout
+
+block content
+    div(ng-app="dashboard")
+        div
+            include partials/navbar
+        div.container-fluid
+            div.row
+                include partials/sidebar
+                div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
+                    h1.page-header(style="padding-top: 0px") Correos electrónicos
+                    div.col-md-12.col-sm-12(ng-controller="EmailsController")
+                        table.table
+                            thead
+                                tr
+                                    th Eliminar
+                                    th Remitente
+                                    th Fecha
+                                    th Mensaje
+                            tbody(ng-repeat="email in emails")
+                                tr(ng-show="email.leido == false", ng-cloak).verEmail
+                                    td(style="font-weight: bold")
+                                        span(ng-click="eliminarEmail(email._id)")
+                                            i.fa.fa-trash-o
+                                    td(style="font-weight: bold", ng-click="verEmail(email._id)", ng-bind-template="{{email.nombre}} ({{email.direccion}})")
+                                    td(style="font-weight: bold", ng-click="verEmail(email._id)", ng-bind-template="{{email.fecha | date:'dd/MM/yyyy'}}")
+                                    td(style="font-weight: bold; text-overflow: hidden !important", ng-click="verEmail(email._id)", ng-bind-template="{{email.mensaje}}").mensajeEmail
+                                tr(ng-show="email.leido == true", ng-cloak).verEmail
+                                    td
+                                        span(ng-click="eliminarEmail(email._id)")
+                                            i.fa.fa-trash-o
+                                    td(ng-click="verEmail(email._id)", ng-bind-template="{{email.nombre}} ({{email.direccion}})")
+                                    td(ng-click="verEmail(email._id)", ng-bind-template="{{email.fecha | date:'dd/MM/yyyy'}}")
+                                    td.mensajeEmail(ng-click="verEmail(email._id)", ng-bind-template="{{email.mensaje}}")
+
+                        include ../modals/eliminarRegistro
+
+
+
+
+block scripts
+    script(src="/js/jquery.js")
+    script(src="/js/bootstrap.js")
+    script(src="/js/angular.js")
+    script(src='/js/angular/admin/dashboard.js')
+    script(src="/js/angular/admin/emails.js")
+    script(src="/js/angular/admin/navbar.js")
+    script(src="/js/angular/admin/sidebar.js")
+    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')

@@ -1,0 +1,85 @@
+extends layout
+
+block head
+    title Contacto
+    link(rel="stylesheet", href="/css/backgroundImage.css")
+    link(rel="stylesheet", href="/css/pronostigol.css")
+
+
+block content
+    div#wrap(ng-app="qdb")
+        div.container(ng-controller="LoguedUserController")
+            div(ng-controller="ContactoController")
+
+                include partials/navbar
+
+                div(style="padding-top: 50px")
+                    div.col-md-8.col-md-offset-2.col-sm-10.col-sm-offset-1.col-xs-12
+                        div.panel.panel-body.border-qdb
+                            div.main-card-content
+                                div
+                                    p.recipe-title(style="text-align:center !important; padding-left: 0px")
+                                        span.caramelo.qdb-red(style="text-align: center; float:none") Contactar
+
+
+                                //form(novalidate, ng-submit="enviarCorreo()", style="padding: 0 0 0 0").formulario
+                                    div.col-md-12.col-sm-12
+                                        div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
+                                            input(type="text", name="nombre", placeholder="Nombre", ng-model="form.nombre").form-control
+                                    div.col-md-12.col-sm-12(ng-show="nombreVacio", style="margin-top: 15px", ng-cloak)
+                                        div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
+                                            div.alert.alert-danger(ng-bind-template="{{errores.nombreVacio}}")
+                                    div.col-md-12.col-sm-12(style="margin-top:15px")
+                                        div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
+                                            input(type="email", placeholder="Introduzca un email de contacto", ng-non-bindable)#email.form-control
+                                    div.col-md-12.col-sm-12(ng-show="emailVacio", style="margin-top: 15px", ng-cloak)
+                                        div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
+                                            div.alert.alert-danger(ng-bind-template="{{errores.emailVacio}}")
+                                    div.col-md-12.col-sm-12(ng-show="emailInvalido && !emailVacio", style="margin-top: 15px", ng-cloak)
+                                        div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
+                                            div.alert.alert-danger(ng-bind-template="{{errores.emailInvalido}}")
+                                    div.col-md-12.col-sm-12(style="margin-top:15px")
+                                        div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
+                                            textarea(placeholder="Introduzca su mensaje", ng-model="form.mensaje").form-control
+                                    div.col-md-12.col-sm-12(ng-show="mensajeVacio", style="margin-top: 15px", ng-cloak)
+                                        div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
+                                            div.alert.alert-danger(ng-bind-template="{{errores.mensajeVacio}}")
+
+                                form(novalidate, ng-submit="enviarCorreo()", style="padding: 0 0 0 0").formulario
+                                    div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
+                                        input(type="text", name="nombre", placeholder="Nombre", ng-model="form.nombre").form-control
+                                    div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1(ng-show="nombreVacio", style="margin-top: 15px", ng-cloak)
+                                        div.alert.alert-danger(ng-bind-template="{{errores.nombreVacio}}")
+                                    div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1(style="margin-top:15px")
+                                        input(type="email", placeholder="Introduzca un email de contacto", ng-non-bindable)#email.form-control
+                                    div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1(ng-show="emailVacio", style="margin-top: 15px", ng-cloak)
+                                        div.alert.alert-danger(ng-bind-template="{{errores.emailVacio}}")
+                                    div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1(ng-show="emailInvalido && !emailVacio", style="margin-top: 15px", ng-cloak)
+                                        div.alert.alert-danger(ng-bind-template="{{errores.emailInvalido}}")
+                                    div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1(style="margin-top:15px")
+                                        textarea(placeholder="Introduzca su mensaje", ng-model="form.mensaje").form-control
+                                    div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1(ng-show="mensajeVacio", style="margin-top: 15px", ng-cloak)
+                                        div.alert.alert-danger(ng-bind-template="{{errores.mensajeVacio}}")
+
+
+                                    div.col-md-6.col-md-offset-3.col-sm-6.col-sm-offset-3(style="text-align:center; margin-top:15px")
+                                        button.btn.btn-default.btn-qdb(href="#", role="button", type="submit")#buscar Enviar
+
+
+        div#push
+
+    include partials/footer
+
+
+
+block scripts
+    script(src='/js/jquery.js')
+    script(src='/js/bootstrap.js')
+    script(src='/js/angular.js')
+    script(src='/js/angular/services.js')
+    script(src='/js/angular/loguedUser.js')
+    script(src='/js/angular/contacto.js')
+    script(src='/js/angular/navbar.js')
+    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')
+
+

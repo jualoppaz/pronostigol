@@ -1,0 +1,13 @@
+div.table-responsive(style="margin-top: 15px", ng-show="mostrarCombinacionesSucedidas", ng-cloak)
+    table.table.table-bordered.col-md-12.col-sm-12.col-xs-12
+        thead
+            tr
+                th
+                th(ng-bind-template="Resultado")
+                th(ng-bind-template="Apariciones")
+
+        tbody
+            tr(ng-repeat="(key, value) in resultadosSucedidos | orderBy:'value'")
+                td(ng-bind-template="{{$index+1}}")
+                td(ng-bind-template="{{key}}")
+                td(ng-bind-template="{{value}}")

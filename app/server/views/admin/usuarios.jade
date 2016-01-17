@@ -1,0 +1,60 @@
+extends partials/layout
+
+block content
+    div(ng-app="dashboard")
+        div
+            include partials/navbar
+        div.container-fluid
+            div.row
+                include partials/sidebar
+                div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
+                    h1.page-header(style="padding-top: 0px") Usuarios
+                    div.col-md-12.col-sm-12(ng-controller="UsuariosController")
+                        table.table
+                            thead
+                                tr
+                                    th Eliminar
+                                    th Usuario
+                                    th Contraseña (hash)
+                                    th Fecha de registro
+                            tbody(ng-repeat="usuario in usuarios")
+                                // El usuario es nuevo
+                                tr(ng-show="!usuario.estaActivo && !usuario.estaBaneado", ng-cloak).verEmail
+                                    td(style="font-weight: bold")
+                                        span(ng-click="eliminarUsuario(usuario._id)")
+                                            i.fa.fa-trash-o
+                                    td(style="font-weight: bold", ng-click="verUsuario(usuario._id)", ng-bind-template="{{usuario.user}}")
+                                    td(style="font-weight: bold", ng-click="verUsuario(usuario._id)", ng-bind-template="{{usuario.pass}}")
+                                    td(style="font-weight: bold; text-overflow: hidden !important", ng-click="verUsuario(usuario._id)", ng-bind-template="{{usuario.date | date:'dd/MM/yyyy'}}").mensajeEmail
+
+                                tr(ng-show="usuario.estaActivo && !usuario.estaBaneado", ng-cloak).verEmail
+                                    td
+                                        span(ng-click="eliminarUsuario(usuario._id)")
+                                            i.fa.fa-trash-o
+                                    td(ng-click="verUsuario(usuario._id)", ng-bind-template="{{usuario.user}}")
+                                    td(ng-click="verUsuario(usuario._id)", ng-bind-template="{{usuario.pass}}")
+                                    td.mensajeEmail(ng-click="verUsuario(usuario._id)", ng-bind-template="{{usuario.date | date:'dd/MM/yyyy'}}")
+
+
+                                tr(ng-show="usuario.estaBaneado", ng-cloak).verEmail.alert-danger
+                                    td
+                                        span(ng-click="eliminarUsuario(usuario._id)")
+                                            i.fa.fa-trash-o
+                                    td(ng-click="verUsuario(usuario._id)", ng-bind-template="{{usuario.user}}")
+                                    td(ng-click="verUsuario(usuario._id)", ng-bind-template="{{usuario.pass}}")
+                                    td.mensajeEmail(ng-click="verUsuario(usuario._id)", ng-bind-template="{{usuario.date | date:'dd/MM/yyyy'}}")
+
+                        include ../modals/eliminarRegistro
+
+
+
+
+block scripts
+    script(src="/js/jquery.js")
+    script(src="/js/bootstrap.js")
+    script(src="/js/angular.js")
+    script(src='/js/angular/admin/dashboard.js')
+    script(src="/js/angular/admin/usuarios.js")
+    script(src="/js/angular/admin/navbar.js")
+    script(src="/js/angular/admin/sidebar.js")
+    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')

@@ -1,0 +1,178 @@
+extends ../layout
+
+block head
+    title Consultas
+    link(rel="stylesheet", href="/css/backgroundImage.css")
+    link(rel="stylesheet", href="/css/quiniela.css")
+
+block content
+    div#wrap(ng-app="qdb")
+
+        div.container(ng-controller="LoguedUserController")
+            div(ng-controller="ConsultasController")
+
+                include partials/navbar
+
+                div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0")
+
+                    div.col-md-12.col-sm-12.col-xs-12(ng-show="temporadas.length > 0", ng-cloak, style="margin-top:15px; padding-left: 0px; padding-right: 0px")
+                        div.alert.alert-info.alert-quiniela.
+                            Ésta es, casi con total seguridad, la funcionalidad más importante de esta
+                            aplicación web. Aquí podrá realizar una gran variedad de consultas para saber
+                            cuáles son las combinaciones más repetidas, los datos de un equipo como local o
+                            visitante, los resultados más repetidos según la fila y otras muchas cosas.
+
+
+                    div.col-md-12.col-md-offset-0.col-sm-12.col-xs-12(ng-show="temporadas.length > 0 && competiciones.length > 0 && equipos.length > 0", style="margin-top:20px; padding: 0 0 0 0; background-color: white; border: 2px solid #0480be; border-radius: 4px", ng-cloak)
+
+                        tabset.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0;", ng-cloak)
+                            tab.col-md-6.col-sm-6.col-xs-6(style="padding: 0 0 0 0", heading="Personalizadas", active="primeraPestana", ng-click="activarPestana(1)")
+                                div.col-md-12.col-sm-12.col-xs-12(style="border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; border-left: 1px solid #ddd;")
+                                    div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0; margin-top: 15px").form-group
+                                        label.col-md-2.col-md-offset-1.col-sm-2.col-sm-offset-1.col-xs-12.control-label Temporada:
+                                        div.col-md-4.col-md-offset-0.col-sm-4.col-sm-offset-0.col-xs-12
+                                            // Este select era el original.
+                                            //select.form-control(ng-model="temporadaSeleccionada", ng-init="temporadaSeleccionada = temporadaSeleccionada || temporadas[0].name",
+                                              ng-options="temporada.value as temporada.name for temporada in temporadas")
+                                            input#temporadaSeleccionada(ng-model="form.temporadaSeleccionada", placeholder="Histórico", typeahead="temporada.value as temporada.name for temporada in temporadas | filter:{name:$viewValue}").form-control
+                                        div.col-md-5.col-sm-5.hidden-xs
+                                            button(popover="{{ayudaTemporada}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                | Ayuda
+                                        div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 30px; padding-bottom: 10px")
+                                            button(popover="{{ayudaTemporada}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                | Ayuda
+
+                                    div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0").form-group
+                                        label.col-md-2.col-md-offset-1.col-sm-2.col-sm-offset-1.col-xs-12.control-label Competición:
+                                        div.col-md-4.col-md-offset-0.col-sm-4.col-sm-offset-0.col-xs-12
+                                            // Este select era el original.
+                                            //select.form-control(ng-model="competicionSeleccionada", ng-init="competicionSeleccionada = competicionSeleccionada || competiciones[0].name",
+                                              ng-options="competicion.value as competicion.name for competicion in competiciones")
+                                            input#competicionSeleccionada(type="text", placeholder="Todas", ng-model="form.competicionSeleccionada", typeahead="competicion.value as competicion.name for competicion in competiciones | filter:{name:$viewValue}").form-control
+                                        div.col-md-5.col-sm-5.hidden-xs
+                                            button(popover="{{ayudaCompeticion}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                | Ayuda
+                                        div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 30px; padding-bottom: 10px")
+                                            button(popover="{{ayudaCompeticion}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                | Ayuda
+
+                                    div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0").form-group
+                                        label.col-md-2.col-md-offset-1.col-sm-2.col-sm-offset-1.col-xs-12.control-label Buscar por:
+                                        div.col-md-3.col-md-offset-1.col-sm-3.col-sm-offset-1.col-xs-9.col-xs-offset-3
+                                            label.col-xs-12
+                                                input(type="radio", name="optionsRadios", ng-checked="true", value="general", ng-model="form.opcionBusqueda")#radio1
+                                                | &nbsp; General
+                                            label.col-xs-12
+                                                input(type="radio", name="optionsRadios", value="equipo", ng-model="form.opcionBusqueda")#radio2
+                                                | &nbsp; Equipo
+                                            label.col-xs-12
+                                                input(type="radio", name="optionsRadios", value="partido", ng-model="form.opcionBusqueda")#radio3
+                                                | &nbsp; Partido
+                                        div.col-md-5.col-sm-5.hidden-xs
+                                            button(popover="{{ayudaBusqueda}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                | Ayuda
+                                        div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 35px; padding-bottom: 15px")
+                                            button(popover="{{ayudaBusqueda}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                | Ayuda
+
+                                    div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0", ng-show="form.opcionBusqueda == 'equipo'", ng-cloak).form-group
+                                        label.col-md-2.col-md-offset-1.col-sm-2.col-sm-offset-1.col-xs-12.control-label Equipo:
+                                        div.col-md-4.col-md-offset-0.col-sm-6.col-xs-12
+                                            //input.form-control(ng-model="equipoSeleccionado", placeholder="Equipo")
+                                            input#equipoSeleccionado.form-control(ng-model="form.equipoSeleccionado", placeholder="Equipo", typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
+
+                                    div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0", ng-show="form.opcionBusqueda == 'partido'", ng-cloak).form-group
+                                        label.col-md-2.col-md-offset-1.col-sm-2.col-sm-offset-1.col-xs-12.control-label Partido:
+
+                                        div.col-md-4.col-md-offset-0.col-sm-4.col-sm-offset-0.hidden-xs
+                                            //input.form-control(ng-model="equipoLocalSeleccionado", placeholder="Equipo local")
+                                            input.form-control(ng-model="form.equipoLocalSeleccionado", placeholder="Equipo local", typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
+                                        div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-bottom: 15px")
+                                            //input.form-control(ng-model="equipoLocalSeleccionado", placeholder="Equipo local")
+                                            input.form-control(ng-model="form.equipoLocalSeleccionado", placeholder="Equipo local", typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
+
+                                        div.col-md-4.col-md-offset-0.col-sm-4.col-sm-offset-0.hidden-xs
+                                            //input.form-control(ng-model="equipoVisitanteSeleccionado", placeholder="Equipo visitante")
+                                            input.form-control(ng-model="form.equipoVisitanteSeleccionado", placeholder="Equipo visitante", typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
+                                        div.hidden-lg.hidden-md.hidden-sm.col-xs-12
+                                            //input.form-control(ng-model="equipoVisitanteSeleccionado", placeholder="Equipo visitante")
+                                            input.form-control(ng-model="form.equipoVisitanteSeleccionado", placeholder="Equipo visitante", typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
+
+
+                                    div.col-md-12.col-sm-12.col-xs-12.form-group
+                                        div.col-sm-2.col-sm-offset-5.col-xs-12(style="text-align:center")
+                                            a.btn.btn-default.btn-qdb.abel(href="#", role="button", ng-click="consultar()", ng-disabled="consultando == true")#confirmarEliminacion Consultar
+
+                                    div.col-md-12.col-sm-12.col-xs-12#paneles
+
+                                        include partials/tablaPorFilas
+
+                                        include partials/tablaPorFilasLocalYVisitante
+
+                                        include partials/plenoRenovado
+
+                                        include partials/plenoRenovadoLocalYVisitante
+
+                            tab.col-md-6.col-sm-6.col-xs-6(style="padding: 0 0 0 0", heading="Estándar", active="segundaPestana", ng-click="activarPestana(2)")
+
+                                div.col-md-12.col-sm-12.col-xs-12(style="border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; border-left: 1px solid #ddd;")
+                                    div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0; margin-top: 15px").form-group
+                                        div.col-md-12
+                                            label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
+                                                input(type="radio", name="optionsRadiosEstandar", value="combinacionesSucedidas", ng-checked="true", ng-model="form.opcionBusquedaEstandar")#radio1Estandar
+                                                | &nbsp; Combinaciones por ocurrencia
+                                            div.col-md-5.col-sm-5.hidden-xs
+                                                button(popover="{{ayudaCombinacionesOcurrencia}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                    | Ayuda
+
+                                            div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 30px; padding-bottom: 10px")
+                                                button(popover="{{ayudaCombinacionesOcurrencia}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                    | Ayuda
+
+                                    div.col-md-12.col-sm-12.col-xs-12.form-group
+                                        div.col-sm-2.col-sm-offset-5.col-xs-12(style="text-align:center")
+                                            a.btn.btn-default.btn-qdb.abel(href="#", role="button", ng-click="consultarEstandar()", ng-disabled="consultando == true")#confirmarEliminacion Consultar
+
+
+
+                                    div.col-md-12.col-sm-12.col-xs-12#panelesEstandar
+                                        include partials/tablaCombinacionesSucedidas
+
+
+                        //pre {{victoriasLocales}}
+
+                        //pre {{empates}}
+
+                        //pre {{victoriasVisitantes}}
+
+                        //pre {{plenosRenovadosLocal}}
+
+                        //pre {{plenosRenovadosVisitante}}
+
+                        //pre {{victoriasLocalesComoLocal}}
+
+                        //pre {{empatesComoLocal}}
+
+                        //pre {{victoriasVisitantesComoLocal}}
+
+                    div.col-md-12.col-sm-12.col-xs-12(style="margin-top:50px; margin-bottom: 15px")
+                        script(async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+                        ins.adsbygoogle(style="display:block", data-ad-client="ca-pub-2309187828170787",
+                        data-ad-slot="9496209954", data-ad-format="auto")
+                        script (adsbygoogle = window.adsbygoogle || []).push({});
+
+        div#push
+
+    include ../partials/footer
+
+block scripts
+    script(src='/js/jquery.js')
+    script(src='/js/bootstrap.js')
+    script(src='/js/angular.js')
+    script(src='/js/angular/services.js')
+    script(src='/js/angular/loguedUser.js')
+    script(src='/js/angular/quiniela/consultas.js')
+    script(src='/js/angular/navbar.js')
+    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')
+
+

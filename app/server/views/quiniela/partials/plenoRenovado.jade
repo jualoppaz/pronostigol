@@ -1,0 +1,42 @@
+div.col-md-12.col-sm-12.col-xs-12.alert.alert-info(ng-show="mostrarPlenoRenovado", ng-cloak).
+    La siguiente tabla contiene los resultados del pleno al 15 a partir de la 2014-2015, en
+    la que el formato cambió. Por tanto, esta tabla no mostrará datos de la 2013-2014.
+
+
+
+div.table-responsive(ng-show="mostrarPlenoRenovado", ng-cloak)
+    table.table.table-bordered
+        thead
+            tr
+                th Fila
+                th.badge-pleno 0-0
+                th.badge-pleno 0-1
+                th.badge-pleno 0-2
+                th.badge-pleno 0-M
+                th.badge-pleno 1-0
+                th.badge-pleno 1-1
+                th.badge-pleno 1-2
+                th.badge-pleno 1-M
+                th.badge-pleno 2-0
+                th.badge-pleno 2-1
+                th.badge-pleno 2-2
+                th.badge-pleno 2-M
+                th.badge-pleno M-0
+                th.badge-pleno M-1
+                th.badge-pleno M-2
+                th.badge-pleno M-M
+                th Número de partidos
+
+        tbody
+            tr
+                td(ng-bind-template="15")
+                td(ng-repeat="res in resultadosPlenoRenovado")
+                    // El mas frecuente en solitario
+                    span.badge.badge-verde(ng-show="resultadoPlenoMasFrecuenteEnSolitario(plenosRenovados, res, plenosRenovados[res])", ng-bind-template="{{plenosRenovados[res] || 0}}")
+                    span.badge.badge-naranja(ng-show="resultadoPlenoMasFrecuenteEmpatado(plenosRenovados, res, plenosRenovados[res])", ng-bind-template="{{plenosRenovados[res] || 0}}")
+                    span.badge.badge-rojo(ng-show="resultadoPlenoMenosFrecuente(plenosRenovados, res, plenosRenovados[res])", ng-bind-template="{{plenosRenovados[res] || 0}}")
+                td(ng-bind-template="{{sumaDePlenosRenovados()}}")
+            tr
+                td(colspan="17")
+                    strong Total
+                td(ng-bind-template="{{sumaDeVictoriasLocales() + sumaDeEmpates() + sumaDeVictoriasVisitantes() + sumaDePlenosRenovados()}}")

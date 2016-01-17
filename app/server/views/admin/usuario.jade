@@ -1,0 +1,70 @@
+extends partials/layout
+
+block content
+    div(ng-app="dashboard")
+        div
+            include partials/navbar
+
+        div.container-fluid
+            div.row
+
+                include partials/sidebar
+
+                div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ng-controller="UsuarioController")
+
+                    include ../modals/usuarioEditadoCorrectamente
+
+                    include ../modals/usuarioYaExiste
+
+                    h1.page-header(style="padding-top: 0px") Usuario
+
+                    form.form-horizontal
+                        div.form-group
+                            label.col-sm-2.control-label Usuario:
+                            div.col-sm-4
+                                input(ng-model="usuario.user").form-control
+                        div(style="padding-left: 0px").form-group
+                            label.col-sm-2.control-label Contraseña:
+                            div.col-sm-4
+                                input(type="password", ng-model="usuario.pass", placeholder="Dejar en blanco si no se quiere modificar").form-control
+                        div.form-group
+                            label.col-sm-2.control-label Rol:
+                            div.col-sm-4
+                                select.form-control(ng-model="usuario.role", ng-options="opcion.value as opcion.name for opcion in opcionesRoles",
+                                ng-init="usuario.role = usuario.role || opcionesRoles[0]")
+
+
+                        div.form-group
+                            label.col-sm-2.control-label Activo:
+                            div.col-sm-4
+                                select.form-control(ng-model="usuario.estaActivo", ng-options="opcion.value as opcion.name for opcion in opcionesActivo",
+                                ng-init="usuario.estaActivo = usuario.estaActivo || opcionesActivo[0]")
+
+                        div.form-group
+                            label.col-sm-2.control-label Baneado:
+                            div.col-sm-4
+                                select.form-control(ng-model="usuario.estaBaneado", ng-options="opcion.value as opcion.name for opcion in opcionesBaneo",
+                                ng-init="usuario.estaBaneado = usuario.estaBaneado || opcionesBaneo[0]")
+
+
+                        //div.form-group
+                            label.col-sm-2.control-label Fecha de registro:
+                            div.col-sm-4
+                                input(value="{{usuario.date | date:'dd/MM/yyyy'}}").form-control
+
+                        div.form-group
+                            div.col-sm-2.col-sm-offset-2
+                                a.btn.btn-default(href="/admin/usuarios", role="button")#cancel Cancelar
+                            div.col-sm-2(style="text-align:right")
+                                a.btn.btn-default.btn-primary(href="#", role="button", ng-click="guardar()")#confirmarEliminacion Guardar
+
+
+block scripts
+    script(src="/js/jquery.js")
+    script(src="/js/bootstrap.js")
+    script(src="/js/angular.js")
+    script(src='/js/angular/admin/dashboard.js')
+    script(src="/js/angular/admin/usuario.js")
+    script(src="/js/angular/admin/navbar.js")
+    script(src="/js/angular/admin/sidebar.js")
+    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')

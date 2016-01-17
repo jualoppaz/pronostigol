@@ -1,0 +1,45 @@
+extends layout
+
+block head
+    title Página no encontrada
+    link(rel="stylesheet", href="/css/pronostigol.css")
+    link(rel="stylesheet", href="/css/backgroundImage.css")
+
+block content
+    div#container.fondoCaramelos(ng-app="qdb")
+
+        div(ng-controller="LoguedUserController")
+            div(ng-controller="IndexController")
+
+                include partials/navbar
+
+                div
+
+                    main
+                        div.container
+                            div.row
+
+                                include partials/botonesMovil
+
+                                div.col-md-10.col-md-offset-1.col-sm-6.col-xs-12(style="margin-top:100px")
+                                    div.panel.panel-body.main-card.border-qdb-red#bienvenido
+                                        div.main-card-content(style="word-wrap: break-word;")
+                                            div.main-card-name
+                                                a.recipe-title
+                                                    span.caramelo.qdb-red Página no encontrada
+                                            div.main-card-description
+                                                p(style="font-size: 18px").
+                                                    La página solicitada no existe. Si el problema persiste, contacte con el administrador de la aplicación web.
+
+
+block scripts
+    script(src='/js/jquery.js')
+    script(src='/js/bootstrap.js')
+    script(src='/js/angular.js')
+    script(src='/js/angular/services.js')
+    script(src='/js/angular/loguedUser.js')
+    script(src='/js/angular/index.js')
+    script(src='/js/angular/navbar.js')
+    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')
+
+

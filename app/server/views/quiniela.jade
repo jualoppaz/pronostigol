@@ -1,0 +1,180 @@
+extends layout
+
+block head
+    title Quiniela
+    link(rel="stylesheet", href="/css/quiniela.css")
+    link(rel="stylesheet", href="/css/backgroundImage.css")
+
+block content
+    div#wrap(ng-app="qdb")
+
+        div.container(ng-controller="LoguedUserController")
+            div(ng-controller="QuinielaController")
+
+                include quiniela/partials/navbar
+
+                div.col-md-12-col-sm-12.col-xs-12(style="padding: 0 0 0 0")
+
+                    main
+                        //div.container
+                            div.row
+
+                        div.logo-parent.col-md-12.text-center
+                            //span.logo-pronostigol P
+                            span.col-md-8.col-md-offset-2.col-sm-8.col-sm-offset-2.col-xs-12.logo.logo-quiniela-con-texto-invertido
+                                span.titulo-logo-juego Quiniela
+
+                        //div.col-md-12.col-sm-12.hidden-xs(style="font-size: 100px; text-align:center").abel
+                            b.letra-roja P
+                            b.letra-azul r
+                            b.letra-roja o
+                            b.letra-azul n
+                            b.letra-roja o
+                            b.letra-azul s
+                            b.letra-roja t
+                            b.letra-azul i
+                            b.letra-roja g
+                            b.letra-azul o
+                            b.letra-roja l
+                        //div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="font-size: 60px; text-align:center; padding: 0 0 0 0").abel
+                            b.letra-roja P
+                            b.letra-azul r
+                            b.letra-roja o
+                            b.letra-azul n
+                            b.letra-roja o
+                            b.letra-azul s
+                            b.letra-roja t
+                            b.letra-azul i
+                            b.letra-roja g
+                            b.letra-azul o
+                            b.letra-roja l
+                        div.col-md-2.col-sm-12.col-xs-12(style="padding-top: 30px; padding-bottom: 30px")
+                            script(async, src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+                            ins.adsbygoogle(style="display:block", data-ad-client="ca-pub-2309187828170787", data-ad-slot="6074215556", data-ad-format="auto")
+                            script (adsbygoogle = window.adsbygoogle || []).push({});
+
+                        div.col-md-8.col-sm-12.col-xs-12(style="margin-top: 30px")
+                            div.col-md-12.col-sm-12.col-xs-12.panel.panel-body.main-card.border-qdb#bienvenido
+                                div.main-card-content(style="word-wrap: break-word;")
+                                    div.main-card-name
+                                        a.recipe-title
+                                            span.caramelo.qdb-red Bienvenido
+                                    div.main-card-description
+                                        p.qdb-blue.
+                                            En esta sección encontrarás multitud de estadísticas asociadas a la Quiniela de España.
+                                            Podrás conocer los resultados más repetidos, los equipos que ganan con más frecuencia y una amplia
+                                            gama de consultas a realizar.
+                                            De este modo te será mucho más sencillo realizar tus quinielas.
+
+                            //div.col-md-12.col-sm-12.col-xs-12.panel.panel-body.main-card.border-qdb(ng-show="comments != null", ng-cloak)#bienvenido
+                                div.col-md-12.col-sm-12.col-xs-12.text-center(ng-show="comments.length > 0", ng-cloak)
+                                    h1.green.abel(style="font-size: 42px; font-weight: normal") Comentarios
+                                div.col-md-4.col-sm-6.col-xs-12(ng-repeat="comment in comments", ng-cloak)
+                                    div.panel.panel-primary(ng-show="($index + 1 > (currentPage - 1) * commentsPerPage) && ($index + 1 <= currentPage * commentsPerPage)", ng-cloak)
+                                        div.panel-heading(style="overflow: auto")
+                                            div.panel-title.pull-left
+                                                span {{comment.user}}
+                                            //div.panel-title.pull-left
+                                                span(style="margin-left: 10px", ng-bind-template="({{comment.fecha | date:'dd/MM/yyyy HH:mm'}})")
+                                            div.panel-title.pull-right
+                                                span
+                                                    //i.fa.fa-1.fa-pencil(ng-click="editarComentario(comment)", ng-show="usuarioLogueado.user == comment.user", style="color:white; margin-right: 10px").pointer
+                                                    i.fa.fa-1.fa-trash-o(ng-click="eliminarComentario(comment)", ng-show="usuarioLogueado.user == comment.user", style="color:white").pointer
+                                            div.panel-title(style="clear:both").text-center
+                                                span(ng-bind-template="({{comment.fecha | date:'dd/MM/yyyy HH:mm'}})")
+                                        div.panel-body(ng-bind-template="{{comment.texto}}")
+                                div.col-md-12.col-sm-12.col-xs-12.text-center
+                                    pagination(ng-show="comments.length > 0", ng-cloak, items-per-page="commentsPerPage", boundary-links="true", total-items="totalItems", ng-model="currentPage", previous-text="<", next-text=">", first-text="Inicio", last-text="Fin").pagination-sm.abel
+                                div.col-md-12.col-sm-12.col-xs-12.main-card#bienvenido
+                                    div.main-card-content(ng-show="comments != null && comments.length == 0", ng-cloak, style="margin-bottom: 10px")
+                                        div.main-card-name(style="padding-left: 0px;")
+                                            a.recipe-title
+                                                span.caramelo.qdb-red No hay comentarios. Sé el primero en comentar.
+                                    h3.text-center(style="margin-top: 0px; padding-top: 5px", ng-show="usuarioEsAnonimo && comments.length == 0", ng-cloak)
+                                        a.green(href="/login", ng-bind-template="¡Loguéate primero!")#logueate
+                                    h3.text-center(style="margin-top: 0px; padding-top: 5px", ng-show="usuarioEsAnonimo && comments.length > 0", ng-cloak)
+                                        a.green(href="/login", ng-bind-template="¡Debes loguearte para comentar!")#logueate
+                                    div.col-md-12.col-sm-12.col-xs-12.alert.alert-danger(ng-show="comentarioPalabrasLargas", ng-cloak)
+                                        | El comentario contiene palabras no registradas en el diccionario.
+                                    div.col-md-12.col-sm-12.col-xs-12.alert.alert-info(ng-show="comentarioEliminadoCorrectamente", ng-cloak)
+                                        | El comentario ha sido eliminado con &eacute;xito.
+                                    div.col-md-12.col-sm-12.col-xs-12.alert.alert-info(ng-show="comentarioEnviadoCorrectamente", ng-cloak)
+                                        | El comentario ha sido enviado. Se mostrar&aacute; cuando sea validado por el administrador.
+                                    form(ng-show="usuarioEstaLogueado", ng-cloak)
+                                        textarea(placeholder="Escribe un comentario", ng-model="comentario.texto").form-control.nuevo-comentario#comentario
+                                        div.centrar(style="margin-top:25px")
+                                            a.btn.btn-default.btn-qdb(ng-click="comentar()").btn.btn-danger.btn-large#entrar Enviar
+                            //div.col-md-12.col-sm-12.col-xs-12.panel.panel-body.main-card.border-qdb(ng-show="tweets.length > 0", ng-cloak)#bienvenido
+                                div.col-md-12.col-sm-12.col-xs-12.text-center(ng-show="tweets.length > 0", ng-cloak)
+                                    h1.green.abel(style="font-size: 42px; font-weight: normal") Noticias
+                                div.col-md-6.col-sm-6.col-xs-12(ng-repeat="tweet in tweets", ng-cloak)
+                                    div.panel.panel-primary(style="min-height: 150px")
+                                        div.panel-heading(style="overflow: auto")
+                                            div.panel-title.pull-left
+                                                span {{tweet.name}}
+                                            //div.panel-title.pull-left
+                                                span(style="margin-left: 10px", ng-bind-template="({{comment.fecha | date:'dd/MM/yyyy HH:mm'}})")
+                                            //div.panel-title.pull-right
+                                                span
+                                                    //i.fa.fa-1.fa-pencil(ng-click="editarComentario(comment)", ng-show="usuarioLogueado.user == comment.user", style="color:white; margin-right: 10px").pointer
+                                                    i.fa.fa-1.fa-trash-o(ng-click="eliminarComentario(comment)", ng-show="usuarioLogueado.user == comment.user", style="color:white").pointer
+                                            div.panel-title(style="clear:both").text-center
+                                                //span(ng-bind-template="{{$index+1}}. {{tweet.created_at | date:'dd/MM/yyyy HH:mm'}}")
+                                                div(style="float:left")
+                                                    span.badge(ng-bind-template="{{$index+1}}")
+                                                div(style="float:right", ng-bind-template="{{tweet.created_at | date:'dd/MM/yyyy HH:mm'}}")
+                                        div.panel-body(ng-bind-template="{{tweet.text}}")
+                            //div.col-md-6.col-md-offset-3.col-sm-12.col-xs-12.panel.panel-body.border-qdb(style="margin-top:60px;")
+                                div.col-md-12.col-sm-12.col-xs-12(ng-show="fecha == 'empty'", style="display:block; padding-left: 0px")
+                                    div(style="float:left") Última actualización:
+                                    i(style="float:left; margin-left: 15px; margin-top: 3px").fa.fa-refresh.fa-spin
+                                div.col-md-12.col-sm-12.col-xs-12(ng-show="fecha != 'empty'", style="padding-left: 0px", ng-bind-template="Última actualización: {{fecha | date:('dd/MM/yyyy')}}")
+                                //div Su dirección IP es: {{visitorInfo.ip}}
+                                div.col-md-12.col-sm-12.col-xs-12(ng-show="visitorInfo == 'empty'", style="display:block; padding-left: 0px")
+                                    div(style="float:left") Visitantes hoy:
+                                    i(style="float:left; margin-left: 15px; margin-top: 3px").fa.fa-refresh.fa-spin
+                                    br
+                                    div(style="float:left") Visitantes &uacute;nicos:
+                                    i(style="float:left; margin-left: 15px; margin-top: 3px").fa.fa-refresh.fa-spin
+                                    br
+                                    div(style="float:left") Visitas totales:
+                                    i(style="float:left; margin-left: 15px; margin-top: 3px").fa.fa-refresh.fa-spin
+                                div.col-md-12.col-sm-12.col-xs-12(ng-show="visitorInfo != 'empty'", style="padding-left: 0px")
+                                    div(ng-bind-template="Visitantes hoy: {{visitorInfo.visitantesHoy}}")
+                                    div(ng-bind-template="Visitantes únicos: {{visitorInfo.visitantesUnicos}}")
+                                    div(ng-bind-template="Visitas totales: {{visitorInfo.visitasTotales}}")
+
+
+                        div.col-md-2.col-sm-12.col-xs-12(style="padding-bottom: 30px; padding-top: 30px")
+                            script(async, src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+                            ins.adsbygoogle(style="display:block", data-ad-client="ca-pub-2309187828170787", data-ad-slot="1504415157", data-ad-format="auto")
+                            script (adsbygoogle = window.adsbygoogle || []).push({});
+
+
+                include partials/cookiesNotification
+
+                //include modals/editarComentario
+                include modals/eliminarRegistro
+
+        //div#push(style="height: 180px")
+        div#push
+
+    include partials/footer
+
+block scripts
+    script(src='/js/jquery.js')
+    script(src='/js/bootstrap.js')
+    script(src='/js/angular.js')
+    script(src='/js/angular/services.js')
+    script(src='/js/angular/loguedUser.js')
+    script(src='/js/angular/quiniela.js')
+    script(src='/js/angular/navbar.js')
+    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')
+
+    script.
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            ga('create', 'UA-57106519-1', 'auto');
+        ga('send', 'pageview');

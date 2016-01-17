@@ -1,0 +1,53 @@
+header(ng-controller="NavbarController")
+    nav.navbar.navbar-fixed-top.navbar-default.navbar-qdb.navbar-primitiva.fondoVerde(role="navigation")
+        div.navbar-inner
+            div.container-fluid
+                div.navbar-header
+                    button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target=".navbar-collapse")
+                        span.sr-only Cambiar la navegación
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a(href="/").navbar-brand.white.middle.primitiva Inicio
+                    ul.nav.navbar-nav.navbar-right.hidden-lg.hidden-md.hidden-sm
+                        li(style="float: right; padding-right: 15px")
+                            a.primitiva(href="https://twitter.com/pronostigolesp", target="_blank", ng-cloak)
+                                i.fa.fa-twitter
+                        li(style="float: right")
+                            a.primitiva(href="https://www.facebook.com/pronostigol.es", target="_blank", ng-cloak)
+                                i.fa.fa-facebook
+                div.collapse.navbar-collapse.fondoVerde(role="navigation")
+                    //ul.nav.navbar-nav(ng-show="loguedUser.role != 'admin'")
+                    ul.nav.navbar-nav
+                        li
+                            a.primitiva(href="/primitiva") Primitiva
+                        li
+                            a.primitiva(href="/primitiva/tickets") Tickets
+                        li
+                            a.primitiva(href="/primitiva/consultas") Consultas
+                        li
+                            a.primitiva(href="/contacto", target="_blank") Contacto
+                        li.hidden-lg.hidden-md.hidden-sm(ng-show="usuarioEstaLogueado == false")
+                            a.primitiva(href="/login") Entrar
+                        li.hidden-lg.hidden-md.hidden-sm(ng-show="usuarioEstaLogueado")
+                            a.primitiva(href="#", ng-click="cerrarSesion()") Cerrar sesión
+                        li.hidden-lg.hidden-md.hidden-sm(ng-show="usuarioEstaLogueado == false")
+                            a.primitiva(href="/signup") Registrarse
+
+                    ul.nav.navbar-nav.navbar-right.hidden-xs
+                        //li
+                            a(href="/buscar") Buscar
+                                i.fa.fa-search(style="margin-left:15px")
+                        li
+                            a.primitiva(href="https://www.facebook.com/pronostigol.es", target="_blank", ng-cloak)
+                                i.fa.fa-facebook
+                        li
+                            a.primitiva(href="https://twitter.com/pronostigolesp", target="_blank", ng-cloak)
+                                i.fa.fa-twitter
+                        li(ng-show="usuarioEstaLogueado", style="margin-left:15px", ng-cloak)
+                            a.btn.btn-primitiva(href="#", role="button", ng-click="cerrarSesion()")#entrar Cerrar sesión
+                        li(ng-show="!usuarioEstaLogueado", style="margin-left:15px", ng-cloak)
+                            a.btn.btn-primitiva(href="/login", role="button")#entrar Entrar
+
+    include ../../modals/login
+    include ../../modals/logout

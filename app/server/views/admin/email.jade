@@ -1,0 +1,38 @@
+extends partials/layout
+
+block content
+    div(ng-app="dashboard")
+        div
+            include partials/navbar
+
+        div.container-fluid
+            div.row
+
+                include partials/sidebar
+
+                div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ng-controller="EmailController")
+
+                    h1.page-header Correo electrónico
+
+                    div.col-md-12.col-sm-12(style="padding-left: 0px")
+                        div.col-md-12(style="padding-left: 0px")
+                            div.col-md-1(style="padding-left: 0px")
+                                label Remitente:
+                            div.col-md-11(ng-bind-template="{{email.nombre}} ({{email.direccion}})")
+                        div.col-md-12(style="padding-left: 0px")
+                            div.col-md-1(style="padding-left: 0px")
+                                label Fecha:
+                            div.col-md-11(ng-bind-template="{{email.fecha | date:('dd/MM/yyyy')}}")
+                        div.col-md-12(style="padding-left: 0px; margin-top: 30px")
+                            div.panel.panel-body(ng-bind-template="{{email.mensaje}}")
+
+
+
+block scripts
+    script(src="/js/jquery.js")
+    script(src="/js/bootstrap.js")
+    script(src="/js/angular.js")
+    script(src='/js/angular/admin/app.js')
+    script(src="/js/angular/admin/email.js")
+    script(src="/js/angular/admin/navbar.js")
+    script(src="/js/angular/admin/sidebar.js")

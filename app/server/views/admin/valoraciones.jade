@@ -1,0 +1,57 @@
+extends partials/layout
+
+block content
+    div(ng-app="dashboard")
+        div
+            include partials/navbar
+        div.container-fluid
+            div.row
+                include partials/sidebar
+                div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
+                    div.col-md-12.col-sm-12(ng-controller="ValoracionesController")
+                        h1.page-header Likes
+
+                        table.table
+                            thead
+                                tr
+                                    th Eliminar
+                                    th Usuario
+                            tbody(ng-repeat="like in likes")
+                                tr.verEmail
+                                    td
+                                        span(ng-click="eliminarValoracion(like.user, 'like')")
+                                            i.fa.fa-trash-o
+                                    td(ng-click="verValoracion()") {{like.user}}
+
+                        div.col-md-12.alert.alert-info(ng-show="likes.length == 0 || likes == null")
+                            | No hay valoraciones positivas.
+
+                        h1.page-header Dislikes
+                        table.table
+                            thead
+                                tr
+                                    th Eliminar
+                                    th Usuario
+                            tbody(ng-repeat="dislike in dislikes")
+                                tr.verEmail
+                                    td
+                                        span(ng-click="eliminarValoracion(dislike.user, 'dislike')")
+                                            i.fa.fa-trash-o
+                                    td(ng-click="verValoracion()") {{dislike.user}}
+
+                        div.col-md-12.alert.alert-info(ng-show="dislikes.length == 0 || dislikes == null")
+                            | No hay valoraciones negativas.
+
+                        include ../modals/eliminarValoracion
+
+
+
+
+block scripts
+    script(src="/js/jquery.js")
+    script(src="/js/bootstrap.js")
+    script(src="/js/angular.js")
+    script(src='/js/angular/admin/app.js')
+    script(src="/js/angular/admin/valoraciones.js")
+    script(src="/js/angular/admin/navbar.js")
+    script(src="/js/angular/admin/sidebar.js")

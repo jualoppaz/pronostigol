@@ -1,0 +1,71 @@
+extends layout
+
+block head
+    title Login
+    link(rel="stylesheet", href="/css/backgroundImage.css")
+    link(rel="stylesheet", href="/css/pronostigol.css")
+
+
+block content
+    div#container.fondoCaramelos(ng-app="qdb")
+        div(ng-controller="LoguedUserController")
+            div(ng-controller="LoginController")
+
+                include partials/navbar
+
+                main
+                    div.container
+                        div.row
+                            div.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2.col-xs-12(style="clear:both; margin-top: 150px")
+                                div.panel.panel-body.main-card.border-qdb(style="height: auto")
+                                    div.main-card-content(style="word-wrap: break-word;")
+                                        div.main-card-name
+                                            p.recipe-title(style="text-align:center; padding-left: 0px")
+                                                span.title-qdb-blue Acceder
+
+                                        form(ng-submit="loguearse()").formulario
+                                            div.col-md-12.col-sm-12
+                                                div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
+                                                    input(type="text", name="user", placeholder="Usuario", ng-model="form.user").form-control
+                                            div.col-md-12.col-sm-12(ng-show="usuarioInexistente", style="margin-top: 15px", ng-cloak)
+                                                div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
+                                                    div.alert.alert-danger(ng-bind-template="{{errores.usuarioInexistente}}")
+                                            div.col-md-12.col-sm-12(ng-show="usuarioVacio", style="margin-top: 15px", ng-cloak)
+                                                div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
+                                                    div.alert.alert-danger(ng-bind-template="{{errores.usuarioVacio}}")
+                                            div.col-md-12.col-sm-12(style="margin-top:15px")
+                                                div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
+                                                    input(type="password", name="pass", placeholder="Contraseña", ng-model="form.pass").form-control
+                                            div.col-md-12.col-sm-12(ng-show="passErroneo", style="margin-top: 15px", ng-cloak)
+                                                div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
+                                                    div.alert.alert-danger(ng-bind-template="{{errores.passErroneo}}")
+                                            div.col-md-12.col-sm-12(ng-show="passVacio", style="margin-top: 15px", ng-cloak)
+                                                div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
+                                                    div.alert.alert-danger(ng-bind-template="{{errores.passVacio}}")
+                                            div.col-md-12.col-sm-12(ng-show="usuarioNoActivo", style="margin-top: 15px", ng-cloak)
+                                                div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
+                                                    div.alert.alert-danger(ng-bind-template="{{errores.usuarioNoActivo}}")
+                                            div.col-md-12.col-sm-12(style="margin-top:15px")
+                                                div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1.textoTurquesa
+                                                    //div.col-md-1.col-sm-1.col-xs-1(style="padding-left:0px")
+                                                        input(type="checkbox", ng-model="form.recordar")#remember-me
+                                                    //div.col-md-7.col-sm-7.col-xs-7(style="padding-left:0px; padding-right: 0px")
+                                                        label.qdb-blue Recuérdame
+                                                    div.col-md-3.col-md-offset-9.col-sm-3.col-sm-offset-9.col-xs-3.col-xs-offset-9(style="padding-left:0px; padding-right: 0px")
+                                                        a.abel(href="/signup").qdb-blue Registrarse
+                                            div.col-md-6.col-md-offset-3.col-sm-6.col-sm-offset-3(style="text-align:center; margin-top:15px")
+                                                button.btn.btn-default.btn-qdb(href="#", role="button", type="submit")#enviar Enviar
+
+
+
+block scripts
+    script(src='/js/jquery.js')
+    script(src='/js/bootstrap.js')
+    script(src='/js/angular.js')
+    script(src='/js/angular/services.js')
+    script(src='/js/angular/loguedUser.js')
+    script(src='/js/angular/login.js')
+    script(src='/js/angular/navbar.js')
+    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')
+
+

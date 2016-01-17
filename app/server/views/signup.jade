@@ -1,0 +1,61 @@
+extends layout
+
+block head
+    title Registro
+    link(rel="stylesheet", href="/css/backgroundImage.css")
+    link(rel="stylesheet", href="/css/pronostigol.css")
+
+block content
+    div#container.fondoCaramelos(ng-app="qdb")
+
+        div(ng-controller="LoguedUserController")
+
+            include partials/navbar
+
+            main
+                div.container
+                    div.row(ng-controller="SignupController")
+                        div.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2.col-xs-12(style="clear:both; margin-top: 150px")
+                            div.panel.panel-body.main-card.border-qdb(style="height: auto")
+                                div(style="word-wrap: break-word;")
+                                    div.main-card-name
+                                        p.recipe-title(style="text-align:center; padding-left: 0px")
+                                            span.title-qdb-blue.abel Registrarse
+                                    div.col-md-12.col-sm-12
+                                        div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
+                                            input(type="text", ng-model="form.user", placeholder="Introduzca su usuario").form-control
+                                    div.col-md-12(ng-show="usuarioInvalido == true", style="margin-top: 15px", ng-cloak)
+                                        div.col-md-10.col-md-offset-1
+                                            div.alert.alert-danger(ng-bind-template="{{errores.usuarioInvalido}}")
+                                    div.col-md-12(ng-show="usuarioVacio == true", style="margin-top: 15px", ng-cloak)
+                                        div.col-md-10.col-md-offset-1
+                                            div.alert.alert-danger(ng-bind-template="{{errores.usuarioVacio}}")
+                                    div.col-md-12(ng-show="usuarioEnUso == true", style="margin-top: 15px;", ng-cloak)
+                                        div.col-md-10.col-md-offset-1
+                                            div.alert.alert-danger(ng-bind-template="{{usuarioOcupado}}")
+                                    div.col-md-12.col-sm-12(style="margin-top:15px")
+                                        div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
+                                            input(type="password", ng-model="form.pass", placeholder="Introduzca su contraseña").form-control
+                                    div.col-md-12(ng-show="passVacio == true", style="margin-top: 15px", ng-cloak)
+                                        div.col-md-10.col-md-offset-1
+                                            div.alert.alert-danger(ng-bind-template="{{errores.passVacio}}")
+                                    div.col-md-12(ng-show="registroConExito == true", style="margin-top: 15px;", ng-cloak)
+                                        div.col-md-10.col-md-offset-1
+                                            div.alert.alert-success(ng-bind-template="{{registroOk}}")
+
+                                    div.col-md-6.col-md-offset-3(style="text-align:center; margin-top:15px")
+                                        a.abel.btn.btn-default.btn-qdb(href="#", role="button", ng-click="registrarse()")#buscar Enviar
+
+
+
+block scripts
+    script(src='/js/jquery.js')
+    script(src='/js/bootstrap.js')
+    script(src='/js/angular.js')
+    script(src='/js/angular/services.js')
+    script(src='/js/angular/loguedUser.js')
+    script(src='/js/angular/registro.js')
+    script(src='/js/angular/navbar.js')
+    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')
+
+

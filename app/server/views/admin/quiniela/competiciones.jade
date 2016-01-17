@@ -1,0 +1,57 @@
+extends ../partials/layout
+
+block head
+    title Competiciones
+
+block content
+    div(ng-app="dashboard")
+        div
+            include ../partials/navbar
+        div.container-fluid
+            div.row
+                include ../partials/sidebar
+                div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
+                    h1.page-header(style="padding-top: 0px") Competiciones
+                    div.col-md-12.col-sm-12(ng-controller="CompeticionesController")
+                        div.col-md-12(style="padding-bottom: 15px")
+                            div.pull-left
+                                i.fa.fa-plus-circle(style="color: green; font-size: 22px")
+                            div.pull-left(style="padding-left: 5px")
+                                a(href="/admin/quiniela/anadirCompeticion").mlp-anadirNoticia Añadir competición
+
+
+                        ul.pagination#paginador(ng-cloak)
+                            li.col-md-4.col-md-offset-4.col-md-offset-right-4(style="padding-left: 0px; padding-right: 0px").text-center
+                                a.col-md-12(href="#", ng-click="mostrarTodos()") Mostrar todas
+                            li(ng-repeat="letra in letras")
+                                a(ng-focus="letra == 'A'", ng-cloak, href="#", ng-bind-template="{{letra}}", ng-click="seleccionarLetra(letra)")
+
+                        table.table(ng-cloak)
+                            thead
+                                tr
+                                    th Eliminar
+                                    th Nombre
+                            tbody(ng-repeat="registro in competiciones | orderBy: 'name'")
+                                tr(ng-show="empiezaPor(registro.name) || form.mostrarTodos == true", ng-cloak).verEmail
+                                    td
+                                        span(ng-click="eliminarRegistro(registro._id)")
+                                            i.fa.fa-trash-o
+                                    td(ng-click="verRegistro(registro._id)", ng-bind-template="{{registro.name}}")
+
+
+
+
+                        include ../../modals/eliminarRegistro
+
+
+
+
+block scripts
+    script(src="/js/jquery.js")
+    script(src="/js/bootstrap.js")
+    script(src="/js/angular.js")
+    script(src='/js/angular/admin/dashboard.js')
+    script(src="/js/angular/admin/quiniela/competiciones.js")
+    script(src="/js/angular/admin/navbar.js")
+    script(src="/js/angular/admin/sidebar.js")
+    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')

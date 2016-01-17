@@ -1,0 +1,134 @@
+extends ../layout
+
+block head
+    title Bonoloto: Ticket
+    link(rel="stylesheet", href="/css/pronostigol.css")
+    link(rel="stylesheet", href="/css/backgroundImage.css")
+
+block content
+    div#wrap(ng-app="qdb", style="background-color: white")
+
+        div.container(ng-controller="LoguedUserController")
+            div(ng-controller="TicketController")
+
+                include partials/navbar
+
+                div
+
+                    main
+
+                        h1(style="margin-left: 15px; margin-right: 15px; padding-left: 15px").page-header Ticket
+
+                        div.col-md-12.col-sm-12.col-xs-12(ng-show="ticketEstaVacio() && consultaRealizada", ng-cloak)
+                            div.col-md-12.col-sm-12.col-xs-12.alert.alert-info.
+                                No ha sido posible obtener la informaci&oacute;n de este ticket. Si el error persiste
+                                contacte con el administrador de la p&aacute;gina web.
+
+
+                        div.col-md-12.col-sm-12.col-xs-12(style="padding-left: 15px")
+
+                            div.col-md-12.col-sm-12.col-xs-12(ng-show="ticket.anyo", ng-cloak, style="padding-left: 15px")
+                                div.col-md-1.col-sm-2.col-xs-4(style="padding-left: 0px")
+                                    label Año:
+                                div.col-md-11.col-sm-10.col-xs-8(ng-bind-template="{{ticket.anyo}}")
+                            div.col-md-12.col-sm-12.col-xs-12(ng-show="ticket.fecha", ng-cloak, style="padding-left: 15px")
+                                div.col-md-1.col-sm-2.col-xs-4(style="padding-left: 0px")
+                                    label Fecha:
+                                div.col-md-11.col-sm-10.col-xs-8(ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}")
+                            div.col-md-12.col-sm-12.col-xs-12(ng-show="ticket.sorteo", ng-cloak, style="padding-left: 15px")
+                                div.col-md-1.col-sm-2.col-xs-4(style="padding-left: 0px")
+                                    label Sorteo:
+                                div.col-md-11.col-sm-10.col-xs-8(ng-bind-template="{{ticket.sorteo}}")
+
+
+                            div.col-md-12.col-sm-12.col-xs-12(ng-show="ticket.jornada", ng-cloak, style="padding-left: 15px")
+                                div.col-md-1.col-sm-2.col-xs-4(style="padding-left: 0px")
+                                    label Jornada:
+                                div.col-md-11.col-sm-10.col-xs-8(ng-bind-template="{{ticket.jornada}}")
+
+                            div.col-md-12.col-sm-12.col-xs-12(style="padding-left: 15px", ng-show="ticket.precio >= 0", ng-cloak)
+                                div.col-md-1.col-sm-2.col-xs-4(style="padding-left: 0px")
+                                    label Precio:
+                                div.col-md-11.col-sm-10.col-xs-8(ng-bind-template="{{ticket.precio}} €")
+                            div.col-md-12.col-sm-12.col-xs-12(style="padding-left: 15px", ng-show="ticket.premio >= 0", ng-cloak)
+                                div.col-md-1.col-sm-2.col-xs-4(style="padding-left: 0px")
+                                    label Premio:
+                                div.col-md-11.col-sm-10.col-xs-8(ng-bind-template="{{ticket.premio}} €")
+
+                            div.col-md-12.col-sm-12.col-xs-12(style="margin-top: 15px", ng-show="ticket.observaciones != null", ng-cloak)
+                                div.alert.alert-info(ng-bind-template="{{ticket.observaciones}}")
+
+
+
+                        div.col-md-12.col-sm-12.col-xs-12(ng-show="ticket.apuestas.combinaciones.length > 0", ng-cloak)
+                            div.table-responsive(style="margin-top: 50px")
+                                table.table.table-bordered.col-md-12.col-sm-12.col-xs-12
+                                    thead
+                                        tr
+                                            th Apuesta
+                                            th Bola 1
+                                            th Bola 2
+                                            th Bola 3
+                                            th Bola 4
+                                            th Bola 5
+                                            th Bola 6
+                                            th Reintegro
+                                            th N&uacute;mero de aciertos
+                                            th Categor&iacute;a de Premio
+
+                                    tbody
+                                        tr(ng-repeat="combinacion in ticket.apuestas.combinaciones")
+                                            td(ng-bind-template="{{$index + 1}}")
+
+                                            // Acertamos esta bola
+                                            td(ng-repeat="bola in combinacion").text-center
+                                                span.badge.badge-verde(ng-show="bolaHaSidoAcertada(bola)", ng-bind-template="{{bola.numero}}")
+                                                span.badge.badge-naranja(ng-show="bolaHaSidoAcertadaComoComplementario(bola) && !bolaHaSidoAcertada(bola)", ng-bind-template="{{bola.numero}}")
+                                                span.badge.badge-rojo(ng-show="!bolaHaSidoAcertada(bola) && !bolaHaSidoAcertadaComoComplementario(bola)", ng-bind-template="{{bola.numero}}")
+
+                                            td(ng-show="{{$index == 0}}", rowspan="{{ticket.apuestas.combinaciones.length}}").text-center
+                                                span.badge.badge-verde(ng-show="ticket.apuestas.reintegro == ticket.resultado.reintegro", ng-bind-template="{{ticket.apuestas.reintegro}}")
+                                                span.badge.badge-rojo(ng-show="ticket.apuestas.reintegro != ticket.resultado.reintegro", ng-bind-template="{{ticket.apuestas.reintegro}}")
+                                            td(ng-bind-template="{{determinarNumeroAciertos(combinacion)}}")
+                                            td(ng-bind-template="{{determinarCategoriaPremio(combinacion)}}")
+
+                        h2.col-md-12.col-sm-12.col-xs-12(ng-hide="ticketEstaVacio()", ng-cloak, style="margin-top: 30px; margin-left: 15px; margin-right: 15px; padding-left: 15px").page-header Resultado
+
+                        div.col-md-12.col-sm-12.col-xs-12(ng-show="!ticketEstaVacio()", ng-cloak)
+                            div.table-responsive
+                                table.table.table-bordered.col-md-12.col-sm-12.col-xs-12(ng-show="ticket.resultado.bolas != null", ng-cloak)
+                                    thead
+                                        tr
+                                            th Bola 1
+                                            th Bola 2
+                                            th Bola 3
+                                            th Bola 4
+                                            th Bola 5
+                                            th Bola 6
+                                            th Complementario
+                                            th Reintegro
+
+                                    tbody
+                                        tr
+                                            td(ng-repeat="bola in ticket.resultado.bolas", ng-bind-template="{{bola.numero}}").text-center
+
+                                            td(ng-bind-template="{{ticket.resultado.complementario}}").text-center
+                                            td(ng-bind-template="{{ticket.resultado.reintegro}}").text-center
+
+
+        div#push
+
+    include partials/footer
+
+
+block scripts
+    script(src='/js/jquery.js')
+    script(src='/js/bootstrap.js')
+    script(src='/js/angular.js')
+    script(src='/js/angular/services.js')
+    script(src='/js/angular/loguedUser.js')
+    script(src='/js/angular/bonoloto/ticket.js')
+    script(src='/js/angular/navbar.js')
+    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')
+
+

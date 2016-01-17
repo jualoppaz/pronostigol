@@ -1,0 +1,13 @@
+// Modal tras hacer logout
+
+div.modal.fade#modal-logout(data-backdrop="static", data-keyboard="false", tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+    div.modal-dialog
+        div.modal-content
+            div.modal-header
+                button.close(type="button", data-dismiss="modal", ng-click="redirigirTrasLogout()", aria-hidden="true") &times;
+                h4.modal-title#modalTitleLogout
+            div.modal-body
+                form
+                    div.alert.alert-info#modalTextLogout
+            div.modal-footer
+                button(type="button", data-dismiss="modal", ng-click="redirigirTrasLogout()").btn.btn-primary#confirmarEliminacion Aceptar

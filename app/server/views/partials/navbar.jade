@@ -1,0 +1,51 @@
+header(ng-controller="NavbarController")
+    nav.navbar.navbar-fixed-top.navbar-default.navbar-qdb.fondoAzul(role="navigation")
+        div.navbar-inner
+            div.container-fluid
+                div.navbar-header
+                    button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target=".navbar-collapse")
+                        span.sr-only Cambiar la navegación
+                        span.icon-bar
+                        span.icon-bar
+                        span.icon-bar
+                    a(href="/").navbar-brand.white.middle Inicio
+                    ul.nav.navbar-nav.navbar-right.hidden-lg.hidden-md.hidden-sm
+                        li(style="float: right; padding-right: 15px")
+                            a(href="https://twitter.com/pronostigolesp", target="_blank", ng-cloak)
+                                i.fa.fa-twitter
+                        li(style="float: right")
+                            a(href="https://www.facebook.com/pronostigol.es", target="_blank", ng-cloak)
+                                i.fa.fa-facebook
+                div.collapse.navbar-collapse.fondoAzul(role="navigation")
+                    //ul.nav.navbar-nav(ng-show="loguedUser.role != 'admin'")
+                    ul.nav.navbar-nav
+                        //li
+                            a(href="/quinielas") Quinielas
+                        //li
+                            a(href="/consultas") Consultas
+                        li
+                            a(href="/contacto") Contacto
+                        li.hidden-lg.hidden-md.hidden-sm(ng-show="usuarioEstaLogueado == false")
+                            a(href="/login") Entrar
+                        li.hidden-lg.hidden-md.hidden-sm(ng-show="usuarioEstaLogueado")
+                            a(href="#", ng-click="cerrarSesion()") Cerrar sesión
+                        li.hidden-lg.hidden-md.hidden-sm(ng-show="usuarioEstaLogueado == false")
+                            a(href="/signup") Registrarse
+
+                    ul.nav.navbar-nav.navbar-right.hidden-xs
+                        //li
+                            a(href="/buscar") Buscar
+                                i.fa.fa-search(style="margin-left:15px")
+                        li
+                            a(href="https://www.facebook.com/pronostigol.es", target="_blank", ng-cloak)
+                                i.fa.fa-facebook
+                        li
+                            a(href="https://twitter.com/pronostigolesp", target="_blank", ng-cloak)
+                                i.fa.fa-twitter
+                        li(ng-show="usuarioEstaLogueado", style="margin-left:15px", ng-cloak)
+                            a.btn.btn-qdb(href="#", role="button", ng-click="cerrarSesion()")#entrar Cerrar sesión
+                        li(ng-show="!usuarioEstaLogueado", style="margin-left:15px", ng-cloak)
+                            a.btn.btn-qdb(href="/login", role="button")#entrar Entrar
+
+    include ../modals/login
+    include ../modals/logout

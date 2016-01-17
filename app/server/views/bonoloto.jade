@@ -1,0 +1,95 @@
+extends layout
+
+block head
+    title Bonoloto
+    link(rel="stylesheet", href="/css/backgroundImage.css")
+    link(rel="stylesheet", href="/css/pronostigol.css")
+
+
+block content
+    div#wrap(ng-app="qdb")
+
+        div.container(ng-controller="LoguedUserController")
+            div(ng-controller="IndexController")
+
+                include bonoloto/partials/navbar
+
+                div.col-md-12-col-sm-12.col-xs-12(style="padding: 0 0 0 0")
+
+                    main
+                        //div.container
+                            div.row
+
+                        div.col-md-12.text-center
+                            //span.logo-pronostigol P
+                            span.col-md-8.col-md-offset-2.col-sm-8.col-sm-offset-2.col-xs-12.logo-juego.logo-bonoloto-con-texto-invertido
+                                span.titulo-logo-juego Bonoloto
+
+
+                        div.col-md-2.col-sm-12.col-xs-12(style="padding-bottom: 15px; padding-top: 30px")
+                            script(async, src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+                            ins.adsbygoogle(style="display:block", data-ad-client="ca-pub-2309187828170787", data-ad-slot="6074215556", data-ad-format="auto")
+                            script (adsbygoogle = window.adsbygoogle || []).push({});
+
+                        div.col-md-8.col-sm-12.col-xs-12(style="margin-top: 30px")
+                            div.col-md-12.col-sm-12.col-xs-12.panel.panel-body.main-card.border-qdb.border-bonoloto#bienvenido
+                                div.main-card-content(style="word-wrap: break-word;")
+                                    div.main-card-name
+                                        a.recipe-title
+                                            span.caramelo.qdb-red Bienvenido
+                                    div.main-card-description
+                                        p.qdb-black.
+                                            En esta secci&oacute;n encontrar&aacute;s multitud de estad&iacute;sticas asociadas al sorteo de la Bonoloto de España.
+                                            Podr&aacute;s conocer los resultados m&aacute;s repetidos, los reintegros que aparecen con m&aacute;s frecuencia y una amplia
+                                            gama de consultas a realizar.
+                                            De este modo te ser&aacute; mucho m&aacute;s sencillo realizar tus apuestas.
+
+                                    //h3.text-center(style="margin-top: 0px; padding-top: 5px", ng-show="usuarioEsAnonimo && comments.length > 0", ng-cloak)
+                                        a.green(href="/login", ng-bind-template="¡Debes loguearte para comentar!")#logueate
+
+                                    //div.col-md-12.col-sm-12.col-xs-12.alert.alert-danger(ng-show="comentarioPalabrasLargas", ng-cloak)
+                                        | El comentario contiene palabras no registradas en el diccionario.
+
+                                    //div.col-md-12.col-sm-12.col-xs-12.alert.alert-info(ng-show="comentarioEliminadoCorrectamente", ng-cloak)
+                                        | El comentario ha sido eliminado con &eacute;xito.
+                                    //div.col-md-12.col-sm-12.col-xs-12.alert.alert-info(ng-show="comentarioEnviadoCorrectamente", ng-cloak)
+                                        | El comentario ha sido enviado. Se mostrar&aacute; cuando sea validado por el administrador.
+                                    //form(ng-show="usuarioEstaLogueado", ng-cloak)
+                                        textarea(placeholder="Escribe un comentario", ng-model="comentario.texto").form-control.nuevo-comentario#comentario
+                                        div.centrar(style="margin-top:25px")
+                                            a.btn.btn-default.btn-qdb(ng-click="comentar()").btn.btn-danger.btn-large#entrar Enviar
+
+
+                        div.col-md-2.col-sm-12.col-xs-12(style="padding-bottom: 15px; padding-top: 30px")
+                            script(async, src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+                            ins.adsbygoogle(style="display:block", data-ad-client="ca-pub-2309187828170787", data-ad-slot="1504415157", data-ad-format="auto")
+                            script (adsbygoogle = window.adsbygoogle || []).push({});
+
+
+                include partials/cookiesNotification
+
+
+                include modals/eliminarRegistro
+
+        //div#push(style="height: 180px")
+        div#push
+
+    include bonoloto/partials/footer
+
+block scripts
+    script(src='/js/jquery.js')
+    script(src='/js/bootstrap.js')
+    script(src='/js/angular.js')
+    script(src='/js/angular/services.js')
+    script(src='/js/angular/loguedUser.js')
+    script(src='/js/angular/index.js')
+    script(src='/js/angular/navbar.js')
+    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')
+
+    script.
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            ga('create', 'UA-57106519-1', 'auto');
+        ga('send', 'pageview');

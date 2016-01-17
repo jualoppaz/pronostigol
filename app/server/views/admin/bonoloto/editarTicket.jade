@@ -1,0 +1,129 @@
+extends ../partials/layout
+
+block head
+    title Editar ticket
+
+block content
+    div(ng-app="dashboard")
+        div
+            include ../partials/navbar
+        div.container-fluid
+            div.row
+                include ../partials/sidebar
+                div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ng-controller="TicketController", ng-show="ticket", ng-cloak)
+                    h1.page-header(style="padding-top: 0px;") Editar ticket
+
+                    form.form-horizontal(style="margin-top: 15px", ng-show="!consultando", ng-cloak)
+                        div.form-group
+                            label.col-sm-2.control-label Año:
+                            div.col-sm-4
+                                //input(ng-model="quiniela.temporada", placeholder="XXXX-YYYY").form-control
+                                input(ng-model="ticket.anyo", placeholder="XXXX", typeahead="anyo.value as anyo.name for anyo in anyos | filter:{name:$viewValue}").form-control
+                        div.form-group
+                            label.col-sm-2.control-label Fecha:
+                            div.col-sm-4
+                                input(ng-model="ticket.fecha", placeholder="dd/MM/yyyy").form-control
+                        div.form-group
+                            label.col-sm-2.control-label Número de sorteo:
+                            div.col-sm-4
+                                input(ng-model="ticket.sorteo", placeholder="Identificador del ticket en el año").form-control
+                        div.form-group
+                            label.col-sm-2.control-label Precio:
+                            div.col-sm-4
+                                input(ng-model="ticket.precio").form-control
+                        div.form-group
+                            label.col-sm-2.control-label Premio:
+                            div.col-sm-4
+                                input(ng-model="ticket.premio").form-control
+                        div.form-group
+                            label.col-sm-2.control-label Observaciones:
+                            div.col-sm-8
+                                textarea(ng-model="ticket.observaciones", placeholder="Indica alguna observación a mostrar a los usuarios").form-control
+
+
+                        div.col-md-4.col-md-offset-8
+                            a.pull-right(href="", ng-click="anadirApuesta()").pointer Añadir apuesta
+                        div.col-md-4.col-md-offset-8
+                            a.pull-right(href="", ng-click="eliminarApuesta()").pointer Eliminar apuesta
+
+                        //pre {{ticket}}
+
+                        div.col-md-12.col-sm-12.col-xs-12(ng-show="ticket.apuestas.combinaciones.length > 0", ng-cloak)
+                            div.table-responsive
+                                table.table.table-bordered.col-md-12.col-sm-12.col-xs-12
+                                    thead
+                                        tr
+                                            th Apuesta
+                                            th Bola 1
+                                            th Bola 2
+                                            th Bola 3
+                                            th Bola 4
+                                            th Bola 5
+                                            th Bola 6
+                                            th Reintegro
+
+                                    tbody
+                                        tr(ng-repeat="combinacion in ticket.apuestas.combinaciones")
+                                            td(ng-bind-template="{{$index + 1}}")
+
+                                            td
+                                                input(type="text", placeholder="[1-49]", ng-model="combinacion[0].numero").form-control.text-center
+                                            td
+                                                input(type="text", placeholder="[1-49]", ng-model="combinacion[1].numero").form-control.text-center
+                                            td
+                                                input(type="text", placeholder="[1-49]", ng-model="combinacion[2].numero").form-control.text-center
+                                            td
+                                                input(type="text", placeholder="[1-49]", ng-model="combinacion[3].numero").form-control.text-center
+                                            td
+                                                input(type="text", placeholder="[1-49]", ng-model="combinacion[4].numero").form-control.text-center
+                                            td
+                                                input(type="text", placeholder="[1-49]", ng-model="combinacion[5].numero").form-control.text-center
+                                            td(ng-show="{{$index == 0}}", rowspan="{{ticket.apuestas.combinaciones.length}}")
+                                                input(type="text", placeholder="[0-9]", ng-model="ticket.apuestas.reintegro").form-control.text-center
+
+                        h2.page-header Resultado
+
+                        div.col-md-12.col-sm-12.col-xs-12
+                            div.table-responsive
+                                table.table.table-bordered.col-md-12.col-sm-12.col-xs-12
+                                    thead
+                                        tr
+                                            th Bola 1
+                                            th Bola 2
+                                            th Bola 3
+                                            th Bola 4
+                                            th Bola 5
+                                            th Bola 6
+                                            th Complementario
+                                            th Reintegro
+
+                                    tbody
+                                        tr
+                                            td(ng-repeat="bola in ticket.resultado.bolas")
+                                                input(type="text", placeholder="[1-49]", ng-model="bola.numero").form-control.text-center
+
+                                            td
+                                                input(type="text", placeholder="[1-49]", ng-model="ticket.resultado.complementario").form-control.text-center
+                                            td
+                                                input(type="text", placeholder="[0-9]", ng-model="ticket.resultado.reintegro").form-control.text-center
+
+
+
+                        div.form-group
+                            div.col-sm-2.col-sm-offset-2
+                                a.btn.btn-default(href="#", role="button", ng-click="redirigir()")#cancel Cancelar
+                            div.col-sm-2(style="text-align:right")
+                                a.btn.btn-default.btn-primary(href="#", role="button", ng-click="guardar()")#confirmarEliminacion Aceptar
+
+
+                        include ../../modals/registroEditadoCorrectamente
+
+block scripts
+    script(src="/js/jquery.js")
+    script(src="/js/bootstrap.js")
+    script(src="/js/angular.js")
+    script(src='/js/angular/admin/dashboard.js')
+    script(src="/js/angular/admin/bonoloto/editarTicket.js")
+    script(src="/js/angular/admin/navbar.js")
+    script(src="/js/angular/admin/sidebar.js")
+    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')

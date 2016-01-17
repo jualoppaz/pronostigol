@@ -1,0 +1,52 @@
+extends layout
+
+block head
+    title Manual de usuario
+    link(rel="stylesheet", href="/css/pronostigol.css")
+    link(rel="stylesheet", href="/css/backgroundImage.css")
+
+block content
+    div#wrap(ng-app="qdb")
+
+        div.container(ng-controller="LoguedUserController")
+            div(ng-controller="IndexController")
+
+                include partials/navbar
+
+                div
+
+                    main
+
+                        div.container.col-md-12.col-sm-12.col-xs-12
+
+                            //div.col-md-12.col-sm-12.col-xs-12(style="margin-top: 0px;")
+                                h1.page-header ¿Es necesario registrarme en la aplicación web para usarla?
+                                p.cookies-parrafo.
+                                    Para nada. Para ver las quinielas registradas o para realizar consultas no es necesario
+                                    registrarse en la aplicación. Sin embargo, al registrarse se pueden realizar ciertas acciones
+                                    como realizar un comentario.
+
+                            div.col-md-12.col-sm-12.col-xs-12(style="padding-top: 200px;").text-center
+
+                                h1
+                                    | <i class="fa fa-cog fa-spin"></i>
+                                    | En construcción
+                                    | <i class="fa fa-cog fa-spin"></i>
+
+
+
+
+
+        div#push
+
+    include partials/footer
+
+block scripts
+    script(src='/js/jquery.js')
+    script(src='/js/bootstrap.js')
+    script(src='/js/angular.js')
+    script(src='/js/angular/services.js')
+    script(src='/js/angular/loguedUser.js')
+    script(src='/js/angular/index.js')
+    script(src='/js/angular/navbar.js')
+    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')
