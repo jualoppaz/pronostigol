@@ -56,9 +56,7 @@ exports.editTicket = function(ticket, callback){
     var fecha = trozos[2] + "-" + trozos[1] + "-" + trozos[0];
 
     tickets.update({
-        _id: getObjectId(ticket._id),
-        temporada: ticket.temporada,
-        jornada: ticket.jornada
+        _id: getObjectId(ticket._id)
     },{
         modalidad: ticket.modalidad,
         temporada: ticket.temporada,
@@ -71,6 +69,7 @@ exports.editTicket = function(ticket, callback){
         w:1
     },function(e, res){
         if(e || res == 0){
+            console.log('not-updated');
             callback('not-updated');
         }else{
             callback(null, res);
@@ -113,8 +112,10 @@ exports.getTicketsBySeasonAndDay = function(season, day, callback){
         }]
     }, function(e, res) {
         if (e){
+            console.log(e);
             callback(e);
         }else{
+            res = res || {};
             callback(null, res);
         }
     });
@@ -1590,6 +1591,7 @@ exports.getSeasonByName = function(name, callback){
         if(err){
             callback(err);
         }else{
+            res = res || {}
             callback(null, res);
         }
     });

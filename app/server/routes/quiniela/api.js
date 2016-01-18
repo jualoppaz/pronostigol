@@ -86,6 +86,7 @@ module.exports = function(app){
 
             QUI_DBM.getTicketsBySeasonAndDay(req.params.season, jornada, function(err, result){
                 if(err){
+                    console.log(err);
                     res.status(400).send(err);
                 }else{
 
@@ -223,10 +224,11 @@ module.exports = function(app){
 
         QUI_DBM.getSeasonByName(temporada, function(err, result){
             if(err){
+                console.log(err);
                 res.status(400).send(err);
             }else{
 
-                if(result != null){
+                if(JSON.stringify(result) != '{}'){
 
                     if(result.name == temporada){
                         if(modalidad == null || modalidad == ""){
