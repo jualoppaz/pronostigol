@@ -138,7 +138,7 @@ var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
 httpServer.listen(port);
-httpsServer.listen(port);
+//httpsServer.listen(port);
 
 
 
