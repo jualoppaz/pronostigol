@@ -17,12 +17,12 @@ module.exports = function(app){
         }
     };
 
-    var funcionesComunes = function(req){
+    var funcionesComunes = function(req, res, next){		
         actualizarUltimaPagina(req);
     };
 
-    general_vistas_inicio = function(req, res) {
-        funcionesComunes(req);
+    general_vistas_inicio = function(req, res, next) {
+        funcionesComunes(req, res, next);
         if(req.session.user == null && req.cookies.user == undefined){
             res.render('index');
         }else{
