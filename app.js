@@ -41,7 +41,9 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-app.set('trust proxy', 'loopback,uniquelocal');
+//app.set('trust proxy', 'loopback,uniquelocal');
+
+app.enable('trust proxy')
 
 /*
 app.get('*', function(req, res, next){
@@ -135,8 +137,8 @@ var app = express();
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(port);
-httpsServer.listen(443);
+//httpServer.listen(port);
+httpsServer.listen(port);
 
 
 
