@@ -137,8 +137,14 @@ var app = express();
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(port);
-//httpsServer.listen(port);
+httpServer.listen(port, function(err){
+
+});
+
+if(!process.env.PORT){
+	httpsServer.listen(443);
+}
+
 
 
 
