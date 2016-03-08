@@ -59,35 +59,18 @@ app.get('*', function(req, res, next){
 });
 */
 
-app.use(function(req, res, next){
-	/*
-	console.log("Protocolo usado: " + req.headers['x-forwarded-proto']);	
-	
-    if (req.headers['x-forwarded-proto'] == 'http') {
-		console.log("Redireccionamos a: " + 'https://' + req.headers.host + '/');
-        return res.redirect(301, 'https://' + req.headers.host + '/');
-    } else {
-		console.log("Continuamos");
-        return next();
-    }*/
-	
-	/*
-    console.log("Protocolo usado: " + req.get('x-forwarded-proto'));
+// Redireccion al protocolo HTTPS
 
-	if (req.get('x-forwarded-proto') != "https") {
-        res.set('x-forwarded-proto', 'https');
-        res.redirect('https://' + req.get('host') + req.url);
-    } else {
-        next();     
-    }*/
-	
-	
+/*
+app.use(function(req, res, next){
 	if(req.secure){
 		// OK, continue
 		return next();
 	};
 	res.redirect('https://'+req.hostname+req.url);
 });
+
+*/
 
 require('./app/server/router')(app);
 
@@ -135,16 +118,18 @@ var app = express();
 // your express configuration here
 
 var httpServer = http.createServer(app);
-var httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(port, function(err){
-
+httpServer.listen(port, function(err, res){
+	console.log("Servidor HTTP corriendo en puerto: " + port);
 });
+
+/*
+var httpsServer = https.createServer(credentials, app);
 
 if(!process.env.PORT){
 	httpsServer.listen(443);
 }
-
+*/
 
 
 
