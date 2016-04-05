@@ -141,7 +141,7 @@ app.controller('IndexController', function ($scope, $http, $window, $filter) {
 
             $scope.numOfPages = data.length / $scope.commentsPerPage;
 
-            console.log("Numero de paginas: " + $scope.numOfPages);
+            //console.log("Numero de paginas: " + $scope.numOfPages);
 
             var floor = Math.floor(data.length / $scope.commentsPerPage);
 
