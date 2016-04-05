@@ -1285,9 +1285,9 @@ th.badge-pleno{
         border-bottom: 0;
     }
 
-    ::-webkit-scrollbar {
+    /*::-webkit-scrollbar {
         -webkit-appearance: none;
-    }
+    }*/
 
     ::-webkit-scrollbar:vertical {
         width: 12px;
@@ -1359,9 +1359,9 @@ th.badge-pleno{
         border-bottom: 0;
     }
 
-    ::-webkit-scrollbar {
+    /*::-webkit-scrollbar {
         -webkit-appearance: none;
-    }
+    }*/
 
     ::-webkit-scrollbar:vertical {
         width: 12px;
@@ -1433,9 +1433,9 @@ th.badge-pleno{
         border-bottom: 0;
     }
 
-    ::-webkit-scrollbar {
+    /*::-webkit-scrollbar {
         -webkit-appearance: none;
-    }
+    }*/
 
     ::-webkit-scrollbar:vertical {
         width: 12px;
