@@ -74,7 +74,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorNumero"){
 
             console.log("/api/bonoloto/historical/aparicionesPorNumero");
-            $http.get('/api/bonoloto/historical/aparicionesPorNumero', {timeout: 15000})
+            $http.get('/api/bonoloto/historical/aparicionesPorNumero')
                 .success(function(data){
 
                     $scope.aparicionesPorNumero = $scope.inicializarAparicionesPorNumero();
@@ -109,7 +109,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorResultado"){
 
             console.log("/api/bonoloto/historical/aparicionesPorResultado");
-            $http.get('/api/bonoloto/historical/aparicionesPorResultado', {timeout: 15000})
+            $http.get('/api/bonoloto/historical/aparicionesPorResultado')
                 .success(function(data){
 
                     $scope.aparicionesPorResultado = data;
@@ -177,7 +177,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorResultadoConReintegro"){
 
             console.log("/api/bonoloto/historical/aparicionesPorResultadoConReintegro");
-            $http.get('/api/bonoloto/historical/aparicionesPorResultadoConReintegro', {timeout: 15000})
+            $http.get('/api/bonoloto/historical/aparicionesPorResultadoConReintegro')
                 .success(function(data){
 
                     $scope.aparicionesPorResultadoConReintegro = data;
@@ -227,7 +227,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorReintegro"){
 
             console.log("/api/bonoloto/historical/aparicionesPorReintegro");
-            $http.get('/api/bonoloto/historical/aparicionesPorReintegro', {timeout: 15000})
+            $http.get('/api/bonoloto/historical/aparicionesPorReintegro')
                 .success(function(data){
 
                     $scope.aparicionesPorReintegro = $scope.inicializarAparicionesPorReintegro();
