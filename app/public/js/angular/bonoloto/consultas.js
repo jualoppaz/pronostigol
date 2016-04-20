@@ -164,7 +164,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
                     $scope.aparicionesPorResultadoConReintegro = data;
 
-                    for(i=0;i<$scope.aparicionesPorResultadoConReintegro.length; i++){ // Recorremos las combinaciones dadas
+                    /*for(i=0;i<$scope.aparicionesPorResultadoConReintegro.length; i++){ // Recorremos las combinaciones dadas
 
                         var resultadoString = "";
 
@@ -189,9 +189,9 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
                         $scope.aparicionesPorResultadoConReintegro[i].resultadoString = resultadoString;
 
-                    }
+                    }*/
 
-                    $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = "resultadoString";
+                    $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_numbers;
 
                     $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
 
@@ -288,7 +288,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                 $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
 
                 if($scope.ordenAparicionesPorNumero == null){
-                    $scope.ordenAparicionesPorNumero = false;
+                    $scope.ordenAparicionesPorNumero = true;
                 }else{
                     $scope.ordenAparicionesPorNumero = !$scope.ordenAparicionesPorNumero;
                 }
@@ -385,9 +385,9 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
     $scope.ordenarAparicionesPorResultadoConReintegroSegun = function(criterio){
         if(criterio == "resultadoString"){
 
-            if($scope.criterioOrdenacionAparicionesPorResultadoConReintegro == criterio){ //Sólo vamos a invertir el orden
+            if($scope.criterioOrdenacionAparicionesPorResultadoConReintegro == $scope.sortFunction_numbers){ //Sólo vamos a invertir el orden
 
-                $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = "resultadoString";
+                $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_numbers;
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = "apariciones";
 
@@ -397,7 +397,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.ordenAparicionesPorResultadoConReintegro = !$scope.ordenAparicionesPorResultadoConReintegro;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = "resultadoString";
+                $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_numbers;
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = "apariciones";
 
@@ -415,7 +415,6 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                 if($scope.ordenAparicionesPorResultadoConReintegro == null){
                     $scope.ordenAparicionesPorResultadoConReintegro = true;
                 }else{
-
                     $scope.ordenAparicionesPorResultadoConReintegro = !$scope.ordenAparicionesPorResultadoConReintegro;
                 }
             }else{ // Cambiamos de criterio
@@ -439,7 +438,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                 $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = "apariciones";
 
                 if($scope.ordenAparicionesPorReintegro == null){
-                    $scope.ordenAparicionesPorReintegro = false;
+                    $scope.ordenAparicionesPorReintegro = true;
                 }else{
                     $scope.ordenAparicionesPorReintegro = !$scope.ordenAparicionesPorReintegro;
                 }
@@ -476,8 +475,6 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         }
     };
 
-
-
     // Funciones para ordenacion
 
     $scope.sortFunction_numbers = function(ticket){
@@ -510,9 +507,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         }
 
         return res;
-    }
-
-
+    };
 
 });
 
