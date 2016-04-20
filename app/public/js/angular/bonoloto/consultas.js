@@ -327,19 +327,11 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
     $scope.ordenarAparicionesPorResultadoSegun = function(criterio){
 
-        console.log("Criterio actual: ", $scope.criterioOrdenacionAparicionesPorResultado);
-
-        console.log("Criterio recibido: ", criterio);
-
-        if(criterio == 'resultadoString'){
+        if(criterio == "resultadoString"){
 
             if($scope.criterioOrdenacionAparicionesPorResultado == $scope.sortFunction_numbers){ //Sólo vamos a invertir el orden
 
-                $scope.criterioOrdenacionAparicionesPorResultado = $scope.sortFunction_numbers;
-
                 $scope.criterioAlternativoOrdenacionAparicionesPorResultado = "apariciones";
-
-                console.log("Orden actual: ", $scope.ordenAparicionesPorResultado);
 
                 if($scope.ordenAparicionesPorResultado == null){
                     $scope.ordenAparicionesPorResultado = true;
@@ -347,9 +339,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.ordenAparicionesPorResultado = !$scope.ordenAparicionesPorResultado;
                 }
 
-                console.log("Orden nuevo: ", $scope.ordenAparicionesPorResultado);
-
-            }else{ // Cambiamos de criterio
+            }else{ // Cambiamos de criterio: De apariciones a Resultado
                 $scope.criterioOrdenacionAparicionesPorResultado = $scope.sortFunction_numbers;
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorResultado = "apariciones";
@@ -410,7 +400,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
                 $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = "apariciones";
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = "resultadoString";
+                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_numbers;
 
                 if($scope.ordenAparicionesPorResultadoConReintegro == null){
                     $scope.ordenAparicionesPorResultadoConReintegro = true;
@@ -420,7 +410,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
             }else{ // Cambiamos de criterio
                 $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = "apariciones";
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = "resultadoString";
+                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_numbers;
 
                 $scope.ordenAparicionesPorResultadoConReintegro = true;
 
