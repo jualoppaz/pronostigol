@@ -95,8 +95,6 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
                     $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
 
-                    // Vamos a ordenar el array
-
                     $scope.mostrar.tablaAparicionesPorNumero = true;
 
                     $scope.consultando = false;
@@ -513,11 +511,11 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
     $scope.printNumber = function(number){
 
         var res = "";
-
-        if(number.length == 1){
-            res = "0" + number;
+        
+        if(number.toString().length == 1){
+            res = "0" + number.toString();
         }else{
-            res = number;
+            res = number.toString();
         }
 
         return res;

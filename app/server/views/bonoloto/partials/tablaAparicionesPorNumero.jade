@@ -20,27 +20,18 @@ div.table-responsive(style="margin-top: 15px", ng-show="mostrar.tablaApariciones
 
 
         tbody
-            // Implementacion anterior
-            //tr(ng-repeat="(key, value) in aparicionesPorNumero | orderBy:criterioOrdenacionAparicionesPorNumero:ordenAparicionesPorNumero")
-                td(ng-bind-template="{{key}}")
-                td(ng-bind-template="{{value}}")
 
             tr(ng-repeat="item in aparicionesPorNumero | orderBy:[criterioOrdenacionAparicionesPorNumero, criterioAlternativoOrdenacionAparicionesPorNumero]:ordenAparicionesPorNumero")
                 td(ng-show="criterioOrdenacionAparicionesPorNumero == 'apariciones' && $index >=6 && ordenAparicionesPorNumero", ng-cloak)
-                    span.badge.badge-rojo(ng-bind-template="{{item.numero}}", ng-show="item.numero.toString().length > 1", ng-cloak)
-                    span.badge.badge-rojo(ng-bind-template="0{{item.numero}}", ng-show="item.numero.toString().length == 1", ng-cloak)
+                    span.badge.badge-rojo(ng-bind-template="{{printNumber(item.numero)}}")
                 td(ng-show="criterioOrdenacionAparicionesPorNumero == 'apariciones' && $index <6 && ordenAparicionesPorNumero", ng-cloak)
-                    span.badge.badge-verde(ng-bind-template="{{item.numero}}", ng-show="item.numero.toString().length > 1", ng-cloak)
-                    span.badge.badge-verde(ng-bind-template="0{{item.numero}}", ng-show="item.numero.toString().length == 1", ng-cloak)
+                    span.badge.badge-verde(ng-bind-template="{{printNumber(item.numero)}}")
                 td(ng-show="criterioOrdenacionAparicionesPorNumero == 'apariciones' && $index <43 && !ordenAparicionesPorNumero", ng-cloak)
-                    span.badge.badge-rojo(ng-bind-template="{{item.numero}}", ng-show="item.numero.toString().length > 1", ng-cloak)
-                    span.badge.badge-rojo(ng-bind-template="0{{item.numero}}", ng-show="item.numero.toString().length == 1", ng-cloak)
+                    span.badge.badge-rojo(ng-bind-template="{{printNumber(item.numero)}}")
                 td(ng-show="criterioOrdenacionAparicionesPorNumero == 'apariciones' && $index >=43 && !ordenAparicionesPorNumero", ng-cloak)
-                    span.badge.badge-verde(ng-bind-template="{{item.numero}}", ng-show="item.numero.toString().length > 1", ng-cloak)
-                    span.badge.badge-verde(ng-bind-template="0{{item.numero}}", ng-show="item.numero.toString().length == 1", ng-cloak)
+                    span.badge.badge-verde(ng-bind-template="{{printNumber(item.numero)}}")
                 td(ng-show="criterioOrdenacionAparicionesPorNumero == 'numero'", ng-cloak)
-                    span(ng-bind-template="{{item.numero}}", ng-show="item.numero.toString().length > 1")
-                    span(ng-bind-template="0{{item.numero}}", ng-show="item.numero.toString().length == 1")
+                    span(ng-bind-template="{{printNumber(item.numero)}}")
                 td(ng-bind-template="{{item.apariciones}}")
 
 
