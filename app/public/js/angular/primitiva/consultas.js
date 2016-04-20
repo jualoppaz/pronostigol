@@ -88,7 +88,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
                     $scope.aparicionesPorNumero = data;
 
-                    $scope.criterioOrdenacionAparicionesPorNumero = "numero";
+                    $scope.criterioOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
 
                     $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
 
@@ -278,9 +278,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
     $scope.ordenarAparicionesPorNumeroSegun = function(criterio){
         if(criterio == "numero"){
 
-            if($scope.criterioOrdenacionAparicionesPorNumero == criterio){ //Sólo vamos a invertir el orden
-
-                $scope.criterioOrdenacionAparicionesPorNumero = "numero";
+            if($scope.criterioOrdenacionAparicionesPorNumero == $scope.sortFunction_number){ //Sólo vamos a invertir el orden
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
 
@@ -290,7 +288,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.ordenAparicionesPorNumero = !$scope.ordenAparicionesPorNumero;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorNumero = "numero";
+                $scope.criterioOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
 
@@ -303,7 +301,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
                 $scope.criterioOrdenacionAparicionesPorNumero = "apariciones";
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "numero";
+                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
 
                 if($scope.ordenAparicionesPorNumero == null){
                     $scope.ordenAparicionesPorNumero = true;
@@ -314,7 +312,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
             }else{ // Cambiamos de criterio
                 $scope.criterioOrdenacionAparicionesPorNumero = "apariciones";
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "numero";
+                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
 
                 $scope.ordenAparicionesPorNumero = true;
 
@@ -468,6 +466,15 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
 
     // Funciones de ordenación
+
+    $scope.sortFunction_number = function(number){
+
+        var res = "";
+
+        res = Number(number.numero);
+
+        return res;
+    };
 
     $scope.sortFunction_result = function(ticket){
 
