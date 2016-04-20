@@ -39,8 +39,8 @@ div.table-responsive(style="margin-top: 15px", ng-show="mostrar.tablaApariciones
             tr
                 th
                     a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoSegun('resultadoString')", ng-bind-template="Resultado", style="padding-right: 15px")
-                    span(ng-show="criterioOrdenacionAparicionesPorResultado == sortFunction_numbers && !ordenAparicionesPorResultado").fa.fa-caret-up
-                    span(ng-show="criterioOrdenacionAparicionesPorResultado == sortFunction_numbers && ordenAparicionesPorResultado").fa.fa-caret-down
+                    span(ng-show="criterioOrdenacionAparicionesPorResultado == sortFunction_result && !ordenAparicionesPorResultado").fa.fa-caret-up
+                    span(ng-show="criterioOrdenacionAparicionesPorResultado == sortFunction_result && ordenAparicionesPorResultado").fa.fa-caret-down
                 th
                     a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoSegun('apariciones')", ng-bind-template="Apariciones", style="padding-right: 15px")
                     span(ng-show="criterioOrdenacionAparicionesPorResultado == 'apariciones' && ordenAparicionesPorResultado").fa.fa-caret-down
@@ -49,7 +49,7 @@ div.table-responsive(style="margin-top: 15px", ng-show="mostrar.tablaApariciones
 
         tbody
             tr(ng-repeat="item in aparicionesPorResultado | orderBy:[criterioOrdenacionAparicionesPorResultado, criterioAlternativoOrdenacionAparicionesPorResultado]:ordenAparicionesPorResultado")
-                td(ng-show="criterioOrdenacionAparicionesPorResultado == sortFunction_numbers")
+                td(ng-show="criterioOrdenacionAparicionesPorResultado == sortFunction_result")
                     span.badge.badge-azul(ng-repeat="numero in item.numeros", ng-bind-template="{{printNumber(numero.numero)}}", ng-cloak)
                 td(ng-show="criterioOrdenacionAparicionesPorResultado == 'apariciones' && $index == (aparicionesPorResultado.length - 1) && !ordenAparicionesPorResultado")
                     span.badge.badge-verde(ng-repeat="numero in item.numeros", ng-bind-template="{{printNumber(numero.numero)}}", ng-cloak)

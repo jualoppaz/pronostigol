@@ -133,7 +133,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                         $scope.aparicionesPorResultado[i].resultadoString = resultadoString;
                     }*/
 
-                    $scope.criterioOrdenacionAparicionesPorResultado = $scope.sortFunction_numbers;
+                    $scope.criterioOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
 
                     $scope.criterioAlternativoOrdenacionAparicionesPorResultado = "apariciones";
 
@@ -185,7 +185,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
                     }*/
 
-                    $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_numbers;
+                    $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_result;
 
                     $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = "apariciones";
 
@@ -469,7 +469,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
     // Funciones de ordenación
 
-    $scope.sortFunction_numbers = function(ticket){
+    $scope.sortFunction_result = function(ticket){
 
         var res = "";
 
@@ -492,10 +492,10 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
         var res = "";
 
-        if(number.length == 1){
-            res = "0" + number;
+        if(number.toString().length == 1){
+            res = "0" + number.toString();
         }else{
-            res = number;
+            res = number.toString();
         }
 
         return res;

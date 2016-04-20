@@ -79,7 +79,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
             $http.get('/api/bonoloto/historical/aparicionesPorNumero')
                 .success(function(data){
 
-                    $scope.aparicionesPorNumero = $scope.inicializarAparicionesPorNumero();
+                    /*$scope.aparicionesPorNumero = $scope.inicializarAparicionesPorNumero();
 
                     // Recorremos todos lo numeros para poblar el resto del json recibido
                     for(i=0;i<data.length; i++){
@@ -89,9 +89,11 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                                 $scope.aparicionesPorNumero[j].apariciones = Number(data[i].apariciones);
                             }
                         }
-                    }
+                    }*/
 
-                    $scope.criterioOrdenacionAparicionesPorNumero = "numero";
+                    $scope.aparicionesPorNumero = data;
+
+                    $scope.criterioOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
 
                     $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
 
@@ -141,7 +143,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
                     }*/
 
-                    $scope.criterioOrdenacionAparicionesPorResultado = $scope.sortFunction_numbers;
+                    $scope.criterioOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
 
                     $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
 
@@ -191,7 +193,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
                     }*/
 
-                    $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_numbers;
+                    $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_result;
 
                     $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
 
@@ -284,9 +286,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
     $scope.ordenarAparicionesPorNumeroSegun = function(criterio){
         if(criterio == "numero"){
 
-            if($scope.criterioOrdenacionAparicionesPorNumero == criterio){ //Sólo vamos a invertir el orden
-
-                $scope.criterioOrdenacionAparicionesPorNumero = "numero";
+            if($scope.criterioOrdenacionAparicionesPorNumero == $scope.sortFunction_number){ //Sólo vamos a invertir el orden
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
 
@@ -296,7 +296,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.ordenAparicionesPorNumero = !$scope.ordenAparicionesPorNumero;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorNumero = "numero";
+                $scope.criterioOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
 
@@ -309,7 +309,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
                 $scope.criterioOrdenacionAparicionesPorNumero = "apariciones";
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "numero";
+                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
 
                 if($scope.ordenAparicionesPorNumero == null){
                     $scope.ordenAparicionesPorNumero = true;
@@ -320,7 +320,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
             }else{ // Cambiamos de criterio
                 $scope.criterioOrdenacionAparicionesPorNumero = "apariciones";
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "numero";
+                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
 
                 $scope.ordenAparicionesPorNumero = true;
 
@@ -332,7 +332,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
         if(criterio == "resultadoString"){
 
-            if($scope.criterioOrdenacionAparicionesPorResultado == $scope.sortFunction_numbers){ //Sólo vamos a invertir el orden
+            if($scope.criterioOrdenacionAparicionesPorResultado == $scope.sortFunction_result){ //Sólo vamos a invertir el orden
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorResultado = "apariciones";
 
@@ -343,7 +343,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                 }
 
             }else{ // Cambiamos de criterio: De apariciones a Resultado
-                $scope.criterioOrdenacionAparicionesPorResultado = $scope.sortFunction_numbers;
+                $scope.criterioOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorResultado = "apariciones";
 
@@ -356,7 +356,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
                 $scope.criterioOrdenacionAparicionesPorResultado = "apariciones";
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultado = $scope.sortFunction_numbers;
+                $scope.criterioAlternativoOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
 
                 if($scope.ordenAparicionesPorResultado == null){
                     $scope.ordenAparicionesPorResultado = true;
@@ -367,7 +367,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
             }else{ // Cambiamos de criterio
                 $scope.criterioOrdenacionAparicionesPorResultado = "apariciones";
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultado = $scope.sortFunction_numbers;
+                $scope.criterioAlternativoOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
 
                 $scope.ordenAparicionesPorResultado = true;
 
@@ -378,9 +378,9 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
     $scope.ordenarAparicionesPorResultadoConReintegroSegun = function(criterio){
         if(criterio == "resultadoString"){
 
-            if($scope.criterioOrdenacionAparicionesPorResultadoConReintegro == $scope.sortFunction_numbers){ //Sólo vamos a invertir el orden
+            if($scope.criterioOrdenacionAparicionesPorResultadoConReintegro == $scope.sortFunction_result){ //Sólo vamos a invertir el orden
 
-                $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_numbers;
+                $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_result;
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = "apariciones";
 
@@ -390,7 +390,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.ordenAparicionesPorResultadoConReintegro = !$scope.ordenAparicionesPorResultadoConReintegro;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_numbers;
+                $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_result;
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = "apariciones";
 
@@ -403,7 +403,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
                 $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = "apariciones";
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_numbers;
+                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_result;
 
                 if($scope.ordenAparicionesPorResultadoConReintegro == null){
                     $scope.ordenAparicionesPorResultadoConReintegro = true;
@@ -413,7 +413,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
             }else{ // Cambiamos de criterio
                 $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = "apariciones";
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_numbers;
+                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_result;
 
                 $scope.ordenAparicionesPorResultadoConReintegro = true;
 
@@ -466,7 +466,16 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
     // Funciones para ordenacion
 
-    $scope.sortFunction_numbers = function(ticket){
+    $scope.sortFunction_number = function(number){
+
+        var res = "";
+
+        res = Number(number.numero);
+
+        return res;
+    };
+
+    $scope.sortFunction_result = function(ticket){
 
         var res = "";
 
@@ -511,7 +520,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
     $scope.printNumber = function(number){
 
         var res = "";
-        
+
         if(number.toString().length == 1){
             res = "0" + number.toString();
         }else{
