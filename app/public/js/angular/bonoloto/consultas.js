@@ -231,7 +231,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
                     $scope.criterioOrdenacionAparicionesPorReintegro = $scope.sortFunction_reimbursement;
 
-                    $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = "apariciones";
+                    $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = $scope.sortFunction_reimbursementOccurrences;
 
                     $scope.mostrar.tablaAparicionesPorReintegro = true;
 
@@ -428,9 +428,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
             if($scope.criterioOrdenacionAparicionesPorReintegro == $scope.sortFunction_reimbursement){ //Sólo vamos a invertir el orden
 
-                $scope.criterioOrdenacionAparicionesPorReintegro = $scope.sortFunction_reimbursement;
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = "apariciones";
+                $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = $scope.sortFunction_reimbursementOccurrences;
 
                 if($scope.ordenAparicionesPorReintegro == null){
                     $scope.ordenAparicionesPorReintegro = true;
@@ -440,16 +438,14 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
             }else{ // Cambiamos de criterio
                 $scope.criterioOrdenacionAparicionesPorReintegro = $scope.sortFunction_reimbursement;
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = "apariciones";
+                $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = $scope.sortFunction_reimbursementOccurrences;
 
                 $scope.ordenAparicionesPorReintegro = false;
 
             }
 
         }else if(criterio == "apariciones"){
-            if($scope.criterioOrdenacionAparicionesPorReintegro == criterio){ //Sólo vamos a invertir el orden
-
-                $scope.criterioOrdenacionAparicionesPorReintegro = "apariciones";
+            if($scope.criterioOrdenacionAparicionesPorReintegro == $scope.sortFunction_reimbursementOccurrences){ //Sólo vamos a invertir el orden
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = $scope.sortFunction_reimbursement;
 
@@ -460,7 +456,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.ordenAparicionesPorReintegro = !$scope.ordenAparicionesPorReintegro;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorReintegro = "apariciones";
+                $scope.criterioOrdenacionAparicionesPorReintegro = $scope.sortFunction_reimbursementOccurrences;
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = $scope.sortFunction_reimbursement;
 
@@ -500,20 +496,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         return res;
     };
 
-    $scope.printNumber = function(number){
-
-        var res = "";
-
-        if(number.length == 1){
-            res = "0" + number;
-        }else{
-            res = number;
-        }
-
-        return res;
-    };
-
-    $scope.getOccurrencesByReimbursement = function(reimbursement){
+    $scope.sortFunction_reimbursementOccurrences = function(reimbursement){
 
         var res = 0;
 
@@ -522,6 +505,19 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                 res = $scope.aparicionesPorReintegro[i].apariciones;
                 break;
             }
+        }
+
+        return res;
+    };
+
+    $scope.printNumber = function(number){
+
+        var res = "";
+
+        if(number.length == 1){
+            res = "0" + number;
+        }else{
+            res = number;
         }
 
         return res;
