@@ -4,8 +4,8 @@ div.table-responsive(style="margin-top: 15px", ng-show="mostrar.tablaApariciones
             tr
                 th
                     a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoConEstrellasSegun('resultadoString')", ng-bind-template="Resultado", style="padding-right: 15px")
-                    span(ng-show="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'resultadoString' && !ordenAparicionesPorResultadoConEstrellas").fa.fa-caret-up
-                    span(ng-show="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'resultadoString' && ordenAparicionesPorResultadoConEstrellas").fa.fa-caret-down
+                    span(ng-show="criterioOrdenacionAparicionesPorResultadoConEstrellas == sortFunction_resultWithStars && !ordenAparicionesPorResultadoConEstrellas").fa.fa-caret-up
+                    span(ng-show="criterioOrdenacionAparicionesPorResultadoConEstrellas == sortFunction_resultWithStars && ordenAparicionesPorResultadoConEstrellas").fa.fa-caret-down
                 th
                     a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoConEstrellasSegun('apariciones')", ng-bind-template="Apariciones", style="padding-right: 15px")
                     span(ng-show="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'apariciones' && ordenAparicionesPorResultadoConEstrellas").fa.fa-caret-down
@@ -13,27 +13,22 @@ div.table-responsive(style="margin-top: 15px", ng-show="mostrar.tablaApariciones
 
 
         tbody
-            // Implementacion anterior
-            //tr(ng-repeat="(key, value) in aparicionesPorNumero | orderBy:criterioOrdenacionAparicionesPorNumero:ordenAparicionesPorNumero")
-                td(ng-bind-template="{{key}}")
-                td(ng-bind-template="{{value}}")
-
             tr(ng-repeat="item in aparicionesPorResultadoConEstrellas | orderBy:[criterioOrdenacionAparicionesPorResultadoConEstrellas, criterioAlternativoOrdenacionAparicionesPorResultadoConEstrellas]:ordenAparicionesPorResultadoConEstrellas")
-                td(ng-show="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'resultadoString'")
-                    span.badge.badge-azul(ng-repeat="numero in item.numeros", ng-bind-template="{{numero.numero}}")
-                    span.badge.badge-azul(ng-repeat="estrella in item.estrellas", ng-bind-template="E: {{estrella.numero}}")
-                td(ng-show="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'apariciones' && $index == (aparicionesPorResultado.length - 1) && !ordenAparicionesPorResultado")
-                    span.badge.badge-verde(ng-repeat="numero in item.numeros", ng-bind-template="{{numero.numero}}")
-                    span.badge.badge-verde(ng-repeat="estrella in item.estrellas", ng-bind-template="E: {{estrella.numero}}")
-                td(ng-show="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'apariciones' && $index != (aparicionesPorResultado.length - 1) && !ordenAparicionesPorResultado")
-                    span.badge.badge-rojo(ng-repeat="numero in item.numeros", ng-bind-template="{{numero.numero}}")
-                    span.badge.badge-rojo(ng-repeat="estrella in item.estrellas", ng-bind-template="E: {{estrella.numero}}")
-                td(ng-show="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'apariciones' && $index == 0 && ordenAparicionesPorResultado")
-                    span.badge.badge-verde(ng-repeat="numero in item.numeros", ng-bind-template="{{numero.numero}}")
-                    span.badge.badge-verde(ng-repeat="estrella in item.estrellas", ng-bind-template="E: {{estrella.numero}}")
-                td(ng-show="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'apariciones' && $index != 0 && ordenAparicionesPorResultado")
-                    span.badge.badge-rojo(ng-repeat="numero in item.numeros", ng-bind-template="{{numero.numero}}")
-                    span.badge.badge-rojo(ng-repeat="estrella in item.estrellas", ng-bind-template="E: {{estrella.numero}}")
+                td(ng-show="criterioOrdenacionAparicionesPorResultadoConEstrellas == sortFunction_resultWithStars")
+                    span.badge.badge-azul(ng-repeat="numero in item.numeros", ng-bind-template="{{printNumber(numero.numero)}}")
+                    span.badge.badge-azul(ng-repeat="estrella in item.estrellas", ng-bind-template="E: {{printNumber(estrella.numero)}}")
+                td(ng-show="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'apariciones' && $index == (aparicionesPorResultadoConEstrellas.length - 1) && !ordenAparicionesPorResultadoConEstrellas")
+                    span.badge.badge-verde(ng-repeat="numero in item.numeros", ng-bind-template="{{printNumber(numero.numero)}}")
+                    span.badge.badge-verde(ng-repeat="estrella in item.estrellas", ng-bind-template="E: {{printNumber(estrella.numero)}}")
+                td(ng-show="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'apariciones' && $index != (aparicionesPorResultadoConEstrellas.length - 1) && !ordenAparicionesPorResultadoConEstrellas")
+                    span.badge.badge-rojo(ng-repeat="numero in item.numeros", ng-bind-template="{{printNumber(numero.numero)}}")
+                    span.badge.badge-rojo(ng-repeat="estrella in item.estrellas", ng-bind-template="E: {{printNumber(estrella.numero)}}")
+                td(ng-show="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'apariciones' && $index == 0 && ordenAparicionesPorResultadoConEstrellas")
+                    span.badge.badge-verde(ng-repeat="numero in item.numeros", ng-bind-template="{{printNumber(numero.numero)}}")
+                    span.badge.badge-verde(ng-repeat="estrella in item.estrellas", ng-bind-template="E: {{printNumber(estrella.numero)}}")
+                td(ng-show="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'apariciones' && $index != 0 && ordenAparicionesPorResultadoConEstrellas")
+                    span.badge.badge-rojo(ng-repeat="numero in item.numeros", ng-bind-template="{{printNumber(numero.numero)}}")
+                    span.badge.badge-rojo(ng-repeat="estrella in item.estrellas", ng-bind-template="E: {{printNumber(estrella.numero)}}")
 
                 td(ng-bind-template="{{item.apariciones}}")
 

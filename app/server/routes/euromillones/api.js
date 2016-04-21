@@ -239,13 +239,13 @@ module.exports = function(app){
 
     };
 
-    var euromillones_api_historicoDeAparicionesPorEstrellas = function(req, res){
+    var euromillones_api_historicoDeAparicionesPorEstrella = function(req, res){
 
         var numerosClave = [];
 
         var numerosClaveConsultados = 0;
 
-        EUR_DBM.getOcurrencesByStars(function(err, result){
+        EUR_DBM.getOcurrencesByStar(function(err, result){
             if(err){
                 res.status(400).send(err);
             }else{
@@ -272,13 +272,13 @@ module.exports = function(app){
 
     };
 
-    var euromillones_api_historicoDeAparicionesPorParejasDeEstrellas = function(req, res){
+    var euromillones_api_historicoDeAparicionesPorParejaDeEstrellas = function(req, res){
 
         var numerosClave = [];
 
         var numerosClaveConsultados = 0;
 
-        EUR_DBM.getOcurrencesByStarPairs(function(err, result){
+        EUR_DBM.getOcurrencesByStarsPair(function(err, result){
             if(err){
                 res.status(400).send(err);
             }else{
@@ -506,8 +506,8 @@ module.exports = function(app){
     app.get('/api/euromillones/historical/aparicionesPorResultado', euromillones_api_historicoDeResultadosGlobales);
     app.get('/api/euromillones/historical/aparicionesPorResultadoConEstrellas', euromillones_api_historicoDeResultadosGlobalesConEstrellas);
     app.get('/api/euromillones/historical/aparicionesPorNumero', euromillones_api_historicoDeAparicionesPorNumero);
-    app.get('/api/euromillones/historical/aparicionesPorEstrellas', euromillones_api_historicoDeAparicionesPorEstrellas);
-    app.get('/api/euromillones/historical/aparicionesPorParejasDeEstrellas', euromillones_api_historicoDeAparicionesPorParejasDeEstrellas);
+    app.get('/api/euromillones/historical/aparicionesPorEstrella', euromillones_api_historicoDeAparicionesPorEstrella);
+    app.get('/api/euromillones/historical/aparicionesPorParejaDeEstrellas', euromillones_api_historicoDeAparicionesPorParejaDeEstrellas);
 
 
 };

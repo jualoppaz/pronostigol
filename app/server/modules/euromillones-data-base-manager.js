@@ -235,7 +235,7 @@ exports.getOcurrencesByNumber = function(callback){
     });
 };
 
-exports.getOcurrencesByStars = function(callback){
+exports.getOcurrencesByStar = function(callback){
     euromillones_tickets.aggregate({
         $unwind: '$resultado.estrellas'
     },{
@@ -254,7 +254,7 @@ exports.getOcurrencesByStars = function(callback){
     });
 };
 
-exports.getOcurrencesByStarPairs = function(callback){
+exports.getOcurrencesByStarsPair = function(callback){
     euromillones_tickets.aggregate({
         $group: {
             '_id': '$resultado.estrellas',
