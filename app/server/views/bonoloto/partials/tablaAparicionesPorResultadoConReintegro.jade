@@ -4,8 +4,8 @@ div.table-responsive(style="margin-top: 15px", ng-show="mostrar.tablaApariciones
             tr
                 th
                     a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoConReintegroSegun('resultadoString')", ng-bind-template="Resultado", style="padding-right: 15px")
-                    span(ng-show="criterioOrdenacionAparicionesPorResultadoConReintegro == sortFunction_result && !ordenAparicionesPorResultadoConReintegro").fa.fa-caret-up
-                    span(ng-show="criterioOrdenacionAparicionesPorResultadoConReintegro == sortFunction_result && ordenAparicionesPorResultadoConReintegro").fa.fa-caret-down
+                    span(ng-show="criterioOrdenacionAparicionesPorResultadoConReintegro == sortFunction_resultWithReimbursement && !ordenAparicionesPorResultadoConReintegro").fa.fa-caret-up
+                    span(ng-show="criterioOrdenacionAparicionesPorResultadoConReintegro == sortFunction_resultWithReimbursement && ordenAparicionesPorResultadoConReintegro").fa.fa-caret-down
                 th
                     a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoConReintegroSegun('apariciones')", ng-bind-template="Apariciones", style="padding-right: 15px")
                     span(ng-show="criterioOrdenacionAparicionesPorResultadoConReintegro == 'apariciones' && ordenAparicionesPorResultadoConReintegro").fa.fa-caret-down
@@ -16,7 +16,7 @@ div.table-responsive(style="margin-top: 15px", ng-show="mostrar.tablaApariciones
         tbody
 
             tr(ng-repeat="item in aparicionesPorResultadoConReintegro | orderBy:[criterioOrdenacionAparicionesPorResultadoConReintegro, criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro]:ordenAparicionesPorResultadoConReintegro")
-                td(ng-show="criterioOrdenacionAparicionesPorResultadoConReintegro == sortFunction_result")
+                td(ng-show="criterioOrdenacionAparicionesPorResultadoConReintegro == sortFunction_resultWithReimbursement")
                     span.badge.badge-azul(ng-repeat="numero in item.numeros", ng-bind-template="{{printNumber(numero.numero)}}")
                     span.badge.badge-azul(style="margin-left: 15px", ng-bind-template="R {{item.reintegro}}")
                 td(ng-show="criterioOrdenacionAparicionesPorResultadoConReintegro == 'apariciones' && $index == (aparicionesPorResultadoConReintegro.length - 1) && !ordenAparicionesPorResultadoConReintegro")

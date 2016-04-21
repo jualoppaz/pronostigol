@@ -432,11 +432,9 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
             }
 
-
-
         }else if(criterio == "apariciones"){
             if($scope.criterioOrdenacionAparicionesPorReintegro == $scope.sortFunction_reimbursementOccurrences){ //Sólo vamos a invertir el orden
-                
+
                 $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = $scope.sortFunction_reimbursement;
 
                 if($scope.ordenAparicionesPorReintegro == null){
