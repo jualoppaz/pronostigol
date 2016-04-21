@@ -282,7 +282,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
             if($scope.criterioOrdenacionAparicionesPorNumero == $scope.sortFunction_number){ //Sólo vamos a invertir el orden
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
+                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = $scope.sortFunction_numberOccurrences;
 
                 if($scope.ordenAparicionesPorNumero == null){
                     $scope.ordenAparicionesPorNumero = true;
@@ -292,16 +292,14 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
             }else{ // Cambiamos de criterio
                 $scope.criterioOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
+                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = $scope.sortFunction_numberOccurrences;
 
                 $scope.ordenAparicionesPorNumero = false;
 
             }
 
         }else if(criterio == "apariciones"){
-            if($scope.criterioOrdenacionAparicionesPorNumero == criterio){ //Sólo vamos a invertir el orden
-
-                $scope.criterioOrdenacionAparicionesPorNumero = "apariciones";
+            if($scope.criterioOrdenacionAparicionesPorNumero == $scope.sortFunction_numberOccurrences){ //Sólo vamos a invertir el orden
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
 
@@ -312,7 +310,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.ordenAparicionesPorNumero = !$scope.ordenAparicionesPorNumero;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorNumero = "apariciones";
+                $scope.criterioOrdenacionAparicionesPorNumero = $scope.sortFunction_numberOccurrences;
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
 
@@ -461,7 +459,21 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
         var res = "";
 
-        res = Number(number.numero);
+        res = Number(number);
+
+        return res;
+    };
+
+    $scope.sortFunction_numberOccurrences = function(number){
+
+        var res = 0;
+
+        for(var i=0; i<$scope.aparicionesPorNumero.length; i++){
+            if($scope.aparicionesPorNumero[i].numero == number){
+                res = $scope.aparicionesPorNumero[i].apariciones;
+                break;
+            }
+        }
 
         return res;
     };
