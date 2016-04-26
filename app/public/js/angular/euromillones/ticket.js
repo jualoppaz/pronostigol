@@ -264,6 +264,7 @@ app.controller('TicketController', function ($scope, $http, VariosService, $wind
                                 $window.location.href = "/euromillones/tickets/" + data.anyo + "/" + data.sorteo;
                             }else{
                                 console.log("No hay tickets más recientes.");
+                                $scope.mostrarFlechaSiguiente = false;
                             }
 
                         })
