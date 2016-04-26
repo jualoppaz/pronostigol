@@ -55,7 +55,7 @@ module.exports = function(app){
         });
     };
 
-    app.get('/query/euromillones/higherDayByYear/year/:year', euromillones_queries_mayorSorteoPorAnyo);
+    app.get('/query/euromillones/higherDayByYear/:year', euromillones_queries_mayorSorteoPorAnyo);
     app.get('/query/euromillones/newestDay', euromillones_queries_sorteoMasReciente);
     app.get('/query/euromillones/oldestDay', euromillones_queries_sorteoMasAntiguo);
 
