@@ -403,7 +403,8 @@ exports.getHigherDayByYear = function(year, callback){
         if(err){
             callback(err);
         }else{
-            callback(null, res);
+            res[0]._id = year;
+            callback(null, res[0]);
         }
     });
 };
