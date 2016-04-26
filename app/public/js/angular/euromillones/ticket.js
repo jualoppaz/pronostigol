@@ -245,7 +245,9 @@ app.controller('TicketController', function ($scope, $http, VariosService, $wind
 
     $scope.ticketSiguiente = function(){
 
-        $http.get('/api/euromillones/tickets/anyo/' + $scope.ticket.anyo + "/sorteo/" + Number($scope.ticket.sorteo + 1))
+        var anyo = Number($scope.ticket.sorteo) + 1;
+
+        $http.get('/api/euromillones/tickets/anyo/' + $scope.ticket.anyo + "/sorteo/" + anyo)
             .success(function(data){
 
                 if(data.sorteo){
@@ -253,8 +255,9 @@ app.controller('TicketController', function ($scope, $http, VariosService, $wind
 
                     console.log("/euromillones/tickets/" + data.anyo + "/" + data.sorteo);
                 }else{
-                    console.log('/api/euromillones/tickets/anyo/' + Number($scope.ticket.anyo + 1) + "/sorteo/1")
-                    $http.get('/api/euromillones/tickets/anyo/' + Number($scope.ticket.anyo + 1) + "/sorteo/1")
+
+                    var anyo = Number($scope.ticket.anyo) + 1;
+                    $http.get('/api/euromillones/tickets/anyo/' + anyo + "/sorteo/1")
                         .success(function(data){
 
                             if(data.sorteo){
@@ -277,7 +280,7 @@ app.controller('TicketController', function ($scope, $http, VariosService, $wind
 
     $scope.ticketAnterior = function(){
 
-        var nuevoSorteo = $scope.ticket.sorteo - 1;
+        var nuevoSorteo = Number($scope.ticket.sorteo) - 1;
 
         if(nuevoSorteo >= 1) {
 
@@ -305,7 +308,10 @@ app.controller('TicketController', function ($scope, $http, VariosService, $wind
                     console.log(data);
                 });
         }else{
-            $http.get('/query/euromillones/higherDayByYear/' + Number($scope.ticket.anyo - 1))
+
+            var anyo = Number($scope.ticket.anyo) - 1;
+
+            $http.get('/query/euromillones/higherDayByYear/' + anyo)
                 .success(function (data) {
                     if(data.sorteo){
                         $window.location.href = "/euromillones/tickets/" + data.anyo + "/" + data.sorteo;
