@@ -253,6 +253,7 @@ app.controller('TicketController', function ($scope, $http, VariosService, $wind
 
                     console.log("/euromillones/tickets/" + data.anyo + "/" + data.sorteo);
                 }else{
+                    console.log('/api/euromillones/tickets/anyo/' + Number($scope.ticket.anyo + 1) + "/sorteo/1")
                     $http.get('/api/euromillones/tickets/anyo/' + Number($scope.ticket.anyo + 1) + "/sorteo/1")
                         .success(function(data){
 
