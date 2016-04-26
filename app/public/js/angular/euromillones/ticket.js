@@ -1,6 +1,6 @@
 var app = angular.module('qdb');
 
-app.controller('TicketController', function ($scope, $http, VariosService) {
+app.controller('TicketController', function ($scope, $http, VariosService, $window) {
 
     $scope.ticket = {};
 
@@ -8,19 +8,49 @@ app.controller('TicketController', function ($scope, $http, VariosService) {
 
     $scope.consultaRealizada = false;
 
+    $scope.mostrarFlechaAnterior = true;
+
+    $scope.mostrarFlechaSiguiente = true;
+
     var url = window.location.href;
 
     var fragmentos = url.split("/");
 
     $http.get('/api/euromillones/tickets/anyo/' + fragmentos[5] + '/sorteo/' + fragmentos[6])
         .success(function(data){
-            $scope.ticket = data;
-            $scope.consultaRealizada = true;
+            $http.get("/query/euromillones/newestDay")
+                .success(function(data2){
+                    var sorteo2 = data2.sorteo;
+                    var anyo2 = data2.anyo;
+
+                    if(data.sorteo == sorteo2 && data.anyo == anyo2){
+                        $scope.mostrarFlechaSiguiente = false;
+                    }
+
+                    $http.get("/query/euromillones/oldestDay")
+                        .success(function(data3) {
+                            var sorteo3 = data3.sorteo;
+                            var anyo3 = data3.anyo;
+
+                            if (data.sorteo == sorteo3 && data.anyo == anyo3) {
+                                $scope.mostrarFlechaAnterior = false;
+                            }
+
+                            $scope.ticket = data;
+                            $scope.consultaRealizada = true;
+
+                        });
+                })
+                .error(function(data){
+                    console.log(data);
+                });
         })
         .error(function(data){
-            console.log(JSON.stringify(data));
+            //console.log(JSON.stringify(data));
             $scope.consultaRealizada = true;
         });
+
+
 
     $scope.determinarCategoriaPremio = function(combinacion){
 
@@ -208,9 +238,82 @@ app.controller('TicketController', function ($scope, $http, VariosService) {
     };
 
     $scope.ticketEstaVacio = function(){
-        console.log("JSON: " + JSON.stringify($scope.ticket, null, 4));
-        console.log($scope.consultaRealizada);
+        //console.log("JSON: " + JSON.stringify($scope.ticket, null, 4));
+        //console.log($scope.consultaRealizada);
         return VariosService.jsonVacio($scope.ticket);
+    };
+
+    $scope.ticketSiguiente = function(){
+
+        $http.get('/api/euromillones/tickets/anyo/' + $scope.ticket.anyo + "/sorteo/" + Number($scope.ticket.sorteo + 1))
+            .success(function(data){
+
+                if(data.sorteo){
+                    $window.location.href = "/euromillones/tickets/" + data.anyo + "/" + data.sorteo;
+
+                    console.log("/euromillones/tickets/" + data.anyo + "/" + data.sorteo);
+                }else{
+                    $http.get('/api/euromillones/tickets/anyo/' + Number($scope.ticket.anyo + 1) + "/sorteo/1")
+                        .success(function(data){
+
+                            if(data.sorteo){
+                                $window.location.href = "/euromillones/tickets/" + data.anyo + "/" + data.sorteo;
+                            }else{
+                                console.log("No hay tickets más recientes.");
+                            }
+
+                        })
+                        .error(function(data){
+                            console.log(data);
+                        });
+                }
+
+            })
+            .error(function(data){
+                console.log(data);
+            });
+    };
+
+    $scope.ticketAnterior = function(){
+
+        var nuevoSorteo = $scope.ticket.sorteo - 1;
+
+        if(nuevoSorteo >= 1) {
+
+            $http.get('/api/euromillones/tickets/anyo/' + $scope.ticket.anyo + "/sorteo/" + nuevoSorteo)
+                .success(function (data) {
+
+                    if(data.sorteo) {
+                        $window.location.href = "/euromillones/tickets/" + data.anyo + "/" + data.sorteo;
+                    }else{
+                        $http.get('/query/euromillones/higherDayByYear/' + $scope.ticket.anyo)
+                            .success(function (data) {
+                                if(data.sorteo){
+                                    $window.location.href = "/euromillones/tickets/" + data.anyo + "/" + data.sorteo;
+                                }else{
+                                    console.log("No hay tickets anteriores.");
+                                    $scope.mostrarFlechaAnterior = false;
+                                }
+                            })
+                            .error(function (data) {
+                                console.log(data);
+                            });
+                    }
+                })
+                .error(function (data) {
+                    console.log(data);
+                });
+        }else{
+            $http.get('/query/euromillones/higherDayByYear/' + Number($scope.ticket.anyo - 1))
+                .success(function (data) {
+                    if(data.sorteo){
+                        $window.location.href = "/euromillones/tickets/" + data.anyo + "/" + data.sorteo;
+                    }
+                })
+                .error(function (data) {
+                    console.log(data);
+                });
+        }
     };
 
 });

@@ -64,6 +64,9 @@ module.exports = function(app){
     // Importacion de rutas de las vistas del Euromillones
     require('./routes/euromillones/vistas')(app);
 
+    // Importacion de rutas de Queries del Euromillones
+    require('./routes/euromillones/queries')(app);
+
 
     //TODO: COMENTO ESTE METODO PORQUE CREO QUE NO SE USA
     /*

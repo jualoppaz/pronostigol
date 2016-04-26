@@ -123,8 +123,6 @@ exports.deleteTicketById = function(id, callback){
 
 exports.editTicket = function(ticket, callback){
 
-    console.log("Id recibido: " + ticket._id);
-
     var trozos = ticket.fecha.split("/");
 
     var fecha = trozos[2] + "-" + trozos[1] + "-" + trozos[0];
@@ -144,8 +142,6 @@ exports.editTicket = function(ticket, callback){
         }
 
     , function(err, number) {
-
-        console.log("Numero: " + number);
 
         if(err || number == 0){
             callback('not-updated');
@@ -355,8 +351,6 @@ exports.editYear = function(year, callback){
 
     , function(err, number) {
 
-        console.log("Numero: " + number);
-
         if(err || number == 0){
             callback('not-updated');
         }else{
@@ -389,6 +383,93 @@ exports.getEconomicBalanceByYear = function(callback){
             callback(err);
         }else{
             callback(null, res);
+        }
+    });
+};
+
+exports.getHigherDayByYear = function(year, callback){
+    euromillones_tickets.aggregate({
+        $group: {
+            _id: "$anyo",
+            sorteo: {
+                $max: "$sorteo"
+            }
+        }
+    }, function(err, res){
+        if(err){
+            callback(err);
+        }else{
+            callback(null, res);
+        }
+    });
+};
+
+exports.getNewestDay = function(callback){
+    euromillones_tickets.aggregate({
+        $group: {
+            _id: "$anyo",
+            anyo: {
+                $max: "$anyo"
+            }
+        }
+    }, function(err, res){
+        if(err){
+            callback(err);
+        }else{
+
+            euromillones_tickets.aggregate({
+                $match: {
+                    anyo: res[0].anyo
+                }
+            },{
+                $group: {
+                    _id: "$anyo",
+                    sorteo: {
+                        $max: "$sorteo"
+                    }
+                }
+            }, function(err2, res2){
+                if(err2){
+                    callback(err2);
+                }else{
+                    callback(null, res2[0]);
+                }
+            });
+        }
+    });
+};
+
+exports.getOldestDay = function(callback){
+    euromillones_tickets.aggregate({
+        $group: {
+            _id: "$anyo",
+            anyo: {
+                $min: "$anyo"
+            }
+        }
+    }, function(err, res){
+        if(err){
+            callback(err);
+        }else{
+
+            euromillones_tickets.aggregate({
+                $match: {
+                    anyo: res[0].anyo
+                }
+            },{
+                $group: {
+                    _id: "$anyo",
+                    sorteo: {
+                        $min: "$sorteo"
+                    }
+                }
+            }, function(err2, res2){
+                if(err2){
+                    callback(err2);
+                }else{
+                    callback(null, res2[0]);
+                }
+            });
         }
     });
 };

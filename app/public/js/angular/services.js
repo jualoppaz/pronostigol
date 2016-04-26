@@ -46,7 +46,7 @@ services.service('VariosService', [function(){
     this.jsonVacio = function(json){
 
         var res = Object.keys(json).length == 0;
-        console.log("Vacio: " + res);
+        //console.log("Vacio: " + res);
         return res;
     };
 

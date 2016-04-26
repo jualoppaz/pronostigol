@@ -25,6 +25,17 @@ block content
                                 contacte con el administrador de la p&aacute;gina web.
 
                         div.col-md-12.col-sm-12.col-xs-12(style="padding-left: 15px")
+
+                            div.col-md-12.col-sm-12.col-xs-12(style="padding-left: 0px; padding-bottom: 15px")
+                                div.col-md-6.col-sm-6.col-xs-6.pull-left.text-left
+                                    label.flecha-euromillones(ng-click="ticketAnterior()", ng-show="mostrarFlechaAnterior", ng-cloak)
+                                        i.fa.fa-arrow-left
+                                        | &nbsp; Sorteo anterior
+                                div.col-md-6.col-sm-6.col-xs-6.pull-right.text-right
+                                    label.flecha-euromillones(ng-click="ticketSiguiente()", ng-show="mostrarFlechaSiguiente", ng-cloak)
+                                        | Sorteo siguiente&nbsp;
+                                        i.fa.fa-arrow-right
+
                             div.col-md-12.col-sm-12.col-xs-12(ng-show="ticket.anyo", ng-cloak, style="padding-left: 15px")
                                 div.col-md-1.col-sm-2.col-xs-4(style="padding-left: 0px")
                                     label Año:
@@ -51,7 +62,6 @@ block content
                                 div.col-md-1.col-sm-2.col-xs-4(style="padding-left: 0px")
                                     label Premio:
                                 div.col-md-11.col-sm-10.col-xs-8(ng-bind-template="{{ticket.premio}} €")
-
 
                         //pre {{ticket}}
 

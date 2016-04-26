@@ -1455,7 +1455,6 @@ th.badge-pleno{
         border-radius: 10px;
         background-color: #ffffff;
     }
-
 }
 
 ul.nav.nav-tabs li a{
@@ -1880,6 +1879,10 @@ body{
 
 .lista-temporadas-euromillones li:last-child{
     border-bottom: 2px solid #440044;
+}
+
+.flecha-euromillones:hover{
+    cursor: pointer;
 }
 
 .columnaOrdenable{
