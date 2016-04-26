@@ -308,6 +308,9 @@ app.controller('TicketController', function ($scope, $http, VariosService, $wind
                 .success(function (data) {
                     if(data.sorteo){
                         $window.location.href = "/euromillones/tickets/" + data.anyo + "/" + data.sorteo;
+                    }else{
+                        console.log("No hay tickets anteriores o hay un salto en las fechas.");
+                        $scope.mostrarFlechaAnterior = false;
                     }
                 })
                 .error(function (data) {
