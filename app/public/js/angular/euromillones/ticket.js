@@ -263,8 +263,7 @@ app.controller('TicketController', function ($scope, $http, VariosService, $wind
                             if(data.sorteo){
                                 $window.location.href = "/euromillones/tickets/" + data.anyo + "/" + data.sorteo;
                             }else{
-                                console.log("No hay tickets más recientes.");
-                                $scope.mostrarFlechaSiguiente = false;
+                                console.log("No hay tickets más recientes o hay un salto entre el ticket actual y el próximo.");
                             }
 
                         })
@@ -296,8 +295,8 @@ app.controller('TicketController', function ($scope, $http, VariosService, $wind
                                 if(data.sorteo){
                                     $window.location.href = "/euromillones/tickets/" + data.anyo + "/" + data.sorteo;
                                 }else{
-                                    console.log("No hay tickets anteriores.");
-                                    $scope.mostrarFlechaAnterior = false;
+                                    console.log("No hay tickets anteriores o hay un salto en las fechas.");
+                                    //$scope.mostrarFlechaAnterior = false;
                                 }
                             })
                             .error(function (data) {
