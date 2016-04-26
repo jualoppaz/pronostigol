@@ -407,7 +407,7 @@ exports.getHigherDayByYear = function(year, callback){
 exports.getNewestDay = function(callback){
     euromillones_tickets.aggregate({
         $group: {
-            _id: "$anyo",
+            _id: null,
             anyo: {
                 $max: "$anyo"
             }
@@ -423,7 +423,7 @@ exports.getNewestDay = function(callback){
                 }
             },{
                 $group: {
-                    _id: "$anyo",
+                    _id: null,
                     sorteo: {
                         $max: "$sorteo"
                     }
@@ -432,6 +432,7 @@ exports.getNewestDay = function(callback){
                 if(err2){
                     callback(err2);
                 }else{
+                    res2[0]._id = res[0].anyo;
                     callback(null, res2[0]);
                 }
             });
@@ -442,7 +443,7 @@ exports.getNewestDay = function(callback){
 exports.getOldestDay = function(callback){
     euromillones_tickets.aggregate({
         $group: {
-            _id: "$anyo",
+            _id: null,
             anyo: {
                 $min: "$anyo"
             }
@@ -458,7 +459,7 @@ exports.getOldestDay = function(callback){
                 }
             },{
                 $group: {
-                    _id: "$anyo",
+                    _id: null,
                     sorteo: {
                         $min: "$sorteo"
                     }
@@ -467,6 +468,7 @@ exports.getOldestDay = function(callback){
                 if(err2){
                     callback(err2);
                 }else{
+                    res2[0]._id = res[0].anyo;
                     callback(null, res2[0]);
                 }
             });
