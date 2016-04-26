@@ -389,8 +389,12 @@ exports.getEconomicBalanceByYear = function(callback){
 
 exports.getHigherDayByYear = function(year, callback){
     euromillones_tickets.aggregate({
+        $match: {
+            anyo: year
+        }
+    },{
         $group: {
-            _id: "$anyo",
+            _id: null,
             sorteo: {
                 $max: "$sorteo"
             }
