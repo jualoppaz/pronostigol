@@ -1,6 +1,6 @@
 var app = angular.module('qdb');
 
-app.controller('TicketController', function ($scope, $http, VariosService, $window) {
+app.controller('TicketController', function ($scope, $http, VariosService, $window, $location) {
 
     $scope.ticket = {};
 
@@ -280,17 +280,17 @@ app.controller('TicketController', function ($scope, $http, VariosService, $wind
 
     $scope.ticketAnterior = function(){
 
-        var nuevoSorteo = Number($scope.ticket.sorteo) - 1;
+        var nuevoSorteo = Number($scope.getDayFromURL()) - 1;
 
         if(nuevoSorteo >= 1) {
 
-            $http.get('/api/euromillones/tickets/anyo/' + $scope.ticket.anyo + "/sorteo/" + nuevoSorteo)
+            $http.get('/api/euromillones/tickets/anyo/' + $scope.getAnyoFromURL() + "/sorteo/" + nuevoSorteo)
                 .success(function (data) {
 
                     if(data.sorteo) {
                         $window.location.href = "/euromillones/tickets/" + data.anyo + "/" + data.sorteo;
                     }else{
-                        $http.get('/query/euromillones/higherDayByYear/' + $scope.ticket.anyo)
+                        $http.get('/query/euromillones/higherDayByYear/' + $scope.getAnyoFromURL())
                             .success(function (data) {
                                 if(data.sorteo){
                                     $window.location.href = "/euromillones/tickets/" + data.anyo + "/" + data.sorteo;
@@ -309,7 +309,7 @@ app.controller('TicketController', function ($scope, $http, VariosService, $wind
                 });
         }else{
 
-            var anyo = Number($scope.ticket.anyo) - 1;
+            var anyo = Number($scope.getAnyoFromURL()) - 1;
 
             $http.get('/query/euromillones/higherDayByYear/' + anyo)
                 .success(function (data) {
@@ -324,6 +324,18 @@ app.controller('TicketController', function ($scope, $http, VariosService, $wind
                     console.log(data);
                 });
         }
+    };
+
+    $scope.getAnyoFromURL = function(){
+        var url = window.location.href;
+        
+        return url.split("/")[5];
+    };
+
+    $scope.getDayFromURL = function(){
+        var url = window.location.href;
+
+        return url.split("/")[6];
     };
 
 });
