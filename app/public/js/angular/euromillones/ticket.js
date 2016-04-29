@@ -328,7 +328,7 @@ app.controller('TicketController', function ($scope, $http, VariosService, $wind
 
     $scope.getAnyoFromURL = function(){
         var url = window.location.href;
-        
+
         return url.split("/")[5];
     };
 
