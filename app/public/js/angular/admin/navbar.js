@@ -20,6 +20,9 @@ app.controller('NavbarController', function ($scope, $http, $window, $timeout){
     }else if(url.indexOf("/gordo") != -1){
         $scope.seccion = "El Gordo";
         $scope.loteria = "gordo";
+    }else if(url.indexOf("/euromillones") != -1){
+        $scope.seccion = "Euromillones";
+        $scope.loteria = "euromillones";
     }
 
     $scope.cerrarSesion = function(){
