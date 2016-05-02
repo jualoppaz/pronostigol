@@ -235,7 +235,7 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
             });
     };
 
-    $scope.cancelar = function(){
+    $scope.redirigir = function(){
         var nuevaURL = "/admin/primitiva";
 
         $window.location.href = nuevaURL;
