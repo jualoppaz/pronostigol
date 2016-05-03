@@ -1138,6 +1138,26 @@ app.controller('TicketController', function ($scope, $http, $window){
     }, true);
 
 
+    $scope.$watch('quiniela.jornada', function(jornada){
+
+        $scope.quiniela.jornada = "";
+
+        var aux = "";
+
+        for(var i=0;i<jornada.length && i<2;i++){
+            if($scope.esNumero(jornada.charAt(i))){
+                aux += jornada.charAt(i);
+            }
+        }
+
+        $scope.quiniela.jornada = aux;
+
+    }, true);
+
+    $scope.esNumero = function(caracter){
+        return !isNaN(caracter);
+    };
+
 
 
 
