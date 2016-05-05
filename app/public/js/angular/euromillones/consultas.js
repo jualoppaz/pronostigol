@@ -7,6 +7,13 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
     $scope.ordenAparicionesPorNumero = null;
 
+    $scope.numOfPages;
+
+    $scope.totalItems;
+
+    $scope.currentPage = 1;
+    $scope.ticketsPerPage = 10;
+
     $scope.numerosBolas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
         11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 
         24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 
@@ -152,7 +159,9 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.criterioOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
                     
                     $scope.criterioAlternativoOrdenacionAparicionesPorNumero = $scope.sortFunction_numberOccurrences;
-                    
+
+                    $scope.actualizarPaginacion($scope.aparicionesPorNumero, 50, 10);
+
                     $scope.mostrar.tablaAparicionesPorNumero = true;
 
                     $scope.consultando = false;
@@ -205,6 +214,8 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.criterioOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
 
                     $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
+
+                    $scope.actualizarPaginacion($scope.aparicionesPorResultado, null, 10);
 
                     $scope.mostrar.tablaAparicionesPorResultado = true;
 
@@ -276,6 +287,8 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
                     $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConEstrellas = "apariciones";
 
+                    $scope.actualizarPaginacion($scope.aparicionesPorResultadoConEstrellas, null, 10);
+
                     $scope.mostrar.tablaAparicionesPorResultadoConEstrellas = true;
 
                     $scope.consultando = false;
@@ -311,6 +324,8 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.criterioOrdenacionAparicionesPorEstrella = $scope.sortFunction_star;
 
                     $scope.criterioAlternativoOrdenacionAparicionesPorEstrella = $scope.sortFunction_starOccurrences;
+
+                    $scope.actualizarPaginacion($scope.aparicionesPorEstrella, null, 11);
 
                     $scope.mostrar.tablaAparicionesPorEstrella = true;
 
@@ -348,6 +363,8 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.criterioOrdenacionAparicionesPorParejaDeEstrellas = $scope.sortFunction_starsPair;
 
                     $scope.criterioAlternativoOrdenacionAparicionesPorParejaDeEstrellas = $scope.sortFunction_starsPairOccurrences;
+
+                    $scope.actualizarPaginacion($scope.aparicionesPorParejaDeEstrellas, $scope.parejasDeEstrellas.length, 10);
 
                     $scope.mostrar.tablaAparicionesPorParejaDeEstrellas = true;
 
@@ -788,6 +805,24 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         }
 
         return res;
+    };
+
+    $scope.actualizarPaginacion = function(items, itemsLength, ticketsPerPage){
+
+        // Uso de esta variable para reutilizar el mismo paginador para todas las consultas
+        $scope.tickets = items;
+
+        $scope.ticketsPerPage = ticketsPerPage;
+
+        $scope.totalItems = itemsLength == null ? $scope.tickets.length : itemsLength;
+
+        $scope.numOfPages = $scope.totalItems / $scope.ticketsPerPage;
+
+        var floor = Math.floor($scope.tickets.length / $scope.ticketsPerPage);
+
+        if($scope.numOfPages > floor){
+            $scope.numOfPages = Math.floor($scope.tickets.length / $scope.ticketsPerPage) + 1;
+        }
     };
 
 });

@@ -14,7 +14,7 @@ div.table-responsive(style="margin-top: 15px", ng-show="mostrar.tablaApariciones
 
         tbody
 
-            tr(ng-repeat="item in numerosEstrellas | orderBy:[criterioOrdenacionAparicionesPorEstrella, criterioAlternativoOrdenacionAparicionesPorEstrella]:ordenAparicionesPorEstrella")
+            tr(ng-show="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-repeat="item in numerosEstrellas | orderBy:[criterioOrdenacionAparicionesPorEstrella, criterioAlternativoOrdenacionAparicionesPorEstrella]:ordenAparicionesPorEstrella")
                 td(ng-show="criterioOrdenacionAparicionesPorEstrella == sortFunction_starOccurrences && $index >=1 && ordenAparicionesPorEstrella", ng-cloak)
                     span.badge.badge-rojo(ng-bind-template="{{printNumber(item)}}")
                 td(ng-show="criterioOrdenacionAparicionesPorEstrella == sortFunction_starOccurrences && $index == 0 && ordenAparicionesPorEstrella", ng-cloak)

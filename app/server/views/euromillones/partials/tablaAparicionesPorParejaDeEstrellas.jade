@@ -13,7 +13,7 @@ div.table-responsive(style="margin-top: 15px", ng-show="mostrar.tablaApariciones
 
 
         tbody
-            tr(ng-repeat="parejaDeEstrellas in parejasDeEstrellas | orderBy:[criterioOrdenacionAparicionesPorParejaDeEstrellas, criterioAlternativoOrdenacionAparicionesPorParejaDeEstrellas]:ordenAparicionesPorParejaDeEstrellas")
+            tr(ng-show="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-repeat="parejaDeEstrellas in parejasDeEstrellas | orderBy:[criterioOrdenacionAparicionesPorParejaDeEstrellas, criterioAlternativoOrdenacionAparicionesPorParejaDeEstrellas]:ordenAparicionesPorParejaDeEstrellas")
 
                 td(ng-show="criterioOrdenacionAparicionesPorParejaDeEstrellas == sortFunction_starsPairOccurrences && $index >=1 && ordenAparicionesPorParejaDeEstrellas", ng-cloak)
                     span.badge.badge-rojo(ng-repeat="estrella in parejaDeEstrellas.estrellas", ng-bind-template="{{printNumber(estrella.numero)}}")
