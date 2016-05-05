@@ -14,7 +14,7 @@ div.table-responsive(style="margin-top: 15px", ng-if="mostrar.tablaAparicionesPo
 
         tbody
             //tr(ng-if="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-repeat="item in aparicionesPorResultado.slice(ticketsPerPage*currentPage - ticketsPerPage, ticketsPerPage*currentPage - 1) | orderBy:[criterioOrdenacionAparicionesPorResultado, criterioAlternativoOrdenacionAparicionesPorResultado]:ordenAparicionesPorResultado")
-            tr(ng-if="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-repeat="item in aparicionesPorResultado")
+            tr(ng-if="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-repeat="item in aparicionesPorResultado | orderBy:[criterioOrdenacionAparicionesPorResultado, criterioAlternativoOrdenacionAparicionesPorResultado]:ordenAparicionesPorResultado")
                 //" | orderBy:[criterioOrdenacionAparicionesPorResultado, criterioAlternativoOrdenacionAparicionesPorResultado]:ordenAparicionesPorResultado")
                 td(ng-if="criterioOrdenacionAparicionesPorResultado == sortFunction_result")
                     span.badge.badge-azul(ng-repeat="numero in item.numeros", ng-bind-template="{{printNumber(numero.numero)}}")
