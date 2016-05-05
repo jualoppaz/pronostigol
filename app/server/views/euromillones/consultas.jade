@@ -187,6 +187,20 @@ block content
                                         div.text-center
                                             pagination(ng-show="tickets.length > 0", ng-cloak, items-per-page="ticketsPerPage", boundary-links="true", total-items="totalItems", ng-model="currentPage", previous-text="<", next-text=">", first-text="Inicio", last-text="Fin").pagination-sm.abel
 
+                                            //pre Tickets per page: {{ticketsPerPage}}
+
+                                            //pre Current page: {{currentPage}}
+
+                                            //pre Total items: {{totalItems}}
+
+                                            //pre Star: {{ticketsPerPage*currentPage - ticketsPerPage}}
+
+                                            //pre End: {{ticketsPerPage*currentPage - 1}}
+
+                                            //pre {{aparicionesPorResultado.slice(ticketsPerPage*currentPage - ticketsPerPage, ticketsPerPage*currentPage - 1)}}
+
+                                            //pre {{aparicionesPorResultado}}
+
                                         include partials/tablaAparicionesPorNumero
 
                                         include partials/tablaAparicionesPorResultado

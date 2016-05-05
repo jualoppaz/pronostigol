@@ -179,8 +179,6 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
             $http.get('/api/euromillones/historical/aparicionesPorResultado')
                 .success(function(data){
 
-                    $scope.aparicionesPorResultado = data;
-
                     /*for(i=0;i<$scope.aparicionesPorResultado.length; i++){ // Recorremos las combinaciones dadas
 
                         var resultadoString = "";
