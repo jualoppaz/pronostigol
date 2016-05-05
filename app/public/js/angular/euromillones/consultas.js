@@ -127,6 +127,8 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         $scope.ordenAparicionesPorEstrella = null;
         $scope.ordenAparicionesPorParejaDeEstrellas = null;
 
+        $scope.tickets = [];
+
 
     };
 
