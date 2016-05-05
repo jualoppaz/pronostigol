@@ -199,7 +199,7 @@ block content
 
                                             //pre {{aparicionesPorResultado.slice(ticketsPerPage*currentPage - ticketsPerPage, ticketsPerPage*currentPage - 1)}}
 
-                                            //pre {{aparicionesPorResultado}}
+                                            //pre {{::aparicionesPorResultado}}
 
                                         include partials/tablaAparicionesPorNumero
 
@@ -249,5 +249,6 @@ block scripts
     script(src='/js/angular/euromillones/consultas.js')
     script(src='/js/angular/navbar.js')
     script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')
+    //script(src='/js/bindonce.js')
 
 

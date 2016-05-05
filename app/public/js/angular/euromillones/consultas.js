@@ -110,7 +110,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
     $scope.aparicionesPorNumero = [];
 
-    $scope.aparicionesPorResultado = [];
+    //$scope.aparicionesPorResultado = [];
 
     $scope.aparicionesPorEstrella = [];
 
