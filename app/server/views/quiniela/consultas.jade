@@ -15,7 +15,7 @@ block content
 
                 div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0")
 
-                    div.col-md-12.col-sm-12.col-xs-12(ng-show="temporadas.length > 0", ng-cloak, style="margin-top:15px; padding-left: 0px; padding-right: 0px")
+                    div.col-md-12.col-sm-12.col-xs-12(ng-if="temporadas.length > 0", ng-cloak, style="margin-top:15px; padding-left: 0px; padding-right: 0px")
                         div.alert.alert-info.alert-quiniela.
                             Ésta es, casi con total seguridad, la funcionalidad más importante de esta
                             aplicación web. Aquí podrá realizar una gran variedad de consultas para saber
@@ -23,7 +23,7 @@ block content
                             visitante, los resultados más repetidos según la fila y otras muchas cosas.
 
 
-                    div.col-md-12.col-md-offset-0.col-sm-12.col-xs-12(ng-show="temporadas.length > 0 && competiciones.length > 0 && equipos.length > 0", style="margin-top:20px; padding: 0 0 0 0; background-color: white; border: 2px solid #0480be; border-radius: 4px", ng-cloak)
+                    div.col-md-12.col-md-offset-0.col-sm-12.col-xs-12(ng-if="temporadas.length > 0 && competiciones.length > 0 && equipos.length > 0", style="margin-top:20px; padding: 0 0 0 0; background-color: white; border: 2px solid #0480be; border-radius: 4px", ng-cloak)
 
                         tabset.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0;", ng-cloak)
                             tab.col-md-6.col-sm-6.col-xs-6(style="padding: 0 0 0 0", heading="Personalizadas", active="primeraPestana", ng-click="activarPestana(1)")
@@ -75,13 +75,13 @@ block content
                                             button(popover="{{ayudaBusqueda}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                 | Ayuda
 
-                                    div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0", ng-show="form.opcionBusqueda == 'equipo'", ng-cloak).form-group
+                                    div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0", ng-if="form.opcionBusqueda == 'equipo'", ng-cloak).form-group
                                         label.col-md-2.col-md-offset-1.col-sm-2.col-sm-offset-1.col-xs-12.control-label Equipo:
                                         div.col-md-4.col-md-offset-0.col-sm-6.col-xs-12
                                             //input.form-control(ng-model="equipoSeleccionado", placeholder="Equipo")
                                             input#equipoSeleccionado.form-control(ng-model="form.equipoSeleccionado", placeholder="Equipo", typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
 
-                                    div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0", ng-show="form.opcionBusqueda == 'partido'", ng-cloak).form-group
+                                    div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0", ng-if="form.opcionBusqueda == 'partido'", ng-cloak).form-group
                                         label.col-md-2.col-md-offset-1.col-sm-2.col-sm-offset-1.col-xs-12.control-label Partido:
 
                                         div.col-md-4.col-md-offset-0.col-sm-4.col-sm-offset-0.hidden-xs

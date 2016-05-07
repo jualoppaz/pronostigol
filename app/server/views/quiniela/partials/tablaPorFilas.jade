@@ -1,4 +1,4 @@
-div.table-responsive(ng-show="mostrar", ng-cloak)
+div.table-responsive(ng-if="mostrar", ng-cloak)
     table.table.table-bordered.col-md-12.col-sm-12.col-xs-12
         thead
             tr
@@ -11,60 +11,60 @@ div.table-responsive(ng-show="mostrar", ng-cloak)
             tr(ng-repeat="fila in filas | orderBy: 'fila'")
                 td(ng-bind-template="{{fila.fila}}")
                 // Victoria local mas frecuente en solitario
-                td(ng-show="situacionDelPrimero(fila.victoriasLocales, fila.empates, fila.victoriasVisitantes) == 'mayorEnSolitario'")
+                td(ng-if="situacionDelPrimero(fila.victoriasLocales, fila.empates, fila.victoriasVisitantes) == 'mayorEnSolitario'")
                     span.badge.badge-verde(ng-bind-template="{{fila.victoriasLocales || 0}}")
                 // Victoria local es el mas frecuente empatada con otro
-                td(ng-show="situacionDelPrimero(fila.victoriasLocales, fila.empates, fila.victoriasVisitantes) == 'mayorCompartido'")
+                td(ng-if="situacionDelPrimero(fila.victoriasLocales, fila.empates, fila.victoriasVisitantes) == 'mayorCompartido'")
                     span.badge.badge-naranja(ng-bind-template="{{fila.victoriasLocales || 0}}")
                 // Está en medio
-                td(ng-show="situacionDelPrimero(fila.victoriasLocales, fila.empates, fila.victoriasVisitantes) == 'intermedio'")
+                td(ng-if="situacionDelPrimero(fila.victoriasLocales, fila.empates, fila.victoriasVisitantes) == 'intermedio'")
                     span.badge.badge-rojo(ng-bind-template="{{fila.victoriasLocales || 0}}")
                 // Victoria local es el menos frecuente en solitario
-                td(ng-show="situacionDelPrimero(fila.victoriasLocales, fila.empates, fila.victoriasVisitantes) == 'menorEnSolitario'")
+                td(ng-if="situacionDelPrimero(fila.victoriasLocales, fila.empates, fila.victoriasVisitantes) == 'menorEnSolitario'")
                     span.badge.badge-rojo(ng-bind-template="{{fila.victoriasLocales || 0}}")
                 // Victoria local es el menos frecuente empatado con 1
-                td(ng-show="situacionDelPrimero(fila.victoriasLocales, fila.empates, fila.victoriasVisitantes) == 'menorCompartido'")
+                td(ng-if="situacionDelPrimero(fila.victoriasLocales, fila.empates, fila.victoriasVisitantes) == 'menorCompartido'")
                     span.badge.badge-rojo(ng-bind-template="{{fila.victoriasLocales || 0}}")
                 // Triple empate a todo
-                td(ng-show="situacionDelPrimero(fila.victoriasLocales, fila.empates, fila.victoriasVisitantes) == 'igualados'")
+                td(ng-if="situacionDelPrimero(fila.victoriasLocales, fila.empates, fila.victoriasVisitantes) == 'igualados'")
                     span.badge.badge-naranja(ng-bind-template="{{fila.victoriasLocales || 0}}")
 
                 // Empate mas frecuente en solitario
-                td(ng-show="situacionDelPrimero(fila.empates,fila.victoriasLocales, fila.victoriasVisitantes) == 'mayorEnSolitario'")
+                td(ng-if="situacionDelPrimero(fila.empates,fila.victoriasLocales, fila.victoriasVisitantes) == 'mayorEnSolitario'")
                     span.badge.badge-verde(ng-bind-template="{{fila.empates || 0}}")
                 // Empate mas frecuente empatado con 1
-                td(ng-show="situacionDelPrimero(fila.empates,fila.victoriasLocales, fila.victoriasVisitantes) == 'mayorCompartido'")
+                td(ng-if="situacionDelPrimero(fila.empates,fila.victoriasLocales, fila.victoriasVisitantes) == 'mayorCompartido'")
                     span.badge.badge-naranja(ng-bind-template="{{fila.empates || 0}}")
                 // Está en medio
-                td(ng-show="situacionDelPrimero(fila.empates,fila.victoriasLocales, fila.victoriasVisitantes) == 'intermedio'")
+                td(ng-if="situacionDelPrimero(fila.empates,fila.victoriasLocales, fila.victoriasVisitantes) == 'intermedio'")
                     span.badge.badge-rojo(ng-bind-template="{{fila.empates || 0}}")
                 // Empate menos frecuente en solitario
-                td(ng-show="situacionDelPrimero(fila.empates,fila.victoriasLocales, fila.victoriasVisitantes) == 'menorEnSolitario'")
+                td(ng-if="situacionDelPrimero(fila.empates,fila.victoriasLocales, fila.victoriasVisitantes) == 'menorEnSolitario'")
                     span.badge.badge-rojo(ng-bind-template="{{fila.empates || 0}}")
                 // Empate menos frecuente empatado con 1
-                td(ng-show="situacionDelPrimero(fila.empates,fila.victoriasLocales, fila.victoriasVisitantes) == 'menorCompartido'")
+                td(ng-if="situacionDelPrimero(fila.empates,fila.victoriasLocales, fila.victoriasVisitantes) == 'menorCompartido'")
                     span.badge.badge-rojo(ng-bind-template="{{fila.empates || 0}}")
                 // Triple empate a todo
-                td(ng-show="situacionDelPrimero(fila.empates,fila.victoriasLocales, fila.victoriasVisitantes) == 'igualados'")
+                td(ng-if="situacionDelPrimero(fila.empates,fila.victoriasLocales, fila.victoriasVisitantes) == 'igualados'")
                     span.badge.badge-naranja(ng-bind-template="{{fila.empates || 0}}")
 
                 // Victoria visitante mas frecuente
-                td(ng-show="situacionDelPrimero(fila.victoriasVisitantes,fila.empates, fila.victoriasLocales) == 'mayorEnSolitario'")
+                td(ng-if="situacionDelPrimero(fila.victoriasVisitantes,fila.empates, fila.victoriasLocales) == 'mayorEnSolitario'")
                     span.badge.badge-verde(ng-bind-template="{{fila.victoriasVisitantes || 0}}")
                 // Victoria visitante mas frecuente empatado con 1
-                td(ng-show="situacionDelPrimero(fila.victoriasVisitantes,fila.empates, fila.victoriasLocales) == 'mayorCompartido'")
+                td(ng-if="situacionDelPrimero(fila.victoriasVisitantes,fila.empates, fila.victoriasLocales) == 'mayorCompartido'")
                     span.badge.badge-naranja(ng-bind-template="{{fila.victoriasVisitantes || 0}}")
                 // Está en medio
-                td(ng-show="situacionDelPrimero(fila.victoriasVisitantes,fila.victoriasLocales, fila.empates) == 'intermedio'")
+                td(ng-if="situacionDelPrimero(fila.victoriasVisitantes,fila.victoriasLocales, fila.empates) == 'intermedio'")
                     span.badge.badge-rojo(ng-bind-template="{{fila.victoriasVisitantes || 0}}")
                 // Victoria visitante menos frecuente en solitario
-                td(ng-show="situacionDelPrimero(fila.victoriasVisitantes,fila.victoriasLocales, fila.empates) == 'menorEnSolitario'")
+                td(ng-if="situacionDelPrimero(fila.victoriasVisitantes,fila.victoriasLocales, fila.empates) == 'menorEnSolitario'")
                     span.badge.badge-rojo(ng-bind-template="{{fila.victoriasVisitantes || 0}}")
                 // Victoria visitante menos frecuente empatado con 1
-                td(ng-show="situacionDelPrimero(fila.victoriasVisitantes,fila.victoriasLocales, fila.empates) == 'menorCompartido'")
+                td(ng-if="situacionDelPrimero(fila.victoriasVisitantes,fila.victoriasLocales, fila.empates) == 'menorCompartido'")
                     span.badge.badge-rojo(ng-bind-template="{{fila.victoriasVisitantes || 0}}")
                 // Triple empate a todo
-                td(ng-show="situacionDelPrimero(fila.victoriasVisitantes,fila.victoriasLocales, fila.empates) == 'igualados'")
+                td(ng-if="situacionDelPrimero(fila.victoriasVisitantes,fila.victoriasLocales, fila.empates) == 'igualados'")
                     span.badge.badge-naranja(ng-bind-template="{{fila.victoriasVisitantes || 0}}")
 
 
@@ -75,60 +75,60 @@ div.table-responsive(ng-show="mostrar", ng-cloak)
                 td
                     strong(ng-bind-template="Total")
                 // Victoria local mas frecuente en solitario
-                td(ng-show="situacionDelPrimero(sumaDeVictoriasLocales(), sumaDeEmpates(), sumaDeVictoriasVisitantes()) == 'mayorEnSolitario'")
+                td(ng-if="situacionDelPrimero(sumaDeVictoriasLocales(), sumaDeEmpates(), sumaDeVictoriasVisitantes()) == 'mayorEnSolitario'")
                     span.badge.badge-verde(ng-bind-template="{{sumaDeVictoriasLocales()}}")
                 // Victoria local es el mas frecuente empatada con otro
-                td(ng-show="situacionDelPrimero(sumaDeVictoriasLocales(), sumaDeEmpates(), sumaDeVictoriasVisitantes()) == 'mayorCompartido'")
+                td(ng-if="situacionDelPrimero(sumaDeVictoriasLocales(), sumaDeEmpates(), sumaDeVictoriasVisitantes()) == 'mayorCompartido'")
                     span.badge.badge-naranja(ng-bind-template="{{sumaDeVictoriasLocales()}}")
                 // Está en medio
-                td(ng-show="situacionDelPrimero(sumaDeVictoriasLocales(), sumaDeEmpates(), sumaDeVictoriasVisitantes()) == 'intermedio'")
+                td(ng-if="situacionDelPrimero(sumaDeVictoriasLocales(), sumaDeEmpates(), sumaDeVictoriasVisitantes()) == 'intermedio'")
                     span.badge.badge-rojo(ng-bind-template="{{sumaDeVictoriasLocales()}}")
                 // Victoria local es el menos frecuente en solitario
-                td(ng-show="situacionDelPrimero(sumaDeVictoriasLocales(), sumaDeEmpates(), sumaDeVictoriasVisitantes()) == 'menorEnSolitario'")
+                td(ng-if="situacionDelPrimero(sumaDeVictoriasLocales(), sumaDeEmpates(), sumaDeVictoriasVisitantes()) == 'menorEnSolitario'")
                     span.badge.badge-rojo(ng-bind-template="{{sumaDeVictoriasLocales()}}")
                 // Victoria local es el menos frecuente empatado con 1
-                td(ng-show="situacionDelPrimero(sumaDeVictoriasLocales(), sumaDeEmpates(), sumaDeVictoriasVisitantes()) == 'menorCompartido'")
+                td(ng-if="situacionDelPrimero(sumaDeVictoriasLocales(), sumaDeEmpates(), sumaDeVictoriasVisitantes()) == 'menorCompartido'")
                     span.badge.badge-rojo(ng-bind-template="{{sumaDeVictoriasLocales()}}")
                 // Triple empate a todo
-                td(ng-show="situacionDelPrimero(sumaDeVictoriasLocales(), sumaDeEmpates(), sumaDeVictoriasVisitantes()) == 'igualados'")
+                td(ng-if="situacionDelPrimero(sumaDeVictoriasLocales(), sumaDeEmpates(), sumaDeVictoriasVisitantes()) == 'igualados'")
                     span.badge.badge-naranja(ng-bind-template="{{sumaDeVictoriasLocales()}}")
 
                 // Empate mas frecuente en solitario
-                td(ng-show="situacionDelPrimero(sumaDeEmpates(), sumaDeVictoriasLocales(), sumaDeVictoriasVisitantes()) == 'mayorEnSolitario'")
+                td(ng-if="situacionDelPrimero(sumaDeEmpates(), sumaDeVictoriasLocales(), sumaDeVictoriasVisitantes()) == 'mayorEnSolitario'")
                     span.badge.badge-verde(ng-bind-template="{{sumaDeEmpates()}}")
                 // Empate mas frecuente empatado con 1
-                td(ng-show="situacionDelPrimero(sumaDeEmpates(), sumaDeVictoriasLocales(), sumaDeVictoriasVisitantes()) == 'mayorCompartido'")
+                td(ng-if="situacionDelPrimero(sumaDeEmpates(), sumaDeVictoriasLocales(), sumaDeVictoriasVisitantes()) == 'mayorCompartido'")
                     span.badge.badge-naranja(ng-bind-template="{{sumaDeEmpates()}}")
                 // Está en medio
-                td(ng-show="situacionDelPrimero(sumaDeEmpates(), sumaDeVictoriasLocales(), sumaDeVictoriasVisitantes()) == 'intermedio'")
+                td(ng-if="situacionDelPrimero(sumaDeEmpates(), sumaDeVictoriasLocales(), sumaDeVictoriasVisitantes()) == 'intermedio'")
                     span.badge.badge-rojo(ng-bind-template="{{sumaDeEmpates()}}")
                 // Empate menos frecuente en solitario
-                td(ng-show="situacionDelPrimero(sumaDeEmpates(), sumaDeVictoriasLocales(), sumaDeVictoriasVisitantes()) == 'menorEnSolitario'")
+                td(ng-if="situacionDelPrimero(sumaDeEmpates(), sumaDeVictoriasLocales(), sumaDeVictoriasVisitantes()) == 'menorEnSolitario'")
                     span.badge.badge-rojo(ng-bind-template="{{sumaDeEmpates()}}")
                 // Empate menos frecuente empatado con 1
-                td(ng-show="situacionDelPrimero(sumaDeEmpates(), sumaDeVictoriasLocales(), sumaDeVictoriasVisitantes()) == 'menorCompartido'")
+                td(ng-if="situacionDelPrimero(sumaDeEmpates(), sumaDeVictoriasLocales(), sumaDeVictoriasVisitantes()) == 'menorCompartido'")
                     span.badge.badge-rojo(ng-bind-template="{{sumaDeEmpates()}}")
                 // Triple empate a todo
-                td(ng-show="situacionDelPrimero(sumaDeEmpates(), sumaDeVictoriasLocales(), sumaDeVictoriasVisitantes()) == 'igualados'")
+                td(ng-if="situacionDelPrimero(sumaDeEmpates(), sumaDeVictoriasLocales(), sumaDeVictoriasVisitantes()) == 'igualados'")
                     span.badge.badge-naranja(ng-bind-template="{{sumaDeEmpates()}}")
 
                 // Victoria visitante mas frecuente
-                td(ng-show="situacionDelPrimero(sumaDeVictoriasVisitantes(), sumaDeEmpates(), sumaDeVictoriasLocales()) == 'mayorEnSolitario'")
+                td(ng-if="situacionDelPrimero(sumaDeVictoriasVisitantes(), sumaDeEmpates(), sumaDeVictoriasLocales()) == 'mayorEnSolitario'")
                     span.badge.badge-verde(ng-bind-template="{{sumaDeVictoriasVisitantes()}}")
                 // Victoria visitante mas frecuente empatado con 1
-                td(ng-show="situacionDelPrimero(sumaDeVictoriasVisitantes(), sumaDeEmpates(), sumaDeVictoriasLocales()) == 'mayorCompartido'")
+                td(ng-if="situacionDelPrimero(sumaDeVictoriasVisitantes(), sumaDeEmpates(), sumaDeVictoriasLocales()) == 'mayorCompartido'")
                     span.badge.badge-naranja(ng-bind-template="{{sumaDeVictoriasVisitantes()}}")
                 // Está en medio
-                td(ng-show="situacionDelPrimero(sumaDeVictoriasVisitantes(), sumaDeEmpates(), sumaDeVictoriasLocales()) == 'intermedio'")
+                td(ng-if="situacionDelPrimero(sumaDeVictoriasVisitantes(), sumaDeEmpates(), sumaDeVictoriasLocales()) == 'intermedio'")
                     span.badge.badge-rojo(ng-bind-template="{{sumaDeVictoriasVisitantes()}}")
                 // Victoria visitante menos frecuente en solitario
-                td(ng-show="situacionDelPrimero(sumaDeVictoriasVisitantes(), sumaDeEmpates(), sumaDeVictoriasLocales()) == 'menorEnSolitario'")
+                td(ng-if="situacionDelPrimero(sumaDeVictoriasVisitantes(), sumaDeEmpates(), sumaDeVictoriasLocales()) == 'menorEnSolitario'")
                     span.badge.badge-rojo(ng-bind-template="{{sumaDeVictoriasVisitantes()}}")
                 // Victoria visitante menos frecuente empatado con 1
-                td(ng-show="situacionDelPrimero(sumaDeVictoriasVisitantes(), sumaDeEmpates(), sumaDeVictoriasLocales()) == 'menorCompartido'")
+                td(ng-if="situacionDelPrimero(sumaDeVictoriasVisitantes(), sumaDeEmpates(), sumaDeVictoriasLocales()) == 'menorCompartido'")
                     span.badge.badge-rojo(ng-bind-template="{{sumaDeVictoriasVisitantes()}}")
                 // Triple empate a todo
-                td(ng-show="situacionDelPrimero(sumaDeVictoriasVisitantes(), sumaDeEmpates(), sumaDeVictoriasLocales()) == 'igualados'")
+                td(ng-if="situacionDelPrimero(sumaDeVictoriasVisitantes(), sumaDeEmpates(), sumaDeVictoriasLocales()) == 'igualados'")
                     span.badge.badge-naranja(ng-bind-template="{{sumaDeVictoriasVisitantes()}}")
 
                 td(ng-bind-template="{{sumaDeVictoriasLocales() + sumaDeEmpates() + sumaDeVictoriasVisitantes()}}")

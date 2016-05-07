@@ -1,8 +1,8 @@
-div.col-md-12.alert.alert-info(ng-show="mostrarPlenoRenovadoLocalYVisitante", ng-cloak).
+div.col-md-12.alert.alert-info(ng-if="mostrarPlenoRenovadoLocalYVisitante", ng-cloak).
     La siguientes tablas contienes los resultados del pleno al 15 a partir de la 2014-2015, en
     la que el formato cambió. Por tanto, esta tabla no mostrará datos de la 2013-2014.
 
-div.table-responsive(ng-show="mostrarPlenoRenovadoLocalYVisitante", ng-cloak)
+div.table-responsive(ng-if="mostrarPlenoRenovadoLocalYVisitante", ng-cloak)
     table.table.table-bordered.col-md-12.col-sm-12.col-xs-12
         thead
             tr
@@ -31,17 +31,17 @@ div.table-responsive(ng-show="mostrarPlenoRenovadoLocalYVisitante", ng-cloak)
                 td 15
                 td(ng-repeat="res in resultadosPlenoRenovado")
                     // El mas frecuente en solitario
-                    span.badge.badge-verde(ng-show="resultadoPlenoMasFrecuenteEnSolitario(plenosRenovadosLocal, res, plenosRenovadosLocal[res])", ng-bind-template="{{plenosRenovadosLocal[res]}}")
-                    span.badge.badge-naranja(ng-show="resultadoPlenoMasFrecuenteEmpatado(plenosRenovadosLocal, res, plenosRenovadosLocal[res])", ng-bind-template="{{plenosRenovadosLocal[res]}}")
-                    span.badge.badge-rojo(ng-show="resultadoPlenoMenosFrecuente(plenosRenovadosLocal, res, plenosRenovadosLocal[res])", ng-bind-template="{{plenosRenovadosLocal[res]}}")
+                    span.badge.badge-verde(ng-if="resultadoPlenoMasFrecuenteEnSolitario(plenosRenovadosLocal, res, plenosRenovadosLocal[res])", ng-bind-template="{{plenosRenovadosLocal[res]}}")
+                    span.badge.badge-naranja(ng-if="resultadoPlenoMasFrecuenteEmpatado(plenosRenovadosLocal, res, plenosRenovadosLocal[res])", ng-bind-template="{{plenosRenovadosLocal[res]}}")
+                    span.badge.badge-rojo(ng-if="resultadoPlenoMenosFrecuente(plenosRenovadosLocal, res, plenosRenovadosLocal[res])", ng-bind-template="{{plenosRenovadosLocal[res]}}")
                 td(ng-bind-template="{{sumaDePlenosRenovadosComoLocal()}}")
             tr
                 td(colspan="17")
                 td(ng-bind-template="{{sumaDeVictoriasLocales() + sumaDeEmpates() + sumaDeVictoriasVisitantes() + sumaDePlenosRenovados()}}")
 
 
-div.table-responsive(ng-show="mostrarPlenoRenovadoLocalYVisitante", ng-cloak)
-    table.table.table-bordered.table-responsive(ng-show="mostrarPlenoRenovadoLocalYVisitante", ng-cloak)
+div.table-responsive(ng-if="mostrarPlenoRenovadoLocalYVisitante", ng-cloak)
+    table.table.table-bordered.table-responsive(ng-if="mostrarPlenoRenovadoLocalYVisitante", ng-cloak)
         thead
             tr
                 th(colspan="18") Datos como vistante
@@ -69,9 +69,9 @@ div.table-responsive(ng-show="mostrarPlenoRenovadoLocalYVisitante", ng-cloak)
                 td 15
                 td(ng-repeat="res in resultadosPlenoRenovado")
                     // El mas frecuente en solitario
-                    span.badge.badge-verde(ng-show="resultadoPlenoMasFrecuenteEnSolitario(plenosRenovadosVisitante, res, plenosRenovadosVisitante[res])", ng-bind-template="{{plenosRenovadosVisitante[res]}}")
-                    span.badge.badge-naranja(ng-show="resultadoPlenoMasFrecuenteEmpatado(plenosRenovadosVisitante, res, plenosRenovadosVisitante[res])", ng-bind-template="{{plenosRenovadosVisitante[res]}}")
-                    span.badge.badge-rojo(ng-show="resultadoPlenoMenosFrecuente(plenosRenovadosVisitante, res, plenosRenovadosVisitante[res])", ng-bind-template="{{plenosRenovadosVisitante[res]}}")
+                    span.badge.badge-verde(ng-if="resultadoPlenoMasFrecuenteEnSolitario(plenosRenovadosVisitante, res, plenosRenovadosVisitante[res])", ng-bind-template="{{plenosRenovadosVisitante[res]}}")
+                    span.badge.badge-naranja(ng-if="resultadoPlenoMasFrecuenteEmpatado(plenosRenovadosVisitante, res, plenosRenovadosVisitante[res])", ng-bind-template="{{plenosRenovadosVisitante[res]}}")
+                    span.badge.badge-rojo(ng-if="resultadoPlenoMenosFrecuente(plenosRenovadosVisitante, res, plenosRenovadosVisitante[res])", ng-bind-template="{{plenosRenovadosVisitante[res]}}")
                 td(ng-bind-template="{{sumaDePlenosRenovadosComoVisitante()}}")
             tr
                 td(colspan="17")
