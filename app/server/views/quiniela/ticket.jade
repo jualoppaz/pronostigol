@@ -82,7 +82,7 @@ block content
                                             td(ng-show="ticket.temporada != '2013-2014' && partido.fila == '15'", ng-bind-template="{{partido.resultadoConGoles}}").badge-pleno
                                             td(ng-show="ticket.temporada != '2013-2014' && partido.fila != '15'", ng-bind-template="{{partido.resultado}}").badge-pleno
 
-                                        tr(ng-show="ticket.partidos[0].pronosticos", ng-cloak)
+                                        tr(ng-show="ticket.partidos[0].pronosticos.length", ng-cloak)
                                             td Aciertos:
                                             td
                                             td
