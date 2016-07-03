@@ -15,13 +15,13 @@ div.table-responsive(style="margin-top: 15px", ng-if="mostrar.tablaAparicionesPo
                 td(ng-if="criterioOrdenacionAparicionesPorReintegro == sortFunction_reimbursement")
                     span(ng-bind-template="{{item.reintegro}}")
                 td(ng-if="criterioOrdenacionAparicionesPorReintegro == 'apariciones' && $index >=1 && ordenAparicionesPorReintegro", ng-cloak)
-                    span.badge.badge-rojo(ng-bind-template="{{printNumber(item.reintegro)}}")
+                    span.badge.badge-rojo(ng-bind-template="{{item.reintegro}}")
                 td(ng-if="criterioOrdenacionAparicionesPorReintegro == 'apariciones' && $index == 0 && ordenAparicionesPorReintegro", ng-cloak)
-                    span.badge.badge-verde(ng-bind-template="{{printNumber(item.reintegro)}}")
+                    span.badge.badge-verde(ng-bind-template="{{item.reintegro}}")
                 td(ng-if="criterioOrdenacionAparicionesPorReintegro == 'apariciones' && $index < aparicionesPorReintegro.length - 1 && !ordenAparicionesPorReintegro", ng-cloak)
-                    span.badge.badge-rojo(ng-bind-template="{{printNumber(item.reintegro)}}")
+                    span.badge.badge-rojo(ng-bind-template="{{item.reintegro}}")
                 td(ng-if="criterioOrdenacionAparicionesPorReintegro == 'apariciones' && $index == aparicionesPorReintegro.length - 1 && !ordenAparicionesPorReintegro", ng-cloak)
-                    span.badge.badge-verde(ng-bind-template="{{printNumber(item.reintegro)}}")
+                    span.badge.badge-verde(ng-bind-template="{{item.reintegro}}")
                 td(ng-bind-template="{{item.apariciones}}")
 
 
