@@ -25,8 +25,8 @@ block content
 
                     div.col-md-12.col-md-offset-0.col-sm-12.col-xs-12(ng-if="temporadas.length > 0 && competiciones.length > 0 && equipos.length > 0", style="margin-top:20px; padding: 0 0 0 0; background-color: white; border: 2px solid #0480be; border-radius: 4px", ng-cloak)
 
-                        tabset.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0;", ng-cloak)
-                            tab.col-md-6.col-sm-6.col-xs-6(style="padding: 0 0 0 0", heading="Personalizadas", active="primeraPestana", ng-click="activarPestana(1)")
+                        uib-tabset.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0;", ng-cloak)
+                            uib-tab.col-md-6.col-sm-6.col-xs-6(style="padding: 0 0 0 0", heading="Personalizadas", active="primeraPestana", ng-click="activarPestana(1)")
                                 div.col-md-12.col-sm-12.col-xs-12(style="border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; border-left: 1px solid #ddd;")
                                     div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0; margin-top: 15px").form-group
                                         label.col-md-2.col-md-offset-1.col-sm-2.col-sm-offset-1.col-xs-12.control-label Temporada:
@@ -36,10 +36,10 @@ block content
                                               ng-options="temporada.value as temporada.name for temporada in temporadas")
                                             input#temporadaSeleccionada(ng-model="form.temporadaSeleccionada", placeholder="Histórico", typeahead="temporada.value as temporada.name for temporada in temporadas | filter:{name:$viewValue}").form-control
                                         div.col-md-5.col-sm-5.hidden-xs
-                                            button(popover="{{ayudaTemporada}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                            button(uib-popover="{{ayudaTemporada}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                 | Ayuda
                                         div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 30px; padding-bottom: 10px")
-                                            button(popover="{{ayudaTemporada}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                            button(uib-popover="{{ayudaTemporada}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                 | Ayuda
 
                                     div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0").form-group
@@ -50,10 +50,10 @@ block content
                                               ng-options="competicion.value as competicion.name for competicion in competiciones")
                                             input#competicionSeleccionada(type="text", placeholder="Todas", ng-model="form.competicionSeleccionada", typeahead="competicion.value as competicion.name for competicion in competiciones | filter:{name:$viewValue}").form-control
                                         div.col-md-5.col-sm-5.hidden-xs
-                                            button(popover="{{ayudaCompeticion}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                            button(uib-popover="{{ayudaCompeticion}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                 | Ayuda
                                         div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 30px; padding-bottom: 10px")
-                                            button(popover="{{ayudaCompeticion}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                            button(uib-popover="{{ayudaCompeticion}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                 | Ayuda
 
                                     div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0").form-group
@@ -69,10 +69,10 @@ block content
                                                 input(type="radio", name="optionsRadios", value="partido", ng-model="form.opcionBusqueda")#radio3
                                                 | &nbsp; Partido
                                         div.col-md-5.col-sm-5.hidden-xs
-                                            button(popover="{{ayudaBusqueda}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                            button(uib-popover="{{ayudaBusqueda}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                 | Ayuda
                                         div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 35px; padding-bottom: 15px")
-                                            button(popover="{{ayudaBusqueda}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                            button(uib-popover="{{ayudaBusqueda}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                 | Ayuda
 
                                     div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0", ng-if="form.opcionBusqueda == 'equipo'", ng-cloak).form-group
@@ -113,7 +113,7 @@ block content
 
                                         include partials/plenoRenovadoLocalYVisitante
 
-                            tab.col-md-6.col-sm-6.col-xs-6(style="padding: 0 0 0 0", heading="Estándar", active="segundaPestana", ng-click="activarPestana(2)")
+                            uib-tab.col-md-6.col-sm-6.col-xs-6(style="padding: 0 0 0 0", heading="Estándar", active="segundaPestana", ng-click="activarPestana(2)")
 
                                 div.col-md-12.col-sm-12.col-xs-12(style="border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; border-left: 1px solid #ddd;")
                                     div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0; margin-top: 15px").form-group
@@ -122,11 +122,11 @@ block content
                                                 input(type="radio", name="optionsRadiosEstandar", value="combinacionesSucedidas", ng-checked="true", ng-model="form.opcionBusquedaEstandar")#radio1Estandar
                                                 | &nbsp; Combinaciones por ocurrencia
                                             div.col-md-5.col-sm-5.hidden-xs
-                                                button(popover="{{ayudaCombinacionesOcurrencia}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                button(uib-popover="{{ayudaCombinacionesOcurrencia}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                     | Ayuda
 
                                             div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 30px; padding-bottom: 10px")
-                                                button(popover="{{ayudaCombinacionesOcurrencia}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                button(uib-popover="{{ayudaCombinacionesOcurrencia}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                     | Ayuda
 
                                     div.col-md-12.col-sm-12.col-xs-12.form-group
@@ -173,6 +173,6 @@ block scripts
     script(src='/js/angular/loguedUser.js')
     script(src='/js/angular/quiniela/consultas.js')
     script(src='/js/angular/navbar.js')
-    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')
+    script(src='/js/angular/ui-bootstrap-tpls-1.3.3.js')
 
 

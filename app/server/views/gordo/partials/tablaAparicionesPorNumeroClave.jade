@@ -8,21 +8,22 @@ div.table-responsive(style="margin-top: 15px", ng-if="mostrar.tablaAparicionesPo
                     span(ng-if="criterioOrdenacionAparicionesPorNumeroClave == sortFunction_keyNumber && ordenAparicionesPorNumeroClave").fa.fa-caret-down
                 th
                     a.columnaOrdenable(ng-click="ordenarAparicionesPorNumeroClaveSegun('apariciones')", ng-bind-template="Apariciones", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorNumeroClave == sortFunction_keyNumberOccurrences && ordenAparicionesPorNumeroClave").fa.fa-caret-down
-                    span(ng-if="criterioOrdenacionAparicionesPorNumeroClave == sortFunction_keyNumberOccurrences && !ordenAparicionesPorNumeroClave").fa.fa-caret-up
+                    span(ng-if="criterioOrdenacionAparicionesPorNumeroClave == 'apariciones' && ordenAparicionesPorNumeroClave").fa.fa-caret-down
+                    span(ng-if="criterioOrdenacionAparicionesPorNumeroClave == 'apariciones' && !ordenAparicionesPorNumeroClave").fa.fa-caret-up
 
 
         tbody
-            tr(ng-repeat="item in numerosClave | orderBy:[criterioOrdenacionAparicionesPorNumeroClave, criterioAlternativoOrdenacionAparicionesPorNumeroClave]:ordenAparicionesPorNumeroClave")
-                td(ng-if="criterioOrdenacionAparicionesPorNumeroClave == sortFunction_keyNumberOccurrences && $index >=1 && ordenAparicionesPorNumeroClave", ng-cloak)
-                    span.badge.badge-rojo(ng-bind-template="{{item}}")
-                td(ng-if="criterioOrdenacionAparicionesPorNumeroClave == sortFunction_keyNumberOccurrences && $index == 0 && ordenAparicionesPorNumeroClave", ng-cloak)
-                    span.badge.badge-verde(ng-bind-template="{{item}}")
-                td(ng-if="criterioOrdenacionAparicionesPorNumeroClave == sortFunction_keyNumberOccurrences && $index <9 && !ordenAparicionesPorNumeroClave", ng-cloak)
-                    span.badge.badge-rojo(ng-bind-template="{{item}}")
-                td(ng-if="criterioOrdenacionAparicionesPorNumeroClave == sortFunction_keyNumberOccurrences && $index == 9 && !ordenAparicionesPorNumeroClave", ng-cloak)
-                    span.badge.badge-verde(ng-bind-template="{{item}}")
-                td(ng-if="criterioOrdenacionAparicionesPorNumeroClave == sortFunction_keyNumber", ng-cloak, ng-bind-template="{{item}}")
-                td(ng-bind-template="{{sortFunction_keyNumberOccurrences(item)}}")
+            tr(ng-if="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-repeat="item in aparicionesPorNumeroClave | orderBy:[criterioOrdenacionAparicionesPorNumeroClave, criterioAlternativoOrdenacionAparicionesPorNumeroClave]:ordenAparicionesPorNumeroClave")
+                td(ng-if="criterioOrdenacionAparicionesPorNumeroClave == sortFunction_keyNumber")
+                    span(ng-bind-template="{{item.numeroClave}}")
+                td(ng-if="criterioOrdenacionAparicionesPorNumeroClave == 'apariciones' && $index >=1 && ordenAparicionesPorNumeroClave", ng-cloak)
+                    span.badge.badge-rojo(ng-bind-template="{{item.numeroClave}}")
+                td(ng-if="criterioOrdenacionAparicionesPorNumeroClave == 'apariciones' && $index == 0 && ordenAparicionesPorNumeroClave", ng-cloak)
+                    span.badge.badge-verde(ng-bind-template="{{item.numeroClave}}")
+                td(ng-if="criterioOrdenacionAparicionesPorNumeroClave == 'apariciones' && $index < aparicionesPorNumeroClave.length - 1 && !ordenAparicionesPorNumeroClave", ng-cloak)
+                    span.badge.badge-rojo(ng-bind-template="{{item.numeroClave}}")
+                td(ng-if="criterioOrdenacionAparicionesPorNumeroClave == 'apariciones' && $index == aparicionesPorNumeroClave.length - 1 && !ordenAparicionesPorNumeroClave", ng-cloak)
+                    span.badge.badge-verde(ng-bind-template="{{item.numeroClave}}")
+                td(ng-bind-template="{{item.apariciones}}")
 
 

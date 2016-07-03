@@ -37,13 +37,13 @@ block content
                                     li.list-group-item(ng-click="mostrarQuinielasDeTemporada('2015-2016')").pointer Temporada 2015-2016
 
 
-                                //ul.pagination-sm.pagination(boundary-links="true", total-items="totalItems", ng-model="currentPage", previous-text="‹", next-text="›", first-text="«", last-text="»")
+                                //ul.pagination-sm.uib-pagination(boundary-links="true", total-items="totalItems", ng-model="currentPage", previous-text="‹", next-text="›", first-text="«", last-text="»")
                                     li(ng-if="boundaryLinks", ng-class="{disabled: noPrevious()}" class="ng-scope disabled")
                                         a(href="", ng-click="selectPage(1)") «
 
                                 //ul
                                     li(ng-repeat="item in data") {{item.name}}
-                                //pagination(num-pages="noOfPages", current-page="currentPage").pagination-small
+                                //uib-pagination(num-pages="noOfPages", current-page="currentPage").pagination-small
 
 
 
@@ -70,7 +70,7 @@ block content
 
                                 // Paginador manual - FUNCIONA
 
-                                //ul.pagination(ng-repeat="pagina in paginas")
+                                //ul.uib-pagination(ng-repeat="pagina in paginas")
                                     li(ng-show="pagina == currentPage").active
                                         a(href="#", ng-click="actualizarPagina(pagina)").active {{pagina}}
                                     li(ng-show="pagina != currentPage")
@@ -82,7 +82,7 @@ block content
 
 
 
-                                pagination(items-per-page="ticketsPerPage", boundary-links="true", total-items="totalItems", ng-model="currentPage", previous-text="<", next-text=">", first-text="Inicio", last-text="Fin").pagination-sm.abel
+                                uib-pagination(items-per-page="ticketsPerPage", boundary-links="true", total-items="totalItems", ng-model="currentPage", previous-text="<", next-text=">", first-text="Inicio", last-text="Fin").pagination-sm.abel
 
 
                                 //pre Total Items: {{totalItems}}
@@ -101,5 +101,5 @@ block scripts
     script(src='/js/angular/loguedUser.js')
     script(src='/js/angular/quiniela/tickets.js')
     script(src='/js/angular/navbar.js')
-    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')
+    script(src='/js/angular/ui-bootstrap-tpls-1.3.3.js')
 

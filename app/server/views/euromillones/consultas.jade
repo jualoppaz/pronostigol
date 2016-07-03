@@ -36,10 +36,10 @@ block content
                                               ng-options="temporada.value as temporada.name for temporada in temporadas")
                                             input#temporadaSeleccionada(ng-model="form.temporadaSeleccionada", placeholder="Histórico", typeahead="temporada.value as temporada.name for temporada in temporadas | filter:{name:$viewValue}").form-control
                                         div.col-md-5.col-sm-5.hidden-xs
-                                            button(popover="{{ayudaTemporada}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                            button(uib-popover="{{ayudaTemporada}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                 | Ayuda
                                         div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 30px; padding-bottom: 10px")
-                                            button(popover="{{ayudaTemporada}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                            button(uib-popover="{{ayudaTemporada}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                 | Ayuda
 
                                     div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0").form-group
@@ -50,10 +50,10 @@ block content
                                               ng-options="competicion.value as competicion.name for competicion in competiciones")
                                             input#competicionSeleccionada(type="text", placeholder="Todas", ng-model="form.competicionSeleccionada", typeahead="competicion.value as competicion.name for competicion in competiciones | filter:{name:$viewValue}").form-control
                                         div.col-md-5.col-sm-5.hidden-xs
-                                            button(popover="{{ayudaCompeticion}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                            button(uib-popover="{{ayudaCompeticion}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                 | Ayuda
                                         div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 30px; padding-bottom: 10px")
-                                            button(popover="{{ayudaCompeticion}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                            button(uib-popover="{{ayudaCompeticion}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                 | Ayuda
 
                                     div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0").form-group
@@ -69,10 +69,10 @@ block content
                                                 input(type="radio", name="optionsRadios", value="partido", ng-model="form.opcionBusqueda")#radio3
                                                 | &nbsp; Partido
                                         div.col-md-5.col-sm-5.hidden-xs
-                                            button(popover="{{ayudaBusqueda}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                            button(uib-popover="{{ayudaBusqueda}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                 | Ayuda
                                         div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 35px; padding-bottom: 15px")
-                                            button(popover="{{ayudaBusqueda}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                            button(uib-popover="{{ayudaBusqueda}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                 | Ayuda
 
                                     div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0", ng-show="form.opcionBusqueda == 'equipo'", ng-cloak).form-group
@@ -126,30 +126,30 @@ block content
                                                 input(type="radio", value="aparicionesPorNumero", ng-model="form.opcionBusquedaEstandar.name")#radio1Estandar
                                                 | &nbsp; Apariciones por N&uacute;mero
                                             div.col-md-5.col-sm-5.hidden-xs
-                                                button(popover="{{ayuda.aparicionesPorNumero}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                button(uib-popover="{{ayuda.aparicionesPorNumero}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                     | Ayuda
                                             div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 30px; padding-bottom: 10px")
-                                                button(popover="{{ayuda.aparicionesPorNumero}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                button(uib-popover="{{ayuda.aparicionesPorNumero}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                     | Ayuda
                                         div.col-md-12.form-group
                                             label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
                                                 input(type="radio", value="aparicionesPorResultado", ng-model="form.opcionBusquedaEstandar.name")#radio2Estandar
                                                 | &nbsp; Apariciones por Resultado (Sin Estrellas)
                                             div.col-md-5.col-sm-5.hidden-xs
-                                                button(popover="{{ayuda.aparicionesPorResultado}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                button(uib-popover="{{ayuda.aparicionesPorResultado}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                     | Ayuda
                                             div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 30px; padding-bottom: 10px")
-                                                button(popover="{{ayuda.aparicionesPorResultado}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                button(uib-popover="{{ayuda.aparicionesPorResultado}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                     | Ayuda
                                         div.col-md-12.form-group
                                             label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
                                                 input(type="radio", value="aparicionesPorResultadoConEstrellas", ng-model="form.opcionBusquedaEstandar.name")#radio2Estandar
                                                 | &nbsp; Apariciones por Resultado (Con Estrellas)
                                             div.col-md-5.col-sm-5.hidden-xs
-                                                button(popover="{{ayuda.aparicionesPorResultadoConEstrellas}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                button(uib-popover="{{ayuda.aparicionesPorResultadoConEstrellas}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                     | Ayuda
                                             div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 30px; padding-bottom: 10px")
-                                                button(popover="{{ayuda.aparicionesPorResultadoConEstrellas}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                button(uib-popover="{{ayuda.aparicionesPorResultadoConEstrellas}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                     | Ayuda
 
                                         div.col-md-12.form-group
@@ -157,10 +157,10 @@ block content
                                                 input(type="radio", value="aparicionesPorEstrella", ng-model="form.opcionBusquedaEstandar.name")#radio3Estandar
                                                 | &nbsp; Apariciones por Estrellas
                                             div.col-md-5.col-sm-5.hidden-xs
-                                                button(popover="{{ayuda.aparicionesPorEstrella}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                button(uib-popover="{{ayuda.aparicionesPorEstrella}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                     | Ayuda
                                             div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 30px; padding-bottom: 10px")
-                                                button(popover="{{ayuda.aparicionesPorEstrella}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                button(uib-popover="{{ayuda.aparicionesPorEstrella}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                     | Ayuda
 
                                         div.col-md-12.form-group
@@ -168,10 +168,10 @@ block content
                                                 input(type="radio", value="aparicionesPorParejaDeEstrellas", ng-model="form.opcionBusquedaEstandar.name")#radio3Estandar
                                                 | &nbsp; Apariciones por Parejas de Estrellas
                                             div.col-md-5.col-sm-5.hidden-xs
-                                                button(popover="{{ayuda.aparicionesPorParejaDeEstrellas}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                button(uib-popover="{{ayuda.aparicionesPorParejaDeEstrellas}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                     | Ayuda
                                             div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 30px; padding-bottom: 10px")
-                                                button(popover="{{ayuda.aparicionesPorParejaDeEstrellas}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                button(uib-popover="{{ayuda.aparicionesPorParejaDeEstrellas}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                     | Ayuda
 
 
@@ -185,9 +185,10 @@ block content
                                     div.col-md-12.col-sm-12.col-xs-12#panelesEstandar
 
                                         div.text-center
-                                            pagination(ng-show="tickets.length > 0",
+                                            uib-pagination(ng-show="numOfPages > 1",
                                             ng-cloak,
                                             items-per-page="ticketsPerPage",
+                                            boundary-link-numbers="true",
                                             boundary-links="true",
                                             total-items="totalItems",
                                             rotate="true",
@@ -260,7 +261,7 @@ block scripts
     script(src='/js/angular/loguedUser.js')
     script(src='/js/angular/euromillones/consultas.js')
     script(src='/js/angular/navbar.js')
-    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')
+    script(src='/js/angular/ui-bootstrap-tpls-1.3.3.js')
     //script(src='/js/bindonce.js')
 
 

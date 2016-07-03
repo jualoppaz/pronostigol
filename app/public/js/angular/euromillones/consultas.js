@@ -14,17 +14,11 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
     $scope.maxSize = 5;
 
     $scope.currentPage = 1;
-    $scope.ticketsPerPage = 10;
 
-    $scope.numerosBolas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-        11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 
-        24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 
-        37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 
-        50];
+    var ticketsPerPage_default = 20;
+    $scope.ticketsPerPage = ticketsPerPage_default;
 
-    $scope.numerosEstrellas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-
-    $scope.parejasDeEstrellas = [
+    /*$scope.parejasDeEstrellas = [
         {estrellas: [{numero: 1},{numero: 2}]}, {estrellas: [{numero: 1},{numero: 3}]},
         {estrellas: [{numero: 1},{numero: 4}]}, {estrellas: [{numero: 1},{numero: 5}]},
         {estrellas: [{numero: 1},{numero: 5}]}, {estrellas: [{numero: 1},{numero: 6}]},
@@ -65,13 +59,11 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         {estrellas: [{numero: 9},{numero: 10}]}, {estrellas: [{numero: 9},{numero: 11}]},
 
         {estrellas: [{numero: 10},{numero: 11}]}
-    ];
+    ];*/
 
     $scope.form = {};
 
     $scope.form.opcionBusqueda = "general";
-
-    //$scope.form.opcionBusquedaEstandar = "combinacionesSucedidas";
 
     $scope.form.opcionBusquedaEstandar = {
         name: "aparicionesPorNumero"
@@ -125,13 +117,13 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
         $scope.ordenAparicionesPorNumero = null;
         $scope.ordenAparicionesPorResultado = null;
-        $scope.ordenAparicionesPorResultadoConEstrellas = null;
-        $scope.ordenAparicionesPorEstrella = null;
-        $scope.ordenAparicionesPorParejaDeEstrellas = null;
+        $scope.ordenAparicionesPorResultadoConReintegro = null;
+        $scope.ordenAparicionesPorReintegro = null;
 
         $scope.tickets = [];
 
-
+        $scope.currentPage = 1;
+        $scope.ticketsPerPage = ticketsPerPage_default;
     };
 
     $scope.consultarEstandar = function(){
@@ -145,26 +137,14 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
             console.log("/api/euromillones/historical/aparicionesPorNumero");
             $http.get('/api/euromillones/historical/aparicionesPorNumero')
                 .success(function(data){
-
-                    /*$scope.aparicionesPorNumero = $scope.inicializarAparicionesPorNumero();
-
-                    // Recorremos todos lo numeros para poblar el resto del json recibido
-                    for(i=0;i<data.length; i++){
-
-                        for(j=0;j<$scope.aparicionesPorNumero.length;j++){
-                            if($scope.aparicionesPorNumero[j].numero == data[i].numero){
-                                $scope.aparicionesPorNumero[j].apariciones = Number(data[i].apariciones);
-                            }
-                        }
-                    }*/
                     
                     $scope.aparicionesPorNumero = data;
 
                     $scope.criterioOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
                     
-                    $scope.criterioAlternativoOrdenacionAparicionesPorNumero = $scope.sortFunction_numberOccurrences;
+                    $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
 
-                    $scope.actualizarPaginacion($scope.aparicionesPorNumero, 50, 10);
+                    $scope.actualizarPaginacion($scope.aparicionesPorNumero, $scope.aparicionesPorNumero.length, $scope.ticketsPerPage);
 
                     $scope.mostrar.tablaAparicionesPorNumero = true;
 
@@ -183,41 +163,13 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
             $http.get('/api/euromillones/historical/aparicionesPorResultado')
                 .success(function(data){
 
-                    /*for(i=0;i<$scope.aparicionesPorResultado.length; i++){ // Recorremos las combinaciones dadas
-
-                        var resultadoString = "";
-
-                        for(j=0;j<$scope.aparicionesPorResultado[i].numeros.length;j++){ // Numeros
-
-                            var numeroComoString = $scope.aparicionesPorResultado[i].numeros[j].numero.toString();
-
-                            if(numeroComoString.length < 2){
-                                numeroComoString = "0" + numeroComoString;
-                                $scope.aparicionesPorResultado[i].numeros[j].numero = numeroComoString;
-                            }
-
-                            if(resultadoString == ""){
-                                resultadoString += numeroComoString;
-                            }else{
-                                resultadoString += "," + numeroComoString;
-                            }
-
-
-                        }
-
-                        console.log("Resultado: " + resultadoString);
-
-                        $scope.aparicionesPorResultado[i].resultadoString = resultadoString;
-
-                    }*/
-
                     $scope.aparicionesPorResultado = data;
 
                     $scope.criterioOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
 
                     $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
 
-                    $scope.actualizarPaginacion($scope.aparicionesPorResultado, null, 10);
+                    $scope.actualizarPaginacion($scope.aparicionesPorResultado, null, $scope.ticketsPerPage);
 
                     $scope.mostrar.tablaAparicionesPorResultado = true;
 
@@ -238,58 +190,11 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
                     $scope.aparicionesPorResultadoConEstrellas = data;
 
-                    /*for(i=0;i<$scope.aparicionesPorResultadoConEstrellas.length; i++){ // Recorremos las combinaciones dadas
-
-                        var resultadoString = "";
-
-                        for(j=0;j<$scope.aparicionesPorResultadoConEstrellas[i].numeros.length;j++){ // Numeros
-
-                            var numeroComoString = $scope.aparicionesPorResultadoConEstrellas[i].numeros[j].numero.toString();
-
-                            if(numeroComoString.length < 2){
-                                numeroComoString = "0" + numeroComoString;
-                                $scope.aparicionesPorResultadoConEstrellas[i].numeros[j].numero = numeroComoString;
-                            }
-
-                            if(resultadoString == ""){
-                                resultadoString += numeroComoString;
-                            }else{
-                                resultadoString += "," + numeroComoString;
-                            }
-
-
-                        }
-
-                        for(j=0;j<$scope.aparicionesPorResultadoConEstrellas[i].estrellas.length;j++){ // Numeros
-
-                            var numeroComoString = $scope.aparicionesPorResultadoConEstrellas[i].estrellas[j].numero.toString();
-
-                            if(numeroComoString.length < 2){
-                                numeroComoString = "0" + numeroComoString;
-                                $scope.aparicionesPorResultadoConEstrellas[i].estrellas[j].numero = numeroComoString;
-                            }
-
-                            if(resultadoString == ""){
-                                resultadoString += numeroComoString;
-                            }else{
-                                resultadoString += "," + numeroComoString;
-                            }
-
-
-                        }
-
-                        console.log("Resultado: " + resultadoString);
-
-                        $scope.aparicionesPorResultadoConEstrellas[i].resultadoString = resultadoString;
-
-                    }
-                    */
-
                     $scope.criterioOrdenacionAparicionesPorResultadoConEstrellas = $scope.sortFunction_resultWithStars;
 
                     $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConEstrellas = "apariciones";
 
-                    $scope.actualizarPaginacion($scope.aparicionesPorResultadoConEstrellas, null, 10);
+                    $scope.actualizarPaginacion($scope.aparicionesPorResultadoConEstrellas, null, $scope.ticketsPerPage);
 
                     $scope.mostrar.tablaAparicionesPorResultadoConEstrellas = true;
 
@@ -308,24 +213,11 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
             $http.get('/api/euromillones/historical/aparicionesPorEstrella')
                 .success(function(data){
 
-                    /*$scope.aparicionesPorEstrella = $scope.inicializaraparicionesPorEstrella();
-
-                    // Recorremos todos lo numeros para poblar el resto del json recibido
-                    for(i=0;i<data.length; i++){
-
-                        for(j=0;j<$scope.aparicionesPorEstrella.length;j++){
-
-                            if($scope.aparicionesPorEstrella[j].estrella == data[i].estrella){
-                                $scope.aparicionesPorEstrella[j].apariciones = Number(data[i].apariciones);
-                            }
-                        }
-                    }*/
-
                     $scope.aparicionesPorEstrella = data;
 
                     $scope.criterioOrdenacionAparicionesPorEstrella = $scope.sortFunction_star;
 
-                    $scope.criterioAlternativoOrdenacionAparicionesPorEstrella = $scope.sortFunction_starOccurrences;
+                    $scope.criterioAlternativoOrdenacionAparicionesPorEstrella = "apariciones";
 
                     $scope.actualizarPaginacion($scope.aparicionesPorEstrella, null, 11);
 
@@ -346,27 +238,13 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
             $http.get('/api/euromillones/historical/aparicionesPorParejaDeEstrellas')
                 .success(function(data){
 
-                    /*$scope.aparicionesPorParejaDeEstrellas = $scope.inicializarAparicionesPorParejaDeEstrellas(data);
-
-                    // Recorremos todos lo numeros para poblar el resto del json recibido
-                    for(var i=0;i<data.length; i++){
-
-                        for(var j=0;j<$scope.aparicionesPorParejaDeEstrellas.length;j++){
-
-                            if(Number($scope.aparicionesPorParejaDeEstrellas[j].estrellas[0].numero) == Number(data[i].estrellas[0].numero)
-                                && Number($scope.aparicionesPorParejaDeEstrellas[j].estrellas[1].numero) == Number(data[i].estrellas[1].numero)){
-                                $scope.aparicionesPorParejaDeEstrellas[j].apariciones = Number(data[i].apariciones);
-                            }
-                        }
-                    }*/
-
                     $scope.aparicionesPorParejaDeEstrellas = data;
 
                     $scope.criterioOrdenacionAparicionesPorParejaDeEstrellas = $scope.sortFunction_starsPair;
 
-                    $scope.criterioAlternativoOrdenacionAparicionesPorParejaDeEstrellas = $scope.sortFunction_starsPairOccurrences;
+                    $scope.criterioAlternativoOrdenacionAparicionesPorParejaDeEstrellas = "apariciones";
 
-                    $scope.actualizarPaginacion($scope.aparicionesPorParejaDeEstrellas, $scope.parejasDeEstrellas.length, 10);
+                    $scope.actualizarPaginacion($scope.aparicionesPorParejaDeEstrellas, $scope.aparicionesPorParejaDeEstrellas.length, $scope.ticketsPerPage);
 
                     $scope.mostrar.tablaAparicionesPorParejaDeEstrellas = true;
 
@@ -461,7 +339,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
             if($scope.criterioOrdenacionAparicionesPorNumero == $scope.sortFunction_number){ //Sólo vamos a invertir el orden
                 
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = $scope.sortFunction_numberOccurrences;
+                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
 
                 if($scope.ordenAparicionesPorNumero == null){
                     $scope.ordenAparicionesPorNumero = true;
@@ -471,14 +349,14 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
             }else{ // Cambiamos de criterio
                 $scope.criterioOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = $scope.sortFunction_numberOccurrences;
+                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
 
                 $scope.ordenAparicionesPorNumero = false;
 
             }
 
         }else if(criterio == "apariciones"){
-            if($scope.criterioOrdenacionAparicionesPorNumero == $scope.sortFunction_numberOccurrences){ //Sólo vamos a invertir el orden
+            if($scope.criterioOrdenacionAparicionesPorNumero == "apariciones"){ //Sólo vamos a invertir el orden
                 
                 $scope.criterioAlternativoOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
 
@@ -489,7 +367,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.ordenAparicionesPorNumero = !$scope.ordenAparicionesPorNumero;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorNumero = $scope.sortFunction_numberOccurrences;
+                $scope.criterioOrdenacionAparicionesPorNumero = "apariciones";
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
 
@@ -592,7 +470,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
             if($scope.criterioOrdenacionAparicionesPorEstrella == $scope.sortFunction_star){ //Sólo vamos a invertir el orden
                 
-                $scope.criterioAlternativoOrdenacionAparicionesPorEstrella = $scope.sortFunction_starOccurrences;
+                $scope.criterioAlternativoOrdenacionAparicionesPorEstrella = "apariciones";
 
                 if($scope.ordenAparicionesPorEstrella == null){
                     $scope.ordenAparicionesPorEstrella = true;
@@ -602,14 +480,14 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
             }else{ // Cambiamos de criterio
                 $scope.criterioOrdenacionAparicionesPorEstrella = $scope.sortFunction_star;
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorEstrella = $scope.sortFunction_starOccurrences;
+                $scope.criterioAlternativoOrdenacionAparicionesPorEstrella = "apariciones";
 
                 $scope.ordenAparicionesPorEstrella = false;
 
             }
 
         }else if(criterio == "apariciones"){
-            if($scope.criterioOrdenacionAparicionesPorEstrella == $scope.sortFunction_starOccurrences){ //Sólo vamos a invertir el orden
+            if($scope.criterioOrdenacionAparicionesPorEstrella == "apariciones"){ //Sólo vamos a invertir el orden
                 
                 $scope.criterioAlternativoOrdenacionAparicionesPorEstrella = $scope.sortFunction_star;
 
@@ -620,7 +498,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.ordenAparicionesPorEstrella = !$scope.ordenAparicionesPorEstrella;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorEstrella = $scope.sortFunction_starOccurrences;
+                $scope.criterioOrdenacionAparicionesPorEstrella = "apariciones";
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorEstrella = $scope.sortFunction_star;
 
@@ -635,7 +513,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
             if($scope.criterioOrdenacionAparicionesPorParejaDeEstrellas == $scope.sortFunction_starsPair){ //Sólo vamos a invertir el orden
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorParejaDeEstrellas = $scope.sortFunction_starsPairOccurrences;
+                $scope.criterioAlternativoOrdenacionAparicionesPorParejaDeEstrellas = "apariciones";
 
                 if($scope.ordenAparicionesPorParejaDeEstrellas == null){
                     $scope.ordenAparicionesPorParejaDeEstrellas = true;
@@ -645,14 +523,14 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
             }else{ // Cambiamos de criterio
                 $scope.criterioOrdenacionAparicionesPorParejaDeEstrellas = $scope.sortFunction_starsPair;
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorParejaDeEstrellas = $scope.sortFunction_starsPairOccurrences;
+                $scope.criterioAlternativoOrdenacionAparicionesPorParejaDeEstrellas = "apariciones";
 
                 $scope.ordenAparicionesPorParejaDeEstrellas = false;
 
             }
 
         }else if(criterio == "apariciones"){
-            if($scope.criterioOrdenacionAparicionesPorParejaDeEstrellas == $scope.sortFunction_starsPairOccurrences){ //Sólo vamos a invertir el orden
+            if($scope.criterioOrdenacionAparicionesPorParejaDeEstrellas == "apariciones"){ //Sólo vamos a invertir el orden
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorParejaDeEstrellas = $scope.sortFunction_starsPair;
 
@@ -663,7 +541,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.ordenAparicionesPorParejaDeEstrellas = !$scope.ordenAparicionesPorParejaDeEstrellas;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorParejaDeEstrellas = $scope.sortFunction_starsPairOccurrences;
+                $scope.criterioOrdenacionAparicionesPorParejaDeEstrellas = "apariciones";
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorParejaDeEstrellas = $scope.sortFunction_starsPair;
 
@@ -675,26 +553,11 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
     // Funciones para ordenacion
 
-    $scope.sortFunction_number = function(number){
+    $scope.sortFunction_number = function(ticket){
 
         var res = "";
 
-        res = Number(number);
-
-        return res;
-    };
-
-    $scope.sortFunction_numberOccurrences = function(number){
-
-        var res = 0;
-
-        for(var i=0; i<$scope.aparicionesPorNumero.length; i++){
-
-            if($scope.aparicionesPorNumero[i].numero == number){
-                res = $scope.aparicionesPorNumero[i].apariciones;
-                break;
-            }
-        }
+        res = Number(ticket.numero);
 
         return res;
     };
@@ -739,25 +602,11 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         return res;
     };
 
-    $scope.sortFunction_star = function(star){
+    $scope.sortFunction_star = function(ticket){
 
         var res = "";
 
-        res = Number(star);
-
-        return res;
-    };
-
-    $scope.sortFunction_starOccurrences = function(star){
-
-        var res = 0;
-
-        for(var i=0; i<$scope.aparicionesPorEstrella.length; i++){
-            if($scope.aparicionesPorEstrella[i].estrella == star){
-                res = $scope.aparicionesPorEstrella[i].apariciones;
-                break;
-            }
-        }
+        res = Number(ticket.estrella);
 
         return res;
     };
@@ -771,26 +620,6 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         var star2 = $scope.printNumber(starPair.estrellas[1].numero);
 
         res = star1 + star2;
-
-        return res;
-
-    };
-
-    $scope.sortFunction_starsPairOccurrences = function(starPair){
-
-        var res = 0;
-
-        var star1 = Number(starPair.estrellas[0].numero);
-
-        var star2 = Number(starPair.estrellas[1].numero);
-
-        for(var i=0; i<$scope.aparicionesPorParejaDeEstrellas.length; i++){
-            if(Number($scope.aparicionesPorParejaDeEstrellas[i].estrellas[0].numero) == Number(star1) &&
-               Number($scope.aparicionesPorParejaDeEstrellas[i].estrellas[1].numero) == Number(star2)){
-                res = $scope.aparicionesPorParejaDeEstrellas[i].apariciones;
-                break;
-            }
-        }
 
         return res;
 

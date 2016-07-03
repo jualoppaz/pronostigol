@@ -64,7 +64,7 @@ block content
 
                                 // Paginador manual - FUNCIONA
 
-                                //ul.pagination(ng-repeat="pagina in paginas")
+                                //ul.uib-pagination(ng-repeat="pagina in paginas")
                                     li(ng-show="pagina == currentPage").active
                                         a(href="#", ng-click="actualizarPagina(pagina)").active {{pagina}}
                                     li(ng-show="pagina != currentPage")
@@ -76,7 +76,7 @@ block content
 
 
 
-                                pagination(items-per-page="ticketsPerPage", boundary-links="true", total-items="totalItems", ng-model="currentPage", previous-text="<", next-text=">", first-text="Inicio", last-text="Fin").pagination-sm.abel
+                                uib-pagination(items-per-page="ticketsPerPage", boundary-links="true", total-items="totalItems", ng-model="currentPage", previous-text="<", next-text=">", first-text="Inicio", last-text="Fin").pagination-sm.abel
 
 
                                 //pre Total Items: {{totalItems}}
@@ -95,5 +95,5 @@ block scripts
     script(src='/js/angular/loguedUser.js')
     script(src='/js/angular/gordo/tickets.js')
     script(src='/js/angular/navbar.js')
-    script(src='/js/angular/ui-bootstrap-tpls-0.11.2.js')
+    script(src='/js/angular/ui-bootstrap-tpls-1.3.3.js')
 

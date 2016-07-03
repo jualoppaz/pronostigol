@@ -8,23 +8,20 @@ div.table-responsive(style="margin-top: 15px", ng-if="mostrar.tablaAparicionesPo
                     span(ng-if="criterioOrdenacionAparicionesPorEstrella == sortFunction_star && ordenAparicionesPorEstrella").fa.fa-caret-down
                 th
                     a.columnaOrdenable(ng-click="ordenarAparicionesPorEstrellaSegun('apariciones')", ng-bind-template="Apariciones", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorEstrella == sortFunction_starOccurrences && ordenAparicionesPorEstrella").fa.fa-caret-down
-                    span(ng-if="criterioOrdenacionAparicionesPorEstrella == sortFunction_starOccurrences && !ordenAparicionesPorEstrella").fa.fa-caret-up
-
-
+                    span(ng-if="criterioOrdenacionAparicionesPorEstrella == 'apariciones' && ordenAparicionesPorEstrella").fa.fa-caret-down
+                    span(ng-if="criterioOrdenacionAparicionesPorEstrella == 'apariciones' && !ordenAparicionesPorEstrella").fa.fa-caret-up
         tbody
-
-            tr(ng-if="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-repeat="item in numerosEstrellas | orderBy:[criterioOrdenacionAparicionesPorEstrella, criterioAlternativoOrdenacionAparicionesPorEstrella]:ordenAparicionesPorEstrella")
-                td(ng-if="criterioOrdenacionAparicionesPorEstrella == sortFunction_starOccurrences && $index >=1 && ordenAparicionesPorEstrella", ng-cloak)
-                    span.badge.badge-rojo(ng-bind-template="{{printNumber(item)}}")
-                td(ng-if="criterioOrdenacionAparicionesPorEstrella == sortFunction_starOccurrences && $index == 0 && ordenAparicionesPorEstrella", ng-cloak)
-                    span.badge.badge-verde(ng-bind-template="{{printNumber(item)}}")
-                td(ng-if="criterioOrdenacionAparicionesPorEstrella == sortFunction_starOccurrences && $index <11 && !ordenAparicionesPorEstrella", ng-cloak)
-                    span.badge.badge-rojo(ng-bind-template="{{printNumber(item)}}")
-                td(ng-if="criterioOrdenacionAparicionesPorEstrella == sortFunction_starOccurrences && $index == 11 && !ordenAparicionesPorEstrella", ng-cloak)
-                    span.badge.badge-verde(ng-bind-template="{{printNumber(item)}}")
-                td(ng-if="criterioOrdenacionAparicionesPorEstrella == sortFunction_star", ng-cloak, ng-bind-template="{{printNumber(item)}}")
-
-                td(ng-bind-template="{{sortFunction_starOccurrences(item)}}")
+            tr(ng-if="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-repeat="item in aparicionesPorEstrella | orderBy:[criterioOrdenacionAparicionesPorEstrella, criterioAlternativoOrdenacionAparicionesPorEstrella]:ordenAparicionesPorEstrella")
+                td(ng-if="criterioOrdenacionAparicionesPorEstrella == sortFunction_star")
+                    span(ng-bind-template="{{item.estrella}}")
+                td(ng-if="criterioOrdenacionAparicionesPorEstrella == 'apariciones' && $index >=1 && ordenAparicionesPorEstrella", ng-cloak)
+                    span.badge.badge-rojo(ng-bind-template="{{printNumber(item.estrella)}}")
+                td(ng-if="criterioOrdenacionAparicionesPorEstrella == 'apariciones' && $index == 0 && ordenAparicionesPorEstrella", ng-cloak)
+                    span.badge.badge-verde(ng-bind-template="{{printNumber(item.estrella)}}")
+                td(ng-if="criterioOrdenacionAparicionesPorEstrella == 'apariciones' && $index < aparicionesPorEstrella.length - 1 && !ordenAparicionesPorEstrella", ng-cloak)
+                    span.badge.badge-rojo(ng-bind-template="{{printNumber(item.estrella)}}")
+                td(ng-if="criterioOrdenacionAparicionesPorEstrella == 'apariciones' && $index == aparicionesPorEstrella.length - 1 && !ordenAparicionesPorEstrella", ng-cloak)
+                    span.badge.badge-verde(ng-bind-template="{{printNumber(item.estrella)}}")
+                td(ng-bind-template="{{item.apariciones}}")
 
 
