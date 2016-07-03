@@ -18,7 +18,7 @@ block content
                             label.col-sm-2.control-label Año:
                             div.col-sm-4
                                 //input(ng-model="quiniela.temporada", placeholder="XXXX-YYYY").form-control
-                                input(ng-model="ticket.anyo", placeholder="XXXX", typeahead="anyo.value as anyo.name for anyo in anyos | filter:{name:$viewValue}").form-control
+                                input(ng-model="ticket.anyo", placeholder="XXXX", uib-typeahead="anyo.value as anyo.name for anyo in anyos | filter:{name:$viewValue}").form-control
                         div.form-group
                             label.col-sm-2.control-label Fecha:
                             div.col-sm-4

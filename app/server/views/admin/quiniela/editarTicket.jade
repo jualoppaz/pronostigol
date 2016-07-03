@@ -18,7 +18,7 @@ block content
                             label.col-sm-2.control-label Temporada:
                             div.col-sm-4
                                 //input(ng-model="ticket.temporada", placeholder="XXXX-YYYY").form-control
-                                input(ng-model="ticket.temporada", placeholder="XXXX-YYYY", , typeahead="temporada.value as temporada.name for temporada in temporadas | filter:{name:$viewValue}").form-control
+                                input(ng-model="ticket.temporada", placeholder="XXXX-YYYY", , uib-typeahead="temporada.value as temporada.name for temporada in temporadas | filter:{name:$viewValue}").form-control
                         div.form-group
                             label.col-sm-2.control-label Modalidad:
                             div.col-sm-4
@@ -79,19 +79,19 @@ block content
                                                 input.form-control(ng-model="partido.temporada")
                                             td(style="min-width: 150px")
                                                 //input.form-control(ng-model="partido.competicion")
-                                                input#competicionSeleccionada(type="text", placeholder="Todas", ng-model="partido.competicion", typeahead="competicion.value as competicion.name for competicion in competiciones | filter:{name:$viewValue}").form-control
+                                                input#competicionSeleccionada(type="text", placeholder="Todas", ng-model="partido.competicion", uib-typeahead="competicion.value as competicion.name for competicion in competiciones | filter:{name:$viewValue}").form-control
                                             td
                                                 input.form-control(ng-model="partido.jornada").text-center
                                             td(style="min-width: 200px")
                                                 //input.form-control(ng-model="partido.local")
-                                                input#equipoSeleccionado.form-control(ng-model="partido.local", placeholder="Equipo", typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
+                                                input#equipoSeleccionado.form-control(ng-model="partido.local", placeholder="Equipo", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
                                             td
                                                 input.form-control(ng-model="partido.golesLocal").text-center
                                             td
                                                 input.form-control(ng-model="partido.golesVisitante").text-center
                                             td(style="min-width: 200px")
                                                 //input.form-control(ng-model="partido.visitante")
-                                                input#equipoSeleccionado.form-control(ng-model="partido.visitante", placeholder="Equipo", typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
+                                                input#equipoSeleccionado.form-control(ng-model="partido.visitante", placeholder="Equipo", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
                                             td
                                                 input.form-control(ng-model="partido.resultado").text-center
                                             td(ng-show="partido.fila == 15")
