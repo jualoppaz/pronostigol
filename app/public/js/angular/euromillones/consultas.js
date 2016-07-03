@@ -11,6 +11,8 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
     $scope.totalItems;
 
+    $scope.maxSize = 5;
+
     $scope.currentPage = 1;
     $scope.ticketsPerPage = 10;
 

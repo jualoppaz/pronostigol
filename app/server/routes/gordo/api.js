@@ -100,7 +100,7 @@ module.exports = function(app){
                     if(req.session.user.role == "privileged"){
                         json = result;
                     }else{
-                        var json = filtrarInformacion(result);
+                        json = filtrarInformacion(result);
                     }
                 }
 
@@ -212,8 +212,6 @@ module.exports = function(app){
 
         var numeros = [];
 
-        var numerosConsultados = 0;
-
         GOR_DBM.getOcurrencesByNumber(function(err, result){
             if(err){
                 res.status(err);
@@ -223,7 +221,7 @@ module.exports = function(app){
                     res.status(400).send(err);
                 }else{
 
-                    for(i=0; i<result.length; i++){
+                    for(var i=0; i<result.length; i++){
                         var json = {
                             numero: result[i]._id,
                             apariciones: result[i].apariciones
@@ -448,7 +446,7 @@ module.exports = function(app){
                     if(req.session.user.role == "privileged" || req.session.user.role == "admin"){
                         json = result;
                     }else{
-                        var json = filtrarInformacion(result);
+                        json = filtrarInformacion(result);
                     }
                 }
 
