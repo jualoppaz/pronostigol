@@ -8,8 +8,12 @@ app.controller('TicketsController', function ($scope, $http, $window, $filter, V
 
     $scope.totalItems;
 
+    $scope.maxSize = 5;
+
     $scope.currentPage = 1;
-    $scope.ticketsPerPage = 5;
+
+    var ticketsPerPage_default = 5;
+    $scope.ticketsPerPage = ticketsPerPage_default;
 
     $scope.mostrarTickets = function(anyo){
         if($scope.tickets.length == 0 || $scope.tickets[0].anyo != anyo){
@@ -30,11 +34,11 @@ app.controller('TicketsController', function ($scope, $http, $window, $filter, V
                         $scope.numOfPages = Math.floor(data.length / $scope.ticketsPerPage) + 1;
                     }
 
-                    $scope.paginas = [];
+                    /*$scope.paginas = [];
 
                     for(i=0;i<$scope.numOfPages;i++){
                         $scope.paginas[i] = i+1;
-                    }
+                    }*/
 
                 })
                 .error(function(data){
