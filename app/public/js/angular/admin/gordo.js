@@ -11,9 +11,12 @@ app.controller('GordoController', function ($scope, $http){
 
     $scope.totalItems;
 
-    $scope.currentPage = 1;
-    $scope.ticketsPerPage = 10;
+    $scope.maxSize = 5;
 
+    $scope.currentPage = 1;
+
+    var ticketsPerPage_default = 20;
+    $scope.ticketsPerPage = ticketsPerPage_default;
 
     $http.get('/api/gordo/tickets')
         .success(function(data){

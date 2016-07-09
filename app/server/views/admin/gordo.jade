@@ -43,8 +43,20 @@ block content
                             include ../modals/eliminarRegistro
 
 
-                        uib-pagination(ng-show="tickets.length > 0", ng-cloak, items-per-page="ticketsPerPage", boundary-links="true", total-items="totalItems", ng-model="currentPage", previous-text="<", next-text=">", first-text="Inicio", last-text="Fin").pagination-sm.abel
-
+                        uib-pagination(ng-show="numOfPages > 1",
+                        ng-cloak,
+                        items-per-page="ticketsPerPage",
+                        boundary-link-numbers="true",
+                        boundary-links="true",
+                        total-items="totalItems",
+                        rotate="true",
+                        max-size="maxSize",
+                        force-ellipses="true",
+                        ng-model="currentPage",
+                        previous-text="<",
+                        next-text=">",
+                        first-text="Inicio",
+                        last-text="Fin").pagination-sm.abel
 block scripts
     script(src="/js/jquery.js")
     script(src="/js/bootstrap.js")
