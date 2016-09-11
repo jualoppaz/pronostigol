@@ -1213,6 +1213,36 @@ h1.page-header{
     margin-bottom: 5px;
 }
 
+h1.section-header{
+    padding-top: 40px;
+    border-bottom-width: 1.5px;
+}
+
+h1.section-header.quiniela{
+    color: #0480be;
+    border-bottom-color: #0480be;
+}
+
+h1.section-header.bonoloto{
+    color: #2b2b2b;
+    border-bottom-color: #2b2b2b;
+}
+
+h1.section-header.primitiva{
+    color: #398439;
+    border-bottom-color: #398439;
+}
+
+h1.section-header.gordo{
+    color: #E32D28;
+    border-bottom-color: #E32D28;
+}
+
+h1.section-header.euromillones{
+    color: #440044;
+    border-bottom-color: #440044;
+}
+
 #footer{
     height: auto !important;
 }
