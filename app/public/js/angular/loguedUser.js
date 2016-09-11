@@ -1,6 +1,6 @@
 // Controlador Base. Por eso es el único que tiene dependencias
 
-var app = angular.module('qdb', ['services', 'ui.bootstrap']);
+var app = angular.module('qdb', ['services', 'ui.bootstrap', 'ngSanitize']);
 
 app.controller('LoguedUserController', function($scope, UserService, $http, $window){
     $scope.usuarioEstaLogueado = false;

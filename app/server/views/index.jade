@@ -287,7 +287,7 @@ block content
                                                 div(style="float:right", ng-bind-template="{{tweet.created_at | date:'dd/MM/yyyy HH:mm'}} h")
 
 
-                                        div.panel-body(ng-bind-template="{{tweet.text}}")
+                                        div.panel-body(ng-bind-html="tweet.text")
 
                             div.col-md-6.col-md-offset-3.col-sm-12.col-xs-12.panel.panel-body.border-qdb(style="margin-top:60px;")
                                 div.col-md-12.col-sm-12.col-xs-12(ng-show="fecha == 'empty'", style="display:block; padding-left: 0px")
