@@ -44,7 +44,7 @@ block content
 
                         //pre {{ticket}}
 
-                        div.col-md-12.col-sm-12.col-xs-12
+                        div.col-md-12.col-sm-12.col-xs-12(ng-show="ticket.apuestas.combinaciones.length > 0", ng-cloak)
                             div.table-responsive
                                 table.table.table-bordered.col-md-12.col-sm-12.col-xs-12
                                     thead
