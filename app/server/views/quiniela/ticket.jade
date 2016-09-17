@@ -20,32 +20,32 @@ block content
                         h1(style="margin-left: 15px; margin-right: 15px; padding-left: 15px").page-header Quiniela
 
                         div.col-md-12.col-sm-12.col-xs-12(style="padding-left: 15px")
-                            div.col-md-12.col-sm-12.col-xs-12(ng-show="ticket.temporada", style="padding-left: 15px")
+                            div.col-md-12.col-sm-12.col-xs-12(ng-if="ticket.temporada", style="padding-left: 15px")
                                 div.col-md-1.col-sm-2.col-xs-4(style="padding-left: 0px")
                                     label Temporada:
                                 div.col-md-11.col-sm-10.col-xs-8(ng-bind-template="{{ticket.temporada}}")
-                            div.col-md-12.col-sm-12.col-xs-12(ng-show="ticket.fecha", style="padding-left: 15px")
+                            div.col-md-12.col-sm-12.col-xs-12(ng-if="ticket.fecha", style="padding-left: 15px")
                                 div.col-md-1.col-sm-2.col-xs-4(style="padding-left: 0px")
                                     label Fecha:
                                 div.col-md-11.col-sm-10.col-xs-8(ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}")
 
-                            div.col-md-12.col-sm-12.col-xs-12(ng-show="ticket.jornada", style="padding-left: 15px")
+                            div.col-md-12.col-sm-12.col-xs-12(ng-if="ticket.jornada", style="padding-left: 15px")
                                 div.col-md-1.col-sm-2.col-xs-4(style="padding-left: 0px")
                                     label Jornada:
                                 div.col-md-11.col-sm-10.col-xs-8(ng-bind-template="{{ticket.jornada}}")
 
-                            div.col-md-12.col-sm-12.col-xs-12(style="padding-left: 15px", ng-show="ticket.precio >= 0", ng-cloak)
+                            div.col-md-12.col-sm-12.col-xs-12(style="padding-left: 15px", ng-if="ticket.precio >= 0", ng-cloak)
                                 div.col-md-1.col-sm-2.col-xs-4(style="padding-left: 0px")
                                     label Precio:
                                 div.col-md-11.col-sm-10.col-xs-8(ng-bind-template="{{ticket.precio}} €")
-                            div.col-md-12.col-sm-12.col-xs-12(style="padding-left: 15px", ng-show="ticket.premio >= 0", ng-cloak)
+                            div.col-md-12.col-sm-12.col-xs-12(style="padding-left: 15px", ng-if="ticket.premio >= 0", ng-cloak)
                                 div.col-md-1.col-sm-2.col-xs-4(style="padding-left: 0px")
                                     label Premio:
                                 div.col-md-11.col-sm-10.col-xs-8(ng-bind-template="{{ticket.premio}} €")
 
 
                         div.col-md-12.col-sm-12.col-xs-12
-                            div.table-responsive(style="margin-top: 50px", ng-show="ticket.fecha", ng-cloak)
+                            div.table-responsive(style="margin-top: 50px", ng-if="ticket.fecha", ng-cloak)
                                 table.table.table-bordered.col-md-12.col-sm-12.col-xs-12
                                     thead
                                         tr
@@ -66,23 +66,23 @@ block content
                                             td(ng-bind-template="{{partido.local}}", style="text-align: right !important")
                                             td(ng-bind-template="{{partido.golesLocal}} - {{partido.golesVisitante}}")
                                             td(ng-bind-template="{{partido.visitante}}", style="text-align: left !important")
-                                            td(ng-show="partido.fila != 15", ng-repeat="pronostico in partido.pronosticos", style="")
-                                                span.badge(ng-show="pronostico.signo == partido.resultado", ng-bind-template="{{pronostico.signo}}").fondoVerde
-                                                span.badge(ng-show="pronostico.signo != partido.resultado", ng-bind-template="{{pronostico.signo}}").fondoRojo
-                                            //td(ng-show="partido.fila == 15", ng-repeat="pronostico in partido.pronosticos", style="")
-                                                span.badge(ng-show="pronostico.signo == partido.resultado").fondoVerde {{pronostico.signo}}
-                                                span.badge(ng-show="pronostico.signo != partido.resultado").fondoRojo {{pronostico.signo}}
-                                            td(ng-show="partido.fila == 15 && ticket.temporada == '2013-2014'", colspan="{{ticket.partidos[0].pronosticos.length}}", ng-repeat="pronostico in partido.pronosticos")
-                                                span.badge.badge-pleno(ng-show="pronostico.signo == partido.resultado", ng-bind-template="{{pronostico.signo}}").fondoVerde
-                                                span.badge.badge-pleno(ng-show="pronostico.signo != partido.resultado", ng-bind-template="{{pronostico.signo}}").fondoRojo
-                                            td(ng-show="partido.fila == 15 && ticket.temporada != '2013-2014'", colspan="{{ticket.partidos[0].pronosticos.length}}", ng-repeat="pronostico in partido.pronosticos")
-                                                span.badge.badge-pleno(ng-show="pronostico.signo == partido.resultadoConGoles", ng-bind-template="{{pronostico.signo}}").fondoVerde
-                                                span.badge.badge-pleno(ng-show="pronostico.signo != partido.resultadoConGoles", ng-bind-template="{{pronostico.signo}}").fondoRojo
-                                            td(ng-show="ticket.temporada == '2013-2014'", ng-bind-template="{{partido.resultado}}").badge-pleno
-                                            td(ng-show="ticket.temporada != '2013-2014' && partido.fila == '15'", ng-bind-template="{{partido.resultadoConGoles}}").badge-pleno
-                                            td(ng-show="ticket.temporada != '2013-2014' && partido.fila != '15'", ng-bind-template="{{partido.resultado}}").badge-pleno
+                                            td(ng-if="partido.fila != 15", ng-repeat="pronostico in partido.pronosticos", style="")
+                                                span.badge(ng-if="pronostico.signo == partido.resultado", ng-bind-template="{{pronostico.signo}}").fondoVerde
+                                                span.badge(ng-if="pronostico.signo != partido.resultado", ng-bind-template="{{pronostico.signo}}").fondoRojo
+                                            //td(ng-if="partido.fila == 15", ng-repeat="pronostico in partido.pronosticos", style="")
+                                                span.badge(ng-if="pronostico.signo == partido.resultado").fondoVerde {{pronostico.signo}}
+                                                span.badge(ng-if="pronostico.signo != partido.resultado").fondoRojo {{pronostico.signo}}
+                                            td(ng-if="partido.fila == 15 && ticket.temporada == '2013-2014'", colspan="{{ticket.partidos[0].pronosticos.length}}", ng-repeat="pronostico in partido.pronosticos")
+                                                span.badge.badge-pleno(ng-if="pronostico.signo == partido.resultado", ng-bind-template="{{pronostico.signo}}").fondoVerde
+                                                span.badge.badge-pleno(ng-if="pronostico.signo != partido.resultado", ng-bind-template="{{pronostico.signo}}").fondoRojo
+                                            td(ng-if="partido.fila == 15 && ticket.temporada != '2013-2014'", colspan="{{ticket.partidos[0].pronosticos.length}}", ng-repeat="pronostico in partido.pronosticos")
+                                                span.badge.badge-pleno(ng-if="pronostico.signo == partido.resultadoConGoles", ng-bind-template="{{pronostico.signo}}").fondoVerde
+                                                span.badge.badge-pleno(ng-if="pronostico.signo != partido.resultadoConGoles", ng-bind-template="{{pronostico.signo}}").fondoRojo
+                                            td(ng-if="ticket.temporada == '2013-2014'", ng-bind-template="{{partido.resultado}}").badge-pleno
+                                            td(ng-if="ticket.temporada != '2013-2014' && partido.fila == '15'", ng-bind-template="{{partido.resultadoConGoles}}").badge-pleno
+                                            td(ng-if="ticket.temporada != '2013-2014' && partido.fila != '15'", ng-bind-template="{{partido.resultado}}").badge-pleno
 
-                                        tr(ng-show="ticket.partidos[0].pronosticos.length", ng-cloak)
+                                        tr(ng-if="ticket.partidos[0].pronosticos.length", ng-cloak)
                                             td Aciertos:
                                             td
                                             td
@@ -90,8 +90,8 @@ block content
                                             td
                                             td
                                             td(ng-repeat="pronostico in ticket.partidos[0].pronosticos")
-                                                span.badge(ng-show="aciertos[$index]>9", ng-bind-template="{{aciertos[$index]}} / 14").fondoVerde
-                                                span.badge(ng-show="aciertos[$index]<10", ng-bind-template="{{aciertos[$index]}} / 14").fondoRojo
+                                                span.badge(ng-if="aciertos[$index]>9", ng-bind-template="{{aciertos[$index]}} / 14").fondoVerde
+                                                span.badge(ng-if="aciertos[$index]<10", ng-bind-template="{{aciertos[$index]}} / 14").fondoRojo
                                             td
 
         div#push
