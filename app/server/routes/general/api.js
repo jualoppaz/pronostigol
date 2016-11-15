@@ -199,7 +199,7 @@ module.exports = function(app){
                 GEN_DBM.getAllRecords(function(err, users){
                     if(err){
                         //console.log(err);
-                        res.status(400).send(err);;
+                        res.status(400).send(err);
                     }else{
                         res.status(200).send(users);
                     }
@@ -217,7 +217,7 @@ module.exports = function(app){
             if(req.session.user.role == "admin"){
                 GEN_DBM.findUserById(req.params.id, function(err, user){
                     if(err){
-                        res.status(400).send(err);;
+                        res.status(400).send(err);
                     }else{
                         res.status(200).send(user);
                     }
@@ -832,8 +832,7 @@ module.exports = function(app){
             if(req.session.user.role == "admin"){
                 GEN_DBM.getAllEmails(function(err, mails){
                     if(err){
-                        //console.log(err);
-                        res.status(400).send(err);;
+                        res.status(400).send(err);
                     }else{
                         res.status(200).send(mails);
                     }
@@ -853,7 +852,7 @@ module.exports = function(app){
                 GEN_DBM.getEmailById(req.params.id, function(err, mail){
                     if(err){
                         //console.log(err);
-                        res.status(400).send(err);;
+                        res.status(400).send(err);
                     }else{
                         if(mail.leido == false){
                             GEN_DBM.setEmailReaded(req.params.id, function(err2, mail2){
@@ -906,7 +905,7 @@ module.exports = function(app){
             if(req.session.user.role == 'admin'){
                 GEN_DBM.deleteEmail(req.params.id, function(err, mail){
                     if(err){
-                        res.status(400).send(err);;
+                        res.status(400).send(err);
                     }else{
                         GEN_DBM.getAllEmails(function(err2, mails){
                             if(err2){
@@ -960,15 +959,13 @@ module.exports = function(app){
 
     general_api_lastModified = function(req, res){
 
-        if(process.env.MONGOHQ_URL){ //Estamos en Heroku
+        if(process.env.MONGODB_URI){ //Estamos en Heroku
             var github = require('octonode');
 
             var client1 = github.client();
 
             var repo      = client1.repo('jualoppaz/pronostigol');
-
-            //var client2 = request.newClient('https://api.github.com');
-
+            
             var client2 = github.client({
                 username: 'jualoppaz',
                 password: process.env.GITHUB_PASS
@@ -990,12 +987,6 @@ module.exports = function(app){
                         if(error){
                             res.status(400).send(error);
                         }else{
-                            //var date = isodate(commits[0].commit.committer.date);
-                            /*
-                             res.send({
-                             fecha: commits[0].commit.committer.date
-                             }, 200);
-                             */
                             res.status(200).send({
                                 fecha: commit.commit.committer.date
                             });
@@ -1004,24 +995,10 @@ module.exports = function(app){
                 }catch(Exception){
                     res.status(400).send("not-avaible");
                 }
-
             });
-        }else{
+        }else {
             res.status(400).send("local-environment");
         }
-
-        /*
-         repo.commits(function(error, commits){
-         if(error){
-         res.send(error, 400);
-         }else{
-         //var date = isodate(commits[0].commit.committer.date);
-         res.send({
-         fecha: commits[0].commit.committer.date
-         }, 200);
-         }
-         });
-         */
 
     };
 
@@ -1051,12 +1028,12 @@ module.exports = function(app){
 
         GEN_DBM.actualizarVisitas(ipRouter, navegador, so, function(err, result){
             if(err){
-                res.status(400).send(err);;
+                res.status(400).send(err);
             }else{
 
                 GEN_DBM.getVisitantesUnicosHoy(function(err, result){
                     if(err){
-                        res.status(400).send(err);;
+                        res.status(400).send(err);
                     }else{
 
                         respuesta.visitantesHoy = result.length;
@@ -1064,14 +1041,14 @@ module.exports = function(app){
 
                         GEN_DBM.getVisitantesUnicos(function(err, result){
                             if(err){
-                                res.status(400).send(err);;
+                                res.status(400).send(err);
                             }else{
 
                                 respuesta.visitantesUnicos = result.length;
 
                                 GEN_DBM.getVisitasTotales(function(err, result){
                                     if(err){
-                                        res.status(400).send(err);;
+                                        res.status(400).send(err);
                                     }else{
 
                                         respuesta.visitasTotales = result;
