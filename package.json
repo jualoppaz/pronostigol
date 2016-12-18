@@ -1,11 +1,18 @@
 {
-  "name": "quinielaDataBaseNode",
+  "name": "pronostigol",
   "version": "0.0.0",
-  "description": "Aplicacion con estadisticas de la quiniela en España.",
+  "description": "Aplicacion web con estadisticas de distintos sorteos de SELAE.",
+  "keywords": [
+    "Quiniela",
+    "Bonoloto",
+    "Primitiva",
+    "Euromillones",
+    "España",
+    "Spain"
+  ],
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "npm install"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Juan Manuel Lopez Pazos",
   "license": "ISC",

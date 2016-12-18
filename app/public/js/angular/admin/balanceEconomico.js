@@ -159,9 +159,9 @@ app.controller('BalanceEconomicoController', function($scope, $http, $window){
                 res = aux;
             } else {
                 if (decimales.charAt(2) == '9') {
-                    res = aux.substring(0, parteEntera.length()) + "9";
+                    res = aux.substring(0, parteEntera.length) + "9";
                 } else if (decimales.charAt(2) == '0') {
-                    res = aux.substring(0, parteEntera.length() + 2);
+                    res = aux.substring(0, parteEntera.length + 2);
                 }
             }
         }
