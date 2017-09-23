@@ -89,7 +89,7 @@ module.exports = function(app){
             });
         }else{
             if(req.session.user.role == 'admin'){
-                res.render('admin/quiniela', 200);
+                res.render('admin/quiniela');
             }else{
                 res.render('error',{
                     message : 'No puede acceder a este recurso porque ' +

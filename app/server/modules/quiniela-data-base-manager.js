@@ -1591,7 +1591,7 @@ exports.getSeasonByName = function(name, callback){
         if(err){
             callback(err);
         }else{
-            res = res || {}
+            res = res || {};
             callback(null, res);
         }
     });

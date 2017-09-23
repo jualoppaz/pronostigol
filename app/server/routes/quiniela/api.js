@@ -1410,7 +1410,7 @@ module.exports = function(app){
             if(err){
                 res.status(400).send(err);
             }else{
-                if(result != null){
+                if(JSON.stringify(result) !== "{}"){
                     res.status(400).send('season-already-exists');
                 }else{
                     QUI_DBM.addNewSeason(season, function(err, result){
