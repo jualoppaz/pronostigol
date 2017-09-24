@@ -82,7 +82,7 @@ module.exports = function(app){
             });
         }else{
             if(req.session.user.role == 'admin'){
-                res.render('admin/euromillones', 200);
+                res.render('admin/euromillones');
             }else{
                 res.render('error',{
                     message : 'No puede acceder a este recurso porque ' +
@@ -100,7 +100,7 @@ module.exports = function(app){
             });
         }else{
             if(req.session.user.role == 'admin'){
-                res.render('admin/euromillones/anadirTicket', 200);
+                res.render('admin/euromillones/anadirTicket');
             }else{
                 res.render('error',{
                     message : 'No puede acceder a este recurso porque ' +
@@ -118,7 +118,7 @@ module.exports = function(app){
             });
         }else{
             if(req.session.user.role == 'admin'){
-                res.render('admin/euromillones/editarTicket', 200);
+                res.render('admin/euromillones/editarTicket');
             }else{
                 res.render('error',{
                     message : 'No puede acceder a este recurso porque ' +

@@ -82,7 +82,7 @@ module.exports = function(app){
             });
         }else{
             if(req.session.user.role == 'admin'){
-                res.render('admin/primitiva', 200);
+                res.render('admin/primitiva');
             }else{
                 res.render('error',{
                     message : 'No puede acceder a este recurso porque ' +
@@ -100,7 +100,7 @@ module.exports = function(app){
             });
         }else{
             if(req.session.user.role == 'admin'){
-                res.render('admin/primitiva/anadirTicket', 200);
+                res.render('admin/primitiva/anadirTicket');
             }else{
                 res.render('error',{
                     message : 'No puede acceder a este recurso porque ' +
@@ -118,7 +118,7 @@ module.exports = function(app){
             });
         }else{
             if(req.session.user.role == 'admin'){
-                res.render('admin/primitiva/editarTicket', 200);
+                res.render('admin/primitiva/editarTicket');
             }else{
                 res.render('error',{
                     message : 'No puede acceder a este recurso porque ' +

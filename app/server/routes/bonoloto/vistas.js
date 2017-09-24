@@ -82,7 +82,7 @@ module.exports = function(app){
             });
         }else{
             if(req.session.user.role == 'admin'){
-                res.render('admin/bonoloto', 200);
+                res.render('admin/bonoloto');
             }else{
                 res.render('error',{
                     message : 'No puede acceder a este recurso porque ' +
@@ -100,7 +100,7 @@ module.exports = function(app){
             });
         }else{
             if(req.session.user.role == 'admin'){
-                res.render('admin/bonoloto/anadirTicket', 200);
+                res.render('admin/bonoloto/anadirTicket');
             }else{
                 res.render('error',{
                     message : 'No puede acceder a este recurso porque ' +
@@ -118,7 +118,7 @@ module.exports = function(app){
             });
         }else{
             if(req.session.user.role == 'admin'){
-                res.render('admin/bonoloto/editarTicket', 200);
+                res.render('admin/bonoloto/editarTicket');
             }else{
                 res.render('error',{
                     message : 'No puede acceder a este recurso porque ' +

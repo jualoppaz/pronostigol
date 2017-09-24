@@ -72,7 +72,7 @@ module.exports = function(app){
             });
         }else{
             if(req.session.user.role == 'admin'){
-                res.render('admin/emails', 200);
+                res.render('admin/emails');
             }else{
                 res.render('error',{
                     message : 'No puede acceder a los emails enviados a Pronostigol porque ' +
@@ -89,7 +89,7 @@ module.exports = function(app){
             });
         }else{
             if(req.session.user.role == 'admin'){
-                res.render('admin/email', 200);
+                res.render('admin/email');
             }else{
                 res.render('error',{
                     message : 'No puede acceder a los emails enviados a Pronostigol porque no tiene permisos de administración.'
@@ -106,7 +106,7 @@ module.exports = function(app){
             });
         }else{
             if(req.session.user.role == 'admin'){
-                res.render('admin/comentarios', 200);
+                res.render('admin/comentarios');
             }else{
                 res.render('error',{
                     message : 'No puede acceder a los comentarios publicados en Pronostigol porque ' +
@@ -123,89 +123,11 @@ module.exports = function(app){
             });
         }else{
             if(req.session.user.role == 'admin'){
-                res.render('admin/comentario', 200);
+                res.render('admin/comentario');
             }else{
                 res.render('error',{
                     message : 'No puede acceder a los comentarios publicados en Pronostigol porque no tiene permisos de administración.'
                 });
-            }
-        }
-    };
-
-    general_vistas_admin_quinielas = function(req, res){
-        if(req.session.user == null){
-            res.render('error',{
-                message : 'No puede acceder a este recurso porque no' +
-                    ' tiene permisos de administración.'
-            });
-        }else{
-            if(req.session.user.role == 'admin'){
-                res.render('admin/quinielas', 200);
-            }else{
-                res.render('error',{
-                    message : 'No puede acceder a este recurso porque ' +
-                        'no tiene permisos de administración.'
-                });
-            }
-        }
-    };
-
-    general_vistas_admin_anadirQuiniela = function(req, res){
-        if(req.session.user == null){
-            res.render('error',{
-                message : 'No puede acceder a este recurso porque no' +
-                    ' tiene permisos de administración.'
-            });
-        }else{
-            if(req.session.user.role == 'admin'){
-                res.render('admin/quiniela', 200);
-            }else{
-                res.render('error',{
-                    message : 'No puede acceder a este recurso porque ' +
-                        'no tiene permisos de administración.'
-                });
-            }
-        }
-    };
-
-    general_vistas_admin_equipos = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                'porque no tiene permisos de administración.'});
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/equipos');
-            }else{
-                res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                    'porque no tiene permisos de administración.'});
-            }
-        }
-    };
-
-    general_vistas_admin_competiciones = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                'porque no tiene permisos de administración.'});
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/competiciones');
-            }else{
-                res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                    'porque no tiene permisos de administración.'});
-            }
-        }
-    };
-
-    general_vistas_admin_temporadas = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                'porque no tiene permisos de administración.'});
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/temporadas');
-            }else{
-                res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                    'porque no tiene permisos de administración.'});
             }
         }
     };
@@ -236,7 +158,7 @@ module.exports = function(app){
             });
         }else{
             if(req.session.user.role == 'admin'){
-                res.render('admin/usuarios', 200);
+                res.render('admin/usuarios');
             }else{
                 res.render('error',{
                     message : 'No puede ver los usuarios registrados en Pronostigol porque ' +
@@ -253,7 +175,7 @@ module.exports = function(app){
             });
         }else{
             if(req.session.user.role == 'admin'){
-                res.render('admin/usuario', 200);
+                res.render('admin/usuario');
             }else{
                 res.render('error',{
                     message : 'No puede ver los usuarios registrados en Pronostigol porque no tiene permisos de administración.'
@@ -261,91 +183,6 @@ module.exports = function(app){
             }
         }
     };
-
-    general_vistas_admin_anadirEquipo = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                'porque no tiene permisos de administración.'});
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/anadirEquipo');
-            }else{
-                res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                    'porque no tiene permisos de administración.'});
-            }
-        }
-    };
-
-    general_vistas_admin_anadirCompeticion = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                'porque no tiene permisos de administración.'});
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/anadirCompeticion');
-            }else{
-                res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                    'porque no tiene permisos de administración.'});
-            }
-        }
-    };
-
-    general_vistas_admin_anadirTemporada = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                'porque no tiene permisos de administración.'});
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/anadirTemporada');
-            }else{
-                res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                    'porque no tiene permisos de administración.'});
-            }
-        }
-    };
-
-    general_vistas_admin_editarEquipo = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                'porque no tiene permisos de administración.'});
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/editarEquipo');
-            }else{
-                res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                    'porque no tiene permisos de administración.'});
-            }
-        }
-    };
-
-    general_vistas_admin_editarCompeticion = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                'porque no tiene permisos de administración.'});
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/editarCompeticion');
-            }else{
-                res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                    'porque no tiene permisos de administración.'});
-            }
-        }
-    };
-
-    general_vistas_admin_editarTemporada = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                'porque no tiene permisos de administración.'});
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/editarTemporada');
-            }else{
-                res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                    'porque no tiene permisos de administración.'});
-            }
-        }
-    };
-
 
     app.get('/', general_vistas_inicio);
     app.get('/politicaDeCookies', general_vistas_politicaDeCookies);
