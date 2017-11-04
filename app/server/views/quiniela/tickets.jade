@@ -5,10 +5,8 @@ block head
     link(rel="stylesheet", href="/css/quiniela.css")
     link(rel="stylesheet", href="/css/backgroundImage.css")
 
-
 block content
     div#wrap(ng-app="qdb")
-
         div.container(ng-controller="LoguedUserController", style="margin-left: 0px; padding: 0 0 0 0;")
             div(ng-controller="QuinielasController")
 
@@ -38,19 +36,6 @@ block content
                                     li.list-group-item(ng-click="mostrarQuinielasDeTemporada('2016-2017')").pointer Temporada 2016-2017
                                     li.list-group-item(ng-click="mostrarQuinielasDeTemporada('2017-2018')").pointer Temporada 2017-2018
 
-
-                                //ul.pagination-sm.uib-pagination(boundary-links="true", total-items="totalItems", ng-model="currentPage", previous-text="‹", next-text="›", first-text="«", last-text="»")
-                                    li(ng-if="boundaryLinks", ng-class="{disabled: noPrevious()}" class="ng-scope disabled")
-                                        a(href="", ng-click="selectPage(1)") «
-
-                                //ul
-                                    li(ng-repeat="item in data") {{item.name}}
-                                //uib-pagination(num-pages="noOfPages", current-page="currentPage").pagination-small
-
-
-
-
-
                             div.col-md-7.col-md-offset-1(ng-show="tickets.length > 0", ng-cloak, style="background-color: white; margin-bottom: 20px; border: 2px solid #0480be !important; border-radius: 4px")
                                 div.col-md-12(style="padding-top: 20px")
                                     label.col-md-4.col-sm-4.col-xs-6(style="clear:both; padding-top:5px") Quinielas por página:
@@ -70,26 +55,7 @@ block content
                                             td(ng-show="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-click="verTicket(ticket)", ng-bind-template="{{ticket.modalidad}}").pointer
                                             td(ng-show="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-click="verTicket(ticket)", ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}").pointer
 
-                                // Paginador manual - FUNCIONA
-
-                                //ul.uib-pagination(ng-repeat="pagina in paginas")
-                                    li(ng-show="pagina == currentPage").active
-                                        a(href="#", ng-click="actualizarPagina(pagina)").active {{pagina}}
-                                    li(ng-show="pagina != currentPage")
-                                        a(href="#", ng-click="actualizarPagina(pagina)").active {{pagina}}
-
-                                //pre The selected page no: {{currentPage}}
-                                //pre Total items: {{tickets.length}}
-                                //pre Tickets per page: {{numPerPage}}
-
-
-
-                                uib-pagination(items-per-page="ticketsPerPage", boundary-links="true", total-items="totalItems", ng-model="currentPage", previous-text="<", next-text=">", first-text="Inicio", last-text="Fin").pagination-sm.abel
-
-
-                                //pre Total Items: {{totalItems}}
-                                //pre NumOfPages: {{numOfPages}}
-                                //pre Paginas: {{paginas}}
+                                uib-pagination(items-per-page="ticketsPerPage", boundary-links="true", boundary-link-numbers="true", max-size="maxSize", force-ellipses="true", total-items="totalItems", ng-model="currentPage", previous-text="<", next-text=">", first-text="Inicio", last-text="Fin").pagination-sm.abel
 
         div#push
 
@@ -104,4 +70,3 @@ block scripts
     script(src='/js/angular/quiniela/tickets.js')
     script(src='/js/angular/navbar.js')
     script(src='/js/angular/ui-bootstrap-tpls-1.3.3.js')
-

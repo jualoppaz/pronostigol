@@ -10,6 +10,7 @@ app.controller('QuinielasController', function ($scope, $http, $window) {
 
     $scope.currentPage = 1;
     $scope.ticketsPerPage = 5;
+    $scope.maxSize = 5;
 
     $scope.mostrarQuinielasDeTemporada = function(temporada){
         if($scope.tickets.length == 0 || $scope.tickets[0].temporada != temporada){
