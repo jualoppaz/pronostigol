@@ -62,27 +62,7 @@ block content
                                                 span
                                                     i.fa.fa-close.fa-2x(style="color: red")
 
-
-                                // Paginador manual - FUNCIONA
-
-                                //ul.uib-pagination(ng-repeat="pagina in paginas")
-                                    li(ng-show="pagina == currentPage").active
-                                        a(href="#", ng-click="actualizarPagina(pagina)").active {{pagina}}
-                                    li(ng-show="pagina != currentPage")
-                                        a(href="#", ng-click="actualizarPagina(pagina)").active {{pagina}}
-
-                                //pre The selected page no: {{currentPage}}
-                                //pre Total items: {{tickets.length}}
-                                //pre Tickets per page: {{numPerPage}}
-
-
-
-                                uib-pagination(items-per-page="ticketsPerPage", boundary-links="true", total-items="totalItems", ng-model="currentPage", previous-text="<", next-text=">", first-text="Inicio", last-text="Fin").pagination-sm.abel
-
-
-                                //pre Total Items: {{totalItems}}
-                                //pre NumOfPages: {{numOfPages}}
-                                //pre Paginas: {{paginas}}
+                                uib-pagination(items-per-page="ticketsPerPage", boundary-links="true", boundary-link-numbers="true", max-size="maxSize", force-ellipses="true", total-items="totalItems", ng-model="currentPage", previous-text="<", next-text=">", first-text="Inicio", last-text="Fin").pagination-sm.abel
 
         div#push
 
