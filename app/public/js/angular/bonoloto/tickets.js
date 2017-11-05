@@ -5,8 +5,8 @@ app.controller('TicketsController', function ($scope, $http, $window, $filter, V
     $scope.tickets = [];
 
     $scope.numOfPages;
-
     $scope.totalItems;
+    $scope.maxSize = 5;
 
     $scope.currentPage = 1;
     $scope.ticketsPerPage = 5;
