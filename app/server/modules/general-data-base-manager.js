@@ -28,12 +28,12 @@ exports.autoLogin = function(user, pass, callback)
         user:user
     }, function(e, o) {
 		if (o){
-			o.pass == pass ? callback(o) : callback(null);
+			o.pass === pass ? callback(o) : callback(null);
 		}	else{
 			callback(null);
 		}
 	});
-}
+};
 
 exports.manualLogin = function(user, pass, callback)
 {
@@ -52,7 +52,7 @@ exports.manualLogin = function(user, pass, callback)
 			});
 		}
 	});
-}
+};
 
 /* record insertion, update & deletion methods */
 
@@ -66,22 +66,6 @@ exports.addNewAccount = function(newData, callback)
 		}else{
 
             // Email unico en la web
-
-			/*accounts.findOne({email:newData.email}, function(e, o) {
-				if (o){
-					callback('email-taken');
-				}	else{
-					saltAndHash(newData.pass, function(hash){
-						newData.pass = hash;
-					// append date stamp when record was created //
-						newData.date = moment().format('MMMM Do YYYY, h:mm:ss a');
-						accounts.insert(newData, {safe: true}, callback);
-                        if(e){
-                            console.log("Error: " + e);
-                        }
-					});
-				}
-			});*/
 
             saltAndHash(newData.pass, function(hash){
                 newData.pass = hash;
@@ -133,7 +117,7 @@ exports.updateAccount = function(newData, callback)
 		o.name 		= newData.name;
 		o.email 	= newData.email;
 		o.country 	= newData.country;
-		if (newData.pass == ''){
+		if (newData.pass === ''){
 			accounts.save(o, {safe: true}, function(err) {
 				if (err) callback(err);
 				else callback(null, o);
@@ -161,7 +145,7 @@ exports.actualizarCuenta = function(nuevoUsuario, callback){
                 callback(err);
             }else{
                 if(result.length > 0){ // Vamos a comprobar si se trata de este usuario o de otro
-                    if(result[0]._id != nuevoUsuario._id){ // Son usuarios distintos
+                    if(result[0]._id !== nuevoUsuario._id){ // Son usuarios distintos
                         console.log("Usuario cogido");
                         usernameTaken = true;
                         callback('username-taken');
@@ -176,7 +160,7 @@ exports.actualizarCuenta = function(nuevoUsuario, callback){
                         o.estaActivo    = nuevoUsuario.estaActivo;
                         o.estaBaneado   = nuevoUsuario.estaBaneado;
 
-                        if(nuevoUsuario.pass == ''){
+                        if(nuevoUsuario.pass === ''){
                             accounts.save(o, {safe:true}, function(err2){
                                 if (err2){
                                     callback(err2);
@@ -225,7 +209,7 @@ exports.deleteAccount = function(id, callback)
 	accounts.remove({
         _id: getObjectId(id)
     }, callback);
-}
+};
 
 exports.getAccountByEmail = function(email, callback)
 {
@@ -234,7 +218,7 @@ exports.getAccountByEmail = function(email, callback)
     }, function(e, o){
         callback(o);
     });
-}
+};
 
 exports.validateResetLink = function(email, passHash, callback)
 {
@@ -246,7 +230,7 @@ exports.validateResetLink = function(email, passHash, callback)
     }, function(e, o){
 		callback(o ? 'ok' : null);
 	});
-}
+};
 
 exports.getAllRecords = function(callback)
 {
@@ -271,12 +255,12 @@ exports.getAccountById = function(id, callback)
             callback(null, res);
         }
     });
-}
+};
 
 exports.delAllRecords = function(callback)
 {
 	accounts.remove({}, callback); // reset accounts collection for testing //
-}
+};
 
 /* private encryption & validation methods */
 
@@ -289,33 +273,30 @@ var generateSalt = function()
 		salt += set[p];
 	}
 	return salt;
-}
+};
 
 var md5 = function(str) {
 	return crypto.createHash('md5').update(str).digest('hex');
-}
+};
 
 var saltAndHash = function(pass, callback)
 {
 	var salt = generateSalt();
 	callback(salt + md5(pass + salt));
-}
+};
 
 var validatePassword = function(plainPass, hashedPass, callback)
 {
 	var salt = hashedPass.substr(0, 10);
 	var validHash = salt + md5(plainPass + salt);
 	callback(null, hashedPass === validHash);
-}
+};
 
 /* auxiliary methods */
 
 var getObjectId = function(id){
-	return accounts.db.bson_serializer.ObjectID.createFromHexString(id)
-};
-
-var getMailId = function(id){
-    return mails.db.bson_serializer.ObjectID.createFromHexString(id)
+	//return accounts.db.bson_serializer.ObjectID.createFromHexString(id)
+    return ObjectID(id);
 };
 
 var findById = function(id, callback){
@@ -384,7 +365,7 @@ exports.getAllEmails = function(callback){
 
 exports.getEmailById = function(id, callback){
     mails.findOne({
-        _id:getMailId(id)
+        _id:getObjectId(id)
     }, function(e, res){
         if (e){
             callback(e);
@@ -515,9 +496,9 @@ exports.getVisitantesUnicosHoy = function(callback){
                     //console.log("Mes de la fecha: " + fecha.getMonth());
                     //console.log("Anyo de la fecha: " + fecha.getFullYear());
 
-                    if(fecha.getDate() == fechaActual.getDate()){
-                        if(fecha.getMonth() == fechaActual.getMonth()){
-                            if(fecha.getFullYear() == fechaActual.getFullYear()){
+                    if(fecha.getDate() === fechaActual.getDate()){
+                        if(fecha.getMonth() === fechaActual.getMonth()){
+                            if(fecha.getFullYear() === fechaActual.getFullYear()){
                                 result.push(res[i]);
                             }
                         }
@@ -534,8 +515,7 @@ exports.getVisitantesUnicosHoy = function(callback){
 exports.getVisitasTotales = function(callback){
     visits.aggregate({
         $unwind: '$visitas'
-    },
-    {
+    }, {
         $group: {
             "_id": "$_id",
             visitas: {
@@ -587,7 +567,7 @@ exports.actualizarVisitas = function(ipRouter, navegador, so, callback){
 
             var fechaActual = new Date();
 
-            if(typeof(res[0]) != 'undefined'){
+            if(typeof(res[0]) !== 'undefined'){
                 var fechaUltimaVisita = res[0].ultimaVisita;
 
 
@@ -784,7 +764,7 @@ exports.addNewCommentAnswer = function(id, user, texto, callback){
             }
         }
     },function(e, res){
-        if(e || res == 0){
+        if(e || res === 0){
             callback("comment-not-updated");
         }else{
             console.log("Callback con respuesta");
