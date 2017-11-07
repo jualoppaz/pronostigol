@@ -25,7 +25,7 @@ app.set('port', port);
 
 app.set('views', path.join(__dirname + '/app/server/views'));
 
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 app.use(cookieParser());
 
@@ -43,7 +43,7 @@ app.use(bodyParser.json());
 
 //app.set('trust proxy', 'loopback,uniquelocal');
 
-app.enable('trust proxy')
+app.enable('trust proxy');
 
 /*
 app.get('*', function(req, res, next){
