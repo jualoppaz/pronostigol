@@ -1,5 +1,7 @@
 var db, tickets, accounts, teams, seasons, competitions;
 
+var ObjectID = require('mongodb').ObjectID;
+
 var DBM = require('./init-data-base-manager');
 
 DBM.getDatabaseInstance(function(err, res){
@@ -78,7 +80,7 @@ exports.editTicket = function(ticket, callback){
 };
 
 var getObjectId = function(id){
-	return accounts.db.bson_serializer.ObjectID.createFromHexString(id)
+	return ObjectID(id);
 };
 
 // CONSULTAS QUINIELA DATA BASE
