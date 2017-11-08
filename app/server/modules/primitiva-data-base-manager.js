@@ -1,5 +1,7 @@
 var db;
 
+var ObjectID = require('mongodb').ObjectID;
+
 var DBM = require('./init-data-base-manager');
 
 var numerosBolas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
@@ -25,7 +27,7 @@ DBM.getDatabaseInstance(function(err, res){
 });
 
 var getObjectId = function(id){
-    return primitiva_tickets.db.bson_serializer.ObjectID.createFromHexString(id)
+    return ObjectID(id);
 };
 
 exports.getAllTickets = function(callback){

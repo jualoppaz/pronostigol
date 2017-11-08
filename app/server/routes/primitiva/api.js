@@ -525,7 +525,7 @@ module.exports = function(app){
     /* Tickets de Primitiva */
     app.get('/api/primitiva/tickets', primitiva_api_tickets);
     app.get('/api/primitiva/tickets/anyo/:anyo', primitiva_api_ticketsPorAnyo);
-    app.get('/api/primitiva/tickets/anyo/:anyo/sorteo/:sorteo', primitiva_api_ticketPorAnyoYSorteo)
+    app.get('/api/primitiva/tickets/anyo/:anyo/sorteo/:sorteo', primitiva_api_ticketPorAnyoYSorteo);
     app.get('/api/primitiva/tickets/:id', primitiva_api_ticketPorId);
     app.post('/api/primitiva/tickets', primitiva_api_nuevoTicket);
     app.put('/api/primitiva/tickets', primitiva_api_editarTicket);
