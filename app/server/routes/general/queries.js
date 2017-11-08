@@ -90,7 +90,9 @@ module.exports = function(app){
                             json["invertido"] = resultQuiniela[i].invertido;
                             json["ganado"] = resultQuiniela[i].ganado;
 
-                            respuesta.push(json);
+                            if(json["invertido"] > 0){
+                                respuesta.push(json);
+                            }
                         }
 
                         BON_DBM.getEconomicBalanceByYear(function(err, resultBonoloto){
@@ -106,7 +108,9 @@ module.exports = function(app){
                                     json["invertido"] = resultBonoloto[i].invertido;
                                     json["ganado"] = resultBonoloto[i].ganado;
 
-                                    respuesta.push(json);
+                                    if(json["invertido"] > 0){
+                                        respuesta.push(json);
+                                    }
                                 }
 
                                 PRI_DBM.getEconomicBalanceByYear(function(err, resultPrimitiva){
@@ -122,7 +126,9 @@ module.exports = function(app){
                                             json["invertido"] = resultPrimitiva[i].invertido;
                                             json["ganado"] = resultPrimitiva[i].ganado;
 
-                                            respuesta.push(json);
+                                            if(json["invertido"] > 0){
+                                                respuesta.push(json);
+                                            }
                                         }
 
                                         GOR_DBM.getEconomicBalanceByYear(function(err, resultGordo){
@@ -138,7 +144,9 @@ module.exports = function(app){
                                                     json["invertido"] = resultGordo[i].invertido;
                                                     json["ganado"] = resultGordo[i].ganado;
 
-                                                    respuesta.push(json);
+                                                    if(json["invertido"] > 0){
+                                                        respuesta.push(json);
+                                                    }
                                                 }
 
                                                 EUR_DBM.getEconomicBalanceByYear(function(err, resultEuromillones){
@@ -154,7 +162,9 @@ module.exports = function(app){
                                                             json["invertido"] = resultEuromillones[i].invertido;
                                                             json["ganado"] = resultEuromillones[i].ganado;
 
-                                                            respuesta.push(json);
+                                                            if(json["invertido"] > 0){
+                                                                respuesta.push(json);
+                                                            }
                                                         }
 
                                                         res.status(200).send(respuesta);
@@ -175,8 +185,6 @@ module.exports = function(app){
                 res.status(400).send('not-authorized');
             }
         }
-
-
     };
 
     app.get('/query/mostrarAvisoCookies', pronostigol_queries_mostrarAvisoCookies);

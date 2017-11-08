@@ -67,37 +67,6 @@ module.exports = function(app){
     // Importacion de rutas de Queries del Euromillones
     require('./routes/euromillones/queries')(app);
 
-
-    //TODO: COMENTO ESTE METODO PORQUE CREO QUE NO SE USA
-    /*
-    app.post('/error', function(req, res){
-        var message = req.body.message;
-        res.render('error',{
-            message: message
-        });
-    });
-    */
-
-
-
-    /*
-    app.get('/api/userCookies', function(req, res){
-        console.log("Cookies: " + req.cookies.user + ", " + req.cookies.pass);
-        if(req.cookies.user != undefined && req.cookies.pass != undefined){
-            var data = {
-                user : req.cookies.user,
-                pass : req.cookies.pass
-            };
-            res.send(JSON.stringify(data), 200);
-        }else{
-            res.send("empty-cookies", 400);
-        }
-    });
-    */
-
-    // ASOCIACION DE VISTAS A LAS RUTAS
-
-
     app.get('/api/*', function(req, res){
         res.status(400).send('API Method Not Found');
     });
