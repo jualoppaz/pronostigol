@@ -1099,10 +1099,6 @@ h1.page-header{
     margin-bottom: 5px;
 }
 
-#footer{
-    height: auto !important;
-}
-
 #logueate:hover{
     color: #398439;
     text-decoration: none;

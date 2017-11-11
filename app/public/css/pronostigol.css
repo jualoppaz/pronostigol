@@ -1243,10 +1243,6 @@ h1.section-header.euromillones{
     border-bottom-color: #440044;
 }
 
-#footer{
-    height: auto !important;
-}
-
 #logueate:hover{
     color: #398439;
     text-decoration: none;

@@ -42,10 +42,6 @@ module.exports = function(app){
         res.render('preguntasFrecuentes');
     };
 
-    general_vistas_manualDeUsuario = function(req, res){
-        res.render('manualDeUsuario');
-    };
-
     general_vistas_login = function(req, res){
         if(req.session.user == null){
             res.render('login');
@@ -187,7 +183,6 @@ module.exports = function(app){
     app.get('/', general_vistas_inicio);
     app.get('/politicaDeCookies', general_vistas_politicaDeCookies);
     app.get('/preguntasFrecuentes', general_vistas_preguntasFrecuentes);
-    app.get('/manualDeUsuario', general_vistas_manualDeUsuario);
     app.get('/login', general_vistas_login);
     app.get('/signup', general_vistas_registro);
     app.get('/contacto', general_vistas_contacto);
