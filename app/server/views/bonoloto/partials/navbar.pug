@@ -11,13 +11,15 @@ header(ng-controller="NavbarController")
                     a(href="/").navbar-brand.white.middle.bonoloto Inicio
                     ul.nav.navbar-nav.navbar-right.hidden-lg.hidden-md.hidden-sm
                         li(style="float: right; padding-right: 15px")
+                            a.bonoloto(href="https://github.com/jualoppaz/pronostigol", target="_blank", ng-cloak)
+                                i.fa.fa-github
+                        li(style="float: right")
                             a.bonoloto(href="https://twitter.com/pronostigolesp", target="_blank", ng-cloak)
                                 i.fa.fa-twitter
                         li(style="float: right")
                             a.bonoloto(href="https://www.facebook.com/pronostigol.es", target="_blank", ng-cloak)
                                 i.fa.fa-facebook
                 div.collapse.navbar-collapse.fondoNegro(role="navigation")
-                    //ul.nav.navbar-nav(ng-show="loguedUser.role != 'admin'")
                     ul.nav.navbar-nav
                         li
                             a.bonoloto(href="/bonoloto") Bonoloto
@@ -35,15 +37,15 @@ header(ng-controller="NavbarController")
                             a.bonoloto(href="/signup") Registrarse
 
                     ul.nav.navbar-nav.navbar-right.hidden-xs
-                        //li
-                            a(href="/buscar") Buscar
-                                i.fa.fa-search(style="margin-left:15px")
                         li
                             a.bonoloto(href="https://www.facebook.com/pronostigol.es", target="_blank", ng-cloak)
                                 i.fa.fa-facebook
                         li
                             a.bonoloto(href="https://twitter.com/pronostigolesp", target="_blank", ng-cloak)
                                 i.fa.fa-twitter
+                        li
+                            a.bonoloto(href="https://github.com/jualoppaz/pronostigol", target="_blank", ng-cloak)
+                                i.fa.fa-github
                         li(ng-show="usuarioEstaLogueado", style="margin-left:15px", ng-cloak)
                             a.btn.btn-bonoloto(href="#", role="button", ng-click="cerrarSesion()")#entrar Cerrar sesión
                         li(ng-show="!usuarioEstaLogueado", style="margin-left:15px", ng-cloak)

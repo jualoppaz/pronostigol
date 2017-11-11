@@ -11,18 +11,16 @@ header(ng-controller="NavbarController")
                     a(href="/").navbar-brand.white.middle Inicio
                     ul.nav.navbar-nav.navbar-right.hidden-lg.hidden-md.hidden-sm
                         li(style="float: right; padding-right: 15px")
+                            a(href="https://github.com/jualoppaz/pronostigol", target="_blank", ng-cloak)
+                                i.fa.fa-github
+                        li(style="float: right")
                             a(href="https://twitter.com/pronostigolesp", target="_blank", ng-cloak)
                                 i.fa.fa-twitter
                         li(style="float: right")
                             a(href="https://www.facebook.com/profile.php?id=100010937986534", target="_blank", ng-cloak)
                                 i.fa.fa-facebook
                 div.collapse.navbar-collapse.fondoAzul(role="navigation")
-                    //ul.nav.navbar-nav(ng-show="loguedUser.role != 'admin'")
                     ul.nav.navbar-nav
-                        //li
-                            a(href="/quinielas") Quinielas
-                        //li
-                            a(href="/consultas") Consultas
                         li
                             a(href="/contacto") Contacto
                         li.hidden-lg.hidden-md.hidden-sm(ng-show="usuarioEstaLogueado == false")
@@ -33,15 +31,15 @@ header(ng-controller="NavbarController")
                             a(href="/signup") Registrarse
 
                     ul.nav.navbar-nav.navbar-right.hidden-xs
-                        //li
-                            a(href="/buscar") Buscar
-                                i.fa.fa-search(style="margin-left:15px")
                         li
                             a(href="https://www.facebook.com/profile.php?id=100010937986534", target="_blank", ng-cloak)
                                 i.fa.fa-facebook
                         li
                             a(href="https://twitter.com/pronostigolesp", target="_blank", ng-cloak)
                                 i.fa.fa-twitter
+                        li
+                            a(href="https://github.com/jualoppaz/pronostigol", target="_blank", ng-cloak)
+                                i.fa.fa-github
                         li(ng-show="usuarioEstaLogueado", style="margin-left:15px", ng-cloak)
                             a.btn.btn-qdb(href="#", role="button", ng-click="cerrarSesion()")#entrar Cerrar sesión
                         li(ng-show="!usuarioEstaLogueado", style="margin-left:15px", ng-cloak)
