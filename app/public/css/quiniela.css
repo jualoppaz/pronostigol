@@ -1019,7 +1019,7 @@ body {
 
 #push,
 #footer {
-    height: 113px;
+    min-height: 113px;
 }
 
 /* Lastly, apply responsive CSS fixes as necessary */
