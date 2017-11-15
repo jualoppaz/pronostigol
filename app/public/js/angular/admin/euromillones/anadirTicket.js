@@ -4,7 +4,7 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
 
     $scope.ticket = {};
 
-    $scope.ticket.precio = "4";
+    $scope.ticket.precio = "5";
 
     $scope.anyos = [];
 
