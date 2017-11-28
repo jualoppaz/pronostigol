@@ -48,38 +48,37 @@ block content
 
                         //pre {{ticket}}
 
-                        div.col-md-12.col-sm-12.col-xs-12(ng-show="ticket.apuestas.combinaciones.length > 0", ng-cloak)
-                            div.table-responsive
-                                table.table.table-bordered.col-md-12.col-sm-12.col-xs-12
-                                    thead
-                                        tr
-                                            th Apuesta
-                                            th Bola 1
-                                            th Bola 2
-                                            th Bola 3
-                                            th Bola 4
-                                            th Bola 5
-                                            th Bola 6
-                                            th Reintegro
+                        div.table-responsive(ng-show="ticket.apuestas.combinaciones.length > 0", ng-cloak)
+                            table.table.table-bordered.col-md-12.col-sm-12.col-xs-12
+                                thead
+                                    tr
+                                        th Apuesta
+                                        th Bola 1
+                                        th Bola 2
+                                        th Bola 3
+                                        th Bola 4
+                                        th Bola 5
+                                        th Bola 6
+                                        th Reintegro
 
-                                    tbody
-                                        tr(ng-repeat="combinacion in ticket.apuestas.combinaciones")
-                                            td(ng-bind-template="{{$index + 1}}")
+                                tbody
+                                    tr(ng-repeat="combinacion in ticket.apuestas.combinaciones")
+                                        td(ng-bind-template="{{$index + 1}}")
 
-                                            td
-                                                input(type="text", placeholder="[1-49]", ng-model="combinacion[0].numero").form-control.text-center
-                                            td
-                                                input(type="text", placeholder="[1-49]", ng-model="combinacion[1].numero").form-control.text-center
-                                            td
-                                                input(type="text", placeholder="[1-49]", ng-model="combinacion[2].numero").form-control.text-center
-                                            td
-                                                input(type="text", placeholder="[1-49]", ng-model="combinacion[3].numero").form-control.text-center
-                                            td
-                                                input(type="text", placeholder="[1-49]", ng-model="combinacion[4].numero").form-control.text-center
-                                            td
-                                                input(type="text", placeholder="[1-49]", ng-model="combinacion[5].numero").form-control.text-center
-                                            td(ng-show="{{$index == 0}}", rowspan="{{ticket.apuestas.combinaciones.length}}")
-                                                input(type="text", placeholder="[0-9]", ng-model="ticket.apuestas.reintegro").form-control.text-center
+                                        td
+                                            input(type="text", placeholder="[1-49]", ng-model="combinacion[0].numero").form-control.text-center
+                                        td
+                                            input(type="text", placeholder="[1-49]", ng-model="combinacion[1].numero").form-control.text-center
+                                        td
+                                            input(type="text", placeholder="[1-49]", ng-model="combinacion[2].numero").form-control.text-center
+                                        td
+                                            input(type="text", placeholder="[1-49]", ng-model="combinacion[3].numero").form-control.text-center
+                                        td
+                                            input(type="text", placeholder="[1-49]", ng-model="combinacion[4].numero").form-control.text-center
+                                        td
+                                            input(type="text", placeholder="[1-49]", ng-model="combinacion[5].numero").form-control.text-center
+                                        td(ng-show="{{$index == 0}}", rowspan="{{ticket.apuestas.combinaciones.length}}")
+                                            input(type="text", placeholder="[0-9]", ng-model="ticket.apuestas.reintegro").form-control.text-center
 
                         h2.page-header Resultado
 

@@ -1127,8 +1127,6 @@ th.badge-pleno{
         overflow-y: visible;
         -webkit-overflow-scrolling: auto;
         -ms-overflow-style: scrollbar;
-        border: 1px solid #ddd;
-
     }
     .table-responsive > .table {
         margin-bottom: 0;
@@ -1142,7 +1140,7 @@ th.badge-pleno{
         white-space: nowrap;
     }
     .table-responsive > .table-bordered {
-        border: 0;
+
     }
     .table-responsive > .table-bordered > thead > tr > th:first-child,
     .table-responsive > .table-bordered > tbody > tr > th:first-child,
