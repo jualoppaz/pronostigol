@@ -2,7 +2,7 @@ var app = angular.module('dashboard');
 
 app.controller('TicketController', function ($scope, $http, $window, $filter){
 
-    $scope.ticket = {};
+    $scope.quiniela = {};
 
     $scope.consultando = true;
 
@@ -19,7 +19,7 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
             //data.precio = String(data.precio);
             //data.premio = String(data.premio);
 
-            $scope.ticket = data;
+            $scope.quiniela = data;
 
             $scope.consultando = false;
         })
@@ -38,86 +38,49 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
         }
     ];
 
-    $scope.anadirApuesta = function(){
-        if($scope.ticket.apuestas.combinaciones == null){
-
-            $scope.ticket.apuestas.combinaciones = [
-                [
-                    {
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
-                    }
-                ]
-            ];
-        }else if($scope.ticket.apuestas.combinaciones.length == 0){
-            $scope.ticket.apuestas.combinaciones = [
-                [
-                    {
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
-                    }
-                ]
-            ];
+    $scope.anadirPronostico = function(){
+        if($scope.quiniela.partidos[0].pronosticos == null){
+            for(i=0; i<15; i++){
+                $scope.quiniela.partidos[i].pronosticos = [];
+                $scope.quiniela.partidos[i].pronosticos.push({signo: ""});
+            }
         }
 
-        if($scope.ticket.apuestas.combinaciones.length < 8){
+        if($scope.quiniela.partidos[0].pronosticos.length < 8){
 
-            console.log("Anadimos la segunda");
-
-            $scope.ticket.apuestas.combinaciones[$scope.ticket.apuestas.combinaciones.length] = [
-                [
-                    {
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
+            for(i=0;i<$scope.quiniela.partidos.length; i++){
+                if(i != $scope.quiniela.partidos.length - 1){
+                    /*
+                    if($scope.quiniela.partidos[i].pronosticos == null){
+                        $scope.quiniela.partidos[i].pronosticos.push({signo: ""});
                     }
-                ]
-            ];
+                    */
+                    $scope.quiniela.partidos[i].pronosticos.push({signo: ""});
+                }
+            }
         }
     };
 
-    $scope.eliminarApuesta = function(){
+    $scope.eliminarPronostico = function(){
 
-        if($scope.ticket.apuestas.combinaciones.length != 0){
-
-            $scope.ticket.apuestas.combinaciones.pop();
-
-            if($scope.ticket.apuestas.combinaciones.length == 1){
-                $scope.ticket.apuestas.combinaciones = [];
+        for(i=0;i<$scope.quiniela.partidos.length; i++){
+            if(i != $scope.quiniela.partidos.length - 1){ //No es el pleno
+                $scope.quiniela.partidos[i].pronosticos.pop();
+                if($scope.quiniela.partidos[i].pronosticos.length == 1){
+                    $scope.quiniela.partidos[i].pronosticos.pop();
+                    delete $scope.quiniela.partidos[i].pronosticos;
+                }
+            }else{// Es el pleno
+                if($scope.quiniela.partidos[0].pronosticos == null){
+                    delete $scope.quiniela.partidos[i].pronosticos;
+                }
             }
-
         }
     };
 
     $scope.guardar = function(){
 
-        $http.put('/api/quiniela/tickets', $scope.ticket)
+        $http.put('/api/quiniela/tickets', $scope.quiniela)
             .success(function(data){
                 angular.element("#modalTitleRegistroEditadoCorrectamente").text("Ticket de Quiniela editado correctamente");
                 angular.element("#modalTextRegistroEditadoCorrectamente").text("A continuación se le redirigirá al listado de tickets de Quiniela registrados.");

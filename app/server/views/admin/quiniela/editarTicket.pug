@@ -17,28 +17,28 @@ block content
                         div.form-group
                             label.col-sm-2.control-label Temporada:
                             div.col-sm-4
-                                //input(ng-model="ticket.temporada", placeholder="XXXX-YYYY").form-control
-                                input(ng-model="ticket.temporada", placeholder="XXXX-YYYY", , uib-typeahead="temporada.value as temporada.name for temporada in temporadas | filter:{name:$viewValue}").form-control
+                                //input(ng-model="quiniela.temporada", placeholder="XXXX-YYYY").form-control
+                                input(ng-model="quiniela.temporada", placeholder="XXXX-YYYY", , uib-typeahead="temporada.value as temporada.name for temporada in temporadas | filter:{name:$viewValue}").form-control
                         div.form-group
                             label.col-sm-2.control-label Modalidad:
                             div.col-sm-4
-                                input(ng-model="ticket.modalidad").form-control
+                                input(ng-model="quiniela.modalidad").form-control
                         div.form-group
                             label.col-sm-2.control-label Fecha:
                             div.col-sm-4
-                                input(ng-model="ticket.fecha", placeholder="dd/MM/yyyy").form-control
+                                input(ng-model="quiniela.fecha", placeholder="dd/MM/yyyy").form-control
                         div.form-group
                             label.col-sm-2.control-label Jornada:
                             div.col-sm-4
-                                input(ng-model="ticket.jornada", placeholder="Identificador del ticket en la temporada").form-control
+                                input(ng-model="quiniela.jornada", placeholder="Identificador del ticket en la temporada").form-control
                         div.form-group
                             label.col-sm-2.control-label Precio:
                             div.col-sm-4
-                                input(ng-model="ticket.precio").form-control
+                                input(ng-model="quiniela.precio").form-control
                         div.form-group
                             label.col-sm-2.control-label Premio:
                             div.col-sm-4
-                                input(ng-model="ticket.premio").form-control
+                                input(ng-model="quiniela.premio").form-control
 
 
                         div.col-md-4.col-md-offset-8
@@ -53,9 +53,9 @@ block content
                             div.table-responsive
                                 table.table.table-bordered.col-md-12.col-sm-12.col-xs-12
                                     thead
-                                        tr(ng-show="ticket.partidos[0].pronosticos.length > 0", ng-cloak)
+                                        tr(ng-show="quiniela.partidos[0].pronosticos.length > 0", ng-cloak)
                                             th(colspan="9")
-                                            th(colspan="{{ticket.partidos[0].pronosticos.length}}") Pronósticos
+                                            th(colspan="{{quiniela.partidos[0].pronosticos.length}}") Pronósticos
                                         tr
                                             th Fila
                                             //th Temporada
@@ -67,13 +67,13 @@ block content
                                             th Visitante
                                             th Resultado
                                             th R. Pleno
-                                            th(ng-repeat="pronostico in ticket.partidos[0].pronosticos track by $index", ng-bind-template="{{$index + 1}}")
+                                            th(ng-repeat="pronostico in quiniela.partidos[0].pronosticos track by $index", ng-bind-template="{{$index + 1}}")
 
 
 
 
                                     tbody
-                                        tr(ng-repeat="partido in ticket.partidos")
+                                        tr(ng-repeat="partido in quiniela.partidos")
                                             td(ng-bind-template="{{partido.fila}}")
                                             //td
                                                 input.form-control(ng-model="partido.temporada")
@@ -100,8 +100,8 @@ block content
                                                 | N/A
                                             td(style="min-width: 60px", ng-repeat="pronostico in partido.pronosticos", ng-show="partido.fila < 15")
                                                 input.form-control(ng-model="pronostico.signo").text-center
-                                            td(style="min-width: 60px", ng-show="partido.fila == 15 && ticket.partidos[0].pronosticos != null", colspan="{{ticket.partidos[0].pronosticos.length}}")
-                                                input.form-control(ng-show="ticket.partidos[0].pronosticos.length > 0", ng-cloak, ng-model="partido.pronosticos[0].signo").text-center
+                                            td(style="min-width: 60px", ng-show="partido.fila == 15 && quiniela.partidos[0].pronosticos != null", colspan="{{quiniela.partidos[0].pronosticos.length}}")
+                                                input.form-control(ng-show="quiniela.partidos[0].pronosticos.length > 0", ng-cloak, ng-model="partido.pronosticos[0].signo").text-center
 
 
                         div.form-group
@@ -111,7 +111,7 @@ block content
                                 a.btn.btn-default.btn-primary(href="#", role="button", ng-click="guardar()")#confirmarEliminacion Aceptar
 
 
-                        //pre {{ticket.partidos[0].pronosticos}}
+                        //pre {{quiniela.partidos[0].pronosticos}}
 
                         //pre {{ticket}}
 
