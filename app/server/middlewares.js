@@ -59,16 +59,21 @@ function isAuthorized_view(allowedRoles){
             actualRole = req.session.user.role;
         }
 
-        console.log("Rol actual:", actualRole);
+        var authorized = false;
 
         for(var i=0; i<allowedRoles.length; i++){
             if(actualRole === allowedRoles[i]){
-                return next();
+                authorized = true;
+                break;
             }
         }
 
-        res.render('error', {
-            message: 'No puede acceder a esta pantalla porque no está autorizado.'
-        });
+        if(authorized){
+            next();
+        }else{
+            res.render('error', {
+                message: 'No puede acceder a esta pantalla porque no está autorizado.'
+            });
+        }
     };
 }

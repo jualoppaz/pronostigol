@@ -1,5 +1,5 @@
-var middlewares = require('./middlewares');
-var ROL = require('./roles');
+var middlewares = require('../../middlewares');
+var ROL = require('../../roles');
 
 module.exports = function(app){
     var actualizarUltimaPagina = function(req){
@@ -77,7 +77,7 @@ module.exports = function(app){
     app.get('/', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), general_vistas_inicio);
     app.get('/politicaDeCookies', general_vistas_politicaDeCookies);
     app.get('/preguntasFrecuentes', general_vistas_preguntasFrecuentes);
-    app.get('/login', middlewares.isGuest_view, general_vistas_login);
+    app.get('/login', middlewares.isAuthorized_view([ROL.GUEST]), general_vistas_login);
     app.get('/signup', general_vistas_registro);
     app.get('/contacto', general_vistas_contacto);
 

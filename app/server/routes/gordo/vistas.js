@@ -1,3 +1,6 @@
+var middlewares = require('../../middlewares');
+var ROL = require('../../roles');
+
 module.exports = function(app){
     var actualizarUltimaPagina = function(req){
         // El if se podria omitir, pero lo dejamos para tener un mayor control
@@ -14,176 +17,64 @@ module.exports = function(app){
         actualizarUltimaPagina(req);
     };
 
-    gordo_vistas_index = function(req, res){
+    var gordo_vistas_index = function(req, res){
         funcionesComunes(req);
-        if(req.session.user == null){
-            res.render('gordo');
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('error', {
-                    message: 'El administrador no puede acceder a esta página.'
-                });
-            }else{
-                res.render('gordo');
-            }
-        }
+        res.render('gordo');
     };
 
-    gordo_vistas_ticket = function(req, res){
+    var gordo_vistas_ticket = function(req, res){
         funcionesComunes(req);
-        if(req.session.user == null){
-            res.render('gordo/ticket');
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('error', {
-                    message: 'El administrador no puede acceder a esta página.'
-                });
-            }else if(req.session.user.role == "privileged" || req.session.user.role == 'basic'){
-                res.render('gordo/ticket');
-            }
-        }
+        res.render('gordo/ticket');
     };
 
-    gordo_vistas_tickets = function(req, res){
+    var gordo_vistas_tickets = function(req, res){
         funcionesComunes(req);
-        if(req.session.user == null){
-            res.render('gordo/tickets');
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('error', {
-                    message: 'El administrador no puede acceder a esta página.'
-                });
-            }else if(req.session.user.role == "privileged" || req.session.user.role == 'basic'){
-                res.render('gordo/tickets');
-            }
-        }
+        res.render('gordo/tickets');
     };
 
-    gordo_vistas_consultas = function(req, res){
+    var gordo_vistas_consultas = function(req, res){
         funcionesComunes(req);
-        if(req.session.user == null){
-            res.render('gordo/consultas');
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('error', {
-                    message: 'El administrador no puede acceder a esta página.'
-                });
-            }else{
-                res.render('gordo/consultas');
-            }
-        }
+        res.render('gordo/consultas');
     };
 
-    gordo_vistas_admin_gordo = function(req, res){
-        if(req.session.user == null){
-            res.render('error',{
-                message : 'No puede acceder a este recurso porque no' +
-                    ' tiene permisos de administración.'
-            });
-        }else{
-            if(req.session.user.role == 'admin'){
-                res.render('admin/gordo');
-            }else{
-                res.render('error',{
-                    message : 'No puede acceder a este recurso porque ' +
-                        'no tiene permisos de administración.'
-                });
-            }
-        }
+    var gordo_vistas_admin_gordo = function(req, res){
+        res.render('admin/gordo');
     };
 
-    gordo_vistas_admin_anadirTicket = function(req, res){
-        if(req.session.user == null){
-            res.render('error',{
-                message : 'No puede acceder a este recurso porque no' +
-                    ' tiene permisos de administración.'
-            });
-        }else{
-            if(req.session.user.role == 'admin'){
-                res.render('admin/gordo/anadirTicket');
-            }else{
-                res.render('error',{
-                    message : 'No puede acceder a este recurso porque ' +
-                        'no tiene permisos de administración.'
-                });
-            }
-        }
+    var gordo_vistas_admin_anadirTicket = function(req, res){
+        res.render('admin/gordo/anadirTicket');
     };
 
-    gordo_vistas_admin_editarTicket = function(req, res){
-        if(req.session.user == null){
-            res.render('error',{
-                message : 'No puede acceder a este recurso porque no' +
-                    ' tiene permisos de administración.'
-            });
-        }else{
-            if(req.session.user.role == 'admin'){
-                res.render('admin/gordo/editarTicket');
-            }else{
-                res.render('error',{
-                    message : 'No puede acceder a este recurso porque ' +
-                        'no tiene permisos de administración.'
-                });
-            }
-        }
+    var gordo_vistas_admin_editarTicket = function(req, res){
+        res.render('admin/gordo/editarTicket');
     };
 
-    gordo_vistas_admin_anyos = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                'porque no tiene permisos de administración.'});
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/gordo/anyos');
-            }else{
-                res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                    'porque no tiene permisos de administración.'});
-            }
-        }
+    var gordo_vistas_admin_anyos = function(req, res){
+        res.render('admin/gordo/anyos');
     };
 
-    gordo_vistas_admin_anadirAnyo = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                'porque no tiene permisos de administración.'});
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/gordo/anadirAnyo');
-            }else{
-                res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                    'porque no tiene permisos de administración.'});
-            }
-        }
+    var gordo_vistas_admin_anadirAnyo = function(req, res){
+        res.render('admin/gordo/anadirAnyo');
     };
 
-    gordo_vistas_admin_editarAnyo = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                'porque no tiene permisos de administración.'});
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/gordo/editarAnyo');
-            }else{
-                res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                    'porque no tiene permisos de administración.'});
-            }
-        }
+    var gordo_vistas_admin_editarAnyo = function(req, res){
+        res.render('admin/gordo/editarAnyo');
     };
 
     // Parte Publica
 
-    app.get('/gordo', gordo_vistas_index);
-    app.get('/gordo/tickets', gordo_vistas_tickets);
-    app.get('/gordo/tickets/:temporada/:jornada', gordo_vistas_ticket);
-    app.get('/gordo/consultas', gordo_vistas_consultas);
+    app.get('/gordo', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), gordo_vistas_index);
+    app.get('/gordo/tickets', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), gordo_vistas_tickets);
+    app.get('/gordo/tickets/:temporada/:jornada', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), gordo_vistas_ticket);
+    app.get('/gordo/consultas', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), gordo_vistas_consultas);
 
     // Administracion
 
-    app.get('/admin/gordo', gordo_vistas_admin_gordo);
-    app.get('/admin/gordo/anadirTicket', gordo_vistas_admin_anadirTicket);
-    app.get('/admin/gordo/tickets/:id', gordo_vistas_admin_editarTicket);
+    app.get('/admin/gordo', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), gordo_vistas_admin_gordo);
+    app.get('/admin/gordo/anadirTicket', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), gordo_vistas_admin_anadirTicket);
+    app.get('/admin/gordo/tickets/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), gordo_vistas_admin_editarTicket);
 
-    app.get('/admin/gordo/anyos', gordo_vistas_admin_anyos);
-    app.get('/admin/gordo/anadirAnyo', gordo_vistas_admin_anadirAnyo);
-    app.get('/admin/gordo/anyos/:id', gordo_vistas_admin_editarAnyo);
+    app.get('/admin/gordo/anyos', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), gordo_vistas_admin_anyos);
+    app.get('/admin/gordo/anadirAnyo', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), gordo_vistas_admin_anadirAnyo);
+    app.get('/admin/gordo/anyos/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), gordo_vistas_admin_editarAnyo);
 };

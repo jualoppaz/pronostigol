@@ -1,9 +1,5 @@
-/*var ultimaPagina = "";
-
-exports.ultimaPagina = function(){
-    return ultimaPagina;
-};*/
-
+var middlewares = require('../../middlewares');
+var ROL = require('../../roles');
 
 module.exports = function(app){
     var actualizarUltimaPagina = function(req){
@@ -21,7 +17,7 @@ module.exports = function(app){
         actualizarUltimaPagina(req);
     };
 
-    quiniela_vistas_inicio = function(req, res){
+    var quiniela_vistas_inicio = function(req, res){
         funcionesComunes(req);
         if(req.session.user == null){
             res.render('quiniela');
@@ -36,7 +32,7 @@ module.exports = function(app){
         }
     };
 
-    quiniela_vistas_quinielas = function(req, res){
+    var quiniela_vistas_quinielas = function(req, res){
         funcionesComunes(req);
         if(req.session.user == null){
             res.render('quiniela/tickets');
@@ -51,7 +47,7 @@ module.exports = function(app){
         }
     };
 
-    quiniela_vistas_ticket = function(req, res){
+    var quiniela_vistas_ticket = function(req, res){
         funcionesComunes(req);
         if(req.session.user == null){
             res.render('quiniela/ticket');
@@ -66,7 +62,7 @@ module.exports = function(app){
         }
     };
 
-    quiniela_vistas_consultas = function(req, res){
+    var quiniela_vistas_consultas = function(req, res){
         funcionesComunes(req);
         if(req.session.user == null){
             res.render('quiniela/consultas');
@@ -81,7 +77,7 @@ module.exports = function(app){
         }
     };
 
-    quiniela_vistas_admin_quiniela = function(req, res){
+    var quiniela_vistas_admin_quiniela = function(req, res){
         if(req.session.user == null){
             res.render('error',{
                 message : 'No puede acceder a este recurso porque no' +
@@ -99,7 +95,7 @@ module.exports = function(app){
         }
     };
 
-    quiniela_vistas_admin_anadirTicket = function(req, res){
+    var quiniela_vistas_admin_anadirTicket = function(req, res){
         if(req.session.user == null){
             res.render('error',{
                 message : 'No puede acceder a este recurso porque no' +
@@ -117,7 +113,7 @@ module.exports = function(app){
         }
     };
 
-    quiniela_vistas_admin_editarTicket = function(req, res){
+    var quiniela_vistas_admin_editarTicket = function(req, res){
         if(req.session.user == null){
             res.render('error',{
                 message : 'No puede acceder a este recurso porque no' +
@@ -135,7 +131,7 @@ module.exports = function(app){
         }
     };
 
-    quiniela_vistas_admin_equipos = function(req, res){
+    var quiniela_vistas_admin_equipos = function(req, res){
         if(req.session.user == null){
             res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
                 'porque no tiene permisos de administración.'});
@@ -149,7 +145,7 @@ module.exports = function(app){
         }
     };
 
-    quiniela_vistas_admin_competiciones = function(req, res){
+    var quiniela_vistas_admin_competiciones = function(req, res){
         if(req.session.user == null){
             res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
                 'porque no tiene permisos de administración.'});
@@ -163,7 +159,7 @@ module.exports = function(app){
         }
     };
 
-    quiniela_vistas_admin_temporadas = function(req, res){
+    var quiniela_vistas_admin_temporadas = function(req, res){
         if(req.session.user == null){
             res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
                 'porque no tiene permisos de administración.'});
@@ -177,7 +173,7 @@ module.exports = function(app){
         }
     };
 
-    quiniela_vistas_admin_anadirEquipo = function(req, res){
+    var quiniela_vistas_admin_anadirEquipo = function(req, res){
         if(req.session.user == null){
             res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
                 'porque no tiene permisos de administración.'});
@@ -191,7 +187,7 @@ module.exports = function(app){
         }
     };
 
-    quiniela_vistas_admin_anadirCompeticion = function(req, res){
+    var quiniela_vistas_admin_anadirCompeticion = function(req, res){
         if(req.session.user == null){
             res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
                 'porque no tiene permisos de administración.'});
@@ -205,7 +201,7 @@ module.exports = function(app){
         }
     };
 
-    quiniela_vistas_admin_anadirTemporada = function(req, res){
+    var quiniela_vistas_admin_anadirTemporada = function(req, res){
         if(req.session.user == null){
             res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
                 'porque no tiene permisos de administración.'});
@@ -219,7 +215,7 @@ module.exports = function(app){
         }
     };
 
-    quiniela_vistas_admin_editarEquipo = function(req, res){
+    var quiniela_vistas_admin_editarEquipo = function(req, res){
         if(req.session.user == null){
             res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
                 'porque no tiene permisos de administración.'});
@@ -233,7 +229,7 @@ module.exports = function(app){
         }
     };
 
-    quiniela_vistas_admin_editarCompeticion = function(req, res){
+    var quiniela_vistas_admin_editarCompeticion = function(req, res){
         if(req.session.user == null){
             res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
                 'porque no tiene permisos de administración.'});
@@ -247,7 +243,7 @@ module.exports = function(app){
         }
     };
 
-    quiniela_vistas_admin_editarTemporada = function(req, res){
+    var quiniela_vistas_admin_editarTemporada = function(req, res){
         if(req.session.user == null){
             res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
                 'porque no tiene permisos de administración.'});
@@ -261,25 +257,26 @@ module.exports = function(app){
         }
     };
 
-    app.get('/quiniela', quiniela_vistas_inicio);
+    // Parte Publica
+    app.get('/quiniela', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), quiniela_vistas_inicio);
 
-    app.get('/quiniela/tickets', quiniela_vistas_quinielas);
-    app.get('/quiniela/tickets/:temporada/:jornada', quiniela_vistas_ticket);
-    app.get('/quiniela/consultas', quiniela_vistas_consultas);
+    app.get('/quiniela/tickets', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), quiniela_vistas_quinielas);
+    app.get('/quiniela/tickets/:temporada/:jornada', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), quiniela_vistas_ticket);
+    app.get('/quiniela/consultas', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), quiniela_vistas_consultas);
 
-
-    app.get('/admin/quiniela', quiniela_vistas_admin_quiniela);
-    app.get('/admin/quiniela/anadirTicket', quiniela_vistas_admin_anadirTicket);
-    app.get('/admin/quiniela/tickets/:season/:day', quiniela_vistas_admin_editarTicket);
-    app.get('/admin/quiniela/equipos', quiniela_vistas_admin_equipos);
-    app.get('/admin/quiniela/equipos/:id', quiniela_vistas_admin_editarEquipo);
-    app.get('/admin/quiniela/competiciones', quiniela_vistas_admin_competiciones);
-    app.get('/admin/quiniela/competiciones/:id', quiniela_vistas_admin_editarCompeticion);
-    app.get('/admin/quiniela/temporadas', quiniela_vistas_admin_temporadas);
-    app.get('/admin/quiniela/temporadas/:id', quiniela_vistas_admin_editarTemporada);
-    app.get('/admin/quiniela/anadirEquipo', quiniela_vistas_admin_anadirEquipo);
-    app.get('/admin/quiniela/anadirCompeticion', quiniela_vistas_admin_anadirCompeticion);
-    app.get('/admin/quiniela/anadirTemporada', quiniela_vistas_admin_anadirTemporada);
+    // Administracion
+    app.get('/admin/quiniela', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_quiniela);
+    app.get('/admin/quiniela/anadirTicket', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_anadirTicket);
+    app.get('/admin/quiniela/tickets/:season/:day', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_editarTicket);
+    app.get('/admin/quiniela/equipos', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_equipos);
+    app.get('/admin/quiniela/equipos/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_editarEquipo);
+    app.get('/admin/quiniela/competiciones', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_competiciones);
+    app.get('/admin/quiniela/competiciones/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_editarCompeticion);
+    app.get('/admin/quiniela/temporadas', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_temporadas);
+    app.get('/admin/quiniela/temporadas/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_editarTemporada);
+    app.get('/admin/quiniela/anadirEquipo', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_anadirEquipo);
+    app.get('/admin/quiniela/anadirCompeticion', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_anadirCompeticion);
+    app.get('/admin/quiniela/anadirTemporada', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_anadirTemporada);
 
 };
 
