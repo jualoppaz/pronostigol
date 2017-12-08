@@ -1,9 +1,5 @@
-/*var ultimaPagina = "";
-
-exports.ultimaPagina = function(){
-    return ultimaPagina;
-};*/
-
+var middlewares = require('./middlewares');
+var ROL = require('./roles');
 
 module.exports = function(app){
     var actualizarUltimaPagina = function(req){
@@ -17,183 +13,80 @@ module.exports = function(app){
         }
     };
 
-    var funcionesComunes = function(req, res, next){		
+    var funcionesComunes = function(req, res, next){
         actualizarUltimaPagina(req);
     };
 
-    general_vistas_inicio = function(req, res, next) {
+    var general_vistas_inicio = function(req, res, next) {
         funcionesComunes(req, res, next);
-        if(req.session.user == null && req.cookies.user == undefined){
-            res.render('index');
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/dashboard');
-            }else{
-                res.render('index');
-            }
-        }
+        res.render('index');
     };
 
-    general_vistas_politicaDeCookies = function(req, res){
+    var general_vistas_politicaDeCookies = function(req, res){
         res.render('politicaDeCookies');
     };
 
-    general_vistas_preguntasFrecuentes = function(req, res){
+    var general_vistas_preguntasFrecuentes = function(req, res){
         res.render('preguntasFrecuentes');
     };
 
-    general_vistas_login = function(req, res){
-        if(req.session.user == null){
-            res.render('login');
-        }else{
-            res.render('error',{
-                message : 'No puede acceder de nuevo a la aplicación porque ya está logueado.'
-            });
-        }
+   var general_vistas_login = function(req, res){
+       res.render('login');
     };
 
-    general_vistas_registro = function(req, res){
+    var general_vistas_registro = function(req, res){
         res.render('signup');
     };
 
-    general_vistas_contacto = function(req, res){
+    var general_vistas_contacto = function(req, res){
         res.render('contacto');
     };
 
-    general_vistas_admin_emails = function(req, res){
-        if(req.session.user == null){
-            res.render('error',{
-                message : 'No puede acceder a los emails enviados a Pronostigol porque no' +
-                    ' tiene permisos de administración.'
-            });
-        }else{
-            if(req.session.user.role == 'admin'){
-                res.render('admin/emails');
-            }else{
-                res.render('error',{
-                    message : 'No puede acceder a los emails enviados a Pronostigol porque ' +
-                        'no tiene permisos de administración.'
-                });
-            }
-        }
+    var general_vistas_admin = function(req, res, next) {
+        res.render('admin/dashboard');
     };
 
-    general_vistas_admin_email = function(req, res){
-        if(req.session.user == null){
-            res.render('error',{
-                message : 'No puede acceder a los emails enviados a Pronostigol porque no tiene permisos de administración.'
-            });
-        }else{
-            if(req.session.user.role == 'admin'){
-                res.render('admin/email');
-            }else{
-                res.render('error',{
-                    message : 'No puede acceder a los emails enviados a Pronostigol porque no tiene permisos de administración.'
-                });
-            }
-        }
+    var general_vistas_admin_emails = function(req, res){
+        res.render('admin/emails');
     };
 
-    general_vistas_admin_comentarios = function(req, res){
-        if(req.session.user == null){
-            res.render('error',{
-                message : 'No puede acceder a los comentarios publicados en Pronostigol porque no' +
-                    ' tiene permisos de administración.'
-            });
-        }else{
-            if(req.session.user.role == 'admin'){
-                res.render('admin/comentarios');
-            }else{
-                res.render('error',{
-                    message : 'No puede acceder a los comentarios publicados en Pronostigol porque ' +
-                        'no tiene permisos de administración.'
-                });
-            }
-        }
+    var general_vistas_admin_emails_email = function(req, res){
+        res.render('admin/email');
     };
 
-    general_vistas_admin_comentario = function(req, res){
-        if(req.session.user == null){
-            res.render('error',{
-                message : 'No puede acceder a los comentarios publicados en Pronostigol porque no tiene permisos de administración.'
-            });
-        }else{
-            if(req.session.user.role == 'admin'){
-                res.render('admin/comentario');
-            }else{
-                res.render('error',{
-                    message : 'No puede acceder a los comentarios publicados en Pronostigol porque no tiene permisos de administración.'
-                });
-            }
-        }
+    var general_vistas_admin_comentarios = function(req, res){
+        res.render('admin/comentarios');
     };
 
-    general_vistas_admin_balanceEconomico = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {
-                message: 'No puede acceder al balance económico de Pronostigol porque no' +
-                    ' tiene permisos de administración.'
-            });
-        }else{
-            if(req.session.user.role == 'admin'){
-                res.status(200).render('admin/balanceEconomico');
-            }else{
-                res.render('error', {
-                    message : 'No puede acceder al balance económico de Pronostigol porque no' +
-                        ' tiene permisos de administración.'
-                });
-            }
-        }
+    var general_vistas_admin_comentarios_comentario = function(req, res){
+        res.render('admin/comentario');
     };
 
-    general_vistas_admin_usuarios = function(req, res){
-        if(req.session.user == null){
-            res.render('error',{
-                message : 'No puede ver los usuarios registrados en Pronostigol porque no' +
-                    ' tiene permisos de administración.'
-            });
-        }else{
-            if(req.session.user.role == 'admin'){
-                res.render('admin/usuarios');
-            }else{
-                res.render('error',{
-                    message : 'No puede ver los usuarios registrados en Pronostigol porque ' +
-                        'no tiene permisos de administración.'
-                });
-            }
-        }
+    var general_vistas_admin_balanceEconomico = function(req, res){
+        res.render('admin/balanceEconomico');
     };
 
-    general_vistas_admin_usuario = function(req, res){
-        if(req.session.user == null){
-            res.render('error',{
-                message : 'No puede ver los usuarios registrados en Pronostigol porque no tiene permisos de administración.'
-            });
-        }else{
-            if(req.session.user.role == 'admin'){
-                res.render('admin/usuario');
-            }else{
-                res.render('error',{
-                    message : 'No puede ver los usuarios registrados en Pronostigol porque no tiene permisos de administración.'
-                });
-            }
-        }
+    var general_vistas_admin_usuarios = function(req, res){
+        res.render('admin/usuarios');
     };
 
-    app.get('/', general_vistas_inicio);
+    var general_vistas_admin_usuarios_usuario = function(req, res){
+        res.render('admin/usuario');
+    };
+
+    app.get('/', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), general_vistas_inicio);
     app.get('/politicaDeCookies', general_vistas_politicaDeCookies);
     app.get('/preguntasFrecuentes', general_vistas_preguntasFrecuentes);
-    app.get('/login', general_vistas_login);
+    app.get('/login', middlewares.isGuest_view, general_vistas_login);
     app.get('/signup', general_vistas_registro);
     app.get('/contacto', general_vistas_contacto);
 
-    app.get('/admin/emails', general_vistas_admin_emails);
-    app.get('/admin/emails/:id', general_vistas_admin_email);
-    app.get('/admin/comentarios', general_vistas_admin_comentarios);
-    app.get('/admin/comentarios/:id', general_vistas_admin_comentario);
-    app.get('/admin/balanceEconomico', general_vistas_admin_balanceEconomico);
-    app.get('/admin/usuarios', general_vistas_admin_usuarios);
-    app.get('/admin/usuarios/:id', general_vistas_admin_usuario);
+    app.get('/admin', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), general_vistas_admin);
+    app.get('/admin/emails', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), general_vistas_admin_emails);
+    app.get('/admin/emails/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), general_vistas_admin_emails_email);
+    app.get('/admin/comentarios', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), general_vistas_admin_comentarios);
+    app.get('/admin/comentarios/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), general_vistas_admin_comentarios_comentario);
+    app.get('/admin/balanceEconomico', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), general_vistas_admin_balanceEconomico);
+    app.get('/admin/usuarios', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), general_vistas_admin_usuarios);
+    app.get('/admin/usuarios/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), general_vistas_admin_usuarios_usuario);
 };
-
-

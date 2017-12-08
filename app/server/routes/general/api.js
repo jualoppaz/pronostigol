@@ -66,7 +66,7 @@ module.exports = function(app){
                             res.cookie('pass', o.pass, { maxAge: 900000 });
                         }
                         if(o.role == "admin"){
-                            req.session.ultimaPagina = "/";
+                            req.session.ultimaPagina = "/admin";
                         }
                         res.status(200).send(o);
                     }else{
@@ -79,7 +79,7 @@ module.exports = function(app){
                 if(o != null){
                     if(o.estaActivo){
                         if(o.role == "admin"){
-                            ultimaPagina = "/";
+                            req.session.ultimaPagina = "/admin";
                         }
                         res.status(200).send(o, 400);
                     }else{
