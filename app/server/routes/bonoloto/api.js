@@ -1,10 +1,9 @@
-var BON_DBM;
-
-var roles = ['basic', 'privileged', 'admin'];
-
 module.exports = function(app){
 
-    BON_DBM = require('../../modules/bonoloto-data-base-manager');
+    var middlewares = require('../../middlewares');
+    var ROL = require('../../roles');
+
+    var BON_DBM = require('../../modules/bonoloto-data-base-manager');
 
     var filtrarInformacion = function(result){
         var json = JSON.parse(JSON.stringify(result));
@@ -234,49 +233,10 @@ module.exports = function(app){
 
     };
 
-    // Implementacion anterior
-    /*
-    var bonoloto_api_historicoDeAparicionesPorNumero = function(req, res){
-
-        var numeros = {};
-
-        var numerosConsultados = 0;
-
-        BON_DBM.getOcurrencesByNumber(function(err, result){
-            if(err){
-                res.status(err);
-            }else{
-
-                if(result.length > 0){
-                    var numero = result[0].resultado[0].numero;
-
-                    var apariciones = result.length;
-
-                    numeros[numero] = apariciones;
-
-                    numerosConsultados++;
-                }else{
-                    numerosConsultados++;
-                }
-
-                if(numerosConsultados == 44){
-                    console.log("Numeros frente a apariciones");
-                    console.log(JSON.stringify(numeros, null, 4));
-                    res.status(200).send(JSON.stringify(numeros, null, 4));
-                }
-            }
-        });
-
-    };
-
-    */
-
     var bonoloto_api_historicoDeAparicionesPorNumero = function(req, res){
 
         var numeros = [];
-
-        var numerosConsultados = 0;
-
+        
         BON_DBM.getOcurrencesByNumber(function(err, result){
             if(err){
                 res.status(err);
@@ -305,9 +265,7 @@ module.exports = function(app){
     var bonoloto_api_historicoDeAparicionesPorReintegro = function(req, res){
 
         var reintegros = [];
-
-        var reintegrosConsultados = 0;
-
+        
         BON_DBM.getOcurrencesByReimbursement(function(err, result){
             if(err){
                 res.status(400).send(err);
@@ -331,16 +289,12 @@ module.exports = function(app){
     var bonoloto_api_historicoDeResultadosGlobales = function(req, res){
 
         var numeros = [];
-
-        var numerosConsultados = 0;
-
+        
         BON_DBM.getOcurrencesByResultWithoutReimbursement(function(err, tickets){
             if(err){
                 res.status(400).send(err);
             }else{
-
-                var response = [];
-
+                
                 for(var i=0;i<tickets.length;i++){
                     var json = {};
                     json.numeros = tickets[i]._id;
@@ -348,7 +302,7 @@ module.exports = function(app){
                     response.push(json);
                 }
 
-                res.status(200).send(response);
+                res.status(200).send(numeros);
 
             }
         });
@@ -356,10 +310,6 @@ module.exports = function(app){
     };
 
     var bonoloto_api_historicoDeResultadosGlobalesConReintegro = function(req, res){
-
-        var numeros = [];
-
-        var numerosConsultados = 0;
 
         BON_DBM.getOcurrencesByResultWithReimbursement(function(err, tickets){
             if(err){
@@ -437,7 +387,6 @@ module.exports = function(app){
 
         year.name = name;
 
-
         BON_DBM.getYearByName(name, function(err, result){
             if(err){
                 res.status(400).send(name);
@@ -454,9 +403,7 @@ module.exports = function(app){
                     res.status(400).send('year-already-exists');
                 }
             }
-        })
-
-
+        });
     };
 
     var bonoloto_api_editYear = function(req, res){
@@ -490,22 +437,22 @@ module.exports = function(app){
     };
 
     /* Tickets de Bonoloto */
+    
     app.get('/api/bonoloto/tickets', bonoloto_api_tickets);
     app.get('/api/bonoloto/tickets/anyo/:anyo', bonoloto_api_ticketsPorAnyo);
     app.get('/api/bonoloto/tickets/anyo/:anyo/sorteo/:sorteo', bonoloto_api_ticketPorAnyoYSorteo);
     app.get('/api/bonoloto/tickets/:id', bonoloto_api_ticketPorId);
-    app.post('/api/bonoloto/tickets', bonoloto_api_nuevoTicket);
-    app.put('/api/bonoloto/tickets', bonoloto_api_editarTicket);
-    app.delete('/api/bonoloto/tickets/:id', bonoloto_api_borrarTicket);
-
-
+    app.post('/api/bonoloto/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_nuevoTicket);
+    app.put('/api/bonoloto/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_editarTicket);
+    app.delete('/api/bonoloto/tickets/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_borrarTicket);
+    
     /* Anyos */
-
+    
     app.get('/api/bonoloto/years', bonoloto_api_years);
     app.get('/api/bonoloto/years/:id', bonoloto_api_year);
-    app.post('/api/bonoloto/years', bonoloto_api_addNewYear);
-    app.put('/api/bonoloto/years', bonoloto_api_editYear);
-    app.delete('/api/bonoloto/years/:id', bonoloto_api_deleteYear);
+    app.post('/api/bonoloto/years', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_addNewYear);
+    app.put('/api/bonoloto/years', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_editYear);
+    app.delete('/api/bonoloto/years/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_deleteYear);
 
     /* Consultas: Estandar */
 
@@ -513,6 +460,4 @@ module.exports = function(app){
     app.get('/api/bonoloto/historical/aparicionesPorResultadoConReintegro', bonoloto_api_historicoDeResultadosGlobalesConReintegro);
     app.get('/api/bonoloto/historical/aparicionesPorNumero', bonoloto_api_historicoDeAparicionesPorNumero);
     app.get('/api/bonoloto/historical/aparicionesPorReintegro', bonoloto_api_historicoDeAparicionesPorReintegro);
-
-
 };

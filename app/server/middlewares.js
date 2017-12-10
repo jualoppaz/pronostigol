@@ -1,26 +1,12 @@
 module.exports = {
-    isGuest_view: isGuest_view,
+    // Vistas
     isLogged_view: isLogged_view,
-    isAuthorized_view: isAuthorized_view
-};
+    isAuthorized_view: isAuthorized_view,
 
-/**
- * Middleware para comprobar si el usuario que accede a la vista no se encuentra logado. En caso de que lo esté se
- * devuelve la vista con el error correspondiente.
- *
- * @param req
- * @param res
- * @param next
- */
-function isGuest_view(req, res, next){
-    if(req.session.user === undefined){
-        next();
-    }else{
-        res.render('error', {
-            message: 'No puede acceder a esta pantalla si ha ingresado como usuario.'
-        });
-    }
-}
+    // API
+    isLogged_api: isLogged_api,
+    isAuthorized_api: isAuthorized_api
+};
 
 /**
  * Middleware para comprobar si el usuario que accede a la vista se encuentra logado. En caso contrario se devuelve
@@ -32,7 +18,6 @@ function isGuest_view(req, res, next){
  */
 function isLogged_view(req, res, next){
     if(req.session.user == null){
-        console.log("El usuario no esta logado");
         res.render('error',{
             message : 'No puede acceder a esta pantalla porque no está logado.'
         });
@@ -53,8 +38,10 @@ function isAuthorized_view(allowedRoles){
 
         var user = req.session.user;
 
+        // Para el caso en que no esté logado: GUEST
         var actualRole = null;
 
+        // Para cualquier otro caso: BASIC, PRIVILEGED Y ADMIN
         if(user !== undefined) {
             actualRole = req.session.user.role;
         }
@@ -73,6 +60,63 @@ function isAuthorized_view(allowedRoles){
         }else{
             res.render('error', {
                 message: 'No puede acceder a esta pantalla porque no está autorizado.'
+            });
+        }
+    };
+}
+
+/**
+ * Middleware para comprobar si el usuario que accede al recurso se encuentra logado. En caso contrario se devuelve
+ * el error de autenticación.
+ *
+ * @param req
+ * @param res
+ * @param next
+ */
+function isLogged_api(req, res, next){
+    if(req.session.user == null){
+        res.status(401).send({
+            message : 'No puede acceder a este recurso porque no está logado.'
+        });
+    }else{
+        next();
+    }
+}
+
+/**
+ * Middleware para comprobar si el usuario que accede al recurso tiene un rol autorizado para el mismo.
+ * Para ello el rol del usuario debe ser alguno de los roles indicados en el parámetro allowedRoles.
+ * En caso contrario se devuelve el error de autorización.
+ *
+ * @param allowedRoles
+ */
+function isAuthorized_api(allowedRoles){
+    return function(req, res, next) {
+
+        var user = req.session.user;
+
+        // Para el caso en que no esté logado: GUEST
+        var actualRole = null;
+
+        // Para cualquier otro caso: BASIC, PRIVILEGED Y ADMIN
+        if(user !== undefined) {
+            actualRole = req.session.user.role;
+        }
+
+        var authorized = false;
+
+        for(var i=0; i<allowedRoles.length; i++){
+            if(actualRole === allowedRoles[i]){
+                authorized = true;
+                break;
+            }
+        }
+
+        if(authorized){
+            next();
+        }else{
+            res.status(403).send({
+                message: 'No puede acceder a este recurso porque no está autorizado.'
             });
         }
     };

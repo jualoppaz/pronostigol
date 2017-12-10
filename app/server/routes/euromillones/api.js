@@ -1,10 +1,9 @@
-var EUR_DBM;
-
-var roles = ['basic', 'privileged', 'admin'];
-
 module.exports = function(app){
 
-    EUR_DBM = require('../../modules/euromillones-data-base-manager');
+    var middlewares = require('../../middlewares');
+    var ROL = require('../../roles');
+
+    var EUR_DBM = require('../../modules/euromillones-data-base-manager');
 
     var filtrarInformacion = function(result){
         var json = JSON.parse(JSON.stringify(result));
@@ -92,9 +91,7 @@ module.exports = function(app){
             if(err){
                 res.status(400).send(err);
             }else{
-
                 if(req.session.user == null){
-
                     var json = filtrarInformacion(result);
                 }else{
                     if(req.session.user.role == "privileged"){
@@ -103,7 +100,6 @@ module.exports = function(app){
                         var json = filtrarInformacion(result);
                     }
                 }
-
                 res.status(200).send(json);
             }
         });
@@ -184,7 +180,6 @@ module.exports = function(app){
             if(err){
                 res.status(400).send(err);
             }else{
-
                 if(result == null){
                     res.status(400).send('not-found');
                 }else{
@@ -192,7 +187,6 @@ module.exports = function(app){
                         if(err){
                             res.status(400).send(err2);
                         }else{
-
                             EUR_DBM.getAllTickets(function(err3, result3){
                                 if(err){
                                     res.status(400).send(err3);
@@ -212,28 +206,20 @@ module.exports = function(app){
 
         var numeros = [];
 
-        var numerosConsultados = 0;
-
         EUR_DBM.getOcurrencesByNumber(function(err, result){
             if(err){
                 res.status(err);
             }else{
+                for(i=0; i<result.length; i++){
+                    var json = {
+                        numero: result[i]._id,
+                        apariciones: result[i].apariciones
+                    };
 
-                if(err){
-                    res.status(400).send(err);
-                }else{
-
-                    for(i=0; i<result.length; i++){
-                        var json = {
-                            numero: result[i]._id,
-                            apariciones: result[i].apariciones
-                        };
-
-                        numeros.push(json);
-                    }
-
-                    res.status(200).send(JSON.stringify(numeros, null, 4));
+                    numeros.push(json);
                 }
+
+                res.status(200).send(JSON.stringify(numeros, null, 4));
             }
         });
 
@@ -243,30 +229,20 @@ module.exports = function(app){
 
         var numerosClave = [];
 
-        var numerosClaveConsultados = 0;
-
         EUR_DBM.getOcurrencesByStar(function(err, result){
             if(err){
                 res.status(400).send(err);
             }else{
+                for(i=0; i<result.length; i++){
+                    var json = {
+                        estrella: result[i]._id,
+                        apariciones: result[i].apariciones
+                    };
 
-                if(err){
-                    res.status(400).send(err);
-                }else{
-
-                    for(i=0; i<result.length; i++){
-                        var json = {
-                            estrella: result[i]._id,
-                            apariciones: result[i].apariciones
-                        };
-
-                        numerosClave.push(json);
-                    }
-
-                    res.status(200).send(JSON.stringify(numerosClave, null, 4));
+                    numerosClave.push(json);
                 }
 
-
+                res.status(200).send(JSON.stringify(numerosClave, null, 4));
             }
         });
 
@@ -276,30 +252,20 @@ module.exports = function(app){
 
         var numerosClave = [];
 
-        var numerosClaveConsultados = 0;
-
         EUR_DBM.getOcurrencesByStarsPair(function(err, result){
             if(err){
                 res.status(400).send(err);
             }else{
+                for(i=0; i<result.length; i++){
+                    var json = {
+                        estrellas: result[i]._id,
+                        apariciones: result[i].apariciones
+                    };
 
-                if(err){
-                    res.status(400).send(err);
-                }else{
-
-                    for(i=0; i<result.length; i++){
-                        var json = {
-                            estrellas: result[i]._id,
-                            apariciones: result[i].apariciones
-                        };
-
-                        numerosClave.push(json);
-                    }
-
-                    res.status(200).send(JSON.stringify(numerosClave, null, 4));
+                    numerosClave.push(json);
                 }
 
-
+                res.status(200).send(JSON.stringify(numerosClave, null, 4));
             }
         });
 
@@ -312,18 +278,14 @@ module.exports = function(app){
             if(err){
                 res.status(400).send(err);
             }else{
-
                 var response = [];
-
                 for(var i=0; i<tickets.length; i++){
                     var json = {};
                     json.numeros = tickets[i]._id;
                     json.apariciones = tickets[i].apariciones;
                     response.push(json);
                 }
-
                 res.status(200).send(response);
-
             }
         });
 
@@ -335,9 +297,7 @@ module.exports = function(app){
             if(err){
                 res.status(400).send(err);
             }else{
-
                 var response = [];
-
                 for(var i=0; i<tickets.length; i++){
                     var json = {};
                     json.numeros = tickets[i].resultado;
@@ -345,9 +305,7 @@ module.exports = function(app){
                     json.apariciones = tickets[i].apariciones;
                     response.push(json);
                 }
-
                 res.status(200).send(response);
-
             }
         });
 
@@ -362,7 +320,6 @@ module.exports = function(app){
                 res.status(200).send(result);
             }
         });
-
     };
 
     var euromillones_api_year = function(req, res){
@@ -376,7 +333,6 @@ module.exports = function(app){
                 res.status(200).send(result);
             }
         });
-
     };
 
     var euromillones_api_deleteYear = function(req, res){
@@ -396,7 +352,6 @@ module.exports = function(app){
                 });
             }
         });
-
     };
 
     var euromillones_api_addNewYear = function(req, res){
@@ -407,12 +362,10 @@ module.exports = function(app){
 
         year.name = name;
 
-
         EUR_DBM.getYearByName(name, function(err, result){
             if(err){
                 res.status(400).send(name);
             }else{
-
                 if(JSON.stringify(result) === "{}"){ // No existe aun
                     EUR_DBM.addNewYear(year, function(err, result){
                         if(err){
@@ -426,8 +379,6 @@ module.exports = function(app){
                 }
             }
         });
-
-
     };
 
     var euromillones_api_editYear = function(req, res){
@@ -446,7 +397,6 @@ module.exports = function(app){
                 if(result == null){
                     res.status(400).send('not-found');
                 }else{
-
                     EUR_DBM.editYear(year, function(err, result){
                         if(err){
                             res.status(400).send(err);
@@ -467,9 +417,7 @@ module.exports = function(app){
             if(err){
                 res.status(400).send(err);
             }else{
-
                 if(req.session.user == null){
-
                     var json = filtrarInformacion(result);
                 }else{
                     if(req.session.user.role == "privileged" || req.session.user.role == "admin"){
@@ -485,21 +433,22 @@ module.exports = function(app){
     };
 
     /* Tickets del Euromillones */
+
     app.get('/api/euromillones/tickets', euromillones_api_tickets);
     app.get('/api/euromillones/tickets/anyo/:anyo', euromillones_api_ticketsPorAnyo);
     app.get('/api/euromillones/tickets/anyo/:anyo/sorteo/:sorteo', euromillones_api_ticketPorAnyoYSorteo);
     app.get('/api/euromillones/tickets/:id', euromillones_api_ticketPorId);
-    app.post('/api/euromillones/tickets', euromillones_api_nuevoTicket);
-    app.put('/api/euromillones/tickets', euromillones_api_editarTicket);
-    app.delete('/api/euromillones/tickets/:id', euromillones_api_borrarTicket);
+    app.post('/api/euromillones/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_nuevoTicket);
+    app.put('/api/euromillones/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_editarTicket);
+    app.delete('/api/euromillones/tickets/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_borrarTicket);
 
     /* Anyos */
 
     app.get('/api/euromillones/years', euromillones_api_years);
     app.get('/api/euromillones/years/:id', euromillones_api_year);
-    app.post('/api/euromillones/years', euromillones_api_addNewYear);
-    app.put('/api/euromillones/years', euromillones_api_editYear);
-    app.delete('/api/euromillones/years/:id', euromillones_api_deleteYear);
+    app.post('/api/euromillones/years', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_addNewYear);
+    app.put('/api/euromillones/years', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_editYear);
+    app.delete('/api/euromillones/years/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_deleteYear);
 
     /* Consultas: Estandar */
 
@@ -508,6 +457,4 @@ module.exports = function(app){
     app.get('/api/euromillones/historical/aparicionesPorNumero', euromillones_api_historicoDeAparicionesPorNumero);
     app.get('/api/euromillones/historical/aparicionesPorEstrella', euromillones_api_historicoDeAparicionesPorEstrella);
     app.get('/api/euromillones/historical/aparicionesPorParejaDeEstrellas', euromillones_api_historicoDeAparicionesPorParejaDeEstrellas);
-
-
 };

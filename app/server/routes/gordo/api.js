@@ -1,10 +1,9 @@
-var GOR_DBM;
-
-var roles = ['basic', 'privileged', 'admin'];
-
 module.exports = function(app){
 
-    GOR_DBM = require('../../modules/gordo-data-base-manager');
+    var middlewares = require('../../middlewares');
+    var ROL = require('../../roles');
+
+    var GOR_DBM = require('../../modules/gordo-data-base-manager');
 
     var filtrarInformacion = function(result){
         var json = JSON.parse(JSON.stringify(result));
@@ -83,9 +82,7 @@ module.exports = function(app){
     };
 
     var gordo_api_ticketPorAnyoYSorteo = function(req, res){
-
         var anyo = req.params.anyo;
-
         var sorteo = req.params.sorteo;
 
         GOR_DBM.getTicketsByAnyoAndRaffle(anyo, sorteo, function(err, result){
@@ -94,7 +91,6 @@ module.exports = function(app){
             }else{
 
                 if(req.session.user == null){
-
                     var json = filtrarInformacion(result);
                 }else{
                     if(req.session.user.role == "privileged"){
@@ -163,7 +159,6 @@ module.exports = function(app){
                 if(result == null){
                     res.status(400).send('not-found');
                 }else{
-
                     GOR_DBM.editTicket(ticket, function(err, result){
                         if(err){
                             res.status(400).send(err);
@@ -177,14 +172,12 @@ module.exports = function(app){
     };
 
     var gordo_api_borrarTicket = function(req, res){
-
         var id = req.params.id;
 
         GOR_DBM.getTicketById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
             }else{
-
                 if(result == null){
                     res.status(400).send('not-found');
                 }else{
@@ -192,7 +185,6 @@ module.exports = function(app){
                         if(err){
                             res.status(400).send(err2);
                         }else{
-
                             GOR_DBM.getAllTickets(function(err3, result3){
                                 if(err){
                                     res.status(400).send(err3);
@@ -209,9 +201,6 @@ module.exports = function(app){
     };
 
     var gordo_api_historicoDeAparicionesPorNumero = function(req, res){
-
-        var numeros = [];
-
         GOR_DBM.getOcurrencesByNumber(function(err, result){
             if(err){
                 res.status(err);
@@ -220,6 +209,7 @@ module.exports = function(app){
                 if(err){
                     res.status(400).send(err);
                 }else{
+                    var response = [];
 
                     for(var i=0; i<result.length; i++){
                         var json = {
@@ -227,60 +217,44 @@ module.exports = function(app){
                             apariciones: result[i].apariciones
                         };
 
-                        numeros.push(json);
+                        response.push(json);
                     }
-
-                    res.status(200).send(JSON.stringify(numeros, null, 4));
+                    res.status(200).send(JSON.stringify(response, null, 4));
                 }
             }
         });
-
     };
 
     var gordo_api_historicoDeAparicionesPorNumeroClave = function(req, res){
-
-        var numerosClave = [];
-
-        var numerosClaveConsultados = 0;
-
         GOR_DBM.getOcurrencesBySpecialNumber(function(err, result){
             if(err){
                 res.status(400).send(err);
             }else{
-
                 if(err){
                     res.status(400).send(err);
                 }else{
-
+                    var response = [];
                     for(i=0; i<result.length; i++){
                         var json = {
                             numeroClave: result[i]._id,
                             apariciones: result[i].apariciones
                         };
 
-                        numerosClave.push(json);
+                        response.push(json);
                     }
 
-                    res.status(200).send(JSON.stringify(numerosClave, null, 4));
+                    res.status(200).send(JSON.stringify(response, null, 4));
                 }
-
-
             }
         });
 
     };
 
     var gordo_api_historicoDeAparicionesPorResultados = function(req, res){
-
-        var numeros = [];
-
-        var numerosConsultados = 0;
-
         GOR_DBM.getOcurrencesByResultWithoutSpecialNumber(function(err, tickets){
             if(err){
                 res.status(400).send(err);
             }else{
-
                 var response = [];
 
                 for(var i=0; i<tickets.length; i++){
@@ -289,25 +263,16 @@ module.exports = function(app){
                     json.apariciones = tickets[i].apariciones;
                     response.push(json);
                 }
-
                 res.status(200).send(response);
-
             }
         });
-
     };
 
     var gordo_api_historicoDeAparicionesPorResultadoConNumeroClave = function(req, res){
-
-        var numeros = [];
-
-        var numerosConsultados = 0;
-
         GOR_DBM.getOcurrencesByResultWithSpecialNumber(function(err, tickets){
             if(err){
                 res.status(400).send(err);
             }else{
-
                 var response = [];
 
                 for(var i=0; i<tickets.length; i++){
@@ -317,16 +282,12 @@ module.exports = function(app){
                     json.apariciones = tickets[i].apariciones;
                     response.push(json);
                 }
-
                 res.status(200).send(response);
-
             }
         });
-
     };
 
     var gordo_api_years = function(req, res){
-
         GOR_DBM.getAllYears(function(err, result){
             if(err){
                 res.status(400).send(err);
@@ -334,11 +295,9 @@ module.exports = function(app){
                 res.status(200).send(result);
             }
         });
-
     };
 
     var gordo_api_year = function(req, res){
-
         var id = req.params.id;
 
         GOR_DBM.getYearById(id, function(err, result){
@@ -348,11 +307,9 @@ module.exports = function(app){
                 res.status(200).send(result);
             }
         });
-
     };
 
     var gordo_api_deleteYear = function(req, res){
-
         var id = req.params.id;
 
         GOR_DBM.deleteYearById(id, function(err, result){
@@ -368,17 +325,14 @@ module.exports = function(app){
                 });
             }
         });
-
     };
 
     var gordo_api_addNewYear = function(req, res){
-
         var year = {};
 
         var name = req.param('name');
 
         year.name = name;
-
 
         GOR_DBM.getYearByName(name, function(err, result){
             if(err){
@@ -396,9 +350,7 @@ module.exports = function(app){
                     res.status(400).send('year-already-exists');
                 }
             }
-        })
-
-
+        });
     };
 
     var gordo_api_editYear = function(req, res){
@@ -438,9 +390,7 @@ module.exports = function(app){
             if(err){
                 res.status(400).send(err);
             }else{
-
                 if(req.session.user == null){
-
                     var json = filtrarInformacion(result);
                 }else{
                     if(req.session.user.role == "privileged" || req.session.user.role == "admin"){
@@ -449,7 +399,6 @@ module.exports = function(app){
                         json = filtrarInformacion(result);
                     }
                 }
-
                 res.status(200).send(result);
             }
         });
@@ -460,16 +409,16 @@ module.exports = function(app){
     app.get('/api/gordo/tickets/anyo/:anyo', gordo_api_ticketsPorAnyo);
     app.get('/api/gordo/tickets/anyo/:anyo/sorteo/:sorteo', gordo_api_ticketPorAnyoYSorteo);
     app.get('/api/gordo/tickets/:id', gordo_api_ticketPorId);
-    app.post('/api/gordo/tickets', gordo_api_nuevoTicket);
-    app.put('/api/gordo/tickets', gordo_api_editarTicket);
-    app.delete('/api/gordo/tickets/:id', gordo_api_borrarTicket);
+    app.post('/api/gordo/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_nuevoTicket);
+    app.put('/api/gordo/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_editarTicket);
+    app.delete('/api/gordo/tickets/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_borrarTicket);
 
     /* Anyos */
     app.get('/api/gordo/years', gordo_api_years);
     app.get('/api/gordo/years/:id', gordo_api_year);
-    app.post('/api/gordo/years', gordo_api_addNewYear);
-    app.put('/api/gordo/years', gordo_api_editYear);
-    app.delete('/api/gordo/years/:id', gordo_api_deleteYear);
+    app.post('/api/gordo/years', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_addNewYear);
+    app.put('/api/gordo/years', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_editYear);
+    app.delete('/api/gordo/years/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_deleteYear);
 
     /* Consultas: Estandar */
     app.get('/api/gordo/historical/aparicionesPorResultado', gordo_api_historicoDeAparicionesPorResultados);

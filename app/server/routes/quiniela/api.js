@@ -1,13 +1,11 @@
-var QUI_DBM = require('../../modules/quiniela-data-base-manager');
 
-//var numeroDeTemporadas = QUI_DBM.getNumeroDeTemporadas();
-
-var roles = ['basic', 'privileged', 'admin'];
-
-// Variable usada en el /api/quiniela/historical para incluir o no los plenos modernos en los historicos
-var mostrarPlenosModernosEnHistorico = true;
 
 module.exports = function(app){
+
+    var middlewares = require('../../middlewares');
+    var ROL = require('../../roles');
+
+    var QUI_DBM = require('../../modules/quiniela-data-base-manager');
 
     var filtrarInformacion = function(result){
         borrarPronosticos(result);
@@ -42,7 +40,7 @@ module.exports = function(app){
         return json;
     };
 
-    quiniela_api_tickets = function(req, res){
+    var quiniela_api_tickets = function(req, res){
         QUI_DBM.getAllTickets(function(err, result){
             if(err){
                 res.status(400).send(err);
@@ -52,7 +50,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_ticketsQuinielaPorTemporada = function(req, res){
+    var quiniela_api_ticketsQuinielaPorTemporada = function(req, res){
         QUI_DBM.getAllTicketsBySeason(req.params.season, function(err, result){
             if(err){
                 res.status(400).send(err);
@@ -62,7 +60,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_ticketsQuinielaPorTemporadaYJornada = function(req, res){
+    var quiniela_api_ticketsQuinielaPorTemporadaYJornada = function(req, res){
 
         var json = {};
 
@@ -81,9 +79,6 @@ module.exports = function(app){
         if(hayErrores){
             res.status(400).send(errores);
         }else{
-
-            //jornada = Number(jornada);
-
             QUI_DBM.getTicketsBySeasonAndDay(req.params.season, jornada, function(err, result){
                 if(err){
                     console.log(err);
@@ -107,7 +102,7 @@ module.exports = function(app){
         }
     };
 
-    quiniela_api_anadirTicketQuiniela = function(req, res){
+    var quiniela_api_anadirTicketQuiniela = function(req, res){
 
         var temporada   = req.body.temporada;
         var modalidad   = req.body.modalidad;
@@ -209,7 +204,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_editarTicketQuiniela = function(req, res){
+    var quiniela_api_editarTicketQuiniela = function(req, res){
 
         var temporada   = req.body.temporada;
         var modalidad   = req.body.modalidad;
@@ -306,9 +301,7 @@ module.exports = function(app){
         });
     };
 
-
-
-    quiniela_api_historicoPartidos = function(req, res){
+    var quiniela_api_historicoPartidos = function(req, res){
         var filas = [];
 
         var respuesta = {};
@@ -343,7 +336,6 @@ module.exports = function(app){
                             var total = result[i].total;
 
                             jsonPlenoModerno[resultadoConGoles] = total;
-
                         }
 
                         respuesta.filas = filas;
@@ -356,7 +348,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_historicoPartidosPorCompeticion = function(req, res){
+    var quiniela_api_historicoPartidosPorCompeticion = function(req, res){
         var filas = [];
 
         var respuesta = {};
@@ -406,7 +398,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_historicoPartidosPorCompeticionYEquipoLocal = function(req, res){
+    var quiniela_api_historicoPartidosPorCompeticionYEquipoLocal = function(req, res){
         var filas = [];
 
         var respuesta = {};
@@ -455,7 +447,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_historicoPartidosPorCompeticionYEquipoVisitante = function(req, res){
+    var quiniela_api_historicoPartidosPorCompeticionYEquipoVisitante = function(req, res){
         var filas = [];
 
         var respuesta = {};
@@ -492,7 +484,6 @@ module.exports = function(app){
                             var total = result[i].total;
 
                             jsonPlenoModerno[resultadoConGoles] = total;
-
                         }
 
                         respuesta.filas = filas;
@@ -505,11 +496,8 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_historicoPartidosPorTemporada = function(req, res){
+    var quiniela_api_historicoPartidosPorTemporada = function(req, res){
         var filas = [];
-
-        var plenosRenovados = {};
-
         var respuesta = {};
 
         QUI_DBM.getTicketsBySeasonGroupedByRow(req.params.season, function(err, result){
@@ -527,7 +515,6 @@ module.exports = function(app){
                     };
 
                     filas.push(json);
-
                 }
 
                 QUI_DBM.getTicketsBySeasonGroupedByRes(req.params.season, function(err, result){
@@ -540,11 +527,9 @@ module.exports = function(app){
 
                         for(i=0;i<result.length;i++){
                             var resultadoConGoles = result[i]._id;
-
                             var total = result[i].total;
 
                             jsonPlenoModerno[resultadoConGoles] = total;
-
                         }
 
                         respuesta.filas = filas;
@@ -557,7 +542,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_historicoPartidosPorTemporadaYCompeticion = function(req, res){
+    var quiniela_api_historicoPartidosPorTemporadaYCompeticion = function(req, res){
         var filas = [];
 
         var respuesta = {};
@@ -590,11 +575,9 @@ module.exports = function(app){
 
                         for(i=0;i<result.length;i++){
                             var resultadoConGoles = result[i]._id;
-
                             var total = result[i].total;
 
                             jsonPlenoModerno[resultadoConGoles] = total;
-
                         }
 
                         respuesta.filas = filas;
@@ -607,7 +590,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_historicoPartidosPorTemporadaYEquipoLocal = function(req, res){
+    var quiniela_api_historicoPartidosPorTemporadaYEquipoLocal = function(req, res){
         var filas = [];
 
         var respuesta = {};
@@ -640,7 +623,6 @@ module.exports = function(app){
 
                         for(i=0;i<result.length;i++){
                             var resultadoConGoles = result[i]._id;
-
                             var total = result[i].total;
 
                             jsonPlenoModerno[resultadoConGoles] = total;
@@ -651,7 +633,6 @@ module.exports = function(app){
                         respuesta.plenosRenovados = jsonPlenoModerno;
 
                         res.status(200).send(respuesta);
-
                     }
                 });
             }
@@ -693,7 +674,6 @@ module.exports = function(app){
                             var total = result[i].total;
 
                             jsonPlenoModerno[resultadoConGoles] = total;
-
                         }
 
                         respuesta.filas = filas;
@@ -706,7 +686,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_historicoPartidosPorTemporadaCompeticionYEquipoLocal = function(req, res){
+    var quiniela_api_historicoPartidosPorTemporadaCompeticionYEquipoLocal = function(req, res){
         var filas = [];
 
         var respuesta = {};
@@ -755,7 +735,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_historicoPartidosPorTemporadaCompeticionYEquipoVisitante = function(req, res){
+    var quiniela_api_historicoPartidosPorTemporadaCompeticionYEquipoVisitante = function(req, res){
         var filas = [];
 
         var respuesta = {};
@@ -804,7 +784,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_historicoPartidosPorEquipoLocal = function(req, res){
+    var quiniela_api_historicoPartidosPorEquipoLocal = function(req, res){
         var filas = [];
 
         var respuesta = {};
@@ -852,7 +832,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_historicoPartidosPorEquipoVisitante = function(req, res){
+    var quiniela_api_historicoPartidosPorEquipoVisitante = function(req, res){
         var filas = [];
 
         var respuesta = {};
@@ -900,7 +880,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_historicoPartidosPorPartido = function(req, res){
+    var quiniela_api_historicoPartidosPorPartido = function(req, res){
         var filas = [];
 
         var respuesta = {};
@@ -952,7 +932,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_historicoPartidosPorTemporadaYPartido = function(req, res){
+    var quiniela_api_historicoPartidosPorTemporadaYPartido = function(req, res){
         var filas = [];
 
         var respuesta = {};
@@ -1002,7 +982,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_historicoPartidosPorTemporadaCompeticionYPartido = function(req, res){
+    var quiniela_api_historicoPartidosPorTemporadaCompeticionYPartido = function(req, res){
         var filas = [];
 
         var respuesta = {};
@@ -1054,7 +1034,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_historicoPartidosPorCompeticionYPartido = function(req, res){
+    var quiniela_api_historicoPartidosPorCompeticionYPartido = function(req, res){
         var filas = [];
 
         var respuesta = {};
@@ -1105,7 +1085,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_historicoPartidosPorCombinaciones = function(req, res){
+    var quiniela_api_historicoPartidosPorCombinaciones = function(req, res){
 
         var resultados = [];
 
@@ -1155,13 +1135,7 @@ module.exports = function(app){
                     temporadasConsultadas += 1;
                 }catch(Exception){
                     temporadasConsultadas += 1;
-                    //console.log("Fila vacia");
                 }
-
-                /*
-                if(temporadasConsultadas == numeroDeTemporadas){
-                    res.status(200).send(resultadosPorRepeticiones);
-                }*/
 
                 res.status(200).send(resultadosPorRepeticiones);
 
@@ -1169,7 +1143,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_equipos = function(req, res){
+    var quiniela_api_equipos = function(req, res){
         QUI_DBM.getAllTeams(function(err, result){
             if(err){
                 res.status(400).send(err);
@@ -1202,8 +1176,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_borrarEquipo = function(req, res){
-
+    var quiniela_api_borrarEquipo = function(req, res){
         var id = req.params.id;
 
         QUI_DBM.getTeamById(id, function(err, result){
@@ -1229,11 +1202,9 @@ module.exports = function(app){
                 }
             }
         });
-
     };
 
-    quiniela_api_editarEquipo = function(req, res){
-
+    var quiniela_api_editarEquipo = function(req, res){
         var id = req.param('_id');
         var equipo = req.param('name');
 
@@ -1257,8 +1228,7 @@ module.exports = function(app){
 
     };
 
-    quiniela_api_equipo = function(req, res){
-
+    var quiniela_api_equipo = function(req, res){
         var id = req.params.id;
 
         QUI_DBM.getTeamById(id, function(err, result){
@@ -1274,7 +1244,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_competiciones = function(req, res){
+    var quiniela_api_competiciones = function(req, res){
         QUI_DBM.getAllCompetitions(function(err, result){
             if(err){
                 res.status(400).send(err);
@@ -1284,8 +1254,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_anadirCompeticion = function(req, res){
-
+    var quiniela_api_anadirCompeticion = function(req, res){
         var competition = req.param('name');
 
         QUI_DBM.getCompetitionByName(competition, function(err, result){
@@ -1307,8 +1276,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_borrarCompeticion = function(req, res){
-
+    var quiniela_api_borrarCompeticion = function(req, res){
         var id = req.params.id;
 
         QUI_DBM.getCompetitionById(id, function(err, result){
@@ -1337,8 +1305,7 @@ module.exports = function(app){
 
     };
 
-    quiniela_api_competicion = function(req, res){
-
+    var quiniela_api_competicion = function(req, res){
         var id = req.params.id;
 
         QUI_DBM.getCompetitionById(id, function(err, result){
@@ -1354,8 +1321,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_editarCompeticion = function(req, res){
-
+    var quiniela_api_editarCompeticion = function(req, res){
         var id = req.param('_id');
         var competicion = req.param('name');
 
@@ -1379,7 +1345,7 @@ module.exports = function(app){
 
     };
 
-    quiniela_api_temporadas = function(req, res){
+    var quiniela_api_temporadas = function(req, res){
         QUI_DBM.getAllSeasons(function(err, result){
             if(err){
                 res.status(400).send(err);
@@ -1389,7 +1355,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_temporada = function(req, res){
+    var quiniela_api_temporada = function(req, res){
         var id = req.params.id;
         QUI_DBM.getSeasonById(id, function(err, result){
             if(err){
@@ -1404,7 +1370,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_anadirTemporada = function(req, res){
+    var quiniela_api_anadirTemporada = function(req, res){
         var season = req.param('name');
         QUI_DBM.getSeasonByName(season, function(err, result){
             if(err){
@@ -1425,7 +1391,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_editarTemporada = function(req, res){
+    var quiniela_api_editarTemporada = function(req, res){
         var id = req.param('_id');
         var temporada = req.param('name');
         QUI_DBM.getSeasonById(id, function(err, result){
@@ -1447,7 +1413,7 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_borrarTemporada = function(req, res){
+    var quiniela_api_borrarTemporada = function(req, res){
         var id = req.params.id;
         QUI_DBM.getSeasonById(id, function(err, result){
             if(err){
@@ -1474,8 +1440,7 @@ module.exports = function(app){
         });
     };
 
-    general_api_storedTeams = function(req, res){
-
+    var general_api_storedTeams = function(req, res){
         var respuesta = [];
 
         QUI_DBM.getAllTickets(function(err, result){
@@ -1511,30 +1476,30 @@ module.exports = function(app){
     /* Equipos */
     app.get('/api/quiniela/equipos', quiniela_api_equipos);
     app.get('/api/quiniela/equipos/:id', quiniela_api_equipo);
-    app.post('/api/quiniela/equipos', quiniela_api_anadirEquipo);
-    app.put('/api/quiniela/equipos', quiniela_api_editarEquipo);
-    app.delete('/api/quiniela/equipos/:id', quiniela_api_borrarEquipo);
+    app.post('/api/quiniela/equipos', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_anadirEquipo);
+    app.put('/api/quiniela/equipos', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_editarEquipo);
+    app.delete('/api/quiniela/equipos/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_borrarEquipo);
 
     /* Competiciones */
     app.get('/api/quiniela/competiciones', quiniela_api_competiciones);
     app.get('/api/quiniela/competiciones/:id', quiniela_api_competicion);
-    app.post('/api/quiniela/competiciones', quiniela_api_anadirCompeticion);
-    app.put('/api/quiniela/competiciones', quiniela_api_editarCompeticion);
-    app.delete('/api/quiniela/competiciones/:id', quiniela_api_borrarCompeticion);
+    app.post('/api/quiniela/competiciones', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_anadirCompeticion);
+    app.put('/api/quiniela/competiciones', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_editarCompeticion);
+    app.delete('/api/quiniela/competiciones/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_borrarCompeticion);
 
     /* Temporadas */
     app.get('/api/quiniela/temporadas', quiniela_api_temporadas);
     app.get('/api/quiniela/temporadas/:id', quiniela_api_temporada);
-    app.post('/api/quiniela/temporadas', quiniela_api_anadirTemporada);
-    app.put('/api/quiniela/temporadas', quiniela_api_editarTemporada);
-    app.delete('/api/quiniela/temporadas/:id', quiniela_api_borrarTemporada);
+    app.post('/api/quiniela/temporadas', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_anadirTemporada);
+    app.put('/api/quiniela/temporadas', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_editarTemporada);
+    app.delete('/api/quiniela/temporadas/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_borrarTemporada);
 
     /* Tickets de quinielas*/
     app.get('/api/quiniela/tickets', quiniela_api_tickets);
     app.get('/api/quiniela/tickets/season/:season', quiniela_api_ticketsQuinielaPorTemporada);
     app.get('/api/quiniela/tickets/season/:season/day/:day', quiniela_api_ticketsQuinielaPorTemporadaYJornada);
-    app.put('/api/quiniela/tickets', quiniela_api_editarTicketQuiniela);
-    app.post('/api/quiniela/tickets', quiniela_api_anadirTicketQuiniela);
+    app.put('/api/quiniela/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_editarTicketQuiniela);
+    app.post('/api/quiniela/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_anadirTicketQuiniela);
 
     /* Historico (Consultas Personalizadas) */
     app.get('/api/quiniela/historical', quiniela_api_historicoPartidos);
@@ -1556,7 +1521,6 @@ module.exports = function(app){
 
     /* Historico (Consultas Estandar/Fijas) */
     app.get('/api/quiniela/historical/combinaciones', quiniela_api_historicoPartidosPorCombinaciones);
-
 
     app.get('/api/quiniela/getAllStoredTeams', general_api_storedTeams);
 
