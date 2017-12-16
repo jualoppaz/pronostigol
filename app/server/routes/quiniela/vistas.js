@@ -19,242 +19,70 @@ module.exports = function(app){
 
     var quiniela_vistas_inicio = function(req, res){
         funcionesComunes(req);
-        if(req.session.user == null){
-            res.render('quiniela');
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('error', {
-                    message: 'El administrador no puede acceder a esta página.'
-                });
-            }else{
-                res.render('quiniela');
-            }
-        }
+        res.render('quiniela');
     };
 
     var quiniela_vistas_quinielas = function(req, res){
         funcionesComunes(req);
-        if(req.session.user == null){
-            res.render('quiniela/tickets');
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('error', {
-                    message: 'El administrador no puede acceder a esta página.'
-                });
-            }else{
-                res.render('quiniela/tickets');
-            }
-        }
+        res.render('quiniela/tickets');
     };
 
     var quiniela_vistas_ticket = function(req, res){
         funcionesComunes(req);
-        if(req.session.user == null){
-            res.render('quiniela/ticket');
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('error', {
-                    message: 'El administrador no puede acceder a esta página.'
-                });
-            }else if(req.session.user.role == "privileged" || req.session.user.role == 'basic'){
-                res.render('quiniela/ticket');
-            }
-        }
+        res.render('quiniela/ticket');
     };
 
     var quiniela_vistas_consultas = function(req, res){
         funcionesComunes(req);
-        if(req.session.user == null){
-            res.render('quiniela/consultas');
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('error', {
-                    message: 'El administrador no puede acceder a esta página.'
-                });
-            }else{
-                res.render('quiniela/consultas');
-            }
-        }
+        res.render('quiniela/consultas');
     };
 
     var quiniela_vistas_admin_quiniela = function(req, res){
-        if(req.session.user == null){
-            res.render('error',{
-                message : 'No puede acceder a este recurso porque no' +
-                    ' tiene permisos de administración.'
-            });
-        }else{
-            if(req.session.user.role == 'admin'){
-                res.render('admin/quiniela');
-            }else{
-                res.render('error',{
-                    message : 'No puede acceder a este recurso porque ' +
-                        'no tiene permisos de administración.'
-                });
-            }
-        }
+        res.render('admin/quiniela');
     };
 
     var quiniela_vistas_admin_anadirTicket = function(req, res){
-        if(req.session.user == null){
-            res.render('error',{
-                message : 'No puede acceder a este recurso porque no' +
-                    ' tiene permisos de administración.'
-            });
-        }else{
-            if(req.session.user.role == 'admin'){
-                res.render('admin/quiniela/anadirTicket');
-            }else{
-                res.render('error',{
-                    message : 'No puede acceder a este recurso porque ' +
-                        'no tiene permisos de administración.'
-                });
-            }
-        }
+        res.render('admin/quiniela/anadirTicket');
     };
 
     var quiniela_vistas_admin_editarTicket = function(req, res){
-        if(req.session.user == null){
-            res.render('error',{
-                message : 'No puede acceder a este recurso porque no' +
-                    ' tiene permisos de administración.'
-            });
-        }else{
-            if(req.session.user.role == 'admin'){
-                res.render('admin/quiniela/editarTicket');
-            }else{
-                res.render('error',{
-                    message : 'No puede acceder a este recurso porque ' +
-                        'no tiene permisos de administración.'
-                });
-            }
-        }
+        res.render('admin/quiniela/editarTicket');
     };
 
-    var quiniela_vistas_admin_equipos = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                'porque no tiene permisos de administración.'});
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/quiniela/equipos');
-            }else{
-                res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                    'porque no tiene permisos de administración.'});
-            }
-        }
+    var quiniela_vistas_admin_equipos = function(req, res) {
+        res.render('admin/quiniela/equipos');
     };
 
     var quiniela_vistas_admin_competiciones = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                'porque no tiene permisos de administración.'});
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/quiniela/competiciones');
-            }else{
-                res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                    'porque no tiene permisos de administración.'});
-            }
-        }
+        res.render('admin/quiniela/competiciones');
     };
 
     var quiniela_vistas_admin_temporadas = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                'porque no tiene permisos de administración.'});
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/quiniela/temporadas');
-            }else{
-                res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                    'porque no tiene permisos de administración.'});
-            }
-        }
+        res.render('admin/quiniela/temporadas');
     };
 
     var quiniela_vistas_admin_anadirEquipo = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                'porque no tiene permisos de administración.'});
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/quiniela/anadirEquipo');
-            }else{
-                res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                    'porque no tiene permisos de administración.'});
-            }
-        }
+        res.render('admin/quiniela/anadirEquipo');
     };
 
     var quiniela_vistas_admin_anadirCompeticion = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                'porque no tiene permisos de administración.'});
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/quiniela/anadirCompeticion');
-            }else{
-                res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                    'porque no tiene permisos de administración.'});
-            }
-        }
+        res.render('admin/quiniela/anadirCompeticion');
     };
 
     var quiniela_vistas_admin_anadirTemporada = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                'porque no tiene permisos de administración.'});
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/quiniela/anadirTemporada');
-            }else{
-                res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                    'porque no tiene permisos de administración.'});
-            }
-        }
+        res.render('admin/quiniela/anadirTemporada');
     };
 
     var quiniela_vistas_admin_editarEquipo = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                'porque no tiene permisos de administración.'});
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/quiniela/editarEquipo');
-            }else{
-                res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                    'porque no tiene permisos de administración.'});
-            }
-        }
+        res.render('admin/quiniela/editarEquipo');
     };
 
     var quiniela_vistas_admin_editarCompeticion = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                'porque no tiene permisos de administración.'});
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/quiniela/editarCompeticion');
-            }else{
-                res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                    'porque no tiene permisos de administración.'});
-            }
-        }
+        res.render('admin/quiniela/editarCompeticion');
     };
 
     var quiniela_vistas_admin_editarTemporada = function(req, res){
-        if(req.session.user == null){
-            res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                'porque no tiene permisos de administración.'});
-        }else{
-            if(req.session.user.role == "admin"){
-                res.render('admin/quiniela/editarTemporada');
-            }else{
-                res.render('error', {message: 'No puede acceder al panel de administración de Pronostigol ' +
-                    'porque no tiene permisos de administración.'});
-            }
-        }
+        res.render('admin/quiniela/editarTemporada');
     };
 
     // Parte Publica
