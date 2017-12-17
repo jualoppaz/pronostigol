@@ -206,9 +206,15 @@ exports.updatePassword = function(email, newPass, callback)
 
 exports.deleteAccount = function(id, callback)
 {
-	accounts.remove({
+    accounts.remove({
         _id: getObjectId(id)
-    }, callback);
+    }, function(e, res){
+        if(e || !res){
+            callback('user-not-deleted');
+        }else{
+            callback(null, res);
+        }
+    });
 };
 
 exports.getAccountByEmail = function(email, callback)
@@ -365,7 +371,7 @@ exports.getAllEmails = function(callback){
 
 exports.getEmailById = function(id, callback){
     mails.findOne({
-        _id:getObjectId(id)
+        _id: getObjectId(id)
     }, function(e, res){
         if (e){
             callback(e);
@@ -396,7 +402,7 @@ exports.getNotReadedEmails = function(callback){
 
 exports.setEmailReaded = function(id, callback){
     mails.findOne({
-        _id: getMailId(id)
+        _id: getObjectId(id)
     }, function(err, res){
         if(err){
             callback(err);
@@ -415,12 +421,14 @@ exports.setEmailReaded = function(id, callback){
 
 exports.deleteEmail = function(id, callback){
     mails.remove({
-        _id:getMailId(id)
+        _id: getObjectId(id)
     }, callback);
 };
 
 exports.deleteUser = function(id, callback){
-    accounts.remove({_id:getObjectId(id)}, callback);
+    accounts.remove({
+        _id: getObjectId(id)
+    }, callback);
 };
 
 exports.getNotActiveUsers = function(callback){
@@ -442,7 +450,6 @@ exports.getNotActiveUsers = function(callback){
 exports.getVisitasTotalesDeUsuario = function(ipRouter, callback){
     visits.findOne({
         routerIpAddress: ipRouter
-        //localIpAddress: ipLocal
     }, function(e, res){
         if (e){
             callback(e);
@@ -467,12 +474,7 @@ exports.getVisitantesUnicos = function(callback){
 };
 
 exports.getVisitantesUnicosHoy = function(callback){
-
     var date = new Date();
-
-    //console.log("Dia: " + date.getDate());
-    //console.log("Mes: " + date.getMonth());
-    //console.log("Anyo: " + date.getFullYear());
 
     visits.find({
 
@@ -480,21 +482,17 @@ exports.getVisitantesUnicosHoy = function(callback){
     .toArray(function(e, res){
         if (e){
             callback(e);
-        }	else{
+        }else{
 
             var result = [];
             var fechaActual = new Date();
 
-            for(i=0;i<res.length;i++){
+            for(var i=0; i<res.length; i++){
 
                 var visitas = res[i].visitas.length;
 
-                for(j=0;j<visitas;j++){
+                for(var j=0; j<visitas; j++){
                     var fecha = res[i].visitas[j].fecha;
-
-                    //console.log("Dia de la fecha: " + fecha.getDate());
-                    //console.log("Mes de la fecha: " + fecha.getMonth());
-                    //console.log("Anyo de la fecha: " + fecha.getFullYear());
 
                     if(fecha.getDate() === fechaActual.getDate()){
                         if(fecha.getMonth() === fechaActual.getMonth()){
@@ -529,10 +527,9 @@ exports.getVisitasTotales = function(callback){
         if (e){
             callback(e);
         }else{
-
             var total = 0;
 
-            for(i=0;i<res.length;i++){
+            for(var i=0; i<res.length; i++){
                 total += res[i].subtotalVisitas;
             }
             callback(null, total);
@@ -546,7 +543,6 @@ exports.actualizarVisitas = function(ipRouter, navegador, so, callback){
     },{
         $match: {
             'routerIpAddress': ipRouter
-            //'localIpAddress' : ipLocal
         }
     },{
 
@@ -603,7 +599,6 @@ exports.actualizarVisitas = function(ipRouter, navegador, so, callback){
 
                 visits.update({
                     "routerIpAddress": ipRouter
-                    //"localIpAddress": ipLocal
                 },{
                     $push: {
                         'visitas': {
@@ -623,7 +618,6 @@ exports.actualizarVisitas = function(ipRouter, navegador, so, callback){
                             console.log("No habia datos de este usuario. Vamos a añadirlo de cero.");
                             visits.insert({
                                 "routerIpAddress": ipRouter,
-                                //"localIpAddress": ipLocal,
                                 "visitas": [{
                                     fecha: fechaActual,
                                     fechaOffset: fechaActual.getTimezoneOffset(),
@@ -644,17 +638,14 @@ exports.actualizarVisitas = function(ipRouter, navegador, so, callback){
                                     }
                                 }
                             });
-
                         }else{
                             callback(null, 'actualizado');
                         }
                     }
                 });
-
             }else{
                 callback(null, 'no hay que actualizar');
             }
-
         }
     });
 };
@@ -665,10 +656,8 @@ exports.getFechaUltimaVisitaDeUsuario = function(ipRouter, callback){
     },{
         $match: {
             'routerIpAddress': ipRouter
-            //'localIpAddress': ipLocal
         }
     },{
-
         $group: {
             _id: '$_id',
             visitas: {
@@ -688,7 +677,6 @@ exports.getFechaUltimaVisitaDeUsuario = function(ipRouter, callback){
 };
 
 exports.getAllComments = function(callback){
-
     comments.find({
 
     })
@@ -702,21 +690,19 @@ exports.getAllComments = function(callback){
 };
 
 exports.getAllVerifiedComments = function(callback){
-
     comments.find({
         validado: true
     })
-        .toArray(function(err, res){
-            if(err){
-                callback(err);
-            }else{
-                callback(null, res);
-            }
-        });
+    .toArray(function(err, res){
+        if(err){
+            callback(err);
+        }else{
+            callback(null, res);
+        }
+    });
 };
 
 exports.getNotVerifiedComments = function(callback){
-
     comments.find({
         validado: false
     })
@@ -734,8 +720,8 @@ exports.addNewComment = function(user, texto, callback){
     comments.insert({
         validado: false,
         user: user,
-        fecha: new Date(),
-        fechaOffset: new Date().getTimezoneOffset(),
+        fecha: fecha,
+        fechaOffset: fecha.getTimezoneOffset(),
         texto: texto
     }, {
         w:1
@@ -759,8 +745,8 @@ exports.addNewCommentAnswer = function(id, user, texto, callback){
                 validado: false,
                 user: user,
                 texto: texto,
-                fecha: new Date(),
-                fechaOffset: new Date().getTimezoneOffset()
+                fecha: fecha,
+                fechaOffset: fecha.getTimezoneOffset()
             }
         }
     },function(e, res){
@@ -776,7 +762,7 @@ exports.addNewCommentAnswer = function(id, user, texto, callback){
 exports.deleteCommentById = function(id, callback){
     comments.remove({
         _id: getObjectId(id)
-    },function(e, res){
+    }, function(e, res){
         if(e || !res){
             callback('comment-not-deleted');
         }else{
@@ -789,7 +775,7 @@ exports.deleteCommentById = function(id, callback){
 exports.getCommentById = function(id, callback){
     comments.findOne({
         _id: getObjectId(id)
-    },function(e, res){
+    }, function(e, res){
         if(e){
             callback(e);
         }else{
@@ -800,7 +786,6 @@ exports.getCommentById = function(id, callback){
 
 
 exports.editComment = function(id, texto, callback){
-
     comments.update({
         _id: getObjectId(id)
     },{
@@ -817,7 +802,6 @@ exports.editComment = function(id, texto, callback){
 };
 
 exports.editCommentAsAdmin = function(id, texto, user, fecha, validado, respuestas, callback){
-
     comments.update({
         _id: getObjectId(id)
     },{

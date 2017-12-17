@@ -31,21 +31,13 @@ app.controller('ComentarioController', function ($scope, $http, $window, $filter
             var timezoneComentario = "+0000";
             json.fecha = $filter('date')(new Date(new Date(data.fecha).getTime() - (data.fechaOffset * 60000)), 'dd/MM/yyyy HH:mm', timezoneComentario);
 
-            //json.fecha = $filter('date')(data.fecha, 'dd/MM/yyyy HH:mm');
-
-            //console.log(timezoneComentario);
-
-            //json.fecha = $filter('date')(data.fecha, 'dd/MM/yyyy HH:mm');
-
             if(json.respuestas == null){
                 json.respuestas = [];
             }else{
-                for(i=0;i<json.respuestas.length;i++){
-                    //var timezoneRespuesta = "+0" + String(json.respuestas[i]/-60) + "00";
+                for(var i=0; i<json.respuestas.length; i++){
                     var timezoneRespuesta = "+0000";
                     json.respuestas[i].fecha = $filter('date')(new Date(new Date(json.respuestas[i].fecha).getTime() -
                         (json.respuestas[i].fechaOffset * 60000)), 'dd/MM/yyyy HH:mm', timezoneRespuesta);
-                    //json.respuestas[i].fecha = $filter('date')(json.respuestas[i].fecha, 'dd/MM/yyyy HH:mm');
                 }
             }
 

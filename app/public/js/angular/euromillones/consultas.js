@@ -265,7 +265,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
     $scope.inicializarAparicionesPorNumero = function(){
         var res = [];
 
-        for(i=0;i<$scope.numerosBolas.length;i++){
+        for(var i=0; i<$scope.numerosBolas.length; i++){
 
             var json = {
                 numero: $scope.numerosBolas[i],
@@ -276,14 +276,12 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         }
 
         return res;
-
     };
 
     $scope.inicializarAparicionesPorEstrella = function(){
         var res = [];
 
-        for(i=0;i<$scope.estrellas.length;i++){
-
+        for(var i=0; i<$scope.estrellas.length; i++){
             var json = {
                 estrella: $scope.estrellas[i],
                 apariciones: 0
@@ -293,14 +291,12 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         }
 
         return res;
-
     };
 
     $scope.inicializarAparicionesPorParejaDeEstrellas = function(){
         var res = [];
 
-        for(i=0;i<$scope.parejasDeEstrellas.length;i++){
-
+        for(var i=0; i<$scope.parejasDeEstrellas.length; i++){
             var json = {
                 estrellas: $scope.parejasDeEstrellas[i].estrellas,
                 apariciones: 0
@@ -327,9 +323,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
             res.push(json);
         }
 
-
         console.log("Numero de parejas: " + res.length);
-
         return res;
 
     };

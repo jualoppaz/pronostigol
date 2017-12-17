@@ -63,7 +63,7 @@ module.exports = function(app){
                 res.status(400).send(err);
             }else{
                 var finalRes = [];
-                for(i=0; i<result.length;i++){
+                for(var i=0; i<result.length;i++){
                     var json;
                     if(req.session.user == null){
                         json = filtrarInformacion(result[i]);
@@ -199,7 +199,7 @@ module.exports = function(app){
             }else{
                 var response = [];
 
-                for(i=0; i<result.length; i++){
+                for(var i=0; i<result.length; i++){
                     var json = {
                         numero: result[i]._id,
                         apariciones: result[i].apariciones
@@ -218,7 +218,7 @@ module.exports = function(app){
             }else{
                 var response = [];
 
-                for(i=0; i<result.length; i++){
+                for(var i=0; i<result.length; i++){
                     var json = {
                         estrella: result[i]._id,
                         apariciones: result[i].apariciones
@@ -237,7 +237,7 @@ module.exports = function(app){
             }else{
                 var response = [];
 
-                for(i=0; i<result.length; i++){
+                for(var i=0; i<result.length; i++){
                     var json = {
                         estrellas: result[i]._id,
                         apariciones: result[i].apariciones

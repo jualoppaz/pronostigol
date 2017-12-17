@@ -171,7 +171,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
     $scope.sumaDeVictoriasLocales = function(){
         var suma = 0;
-        for(i=0;i<$scope.filas.length;i++){
+        for(var i=0; i<$scope.filas.length; i++){
             suma = suma + $scope.filas[i].victoriasLocales || 0;
         }
         return suma;
@@ -179,7 +179,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
     $scope.sumaDeEmpates = function(){
         var suma = 0;
-        for(i=0;i<$scope.filas.length;i++){
+        for(var i=0; i<$scope.filas.length; i++){
             suma = suma + $scope.filas[i].empates || 0;
         }
         return suma;
@@ -187,7 +187,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
     $scope.sumaDeVictoriasVisitantes = function(){
         var suma = 0;
-        for(i=0;i<$scope.filas.length;i++){
+        for(var i=0; i<$scope.filas.length; i++){
             suma = suma + $scope.filas[i].victoriasVisitantes || 0;
         }
         return suma;
@@ -195,7 +195,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
     $scope.sumaDeVictoriasLocalesComoLocal = function(){
         var suma = 0;
-        for(i=0;i<$scope.filasLocal.length;i++){
+        for(var i=0; i<$scope.filasLocal.length; i++){
             suma = suma + $scope.filasLocal[i].victoriasLocales || 0;
         }
         return suma;
@@ -203,7 +203,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
     $scope.sumaDeEmpatesComoLocal = function(){
         var suma = 0;
-        for(i=0;i<$scope.filasLocal.length;i++){
+        for(var i=0; i<$scope.filasLocal.length; i++){
             suma = suma + $scope.filasLocal[i].empates || 0;
         }
         return suma;
@@ -211,7 +211,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
     $scope.sumaDeVictoriasVisitantesComoLocal = function(){
         var suma = 0;
-        for(i=0;i<$scope.filasLocal.length;i++){
+        for(var i=0; i<$scope.filasLocal.length; i++){
             suma = suma + $scope.filasLocal[i].victoriasVisitantes || 0;
         }
         return suma;
@@ -219,7 +219,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
     $scope.sumaDeVictoriasLocalesComoVisitante = function(){
         var suma = 0;
-        for(i=0;i<$scope.filasVisitante.length;i++){
+        for(var i=0; i<$scope.filasVisitante.length; i++){
             suma = suma + $scope.filasVisitante[i].victoriasLocales || 0;
         }
         return suma;
@@ -227,7 +227,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
     $scope.sumaDeEmpatesComoVisitante = function(){
         var suma = 0;
-        for(i=0;i<$scope.filasVisitante.length;i++){
+        for(var i=0; i<$scope.filasVisitante.length; i++){
             suma = suma + $scope.filasVisitante[i].empates || 0;
         }
         return suma;
@@ -235,7 +235,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
     $scope.sumaDeVictoriasVisitantesComoVisitante = function(){
         var suma = 0;
-        for(i=0;i<$scope.filasVisitante.length;i++){
+        for(var i=0; i<$scope.filasVisitante.length; i++){
             suma = suma + $scope.filasVisitante[i].victoriasVisitantes || 0;
         }
         return suma;
@@ -325,24 +325,18 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
 
     $scope.cargarTabla = function(data){
-
         $scope.limpiarTablas();
-
         $scope.data = data;
-
         $scope.plenosRenovados = data.plenosRenovados;
-
         $scope.filas = data.filas;
 
         if($scope.filas.length < 15){
-
             $scope.filasAux = $scope.filas;
 
-            for(i=1;i<=15;i++){
-
+            for(var i=1; i<=15; i++){
                 var hayDatos = false;
 
-                for(f=0;f<$scope.filasAux.length;f++){
+                for(var f=0; f<$scope.filasAux.length; f++){
 
                     if($scope.filasAux[f].fila == i){
                         hayDatos = true;
@@ -351,7 +345,6 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                 }
 
                 if(!hayDatos){
-
                     var json = {
                         fila: i,
                         victoriasLocales: 0,
@@ -365,9 +358,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         }
 
         if(data.plenosRenovados){
-
-            for(i=0;i<$scope.resultadosPlenoRenovado.length;i++){
-
+            for(i=0; i<$scope.resultadosPlenoRenovado.length; i++){
                 var key = $scope.resultadosPlenoRenovado[i];
                 if($scope.plenosRenovados[key] == null){
                     $scope.plenosRenovados[key] = 0;
@@ -376,26 +367,19 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
             $scope.mostrarPlenoRenovado = true;
         }
-
-
     };
 
     $scope.cargarTablaLocal = function(data){
-
         $scope.plenosRenovadosLocal = data.plenosRenovados;
-
         $scope.filasLocal = data.filas;
 
         if($scope.filasLocal.length < 15){
-
             $scope.filasAux = $scope.filasLocal;
 
-            for(i=1;i<=15;i++){
-
+            for(var i=1; i<=15; i++){
                 var hayDatos = false;
 
-                for(f=0;f<$scope.filasAux.length;f++){
-
+                for(var f=0; f<$scope.filasAux.length; f++){
                     if($scope.filasAux[f].fila == i){
                         hayDatos = true;
                         break;
@@ -403,7 +387,6 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                 }
 
                 if(!hayDatos){
-
                     var json = {
                         fila: i,
                         victoriasLocales: 0,
@@ -424,9 +407,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         $scope.filasLocal = $filter('orderBy')($scope.filasLocal, 'fila');
 
         if(data.plenosRenovados){
-
-            for(i=0;i<$scope.resultadosPlenoRenovado.length;i++){
-
+            for(i=0; i<$scope.resultadosPlenoRenovado.length; i++){
                 var key = $scope.resultadosPlenoRenovado[i];
                 if($scope.plenosRenovadosLocal[key] == null){
                     $scope.plenosRenovadosLocal[key] = 0;
@@ -438,26 +419,16 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
     };
 
     $scope.cargarTablaVisitante = function(data){
-
-        /*
-        Este era el fallo que me hizo perder una tarde. Estaba borrando la tabla como local justo
-        despues de haberla consultado.
-        */
-
         $scope.plenosRenovadosVisitante = data.plenosRenovados;
-
         $scope.filasVisitante = data.filas;
-
         if($scope.filasVisitante.length < 15){
-
             $scope.filasAux = $scope.filasVisitante;
 
-            for(i=1;i<=15;i++){
+            for(var i=1; i<=15; i++){
 
                 var hayDatos = false;
 
-                for(f=0;f<$scope.filasAux.length;f++){
-
+                for(var f=0; f<$scope.filasAux.length; f++){
                     if($scope.filasAux[f].fila == i){
                         hayDatos = true;
                         break;
@@ -465,7 +436,6 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                 }
 
                 if(!hayDatos){
-
                     var json = {
                         fila: i,
                         victoriasLocales: 0,
@@ -481,9 +451,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         $scope.filasVisitante = $filter('orderBy')($scope.filasVisitante, 'fila');
 
         if(data.plenosRenovados){
-
-            for(i=0;i<$scope.resultadosPlenoRenovado.length;i++){
-
+            for(i=0; i<$scope.resultadosPlenoRenovado.length; i++){
                 var key = $scope.resultadosPlenoRenovado[i];
                 if($scope.plenosRenovadosVisitante[key] == null){
                     $scope.plenosRenovadosVisitante[key] = 0;
@@ -868,19 +836,14 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
     };
 
     $scope.resultadoPlenoMasFrecuenteEnSolitario = function(partidos, resultado, cantidad){
-
         cantidad = cantidad || 0;
 
         if(typeof(resultado) != 'undefined' && typeof(cantidad) != 'undefined'){
-
-            for(i=0;i<$scope.resultadosPlenoRenovado.length;i++){
-
+            for(var i=0; i<$scope.resultadosPlenoRenovado.length; i++){
                 var res = true;
-
                 var resultadoAux = $scope.resultadosPlenoRenovado[i];
 
                 if(resultadoAux != resultado){
-
                     var cantidadAux = partidos[resultadoAux] || 0;
 
                     if(Number(cantidadAux) >= Number(cantidad)){
@@ -892,26 +855,21 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         }
 
         return res;
-
     };
 
 
     $scope.resultadoPlenoMasFrecuenteEmpatado = function(partidos, resultado, cantidad){
-
         var res = true;
-
         var repetidos = 0;
 
         cantidad = cantidad || 0;
 
         if(typeof(resultado) != 'undefined' && typeof(cantidad) != 'undefined'){
 
-            for(i=0;i<$scope.resultadosPlenoRenovado.length;i++){
-
+            for(var i=0; i<$scope.resultadosPlenoRenovado.length; i++){
                 var resultadoAux = $scope.resultadosPlenoRenovado[i];
 
                 if(resultadoAux != resultado){
-
                     var cantidadAux = partidos[resultadoAux] || 0;
 
                     if(Number(cantidadAux) > Number(cantidad)){
@@ -929,11 +887,9 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         }
 
         return res;
-
     };
 
     $scope.resultadoPlenoMenosFrecuente = function(partidos, resultado, cantidad){
-
         var res = false;
 
         cantidad = cantidad || 0;
@@ -945,52 +901,45 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         }
 
         return res;
-
     };
 
     $scope.sumaDePlenosRenovados = function(){
-
         var res = 0;
 
         if(!$scope.jsonVacio($scope.plenosRenovados)){
             // Se ha puesto este resultado por poner uno. Sólo hace falta saber si tiene datos.
 
-            for(i=0;i<$scope.resultadosPlenoRenovado.length; i++){
+            for(var i=0; i<$scope.resultadosPlenoRenovado.length; i++){
                 var cantidad = Number($scope.plenosRenovados[$scope.resultadosPlenoRenovado[i]]) || 0;
                 res = res + cantidad;
             }
         }
 
         return res;
-
     };
 
     $scope.sumaDePlenosRenovadosComoLocal = function(){
-
         var res = 0;
 
         if(!$scope.jsonVacio($scope.plenosRenovadosLocal)){
             // Se ha puesto este resultado por poner uno. Sólo hace falta saber si tiene datos.
 
-            for(i=0;i<$scope.resultadosPlenoRenovado.length; i++){
-
+            for(var i=0; i<$scope.resultadosPlenoRenovado.length; i++){
                 var cantidad = Number($scope.plenosRenovadosLocal[$scope.resultadosPlenoRenovado[i]]) || 0;
                 res = res + cantidad;
             }
         }
 
         return res;
-
     };
 
     $scope.sumaDePlenosRenovadosComoVisitante = function(){
-
         var res = 0;
 
         if(!$scope.jsonVacio($scope.plenosRenovadosVisitante)){
             // Se ha puesto este resultado por poner uno. Sólo hace falta saber si tiene datos.
 
-            for(i=0;i<$scope.resultadosPlenoRenovado.length; i++){
+            for(var i=0; i<$scope.resultadosPlenoRenovado.length; i++){
 
                 var cantidad = Number($scope.plenosRenovadosVisitante[$scope.resultadosPlenoRenovado[i]]) || 0;
                 res = res + cantidad;

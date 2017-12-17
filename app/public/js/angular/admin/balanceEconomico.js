@@ -40,7 +40,7 @@ app.controller('BalanceEconomicoController', function($scope, $http, $window){
 
     $scope.totalDineroInvertido = function(){
         var res = 0;
-        for(i=0;i<$scope.filteredBalances.length;i++){
+        for(var i=0; i<$scope.filteredBalances.length; i++){
             res += $scope.redondear($scope.filteredBalances[i].invertido) * 100;
         }
 
@@ -51,7 +51,7 @@ app.controller('BalanceEconomicoController', function($scope, $http, $window){
 
     $scope.totalDineroGanado = function(){
         var res = 0;
-        for(i=0;i<$scope.filteredBalances.length;i++){
+        for(var i=0; i<$scope.filteredBalances.length; i++){
             res += $scope.redondear($scope.filteredBalances[i].ganado) * 100;
         }
 

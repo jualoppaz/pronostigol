@@ -100,16 +100,15 @@ app.controller('IndexController', function ($scope, $http, $window, $filter) {
 
     $http.get('/api/twitter/pronostigolTweets')
         .success(function(data){
-
             var aux = [];
 
-            for(i=0;aux.length<4;i++){ // Nos quedamos con los 4 tweets mas recientes
+            for(var i=0; aux.length<4; i++){ // Nos quedamos con los 4 tweets mas recientes
                 if(data[i].text.indexOf("RT @") == -1){
                     aux[aux.length] = data[i];
                 }
             }
 
-            for(j=0;j<aux.length;j++){ // Cambiamos el formato de las fechas
+            for(var j=0; j<aux.length; j++){ // Cambiamos el formato de las fechas
                 var fecha = new Date(aux[j].created_at);
                 aux[j].created_at = fecha;
             }
@@ -122,14 +121,12 @@ app.controller('IndexController', function ($scope, $http, $window, $filter) {
 
     $http.get('/api/verifiedComments')
         .success(function(data){
-            console.log(data);
-
-            for(i=0;i<data.length;i++){
+            for(var i=0; i<data.length; i++){
 
                 var timezoneComentario = "+0" + String(data[i].fechaOffset/-60) + "00";
                 data[i].fecha = $filter('date')(data[i].fecha, 'dd/MM/yyyy HH:mm', timezoneComentario);
 
-                for(j=0;j<data[i].respuestas.length;j++){
+                for(var j=0; j<data[i].respuestas.length; j++){
                     var timezoneRespuesta = "+0" + String(data[i].respuestas[j].fechaOffset/-60) + "00";
                     data[i].respuestas[j].fecha = $filter('date')(data[i].respuestas[j].fecha, 'dd/MM/yyyy HH:mm', timezoneRespuesta);
                 }
@@ -276,11 +273,11 @@ app.controller('IndexController', function ($scope, $http, $window, $filter) {
                 .success(function(data){
                     $scope.comentarioEnviadoCorrectamente = true;
 
-                    for(i=0;i<data.length;i++){
+                    for(var i=0; i<data.length; i++){
                         var timezoneComentario = "+0" + String(data[i].fechaOffset/-60) + "00";
                         data[i].fecha = $filter('date')(data[i].fecha, 'dd/MM/yyyy HH:mm', timezoneComentario);
 
-                        for(j=0;j<data[i].respuestas.length;j++){
+                        for(var j=0; j<data[i].respuestas.length; j++){
                             var timezoneRespuesta = "+0" + String(data[i].respuestas[j].fechaOffset/-60) + "00";
                             data[i].respuestas[j].fecha = $filter('date')(data[i].respuestas[j].fecha, 'dd/MM/yyyy HH:mm', timezoneRespuesta);
                         }

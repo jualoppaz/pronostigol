@@ -34,19 +34,12 @@ app.controller('LoginController', function ($scope, $http, $window) {
         if(angular.element("#recordar").checked){
             $scope.form.recordar = true;
         }
+
         if(usuario == 'undefined' || usuario.length == 0){
             $scope.usuarioVacio = true;
             $scope.hayErrores = true;
-        }/*else{
-            for(i=0; i<usuario.length;i++){
-                if(usuario.charAt(i) == " "){
-                    alert("Usuario invalido");
-                    $scope.usuarioInvalido = true;
-                    $scope.hayErrores = true;
-                }
-            }
+        }
 
-        }*/
         if(pass == 'undefined' || pass.length == 0){
             $scope.passVacio = true;
             $scope.hayErrores = true;

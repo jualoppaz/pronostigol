@@ -65,16 +65,16 @@ app.controller('TicketController', function ($scope, $http, VariosService, $wind
 
         // Determinamos cuantas bolas se han acertado de las 5
 
-        for(var i=0;i<combinacion.numeros.length;i++){
-            for(var j=0;j<resultado.bolas.length;j++){
+        for(var i=0; i<combinacion.numeros.length; i++){
+            for(var j=0; j<resultado.bolas.length; j++){
                 if(combinacion.numeros[i].numero == resultado.bolas[j].numero){
                     numeroAciertos += 1;
                 }
             }
         }
 
-        for(var i=0;i<combinacion.estrellas.length;i++){
-            for(var j=0;j<resultado.estrellas.length;j++){
+        for(var i=0; i<combinacion.estrellas.length; i++){
+            for(var j=0; j<resultado.estrellas.length; j++){
                 if(combinacion.estrellas[i].numero == resultado.estrellas[j].numero){
                     numeroEstrellasAcertadas += 1;
                 }
@@ -140,16 +140,16 @@ app.controller('TicketController', function ($scope, $http, VariosService, $wind
 
         // Determinamos cuantas bolas se han acertado de las 5
 
-        for(var i=0;i<combinacion.numeros.length;i++){
-            for(var j=0;j<resultado.bolas.length;j++){
+        for(var i=0; i<combinacion.numeros.length; i++){
+            for(var j=0; j<resultado.bolas.length; j++){
                 if(combinacion.numeros[i].numero == resultado.bolas[j].numero){
                     numeroAciertos += 1;
                 }
             }
         }
 
-        for(var i=0;i<combinacion.estrellas.length;i++){
-            for(var j=0;j<resultado.estrellas.length;j++){
+        for(var i=0; i<combinacion.estrellas.length; i++){
+            for(var j=0; j<resultado.estrellas.length; j++){
                 if(combinacion.estrellas[i].numero == resultado.estrellas[j].numero){
                     numeroEstrellasAcertadas += 1;
                 }
@@ -211,12 +211,10 @@ app.controller('TicketController', function ($scope, $http, VariosService, $wind
     };
 
     $scope.bolaHaSidoAcertada = function(bola){
-
         var resultado = $scope.ticket.resultado;
-
         var res = false;
 
-        for(i=0;i<resultado.bolas.length;i++){
+        for(var i=0; i<resultado.bolas.length; i++){
             if(bola.numero == resultado.bolas[i].numero){
                 res = true;
                 break;

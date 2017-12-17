@@ -16,10 +16,7 @@ app.controller('TicketsController', function ($scope, $http, $window, $filter, V
             $http.get('/api/bonoloto/tickets/anyo/' + anyo)
                 .success(function(data){
                     $scope.tickets = data;
-                    //$scope.numPages = Math.floor($scope.tickets.length / 2) + 1;
-
                     $scope.totalItems = data.length;
-
                     $scope.numOfPages = data.length / $scope.ticketsPerPage;
 
                     console.log("Numero de paginas: " + $scope.numOfPages);
@@ -32,7 +29,7 @@ app.controller('TicketsController', function ($scope, $http, $window, $filter, V
 
                     $scope.paginas = [];
 
-                    for(i=0;i<$scope.numOfPages;i++){
+                    for(var i=0; i<$scope.numOfPages; i++){
                         $scope.paginas[i] = i+1;
                     }
 

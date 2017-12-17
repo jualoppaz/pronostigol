@@ -58,13 +58,8 @@ app.controller('TicketController', function ($scope, $http, $window){
 
         if($scope.quiniela.partidos[0].pronosticos.length < 8){
 
-            for(i=0;i<$scope.quiniela.partidos.length; i++){
+            for(var i=0; i<$scope.quiniela.partidos.length; i++){
                 if(i != $scope.quiniela.partidos.length - 1){
-                    /*
-                    if($scope.quiniela.partidos[i].pronosticos == null){
-                        $scope.quiniela.partidos[i].pronosticos.push({signo: ""});
-                    }
-                    */
                     $scope.quiniela.partidos[i].pronosticos.push({signo: ""});
                 }
             }
@@ -73,7 +68,7 @@ app.controller('TicketController', function ($scope, $http, $window){
 
     $scope.eliminarPronostico = function(){
 
-        for(i=0;i<$scope.quiniela.partidos.length; i++){
+        for(var i=0; i<$scope.quiniela.partidos.length; i++){
             if(i != $scope.quiniela.partidos.length - 1){ //No es el pleno
                 $scope.quiniela.partidos[i].pronosticos.pop();
                 if($scope.quiniela.partidos[i].pronosticos.length == 1){
@@ -125,29 +120,18 @@ app.controller('TicketController', function ($scope, $http, $window){
     };
 
     $scope.calcularSignoPronosticos = function(pronosticos){
-
         var res = pronosticos;
 
-        console.log("Pronostico recibido:" + JSON.stringify(pronosticos));
-
         if(pronosticos != null){
-            for(var i=0;i<pronosticos.length;i++){
-
+            for(var i=0; i<pronosticos.length; i++){
                 if(pronosticos[i].signo != null && pronosticos[i].signo != ""){
                     if(pronosticos[i].signo == 1 || pronosticos[i].signo == 2 || pronosticos[i].signo == "X" || pronosticos[i].signo == "x"){
-                        // Con la opcion 1 el input pierde el foco
-                        //Opcion 1: res[i] = {signo: pronosticos[i].signo.toUpperCase()};
                         res[i].signo = pronosticos[i].signo.toUpperCase()
                     }else{
-                        // Con la opcion 1 el input pierde el foco
-                        /*Opcion 1: res[i] = {
-                            signo: pronosticos[i].signo.substring(0, pronosticos[i].signo.length-1)
-                        };*/
                         res[i].signo = pronosticos[i].signo.substring(0, pronosticos[i].signo.length-1);
                     }
                 }
             }
-
         }
         return res;
     };
@@ -155,13 +139,10 @@ app.controller('TicketController', function ($scope, $http, $window){
     $scope.determinarSignosPronosticos = function(partidos){
         var res = partidos;
 
-        //console.log("Pronostico recibido:" + JSON.stringify(partidos));
-
         if(partidos != null){
-            for(var i=0;i<partidos.length;i++){
+            for(var i=0; i<partidos.length; i++){
 
                 for(var j=0;j<partidos[i].pronosticos.length; j++){
-
                     var pronostico = partidos[i].pronosticos[j];
 
                     if(partidos[i].fila == 15){
@@ -1139,12 +1120,11 @@ app.controller('TicketController', function ($scope, $http, $window){
 
 
     $scope.$watch('quiniela.jornada', function(jornada){
-
         $scope.quiniela.jornada = "";
 
         var aux = "";
 
-        for(var i=0;i<jornada.length && i<2;i++){
+        for(var i=0; i<jornada.length && i<2;i++){
             if($scope.esNumero(jornada.charAt(i))){
                 aux += jornada.charAt(i);
             }

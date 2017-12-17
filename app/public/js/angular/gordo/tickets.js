@@ -33,13 +33,6 @@ app.controller('TicketsController', function ($scope, $http, $window, $filter, V
                     if($scope.numOfPages > floor){
                         $scope.numOfPages = Math.floor(data.length / $scope.ticketsPerPage) + 1;
                     }
-
-                    /*$scope.paginas = [];
-
-                    for(i=0;i<$scope.numOfPages;i++){
-                        $scope.paginas[i] = i+1;
-                    }*/
-
                 })
                 .error(function(data){
                     console.log(data);

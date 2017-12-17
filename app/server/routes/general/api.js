@@ -9,10 +9,9 @@ module.exports = function(app){
     var GEN_DBM = require('../../modules/general-data-base-manager');
 
     var borrarPronosticos = function(aux){
-
         var json = aux;
 
-        for(i=0;i<json.partidos.length;i++){
+        for(var i=0; i<json.partidos.length; i++){
             delete json.partidos[i]['pronosticos'];
         }
 
@@ -90,7 +89,6 @@ module.exports = function(app){
     };
 
     var general_api_registroUsuario = function(req, res){
-
         var usuario = req.param('user');
         var pass    = req.param('pass');
         var errores = {};
@@ -106,7 +104,7 @@ module.exports = function(app){
                 hayErrores = true;
             }
 
-            for(i=0; i<usuario.length;i++){
+            for(var i=0; i<usuario.length;i++){
                 if(usuario.charAt(i) == " "){
                     errores.usuarioInvalido = true;
                     hayErrores = true;
@@ -199,9 +197,8 @@ module.exports = function(app){
                         if(!json.validado){
                             res.status(400).send('comment-vot-validated');
                         }else{
-
                             if(json.respuestas != null){
-                                for(i=0;i<json.respuestas.length; i++){
+                                for(var i=0; i<json.respuestas.length; i++){
                                     if(!json.respuestas[i].validado){
                                         json.respuestas.splice(i, 1);
                                     }
@@ -553,8 +550,7 @@ module.exports = function(app){
             if(respuestas != null){
                 if(Array.isArray(respuestas)){
                     if(respuestas.length > 0){
-
-                        for(i=0;i<respuestas.length;i++){
+                        for(i=0; i<respuestas.length; i++){
 
                             var aux = respuestas[i];
                             var json = {};
@@ -642,7 +638,7 @@ module.exports = function(app){
                 hayErrores = true;
             }
 
-            for(i=0; i<usuario.length;i++){
+            for(var i=0; i<usuario.length; i++){
                 if(usuario.charAt(i) == " "){
                     errores.usuarioInvalido = true;
                     hayErrores = true;
@@ -685,7 +681,7 @@ module.exports = function(app){
         if(!hayErrores){
             GEN_DBM.actualizarCuenta({
                 user 	    : req.param('user'),
-                pass	    : req.param('pass'),
+                pass	    : pass,
                 estaActivo  : activo,
                 role        : role,
                 estaBaneado : baneado,
@@ -707,12 +703,10 @@ module.exports = function(app){
     var general_api_borrarUsuario = function(req, res){
         GEN_DBM.deleteUser(req.params.id, function(err, user){
             if(err){
-                //console.log(err);
                 res.status(400).send(err);
             }else{
                 GEN_DBM.getAllRecords(function(err2, users){
                     if(err2){
-                        //console.log(err2);
                         res.status(400).send(err2);
                     }else{
                         res.status(200).send(users);
@@ -735,7 +729,6 @@ module.exports = function(app){
     var general_api_email = function(req, res){
         GEN_DBM.getEmailById(req.params.id, function(err, mail){
             if(err){
-                //console.log(err);
                 res.status(400).send(err);
             }else{
                 if(mail.leido == false){

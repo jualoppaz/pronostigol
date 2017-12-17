@@ -17,7 +17,7 @@ module.exports = function(app){
 
         var json = aux;
 
-        for(i=0;i<json.partidos.length;i++){
+        for(var i=0; i<json.partidos.length; i++){
             delete json.partidos[i]['pronosticos'];
         }
 
@@ -312,7 +312,7 @@ module.exports = function(app){
                 res.status(400).send(err);
             }else{
 
-                for(i=0; i<result.length; i++){
+                for(var i=0; i<result.length; i++){
 
                     var json = result[i];
 
@@ -330,9 +330,8 @@ module.exports = function(app){
                         var jsonPlenoModerno = {};
                         jsonPlenoModerno.fila = "15";
 
-                        for(i=0;i<result.length;i++){
+                        for(var i=0; i<result.length; i++){
                             var resultadoConGoles = result[i]._id;
-
                             var total = result[i].total;
 
                             jsonPlenoModerno[resultadoConGoles] = total;
@@ -359,8 +358,7 @@ module.exports = function(app){
                 console.log(err);
                 res.status(400).send(err);
             }else{
-
-                for(i=0;i<result.length;i++){
+                for(var i=0; i<result.length; i++){
                     var json = {
                         fila: Number(result[i]._id),
                         victoriasLocales: result[i].victoriasLocales,
@@ -379,7 +377,7 @@ module.exports = function(app){
                         var jsonPlenoModerno = {};
                         jsonPlenoModerno.fila = "15";
 
-                        for(i=0;i<result.length;i++){
+                        for(var i=0; i<result.length; i++){
                             var resultadoConGoles = result[i]._id;
 
                             var total = result[i].total;
@@ -408,15 +406,10 @@ module.exports = function(app){
                 console.log(err);
                 res.status(400).send(err);
             }else{
-
-                for(i=0; i<result.length; i++){
-
+                for(var i=0; i<result.length; i++){
                     var json = result[i];
-
                     json.fila = Number(json._id);
-
                     delete json._id;
-
                     filas.push(json);
                 }
 
@@ -428,13 +421,10 @@ module.exports = function(app){
                         var jsonPlenoModerno = {};
                         jsonPlenoModerno.fila = "15";
 
-                        for(i=0;i<result.length;i++){
+                        for(var i=0; i<result.length; i++){
                             var resultadoConGoles = result[i]._id;
-
                             var total = result[i].total;
-
                             jsonPlenoModerno[resultadoConGoles] = total;
-
                         }
 
                         respuesta.filas = filas;
@@ -457,8 +447,7 @@ module.exports = function(app){
                 console.log(err);
                 res.status(400).send(err);
             }else{
-
-                for(i=0; i<result.length; i++){
+                for(var i=0; i<result.length; i++){
                     var json = {
                         fila: Number(result[i]._id),
                         victoriasLocales: result[i].victoriasLocales,
@@ -478,11 +467,9 @@ module.exports = function(app){
                         var jsonPlenoModerno = {};
                         jsonPlenoModerno.fila = "15";
 
-                        for(i=0;i<result.length;i++){
+                        for(var i=0; i<result.length; i++){
                             var resultadoConGoles = result[i]._id;
-
                             var total = result[i].total;
-
                             jsonPlenoModerno[resultadoConGoles] = total;
                         }
 
@@ -505,8 +492,7 @@ module.exports = function(app){
                 console.log(err);
                 res.status(400).send(err);
             }else{
-
-                for(i=0; i<result.length; i++){
+                for(var i=0; i<result.length; i++){
                     var json = {
                         fila: Number(result[i]._id),
                         victoriasLocales: result[i].victoriasLocales,
@@ -525,9 +511,9 @@ module.exports = function(app){
                         var jsonPlenoModerno = {};
                         jsonPlenoModerno.fila = "15";
 
-                        for(i=0;i<result.length;i++){
-                            var resultadoConGoles = result[i]._id;
-                            var total = result[i].total;
+                        for(var j=0; j<result.length; j++){
+                            var resultadoConGoles = result[j]._id;
+                            var total = result[j].total;
 
                             jsonPlenoModerno[resultadoConGoles] = total;
                         }
@@ -552,31 +538,26 @@ module.exports = function(app){
                 console.log(err);
                 res.status(400).send(err);
             }else{
-
-                for(i=0;i<result.length;i++){
+                for(var i=0; i<result.length; i++){
                     var json = {
                         fila: Number(result[i]._id),
                         victoriasLocales: result[i].victoriasLocales,
                         empates: result[i].empates,
                         victoriasVisitantes: result[i].victoriasVisitantes
                     };
-
                     filas.push(json);
-
                 }
 
                 QUI_DBM.getTicketsBySeasonAndCompetitionGroupedByRes(req.params.season, req.params.competition, function(err, result){
                     if(err){
                         res.status(400).send(err);
                     }else{
-
                         var jsonPlenoModerno = {};
                         jsonPlenoModerno.fila = "15";
 
-                        for(i=0;i<result.length;i++){
+                        for(var i=0; i<result.length; i++){
                             var resultadoConGoles = result[i]._id;
                             var total = result[i].total;
-
                             jsonPlenoModerno[resultadoConGoles] = total;
                         }
 
@@ -592,7 +573,6 @@ module.exports = function(app){
 
     var quiniela_api_historicoPartidosPorTemporadaYEquipoLocal = function(req, res){
         var filas = [];
-
         var respuesta = {};
 
         QUI_DBM.getTicketsBySeasonAndLocalTeamGroupedByRow(req.params.season, req.params.team, function(err, result){
@@ -600,30 +580,26 @@ module.exports = function(app){
                 console.log(err);
                 res.status(400).send(err);
             }else{
-
-                for(i=0;i<result.length;i++){
+                for(var i=0; i<result.length; i++){
                     var json = {
                         fila: Number(result[i]._id),
                         victoriasLocales: result[i].victoriasLocales,
                         empates: result[i].empates,
                         victoriasVisitantes: result[i].victoriasVisitantes
                     };
-
                     filas.push(json);
-
                 }
 
                 QUI_DBM.getTicketsBySeasonAndLocalTeamGroupedByRes(req.params.season, req.params.team, function(err, result){
                     if(err){
                         res.status(400).send(err);
                     }else{
-
                         var jsonPlenoModerno = {};
                         jsonPlenoModerno.fila = "15";
 
-                        for(i=0;i<result.length;i++){
-                            var resultadoConGoles = result[i]._id;
-                            var total = result[i].total;
+                        for(var j=0; j<result.length; j++){
+                            var resultadoConGoles = result[j]._id;
+                            var total = result[j].total;
 
                             jsonPlenoModerno[resultadoConGoles] = total;
 
@@ -639,9 +615,8 @@ module.exports = function(app){
         });
     };
 
-    quiniela_api_historicoPartidosPorTemporadaYEquipoVisitante = function(req, res){
+    var quiniela_api_historicoPartidosPorTemporadaYEquipoVisitante = function(req, res){
         var filas = [];
-
         var respuesta = {};
 
         QUI_DBM.getTicketsBySeasonAndVisitorTeamGroupedByRow(req.params.season, req.params.team, function(err, result){
@@ -649,15 +624,10 @@ module.exports = function(app){
                 console.log(err);
                 res.status(400).send(err);
             }else{
-
-                for(i=0; i<result.length; i++){
-
+                for(var i=0; i<result.length; i++){
                     var json = result[i];
-
                     json.fila = Number(json._id);
-
                     delete json._id;
-
                     filas.push(json);
                 }
 
@@ -668,10 +638,9 @@ module.exports = function(app){
                         var jsonPlenoModerno = {};
                         jsonPlenoModerno.fila = "15";
 
-                        for(i=0;i<result.length;i++){
-                            var resultadoConGoles = result[i]._id;
-
-                            var total = result[i].total;
+                        for(var j=0; j<result.length; j++){
+                            var resultadoConGoles = result[j]._id;
+                            var total = result[j].total;
 
                             jsonPlenoModerno[resultadoConGoles] = total;
                         }
@@ -696,15 +665,10 @@ module.exports = function(app){
                 console.log(err);
                 res.status(400).send(err);
             }else{
-
-                for(i=0; i<result.length; i++){
-
+                for(var i=0; i<result.length; i++){
                     var json = result[i];
-
                     json.fila = Number(json._id);
-
                     delete json._id;
-
                     filas.push(json);
                 }
 
@@ -712,17 +676,14 @@ module.exports = function(app){
                     if(err){
                         res.status(400).send(err);
                     }else{
-
                         var jsonPlenoModerno = {};
                         jsonPlenoModerno.fila = "15";
 
-                        for(i=0;i<result.length;i++){
-                            var resultadoConGoles = result[i]._id;
-
-                            var total = result[i].total;
+                        for(var j=0; j<result.length; j++){
+                            var resultadoConGoles = result[j]._id;
+                            var total = result[j].total;
 
                             jsonPlenoModerno[resultadoConGoles] = total;
-
                         }
 
                         respuesta.filas = filas;
@@ -737,7 +698,6 @@ module.exports = function(app){
 
     var quiniela_api_historicoPartidosPorTemporadaCompeticionYEquipoVisitante = function(req, res){
         var filas = [];
-
         var respuesta = {};
 
         QUI_DBM.getTicketsBySeasonCompetitionAndVisitorTeamGroupedByRow(req.params.season, req.params.competition, req.params.team, function(err, result){
@@ -745,15 +705,10 @@ module.exports = function(app){
                 console.log(err);
                 res.status(400).send(err);
             }else{
-
-                for(i=0; i<result.length; i++){
-
+                for(var i=0; i<result.length; i++){
                     var json = result[i];
-
                     json.fila = Number(json._id);
-
                     delete json._id;
-
                     filas.push(json);
                 }
 
@@ -765,11 +720,9 @@ module.exports = function(app){
                         var jsonPlenoModerno = {};
                         jsonPlenoModerno.fila = "15";
 
-                        for(i=0;i<result.length;i++){
-                            var resultadoConGoles = result[i]._id;
-
-                            var total = result[i].total;
-
+                        for(var j=0; j<result.length; j++){
+                            var resultadoConGoles = result[j]._id;
+                            var total = result[j].total;
                             jsonPlenoModerno[resultadoConGoles] = total;
 
                         }
@@ -786,7 +739,6 @@ module.exports = function(app){
 
     var quiniela_api_historicoPartidosPorEquipoLocal = function(req, res){
         var filas = [];
-
         var respuesta = {};
 
         QUI_DBM.getTicketsByLocalTeamGroupedByRow(req.params.team, function(err, result){
@@ -794,15 +746,10 @@ module.exports = function(app){
                 console.log(err);
                 res.status(400).send(err);
             }else{
-
-                for(i=0; i<result.length; i++){
-
+                for(var i=0; i<result.length; i++){
                     var json = result[i];
-
                     json.fila = Number(json._id);
-
                     delete json._id;
-
                     filas.push(json);
                 }
 
@@ -813,13 +760,11 @@ module.exports = function(app){
                         var jsonPlenoModerno = {};
                         jsonPlenoModerno.fila = "15";
 
-                        for(i=0;i<result.length;i++){
-                            var resultadoConGoles = result[i]._id;
-
-                            var total = result[i].total;
+                        for(var j=0; j<result.length; j++){
+                            var resultadoConGoles = result[j]._id;
+                            var total = result[j].total;
 
                             jsonPlenoModerno[resultadoConGoles] = total;
-
                         }
 
                         respuesta.filas = filas;
@@ -834,7 +779,6 @@ module.exports = function(app){
 
     var quiniela_api_historicoPartidosPorEquipoVisitante = function(req, res){
         var filas = [];
-
         var respuesta = {};
 
         QUI_DBM.getTicketsByVisitorTeamGroupedByRow(req.params.team, function(err, result){
@@ -842,15 +786,10 @@ module.exports = function(app){
                 console.log(err);
                 res.status(400).send(err);
             }else{
-
-                for(i=0; i<result.length; i++){
-
+                for(var i=0; i<result.length; i++){
                     var json = result[i];
-
                     json.fila = Number(json._id);
-
                     delete json._id;
-
                     filas.push(json);
                 }
 
@@ -861,13 +800,11 @@ module.exports = function(app){
                         var jsonPlenoModerno = {};
                         jsonPlenoModerno.fila = "15";
 
-                        for(i=0;i<result.length;i++){
-                            var resultadoConGoles = result[i]._id;
-
-                            var total = result[i].total;
+                        for(var j=0; j<result.length; j++){
+                            var resultadoConGoles = result[j]._id;
+                            var total = result[j].total;
 
                             jsonPlenoModerno[resultadoConGoles] = total;
-
                         }
 
                         respuesta.filas = filas;
@@ -882,7 +819,6 @@ module.exports = function(app){
 
     var quiniela_api_historicoPartidosPorPartido = function(req, res){
         var filas = [];
-
         var respuesta = {};
 
         QUI_DBM.getTicketsByLocalAndVisitorTeamGroupedByRow(req.params.localTeam, req.params.visitorTeam, function(err, result){
@@ -890,43 +826,33 @@ module.exports = function(app){
                 console.log(err);
                 res.status(400).send(err);
             }else{
-
-                for(i=0; i<result.length; i++){
-
+                for(var i=0; i<result.length; i++){
                     var json = result[i];
-
                     json.fila = Number(json._id);
-
                     delete json._id;
 
                     filas.push(json);
                 }
 
                 QUI_DBM.getTicketsByLocalAndVisitorTeamGroupedByRes(req.params.localTeam, req.params.visitorTeam, function(err, result){
-
                     if(err){
-                        res.status(400).send(err4);
+                        res.status(400).send(err);
                     }else{
-
                         var jsonPlenoModerno = {};
                         jsonPlenoModerno.fila = "15";
 
-                        for(i=0;i<result.length;i++){
-                            var resultadoConGoles = result[i]._id;
-
+                        for(var j=0; j<result.length; j++){
+                            var resultadoConGoles = result[j]._id;
                             var total = result[i].total;
 
                             jsonPlenoModerno[resultadoConGoles] = total;
-
                         }
 
                         respuesta.filas = filas;
                         respuesta.plenosRenovados = jsonPlenoModerno;
 
                         res.status(200).send(respuesta);
-
                     }
-
                 });
             }
         });
@@ -934,7 +860,6 @@ module.exports = function(app){
 
     var quiniela_api_historicoPartidosPorTemporadaYPartido = function(req, res){
         var filas = [];
-
         var respuesta = {};
 
         QUI_DBM.getTicketsBySeasonLocalAndVisitorTeamGroupedByRow(req.params.season, req.params.localTeam, req.params.visitorTeam, function(err, result){
@@ -942,33 +867,26 @@ module.exports = function(app){
                 console.log(err);
                 res.status(400).send(err);
             }else{
-
-                for(i=0; i<result.length; i++){
-
+                for(var i=0; i<result.length; i++){
                     var json = result[i];
-
                     json.fila = Number(json._id);
-
                     delete json._id;
 
                     filas.push(json);
                 }
 
                 QUI_DBM.getTicketsBySeasonAndLocalAndVisitorTeamGroupedByRes(req.params.season, req.params.localTeam, req.params.visitorTeam, function(err, result){
-
                     if(err){
                         res.status(400).send(err);
                     }else{
                         var jsonPlenoModerno = {};
                         jsonPlenoModerno.fila = "15";
 
-                        for(i=0;i<result.length;i++){
-                            var resultadoConGoles = result[i]._id;
-
-                            var total = result[i].total;
+                        for(var j=0; j<result.length; j++){
+                            var resultadoConGoles = result[j]._id;
+                            var total = result[j].total;
 
                             jsonPlenoModerno[resultadoConGoles] = total;
-
                         }
 
                         respuesta.filas = filas;
@@ -976,7 +894,6 @@ module.exports = function(app){
 
                         res.status(200).send(respuesta);
                     }
-
                 });
             }
         });
@@ -984,7 +901,6 @@ module.exports = function(app){
 
     var quiniela_api_historicoPartidosPorTemporadaCompeticionYPartido = function(req, res){
         var filas = [];
-
         var respuesta = {};
 
         QUI_DBM.getTicketsBySeasonCompetitionAndLocalAndVisitorTeamGroupedByRow(req.params.season, req.params.competition, req.params.localTeam, req.params.visitorTeam, function(err, result){
@@ -992,43 +908,32 @@ module.exports = function(app){
                 console.log(err);
                 res.status(400).send(err);
             }else{
-
-                for(i=0; i<result.length; i++){
-
+                for(var i=0; i<result.length; i++){
                     var json = result[i];
-
                     json.fila = Number(json._id);
-
                     delete json._id;
-
                     filas.push(json);
                 }
 
                 QUI_DBM.getTicketsBySeasonCompetitionAndLocalAndVisitorTeamGroupedByRes(req.params.season, req.params.competition, req.params.localTeam, req.params.visitorTeam, function(err, result){
-
                     if(err){
                         res.status(400).send(err);
                     }else{
-
                         var jsonPlenoModerno = {};
                         jsonPlenoModerno.fila = "15";
 
-                        for(i=0;i<result.length;i++){
-                            var resultadoConGoles = result[i]._id;
-
-                            var total = result[i].total;
+                        for(var j=0; j<result.length; j++){
+                            var resultadoConGoles = result[j]._id;
+                            var total = result[j].total;
 
                             jsonPlenoModerno[resultadoConGoles] = total;
-
                         }
 
                         respuesta.filas = filas;
                         respuesta.plenosRenovados = jsonPlenoModerno;
 
                         res.status(200).send(respuesta);
-
                     }
-
                 });
             }
         });
@@ -1036,7 +941,6 @@ module.exports = function(app){
 
     var quiniela_api_historicoPartidosPorCompeticionYPartido = function(req, res){
         var filas = [];
-
         var respuesta = {};
 
         QUI_DBM.getTicketsByCompetitionAndLocalAndVisitorTeamGroupedByRow(req.params.competition, req.params.localTeam, req.params.visitorTeam, function(err, result){
@@ -1044,35 +948,25 @@ module.exports = function(app){
                 console.log(err);
                 res.status(400).send(err);
             }else{
-
-                for(i=0; i<result.length; i++){
-
+                for(var i=0; i<result.length; i++){
                     var json = result[i];
-
                     json.fila = Number(json._id);
-
                     delete json._id;
-
                     filas.push(json);
                 }
 
-
                 QUI_DBM.getTicketsByCompetitionAndLocalAndVisitorTeamGroupedByRes(req.params.competition, req.params.localTeam, req.params.visitorTeam, function(err, result){
-
                     if(err){
                         res.status(400).send(err);
                     }else{
-
                         var jsonPlenoModerno = {};
                         jsonPlenoModerno.fila = "15";
 
-                        for(i=0;i<result.length;i++){
-                            var resultadoConGoles = result[i]._id;
-
+                        for(var j=0; j<result.length; j++){
+                            var resultadoConGoles = result[j]._id;
                             var total = result[i].total;
 
                             jsonPlenoModerno[resultadoConGoles] = total;
-
                         }
 
                         respuesta.filas = filas;
@@ -1086,11 +980,8 @@ module.exports = function(app){
     };
 
     var quiniela_api_historicoPartidosPorCombinaciones = function(req, res){
-
         var resultados = [];
-
         var resultadosPorRepeticiones = {};
-
         var temporadasConsultadas = 0;
 
         QUI_DBM.getAllAppearedResults(function(err, result){
@@ -1098,18 +989,13 @@ module.exports = function(app){
                 res.status(400).send(err);
             }else{
                 try{
-
-                    for(i=0;i<result.length;i++){
-
+                    for(var i=0; i<result.length; i++){
                         var resultadosTicket = [];
-
                         var ticket = result[i];
-
                         var partidos = ticket.partidos;
-
                         var resultadoString = "";
 
-                        for(p=0;p<partidos.length;p++){
+                        for(var p=0; p<partidos.length; p++){
                             resultadosTicket.push({
                                 resultado: partidos[p].resultado
                             });
@@ -1118,7 +1004,6 @@ module.exports = function(app){
                         }
 
                         resultados.push({
-                            //ticket: resultadosTicket,
                             temporada: ticket.temporada,
                             jornada: ticket.jornada,
                             string: resultadoString,
@@ -1138,7 +1023,6 @@ module.exports = function(app){
                 }
 
                 res.status(200).send(resultadosPorRepeticiones);
-
             }
         });
     };
@@ -1447,17 +1331,13 @@ module.exports = function(app){
             if(err){
                 res.status(400).send(err);
             }else{
-                for(i=0;i<result.length;i++){
+                for(var i=0; i<result.length; i++){
                     var ticket = result[i];
-
                     var partidos = ticket.partidos;
 
-                    for(j=0;j<partidos.length;j++){
+                    for(var j=0; j<partidos.length; j++){
                         var equipoLocal = partidos[j].local;
                         var equipoVisitante = partidos[j].visitante;
-
-                        console.log("Equipo local: " + equipoLocal);
-                        console.log("Equipo visitante: " + equipoVisitante);
 
                         if(respuesta.indexOf(equipoLocal) == -1){
                             respuesta[respuesta.length] = equipoLocal;

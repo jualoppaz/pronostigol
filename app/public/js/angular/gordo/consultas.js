@@ -190,7 +190,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
     $scope.inicializarAparicionesPorNumero = function(){
         var res = [];
 
-        for(i=0;i<$scope.numerosBolas.length;i++){
+        for(var i=0; i<$scope.numerosBolas.length; i++){
 
             var json = {
                 numero: $scope.numerosBolas[i],
@@ -207,7 +207,7 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
     $scope.inicializarAparicionesPorNumeroClave = function(){
         var res = [];
 
-        for(i=0;i<$scope.numerosNumeroClaves.length;i++){
+        for(var i=0; i<$scope.numerosNumeroClaves.length; i++){
 
             var json = {
                 numeroClave: $scope.numerosNumeroClaves[i],

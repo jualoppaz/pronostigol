@@ -62,7 +62,7 @@ module.exports = function(app){
                 res.status(400).send(err);
             }else{
                 var finalRes = [];
-                for(i=0; i<result.length;i++){
+                for(var i=0; i<result.length; i++){
                     var json;
                     if(req.session.user == null){
                         json = filtrarInformacion(result[i]);
@@ -81,9 +81,7 @@ module.exports = function(app){
     };
 
     var bonoloto_api_ticketPorAnyoYSorteo = function(req, res){
-
         var anyo = req.params.anyo;
-
         var sorteo = req.params.sorteo;
 
         BON_DBM.getTicketsByAnyoAndRaffle(anyo, sorteo, function(err, result){
@@ -218,7 +216,7 @@ module.exports = function(app){
                 }else{
                     var response = [];
 
-                    for(i=0; i<result.length; i++){
+                    for(var i=0; i<result.length; i++){
                         var json = {
                             numero: result[i]._id,
                             apariciones: result[i].apariciones
@@ -238,7 +236,7 @@ module.exports = function(app){
             }else{
                 var response = [];
 
-                for(i=0; i<result.length; i++){
+                for(var i=0; i<result.length; i++){
                     var json = {
                         reintegro: result[i]._id,
                         apariciones: result[i].apariciones
@@ -257,7 +255,7 @@ module.exports = function(app){
             }else{
                 var response = [];
 
-                for(var i=0;i<tickets.length;i++){
+                for(var i=0; i<tickets.length; i++){
                     var json = {};
                     json.numeros = tickets[i]._id;
                     json.apariciones = tickets[i].apariciones;
@@ -276,7 +274,7 @@ module.exports = function(app){
             }else{
                 var response = [];
 
-                for(var i=0;i<tickets.length;i++){
+                for(var i=0; i<tickets.length; i++){
                     var json = {};
                     json.numeros = tickets[i].resultado;
                     json.reintegro = tickets[i].reintegro;

@@ -47,8 +47,7 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
         }
 
         if($scope.quiniela.partidos[0].pronosticos.length < 8){
-
-            for(i=0;i<$scope.quiniela.partidos.length; i++){
+            for(var i=0; i<$scope.quiniela.partidos.length; i++){
                 if(i != $scope.quiniela.partidos.length - 1){
                     /*
                     if($scope.quiniela.partidos[i].pronosticos == null){
@@ -62,8 +61,7 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
     };
 
     $scope.eliminarPronostico = function(){
-
-        for(i=0;i<$scope.quiniela.partidos.length; i++){
+        for(var i=0; i<$scope.quiniela.partidos.length; i++){
             if(i != $scope.quiniela.partidos.length - 1){ //No es el pleno
                 $scope.quiniela.partidos[i].pronosticos.pop();
                 if($scope.quiniela.partidos[i].pronosticos.length == 1){

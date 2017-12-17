@@ -186,11 +186,9 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
     };
 
     $scope.inicializarAparicionesPorNumero = function(){
-
         var res = [];
 
-        for(i=0;i<$scope.numerosBolas.length;i++){
-
+        for(var i=0; i<$scope.numerosBolas.length; i++){
             var json = {
                 numero: $scope.numerosBolas[i],
                 apariciones: 0
@@ -204,11 +202,9 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
     };
 
     $scope.inicializarAparicionesPorReintegro = function(){
-
         var res = [];
 
-        for(i=0;i<$scope.numerosReintegros.length;i++){
-
+        for(var i=0; i<$scope.numerosReintegros.length; i++){
             var json = {
                 reintegro: $scope.numerosReintegros[i],
                 apariciones: 0
@@ -218,7 +214,6 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         }
 
         return res;
-
     };
 
     $scope.ordenarAparicionesPorNumeroSegun = function(criterio){

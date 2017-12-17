@@ -35,13 +35,12 @@ app.controller('SignupController', function ($scope, $http, $timeout, $window) {
         var usuario = String($scope.form.user);
         var pass = String($scope.form.pass);
 
-
         if(usuario == 'undefined' || usuario.length == 0){
             $scope.errores.usuario = "Debe introducir un usuario.";
             $scope.usuarioVacio = true;
             $scope.hayErrores = true;
         }else{
-            for(i=0; i<usuario.length;i++){
+            for(var i=0; i<usuario.length;i++){
                 if(usuario.charAt(i) == " "){
                     $scope.usuarioInvalido = true;
                     $scope.hayErrores = true;

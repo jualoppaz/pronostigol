@@ -32,7 +32,7 @@ app.controller('QuinielasController', function ($scope, $http, $window) {
 
                     $scope.paginas = [];
 
-                    for(i=0;i<$scope.numOfPages;i++){
+                    for(var i=0; i<$scope.numOfPages; i++){
                         $scope.paginas[i] = i+1;
                     }
 

@@ -24,23 +24,17 @@ app.controller('TicketController', function ($scope, $http, $filter, VariosServi
         });
 
     $scope.determinarCategoriaPremio = function(combinacion){
-
         var res = "";
-
         var resultado = $scope.ticket.resultado;
-
         var numeroAciertos = 0;
-
         var reintegroAcertado = false;
-
         var complementarioAcertado = false;
 
         if($scope.ticket.apuestas.reintegro == resultado.reintegro){ // 0<=R<=9. Por tanto, podemos tener cualquier categoría.
-
             var reintegroAcertado = true;
 
-            for(i=0;i<combinacion.length;i++){
-                for(j=0;j<resultado.bolas.length;j++){
+            for(i=0; i<combinacion.length; i++){
+                for(j=0; j<resultado.bolas.length;j++){
                     if(combinacion[i].numero == resultado.bolas[j].numero){
                         numeroAciertos += 1;
                     }
@@ -48,11 +42,8 @@ app.controller('TicketController', function ($scope, $http, $filter, VariosServi
             }
 
             if(numeroAciertos == 5){
-
-                console.log("5 aciertos");
-
-                for(i=0;i<combinacion.length;i++){
-                    for(j=0;j<resultado.bolas.length;j++){
+                for(i=0; i<combinacion.length; i++){
+                    for(j=0; j<resultado.bolas.length; j++){
                         if(combinacion[i].numero == resultado.complementario){
                             complementarioAcertado = true;
                             break;
@@ -62,8 +53,8 @@ app.controller('TicketController', function ($scope, $http, $filter, VariosServi
             }
 
         }else{ // Se puede acertar 6, 5, 4 o 3
-            for(i=0;i<combinacion.length;i++){
-                for(j=0;j<resultado.bolas.length;j++){
+            for(i=0; i<combinacion.length; i++){
+                for(j=0; j<resultado.bolas.length; j++){
                     if(combinacion[i].numero == resultado.bolas[j].numero){
                         numeroAciertos += 1;
                     }
@@ -71,11 +62,8 @@ app.controller('TicketController', function ($scope, $http, $filter, VariosServi
             }
 
             if(numeroAciertos == 5){
-
-                console.log("5 aciertos");
-
-                for(i=0;i<combinacion.length;i++){
-                    for(j=0;j<resultado.bolas.length;j++){
+                for(var i=0; i<combinacion.length; i++){
+                    for(var j=0; j<resultado.bolas.length; j++){
                         if(combinacion[i].numero == resultado.complementario){
                             complementarioAcertado = true;
                             break;
@@ -120,11 +108,10 @@ app.controller('TicketController', function ($scope, $http, $filter, VariosServi
         var complementarioAcertado = false;
 
         if($scope.ticket.apuestas.reintegro == resultado.reintegro){ // 0<=R<=9. Por tanto, podemos tener cualquier categoría.
-
             var reintegroAcertado = true;
 
-            for(i=0;i<combinacion.length;i++){
-                for(j=0;j<resultado.bolas.length;j++){
+            for(i=0; i<combinacion.length; i++){
+                for(j=0; j<resultado.bolas.length; j++){
                     if(combinacion[i].numero == resultado.bolas[j].numero){
                         numeroAciertos += 1;
                     }
@@ -132,11 +119,8 @@ app.controller('TicketController', function ($scope, $http, $filter, VariosServi
             }
 
             if(numeroAciertos == 5){
-
-                console.log("5 aciertos");
-
-                for(i=0;i<combinacion.length;i++){
-                    for(j=0;j<resultado.bolas.length;j++){
+                for(i=0; i<combinacion.length; i++){
+                    for(j=0; j<resultado.bolas.length; j++){
                         if(combinacion[i].numero == resultado.complementario){
                             complementarioAcertado = true;
                             break;
@@ -146,8 +130,8 @@ app.controller('TicketController', function ($scope, $http, $filter, VariosServi
             }
 
         }else{ // Se puede acertar 6, 5, 4 o 3
-            for(i=0;i<combinacion.length;i++){
-                for(j=0;j<resultado.bolas.length;j++){
+            for(i=0; i<combinacion.length; i++){
+                for(j=0; j<resultado.bolas.length; j++){
                     if(combinacion[i].numero == resultado.bolas[j].numero){
                         numeroAciertos += 1;
                     }
@@ -155,11 +139,8 @@ app.controller('TicketController', function ($scope, $http, $filter, VariosServi
             }
 
             if(numeroAciertos == 5){
-
-                console.log("5 aciertos");
-
-                for(i=0;i<combinacion.length;i++){
-                    for(j=0;j<resultado.bolas.length;j++){
+                for(var i=0; i<combinacion.length; i++){
+                    for(var j=0; j<resultado.bolas.length; j++){
                         if(combinacion[i].numero == resultado.complementario){
                             complementarioAcertado = true;
                             break;
@@ -196,12 +177,10 @@ app.controller('TicketController', function ($scope, $http, $filter, VariosServi
     };
 
     $scope.bolaHaSidoAcertada = function(bola){
-
         var resultado = $scope.ticket.resultado;
-
         var res = false;
 
-        for(i=0;i<resultado.bolas.length;i++){
+        for(var i=0; i<resultado.bolas.length; i++){
             if(bola.numero == resultado.bolas[i].numero){
                 res = true;
                 break;

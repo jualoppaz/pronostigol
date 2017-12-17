@@ -74,7 +74,7 @@ module.exports = function(app){
             if(err){
                 res.status(400).send(err);
             }else{
-                for(i=0; i<resultQuiniela.length; i++){
+                for(var i=0; i<resultQuiniela.length; i++){
 
                     var json = {};
 
@@ -92,14 +92,14 @@ module.exports = function(app){
                     if(err){
                         res.status(400).send(err);
                     }else{
-                        for(i=0; i<resultBonoloto.length; i++){
+                        for(var j=0; j<resultBonoloto.length; j++){
 
                             var json = {};
 
                             json["sorteo"] = "Bonoloto";
-                            json["anyo"] = resultBonoloto[i]._id;
-                            json["invertido"] = resultBonoloto[i].invertido;
-                            json["ganado"] = resultBonoloto[i].ganado;
+                            json["anyo"] = resultBonoloto[j]._id;
+                            json["invertido"] = resultBonoloto[j].invertido;
+                            json["ganado"] = resultBonoloto[j].ganado;
 
                             if(json["invertido"] > 0){
                                 respuesta.push(json);
@@ -110,14 +110,14 @@ module.exports = function(app){
                             if(err){
                                 res.status(400).send(err);
                             }else{
-                                for(i=0; i<resultPrimitiva.length; i++){
+                                for(var k=0; k<resultPrimitiva.length; k++){
 
                                     var json = {};
 
                                     json["sorteo"] = "Primitiva";
-                                    json["anyo"] = resultPrimitiva[i]._id;
-                                    json["invertido"] = resultPrimitiva[i].invertido;
-                                    json["ganado"] = resultPrimitiva[i].ganado;
+                                    json["anyo"] = resultPrimitiva[k]._id;
+                                    json["invertido"] = resultPrimitiva[k].invertido;
+                                    json["ganado"] = resultPrimitiva[k].ganado;
 
                                     if(json["invertido"] > 0){
                                         respuesta.push(json);
@@ -128,14 +128,14 @@ module.exports = function(app){
                                     if(err){
                                         res.status(400).send(err);
                                     }else{
-                                        for(i=0; i<resultGordo.length; i++){
+                                        for(var l=0; l<resultGordo.length; l++){
 
                                             var json = {};
 
                                             json["sorteo"] = "El Gordo";
-                                            json["anyo"] = resultGordo[i]._id;
-                                            json["invertido"] = resultGordo[i].invertido;
-                                            json["ganado"] = resultGordo[i].ganado;
+                                            json["anyo"] = resultGordo[l]._id;
+                                            json["invertido"] = resultGordo[l].invertido;
+                                            json["ganado"] = resultGordo[l].ganado;
 
                                             if(json["invertido"] > 0){
                                                 respuesta.push(json);
@@ -146,14 +146,14 @@ module.exports = function(app){
                                             if(err){
                                                 res.status(400).send(err);
                                             }else{
-                                                for(i=0; i<resultEuromillones.length; i++){
+                                                for(var m=0; m<resultEuromillones.length; m++){
 
                                                     var json = {};
 
                                                     json["sorteo"] = "Euromillones";
-                                                    json["anyo"] = resultEuromillones[i]._id;
-                                                    json["invertido"] = resultEuromillones[i].invertido;
-                                                    json["ganado"] = resultEuromillones[i].ganado;
+                                                    json["anyo"] = resultEuromillones[m]._id;
+                                                    json["invertido"] = resultEuromillones[m].invertido;
+                                                    json["ganado"] = resultEuromillones[m].ganado;
 
                                                     if(json["invertido"] > 0){
                                                         respuesta.push(json);
@@ -164,13 +164,10 @@ module.exports = function(app){
                                         });
                                     }
                                 });
-
                             }
                         });
-
                     }
                 });
-
             }
         });
     };
