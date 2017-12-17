@@ -48,9 +48,9 @@ module.exports = function(app){
         GOR_DBM.getAllTickets(function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                res.status(200).send(result);
             }
+
+            res.status(200).send(result);
         });
     };
 
@@ -61,23 +61,23 @@ module.exports = function(app){
         GOR_DBM.getTicketsByAnyo(anyo, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                var finalRes = [];
-                for(var i=0; i<result.length; i++){
-                    var json;
-                    if(req.session.user == null){
-                        json = filtrarInformacion(result[i]);
-                    }else{
-                        if(req.session.user.role == "privileged"){
-                            json = result[i];
-                        }else{
-                            json = filtrarInformacion(result[i]);
-                        }
-                    }
-                    finalRes.push(json);
-                }
-                res.status(200).send(finalRes);
             }
+
+            var finalRes = [];
+            for(var i=0; i<result.length; i++){
+                var json;
+                if(req.session.user == null){
+                    json = filtrarInformacion(result[i]);
+                }else{
+                    if(req.session.user.role == "privileged"){
+                        json = result[i];
+                    }else{
+                        json = filtrarInformacion(result[i]);
+                    }
+                }
+                finalRes.push(json);
+            }
+            res.status(200).send(finalRes);
         });
     };
 
@@ -88,33 +88,19 @@ module.exports = function(app){
         GOR_DBM.getTicketsByAnyoAndRaffle(anyo, sorteo, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
+            }
 
-                if(req.session.user == null){
-                    var json = filtrarInformacion(result);
+            if(req.session.user == null){
+                var json = filtrarInformacion(result);
+            }else{
+                if(req.session.user.role == "privileged"){
+                    json = result;
                 }else{
-                    if(req.session.user.role == "privileged"){
-                        json = result;
-                    }else{
-                        json = filtrarInformacion(result);
-                    }
+                    json = filtrarInformacion(result);
                 }
-
-                res.status(200).send(json);
             }
-        });
-    };
 
-    var gordo_api_ticket = function(req, res){
-
-        var id = req.params.id;
-
-        GOR_DBM.getTicketById(id, function(err, result){
-            if(err){
-                res.status(400).send(err);
-            }else{
-                res.status(200).send(result);
-            }
+            res.status(200).send(json);
         });
     };
 
@@ -138,13 +124,12 @@ module.exports = function(app){
         ticket.apuestas = apuestas;
         ticket.resultado = resultado;
 
-
         GOR_DBM.addNewTicket(ticket, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                res.status(200).send(result);
             }
+
+            res.status(200).send(result);
         });
     };
 
@@ -155,19 +140,17 @@ module.exports = function(app){
         GOR_DBM.getTicketById(ticket._id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(result == null){
-                    res.status(400).send('not-found');
-                }else{
-                    GOR_DBM.editTicket(ticket, function(err, result){
-                        if(err){
-                            res.status(400).send(err);
-                        }else{
-                            res.status(200).send(result);
-                        }
-                    });
-                }
+            }else if(result == null){
+                res.status(400).send('not-found');
             }
+
+            GOR_DBM.editTicket(ticket, function(err, result){
+                if(err){
+                    res.status(400).send(err);
+                }
+
+                res.status(200).send(result);
+            });
         });
     };
 
@@ -177,51 +160,43 @@ module.exports = function(app){
         GOR_DBM.getTicketById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
+            }else if(result == null){
+                res.status(400).send('not-found');
             }else{
-                if(result == null){
-                    res.status(400).send('not-found');
-                }else{
-                    GOR_DBM.deleteTicketById(id, function(err2, result2){
+                GOR_DBM.deleteTicketById(id, function(err2, result2){
+                    if(err){
+                        res.status(400).send(err2);
+                    }
+
+                    GOR_DBM.getAllTickets(function(err3, result3){
                         if(err){
-                            res.status(400).send(err2);
-                        }else{
-                            GOR_DBM.getAllTickets(function(err3, result3){
-                                if(err){
-                                    res.status(400).send(err3);
-                                }else{
-                                    res.status(200).send(result3);
-                                }
-                            });
+                            res.status(400).send(err3);
                         }
+
+                        res.status(200).send(result3);
                     });
-                }
+                });
             }
         });
-
     };
 
     var gordo_api_historicoDeAparicionesPorNumero = function(req, res){
         GOR_DBM.getOcurrencesByNumber(function(err, result){
             if(err){
-                res.status(err);
-            }else{
-
-                if(err){
-                    res.status(400).send(err);
-                }else{
-                    var response = [];
-
-                    for(var i=0; i<result.length; i++){
-                        var json = {
-                            numero: result[i]._id,
-                            apariciones: result[i].apariciones
-                        };
-
-                        response.push(json);
-                    }
-                    res.status(200).send(JSON.stringify(response, null, 4));
-                }
+                res.status(400).send(err);
             }
+
+            var response = [];
+
+            for(var i=0; i<result.length; i++){
+                var json = {
+                    numero: result[i]._id,
+                    apariciones: result[i].apariciones
+                };
+
+                response.push(json);
+            }
+            res.status(200).send(JSON.stringify(response, null, 4));
         });
     };
 
@@ -229,23 +204,19 @@ module.exports = function(app){
         GOR_DBM.getOcurrencesBySpecialNumber(function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(err){
-                    res.status(400).send(err);
-                }else{
-                    var response = [];
-                    for(var i=0; i<result.length; i++){
-                        var json = {
-                            numeroClave: result[i]._id,
-                            apariciones: result[i].apariciones
-                        };
-
-                        response.push(json);
-                    }
-
-                    res.status(200).send(JSON.stringify(response, null, 4));
-                }
             }
+
+            var response = [];
+            for(var i=0; i<result.length; i++){
+                var json = {
+                    numeroClave: result[i]._id,
+                    apariciones: result[i].apariciones
+                };
+
+                response.push(json);
+            }
+
+            res.status(200).send(JSON.stringify(response, null, 4));
         });
 
     };
@@ -254,17 +225,17 @@ module.exports = function(app){
         GOR_DBM.getOcurrencesByResultWithoutSpecialNumber(function(err, tickets){
             if(err){
                 res.status(400).send(err);
-            }else{
-                var response = [];
-
-                for(var i=0; i<tickets.length; i++){
-                    var json = {};
-                    json.numeros = tickets[i]._id;
-                    json.apariciones = tickets[i].apariciones;
-                    response.push(json);
-                }
-                res.status(200).send(response);
             }
+
+            var response = [];
+
+            for(var i=0; i<tickets.length; i++){
+                var json = {};
+                json.numeros = tickets[i]._id;
+                json.apariciones = tickets[i].apariciones;
+                response.push(json);
+            }
+            res.status(200).send(response);
         });
     };
 
@@ -272,18 +243,18 @@ module.exports = function(app){
         GOR_DBM.getOcurrencesByResultWithSpecialNumber(function(err, tickets){
             if(err){
                 res.status(400).send(err);
-            }else{
-                var response = [];
-
-                for(var i=0; i<tickets.length; i++){
-                    var json = {};
-                    json.numeros = tickets[i].resultado;
-                    json.numeroClave = tickets[i].numeroClave;
-                    json.apariciones = tickets[i].apariciones;
-                    response.push(json);
-                }
-                res.status(200).send(response);
             }
+
+            var response = [];
+
+            for(var i=0; i<tickets.length; i++){
+                var json = {};
+                json.numeros = tickets[i].resultado;
+                json.numeroClave = tickets[i].numeroClave;
+                json.apariciones = tickets[i].apariciones;
+                response.push(json);
+            }
+            res.status(200).send(response);
         });
     };
 
@@ -291,9 +262,9 @@ module.exports = function(app){
         GOR_DBM.getAllYears(function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                res.status(200).send(result);
             }
+
+            res.status(200).send(result);
         });
     };
 
@@ -303,9 +274,9 @@ module.exports = function(app){
         GOR_DBM.getYearById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                res.status(200).send(result);
             }
+
+            res.status(200).send(result);
         });
     };
 
@@ -315,15 +286,15 @@ module.exports = function(app){
         GOR_DBM.deleteYearById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                GOR_DBM.getAllYears(function(err2, result2){
-                    if(err){
-                        res.status(400).send(err2);
-                    }else{
-                        res.status(200).send(result2);
-                    }
-                });
             }
+
+            GOR_DBM.getAllYears(function(err2, result2){
+                if(err){
+                    res.status(400).send(err2);
+                }
+
+                res.status(200).send(result2);
+            });
         });
     };
 
@@ -337,53 +308,44 @@ module.exports = function(app){
         GOR_DBM.getYearByName(name, function(err, result){
             if(err){
                 res.status(400).send(name);
-            }else{
-                if(JSON.stringify(result) === "{}"){ // No existe aun
-                    GOR_DBM.addNewYear(year, function(err, result){
-                        if(err){
-                            res.status(400).send(err);
-                        }else{
-                            res.status(200).send(result);
-                        }
-                    });
-                }else{ // Ya hay uno con ese nombre
-                    res.status(400).send('year-already-exists');
-                }
+            }else if(JSON.stringify(result) === "{}"){ // No existe aun
+                GOR_DBM.addNewYear(year, function(err, result){
+                    if(err){
+                        res.status(400).send(err);
+                    }
+
+                    res.status(200).send(result);
+                });
+            }else{ // Ya hay uno con ese nombre
+                res.status(400).send('year-already-exists');
             }
         });
     };
 
     var gordo_api_editYear = function(req, res){
-
         var body = req.body;
         var id = req.param('_id');
-
         var year = {};
-
         year.name = body.name;
 
         GOR_DBM.getYearById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(result == null){
-                    res.status(400).send('not-found');
-                }else{
-
-                    GOR_DBM.editYear(year, function(err, result){
-                        if(err){
-                            res.status(400).send(err);
-                        }else{
-                            res.status(200).send(result);
-                        }
-                    });
-                }
+            }else if(result == null){
+                res.status(400).send('not-found');
             }
+
+            GOR_DBM.editYear(year, function(err, result){
+                if(err){
+                    res.status(400).send(err);
+                }
+
+                res.status(200).send(result);
+            });
         });
     };
 
     var gordo_api_ticketPorId = function(req, res){
-
         var id = req.params.id;
 
         GOR_DBM.getTicketById(id, function(err, result){
@@ -399,7 +361,7 @@ module.exports = function(app){
                         json = filtrarInformacion(result);
                     }
                 }
-                res.status(200).send(result);
+                res.status(200).send(json);
             }
         });
     };

@@ -1,5 +1,3 @@
-
-
 module.exports = function(app){
 
     var middlewares = require('../../middlewares');
@@ -44,9 +42,9 @@ module.exports = function(app){
         QUI_DBM.getAllTickets(function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                res.status(200).send(result);
             }
+
+            res.status(200).send(result);
         });
     };
 
@@ -54,21 +52,17 @@ module.exports = function(app){
         QUI_DBM.getAllTicketsBySeason(req.params.season, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                res.status(200).send(result);
             }
+
+            res.status(200).send(result);
         });
     };
 
     var quiniela_api_ticketsQuinielaPorTemporadaYJornada = function(req, res){
-
         var json = {};
-
         var errores = {};
-
         var jornada = req.params.day;
         var temporada = req.params.season;
-
         var hayErrores = false;
 
         if(isNaN(jornada)){
@@ -78,28 +72,25 @@ module.exports = function(app){
 
         if(hayErrores){
             res.status(400).send(errores);
-        }else{
-            QUI_DBM.getTicketsBySeasonAndDay(req.params.season, jornada, function(err, result){
-                if(err){
-                    console.log(err);
-                    res.status(400).send(err);
-                }else{
-
-                    json = result;
-
-                    if(req.session.user == null){
-                        filtrarInformacion(json);
-
-                    }else{
-                        if(req.session.user.role != 'privileged' && req.session.user.role != 'admin'){
-                            filtrarInformacion(json);
-                        }
-                    }
-
-                    res.status(200).send(json);
-                }
-            });
         }
+
+        QUI_DBM.getTicketsBySeasonAndDay(req.params.season, jornada, function(err, result){
+            if(err){
+                res.status(400).send(err);
+            }
+
+            json = result;
+
+            if(req.session.user == null){
+                filtrarInformacion(json);
+            }else{
+                if(req.session.user.role != 'privileged' && req.session.user.role != 'admin'){
+                    filtrarInformacion(json);
+                }
+            }
+
+            res.status(200).send(json);
+        });
     };
 
     var quiniela_api_anadirTicketQuiniela = function(req, res){
@@ -116,90 +107,84 @@ module.exports = function(app){
         };
 
         QUI_DBM.getSeasonByName(temporada, function(err, result){
-            if(err){
+            if(err) {
                 res.status(400).send(err);
-            }else{
+            }else if(result != null){
+                if(result.name == temporada){
+                    if(modalidad == null || modalidad == ""){
+                        errores["modalidadNoIntroducida"] = true;
+                    }
 
-                console.log("Resultado: " + JSON.stringify(result, null, 4));
-
-                if(result != null){
-
-                    if(result.name == temporada){
-                        if(modalidad == null || modalidad == ""){
-                            errores["modalidadNoIntroducida"] = true;
-                        }
-
-                        if(fecha == null || fecha == ""){
-                            errores["fechaVacia"] = true;
-                        }else{
-                            var trozos = fecha.split("/");
-
-                            var dia = trozos[0], mes = trozos[1], anyo = trozos[2];
-
-                            if(dia == null || dia == "" || mes == null || mes == "" || anyo == null || anyo == ""){
-                                errores["fechaNoValida"] = true;
-                            }
-
-                            if(dia > 31 || mes > 12){
-                                errores["fechaNoValida"] = true;
-                            }
-                        }
-
-                        if(jornada == null || jornada === ""){
-                            errores["jornadaNoIntroducida"] = true;
-                        }
-
-                        if(isNaN(jornada)){
-                            errores["jornadaNoValida"] = true;
-                        }
-
-                        if(precio == null || precio === ""){
-                            errores["precioNoIntroducido"] = true;
-                        }
-
-                        if(isNaN(precio)){
-                            errores["precioNoValido"] = true;
-                        }
-
-
-                        // premio == "" sólo compara el valor, pero no el tipo. 0 es lo mismo que ""
-                        if(premio == null || premio === ""){
-                            errores["premioNoIntroducido"] = true;
-                        }
-
-                        if(isNaN(premio)){
-                            errores["premioNoValido"] = true;
-                        }
-
-                        var hayErrores = false;
-
-                        for(var prop in errores) {
-                            if(errores.hasOwnProperty(prop)){
-                                hayErrores = true;
-                                break;
-                            }
-                        }
-
-                        if(hayErrores){
-                            res.status(400).send(errores);
-                        }else{
-
-                            QUI_DBM.addNewTicket(req.body, function(err, result){
-                                if(err){
-                                    res.status(400).send(err);
-                                }else{
-                                    console.log("Result: " + JSON.stringify(result));
-
-                                    res.status(200).send(result);
-                                }
-                            });
-                        }
+                    if(fecha == null || fecha == ""){
+                        errores["fechaVacia"] = true;
                     }else{
-                        res.status(400).send("wrong-season-found");
+                        var trozos = fecha.split("/");
+
+                        var dia = trozos[0], mes = trozos[1], anyo = trozos[2];
+
+                        if(dia == null || dia == "" || mes == null || mes == "" || anyo == null || anyo == ""){
+                            errores["fechaNoValida"] = true;
+                        }
+
+                        if(dia > 31 || mes > 12){
+                            errores["fechaNoValida"] = true;
+                        }
+                    }
+
+                    if(jornada == null || jornada === ""){
+                        errores["jornadaNoIntroducida"] = true;
+                    }
+
+                    if(isNaN(jornada)){
+                        errores["jornadaNoValida"] = true;
+                    }
+
+                    if(precio == null || precio === ""){
+                        errores["precioNoIntroducido"] = true;
+                    }
+
+                    if(isNaN(precio)){
+                        errores["precioNoValido"] = true;
+                    }
+
+
+                    // premio == "" sólo compara el valor, pero no el tipo. 0 es lo mismo que ""
+                    if(premio == null || premio === ""){
+                        errores["premioNoIntroducido"] = true;
+                    }
+
+                    if(isNaN(premio)){
+                        errores["premioNoValido"] = true;
+                    }
+
+                    var hayErrores = false;
+
+                    for(var prop in errores) {
+                        if(errores.hasOwnProperty(prop)){
+                            hayErrores = true;
+                            break;
+                        }
+                    }
+
+                    if(hayErrores){
+                        res.status(400).send(errores);
+                    }else{
+
+                        QUI_DBM.addNewTicket(req.body, function(err, result){
+                            if(err){
+                                res.status(400).send(err);
+                            }else{
+                                console.log("Result: " + JSON.stringify(result));
+
+                                res.status(200).send(result);
+                            }
+                        });
                     }
                 }else{
-                    res.status(400).send("season-not-found");
+                    res.status(400).send("wrong-season-found");
                 }
+            }else{
+                res.status(400).send("season-not-found");
             }
         });
     };
@@ -219,12 +204,9 @@ module.exports = function(app){
 
         QUI_DBM.getSeasonByName(temporada, function(err, result){
             if(err){
-                console.log(err);
                 res.status(400).send(err);
             }else{
-
                 if(JSON.stringify(result) != '{}'){
-
                     if(result.name == temporada){
                         if(modalidad == null || modalidad == ""){
                             errores["modalidadNoIntroducida"] = true;
@@ -308,42 +290,40 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsGroupedByRow(function(err, result){
             if(err){
-                console.log(err);
                 res.status(400).send(err);
-            }else{
+            }
 
-                for(var i=0; i<result.length; i++){
+            for(var i=0; i<result.length; i++){
 
-                    var json = result[i];
+                var json = result[i];
 
-                    json.fila = Number(json._id);
+                json.fila = Number(json._id);
 
-                    delete json._id;
+                delete json._id;
 
-                    filas.push(json);
+                filas.push(json);
+            }
+
+            QUI_DBM.getTicketsGroupedByRes(function(err, result){
+                if(err){
+                    res.status(400).send(err);
                 }
 
-                QUI_DBM.getTicketsGroupedByRes(function(err, result){
-                    if(err){
-                        res.status(400).send(err);
-                    }else{
-                        var jsonPlenoModerno = {};
-                        jsonPlenoModerno.fila = "15";
+                var jsonPlenoModerno = {};
+                jsonPlenoModerno.fila = "15";
 
-                        for(var i=0; i<result.length; i++){
-                            var resultadoConGoles = result[i]._id;
-                            var total = result[i].total;
+                for(var i=0; i<result.length; i++){
+                    var resultadoConGoles = result[i]._id;
+                    var total = result[i].total;
 
-                            jsonPlenoModerno[resultadoConGoles] = total;
-                        }
+                    jsonPlenoModerno[resultadoConGoles] = total;
+                }
 
-                        respuesta.filas = filas;
-                        respuesta.plenosRenovados = jsonPlenoModerno;
+                respuesta.filas = filas;
+                respuesta.plenosRenovados = jsonPlenoModerno;
 
-                        res.status(200).send(respuesta);
-                    }
-                });
-            }
+                res.status(200).send(respuesta);
+            });
         });
     };
 
@@ -354,45 +334,41 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsByCompetitionGroupedByRow(req.params.competition, function(err, result){
             if(err){
-                console.log("Paso por aqui");
-                console.log(err);
                 res.status(400).send(err);
-            }else{
-                for(var i=0; i<result.length; i++){
-                    var json = {
-                        fila: Number(result[i]._id),
-                        victoriasLocales: result[i].victoriasLocales,
-                        empates: result[i].empates,
-                        victoriasVisitantes: result[i].victoriasVisitantes
-                    };
+            }
 
-                    filas.push(json);
+            for(var i=0; i<result.length; i++){
+                var json = {
+                    fila: Number(result[i]._id),
+                    victoriasLocales: result[i].victoriasLocales,
+                    empates: result[i].empates,
+                    victoriasVisitantes: result[i].victoriasVisitantes
+                };
+
+                filas.push(json);
+            }
+
+            QUI_DBM.getTicketsByCompetitionGroupedByRes(req.params.competition, function(err, result){
+                if(err){
+                    res.status(400).send(err);
                 }
 
-                QUI_DBM.getTicketsByCompetitionGroupedByRes(req.params.competition, function(err, result){
-                    if(err){
-                        res.status(400).send(err);
-                    }else{
+                var jsonPlenoModerno = {};
+                jsonPlenoModerno.fila = "15";
 
-                        var jsonPlenoModerno = {};
-                        jsonPlenoModerno.fila = "15";
+                for(var i=0; i<result.length; i++){
+                    var resultadoConGoles = result[i]._id;
+                    var total = result[i].total;
 
-                        for(var i=0; i<result.length; i++){
-                            var resultadoConGoles = result[i]._id;
+                    jsonPlenoModerno[resultadoConGoles] = total;
 
-                            var total = result[i].total;
+                }
 
-                            jsonPlenoModerno[resultadoConGoles] = total;
+                respuesta.filas = filas;
+                respuesta.plenosRenovados = jsonPlenoModerno;
 
-                        }
-
-                        respuesta.filas = filas;
-                        respuesta.plenosRenovados = jsonPlenoModerno;
-
-                        res.status(200).send(respuesta);
-                    }
-                });
-            }
+                res.status(200).send(respuesta);
+            });
         });
     };
 
@@ -403,37 +379,35 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsByCompetitionAndLocalTeamGroupedByRow(req.params.competition, req.params.team, function(err, result){
             if(err){
-                console.log(err);
                 res.status(400).send(err);
-            }else{
-                for(var i=0; i<result.length; i++){
-                    var json = result[i];
-                    json.fila = Number(json._id);
-                    delete json._id;
-                    filas.push(json);
+            }
+
+            for(var i=0; i<result.length; i++){
+                var json = result[i];
+                json.fila = Number(json._id);
+                delete json._id;
+                filas.push(json);
+            }
+
+            QUI_DBM.getTicketsByCompetitionAndLocalTeamGroupedByRes(req.params.competition, req.params.team, function(err, result){
+                if(err){
+                    res.status(400).send(err);
                 }
 
-                QUI_DBM.getTicketsByCompetitionAndLocalTeamGroupedByRes(req.params.competition, req.params.team, function(err, result){
-                    if(err){
-                        res.status(400).send(err);
-                    }else{
+                var jsonPlenoModerno = {};
+                jsonPlenoModerno.fila = "15";
 
-                        var jsonPlenoModerno = {};
-                        jsonPlenoModerno.fila = "15";
+                for(var i=0; i<result.length; i++){
+                    var resultadoConGoles = result[i]._id;
+                    var total = result[i].total;
+                    jsonPlenoModerno[resultadoConGoles] = total;
+                }
 
-                        for(var i=0; i<result.length; i++){
-                            var resultadoConGoles = result[i]._id;
-                            var total = result[i].total;
-                            jsonPlenoModerno[resultadoConGoles] = total;
-                        }
+                respuesta.filas = filas;
+                respuesta.plenosRenovados = jsonPlenoModerno;
 
-                        respuesta.filas = filas;
-                        respuesta.plenosRenovados = jsonPlenoModerno;
-
-                        res.status(200).send(respuesta);
-                    }
-                });
-            }
+                res.status(200).send(respuesta);
+            });
         });
     };
 
@@ -444,42 +418,40 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsByCompetitionAndVisitorTeamGroupedByRow(req.params.competition, req.params.team, function(err, result){
             if(err){
-                console.log(err);
                 res.status(400).send(err);
-            }else{
-                for(var i=0; i<result.length; i++){
-                    var json = {
-                        fila: Number(result[i]._id),
-                        victoriasLocales: result[i].victoriasLocales,
-                        empates: result[i].empates,
-                        victoriasVisitantes: result[i].victoriasVisitantes
-                    };
+            }
 
-                    filas.push(json);
+            for(var i=0; i<result.length; i++){
+                var json = {
+                    fila: Number(result[i]._id),
+                    victoriasLocales: result[i].victoriasLocales,
+                    empates: result[i].empates,
+                    victoriasVisitantes: result[i].victoriasVisitantes
+                };
 
+                filas.push(json);
+
+            }
+
+            QUI_DBM.getTicketsByCompetitionAndVisitorTeamGroupedByRes(req.params.competition, req.params.team, function(err, result){
+                if(err){
+                    res.status(400).send(err);
                 }
 
-                QUI_DBM.getTicketsByCompetitionAndVisitorTeamGroupedByRes(req.params.competition, req.params.team, function(err, result){
-                    if(err){
-                        res.status(400).send(err);
-                    }else{
+                var jsonPlenoModerno = {};
+                jsonPlenoModerno.fila = "15";
 
-                        var jsonPlenoModerno = {};
-                        jsonPlenoModerno.fila = "15";
+                for(var i=0; i<result.length; i++){
+                    var resultadoConGoles = result[i]._id;
+                    var total = result[i].total;
+                    jsonPlenoModerno[resultadoConGoles] = total;
+                }
 
-                        for(var i=0; i<result.length; i++){
-                            var resultadoConGoles = result[i]._id;
-                            var total = result[i].total;
-                            jsonPlenoModerno[resultadoConGoles] = total;
-                        }
+                respuesta.filas = filas;
+                respuesta.plenosRenovados = jsonPlenoModerno;
 
-                        respuesta.filas = filas;
-                        respuesta.plenosRenovados = jsonPlenoModerno;
-
-                        res.status(200).send(respuesta);
-                    }
-                });
-            }
+                res.status(200).send(respuesta);
+            });
         });
     };
 
@@ -489,42 +461,40 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsBySeasonGroupedByRow(req.params.season, function(err, result){
             if(err){
-                console.log(err);
                 res.status(400).send(err);
-            }else{
-                for(var i=0; i<result.length; i++){
-                    var json = {
-                        fila: Number(result[i]._id),
-                        victoriasLocales: result[i].victoriasLocales,
-                        empates: result[i].empates,
-                        victoriasVisitantes: result[i].victoriasVisitantes
-                    };
+            }
 
-                    filas.push(json);
+            for(var i=0; i<result.length; i++){
+                var json = {
+                    fila: Number(result[i]._id),
+                    victoriasLocales: result[i].victoriasLocales,
+                    empates: result[i].empates,
+                    victoriasVisitantes: result[i].victoriasVisitantes
+                };
+
+                filas.push(json);
+            }
+
+            QUI_DBM.getTicketsBySeasonGroupedByRes(req.params.season, function(err, result){
+                if(err){
+                    res.status(400).send(err);
                 }
 
-                QUI_DBM.getTicketsBySeasonGroupedByRes(req.params.season, function(err, result){
-                    if(err){
-                        res.status(400).send(err);
-                    }else{
+                var jsonPlenoModerno = {};
+                jsonPlenoModerno.fila = "15";
 
-                        var jsonPlenoModerno = {};
-                        jsonPlenoModerno.fila = "15";
+                for(var j=0; j<result.length; j++){
+                    var resultadoConGoles = result[j]._id;
+                    var total = result[j].total;
 
-                        for(var j=0; j<result.length; j++){
-                            var resultadoConGoles = result[j]._id;
-                            var total = result[j].total;
+                    jsonPlenoModerno[resultadoConGoles] = total;
+                }
 
-                            jsonPlenoModerno[resultadoConGoles] = total;
-                        }
+                respuesta.filas = filas;
+                respuesta.plenosRenovados = jsonPlenoModerno;
 
-                        respuesta.filas = filas;
-                        respuesta.plenosRenovados = jsonPlenoModerno;
-
-                        res.status(200).send(respuesta);
-                    }
-                });
-            }
+                res.status(200).send(respuesta);
+            });
         });
     };
 
@@ -535,39 +505,38 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsBySeasonAndCompetitionGroupedByRow(req.params.season, req.params.competition, function(err, result){
             if(err){
-                console.log(err);
                 res.status(400).send(err);
-            }else{
-                for(var i=0; i<result.length; i++){
-                    var json = {
-                        fila: Number(result[i]._id),
-                        victoriasLocales: result[i].victoriasLocales,
-                        empates: result[i].empates,
-                        victoriasVisitantes: result[i].victoriasVisitantes
-                    };
-                    filas.push(json);
+            }
+
+            for(var i=0; i<result.length; i++){
+                var json = {
+                    fila: Number(result[i]._id),
+                    victoriasLocales: result[i].victoriasLocales,
+                    empates: result[i].empates,
+                    victoriasVisitantes: result[i].victoriasVisitantes
+                };
+                filas.push(json);
+            }
+
+            QUI_DBM.getTicketsBySeasonAndCompetitionGroupedByRes(req.params.season, req.params.competition, function(err, result){
+                if(err){
+                    res.status(400).send(err);
                 }
 
-                QUI_DBM.getTicketsBySeasonAndCompetitionGroupedByRes(req.params.season, req.params.competition, function(err, result){
-                    if(err){
-                        res.status(400).send(err);
-                    }else{
-                        var jsonPlenoModerno = {};
-                        jsonPlenoModerno.fila = "15";
+                var jsonPlenoModerno = {};
+                jsonPlenoModerno.fila = "15";
 
-                        for(var i=0; i<result.length; i++){
-                            var resultadoConGoles = result[i]._id;
-                            var total = result[i].total;
-                            jsonPlenoModerno[resultadoConGoles] = total;
-                        }
+                for(var i=0; i<result.length; i++){
+                    var resultadoConGoles = result[i]._id;
+                    var total = result[i].total;
+                    jsonPlenoModerno[resultadoConGoles] = total;
+                }
 
-                        respuesta.filas = filas;
-                        respuesta.plenosRenovados = jsonPlenoModerno;
+                respuesta.filas = filas;
+                respuesta.plenosRenovados = jsonPlenoModerno;
 
-                        res.status(200).send(respuesta);
-                    }
-                });
-            }
+                res.status(200).send(respuesta);
+            });
         });
     };
 
@@ -577,41 +546,40 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsBySeasonAndLocalTeamGroupedByRow(req.params.season, req.params.team, function(err, result){
             if(err){
-                console.log(err);
                 res.status(400).send(err);
-            }else{
-                for(var i=0; i<result.length; i++){
-                    var json = {
-                        fila: Number(result[i]._id),
-                        victoriasLocales: result[i].victoriasLocales,
-                        empates: result[i].empates,
-                        victoriasVisitantes: result[i].victoriasVisitantes
-                    };
-                    filas.push(json);
+            }
+
+            for(var i=0; i<result.length; i++){
+                var json = {
+                    fila: Number(result[i]._id),
+                    victoriasLocales: result[i].victoriasLocales,
+                    empates: result[i].empates,
+                    victoriasVisitantes: result[i].victoriasVisitantes
+                };
+                filas.push(json);
+            }
+
+            QUI_DBM.getTicketsBySeasonAndLocalTeamGroupedByRes(req.params.season, req.params.team, function(err, result){
+                if(err){
+                    res.status(400).send(err);
                 }
 
-                QUI_DBM.getTicketsBySeasonAndLocalTeamGroupedByRes(req.params.season, req.params.team, function(err, result){
-                    if(err){
-                        res.status(400).send(err);
-                    }else{
-                        var jsonPlenoModerno = {};
-                        jsonPlenoModerno.fila = "15";
+                var jsonPlenoModerno = {};
+                jsonPlenoModerno.fila = "15";
 
-                        for(var j=0; j<result.length; j++){
-                            var resultadoConGoles = result[j]._id;
-                            var total = result[j].total;
+                for(var j=0; j<result.length; j++){
+                    var resultadoConGoles = result[j]._id;
+                    var total = result[j].total;
 
-                            jsonPlenoModerno[resultadoConGoles] = total;
+                    jsonPlenoModerno[resultadoConGoles] = total;
 
-                        }
+                }
 
-                        respuesta.filas = filas;
-                        respuesta.plenosRenovados = jsonPlenoModerno;
+                respuesta.filas = filas;
+                respuesta.plenosRenovados = jsonPlenoModerno;
 
-                        res.status(200).send(respuesta);
-                    }
-                });
-            }
+                res.status(200).send(respuesta);
+            });
         });
     };
 
@@ -621,37 +589,36 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsBySeasonAndVisitorTeamGroupedByRow(req.params.season, req.params.team, function(err, result){
             if(err){
-                console.log(err);
                 res.status(400).send(err);
-            }else{
-                for(var i=0; i<result.length; i++){
-                    var json = result[i];
-                    json.fila = Number(json._id);
-                    delete json._id;
-                    filas.push(json);
+            }
+
+            for(var i=0; i<result.length; i++){
+                var json = result[i];
+                json.fila = Number(json._id);
+                delete json._id;
+                filas.push(json);
+            }
+
+            QUI_DBM.getTicketsBySeasonAndVisitorTeamGroupedByRes(req.params.season, req.params.team, function(err, result){
+                if(err){
+                    res.status(400).send(err);
                 }
 
-                QUI_DBM.getTicketsBySeasonAndVisitorTeamGroupedByRes(req.params.season, req.params.team, function(err, result){
-                    if(err){
-                        res.status(400).send(err);
-                    }else{
-                        var jsonPlenoModerno = {};
-                        jsonPlenoModerno.fila = "15";
+                var jsonPlenoModerno = {};
+                jsonPlenoModerno.fila = "15";
 
-                        for(var j=0; j<result.length; j++){
-                            var resultadoConGoles = result[j]._id;
-                            var total = result[j].total;
+                for(var j=0; j<result.length; j++){
+                    var resultadoConGoles = result[j]._id;
+                    var total = result[j].total;
 
-                            jsonPlenoModerno[resultadoConGoles] = total;
-                        }
+                    jsonPlenoModerno[resultadoConGoles] = total;
+                }
 
-                        respuesta.filas = filas;
-                        respuesta.plenosRenovados = jsonPlenoModerno;
+                respuesta.filas = filas;
+                respuesta.plenosRenovados = jsonPlenoModerno;
 
-                        res.status(200).send(respuesta);
-                    }
-                });
-            }
+                res.status(200).send(respuesta);
+            });
         });
     };
 
@@ -662,37 +629,36 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsBySeasonCompetitionAndLocalTeamGroupedByRow(req.params.season, req.params.competition, req.params.team, function(err, result){
             if(err){
-                console.log(err);
                 res.status(400).send(err);
-            }else{
-                for(var i=0; i<result.length; i++){
-                    var json = result[i];
-                    json.fila = Number(json._id);
-                    delete json._id;
-                    filas.push(json);
+            }
+
+            for(var i=0; i<result.length; i++){
+                var json = result[i];
+                json.fila = Number(json._id);
+                delete json._id;
+                filas.push(json);
+            }
+
+            QUI_DBM.getTicketsBySeasonCompetitionAndLocalTeamGroupedByRes(req.params.season, req.params.competition, req.params.team, function(err, result){
+                if(err){
+                    res.status(400).send(err);
                 }
 
-                QUI_DBM.getTicketsBySeasonCompetitionAndLocalTeamGroupedByRes(req.params.season, req.params.competition, req.params.team, function(err, result){
-                    if(err){
-                        res.status(400).send(err);
-                    }else{
-                        var jsonPlenoModerno = {};
-                        jsonPlenoModerno.fila = "15";
+                var jsonPlenoModerno = {};
+                jsonPlenoModerno.fila = "15";
 
-                        for(var j=0; j<result.length; j++){
-                            var resultadoConGoles = result[j]._id;
-                            var total = result[j].total;
+                for(var j=0; j<result.length; j++){
+                    var resultadoConGoles = result[j]._id;
+                    var total = result[j].total;
 
-                            jsonPlenoModerno[resultadoConGoles] = total;
-                        }
+                    jsonPlenoModerno[resultadoConGoles] = total;
+                }
 
-                        respuesta.filas = filas;
-                        respuesta.plenosRenovados = jsonPlenoModerno;
+                respuesta.filas = filas;
+                respuesta.plenosRenovados = jsonPlenoModerno;
 
-                        res.status(200).send(respuesta);
-                    }
-                });
-            }
+                res.status(200).send(respuesta);
+            });
         });
     };
 
@@ -702,38 +668,35 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsBySeasonCompetitionAndVisitorTeamGroupedByRow(req.params.season, req.params.competition, req.params.team, function(err, result){
             if(err){
-                console.log(err);
                 res.status(400).send(err);
-            }else{
-                for(var i=0; i<result.length; i++){
-                    var json = result[i];
-                    json.fila = Number(json._id);
-                    delete json._id;
-                    filas.push(json);
+            }
+
+            for(var i=0; i<result.length; i++){
+                var json = result[i];
+                json.fila = Number(json._id);
+                delete json._id;
+                filas.push(json);
+            }
+
+            QUI_DBM.getTicketsBySeasonCompetitionAndVisitorTeamGroupedByRes(req.params.season, req.params.competition, req.params.team, function(err, result){
+                if(err){
+                    res.status(400).send(err);
                 }
 
-                QUI_DBM.getTicketsBySeasonCompetitionAndVisitorTeamGroupedByRes(req.params.season, req.params.competition, req.params.team, function(err, result){
-                    if(err){
-                        res.status(400).send(err);
-                    }else{
+                var jsonPlenoModerno = {};
+                jsonPlenoModerno.fila = "15";
 
-                        var jsonPlenoModerno = {};
-                        jsonPlenoModerno.fila = "15";
+                for(var j=0; j<result.length; j++){
+                    var resultadoConGoles = result[j]._id;
+                    var total = result[j].total;
+                    jsonPlenoModerno[resultadoConGoles] = total;
+                }
 
-                        for(var j=0; j<result.length; j++){
-                            var resultadoConGoles = result[j]._id;
-                            var total = result[j].total;
-                            jsonPlenoModerno[resultadoConGoles] = total;
+                respuesta.filas = filas;
+                respuesta.plenosRenovados = jsonPlenoModerno;
 
-                        }
-
-                        respuesta.filas = filas;
-                        respuesta.plenosRenovados = jsonPlenoModerno;
-
-                        res.status(200).send(respuesta);
-                    }
-                });
-            }
+                res.status(200).send(respuesta);
+            });
         });
     };
 
@@ -743,37 +706,36 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsByLocalTeamGroupedByRow(req.params.team, function(err, result){
             if(err){
-                console.log(err);
                 res.status(400).send(err);
-            }else{
-                for(var i=0; i<result.length; i++){
-                    var json = result[i];
-                    json.fila = Number(json._id);
-                    delete json._id;
-                    filas.push(json);
+            }
+
+            for(var i=0; i<result.length; i++){
+                var json = result[i];
+                json.fila = Number(json._id);
+                delete json._id;
+                filas.push(json);
+            }
+
+            QUI_DBM.getTicketsByLocalTeamGroupedByRes(req.params.team, function(err, result){
+                if(err){
+                    res.status(400).send(err);
                 }
 
-                QUI_DBM.getTicketsByLocalTeamGroupedByRes(req.params.team, function(err, result){
-                    if(err){
-                        res.status(400).send(err);
-                    }else{
-                        var jsonPlenoModerno = {};
-                        jsonPlenoModerno.fila = "15";
+                var jsonPlenoModerno = {};
+                jsonPlenoModerno.fila = "15";
 
-                        for(var j=0; j<result.length; j++){
-                            var resultadoConGoles = result[j]._id;
-                            var total = result[j].total;
+                for(var j=0; j<result.length; j++){
+                    var resultadoConGoles = result[j]._id;
+                    var total = result[j].total;
 
-                            jsonPlenoModerno[resultadoConGoles] = total;
-                        }
+                    jsonPlenoModerno[resultadoConGoles] = total;
+                }
 
-                        respuesta.filas = filas;
-                        respuesta.plenosRenovados = jsonPlenoModerno;
+                respuesta.filas = filas;
+                respuesta.plenosRenovados = jsonPlenoModerno;
 
-                        res.status(200).send(respuesta);
-                    }
-                });
-            }
+                res.status(200).send(respuesta);
+            });
         });
     };
 
@@ -783,37 +745,36 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsByVisitorTeamGroupedByRow(req.params.team, function(err, result){
             if(err){
-                console.log(err);
                 res.status(400).send(err);
-            }else{
-                for(var i=0; i<result.length; i++){
-                    var json = result[i];
-                    json.fila = Number(json._id);
-                    delete json._id;
-                    filas.push(json);
+            }
+
+            for(var i=0; i<result.length; i++){
+                var json = result[i];
+                json.fila = Number(json._id);
+                delete json._id;
+                filas.push(json);
+            }
+
+            QUI_DBM.getTicketsByVisitorTeamGroupedByRes(req.params.team, function(err, result){
+                if(err){
+                    res.status(400).send(err);
                 }
 
-                QUI_DBM.getTicketsByVisitorTeamGroupedByRes(req.params.team, function(err, result){
-                    if(err){
-                        res.status(400).send(err);
-                    }else{
-                        var jsonPlenoModerno = {};
-                        jsonPlenoModerno.fila = "15";
+                var jsonPlenoModerno = {};
+                jsonPlenoModerno.fila = "15";
 
-                        for(var j=0; j<result.length; j++){
-                            var resultadoConGoles = result[j]._id;
-                            var total = result[j].total;
+                for(var j=0; j<result.length; j++){
+                    var resultadoConGoles = result[j]._id;
+                    var total = result[j].total;
 
-                            jsonPlenoModerno[resultadoConGoles] = total;
-                        }
+                    jsonPlenoModerno[resultadoConGoles] = total;
+                }
 
-                        respuesta.filas = filas;
-                        respuesta.plenosRenovados = jsonPlenoModerno;
+                respuesta.filas = filas;
+                respuesta.plenosRenovados = jsonPlenoModerno;
 
-                        res.status(200).send(respuesta);
-                    }
-                });
-            }
+                res.status(200).send(respuesta);
+            });
         });
     };
 
@@ -823,38 +784,37 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsByLocalAndVisitorTeamGroupedByRow(req.params.localTeam, req.params.visitorTeam, function(err, result){
             if(err){
-                console.log(err);
                 res.status(400).send(err);
-            }else{
-                for(var i=0; i<result.length; i++){
-                    var json = result[i];
-                    json.fila = Number(json._id);
-                    delete json._id;
+            }
 
-                    filas.push(json);
+            for(var i=0; i<result.length; i++){
+                var json = result[i];
+                json.fila = Number(json._id);
+                delete json._id;
+
+                filas.push(json);
+            }
+
+            QUI_DBM.getTicketsByLocalAndVisitorTeamGroupedByRes(req.params.localTeam, req.params.visitorTeam, function(err, result){
+                if(err){
+                    res.status(400).send(err);
                 }
 
-                QUI_DBM.getTicketsByLocalAndVisitorTeamGroupedByRes(req.params.localTeam, req.params.visitorTeam, function(err, result){
-                    if(err){
-                        res.status(400).send(err);
-                    }else{
-                        var jsonPlenoModerno = {};
-                        jsonPlenoModerno.fila = "15";
+                var jsonPlenoModerno = {};
+                jsonPlenoModerno.fila = "15";
 
-                        for(var j=0; j<result.length; j++){
-                            var resultadoConGoles = result[j]._id;
-                            var total = result[i].total;
+                for(var j=0; j<result.length; j++){
+                    var resultadoConGoles = result[j]._id;
+                    var total = result[i].total;
 
-                            jsonPlenoModerno[resultadoConGoles] = total;
-                        }
+                    jsonPlenoModerno[resultadoConGoles] = total;
+                }
 
-                        respuesta.filas = filas;
-                        respuesta.plenosRenovados = jsonPlenoModerno;
+                respuesta.filas = filas;
+                respuesta.plenosRenovados = jsonPlenoModerno;
 
-                        res.status(200).send(respuesta);
-                    }
-                });
-            }
+                res.status(200).send(respuesta);
+            });
         });
     };
 
@@ -864,38 +824,37 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsBySeasonLocalAndVisitorTeamGroupedByRow(req.params.season, req.params.localTeam, req.params.visitorTeam, function(err, result){
             if(err){
-                console.log(err);
                 res.status(400).send(err);
-            }else{
-                for(var i=0; i<result.length; i++){
-                    var json = result[i];
-                    json.fila = Number(json._id);
-                    delete json._id;
+            }
 
-                    filas.push(json);
+            for(var i=0; i<result.length; i++){
+                var json = result[i];
+                json.fila = Number(json._id);
+                delete json._id;
+
+                filas.push(json);
+            }
+
+            QUI_DBM.getTicketsBySeasonAndLocalAndVisitorTeamGroupedByRes(req.params.season, req.params.localTeam, req.params.visitorTeam, function(err, result){
+                if(err){
+                    res.status(400).send(err);
                 }
 
-                QUI_DBM.getTicketsBySeasonAndLocalAndVisitorTeamGroupedByRes(req.params.season, req.params.localTeam, req.params.visitorTeam, function(err, result){
-                    if(err){
-                        res.status(400).send(err);
-                    }else{
-                        var jsonPlenoModerno = {};
-                        jsonPlenoModerno.fila = "15";
+                var jsonPlenoModerno = {};
+                jsonPlenoModerno.fila = "15";
 
-                        for(var j=0; j<result.length; j++){
-                            var resultadoConGoles = result[j]._id;
-                            var total = result[j].total;
+                for(var j=0; j<result.length; j++){
+                    var resultadoConGoles = result[j]._id;
+                    var total = result[j].total;
 
-                            jsonPlenoModerno[resultadoConGoles] = total;
-                        }
+                    jsonPlenoModerno[resultadoConGoles] = total;
+                }
 
-                        respuesta.filas = filas;
-                        respuesta.plenosRenovados = jsonPlenoModerno;
+                respuesta.filas = filas;
+                respuesta.plenosRenovados = jsonPlenoModerno;
 
-                        res.status(200).send(respuesta);
-                    }
-                });
-            }
+                res.status(200).send(respuesta);
+            });
         });
     };
 
@@ -905,37 +864,36 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsBySeasonCompetitionAndLocalAndVisitorTeamGroupedByRow(req.params.season, req.params.competition, req.params.localTeam, req.params.visitorTeam, function(err, result){
             if(err){
-                console.log(err);
                 res.status(400).send(err);
-            }else{
-                for(var i=0; i<result.length; i++){
-                    var json = result[i];
-                    json.fila = Number(json._id);
-                    delete json._id;
-                    filas.push(json);
+            }
+
+            for(var i=0; i<result.length; i++){
+                var json = result[i];
+                json.fila = Number(json._id);
+                delete json._id;
+                filas.push(json);
+            }
+
+            QUI_DBM.getTicketsBySeasonCompetitionAndLocalAndVisitorTeamGroupedByRes(req.params.season, req.params.competition, req.params.localTeam, req.params.visitorTeam, function(err, result){
+                if(err){
+                    res.status(400).send(err);
                 }
 
-                QUI_DBM.getTicketsBySeasonCompetitionAndLocalAndVisitorTeamGroupedByRes(req.params.season, req.params.competition, req.params.localTeam, req.params.visitorTeam, function(err, result){
-                    if(err){
-                        res.status(400).send(err);
-                    }else{
-                        var jsonPlenoModerno = {};
-                        jsonPlenoModerno.fila = "15";
+                var jsonPlenoModerno = {};
+                jsonPlenoModerno.fila = "15";
 
-                        for(var j=0; j<result.length; j++){
-                            var resultadoConGoles = result[j]._id;
-                            var total = result[j].total;
+                for(var j=0; j<result.length; j++){
+                    var resultadoConGoles = result[j]._id;
+                    var total = result[j].total;
 
-                            jsonPlenoModerno[resultadoConGoles] = total;
-                        }
+                    jsonPlenoModerno[resultadoConGoles] = total;
+                }
 
-                        respuesta.filas = filas;
-                        respuesta.plenosRenovados = jsonPlenoModerno;
+                respuesta.filas = filas;
+                respuesta.plenosRenovados = jsonPlenoModerno;
 
-                        res.status(200).send(respuesta);
-                    }
-                });
-            }
+                res.status(200).send(respuesta);
+            });
         });
     };
 
@@ -945,37 +903,36 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsByCompetitionAndLocalAndVisitorTeamGroupedByRow(req.params.competition, req.params.localTeam, req.params.visitorTeam, function(err, result){
             if(err){
-                console.log(err);
                 res.status(400).send(err);
-            }else{
-                for(var i=0; i<result.length; i++){
-                    var json = result[i];
-                    json.fila = Number(json._id);
-                    delete json._id;
-                    filas.push(json);
+            }
+
+            for(var i=0; i<result.length; i++){
+                var json = result[i];
+                json.fila = Number(json._id);
+                delete json._id;
+                filas.push(json);
+            }
+
+            QUI_DBM.getTicketsByCompetitionAndLocalAndVisitorTeamGroupedByRes(req.params.competition, req.params.localTeam, req.params.visitorTeam, function(err, result){
+                if(err){
+                    res.status(400).send(err);
                 }
 
-                QUI_DBM.getTicketsByCompetitionAndLocalAndVisitorTeamGroupedByRes(req.params.competition, req.params.localTeam, req.params.visitorTeam, function(err, result){
-                    if(err){
-                        res.status(400).send(err);
-                    }else{
-                        var jsonPlenoModerno = {};
-                        jsonPlenoModerno.fila = "15";
+                var jsonPlenoModerno = {};
+                jsonPlenoModerno.fila = "15";
 
-                        for(var j=0; j<result.length; j++){
-                            var resultadoConGoles = result[j]._id;
-                            var total = result[i].total;
+                for(var j=0; j<result.length; j++){
+                    var resultadoConGoles = result[j]._id;
+                    var total = result[i].total;
 
-                            jsonPlenoModerno[resultadoConGoles] = total;
-                        }
+                    jsonPlenoModerno[resultadoConGoles] = total;
+                }
 
-                        respuesta.filas = filas;
-                        respuesta.plenosRenovados = jsonPlenoModerno;
+                respuesta.filas = filas;
+                respuesta.plenosRenovados = jsonPlenoModerno;
 
-                        res.status(200).send(respuesta);
-                    }
-                });
-            }
+                res.status(200).send(respuesta);
+            });
         });
     };
 
@@ -987,43 +944,43 @@ module.exports = function(app){
         QUI_DBM.getAllAppearedResults(function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                try{
-                    for(var i=0; i<result.length; i++){
-                        var resultadosTicket = [];
-                        var ticket = result[i];
-                        var partidos = ticket.partidos;
-                        var resultadoString = "";
+            }
 
-                        for(var p=0; p<partidos.length; p++){
-                            resultadosTicket.push({
-                                resultado: partidos[p].resultado
-                            });
+            try{
+                for(var i=0; i<result.length; i++){
+                    var resultadosTicket = [];
+                    var ticket = result[i];
+                    var partidos = ticket.partidos;
+                    var resultadoString = "";
 
-                            resultadoString += partidos[p].resultado;
-                        }
-
-                        resultados.push({
-                            temporada: ticket.temporada,
-                            jornada: ticket.jornada,
-                            string: resultadoString,
-                            longitud: resultadoString.length
+                    for(var p=0; p<partidos.length; p++){
+                        resultadosTicket.push({
+                            resultado: partidos[p].resultado
                         });
 
-                        if(resultadosPorRepeticiones[resultadoString]){
-                            resultadosPorRepeticiones[resultadoString] = resultadosPorRepeticiones[resultadoString] + 1;
-                        }else{
-                            resultadosPorRepeticiones[resultadoString] = 1;
-                        }
+                        resultadoString += partidos[p].resultado;
                     }
 
-                    temporadasConsultadas += 1;
-                }catch(Exception){
-                    temporadasConsultadas += 1;
+                    resultados.push({
+                        temporada: ticket.temporada,
+                        jornada: ticket.jornada,
+                        string: resultadoString,
+                        longitud: resultadoString.length
+                    });
+
+                    if(resultadosPorRepeticiones[resultadoString]){
+                        resultadosPorRepeticiones[resultadoString] = resultadosPorRepeticiones[resultadoString] + 1;
+                    }else{
+                        resultadosPorRepeticiones[resultadoString] = 1;
+                    }
                 }
 
-                res.status(200).send(resultadosPorRepeticiones);
+                temporadasConsultadas += 1;
+            }catch(Exception){
+                temporadasConsultadas += 1;
             }
+
+            res.status(200).send(resultadosPorRepeticiones);
         });
     };
 
@@ -1031,32 +988,29 @@ module.exports = function(app){
         QUI_DBM.getAllTeams(function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                res.status(200).send(result);
             }
-        })
+
+            res.status(200).send(result);
+        });
     };
 
-    quiniela_api_anadirEquipo = function(req, res){
-
+    var quiniela_api_anadirEquipo = function(req, res){
         var team = req.param('name');
 
         QUI_DBM.getTeamByName(team, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(result != null){
-                    res.status(400).send('team-already-exists');
-                }else{
-                    QUI_DBM.addNewTeam(team, function(err, result){
-                        if(err){
-                            res.status(400).send(err);
-                        }else{
-                            res.status(200).send('ok');
-                        }
-                    });
-                }
+            }else if(result != null){
+                res.status(400).send('team-already-exists');
             }
+
+            QUI_DBM.addNewTeam(team, function(err){
+                if(err){
+                    res.status(400).send(err);
+                }
+
+                res.status(200).send('ok');
+            });
         });
     };
 
@@ -1066,25 +1020,23 @@ module.exports = function(app){
         QUI_DBM.getTeamById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(result == null){
+            }else if(result == null){
                     res.status(400).send('team-not-exists');
-                }else{
-                    QUI_DBM.deleteTeamById(id, function(err, result){
-                        if(err){
-                            res.status(400).send(err);
-                        }else{
-                            QUI_DBM.getAllTeams(function(err, result){
-                                if(err){
-                                    res.status(400).send(err);
-                                }else{
-                                    res.status(200).send(result);
-                                }
-                            });
-                        }
-                    });
-                }
             }
+
+            QUI_DBM.deleteTeamById(id, function(err, result){
+                if(err){
+                    res.status(400).send(err);
+                }
+
+                QUI_DBM.getAllTeams(function(err, result){
+                    if(err){
+                        res.status(400).send(err);
+                    }
+
+                    res.status(200).send(result);
+                });
+            });
         });
     };
 
@@ -1095,19 +1047,17 @@ module.exports = function(app){
         QUI_DBM.getTeamById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(result == null){
-                    res.status(400).send('team-not-exists');
-                }else{
-                    QUI_DBM.editTeamById(id, equipo, function(err, result){
-                        if(err){
-                            res.status(400).send(err);
-                        }else{
-                            res.status(200).send("ok");
-                        }
-                    });
-                }
+            }else if(result == null){
+                res.status(400).send('team-not-exists');
             }
+
+            QUI_DBM.editTeamById(id, equipo, function(err, result){
+                if(err){
+                    res.status(400).send(err);
+                }
+
+                res.status(200).send("ok");
+            });
         });
 
     };
@@ -1118,13 +1068,11 @@ module.exports = function(app){
         QUI_DBM.getTeamById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(result == null){
-                    res.status(400).send('team-not-exists');
-                }else{
-                    res.status(200).send(result);
-                }
+            }else if(result == null){
+                res.status(400).send('team-not-exists');
             }
+
+            res.status(200).send(result);
         });
     };
 
@@ -1132,9 +1080,9 @@ module.exports = function(app){
         QUI_DBM.getAllCompetitions(function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                res.status(200).send(result);
             }
+
+            res.status(200).send(result);
         });
     };
 
@@ -1144,19 +1092,17 @@ module.exports = function(app){
         QUI_DBM.getCompetitionByName(competition, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(result != null){
-                    res.status(400).send('competition-already-exists');
-                }else{
-                    QUI_DBM.addNewCompetition(competition, function(err, result){
-                        if(err){
-                            res.status(400).send(err);
-                        }else{
-                            res.status(200).send('ok');
-                        }
-                    });
-                }
+            }else if(result != null){
+                res.status(400).send('competition-already-exists');
             }
+
+            QUI_DBM.addNewCompetition(competition, function(err, result){
+                if(err){
+                    res.status(400).send(err);
+                }
+
+                res.status(200).send('ok');
+            });
         });
     };
 
@@ -1166,27 +1112,24 @@ module.exports = function(app){
         QUI_DBM.getCompetitionById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
+            }else if(result == null){
+                res.status(400).send('competition-not-exists');
             }else{
-                if(result == null){
-                    res.status(400).send('competition-not-exists');
-                }else{
-                    QUI_DBM.deleteCompetitionById(id, function(err, result){
+                QUI_DBM.deleteCompetitionById(id, function(err, result){
+                    if(err){
+                        res.status(400).send(err);
+                    }
+
+                    QUI_DBM.getAllCompetitions(function(err, result){
                         if(err){
                             res.status(400).send(err);
-                        }else{
-                            QUI_DBM.getAllCompetitions(function(err, result){
-                                if(err){
-                                    res.status(400).send(err);
-                                }else{
-                                    res.status(200).send(result);
-                                }
-                            });
                         }
+
+                        res.status(200).send(result);
                     });
-                }
+                });
             }
         });
-
     };
 
     var quiniela_api_competicion = function(req, res){
@@ -1195,13 +1138,11 @@ module.exports = function(app){
         QUI_DBM.getCompetitionById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(result == null){
-                    res.status(400).send('competition-not-exists');
-                }else{
-                    res.status(200).send(result);
-                }
+            }else if(result == null){
+                res.status(400).send('competition-not-exists');
             }
+
+            res.status(200).send(result);
         });
     };
 
@@ -1212,19 +1153,17 @@ module.exports = function(app){
         QUI_DBM.getCompetitionById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(result == null){
-                    res.status(400).send('competition-not-exists');
-                }else{
-                    QUI_DBM.editCompetitionById(id, competicion, function(err, result){
-                        if(err){
-                            res.status(400).send(err);
-                        }else{
-                            res.status(200).send("ok");
-                        }
-                    });
-                }
+            }else if(result == null){
+                res.status(400).send('competition-not-exists');
             }
+
+            QUI_DBM.editCompetitionById(id, competicion, function(err, result){
+                if(err){
+                    res.status(400).send(err);
+                }
+
+                res.status(200).send("ok");
+            });
         });
 
     };
@@ -1233,45 +1172,43 @@ module.exports = function(app){
         QUI_DBM.getAllSeasons(function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                res.status(200).send(result);
             }
+
+            res.status(200).send(result);
         });
     };
 
     var quiniela_api_temporada = function(req, res){
         var id = req.params.id;
+
         QUI_DBM.getSeasonById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(JSON.stringify(result) === "{}"){
-                    res.status(400).send('season-not-exists');
-                }else{
-                    res.status(200).send(result);
-                }
+            }else if(JSON.stringify(result) === "{}"){
+                res.status(400).send('season-not-exists');
             }
+
+            res.status(200).send(result);
         });
     };
 
     var quiniela_api_anadirTemporada = function(req, res){
         var season = req.param('name');
+
         QUI_DBM.getSeasonByName(season, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(JSON.stringify(result) !== "{}"){
-                    res.status(400).send('season-already-exists');
-                }else{
-                    QUI_DBM.addNewSeason(season, function(err, result){
-                        if(err){
-                            res.status(400).send(err);
-                        }else{
-                            res.status(200).send('ok');
-                        }
-                    });
-                }
+            }else if(JSON.stringify(result) !== "{}"){
+                res.status(400).send('season-already-exists');
             }
+
+            QUI_DBM.addNewSeason(season, function(err, result){
+                if(err){
+                    res.status(400).send(err);
+                }
+
+                res.status(200).send('ok');
+            });
         });
     };
 
@@ -1281,19 +1218,17 @@ module.exports = function(app){
         QUI_DBM.getSeasonById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(result == null){
-                    res.status(400).send('season-not-exists');
-                }else{
-                    QUI_DBM.editSeasonById(id, temporada, function(err, result){
-                        if(err){
-                            res.status(400).send(err);
-                        }else{
-                            res.status(200).send("ok");
-                        }
-                    });
-                }
+            }else if(result == null){
+                res.status(400).send('season-not-exists');
             }
+
+            QUI_DBM.editSeasonById(id, temporada, function(err, result){
+                if(err){
+                    res.status(400).send(err);
+                }
+
+                res.status(200).send("ok");
+            });
         });
     };
 
@@ -1302,25 +1237,23 @@ module.exports = function(app){
         QUI_DBM.getSeasonById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(result == null){
-                    res.status(400).send('season-not-exists');
-                }else{
-                    QUI_DBM.deleteSeasonByName(result.name, function(err, result){
-                        if(err){
-                            res.status(400).send(err);
-                        }else{
-                            QUI_DBM.getAllSeasons(function(err, result){
-                                if(err){
-                                    res.status(400).send(err);
-                                }else{
-                                    res.status(200).send(result);
-                                }
-                            });
-                        }
-                    });
-                }
+            }else if(result == null){
+                res.status(400).send('season-not-exists');
             }
+
+            QUI_DBM.deleteSeasonByName(result.name, function(err, result){
+                if(err){
+                    res.status(400).send(err);
+                }
+
+                QUI_DBM.getAllSeasons(function(err, result){
+                    if(err){
+                        res.status(400).send(err);
+                    }
+
+                    res.status(200).send(result);
+                });
+            });
         });
     };
 
@@ -1330,26 +1263,26 @@ module.exports = function(app){
         QUI_DBM.getAllTickets(function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                for(var i=0; i<result.length; i++){
-                    var ticket = result[i];
-                    var partidos = ticket.partidos;
+            }
 
-                    for(var j=0; j<partidos.length; j++){
-                        var equipoLocal = partidos[j].local;
-                        var equipoVisitante = partidos[j].visitante;
+            for(var i=0; i<result.length; i++){
+                var ticket = result[i];
+                var partidos = ticket.partidos;
 
-                        if(respuesta.indexOf(equipoLocal) == -1){
-                            respuesta[respuesta.length] = equipoLocal;
-                        }
-                        if(respuesta.indexOf(equipoVisitante) == -1){
-                            respuesta[respuesta.length] = equipoVisitante;
-                        }
+                for(var j=0; j<partidos.length; j++){
+                    var equipoLocal = partidos[j].local;
+                    var equipoVisitante = partidos[j].visitante;
+
+                    if(respuesta.indexOf(equipoLocal) == -1){
+                        respuesta[respuesta.length] = equipoLocal;
+                    }
+                    if(respuesta.indexOf(equipoVisitante) == -1){
+                        respuesta[respuesta.length] = equipoVisitante;
                     }
                 }
-
-                res.status(200).send(respuesta.sort());
             }
+
+            res.status(200).send(respuesta.sort());
         });
     };
 

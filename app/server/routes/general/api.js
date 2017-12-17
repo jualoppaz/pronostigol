@@ -8,56 +8,30 @@ module.exports = function(app){
 
     var GEN_DBM = require('../../modules/general-data-base-manager');
 
-    var borrarPronosticos = function(aux){
-        var json = aux;
-
-        for(var i=0; i<json.partidos.length; i++){
-            delete json.partidos[i]['pronosticos'];
-        }
-
-        return json;
-    };
-
-    var borrarPrecio = function(aux){
-        var json = aux;
-
-        delete json['precio'];
-
-        return json;
-    };
-
-    var borrarPremio = function(aux){
-        var json = aux;
-
-        delete json['premio'];
-
-        return json;
-    };
-
     var general_api_login = function(req, res){
         if(req.cookies.user == undefined || req.cookies.pass == undefined){
             GEN_DBM.manualLogin(req.param('user'), req.param('pass'), function(e, o){
                 if (!o){
                     res.status(400).send(e);
-                }	else{
-                    if(o.estaActivo){
-                        //console.log("Usuario: " + o.user);
-                        //console.log("Pass: " + o.pass);
-                        req.session.user = o;
-                        if (req.param('recordar') == true){
-                            console.log("Guardamos las cookies");
-                            console.log("User: " + o.user);
-                            console.log("Pass: " + o.pass);
-                            res.cookie('user', o.user, { maxAge: 900000 });
-                            res.cookie('pass', o.pass, { maxAge: 900000 });
-                        }
-                        if(o.role == "admin"){
-                            req.session.ultimaPagina = "/admin";
-                        }
-                        res.status(200).send(o);
-                    }else{
-                        res.status(400).send('user-not-active');
+                }
+
+                if(o.estaActivo){
+                    //console.log("Usuario: " + o.user);
+                    //console.log("Pass: " + o.pass);
+                    req.session.user = o;
+                    if (req.param('recordar') == true){
+                        console.log("Guardamos las cookies");
+                        console.log("User: " + o.user);
+                        console.log("Pass: " + o.pass);
+                        res.cookie('user', o.user, { maxAge: 900000 });
+                        res.cookie('pass', o.pass, { maxAge: 900000 });
                     }
+                    if(o.role == "admin"){
+                        req.session.ultimaPagina = "/admin";
+                    }
+                    res.status(200).send(o);
+                }else{
+                    res.status(400).send('user-not-active');
                 }
             });
         }else{
@@ -85,7 +59,6 @@ module.exports = function(app){
         delete req.session.user;
 
         res.status(200).send('ok');
-
     };
 
     var general_api_registroUsuario = function(req, res){
@@ -110,8 +83,8 @@ module.exports = function(app){
                     hayErrores = true;
                 }
             }
-
         }
+
         if(pass == undefined){
             errores.passVacio = true;
             hayErrores = true;
@@ -122,6 +95,7 @@ module.exports = function(app){
                 hayErrores = true;
             }
         }
+
         if(!hayErrores){
             GEN_DBM.addNewAccount({
                 user 	    : req.param('user'),
@@ -132,13 +106,13 @@ module.exports = function(app){
             }, function(e){
                 if (e){
                     res.status(400).send(e);
-                }	else{
-                    res.status(200).send('ok');
                 }
+
+                res.status(200).send('ok');
             });
-        }else{
-            res.status(400).send(errores);
         }
+
+        res.status(400).send(errores);
     };
 
     var general_api_usuarioLogueado = function(req, res) {
@@ -154,9 +128,9 @@ module.exports = function(app){
         GEN_DBM.getAllRecords(function(err, users){
             if(err){
                 res.status(400).send(err);
-            }else{
-                res.status(200).send(users);
             }
+
+            res.status(200).send(users);
         });
     };
 
@@ -164,9 +138,9 @@ module.exports = function(app){
         GEN_DBM.findUserById(req.params.id, function(err, user){
             if(err){
                 res.status(400).send(err);
-            }else{
-                res.status(200).send(user);
             }
+
+            res.status(200).send(user);
         });
     };
 
@@ -174,9 +148,9 @@ module.exports = function(app){
         GEN_DBM.getAllComments(function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                res.status(200).send(result);
             }
+
+            res.status(200).send(result);
         });
     };
 
@@ -185,29 +159,27 @@ module.exports = function(app){
         GEN_DBM.getCommentById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(result == null){
-                    res.status(400).send('comment-not-found');
-                }else{
-                    if(req.session.user.role == "admin"){
-                        res.status(200).send(result);
-                    }else{
-                        var json = result;
+            }else if(result == null){
+                res.status(400).send('comment-not-found');
+            }
 
-                        if(!json.validado){
-                            res.status(400).send('comment-vot-validated');
-                        }else{
-                            if(json.respuestas != null){
-                                for(var i=0; i<json.respuestas.length; i++){
-                                    if(!json.respuestas[i].validado){
-                                        json.respuestas.splice(i, 1);
-                                    }
-                                }
-                            }
-                            res.status(200).send(json);
+            if(req.session.user.role == "admin"){
+                res.status(200).send(result);
+            }else{
+                var json = result;
+
+                if(!json.validado){
+                    res.status(400).send('comment-vot-validated');
+                }
+
+                if(json.respuestas != null){
+                    for(var i=0; i<json.respuestas.length; i++){
+                        if(!json.respuestas[i].validado){
+                            json.respuestas.splice(i, 1);
                         }
                     }
                 }
+                res.status(200).send(json);
             }
         });
     };
@@ -216,9 +188,9 @@ module.exports = function(app){
         GEN_DBM.getAllVerifiedComments(function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                res.status(200).send(result);
             }
+
+            res.status(200).send(result);
         });
     };
 
@@ -227,41 +199,37 @@ module.exports = function(app){
         GEN_DBM.getCommentById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(result == null){
-                    res.status(400).send('comment-not-exist');
-                }else{
+            }else if(result == null){
+                res.status(400).send('comment-not-exist');
+            }
 
-                    if((result.user == req.session.user.user) || req.session.user.role == 'admin'){
+            if((result.user == req.session.user.user) || req.session.user.role == 'admin'){
 
-                        GEN_DBM.deleteCommentById(id, function(err, result){
+                GEN_DBM.deleteCommentById(id, function(err, result){
+                    if(err){
+                        res.status(400).send(err);
+                    }
+
+                    if(req.session.user.role == 'admin'){
+                        GEN_DBM.getAllComments(function(err, result){
                             if(err){
                                 res.status(400).send(err);
-                            }else{
-
-                                if(req.session.user.role == 'admin'){
-                                    GEN_DBM.getAllComments(function(err, result){
-                                        if(err){
-                                            res.status(400).send(err);
-                                        }else{
-                                            res.status(200).send(result);
-                                        }
-                                    });
-                                }else{
-                                    GEN_DBM.getAllVerifiedComments(function(err, result){
-                                        if(err){
-                                            res.status(400).send(err);
-                                        }else{
-                                            res.status(200).send(result);
-                                        }
-                                    });
-                                }
                             }
+
+                            res.status(200).send(result);
                         });
                     }else{
-                        res.status(400).send('not-authorized-operation');
+                        GEN_DBM.getAllVerifiedComments(function(err, result){
+                            if(err){
+                                res.status(400).send(err);
+                            }
+
+                            res.status(200).send(result);
+                        });
                     }
-                }
+                });
+            }else{
+                res.status(400).send('not-authorized-operation');
             }
         });
     };
@@ -283,22 +251,21 @@ module.exports = function(app){
 
         if(comentarioIncorrecto){
             res.status(400).send('comentario-incorrecto');
-        }else{
+        }
 
-            GEN_DBM.addNewComment(user, texto, function(err, result){
+        GEN_DBM.addNewComment(user, texto, function(err, result){
+            if(err){
+                res.status(400).send(err);
+            }
+
+            GEN_DBM.getAllVerifiedComments(function(err, result){
                 if(err){
                     res.status(400).send(err);
-                }else{
-                    GEN_DBM.getAllVerifiedComments(function(err, result){
-                        if(err){
-                            res.status(400).send(err);
-                        }else{
-                            res.status(200).send(result);
-                        }
-                    });
                 }
+
+                res.status(200).send(result);
             });
-        }
+        });
     };
 
     var general_api_comentario_nuevaRespuesta = function(req, res){
@@ -319,22 +286,21 @@ module.exports = function(app){
 
         if(comentarioIncorrecto){
             res.status(400).send('comentario-incorrecto');
-        }else{
+        }
 
-            GEN_DBM.addNewCommentAnswer(id, user, texto, function(err, result){
+        GEN_DBM.addNewCommentAnswer(id, user, texto, function(err, result){
+            if(err){
+                res.status(400).send(err);
+            }
+
+            GEN_DBM.getAllVerifiedComments(function(err, result){
                 if(err){
                     res.status(400).send(err);
-                }else{
-                    GEN_DBM.getAllVerifiedComments(function(err, result){
-                        if(err){
-                            res.status(400).send(err);
-                        }else{
-                            res.status(200).send(result);
-                        }
-                    });
                 }
+
+                res.status(200).send(result);
             });
-        }
+        });
     };
 
     var general_api_editarComentario = function(req, res){
@@ -378,41 +344,32 @@ module.exports = function(app){
                 errores["comentario-vacio"] = true;
             }
             res.status(400).send(errores);
-        }else{
-
-            // Comprobamos que el autor del comentario es el que está logueado
-
-            GEN_DBM.getCommentById(id, function(err, result){
-                if(err){
-                    res.status(400).send(err);
-                }else{
-
-                    if(result == null){
-                        res.status(400).send('comment-not-exists');
-                    }else{
-                        if(result.user == req.session.user.user || req.session.user.role == "admin"){
-                            GEN_DBM.editComment(id, texto, function(err, result){
-                                if(err){
-                                    res.status(400).send(err);
-                                }else{
-
-                                    GEN_DBM.getAllVerifiedComments(function(err, result){
-                                        if(err){
-                                            res.status(400).send(err);
-                                        }else{
-                                            res.status(200).send(result);
-                                        }
-                                    });
-                                }
-                            });
-                        }else{
-                            res.status(400).send('not-authorized-operation');
-                        }
-                    }
-                }
-            });
-
         }
+
+        // Comprobamos que el autor del comentario es el que está logado
+        GEN_DBM.getCommentById(id, function(err, result){
+            if(err){
+                res.status(400).send(err);
+            }else if(result == null){
+                res.status(400).send('comment-not-exists');
+            }else if(result.user == req.session.user.user || req.session.user.role == "admin"){
+                GEN_DBM.editComment(id, texto, function(err, result){
+                    if(err){
+                        res.status(400).send(err);
+                    }
+
+                    GEN_DBM.getAllVerifiedComments(function(err, result){
+                        if(err){
+                            res.status(400).send(err);
+                        }
+
+                        res.status(200).send(result);
+                    });
+                });
+            }else{
+                res.status(400).send('not-authorized-operation');
+            }
+        });
     };
 
     var general_api_admin_editarComentario = function(req, res){
@@ -534,78 +491,74 @@ module.exports = function(app){
                 errores["fecha-respuesta-invalida"] = true;
             }
             res.status(400).send(errores);
-        }else{
+        }
 
-            var comentario_dia = Number(fecha.split(" ")[0].split("/")[0]);
-            var comentario_mes = Number(fecha.split(" ")[0].split("/")[1]);
-            var comentario_anyo = Number(fecha.split(" ")[0].split("/")[2]);
+        var comentario_dia = Number(fecha.split(" ")[0].split("/")[0]);
+        var comentario_mes = Number(fecha.split(" ")[0].split("/")[1]);
+        var comentario_anyo = Number(fecha.split(" ")[0].split("/")[2]);
 
-            var comentario_hora = Number(fecha.split(" ")[1].split(":")[0]);
-            var comentario_minuto = Number(fecha.split(" ")[1].split(":")[1]);
+        var comentario_hora = Number(fecha.split(" ")[1].split(":")[0]);
+        var comentario_minuto = Number(fecha.split(" ")[1].split(":")[1]);
 
-            fecha = new Date(comentario_anyo, comentario_mes - 1, comentario_dia, comentario_hora, comentario_minuto);
+        fecha = new Date(comentario_anyo, comentario_mes - 1, comentario_dia, comentario_hora, comentario_minuto);
 
-            var respuestasAux = [];
+        var respuestasAux = [];
 
-            if(respuestas != null){
-                if(Array.isArray(respuestas)){
-                    if(respuestas.length > 0){
-                        for(i=0; i<respuestas.length; i++){
+        if(respuestas != null){
+            if(Array.isArray(respuestas)){
+                if(respuestas.length > 0){
+                    for(i=0; i<respuestas.length; i++){
 
-                            var aux = respuestas[i];
-                            var json = {};
-                            json.user = aux.user;
+                        var aux = respuestas[i];
+                        var json = {};
+                        json.user = aux.user;
 
-                            var dia = Number(respuestas[i].fecha.split(" ")[0].split("/")[0]);
-                            var mes = Number(respuestas[i].fecha.split(" ")[0].split("/")[1]);
-                            var anyo = Number(respuestas[i].fecha.split(" ")[0].split("/")[2]);
+                        var dia = Number(respuestas[i].fecha.split(" ")[0].split("/")[0]);
+                        var mes = Number(respuestas[i].fecha.split(" ")[0].split("/")[1]);
+                        var anyo = Number(respuestas[i].fecha.split(" ")[0].split("/")[2]);
 
-                            var hora = Number(respuestas[i].fecha.split(" ")[1].split(":")[0]);
-                            var minuto = Number(respuestas[i].fecha.split(" ")[1].split(":")[1]);
+                        var hora = Number(respuestas[i].fecha.split(" ")[1].split(":")[0]);
+                        var minuto = Number(respuestas[i].fecha.split(" ")[1].split(":")[1]);
 
-                            json.fecha = new Date(anyo, mes - 1, dia, hora, minuto);
-                            //json.fecha.setUTCHours(hora-1);
-                            json.fechaOffset = json.fecha.getTimezoneOffset();
-                            json.texto = aux.texto;
-                            json.validado = aux.validado;
+                        json.fecha = new Date(anyo, mes - 1, dia, hora, minuto);
+                        //json.fecha.setUTCHours(hora-1);
+                        json.fechaOffset = json.fecha.getTimezoneOffset();
+                        json.texto = aux.texto;
+                        json.validado = aux.validado;
 
-                            respuestasAux.push(json);
-                        }
+                        respuestasAux.push(json);
                     }
                 }
             }
-
-            respuestas = respuestasAux;
-
-            GEN_DBM.getCommentById(id, function(err, result){
-                if(err){
-                    res.status(400).send(err);
-                }else{
-                    if(result == null){
-                        res.status(400).send('comment-not-exists');
-                    }else{
-                        if(req.session.user.role == "admin"){
-                            GEN_DBM.editCommentAsAdmin(id, texto, user, fecha, validado, respuestas, function(err, result){
-                                if(err){
-                                    res.status(400).send(err);
-                                }else{
-
-                                    GEN_DBM.getAllVerifiedComments(function(err, result){
-                                        if(err){
-                                            res.status(400).send(err);
-                                        }else{
-                                            res.status(200).send(result);
-                                        }
-                                    });
-                                }
-                            });
-                        }else{
-                            res.status(400).send('not-authorized-operation');
-                        }
-                    }
-                }
-            });
         }
+
+        respuestas = respuestasAux;
+
+        GEN_DBM.getCommentById(id, function(err, result){
+            if(err){
+                res.status(400).send(err);
+            }else if(result == null){
+                res.status(400).send('comment-not-exists');
+            }else{
+                if(req.session.user.role == "admin"){
+                    GEN_DBM.editCommentAsAdmin(id, texto, user, fecha, validado, respuestas, function(err, result){
+                        if(err){
+                            res.status(400).send(err);
+                        }
+
+                        GEN_DBM.getAllVerifiedComments(function(err, result){
+                            if(err){
+                                res.status(400).send(err);
+                            }
+
+                            res.status(200).send(result);
+                        });
+                    });
+                }else{
+                    res.status(400).send('not-authorized-operation');
+                }
+            }
+        });
     };
 
     var general_api_editarUsuario = function(req, res){
@@ -688,31 +641,29 @@ module.exports = function(app){
                 _id         : id
             }, function(e){
                 if (e){
-                    //console.log(e, 400);
                     res.status(400).send(e);
-                }	else{
-                    //console.log('ok', 200);
-                    res.status(200).send('ok');
                 }
+
+                res.status(200).send('ok');
             });
-        }else{
-            res.status(400).send(errores);
         }
+
+        res.status(400).send(errores);
     };
 
     var general_api_borrarUsuario = function(req, res){
         GEN_DBM.deleteUser(req.params.id, function(err, user){
             if(err){
                 res.status(400).send(err);
-            }else{
-                GEN_DBM.getAllRecords(function(err2, users){
-                    if(err2){
-                        res.status(400).send(err2);
-                    }else{
-                        res.status(200).send(users);
-                    }
-                });
             }
+
+            GEN_DBM.getAllRecords(function(err2, users){
+                if(err2){
+                    res.status(400).send(err2);
+                }
+
+                res.status(200).send(users);
+            });
         });
     };
 
@@ -720,9 +671,9 @@ module.exports = function(app){
         GEN_DBM.getAllEmails(function(err, mails){
             if(err){
                 res.status(400).send(err);
-            }else{
-                res.status(200).send(mails);
             }
+
+            res.status(200).send(mails);
         });
     };
 
@@ -730,18 +681,16 @@ module.exports = function(app){
         GEN_DBM.getEmailById(req.params.id, function(err, mail){
             if(err){
                 res.status(400).send(err);
+            }else if(mail.leido == false){
+                GEN_DBM.setEmailReaded(req.params.id, function(err2, mail2){
+                    if(err2){
+                        res.status(400).send(err2);
+                    }
+
+                    res.status(200).send(mail2);
+                });
             }else{
-                if(mail.leido == false){
-                    GEN_DBM.setEmailReaded(req.params.id, function(err2, mail2){
-                        if(err2){
-                            res.status(400).send(err2);
-                        }else{
-                            res.status(200).send(mail2);
-                        }
-                    });
-                }else{
-                    res.status(200).send(mail);
-                }
+                res.status(200).send(mail);
             }
         });
     };
@@ -764,9 +713,9 @@ module.exports = function(app){
             }, function(e){
                 if(e){
                     res.status(400).send(e);
-                }else{
-                    res.status(200).send("ok");
                 }
+
+                res.status(200).send("ok");
             });
         }
     };
@@ -775,15 +724,15 @@ module.exports = function(app){
         GEN_DBM.deleteEmail(req.params.id, function(err, mail){
             if(err){
                 res.status(400).send(err);
-            }else{
-                GEN_DBM.getAllEmails(function(err2, mails){
-                    if(err2){
-                        res.status(400).send(err2);
-                    }else{
-                        res.status(200).send(mails);
-                    }
-                });
             }
+
+            GEN_DBM.getAllEmails(function(err2, mails){
+                if(err2){
+                    res.status(400).send(err2);
+                }
+
+                res.status(200).send(mails);
+            });
         });
     };
 
@@ -885,40 +834,34 @@ module.exports = function(app){
         GEN_DBM.actualizarVisitas(ipRouter, navegador, so, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
+            }
 
-                GEN_DBM.getVisitantesUnicosHoy(function(err, result){
+            GEN_DBM.getVisitantesUnicosHoy(function(err, result){
+                if(err){
+                    res.status(400).send(err);
+                }
+
+                respuesta.visitantesHoy = result.length;
+
+                GEN_DBM.getVisitantesUnicos(function(err, result){
                     if(err){
                         res.status(400).send(err);
-                    }else{
-
-                        respuesta.visitantesHoy = result.length;
-
-
-                        GEN_DBM.getVisitantesUnicos(function(err, result){
-                            if(err){
-                                res.status(400).send(err);
-                            }else{
-
-                                respuesta.visitantesUnicos = result.length;
-
-                                GEN_DBM.getVisitasTotales(function(err, result){
-                                    if(err){
-                                        res.status(400).send(err);
-                                    }else{
-
-                                        respuesta.visitasTotales = result;
-
-                                        res.status(200).send(respuesta);
-                                    }
-                                });
-                            }
-                        });
                     }
-                });
-            }
-        });
 
+                    respuesta.visitantesUnicos = result.length;
+
+                    GEN_DBM.getVisitasTotales(function(err, result){
+                        if(err){
+                            res.status(400).send(err);
+                        }
+
+                        respuesta.visitasTotales = result;
+
+                        res.status(200).send(respuesta);
+                    });
+                });
+            });
+        });
     };
 
     /* Login en la aplicacion */

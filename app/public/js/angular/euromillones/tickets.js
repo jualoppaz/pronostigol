@@ -1,13 +1,10 @@
 var app = angular.module('qdb');
 
 app.controller('TicketsController', function ($scope, $http, $window, $filter, VariosService) {
-
     $scope.tickets = [];
-
     $scope.numOfPages;
     $scope.totalItems;
     $scope.maxSize = 5;
-
     $scope.currentPage = 1;
     $scope.ticketsPerPage = 5;
 
@@ -16,14 +13,8 @@ app.controller('TicketsController', function ($scope, $http, $window, $filter, V
             $http.get('/api/euromillones/tickets/anyo/' + anyo)
                 .success(function(data){
                     $scope.tickets = data;
-                    //$scope.numPages = Math.floor($scope.tickets.length / 2) + 1;
-
-
                     $scope.totalItems = data.length;
-
                     $scope.numOfPages = data.length / $scope.ticketsPerPage;
-
-                    console.log("Numero de paginas: " + $scope.numOfPages);
 
                     var floor = Math.floor(data.length / $scope.ticketsPerPage);
 
@@ -36,7 +27,6 @@ app.controller('TicketsController', function ($scope, $http, $window, $filter, V
                     for(var i=0; i<$scope.numOfPages; i++){
                         $scope.paginas[i] = i+1;
                     }
-
                 })
                 .error(function(data){
                     console.log(data);
@@ -53,7 +43,6 @@ app.controller('TicketsController', function ($scope, $http, $window, $filter, V
         var dia = $filter('date')(fecha, 'EEEE');
         return VariosService.traducirDia(dia);
     };
-
 
     // Paginacion manual
 

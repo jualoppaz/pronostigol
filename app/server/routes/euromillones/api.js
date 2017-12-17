@@ -48,36 +48,35 @@ module.exports = function(app){
         EUR_DBM.getAllTickets(function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                res.status(200).send(result);
             }
+
+            res.status(200).send(result);
         });
     };
 
     var euromillones_api_ticketsPorAnyo = function(req, res){
-
         var anyo = req.params.anyo;
 
         EUR_DBM.getTicketsByAnyo(anyo, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                var finalRes = [];
-                for(var i=0; i<result.length;i++){
-                    var json;
-                    if(req.session.user == null){
-                        json = filtrarInformacion(result[i]);
-                    }else{
-                        if(req.session.user.role == "privileged"){
-                            json = result[i];
-                        }else{
-                            json = filtrarInformacion(result[i]);
-                        }
-                    }
-                    finalRes.push(json);
-                }
-                res.status(200).send(finalRes);
             }
+
+            var finalRes = [];
+            for(var i=0; i<result.length;i++){
+                var json;
+                if(req.session.user == null){
+                    json = filtrarInformacion(result[i]);
+                }else{
+                    if(req.session.user.role == "privileged"){
+                        json = result[i];
+                    }else{
+                        json = filtrarInformacion(result[i]);
+                    }
+                }
+                finalRes.push(json);
+            }
+            res.status(200).send(finalRes);
         });
     };
 
@@ -88,18 +87,18 @@ module.exports = function(app){
         EUR_DBM.getTicketsByAnyoAndRaffle(anyo, sorteo, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(req.session.user == null){
-                    var json = filtrarInformacion(result);
-                }else{
-                    if(req.session.user.role == "privileged"){
-                        json = result;
-                    }else{
-                        var json = filtrarInformacion(result);
-                    }
-                }
-                res.status(200).send(json);
             }
+
+            if(req.session.user == null){
+                var json = filtrarInformacion(result);
+            }else{
+                if(req.session.user.role == "privileged"){
+                    json = result;
+                }else{
+                    var json = filtrarInformacion(result);
+                }
+            }
+            res.status(200).send(json);
         });
     };
 
@@ -109,9 +108,9 @@ module.exports = function(app){
         EUR_DBM.getTicketById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                res.status(200).send(result);
             }
+
+            res.status(200).send(result);
         });
     };
 
@@ -136,9 +135,9 @@ module.exports = function(app){
         EUR_DBM.addNewTicket(ticket, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                res.status(200).send(result);
             }
+
+            res.status(200).send(result);
         });
     };
 
@@ -148,19 +147,17 @@ module.exports = function(app){
         EUR_DBM.getTicketById(ticket._id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(result == null){
-                    res.status(400).send('not-found');
-                }else{
-                    EUR_DBM.editTicket(ticket, function(err, result){
-                        if(err){
-                            res.status(400).send(err);
-                        }else{
-                            res.status(200).send(result);
-                        }
-                    });
-                }
+            }else if(result == null){
+                res.status(400).send('not-found');
             }
+
+            EUR_DBM.editTicket(ticket, function(err, result){
+                if(err){
+                    res.status(400).send(err);
+                }else{
+                    res.status(200).send(result);
+                }
+            });
         });
     };
 
@@ -170,44 +167,42 @@ module.exports = function(app){
         EUR_DBM.getTicketById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(result == null){
-                    res.status(400).send('not-found');
-                }else{
-                    EUR_DBM.deleteTicketById(id, function(err2, result2){
-                        if(err){
-                            res.status(400).send(err2);
-                        }else{
-                            EUR_DBM.getAllTickets(function(err3, result3){
-                                if(err){
-                                    res.status(400).send(err3);
-                                }else{
-                                    res.status(200).send(result3);
-                                }
-                            });
-                        }
-                    });
-                }
+            }else if(result == null){
+                res.status(400).send('not-found');
             }
+
+            EUR_DBM.deleteTicketById(id, function(err2, result2){
+                if(err){
+                    res.status(400).send(err2);
+                }
+
+                EUR_DBM.getAllTickets(function(err3, result3){
+                    if(err){
+                        res.status(400).send(err3);
+                    }
+
+                    res.status(200).send(result3);
+                });
+            });
         });
     };
 
     var euromillones_api_historicoDeAparicionesPorNumero = function(req, res){
         EUR_DBM.getOcurrencesByNumber(function(err, result){
             if(err){
-                res.status(err);
-            }else{
-                var response = [];
-
-                for(var i=0; i<result.length; i++){
-                    var json = {
-                        numero: result[i]._id,
-                        apariciones: result[i].apariciones
-                    };
-                    response.push(json);
-                }
-                res.status(200).send(JSON.stringify(response, null, 4));
+                res.status(400).send(err);
             }
+
+            var response = [];
+
+            for(var i=0; i<result.length; i++){
+                var json = {
+                    numero: result[i]._id,
+                    apariciones: result[i].apariciones
+                };
+                response.push(json);
+            }
+            res.status(200).send(JSON.stringify(response, null, 4));
         });
     };
 
@@ -215,18 +210,18 @@ module.exports = function(app){
         EUR_DBM.getOcurrencesByStar(function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                var response = [];
-
-                for(var i=0; i<result.length; i++){
-                    var json = {
-                        estrella: result[i]._id,
-                        apariciones: result[i].apariciones
-                    };
-                    response.push(json);
-                }
-                res.status(200).send(JSON.stringify(response, null, 4));
             }
+
+            var response = [];
+
+            for(var i=0; i<result.length; i++){
+                var json = {
+                    estrella: result[i]._id,
+                    apariciones: result[i].apariciones
+                };
+                response.push(json);
+            }
+            res.status(200).send(JSON.stringify(response, null, 4));
         });
     };
 
@@ -234,18 +229,18 @@ module.exports = function(app){
         EUR_DBM.getOcurrencesByStarsPair(function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                var response = [];
-
-                for(var i=0; i<result.length; i++){
-                    var json = {
-                        estrellas: result[i]._id,
-                        apariciones: result[i].apariciones
-                    };
-                    response.push(json);
-                }
-                res.status(200).send(JSON.stringify(response, null, 4));
             }
+
+            var response = [];
+
+            for(var i=0; i<result.length; i++){
+                var json = {
+                    estrellas: result[i]._id,
+                    apariciones: result[i].apariciones
+                };
+                response.push(json);
+            }
+            res.status(200).send(JSON.stringify(response, null, 4));
         });
     };
 
@@ -253,17 +248,17 @@ module.exports = function(app){
         EUR_DBM.getOcurrencesByResultWithoutStars(function(err, tickets){
             if(err){
                 res.status(400).send(err);
-            }else{
-                var response = [];
-
-                for(var i=0; i<tickets.length; i++){
-                    var json = {};
-                    json.numeros = tickets[i]._id;
-                    json.apariciones = tickets[i].apariciones;
-                    response.push(json);
-                }
-                res.status(200).send(JSON.stringify(response, null, 4));
             }
+
+            var response = [];
+
+            for(var i=0; i<tickets.length; i++){
+                var json = {};
+                json.numeros = tickets[i]._id;
+                json.apariciones = tickets[i].apariciones;
+                response.push(json);
+            }
+            res.status(200).send(JSON.stringify(response, null, 4));
         });
 
     };
@@ -272,17 +267,18 @@ module.exports = function(app){
         EUR_DBM.getOcurrencesByResultWithStars(function(err, tickets){
             if(err){
                 res.status(400).send(err);
-            }else{
-                var response = [];
-                for(var i=0; i<tickets.length; i++){
-                    var json = {};
-                    json.numeros = tickets[i].resultado;
-                    json.estrellas = tickets[i].estrellas;
-                    json.apariciones = tickets[i].apariciones;
-                    response.push(json);
-                }
-                res.status(200).send(JSON.stringify(response, null, 4));
             }
+
+            var response = [];
+
+            for(var i=0; i<tickets.length; i++){
+                var json = {};
+                json.numeros = tickets[i].resultado;
+                json.estrellas = tickets[i].estrellas;
+                json.apariciones = tickets[i].apariciones;
+                response.push(json);
+            }
+            res.status(200).send(JSON.stringify(response, null, 4));
         });
     };
 
@@ -290,9 +286,9 @@ module.exports = function(app){
         EUR_DBM.getAllYears(function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                res.status(200).send(result);
             }
+
+            res.status(200).send(result);
         });
     };
 
@@ -302,9 +298,9 @@ module.exports = function(app){
         EUR_DBM.getYearById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                res.status(200).send(result);
             }
+
+            res.status(200).send(result);
         });
     };
 
@@ -314,15 +310,15 @@ module.exports = function(app){
         EUR_DBM.deleteYearById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                EUR_DBM.getAllYears(function(err2, result2){
-                    if(err){
-                        res.status(400).send(err2);
-                    }else{
-                        res.status(200).send(result2);
-                    }
-                });
             }
+
+            EUR_DBM.getAllYears(function(err2, result2){
+                if(err){
+                    res.status(400).send(err2);
+                }
+
+                res.status(200).send(result2);
+            });
         });
     };
 
@@ -334,18 +330,16 @@ module.exports = function(app){
         EUR_DBM.getYearByName(name, function(err, result){
             if(err){
                 res.status(400).send(name);
-            }else{
-                if(JSON.stringify(result) === "{}"){ // No existe aun
-                    EUR_DBM.addNewYear(year, function(err, result){
-                        if(err){
-                            res.status(400).send(err);
-                        }else{
-                            res.status(200).send(result);
-                        }
-                    });
-                }else{ // Ya hay uno con ese nombre
-                    res.status(400).send('year-already-exists');
-                }
+            }else if(JSON.stringify(result) === "{}"){ // No existe aun
+                EUR_DBM.addNewYear(year, function(err, result){
+                    if(err){
+                        res.status(400).send(err);
+                    }
+
+                    res.status(200).send(result);
+                });
+            }else{ // Ya hay uno con ese nombre
+                res.status(400).send('year-already-exists');
             }
         });
     };
@@ -359,19 +353,17 @@ module.exports = function(app){
         EUR_DBM.getYearById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(result == null){
-                    res.status(400).send('not-found');
-                }else{
-                    EUR_DBM.editYear(year, function(err, result){
-                        if(err){
-                            res.status(400).send(err);
-                        }else{
-                            res.status(200).send(result);
-                        }
-                    });
-                }
+            }else if(result == null){
+                res.status(400).send('not-found');
             }
+
+            EUR_DBM.editYear(year, function(err, result){
+                if(err){
+                    res.status(400).send(err);
+                }
+
+                res.status(200).send(result);
+            });
         });
     };
 
@@ -391,7 +383,7 @@ module.exports = function(app){
                         var json = filtrarInformacion(result);
                     }
                 }
-                res.status(200).send(result);
+                res.status(200).send(json);
             }
         });
     };

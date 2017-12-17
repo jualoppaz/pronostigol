@@ -8,23 +8,23 @@ module.exports = function(app){
         EUR_DBM.getHigherDayByYear(anyo, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                result.anyo = result._id;
-                delete result._id;
-                res.status(200).send(JSON.stringify(result, null, 4));
             }
-        })
+
+            result.anyo = result._id;
+            delete result._id;
+            res.status(200).send(JSON.stringify(result, null, 4));
+        });
     };
 
     var euromillones_queries_sorteoMasReciente = function (req, res){
         EUR_DBM.getNewestDay(function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                result.anyo = result._id;
-                delete result._id;
-                res.status(200).send(JSON.stringify(result, null, 4));
             }
+
+            result.anyo = result._id;
+            delete result._id;
+            res.status(200).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -32,11 +32,11 @@ module.exports = function(app){
         EUR_DBM.getOldestDay(function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                result.anyo = result._id;
-                delete result._id;
-                res.status(200).send(JSON.stringify(result, null, 4));
             }
+
+            result.anyo = result._id;
+            delete result._id;
+            res.status(200).send(JSON.stringify(result, null, 4));
         });
     };
 
