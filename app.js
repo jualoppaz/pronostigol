@@ -14,6 +14,7 @@ var path        = require("path");
 var port = process.env.PORT || 8888;
 
 app.use('/css', express.static(__dirname + '/app/public/css'));
+app.use('/docs', express.static(__dirname + '/app/public/docs'));
 app.use('/js', express.static(__dirname + '/app/public/js'));
 app.use('/img', express.static(__dirname + '/app/public/img'));
 app.use('/fonts', express.static(__dirname + '/app/public/fonts'));

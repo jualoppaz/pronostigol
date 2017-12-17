@@ -44,13 +44,40 @@ module.exports = function(app){
         return json;
     };
 
+    /**
+     * @api {get} /bonoloto/tickets Obtención de todos los tickets de Bonoloto
+     * @apiName GetBonolotoTickets
+     * @apiGroup BonolotoTickets
+     *
+     * @apiDescription Recurso para la consulta de tickets de Bonoloto registrados en el sistema.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/bonoloto/tickets
+     */
     var bonoloto_api_tickets = function(req, res){
         BON_DBM.getAllTickets(function(err, result){
             if(err){
                 res.status(400).send(err);
             }
 
-            res.status(200).send(result);
+            var response = [];
+
+            for(var i=0; i<result.length; i++){
+                var json;
+                if(req.session.user == null){
+                    json = filtrarInformacion(result[i]);
+                }else{
+                    if(req.session.user.role === ROL.PRIVILEGED || req.session.user.role === ROL.ADMIN){
+                        json = result[i];
+                    }else{
+                        json = filtrarInformacion(result[i]);
+                    }
+                }
+                response.push(json);
+            }
+
+            res.status(200).send(JSON.stringify(response, null, 4));
         });
     };
 
@@ -275,6 +302,17 @@ module.exports = function(app){
 
     };
 
+    /**
+     * @api {get} /bonoloto/years Obtención de todos los años de Bonoloto
+     * @apiName GetBonolotoYears
+     * @apiGroup BonolotoYears
+     *
+     * @apiDescription Recurso para la consulta de años de la Bonoloto registrados en el sistema.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/bonoloto/years
+     */
     var bonoloto_api_years = function(req, res){
         BON_DBM.getAllYears(function(err, result){
             if(err){
