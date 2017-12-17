@@ -26,7 +26,7 @@ module.exports = function(app){
                         res.cookie('user', o.user, { maxAge: 900000 });
                         res.cookie('pass', o.pass, { maxAge: 900000 });
                     }
-                    if(o.role == "admin"){
+                    if(o.role === ROL.ADMIN){
                         req.session.ultimaPagina = "/admin";
                     }
                     res.status(200).send(o);
@@ -38,7 +38,7 @@ module.exports = function(app){
             GEN_DBM.autoLogin(req.cookies.user, req.cookies.pass, function(o){
                 if(o != null){
                     if(o.estaActivo){
-                        if(o.role == "admin"){
+                        if(o.role === ROL.ADMIN){
                             req.session.ultimaPagina = "/admin";
                         }
                         res.status(200).send(o, 400);
@@ -101,7 +101,7 @@ module.exports = function(app){
                 user 	    : req.param('user'),
                 pass	    : req.param('pass'),
                 estaActivo  : true,
-                role        : 'basic',
+                role        : ROL.BASIC,
                 estaBaneado : false
             }, function(e){
                 if (e){
@@ -163,7 +163,7 @@ module.exports = function(app){
                 res.status(400).send('comment-not-found');
             }
 
-            if(req.session.user.role == "admin"){
+            if(req.session.user.role === ROL.ADMIN){
                 res.status(200).send(result);
             }else{
                 var json = result;
@@ -203,14 +203,14 @@ module.exports = function(app){
                 res.status(400).send('comment-not-exist');
             }
 
-            if((result.user == req.session.user.user) || req.session.user.role == 'admin'){
+            if((result.user == req.session.user.user) || req.session.user.role === ROL.ADMIN){
 
                 GEN_DBM.deleteCommentById(id, function(err, result){
                     if(err){
                         res.status(400).send(err);
                     }
 
-                    if(req.session.user.role == 'admin'){
+                    if(req.session.user.role === ROL.ADMIN){
                         GEN_DBM.getAllComments(function(err, result){
                             if(err){
                                 res.status(400).send(err);
@@ -352,7 +352,7 @@ module.exports = function(app){
                 res.status(400).send(err);
             }else if(result == null){
                 res.status(400).send('comment-not-exists');
-            }else if(result.user == req.session.user.user || req.session.user.role == "admin"){
+            }else if(result.user == req.session.user.user || req.session.user.role === ROL.ADMIN){
                 GEN_DBM.editComment(id, texto, function(err, result){
                     if(err){
                         res.status(400).send(err);
@@ -540,7 +540,7 @@ module.exports = function(app){
             }else if(result == null){
                 res.status(400).send('comment-not-exists');
             }else{
-                if(req.session.user.role == "admin"){
+                if(req.session.user.role === ROL.ADMIN){
                     GEN_DBM.editCommentAsAdmin(id, texto, user, fecha, validado, respuestas, function(err, result){
                         if(err){
                             res.status(400).send(err);

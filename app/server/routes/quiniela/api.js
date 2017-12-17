@@ -84,7 +84,7 @@ module.exports = function(app){
             if(req.session.user == null){
                 filtrarInformacion(json);
             }else{
-                if(req.session.user.role != 'privileged' && req.session.user.role != 'admin'){
+                if(req.session.user.role !== ROL.PRIVILEGED && req.session.user.role !== ROL.ADMIN){
                     filtrarInformacion(json);
                 }
             }

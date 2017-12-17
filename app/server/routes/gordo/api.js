@@ -69,7 +69,7 @@ module.exports = function(app){
                 if(req.session.user == null){
                     json = filtrarInformacion(result[i]);
                 }else{
-                    if(req.session.user.role == "privileged"){
+                    if(req.session.user.role === ROL.PRIVILEGED){
                         json = result[i];
                     }else{
                         json = filtrarInformacion(result[i]);
@@ -93,7 +93,7 @@ module.exports = function(app){
             if(req.session.user == null){
                 var json = filtrarInformacion(result);
             }else{
-                if(req.session.user.role == "privileged"){
+                if(req.session.user.role === ROL.PRIVILEGED){
                     json = result;
                 }else{
                     json = filtrarInformacion(result);
@@ -355,7 +355,7 @@ module.exports = function(app){
                 if(req.session.user == null){
                     var json = filtrarInformacion(result);
                 }else{
-                    if(req.session.user.role == "privileged" || req.session.user.role == "admin"){
+                    if(req.session.user.role === ROL.PRIVILEGED || req.session.user.role === ROL.ADMIN){
                         json = result;
                     }else{
                         json = filtrarInformacion(result);
