@@ -30,11 +30,19 @@ var getObjectId = function(id){
     return ObjectID(id);
 };
 
-exports.getAllTickets = function(callback){
+exports.getAllTickets = function(filtros, callback){
 
-    bonoloto_tickets.find({
+    var filters = {};
 
-    }).toArray(function(err, res){
+    if(filtros.year){
+        filters.anyo = filtros.year;
+    }
+
+    if(filtros.raffle){
+        filters.sorteo = filtros.raffle;
+    }
+
+    bonoloto_tickets.find(filters).toArray(function(err, res){
         if(err){
             callback(err);
         }else{
