@@ -12,9 +12,15 @@ app.controller('TicketController', function ($scope, $http, $filter, VariosServi
 
     var fragmentos = url.split("/");
 
-    $http.get('/api/bonoloto/tickets/anyo/' + fragmentos[5] + '/sorteo/' + fragmentos[6])
+    $http.get('/api/bonoloto/tickets',
+        {
+            params: {
+                year: fragmentos[5],
+                raffle: fragmentos[6]
+            }
+        })
         .success(function(data){
-            $scope.ticket = data;
+            $scope.ticket = data[0];
             $scope.consultaRealizada = true;
         })
         .error(function(data){
