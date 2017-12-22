@@ -44,6 +44,17 @@ module.exports = function(app){
         return json;
     };
 
+    /**
+     * @api {get} /bonoloto/tickets Obtención de todos los tickets de Bonoloto
+     * @apiName GetBonolotoTickets
+     * @apiGroup BonolotoTickets
+     *
+     * @apiDescription Recurso para la consulta de tickets de Bonoloto registrados en el sistema.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/bonoloto/tickets
+     */
     var bonoloto_api_tickets = function(req, res){
         var year = req.query.year;
         var raffle = req.query.raffle;
@@ -174,6 +185,17 @@ module.exports = function(app){
         });
     };
 
+    /**
+     * @api {get} /bonoloto/historical/aparicionesPorNumero Consulta de apariciones por número en histórico de Bonoloto
+     * @apiName GetBonolotoOccurrencesByNumber
+     * @apiGroup BonolotoHistorical
+     *
+     * @apiDescription Recurso para la consulta de apariciones por número en histórico de Bonoloto.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/bonoloto/historical/aparicionesPorNumero
+     */
     var bonoloto_api_historicoDeAparicionesPorNumero = function(req, res){
         BON_DBM.getOcurrencesByNumber(function(err, result){
             if(err){
@@ -193,6 +215,17 @@ module.exports = function(app){
         });
     };
 
+    /**
+     * @api {get} /bonoloto/historical/aparicionesPorReintegro Consulta de apariciones por reintegro en histórico de Bonoloto
+     * @apiName GetBonolotoOccurrencesByReimbursement
+     * @apiGroup BonolotoHistorical
+     *
+     * @apiDescription Recurso para la consulta de apariciones por reintegro en histórico de Bonoloto.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/bonoloto/historical/aparicionesPorReintegro
+     */
     var bonoloto_api_historicoDeAparicionesPorReintegro = function(req, res){
         BON_DBM.getOcurrencesByReimbursement(function(err, result){
             if(err) {
@@ -212,6 +245,17 @@ module.exports = function(app){
         });
     };
 
+    /**
+     * @api {get} /bonoloto/historical/aparicionesPorResultado Consulta de apariciones por resultado sin reintegro en histórico de Bonoloto
+     * @apiName GetBonolotoOccurrencesByResultWithoutReimbursement
+     * @apiGroup BonolotoHistorical
+     *
+     * @apiDescription Recurso para la consulta de apariciones por resultado sin reintegro en histórico de Bonoloto.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/bonoloto/historical/aparicionesPorResultado
+     */
     var bonoloto_api_historicoDeResultadosGlobales = function(req, res){
         BON_DBM.getOcurrencesByResultWithoutReimbursement(function(err, tickets){
             if(err){
@@ -231,6 +275,17 @@ module.exports = function(app){
 
     };
 
+    /**
+     * @api {get} /bonoloto/historical/aparicionesPorResultadoConReintegro Consulta de apariciones por resultado con reintegro en histórico de Bonoloto
+     * @apiName GetBonolotoOccurrencesByResultWithReimbursement
+     * @apiGroup BonolotoHistorical
+     *
+     * @apiDescription Recurso para la consulta de apariciones por resultado con reintegro en histórico de Bonoloto.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/bonoloto/historical/aparicionesPorResultadoConReintegro
+     */
     var bonoloto_api_historicoDeResultadosGlobalesConReintegro = function(req, res){
         BON_DBM.getOcurrencesByResultWithReimbursement(function(err, tickets){
             if(err){
@@ -251,6 +306,17 @@ module.exports = function(app){
 
     };
 
+    /**
+     * @api {get} /bonoloto/years Obtención de todos los años de Bonoloto
+     * @apiName GetBonolotoYears
+     * @apiGroup BonolotoYears
+     *
+     * @apiDescription Recurso para la consulta de años de la Bonoloto registrados en el sistema.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/bonoloto/years
+     */
     var bonoloto_api_years = function(req, res){
         BON_DBM.getAllYears(function(err, result){
             if(err){
@@ -261,6 +327,19 @@ module.exports = function(app){
         });
     };
 
+    /**
+     * @api {get} /bonoloto/years/:id Obtención de un año de Bonoloto según su id
+     * @apiName GetBonolotoYear
+     * @apiGroup BonolotoYears
+     *
+     * @apiDescription Recurso para la consulta de un año de Bonoloto registrados en el sistema.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/bonoloto/years/:id
+     *
+     * @apiParam {String} id Identificador del año de Bonoloto
+     */
     var bonoloto_api_year = function(req, res){
         var id = req.params.id;
 
