@@ -185,6 +185,17 @@ module.exports = function(app){
         });
     };
 
+    /**
+     * @api {get} /bonoloto/historical/aparicionesPorNumero Consulta de apariciones por número en histórico de Bonoloto
+     * @apiName GetBonolotoOccurrencesByNumber
+     * @apiGroup BonolotoHistorical
+     *
+     * @apiDescription Recurso para la consulta de apariciones por número en histórico de Bonoloto.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/bonoloto/historical/aparicionesPorNumero
+     */
     var bonoloto_api_historicoDeAparicionesPorNumero = function(req, res){
         BON_DBM.getOcurrencesByNumber(function(err, result){
             if(err){
@@ -204,6 +215,17 @@ module.exports = function(app){
         });
     };
 
+    /**
+     * @api {get} /bonoloto/historical/aparicionesPorReintegro Consulta de apariciones por reintegro en histórico de Bonoloto
+     * @apiName GetBonolotoOccurrencesByReimbursement
+     * @apiGroup BonolotoHistorical
+     *
+     * @apiDescription Recurso para la consulta de apariciones por reintegro en histórico de Bonoloto.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/bonoloto/historical/aparicionesPorReintegro
+     */
     var bonoloto_api_historicoDeAparicionesPorReintegro = function(req, res){
         BON_DBM.getOcurrencesByReimbursement(function(err, result){
             if(err) {
@@ -223,6 +245,17 @@ module.exports = function(app){
         });
     };
 
+    /**
+     * @api {get} /bonoloto/historical/aparicionesPorResultado Consulta de apariciones por resultado sin reintegro en histórico de Bonoloto
+     * @apiName GetBonolotoOccurrencesByResultWithoutReimbursement
+     * @apiGroup BonolotoHistorical
+     *
+     * @apiDescription Recurso para la consulta de apariciones por resultado sin reintegro en histórico de Bonoloto.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/bonoloto/historical/aparicionesPorResultado
+     */
     var bonoloto_api_historicoDeResultadosGlobales = function(req, res){
         BON_DBM.getOcurrencesByResultWithoutReimbursement(function(err, tickets){
             if(err){
@@ -242,6 +275,17 @@ module.exports = function(app){
 
     };
 
+    /**
+     * @api {get} /bonoloto/historical/aparicionesPorResultadoConReintegro Consulta de apariciones por resultado con reintegro en histórico de Bonoloto
+     * @apiName GetBonolotoOccurrencesByResultWithReimbursement
+     * @apiGroup BonolotoHistorical
+     *
+     * @apiDescription Recurso para la consulta de apariciones por resultado con reintegro en histórico de Bonoloto.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/bonoloto/historical/aparicionesPorResultadoConReintegro
+     */
     var bonoloto_api_historicoDeResultadosGlobalesConReintegro = function(req, res){
         BON_DBM.getOcurrencesByResultWithReimbursement(function(err, tickets){
             if(err){
@@ -301,7 +345,6 @@ module.exports = function(app){
 
         BON_DBM.getYearById(id, function(err, result){
             if(err){
-                console.log("ERROR AL CONSULTAR EL AÑO");
                 res.status(400).send(err);
             }
 
