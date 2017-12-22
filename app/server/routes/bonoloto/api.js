@@ -56,13 +56,20 @@ module.exports = function(app){
      * @apiSampleRequest /api/bonoloto/tickets
      */
     var bonoloto_api_tickets = function(req, res){
-        BON_DBM.getAllTickets(function(err, result){
+        var year = req.query.year;
+        var raffle = req.query.raffle;
+
+        var filtros = {
+            year: year,
+            raffle: raffle
+        };
+
+        BON_DBM.getAllTickets(filtros, function(err, result){
             if(err){
                 res.status(400).send(err);
             }
 
             var response = [];
-
             for(var i=0; i<result.length; i++){
                 var json;
                 if(req.session.user == null){
@@ -78,53 +85,6 @@ module.exports = function(app){
             }
 
             res.status(200).send(JSON.stringify(response, null, 4));
-        });
-    };
-
-    var bonoloto_api_ticketsPorAnyo = function(req, res){
-        var anyo = req.params.anyo;
-        BON_DBM.getTicketsByAnyo(anyo, function(err, result){
-            if(err){
-                res.status(400).send(err);
-            }
-
-            var finalRes = [];
-            for(var i=0; i<result.length; i++){
-                var json;
-                if(req.session.user == null){
-                    json = filtrarInformacion(result[i]);
-                }else{
-                    if(req.session.user.role === ROL.PRIVILEGED){
-                        json = result[i];
-                    }else{
-                        json = filtrarInformacion(result[i]);
-                    }
-                }
-                finalRes.push(json);
-            }
-            res.status(200).send(finalRes);
-        });
-    };
-
-    var bonoloto_api_ticketPorAnyoYSorteo = function(req, res){
-        var anyo = req.params.anyo;
-        var sorteo = req.params.sorteo;
-
-        BON_DBM.getTicketsByAnyoAndRaffle(anyo, sorteo, function(err, result){
-            if(err){
-                res.status(400).send(err);
-            }
-
-            if(req.session.user == null){
-                var json = filtrarInformacion(result);
-            }else{
-                if(req.session.user.role === ROL.PRIVILEGED){
-                    json = result;
-                }else{
-                    var json = filtrarInformacion(result);
-                }
-            }
-            res.status(200).send(json);
         });
     };
 
@@ -323,11 +283,25 @@ module.exports = function(app){
         });
     };
 
+    /**
+     * @api {get} /bonoloto/years/:id Obtención de un año de Bonoloto según su id
+     * @apiName GetBonolotoYear
+     * @apiGroup BonolotoYears
+     *
+     * @apiDescription Recurso para la consulta de un año de Bonoloto registrados en el sistema.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/bonoloto/years/:id
+     *
+     * @apiParam {String} id Identificador del año de Bonoloto
+     */
     var bonoloto_api_year = function(req, res){
         var id = req.params.id;
 
         BON_DBM.getYearById(id, function(err, result){
             if(err){
+                console.log("ERROR AL CONSULTAR EL AÑO");
                 res.status(400).send(err);
             }
 
@@ -403,8 +377,6 @@ module.exports = function(app){
 
     /* Tickets de Bonoloto */
     app.get('/api/bonoloto/tickets', bonoloto_api_tickets);
-    app.get('/api/bonoloto/tickets/anyo/:anyo', bonoloto_api_ticketsPorAnyo);
-    app.get('/api/bonoloto/tickets/anyo/:anyo/sorteo/:sorteo', bonoloto_api_ticketPorAnyoYSorteo);
     app.get('/api/bonoloto/tickets/:id', bonoloto_api_ticketPorId);
     app.post('/api/bonoloto/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_nuevoTicket);
     app.put('/api/bonoloto/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_editarTicket);
