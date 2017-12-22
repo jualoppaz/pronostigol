@@ -54,7 +54,7 @@ module.exports = function(app){
      * @apiVersion 1.0.0
      *
      * @apiParam {Number} year Año asociado a los sorteos consultados
-     * @apiParam {Number} raffle Identificador único del sorteo en dentro de un año
+     * @apiParam {Number} raffle Identificador único del sorteo dentro de un año
      * @apiSampleRequest /api/bonoloto/tickets
      */
     var bonoloto_api_tickets = function(req, res){
