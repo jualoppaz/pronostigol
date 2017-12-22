@@ -94,13 +94,14 @@ module.exports = function(app){
     };
 
     var quiniela_api_anadirTicketQuiniela = function(req, res){
+        var body = req.body;
 
-        var temporada   = req.body.temporada;
-        var modalidad   = req.body.modalidad;
-        var fecha       = req.body.fecha;
-        var jornada     = req.body.jornada;
-        var precio      = req.body.precio;
-        var premio      = req.body.premio;
+        var temporada   = body.temporada;
+        var modalidad   = body.modalidad;
+        var fecha       = body.fecha;
+        var jornada     = body.jornada;
+        var precio      = body.precio;
+        var premio      = body.premio;
 
         var errores = {
 
@@ -190,13 +191,14 @@ module.exports = function(app){
     };
 
     var quiniela_api_editarTicketQuiniela = function(req, res){
+        var body = req.body;
 
-        var temporada   = req.body.temporada;
-        var modalidad   = req.body.modalidad;
-        var fecha       = req.body.fecha;
-        var jornada     = req.body.jornada;
-        var precio      = req.body.precio;
-        var premio      = req.body.premio;
+        var temporada   = body.temporada;
+        var modalidad   = body.modalidad;
+        var fecha       = body.fecha;
+        var jornada     = body.jornada;
+        var precio      = body.precio;
+        var premio      = body.premio;
 
         var errores = {
 
@@ -995,7 +997,9 @@ module.exports = function(app){
     };
 
     var quiniela_api_anadirEquipo = function(req, res){
-        var team = req.param('name');
+        var body = req.body;
+
+        var team = body.name;
 
         QUI_DBM.getTeamByName(team, function(err, result){
             if(err){
@@ -1041,8 +1045,9 @@ module.exports = function(app){
     };
 
     var quiniela_api_editarEquipo = function(req, res){
-        var id = req.param('_id');
-        var equipo = req.param('name');
+        var body = req.body;
+        var id = body.id;
+        var equipo = body.name;
 
         QUI_DBM.getTeamById(id, function(err, result){
             if(err){
@@ -1087,7 +1092,8 @@ module.exports = function(app){
     };
 
     var quiniela_api_anadirCompeticion = function(req, res){
-        var competition = req.param('name');
+        var body = req.body;
+        var competition = body.name;
 
         QUI_DBM.getCompetitionByName(competition, function(err, result){
             if(err){
@@ -1147,8 +1153,9 @@ module.exports = function(app){
     };
 
     var quiniela_api_editarCompeticion = function(req, res){
-        var id = req.param('_id');
-        var competicion = req.param('name');
+        var body = req.body;
+        var id = body._id;
+        var competicion = body.name;
 
         QUI_DBM.getCompetitionById(id, function(err, result){
             if(err){
@@ -1193,7 +1200,8 @@ module.exports = function(app){
     };
 
     var quiniela_api_anadirTemporada = function(req, res){
-        var season = req.param('name');
+        var body = req.body;
+        var season = body.name;
 
         QUI_DBM.getSeasonByName(season, function(err, result){
             if(err){
@@ -1213,8 +1221,9 @@ module.exports = function(app){
     };
 
     var quiniela_api_editarTemporada = function(req, res){
-        var id = req.param('_id');
-        var temporada = req.param('name');
+        var body = req.body;
+        var id = body._id;
+        var temporada = body.name;
         QUI_DBM.getSeasonById(id, function(err, result){
             if(err){
                 res.status(400).send(err);

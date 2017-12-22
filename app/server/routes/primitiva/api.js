@@ -104,13 +104,15 @@ module.exports = function(app){
     var primitiva_api_nuevoTicket = function(req, res){
         var ticket = {};
 
-        var anyo = req.param('anyo');
-        var fecha = req.param('fecha');
-        var sorteo = req.param('sorteo');
-        var precio = req.param('precio');
-        var premio = req.param('premio');
-        var apuestas = req.param('apuestas');
-        var resultado = req.param('resultado');
+        var body = req.body;
+
+        var anyo = body.anyo;
+        var fecha = body.fecha;
+        var sorteo = body.sorteo;
+        var precio = body.precio;
+        var premio = body.premio;
+        var apuestas = body.apuestas;
+        var resultado = body.resultado;
 
         ticket.anyo = anyo;
         ticket.fecha = fecha;
@@ -298,8 +300,9 @@ module.exports = function(app){
     };
 
     var primitiva_api_addNewYear = function(req, res){
+        var body = req.body;
         var year = {};
-        var name = req.param('name');
+        var name = body.name;
         year.name = name;
 
         PRI_DBM.getYearByName(name, function(err, result){
@@ -321,7 +324,7 @@ module.exports = function(app){
 
     var primitiva_api_editYear = function(req, res){
         var body = req.body;
-        var id = req.param('_id');
+        var id = body._id;
         var year = {};
         year.name = body.name;
 

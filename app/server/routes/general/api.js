@@ -9,47 +9,25 @@ module.exports = function(app){
     var GEN_DBM = require('../../modules/general-data-base-manager');
 
     var general_api_login = function(req, res){
-        if(req.cookies.user == undefined || req.cookies.pass == undefined){
-            GEN_DBM.manualLogin(req.param('user'), req.param('pass'), function(e, o){
-                if (!o){
-                    res.status(400).send(e);
-                }
+        var body = req.body;
+        var usuario = body.user;
+        var pass = body.pass;
 
-                if(o.estaActivo){
-                    //console.log("Usuario: " + o.user);
-                    //console.log("Pass: " + o.pass);
-                    req.session.user = o;
-                    if (req.param('recordar') == true){
-                        console.log("Guardamos las cookies");
-                        console.log("User: " + o.user);
-                        console.log("Pass: " + o.pass);
-                        res.cookie('user', o.user, { maxAge: 900000 });
-                        res.cookie('pass', o.pass, { maxAge: 900000 });
-                    }
-                    if(o.role === ROL.ADMIN){
-                        req.session.ultimaPagina = "/admin";
-                    }
-                    res.status(200).send(o);
-                }else{
-                    res.status(400).send('user-not-active');
+        GEN_DBM.manualLogin(usuario, pass, function(e, o){
+            if (!o){
+                res.status(400).send(e);
+            }
+
+            if(o.estaActivo){
+                req.session.user = o;
+                if(o.role === ROL.ADMIN){
+                    req.session.ultimaPagina = "/admin";
                 }
-            });
-        }else{
-            GEN_DBM.autoLogin(req.cookies.user, req.cookies.pass, function(o){
-                if(o != null){
-                    if(o.estaActivo){
-                        if(o.role === ROL.ADMIN){
-                            req.session.ultimaPagina = "/admin";
-                        }
-                        res.status(200).send(o, 400);
-                    }else{
-                        res.status(200).send('user-not-active');
-                    }
-                }else{
-                    res.render('login');
-                }
-            });
-        }
+                res.status(200).send(o);
+            }else{
+                res.status(400).send('user-not-active');
+            }
+        });
     };
 
     var general_api_logout = function(req, res){
@@ -62,8 +40,9 @@ module.exports = function(app){
     };
 
     var general_api_registroUsuario = function(req, res){
-        var usuario = req.param('user');
-        var pass    = req.param('pass');
+        var body = req.body;
+        var usuario = body.user;
+        var pass    = body.pass;
         var errores = {};
 
         var hayErrores = false;
@@ -98,8 +77,8 @@ module.exports = function(app){
 
         if(!hayErrores){
             GEN_DBM.addNewAccount({
-                user 	    : req.param('user'),
-                pass	    : req.param('pass'),
+                user 	    : usuario,
+                pass	    : pass,
                 estaActivo  : true,
                 role        : ROL.BASIC,
                 estaBaneado : false
@@ -235,8 +214,9 @@ module.exports = function(app){
     };
 
     var general_api_realizarComentario = function(req, res){
+        var body = req.body;
         var user = req.session.user.user;
-        var texto = req.body.texto;
+        var texto = body.texto;
 
         var comentarioIncorrecto = false;
 
@@ -269,9 +249,11 @@ module.exports = function(app){
     };
 
     var general_api_comentario_nuevaRespuesta = function(req, res){
+        var body = req.body;
+
         var user = req.session.user.user;
-        var texto = req.body.respuesta;
-        var id = req.body._id;
+        var texto = body.respuesta;
+        var id = body._id;
 
         var comentarioIncorrecto = false;
 
@@ -304,10 +286,11 @@ module.exports = function(app){
     };
 
     var general_api_editarComentario = function(req, res){
+        var body = req.body;
 
-        var texto = req.body.texto;
-        var id = req.body._id;
-        var validado = req.body.validado;
+        var texto = body.texto;
+        var id = body._id;
+        var validado = body.validado;
 
         var hayErrores = false;
         var errores = {};
@@ -373,15 +356,16 @@ module.exports = function(app){
     };
 
     var general_api_admin_editarComentario = function(req, res){
+        var body = req.body;
 
         //TODO implementar teniendo en cuenta las respuestas al comentario
 
-        var texto = req.body.texto;
-        var id = req.body._id;
-        var validado = req.body.validado;
-        var respuestas = req.body.respuestas;
-        var user = req.body.user;
-        var fecha = req.body.fecha;
+        var texto = body.texto;
+        var id = body._id;
+        var validado = body.validado;
+        var respuestas = body.respuestas;
+        var user = body.user;
+        var fecha = body.fecha;
 
         var hayErrores = false;
         var errores = {};
@@ -562,13 +546,14 @@ module.exports = function(app){
     };
 
     var general_api_editarUsuario = function(req, res){
-        var usuario = req.param('user');
-        var pass    = req.param('pass');
-        var role    = req.param('role');
-        var activo  = req.param('estaActivo');
-        var baneado = req.param('estaBaneado');
-        var date    = req.param('date');
-        var id      = req.param('_id');
+        var body = req.body;
+        var usuario = body.user;
+        var pass    = body.pass;
+        var role    = body.role;
+        var activo  = body.estaActivo;
+        var baneado = body.estaBaneado;
+        var date    = body.date;
+        var id      = body._id;
 
         console.log("Usuario: " + usuario);
         console.log("Password: " + pass);
@@ -633,7 +618,7 @@ module.exports = function(app){
 
         if(!hayErrores){
             GEN_DBM.actualizarCuenta({
-                user 	    : req.param('user'),
+                user 	    : usuario,
                 pass	    : pass,
                 estaActivo  : activo,
                 role        : role,
@@ -696,9 +681,11 @@ module.exports = function(app){
     };
 
     var general_api_enviarEmail = function(req, res){
-        var nombre = req.body.nombre;
-        var email = req.body.email;
-        var mensaje = req.body.mensaje;
+        var body = req.body;
+
+        var nombre = body.nombre;
+        var email = body.email;
+        var mensaje = body.mensaje;
 
         var hayErrores = false;
 
