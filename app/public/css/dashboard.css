@@ -193,3 +193,7 @@ body{
     cursor: default !important;
 }
 
+.table > tbody > tr > td{
+    vertical-align: middle;
+}
+
