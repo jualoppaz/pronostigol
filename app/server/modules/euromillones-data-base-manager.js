@@ -22,11 +22,15 @@ var getObjectId = function(id){
     return euromillones_tickets.db.bson_serializer.ObjectID.createFromHexString(id)
 };
 
-exports.getAllTickets = function(callback){
+exports.getAllTickets = function(filtros, callback){
 
-    euromillones_tickets.find({
+    var filters = {};
 
-    }).toArray(function(err, res){
+    if(filtros.year){
+        filters.anyo = filtros.year;
+    }
+
+    euromillones_tickets.find(filters).toArray(function(err, res){
         if(err){
             callback(err);
         }else{

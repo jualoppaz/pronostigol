@@ -45,24 +45,19 @@ module.exports = function(app){
     };
 
     var euromillones_api_tickets = function(req, res){
-        EUR_DBM.getAllTickets(function(err, result){
+        var query = req.query;
+        var year = query.year;
+
+        var filtros = {
+            year: year
+        };
+
+        EUR_DBM.getAllTickets(filtros, function(err, result){
             if(err){
                 res.status(400).send(err);
             }
 
-            res.status(200).send(result);
-        });
-    };
-
-    var euromillones_api_ticketsPorAnyo = function(req, res){
-        var anyo = req.params.anyo;
-
-        EUR_DBM.getTicketsByAnyo(anyo, function(err, result){
-            if(err){
-                res.status(400).send(err);
-            }
-
-            var finalRes = [];
+            var response = [];
             for(var i=0; i<result.length;i++){
                 var json;
                 if(req.session.user == null){
@@ -74,9 +69,9 @@ module.exports = function(app){
                         json = filtrarInformacion(result[i]);
                     }
                 }
-                finalRes.push(json);
+                response.push(json);
             }
-            res.status(200).send(finalRes);
+            res.status(200).send(response);
         });
     };
 
@@ -394,7 +389,6 @@ module.exports = function(app){
 
     /* Tickets del Euromillones */
     app.get('/api/euromillones/tickets', euromillones_api_tickets);
-    app.get('/api/euromillones/tickets/anyo/:anyo', euromillones_api_ticketsPorAnyo);
     app.get('/api/euromillones/tickets/anyo/:anyo/sorteo/:sorteo', euromillones_api_ticketPorAnyoYSorteo);
     app.get('/api/euromillones/tickets/:id', euromillones_api_ticketPorId);
     app.post('/api/euromillones/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_nuevoTicket);
