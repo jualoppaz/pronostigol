@@ -63,7 +63,7 @@ module.exports = function(app){
 
         var filtros = {
             year: year,
-            raffle: raffle
+            raffle: Number(raffle)
         };
 
         BON_DBM.getAllTickets(filtros, function(err, result){

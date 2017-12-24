@@ -14,7 +14,6 @@ DBM.getDatabaseInstance(function(err, res){
 
        bonoloto_tickets = db.collection("bonoloto_tickets");
        bonoloto_years = db.collection("bonoloto_years");
-
    }
 });
 
