@@ -3,7 +3,12 @@ module.exports = function(app){
     var middlewares = require('../../middlewares');
     var ROL = require('../../roles');
 
+    var express = require("express");
+
     var EUR_DBM = require('../../modules/euromillones-data-base-manager');
+
+    var express = require("express");
+    var euromillones = express.Router();
 
     var filtrarInformacion = function(result){
         var json = JSON.parse(JSON.stringify(result));
@@ -14,7 +19,6 @@ module.exports = function(app){
     };
 
     var borrarPronosticos = function(aux){
-
         var json = aux;
 
         if(json['apuestas'] != null){
@@ -73,7 +77,7 @@ module.exports = function(app){
                 }
                 response.push(json);
             }
-            res.status(200).send(response);
+            res.status(200).send(JSON.stringify(response, null, 4));
         });
     };
 
@@ -120,7 +124,7 @@ module.exports = function(app){
                 if(err){
                     res.status(400).send(err);
                 }else{
-                    res.status(200).send(result);
+                    res.status(200).send(JSON.stringify(result, null, 4));
                 }
             });
         });
@@ -340,39 +344,54 @@ module.exports = function(app){
         EUR_DBM.getTicketById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(req.session.user == null){
-                    var json = filtrarInformacion(result);
-                }else{
-                    if(req.session.user.role === ROL.PRIVILEGED || req.session.user.role === ROL.ADMIN){
-                        json = result;
-                    }else{
-                        var json = filtrarInformacion(result);
-                    }
-                }
-                res.status(200).send(json);
             }
+
+            var json;
+
+            if(req.session.user == null){
+                json = filtrarInformacion(result);
+            }else{
+                if(req.session.user.role === ROL.PRIVILEGED || req.session.user.role === ROL.ADMIN){
+                    json = result;
+                }else{
+                    json = filtrarInformacion(result);
+                }
+            }
+            res.status(200).send(JSON.stringify(json, null, 4));
         });
     };
 
     /* Tickets del Euromillones */
-    app.get('/api/euromillones/tickets', euromillones_api_tickets);
-    app.get('/api/euromillones/tickets/:id', euromillones_api_ticketPorId);
-    app.post('/api/euromillones/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_nuevoTicket);
-    app.put('/api/euromillones/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_editarTicket);
-    app.delete('/api/euromillones/tickets/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_borrarTicket);
+    euromillones.route('/euromillones/tickets')
+        .get(euromillones_api_tickets)
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_nuevoTicket)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_editarTicket);
+
+    euromillones.route('/euromillones/tickets/:id')
+        .get(euromillones_api_ticketPorId)
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_borrarTicket);
 
     /* Anyos */
-    app.get('/api/euromillones/years', euromillones_api_years);
-    app.get('/api/euromillones/years/:id', euromillones_api_year);
-    app.post('/api/euromillones/years', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_addNewYear);
-    app.put('/api/euromillones/years', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_editYear);
-    app.delete('/api/euromillones/years/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_deleteYear);
+    euromillones.route('/euromillones/years')
+        .get(euromillones_api_years)
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_addNewYear)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_editYear);
+
+    euromillones.route('/euromillones/years/:id')
+        .get(euromillones_api_year)
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_deleteYear);
 
     /* Consultas: Estandar */
-    app.get('/api/euromillones/historical/aparicionesPorResultado', euromillones_api_historicoDeResultadosGlobales);
-    app.get('/api/euromillones/historical/aparicionesPorResultadoConEstrellas', euromillones_api_historicoDeResultadosGlobalesConEstrellas);
-    app.get('/api/euromillones/historical/aparicionesPorNumero', euromillones_api_historicoDeAparicionesPorNumero);
-    app.get('/api/euromillones/historical/aparicionesPorEstrella', euromillones_api_historicoDeAparicionesPorEstrella);
-    app.get('/api/euromillones/historical/aparicionesPorParejaDeEstrellas', euromillones_api_historicoDeAparicionesPorParejaDeEstrellas);
+    euromillones.route('/euromillones/historical/aparicionesPorResultado')
+        .get(euromillones_api_historicoDeResultadosGlobales);
+    euromillones.route('/euromillones/historical/aparicionesPorResultadoConEstrellas')
+        .get(euromillones_api_historicoDeResultadosGlobalesConEstrellas);
+    euromillones.route('/euromillones/historical/aparicionesPorNumero')
+        .get(euromillones_api_historicoDeAparicionesPorNumero);
+    euromillones.route('/euromillones/historical/aparicionesPorEstrella')
+        .get(euromillones_api_historicoDeAparicionesPorEstrella);
+    euromillones.route('/euromillones/historical/aparicionesPorParejaDeEstrellas')
+        .get(euromillones_api_historicoDeAparicionesPorParejaDeEstrellas);
+
+    app.use('/api', euromillones);
 };
