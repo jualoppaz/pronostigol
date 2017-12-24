@@ -18,7 +18,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Juan Manuel Lopez Pazos",
+  "author": "Juan Manuel López Pazos",
   "license": "ISC",
   "dependencies": {
     "apidoc": "^0.17.6",

@@ -1,8 +1,8 @@
 var db;
 
-var DBM = require('./init-data-base-manager');
+var ObjectID = require('mongodb').ObjectID;
 
-var numerosClave = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+var DBM = require('./init-data-base-manager');
 
 var euromillones_tickets, euromillones_years;
 
@@ -14,12 +14,11 @@ DBM.getDatabaseInstance(function(err, res){
 
        euromillones_tickets = db.collection("euromillones_tickets");
        euromillones_years = db.collection("euromillones_years");
-
    }
 });
 
 var getObjectId = function(id){
-    return euromillones_tickets.db.bson_serializer.ObjectID.createFromHexString(id)
+    return ObjectID(id);
 };
 
 exports.getAllTickets = function(filtros, callback){
@@ -29,6 +28,12 @@ exports.getAllTickets = function(filtros, callback){
     if(filtros.year){
         filters.anyo = filtros.year;
     }
+
+    if(filtros.raffle){
+        filters.sorteo = filtros.raffle;
+    }
+
+    console.log(filtros);
 
     euromillones_tickets.find(filters).toArray(function(err, res){
         if(err){

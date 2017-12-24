@@ -16,7 +16,13 @@ app.controller('TicketController', function ($scope, $http, VariosService, $wind
 
     var fragmentos = url.split("/");
 
-    $http.get('/api/euromillones/tickets/anyo/' + fragmentos[5] + '/sorteo/' + fragmentos[6])
+    $http.get('/api/euromillones/tickets',
+        {
+            params: {
+                year: fragmentos[5],
+                raffle: fragmentos[6]
+            }
+        })
         .success(function(data){
             $http.get("/query/euromillones/newestDay")
                 .success(function(data2){
@@ -36,7 +42,7 @@ app.controller('TicketController', function ($scope, $http, VariosService, $wind
                                 $scope.mostrarFlechaAnterior = false;
                             }
 
-                            $scope.ticket = data;
+                            $scope.ticket = data[0];
                             $scope.consultaRealizada = true;
 
                         });
@@ -46,11 +52,8 @@ app.controller('TicketController', function ($scope, $http, VariosService, $wind
                 });
         })
         .error(function(data){
-            //console.log(JSON.stringify(data));
             $scope.consultaRealizada = true;
         });
-
-
 
     $scope.determinarCategoriaPremio = function(combinacion){
 

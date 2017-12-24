@@ -47,9 +47,11 @@ module.exports = function(app){
     var euromillones_api_tickets = function(req, res){
         var query = req.query;
         var year = query.year;
+        var raffle = query.raffle;
 
         var filtros = {
-            year: year
+            year: year,
+            raffle: Number(raffle)
         };
 
         EUR_DBM.getAllTickets(filtros, function(err, result){
@@ -72,40 +74,6 @@ module.exports = function(app){
                 response.push(json);
             }
             res.status(200).send(response);
-        });
-    };
-
-    var euromillones_api_ticketPorAnyoYSorteo = function(req, res){
-        var anyo = req.params.anyo;
-        var sorteo = req.params.sorteo;
-
-        EUR_DBM.getTicketsByAnyoAndRaffle(anyo, sorteo, function(err, result){
-            if(err){
-                res.status(400).send(err);
-            }
-
-            if(req.session.user == null){
-                var json = filtrarInformacion(result);
-            }else{
-                if(req.session.user.role === ROL.PRIVILEGED){
-                    json = result;
-                }else{
-                    var json = filtrarInformacion(result);
-                }
-            }
-            res.status(200).send(json);
-        });
-    };
-
-    var euromillones_api_ticket = function(req, res){
-        var id = req.params.id;
-
-        EUR_DBM.getTicketById(id, function(err, result){
-            if(err){
-                res.status(400).send(err);
-            }
-
-            res.status(200).send(result);
         });
     };
 
@@ -389,7 +357,6 @@ module.exports = function(app){
 
     /* Tickets del Euromillones */
     app.get('/api/euromillones/tickets', euromillones_api_tickets);
-    app.get('/api/euromillones/tickets/anyo/:anyo/sorteo/:sorteo', euromillones_api_ticketPorAnyoYSorteo);
     app.get('/api/euromillones/tickets/:id', euromillones_api_ticketPorId);
     app.post('/api/euromillones/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_nuevoTicket);
     app.put('/api/euromillones/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_editarTicket);
