@@ -3,6 +3,9 @@ module.exports = function(app){
     var middlewares = require('../../middlewares');
     var ROL = require('../../roles');
 
+    var express = require("express");
+    var bonoloto = express.Router();
+
     var BON_DBM = require('../../modules/bonoloto-data-base-manager');
 
     var filtrarInformacion = function(result){
@@ -107,7 +110,7 @@ module.exports = function(app){
                     var json = filtrarInformacion(result);
                 }
             }
-            res.status(200).send(json);
+            res.status(200).send(JSON.stringify(json, null, 4));
         });
     };
 
@@ -138,7 +141,7 @@ module.exports = function(app){
                 res.status(400).send(err);
             }
 
-            res.status(200).send(result);
+            res.status(200).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -157,7 +160,7 @@ module.exports = function(app){
                     res.status(400).send(err);
                 }
 
-                res.status(200).send(result);
+                res.status(200).send(JSON.stringify(result, null, 4));
             });
         });
     };
@@ -182,7 +185,7 @@ module.exports = function(app){
                         res.status(400).send(err3);
                     }
 
-                    res.status(200).send(result3);
+                    res.status(200).send(JSON.stringify(result3, null, 4));
                 });
             });
         });
@@ -351,7 +354,7 @@ module.exports = function(app){
                 res.status(400).send(err);
             }
 
-            res.status(200).send(result);
+            res.status(200).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -368,7 +371,7 @@ module.exports = function(app){
                     res.status(400).send(err2);
                 }
 
-                res.status(200).send(result2);
+                res.status(200).send(JSON.stringify(result2, null, 4));
             });
         });
     };
@@ -381,7 +384,7 @@ module.exports = function(app){
 
         BON_DBM.getYearByName(name, function(err, result){
             if(err){
-                res.status(400).send(name);
+                res.status(400).send(err);
             }
 
             if(JSON.stringify(result) === "{}"){ // No existe aun
@@ -390,7 +393,7 @@ module.exports = function(app){
                         res.status(400).send(err);
                     }
 
-                    res.status(200).send(result);
+                    res.status(200).send(JSON.stringify(result, null, 4));
                 });
             }else{ // Ya hay uno con ese nombre
                 res.status(400).send('year-already-exists');
@@ -417,28 +420,38 @@ module.exports = function(app){
                     res.status(400).send(err);
                 }
 
-                res.status(200).send(result);
+                res.status(200).send(JSON.stringify(result, null, 4));
             });
         });
     };
 
     /* Tickets de Bonoloto */
-    app.get('/api/bonoloto/tickets', bonoloto_api_tickets);
-    app.get('/api/bonoloto/tickets/:id', bonoloto_api_ticketPorId);
-    app.post('/api/bonoloto/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_nuevoTicket);
-    app.put('/api/bonoloto/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_editarTicket);
-    app.delete('/api/bonoloto/tickets/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_borrarTicket);
+    bonoloto.route('/bonoloto/tickets')
+        .get(bonoloto_api_tickets)
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_nuevoTicket)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_editarTicket);
+    bonoloto.route('/bonoloto/tickets/:id')
+        .get(bonoloto_api_ticketPorId)
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_borrarTicket);
     
     /* Anyos */
-    app.get('/api/bonoloto/years', bonoloto_api_years);
-    app.get('/api/bonoloto/years/:id', bonoloto_api_year);
-    app.post('/api/bonoloto/years', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_addNewYear);
-    app.put('/api/bonoloto/years', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_editYear);
-    app.delete('/api/bonoloto/years/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_deleteYear);
+    bonoloto.route('/bonoloto/years')
+        .get(bonoloto_api_years)
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_addNewYear)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_editYear);
+    bonoloto.route('/bonoloto/years/:id')
+        .get(bonoloto_api_year)
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_deleteYear);
 
     /* Consultas: Estandar */
-    app.get('/api/bonoloto/historical/aparicionesPorResultado', bonoloto_api_historicoDeResultadosGlobales);
-    app.get('/api/bonoloto/historical/aparicionesPorResultadoConReintegro', bonoloto_api_historicoDeResultadosGlobalesConReintegro);
-    app.get('/api/bonoloto/historical/aparicionesPorNumero', bonoloto_api_historicoDeAparicionesPorNumero);
-    app.get('/api/bonoloto/historical/aparicionesPorReintegro', bonoloto_api_historicoDeAparicionesPorReintegro);
+    bonoloto.route('/bonoloto/historical/aparicionesPorResultado')
+        .get(bonoloto_api_historicoDeResultadosGlobales);
+    bonoloto.route('/bonoloto/historical/aparicionesPorResultadoConReintegro')
+        .get(bonoloto_api_historicoDeResultadosGlobalesConReintegro);
+    bonoloto.route('/bonoloto/historical/aparicionesPorNumero')
+        .get(bonoloto_api_historicoDeAparicionesPorNumero);
+    bonoloto.route('/bonoloto/historical/aparicionesPorReintegro')
+        .get(bonoloto_api_historicoDeAparicionesPorReintegro);
+
+    app.use('/api', bonoloto);
 };

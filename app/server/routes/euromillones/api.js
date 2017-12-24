@@ -4,11 +4,9 @@ module.exports = function(app){
     var ROL = require('../../roles');
 
     var express = require("express");
+    var euromillones = express.Router();
 
     var EUR_DBM = require('../../modules/euromillones-data-base-manager');
-
-    var express = require("express");
-    var euromillones = express.Router();
 
     var filtrarInformacion = function(result){
         var json = JSON.parse(JSON.stringify(result));
