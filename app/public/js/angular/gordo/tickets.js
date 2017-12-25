@@ -17,26 +17,25 @@ app.controller('TicketsController', function ($scope, $http, $window, $filter, V
 
     $scope.mostrarTickets = function(anyo){
         if($scope.tickets.length == 0 || $scope.tickets[0].anyo != anyo){
-            $http.get('/api/gordo/tickets/anyo/' + anyo)
-                .success(function(data){
-                    $scope.tickets = data;
-                    //$scope.numPages = Math.floor($scope.tickets.length / 2) + 1;
+            $http.get('/api/gordo/tickets', {
+                params: {
+                    year: anyo
+                }
+            })
+            .success(function(data){
+                $scope.tickets = data;
+                $scope.totalItems = data.length;
+                $scope.numOfPages = data.length / $scope.ticketsPerPage;
 
-                    $scope.totalItems = data.length;
+                var floor = Math.floor(data.length / $scope.ticketsPerPage);
 
-                    $scope.numOfPages = data.length / $scope.ticketsPerPage;
-
-                    console.log("Numero de paginas: " + $scope.numOfPages);
-
-                    var floor = Math.floor(data.length / $scope.ticketsPerPage);
-
-                    if($scope.numOfPages > floor){
-                        $scope.numOfPages = Math.floor(data.length / $scope.ticketsPerPage) + 1;
-                    }
-                })
-                .error(function(data){
-                    console.log(data);
-                });
+                if($scope.numOfPages > floor){
+                    $scope.numOfPages = Math.floor(data.length / $scope.ticketsPerPage) + 1;
+                }
+            })
+            .error(function(data){
+                console.log(data);
+            });
         }
     };
 
