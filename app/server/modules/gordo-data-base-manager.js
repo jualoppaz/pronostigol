@@ -1,8 +1,8 @@
 var db;
 
-var DBM = require('./init-data-base-manager');
+var ObjectID = require('mongodb').ObjectID;
 
-var numerosClave = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+var DBM = require('./init-data-base-manager');
 
 var gordo_tickets, gordo_years;
 
@@ -14,19 +14,25 @@ DBM.getDatabaseInstance(function(err, res){
 
        gordo_tickets = db.collection("gordo_tickets");
        gordo_years = db.collection("gordo_years");
-
    }
 });
 
 var getObjectId = function(id){
-    return gordo_tickets.db.bson_serializer.ObjectID.createFromHexString(id)
+    return ObjectID(id);
 };
 
-exports.getAllTickets = function(callback){
+exports.getAllTickets = function(filtros, callback){
+    var filters = {};
 
-    gordo_tickets.find({
+    if(filtros.year){
+        filters.anyo = filtros.year;
+    }
 
-    }).toArray(function(err, res){
+    if(filtros.raffle){
+        filters.sorteo = filtros.raffle;
+    }
+
+    gordo_tickets.find(filters).toArray(function(err, res){
         if(err){
             callback(err);
         }else{

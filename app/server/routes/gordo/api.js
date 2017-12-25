@@ -48,25 +48,22 @@ module.exports = function(app){
     };
 
     var gordo_api_tickets = function(req, res){
-        GOR_DBM.getAllTickets(function(err, result){
+        var query = req.query;
+        var year = query.year;
+        var raffle = query.raffle;
+
+        var filtros = {
+            year: year
+            ,
+            raffle: Number(raffle)
+        };
+
+        GOR_DBM.getAllTickets(filtros, function(err, result){
             if(err){
                 res.status(400).send(err);
             }
 
-            res.status(200).send(result);
-        });
-    };
-
-    var gordo_api_ticketsPorAnyo = function(req, res){
-
-        var anyo = req.params.anyo;
-
-        GOR_DBM.getTicketsByAnyo(anyo, function(err, result){
-            if(err){
-                res.status(400).send(err);
-            }
-
-            var finalRes = [];
+            var response = [];
             for(var i=0; i<result.length; i++){
                 var json;
                 if(req.session.user == null){
@@ -78,32 +75,9 @@ module.exports = function(app){
                         json = filtrarInformacion(result[i]);
                     }
                 }
-                finalRes.push(json);
+                response.push(json);
             }
-            res.status(200).send(finalRes);
-        });
-    };
-
-    var gordo_api_ticketPorAnyoYSorteo = function(req, res){
-        var anyo = req.params.anyo;
-        var sorteo = req.params.sorteo;
-
-        GOR_DBM.getTicketsByAnyoAndRaffle(anyo, sorteo, function(err, result){
-            if(err){
-                res.status(400).send(err);
-            }
-
-            if(req.session.user == null){
-                var json = filtrarInformacion(result);
-            }else{
-                if(req.session.user.role === ROL.PRIVILEGED){
-                    json = result;
-                }else{
-                    json = filtrarInformacion(result);
-                }
-            }
-
-            res.status(200).send(json);
+            res.status(200).send(JSON.stringify(response, null, 4));
         });
     };
 
@@ -378,10 +352,6 @@ module.exports = function(app){
     gordo.route('/gordo/tickets/:id')
         .get(gordo_api_ticketPorId)
         .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_borrarTicket);
-
-    // TODO: Las 2 siguientes rutas desaparecerán en cuanto se incluyan los query parameters en el recurso /gordo/tickets
-    app.get('/gordo/tickets/anyo/:anyo', gordo_api_ticketsPorAnyo);
-    app.get('/gordo/tickets/anyo/:anyo/sorteo/:sorteo', gordo_api_ticketPorAnyoYSorteo);
 
     /* Anyos */
     gordo.route('/gordo/years')
