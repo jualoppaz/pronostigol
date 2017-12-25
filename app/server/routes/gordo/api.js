@@ -3,6 +3,9 @@ module.exports = function(app){
     var middlewares = require('../../middlewares');
     var ROL = require('../../roles');
 
+    var express = require("express");
+    var gordo = express.Router();
+
     var GOR_DBM = require('../../modules/gordo-data-base-manager');
 
     var filtrarInformacion = function(result){
@@ -368,25 +371,37 @@ module.exports = function(app){
     };
 
     /* Tickets de El Gordo */
-    app.get('/api/gordo/tickets', gordo_api_tickets);
-    app.get('/api/gordo/tickets/anyo/:anyo', gordo_api_ticketsPorAnyo);
-    app.get('/api/gordo/tickets/anyo/:anyo/sorteo/:sorteo', gordo_api_ticketPorAnyoYSorteo);
-    app.get('/api/gordo/tickets/:id', gordo_api_ticketPorId);
-    app.post('/api/gordo/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_nuevoTicket);
-    app.put('/api/gordo/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_editarTicket);
-    app.delete('/api/gordo/tickets/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_borrarTicket);
+    gordo.route('/gordo/tickets')
+        .get(gordo_api_tickets)
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_nuevoTicket)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_editarTicket);
+    gordo.route('/gordo/tickets/:id')
+        .get(gordo_api_ticketPorId)
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_borrarTicket);
+
+    // TODO: Las 2 siguientes rutas desaparecerán en cuanto se incluyan los query parameters en el recurso /gordo/tickets
+    app.get('/gordo/tickets/anyo/:anyo', gordo_api_ticketsPorAnyo);
+    app.get('/gordo/tickets/anyo/:anyo/sorteo/:sorteo', gordo_api_ticketPorAnyoYSorteo);
 
     /* Anyos */
-    app.get('/api/gordo/years', gordo_api_years);
-    app.get('/api/gordo/years/:id', gordo_api_year);
-    app.post('/api/gordo/years', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_addNewYear);
-    app.put('/api/gordo/years', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_editYear);
-    app.delete('/api/gordo/years/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_deleteYear);
+    gordo.route('/gordo/years')
+        .get(gordo_api_years)
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_addNewYear)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_editYear);
+    gordo.route('/gordo/years/:id')
+        .get(gordo_api_year)
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_deleteYear);
 
     /* Consultas: Estandar */
-    app.get('/api/gordo/historical/aparicionesPorResultado', gordo_api_historicoDeAparicionesPorResultados);
-    app.get('/api/gordo/historical/aparicionesPorResultadoConNumeroClave', gordo_api_historicoDeAparicionesPorResultadoConNumeroClave);
-    app.get('/api/gordo/historical/aparicionesPorNumero', gordo_api_historicoDeAparicionesPorNumero);
-    app.get('/api/gordo/historical/aparicionesPorNumeroClave', gordo_api_historicoDeAparicionesPorNumeroClave);
+    gordo.route('/gordo/historical/aparicionesPorResultado')
+        .get(gordo_api_historicoDeAparicionesPorResultados);
+    gordo.route('/gordo/historical/aparicionesPorResultadoConNumeroClave')
+        .get(gordo_api_historicoDeAparicionesPorResultadoConNumeroClave);
+    gordo.route('/gordo/historical/aparicionesPorNumero')
+        .get(gordo_api_historicoDeAparicionesPorNumero);
+    gordo.route('/gordo/historical/aparicionesPorNumeroClave')
+        .get(gordo_api_historicoDeAparicionesPorNumeroClave);
+
+    app.use('/api', gordo);
 
 };
