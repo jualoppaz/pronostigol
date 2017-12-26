@@ -45,23 +45,19 @@ module.exports = function(app){
     };
 
     var primitiva_api_tickets = function(req, res){
-        PRI_DBM.getAllTickets(function(err, result){
+        var query = req.query;
+        var year = query.year;
+
+        var filtros = {
+            year: year
+        };
+
+        PRI_DBM.getAllTickets(filtros, function(err, result){
             if(err){
                 res.status(400).send(err);
             }
 
-            res.status(200).send(result);
-        });
-    };
-
-    var primitiva_api_ticketsPorAnyo = function(req, res){
-        var anyo = req.params.anyo;
-        PRI_DBM.getTicketsByAnyo(anyo, function(err, result){
-            if(err){
-                res.status(400).send(err);
-            }
-
-            var finalRes = [];
+            var response = [];
             for(var i=0; i<result.length;i++){
                 var json;
                 if(req.session.user == null){
@@ -73,9 +69,10 @@ module.exports = function(app){
                         json = filtrarInformacion(result[i]);
                     }
                 }
-                finalRes.push(json);
+                response.push(json);
             }
-            res.status(200).send(finalRes);
+
+            res.status(200).send(JSON.stringify(response, null, 4));
         });
     };
 
@@ -368,7 +365,6 @@ module.exports = function(app){
 
     /* Tickets de Primitiva */
     app.get('/api/primitiva/tickets', primitiva_api_tickets);
-    app.get('/api/primitiva/tickets/anyo/:anyo', primitiva_api_ticketsPorAnyo);
     app.get('/api/primitiva/tickets/anyo/:anyo/sorteo/:sorteo', primitiva_api_ticketPorAnyoYSorteo);
     app.get('/api/primitiva/tickets/:id', primitiva_api_ticketPorId);
     app.post('/api/primitiva/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), primitiva_api_nuevoTicket);
