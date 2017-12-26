@@ -3,6 +3,9 @@ module.exports = function(app){
     var Twitter = require('twitter');
     var UAParser = require('ua-parser-js');
 
+    var express = require("express");
+    var general = express.Router();
+
     var middlewares = require('../../middlewares');
     var ROL = require('../../roles');
 
@@ -857,39 +860,42 @@ module.exports = function(app){
     app.post('/api/signup', middlewares.isAuthorized_api([ROL.GUEST]), general_api_registroUsuario);
 
     /* Usuarios */
+    general.route('/users')
+        .get(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_usuarios)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_editarUsuario);
+    general.route('/users/:id')
+        .get(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_usuarios_usuario)
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_borrarUsuario);
+
     app.get('/api/user', middlewares.isLogged_api, general_api_usuarioLogueado);
-    app.get('/api/users', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_usuarios);
-    app.get('/api/users/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_usuarios_usuario);
-    app.put('/api/users', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_editarUsuario);
-    app.delete('/api/users/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_borrarUsuario);
 
     /* Comentarios (parte pública) */
 
-    app.get('/api/comments', general_api_comentarios);
+    general.route('/comments')
+        .get(general_api_comentarios)
+        .post(middlewares.isLogged_api, general_api_realizarComentario)
+        .put(middlewares.isLogged_api, general_api_editarComentario);
+
     app.get('/api/comments/:id', general_api_comentarios_comentario);
     app.get('/api/verifiedComments', general_api_comentariosVerificados);
     // El borrado de comentarios se ha implementado contemplando los 2 roles: autor y admin
     app.delete('/api/comments/:id', general_api_borrarComentario);
-    app.post('/api/comments', middlewares.isLogged_api, general_api_realizarComentario);
-    app.put('/api/comments', middlewares.isLogged_api, general_api_editarComentario);
 
     /* Respuestas a comentarios */
-
     app.post('/api/comments/:id/answers', general_api_comentario_nuevaRespuesta);
-
     /* Comentarios (específicos de Administración) */
-
     app.put('/api/admin/comments', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_admin_editarComentario);
 
     /* Respuestas a comentarios */
-
     app.post('/api/comments/:id/answers', general_api_comentario_nuevaRespuesta);
 
     /* Emails */
-    app.get('/api/emails', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_emails);
-    app.get('/api/emails/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_email);
-    app.post('/api/emails', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_enviarEmail);
-    app.delete('/api/emails/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_borrarEmail);
+    general.route('/emails')
+        .get(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_emails)
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_enviarEmail);
+    general.route('/emails/:id')
+        .get(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_email)
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_borrarEmail);
 
     /* Miscelanea */
     app.get('/api/aceptarCookies', general_api_aceptarCookies);
@@ -897,5 +903,7 @@ module.exports = function(app){
     app.get('/api/lastURL', general_api_lastURL);
     app.get('/lastModified', general_api_lastModified);
     app.get('/getVisitorInfo', general_api_visitorInfo);
+
+    app.use('/api', general);
 
 };
