@@ -426,32 +426,28 @@ module.exports = function(app){
     };
 
     /* Tickets de Bonoloto */
-    bonoloto.route('/bonoloto/tickets')
+    bonoloto.route('/tickets')
         .get(bonoloto_api_tickets)
         .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_nuevoTicket)
         .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_editarTicket);
-    bonoloto.route('/bonoloto/tickets/:id')
+    bonoloto.route('/tickets/:id')
         .get(bonoloto_api_ticketPorId)
         .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_borrarTicket);
     
     /* Anyos */
-    bonoloto.route('/bonoloto/years')
+    bonoloto.route('/years')
         .get(bonoloto_api_years)
         .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_addNewYear)
         .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_editYear);
-    bonoloto.route('/bonoloto/years/:id')
+    bonoloto.route('/years/:id')
         .get(bonoloto_api_year)
         .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_deleteYear);
 
     /* Consultas: Estandar */
-    bonoloto.route('/bonoloto/historical/aparicionesPorResultado')
-        .get(bonoloto_api_historicoDeResultadosGlobales);
-    bonoloto.route('/bonoloto/historical/aparicionesPorResultadoConReintegro')
-        .get(bonoloto_api_historicoDeResultadosGlobalesConReintegro);
-    bonoloto.route('/bonoloto/historical/aparicionesPorNumero')
-        .get(bonoloto_api_historicoDeAparicionesPorNumero);
-    bonoloto.route('/bonoloto/historical/aparicionesPorReintegro')
-        .get(bonoloto_api_historicoDeAparicionesPorReintegro);
+    bonoloto.get('/historical/aparicionesPorResultado', bonoloto_api_historicoDeResultadosGlobales);
+    bonoloto.get('/historical/aparicionesPorResultadoConReintegro', bonoloto_api_historicoDeResultadosGlobalesConReintegro);
+    bonoloto.get('/historical/aparicionesPorNumero', bonoloto_api_historicoDeAparicionesPorNumero);
+    bonoloto.get('/historical/aparicionesPorReintegro', bonoloto_api_historicoDeAparicionesPorReintegro);
 
-    app.use('/api', bonoloto);
+    app.use('/api/bonoloto', bonoloto);
 };

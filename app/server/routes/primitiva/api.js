@@ -3,6 +3,9 @@ module.exports = function(app){
     var middlewares = require('../../middlewares');
     var ROL = require('../../roles');
 
+    var express = require("express");
+    var primitiva = express.Router();
+
     var PRI_DBM = require('../../modules/primitiva-data-base-manager');
 
     var filtrarInformacion = function(result){
@@ -195,7 +198,6 @@ module.exports = function(app){
             }
             res.status(200).send(JSON.stringify(response, null, 4));
         });
-
     };
 
     var primitiva_api_historicoDeResultadosGlobales = function(req, res){
@@ -328,38 +330,44 @@ module.exports = function(app){
         PRI_DBM.getTicketById(id, function(err, result){
             if(err){
                 res.status(400).send(err);
-            }else{
-                if(req.session.user == null){
-                    var json = filtrarInformacion(result);
-                }else{
-                    if(req.session.user.role === ROL.PRIVILEGED || req.session.user.role === ROL.ADMIN){
-                        json = result;
-                    }else{
-                        var json = filtrarInformacion(result);
-                    }
-                }
-                res.status(200).send(json);
             }
+
+            if(req.session.user == null){
+                var json = filtrarInformacion(result);
+            }else{
+                if(req.session.user.role === ROL.PRIVILEGED || req.session.user.role === ROL.ADMIN){
+                    json = result;
+                }else{
+                    var json = filtrarInformacion(result);
+                }
+            }
+            res.status(200).send(json);
         });
     };
 
     /* Tickets de Primitiva */
-    app.get('/api/primitiva/tickets', primitiva_api_tickets);
-    app.get('/api/primitiva/tickets/:id', primitiva_api_ticketPorId);
-    app.post('/api/primitiva/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), primitiva_api_nuevoTicket);
-    app.put('/api/primitiva/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), primitiva_api_editarTicket);
-    app.delete('/api/primitiva/tickets/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), primitiva_api_borrarTicket);
+    primitiva.route('/tickets')
+        .get(primitiva_api_tickets)
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), primitiva_api_nuevoTicket)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), primitiva_api_editarTicket);
+    primitiva.route('/tickets/:id')
+        .get(primitiva_api_ticketPorId)
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), primitiva_api_borrarTicket);
 
     /* Anyos */
-    app.get('/api/primitiva/years', primitiva_api_years);
-    app.get('/api/primitiva/years/:id', primitiva_api_year);
-    app.post('/api/primitiva/years', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), primitiva_api_addNewYear);
-    app.put('/api/primitiva/years', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), primitiva_api_editYear);
-    app.delete('/api/primitiva/years/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), primitiva_api_deleteYear);
+    primitiva.route('/years')
+        .get(primitiva_api_years)
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), primitiva_api_addNewYear)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), primitiva_api_editYear);
+    primitiva.route('/years/:id')
+        .get(primitiva_api_year)
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), primitiva_api_deleteYear);
 
     /* Consultas: Estandar */
-    app.get('/api/primitiva/historical/aparicionesPorResultado', primitiva_api_historicoDeResultadosGlobales);
-    app.get('/api/primitiva/historical/aparicionesPorResultadoConReintegro', primitiva_api_historicoDeResultadosGlobalesConReintegro);
-    app.get('/api/primitiva/historical/aparicionesPorNumero', primitiva_api_historicoDeAparicionesPorNumero);
-    app.get('/api/primitiva/historical/aparicionesPorReintegro', primitiva_api_historicoDeAparicionesPorReintegro);
+    primitiva.get('/historical/aparicionesPorResultado', primitiva_api_historicoDeResultadosGlobales);
+    primitiva.get('/historical/aparicionesPorResultadoConReintegro', primitiva_api_historicoDeResultadosGlobalesConReintegro);
+    primitiva.get('/historical/aparicionesPorNumero', primitiva_api_historicoDeAparicionesPorNumero);
+    primitiva.get('/historical/aparicionesPorReintegro', primitiva_api_historicoDeAparicionesPorReintegro);
+
+    app.use('/api/primitiva', primitiva);
 };
