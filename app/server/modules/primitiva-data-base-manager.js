@@ -4,14 +4,6 @@ var ObjectID = require('mongodb').ObjectID;
 
 var DBM = require('./init-data-base-manager');
 
-var numerosBolas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-                11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-                21, 22, 23, 24, 25, 26, 27, 28, 29, 30,
-                31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
-                41, 42, 43, 44, 45, 46, 47, 48, 49];
-
-var numerosReintegros = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-
 var primitiva_tickets, primitiva_years;
 
 DBM.getDatabaseInstance(function(err, res){
@@ -22,7 +14,6 @@ DBM.getDatabaseInstance(function(err, res){
 
        primitiva_tickets = db.collection("primitiva_tickets");
        primitiva_years = db.collection("primitiva_years");
-
    }
 });
 
@@ -30,11 +21,18 @@ var getObjectId = function(id){
     return ObjectID(id);
 };
 
-exports.getAllTickets = function(callback){
+exports.getAllTickets = function(filtros, callback){
+    var filters = {};
 
-    primitiva_tickets.find({
+    if(filtros.year){
+        filters.anyo = filtros.year;
+    }
 
-    }).toArray(function(err, res){
+    if(filtros.raffle){
+        filters.sorteo = filtros.raffle;
+    }
+
+    primitiva_tickets.find(filters).toArray(function(err, res){
         if(err){
             callback(err);
         }else{
@@ -44,7 +42,6 @@ exports.getAllTickets = function(callback){
 };
 
 exports.getTicketsByAnyo = function(anyo, callback){
-
     primitiva_tickets.find({
         anyo: anyo
     }).toArray(function(err, res){

@@ -360,36 +360,29 @@ module.exports = function(app){
     };
 
     /* Tickets del Euromillones */
-    euromillones.route('/euromillones/tickets')
+    euromillones.route('/tickets')
         .get(euromillones_api_tickets)
         .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_nuevoTicket)
         .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_editarTicket);
-
-    euromillones.route('/euromillones/tickets/:id')
+    euromillones.route('/tickets/:id')
         .get(euromillones_api_ticketPorId)
         .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_borrarTicket);
 
     /* Anyos */
-    euromillones.route('/euromillones/years')
+    euromillones.route('/years')
         .get(euromillones_api_years)
         .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_addNewYear)
         .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_editYear);
-
-    euromillones.route('/euromillones/years/:id')
+    euromillones.route('/years/:id')
         .get(euromillones_api_year)
         .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_deleteYear);
 
     /* Consultas: Estandar */
-    euromillones.route('/euromillones/historical/aparicionesPorResultado')
-        .get(euromillones_api_historicoDeResultadosGlobales);
-    euromillones.route('/euromillones/historical/aparicionesPorResultadoConEstrellas')
-        .get(euromillones_api_historicoDeResultadosGlobalesConEstrellas);
-    euromillones.route('/euromillones/historical/aparicionesPorNumero')
-        .get(euromillones_api_historicoDeAparicionesPorNumero);
-    euromillones.route('/euromillones/historical/aparicionesPorEstrella')
-        .get(euromillones_api_historicoDeAparicionesPorEstrella);
-    euromillones.route('/euromillones/historical/aparicionesPorParejaDeEstrellas')
-        .get(euromillones_api_historicoDeAparicionesPorParejaDeEstrellas);
+    euromillones.get('/historical/aparicionesPorResultado', euromillones_api_historicoDeResultadosGlobales);
+    euromillones.get('/historical/aparicionesPorResultadoConEstrellas', euromillones_api_historicoDeResultadosGlobalesConEstrellas);
+    euromillones.get('/historical/aparicionesPorNumero', euromillones_api_historicoDeAparicionesPorNumero);
+    euromillones.get('/historical/aparicionesPorEstrella', euromillones_api_historicoDeAparicionesPorEstrella);
+    euromillones.get('/historical/aparicionesPorParejaDeEstrellas', euromillones_api_historicoDeAparicionesPorParejaDeEstrellas);
 
-    app.use('/api', euromillones);
+    app.use('/api/euromillones', euromillones);
 };

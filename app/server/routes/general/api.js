@@ -855,9 +855,9 @@ module.exports = function(app){
     };
 
     /* Login en la aplicacion */
-    app.post('/api/login', middlewares.isAuthorized_api([ROL.GUEST]), general_api_login);
-    app.get('/api/logout', middlewares.isLogged_api, general_api_logout);
-    app.post('/api/signup', middlewares.isAuthorized_api([ROL.GUEST]), general_api_registroUsuario);
+    general.post('/login', middlewares.isAuthorized_api([ROL.GUEST]), general_api_login);
+    general.get('/logout', middlewares.isLogged_api, general_api_logout);
+    general.post('/signup', middlewares.isAuthorized_api([ROL.GUEST]), general_api_registroUsuario);
 
     /* Usuarios */
     general.route('/users')
@@ -867,7 +867,7 @@ module.exports = function(app){
         .get(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_usuarios_usuario)
         .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_borrarUsuario);
 
-    app.get('/api/user', middlewares.isLogged_api, general_api_usuarioLogueado);
+    general.get('/user', middlewares.isLogged_api, general_api_usuarioLogueado);
 
     /* Comentarios (parte pública) */
 
@@ -876,18 +876,18 @@ module.exports = function(app){
         .post(middlewares.isLogged_api, general_api_realizarComentario)
         .put(middlewares.isLogged_api, general_api_editarComentario);
 
-    app.get('/api/comments/:id', general_api_comentarios_comentario);
-    app.get('/api/verifiedComments', general_api_comentariosVerificados);
+    general.get('/comments/:id', general_api_comentarios_comentario);
+    general.get('/verifiedComments', general_api_comentariosVerificados);
     // El borrado de comentarios se ha implementado contemplando los 2 roles: autor y admin
-    app.delete('/api/comments/:id', general_api_borrarComentario);
+    general.delete('/comments/:id', general_api_borrarComentario);
 
     /* Respuestas a comentarios */
-    app.post('/api/comments/:id/answers', general_api_comentario_nuevaRespuesta);
+    general.post('/comments/:id/answers', general_api_comentario_nuevaRespuesta);
     /* Comentarios (específicos de Administración) */
-    app.put('/api/admin/comments', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_admin_editarComentario);
+    general.put('/admin/comments', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_admin_editarComentario);
 
     /* Respuestas a comentarios */
-    app.post('/api/comments/:id/answers', general_api_comentario_nuevaRespuesta);
+    general.post('/comments/:id/answers', general_api_comentario_nuevaRespuesta);
 
     /* Emails */
     general.route('/emails')
@@ -898,9 +898,9 @@ module.exports = function(app){
         .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_borrarEmail);
 
     /* Miscelanea */
-    app.get('/api/aceptarCookies', general_api_aceptarCookies);
-    app.get('/api/twitter/pronostigolTweets', general_api_pronostigolTweets);
-    app.get('/api/lastURL', general_api_lastURL);
+    general.get('/aceptarCookies', general_api_aceptarCookies);
+    general.get('/twitter/pronostigolTweets', general_api_pronostigolTweets);
+    general.get('/lastURL', general_api_lastURL);
     app.get('/lastModified', general_api_lastModified);
     app.get('/getVisitorInfo', general_api_visitorInfo);
 

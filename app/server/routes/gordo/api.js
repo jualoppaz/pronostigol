@@ -345,33 +345,29 @@ module.exports = function(app){
     };
 
     /* Tickets de El Gordo */
-    gordo.route('/gordo/tickets')
+    gordo.route('/tickets')
         .get(gordo_api_tickets)
         .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_nuevoTicket)
         .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_editarTicket);
-    gordo.route('/gordo/tickets/:id')
+    gordo.route('/tickets/:id')
         .get(gordo_api_ticketPorId)
         .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_borrarTicket);
 
     /* Anyos */
-    gordo.route('/gordo/years')
+    gordo.route('/years')
         .get(gordo_api_years)
         .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_addNewYear)
         .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_editYear);
-    gordo.route('/gordo/years/:id')
+    gordo.route('/years/:id')
         .get(gordo_api_year)
         .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_deleteYear);
 
     /* Consultas: Estandar */
-    gordo.route('/gordo/historical/aparicionesPorResultado')
-        .get(gordo_api_historicoDeAparicionesPorResultados);
-    gordo.route('/gordo/historical/aparicionesPorResultadoConNumeroClave')
-        .get(gordo_api_historicoDeAparicionesPorResultadoConNumeroClave);
-    gordo.route('/gordo/historical/aparicionesPorNumero')
-        .get(gordo_api_historicoDeAparicionesPorNumero);
-    gordo.route('/gordo/historical/aparicionesPorNumeroClave')
-        .get(gordo_api_historicoDeAparicionesPorNumeroClave);
+    gordo.get('/historical/aparicionesPorResultado', gordo_api_historicoDeAparicionesPorResultados);
+    gordo.get('/historical/aparicionesPorResultadoConNumeroClave', gordo_api_historicoDeAparicionesPorResultadoConNumeroClave);
+    gordo.get('/historical/aparicionesPorNumero', gordo_api_historicoDeAparicionesPorNumero);
+    gordo.get('/historical/aparicionesPorNumeroClave', gordo_api_historicoDeAparicionesPorNumeroClave);
 
-    app.use('/api', gordo);
+    app.use('/api/gordo', gordo);
 
 };
