@@ -28,6 +28,10 @@ exports.getAllTickets = function(filtros, callback){
         filters.anyo = filtros.year;
     }
 
+    if(filtros.raffle){
+        filters.sorteo = filtros.raffle;
+    }
+
     primitiva_tickets.find(filters).toArray(function(err, res){
         if(err){
             callback(err);
@@ -38,7 +42,6 @@ exports.getAllTickets = function(filtros, callback){
 };
 
 exports.getTicketsByAnyo = function(anyo, callback){
-
     primitiva_tickets.find({
         anyo: anyo
     }).toArray(function(err, res){

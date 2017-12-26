@@ -47,9 +47,11 @@ module.exports = function(app){
     var primitiva_api_tickets = function(req, res){
         var query = req.query;
         var year = query.year;
+        var raffle = query.raffle;
 
         var filtros = {
-            year: year
+            year: year,
+            raffle: Number(raffle)
         };
 
         PRI_DBM.getAllTickets(filtros, function(err, result){
@@ -73,28 +75,6 @@ module.exports = function(app){
             }
 
             res.status(200).send(JSON.stringify(response, null, 4));
-        });
-    };
-
-    var primitiva_api_ticketPorAnyoYSorteo = function(req, res){
-        var anyo = req.params.anyo;
-        var sorteo = req.params.sorteo;
-
-        PRI_DBM.getTicketsByAnyoAndRaffle(anyo, sorteo, function(err, result){
-            if(err){
-                res.status(400).send(err);
-            }else{
-                if(req.session.user == null){
-                    var json = filtrarInformacion(result);
-                }else{
-                    if(req.session.user.role === ROL.PRIVILEGED){
-                        json = result;
-                    }else{
-                        var json = filtrarInformacion(result);
-                    }
-                }
-                res.status(200).send(json);
-            }
         });
     };
 
@@ -365,7 +345,6 @@ module.exports = function(app){
 
     /* Tickets de Primitiva */
     app.get('/api/primitiva/tickets', primitiva_api_tickets);
-    app.get('/api/primitiva/tickets/anyo/:anyo/sorteo/:sorteo', primitiva_api_ticketPorAnyoYSorteo);
     app.get('/api/primitiva/tickets/:id', primitiva_api_ticketPorId);
     app.post('/api/primitiva/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), primitiva_api_nuevoTicket);
     app.put('/api/primitiva/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), primitiva_api_editarTicket);
