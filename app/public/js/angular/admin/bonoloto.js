@@ -18,26 +18,31 @@ app.controller('BonolotoController', function ($scope, $http){
     var ticketsPerPage_default = 20;
     $scope.ticketsPerPage = ticketsPerPage_default;
 
-    $http.get('/api/bonoloto/tickets')
-        .success(function(data){
-            $scope.tickets = data;
+    $http.get('/api/bonoloto/tickets', {
+        params: {
+            page: 1,
+            per_page: ticketsPerPage_default
+        }
+    })
+    .success(function(data){
+        $scope.tickets = data;
 
-            $scope.totalItems = $scope.tickets.length;
+        $scope.totalItems = $scope.tickets.length;
 
-            $scope.numOfPages = $scope.tickets.length / $scope.ticketsPerPage;
+        $scope.numOfPages = $scope.tickets.length / $scope.ticketsPerPage;
 
-            console.log("Numero de paginas: " + $scope.numOfPages);
+        console.log("Numero de paginas: " + $scope.numOfPages);
 
-            var floor = Math.floor($scope.tickets.length / $scope.ticketsPerPage);
+        var floor = Math.floor($scope.tickets.length / $scope.ticketsPerPage);
 
-            if($scope.numOfPages > floor){
-                $scope.numOfPages = Math.floor($scope.tickets.length / $scope.ticketsPerPage) + 1;
-            }
+        if($scope.numOfPages > floor){
+            $scope.numOfPages = Math.floor($scope.tickets.length / $scope.ticketsPerPage) + 1;
+        }
 
-        })
-        .error(function(data){
-            console.log(data);
-        });
+    })
+    .error(function(data){
+        console.log(data);
+    });
 
     $scope.verTicket = function(id){
         window.location.href = "/admin/bonoloto/tickets/" + id;
