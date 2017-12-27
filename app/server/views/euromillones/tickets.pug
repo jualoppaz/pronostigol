@@ -31,21 +31,15 @@ block content
                         div.col-md-12.col-sm-12.col-xs-12
 
                             div.col-md-3
-                                ul.list-group.lista-temporadas-euromillones
-                                    li.list-group-item(ng-click="mostrarTickets('2004')").pointer Año 2004
-                                    li.list-group-item(ng-click="mostrarTickets('2005')").pointer Año 2005
-                                    li.list-group-item(ng-click="mostrarTickets('2006')").pointer Año 2006
-                                    li.list-group-item(ng-click="mostrarTickets('2007')").pointer Año 2007
-                                    li.list-group-item(ng-click="mostrarTickets('2008')").pointer Año 2008
-                                    li.list-group-item(ng-click="mostrarTickets('2009')").pointer Año 2009
-                                    li.list-group-item(ng-click="mostrarTickets('2010')").pointer Año 2010
-                                    li.list-group-item(ng-click="mostrarTickets('2011')").pointer Año 2011
-                                    li.list-group-item(ng-click="mostrarTickets('2012')").pointer Año 2012
-                                    li.list-group-item(ng-click="mostrarTickets('2013')").pointer Año 2013
-                                    li.list-group-item(ng-click="mostrarTickets('2014')").pointer Año 2014
-                                    li.list-group-item(ng-click="mostrarTickets('2015')").pointer Año 2015
-                                    li.list-group-item(ng-click="mostrarTickets('2016')").pointer Año 2016
-                                    li.list-group-item(ng-click="mostrarTickets('2017')").pointer Año 2017
+                                div.alert.alert-euromillones
+                                    div.text-center
+                                        i(aria-hidden="true", ng-hide="years").fa.fa-refresh.fa-spin
+                                    ui-select(data-ng-model="selected.year", on-select="mostrarTickets(selected.year.value)"
+                                    , search-enabled="false", ng-show="years", ng-cloak)
+                                        ui-select-match(placeholder="Selecciona un año")
+                                            | {{$select.selected.value}}
+                                        ui-select-choices(repeat="year in years | orderBy:'-value'")
+                                            div {{year.value}}
 
                             div.col-md-7.col-md-offset-1(ng-show="tickets.length > 0", ng-cloak, style="background-color: white; margin-bottom: 20px; border: 2px solid #440044 !important; border-radius: 4px")
                                 div.col-md-12(style="padding-top: 20px")

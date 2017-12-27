@@ -8,6 +8,14 @@ app.controller('TicketsController', function ($scope, $http, $window, $filter, V
     $scope.currentPage = 1;
     $scope.ticketsPerPage = 5;
 
+    $http.get('/api/euromillones/years')
+        .success(function(data){
+            $scope.years = data;
+        })
+        .error(function(err){
+            console.log(err);
+        });
+
     $scope.mostrarTickets = function(anyo){
         if($scope.tickets.length == 0 || $scope.tickets[0].anyo != anyo){
             $http.get('/api/euromillones/tickets', {
