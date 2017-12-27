@@ -4,7 +4,7 @@ block head
     title Bonoloto: Tickets
     link(rel="stylesheet", href="/css/pronostigol.css")
     link(rel="stylesheet", href="/css/backgroundImage.css")
-
+    link(rel="stylesheet", href="/css/ui-select/dist/select.css")
 
 block content
     div#wrap(ng-app="qdb")
@@ -27,14 +27,18 @@ block content
                             div.col-md-6.col-sm-6.col-xs-12
                                 div.alert.alert-bonoloto
                                     | Aqu&iacute; podr&aacute;s buscar los sorteos de la Bonoloto de los años que se indican a continuaci&oacute;n.
-
+                                    
                         div.col-md-12.col-sm-12.col-xs-12
-
                             div.col-md-3
-                                ul.list-group.lista-temporadas-bonoloto
-                                    li.list-group-item(ng-click="mostrarTickets('2015')").pointer Año 2015
-                                    li.list-group-item(ng-click="mostrarTickets('2016')").pointer Año 2016
-                                    li.list-group-item(ng-click="mostrarTickets('2017')").pointer Año 2017
+                                div.alert.alert-bonoloto
+                                    div.text-center
+                                        i(aria-hidden="true", ng-hide="years").fa.fa-refresh.fa-spin
+                                    ui-select(data-ng-model="selected.year", on-select="mostrarTickets(selected.year.value)"
+                                        , search-enabled="false", ng-show="years", ng-cloak)
+                                        ui-select-match(placeholder="Selecciona un año")
+                                            | {{$select.selected.value}}
+                                        ui-select-choices(repeat="year in years | orderBy:'-value'")
+                                            div {{year.value}}
 
                             div.col-md-7.col-md-offset-1(ng-show="tickets.length > 0", ng-cloak, style="background-color: white; margin-bottom: 20px; border: 2px solid #2b2b2b !important; border-radius: 4px")
                                 div.col-md-12(style="padding-top: 20px")
@@ -77,4 +81,5 @@ block scripts
     script(src='/js/angular/bonoloto/tickets.js')
     script(src='/js/angular/navbar.js')
     script(src='/js/angular/ui-bootstrap-tpls-1.3.3.js')
+    script(src='/js/angular/ui-select/dist/select.js')
 
