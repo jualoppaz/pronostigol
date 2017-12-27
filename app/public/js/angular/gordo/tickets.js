@@ -15,6 +15,14 @@ app.controller('TicketsController', function ($scope, $http, $window, $filter, V
     var ticketsPerPage_default = 5;
     $scope.ticketsPerPage = ticketsPerPage_default;
 
+    $http.get('/api/gordo/years')
+        .success(function(data){
+            $scope.years = data;
+        })
+        .error(function(err){
+            console.log(err);
+        });
+
     $scope.mostrarTickets = function(anyo){
         if($scope.tickets.length == 0 || $scope.tickets[0].anyo != anyo){
             $http.get('/api/gordo/tickets', {
