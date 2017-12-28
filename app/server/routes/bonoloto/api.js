@@ -58,15 +58,26 @@ module.exports = function(app){
      *
      * @apiParam {Number} year Año asociado a los sorteos consultados
      * @apiParam {Number} raffle Identificador único del sorteo dentro de un año
+     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {String} sort_type Sentido de la ordenación de registros. Por defecto se ordenan por fecha descendentemente.
      * @apiSampleRequest /api/bonoloto/tickets
      */
     var bonoloto_api_tickets = function(req, res){
-        var year = req.query.year;
-        var raffle = req.query.raffle;
+        var query = req.query;
+        var year = query.year;
+        var raffle = query.raffle;
+        var page = query.page || 1;
+        var perPage = query.per_page || 10;
+        var type = query.sort_type || 'desc';
 
         var filtros = {
             year: year,
-            raffle: Number(raffle)
+            raffle: Number(raffle),
+            page: Number(page),
+            perPage: Number(perPage),
+            sort: 'fecha',
+            type: type
         };
 
         BON_DBM.getAllTickets(filtros, function(err, result){
@@ -74,22 +85,25 @@ module.exports = function(app){
                 res.status(400).send(err);
             }
 
-            var response = [];
-            for(var i=0; i<result.length; i++){
+            var filteredData = [];
+            var tickets = result.data;
+            for(var i=0; i<tickets.length; i++){
                 var json;
                 if(req.session.user == null){
-                    json = filtrarInformacion(result[i]);
+                    json = filtrarInformacion(tickets[i]);
                 }else{
                     if(req.session.user.role === ROL.PRIVILEGED || req.session.user.role === ROL.ADMIN){
-                        json = result[i];
+                        json = tickets[i];
                     }else{
-                        json = filtrarInformacion(result[i]);
+                        json = filtrarInformacion(tickets[i]);
                     }
                 }
-                response.push(json);
+                filteredData.push(json);
             }
 
-            res.status(200).send(JSON.stringify(response, null, 4));
+            result.data = filteredData;
+
+            res.status(200).send(JSON.stringify(result, null, 4));
         });
     };
 
