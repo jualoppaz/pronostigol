@@ -1,6 +1,10 @@
 var app = angular.module('qdb');
 
-app.controller('TicketsController', function ($scope, $http, $window, $filter, VariosService) {
+app.controller('TicketsController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', '$filter', 'VariosService', 'primitiva'];
+
+function Controller ($scope, $http, $window, $filter, VariosService, primitiva) {
 
     $scope.tickets = [];
 
@@ -10,6 +14,14 @@ app.controller('TicketsController', function ($scope, $http, $window, $filter, V
 
     $scope.currentPage = 1;
     $scope.ticketsPerPage = 5;
+
+    primitiva.getAllYears()
+        .then(function(data){
+            $scope.years = data;
+        })
+        .catch(function(err){
+            console.log(err);
+        });
 
     $scope.mostrarTickets = function(anyo){
         if($scope.tickets.length == 0 || $scope.tickets[0].anyo != anyo){
@@ -65,4 +77,4 @@ app.controller('TicketsController', function ($scope, $http, $window, $filter, V
         return VariosService.apuestaRealizada(ticket);
     };
 
-});
+};

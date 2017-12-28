@@ -5,7 +5,6 @@ block head
     link(rel="stylesheet", href="/css/pronostigol.css")
     link(rel="stylesheet", href="/css/backgroundImage.css")
 
-
 block content
     div#wrap(ng-app="qdb")
 
@@ -31,10 +30,15 @@ block content
                         div.col-md-12.col-sm-12.col-xs-12
 
                             div.col-md-3
-                                ul.list-group.lista-temporadas-primitiva
-                                    li.list-group-item(ng-click="mostrarTickets('2015')").pointer Año 2015
-                                    li.list-group-item(ng-click="mostrarTickets('2016')").pointer Año 2016
-                                    li.list-group-item(ng-click="mostrarTickets('2017')").pointer Año 2017
+                                div.alert.alert-primitiva
+                                    div.text-center
+                                        i(aria-hidden="true", ng-hide="years").fa.fa-refresh.fa-spin
+                                    ui-select(data-ng-model="selected.year", on-select="mostrarTickets(selected.year.value)"
+                                        , search-enabled="false", ng-show="years", ng-cloak)
+                                        ui-select-match(placeholder="Selecciona un año")
+                                            | {{$select.selected.value}}
+                                        ui-select-choices(repeat="year in years | orderBy:'-value'")
+                                            div {{year.value}}
 
                             div.col-md-7.col-md-offset-1(ng-show="tickets.length > 0", ng-cloak, style="background-color: white; margin-bottom: 20px; border: 2px solid #398439 !important; border-radius: 4px")
                                 div.col-md-12(style="padding-top: 20px")
