@@ -1,6 +1,10 @@
 var app = angular.module('qdb');
 
-app.controller('QuinielasController', function ($scope, $http, $window) {
+app.controller('QuinielasController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', 'quiniela'];
+
+function Controller ($scope, $http, $window, quiniela) {
 
     $scope.tickets = [];
 
@@ -12,7 +16,30 @@ app.controller('QuinielasController', function ($scope, $http, $window) {
     $scope.ticketsPerPage = 5;
     $scope.maxSize = 5;
 
-    $scope.mostrarQuinielasDeTemporada = function(temporada){
+    $scope.selected = {
+        season: null
+    };
+
+    quiniela.getAllSeasons()
+        .then(function(data){
+
+            var seasons = [];
+
+            for(var i=0; i<data.length; i++){
+                var season = data[i];
+
+                if(season.value !== "Histórico"){
+                    seasons.push(season);
+                }
+            }
+
+            $scope.seasons = seasons;
+        })
+        .catch(function(err){
+            console.log(err);
+        });
+
+    $scope.mostrarTickets = function(temporada){
         if($scope.tickets.length == 0 || $scope.tickets[0].temporada != temporada){
             $http.get('/api/quiniela/tickets/season/' + temporada)
                 .success(function(data){
@@ -22,23 +49,15 @@ app.controller('QuinielasController', function ($scope, $http, $window) {
 
                     $scope.numOfPages = data.length / $scope.ticketsPerPage;
 
-                    console.log("Numero de paginas: " + $scope.numOfPages);
-
                     var floor = Math.floor(data.length / $scope.ticketsPerPage);
 
                     if($scope.numOfPages > floor){
                         $scope.numOfPages = Math.floor(data.length / $scope.ticketsPerPage) + 1;
                     }
 
-                    $scope.paginas = [];
-
-                    for(var i=0; i<$scope.numOfPages; i++){
-                        $scope.paginas[i] = i+1;
-                    }
-
                 })
-                .error(function(data){
-                    alert(data);
+                .error(function(err){
+                    console.log(err);
                 });
         }
     };
@@ -60,4 +79,4 @@ app.controller('QuinielasController', function ($scope, $http, $window) {
         return VariosService.apuestaRealizada(ticket);
     };
 
-});
+};
