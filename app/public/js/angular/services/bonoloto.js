@@ -19,8 +19,6 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            console.log("Query parameters:", queryParameters);
-
             $http.get('/api/bonoloto/tickets', {
                 params: queryParameters
             })
@@ -40,7 +38,7 @@
 
             $http.get('/api/bonoloto/years')
                 .then(function(data){
-                    defered.resolve(data);
+                    defered.resolve(data.data);
                 })
                 .catch(function(err){
                     defered.reject(err);

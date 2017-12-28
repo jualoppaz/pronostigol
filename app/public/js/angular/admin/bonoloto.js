@@ -23,7 +23,7 @@ function Controller ($scope, $http, bonoloto){
     $scope.ticketsPerPage = ticketsPerPage_default;
 
     bonoloto.getAllTickets({
-        page: 1,
+        page: $scope.currentPage,
         per_page: ticketsPerPage_default
     })
         .then(function(data){

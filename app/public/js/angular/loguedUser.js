@@ -1,6 +1,6 @@
 // Controlador Base. Por eso es el único que tiene dependencias
 
-var app = angular.module('qdb', ['services', 'ui.bootstrap', 'ngSanitize', 'ui.select']);
+var app = angular.module('qdb', ['services', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'bonoloto']);
 
 app.config(function(uiSelectConfig) {
     uiSelectConfig.theme = 'bootstrap';

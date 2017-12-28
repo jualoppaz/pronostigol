@@ -44,8 +44,6 @@ exports.getAllTickets = function(filtros, callback){
         skip: skip
     };
 
-    console.log("Opciones: ", options);
-
     bonoloto_tickets.count(filters, function(err, total){
         if(err){
             callback(err);
@@ -61,9 +59,7 @@ exports.getAllTickets = function(filtros, callback){
                         total: total,
                         data: res
                     };
-
-                    console.log("Respuesta construida:", result);
-
+                    
                     callback(null, result);
                 }
             });
