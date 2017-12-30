@@ -25,32 +25,24 @@ function Controller ($scope, $http, $window, $filter, VariosService, primitiva) 
 
     $scope.mostrarTickets = function(anyo){
         if($scope.tickets.length == 0 || $scope.tickets[0].anyo != anyo){
-            $http.get('/api/primitiva/tickets', {
-                params: {
-                    year: anyo
-                }
+
+            primitiva.getAllTickets({
+                year: anyo
             })
-            .success(function(data){
-                $scope.tickets = data;
-                $scope.totalItems = data.length;
-                $scope.numOfPages = data.length / $scope.ticketsPerPage;
+                .then(function(data){
+                    $scope.tickets = data;
+                    $scope.totalItems = data.length;
+                    $scope.numOfPages = data.length / $scope.ticketsPerPage;
 
-                var floor = Math.floor(data.length / $scope.ticketsPerPage);
+                    var floor = Math.floor(data.length / $scope.ticketsPerPage);
 
-                if($scope.numOfPages > floor){
-                    $scope.numOfPages = Math.floor(data.length / $scope.ticketsPerPage) + 1;
-                }
-
-                $scope.paginas = [];
-
-                for(var i=0; i<$scope.numOfPages; i++){
-                    $scope.paginas[i] = i+1;
-                }
-
-            })
-            .error(function(data){
-                console.log(data);
-            });
+                    if($scope.numOfPages > floor){
+                        $scope.numOfPages = Math.floor(data.length / $scope.ticketsPerPage) + 1;
+                    }
+                })
+                .catch(function(err){
+                    console.log(err);
+                });
         }
     };
 

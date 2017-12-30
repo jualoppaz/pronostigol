@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('TicketController', function ($scope, $http, $window, $filter){
+app.controller('TicketController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', '$filter', 'primitiva'];
+
+function Controller ($scope, $http, $window, $filter, primitiva){
 
     $scope.ticket = {};
 
@@ -8,12 +12,12 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
 
     $scope.anyos = [];
 
-    $http.get('/api/primitiva/years')
-        .success(function(data){
+    primitiva.getAllYears()
+        .then(function(data){
             $scope.anyos = $filter('orderBy')(data, "name");
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
 
     $scope.ticket.resultado = {
@@ -35,80 +39,6 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
         reintegro: "",
         complementario: ""
     };
-
-    /*
-    $scope.ticket.apuestas = {
-        reintegro: "",
-        combinaciones: [
-            [
-                {
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                }
-            ], [
-                {
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                }
-            ]
-        ]
-    };
-    */
-
-    /*
-     $scope.ticket.apuestas = {
-     reintegro: "",
-     combinaciones: [
-     [
-     {
-     numero: ""
-     },{
-     numero: ""
-     },{
-     numero: ""
-     },{
-     numero: ""
-     },{
-     numero: ""
-     },{
-     numero: ""
-     }
-     ], [
-     {
-     numero: ""
-     },{
-     numero: ""
-     },{
-     numero: ""
-     },{
-     numero: ""
-     },{
-     numero: ""
-     },{
-     numero: ""
-     }
-     ]
-     ]
-     };
-     */
 
     $scope.ticket.apuestas = {
         reintegro: "",
@@ -186,9 +116,6 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
         }
 
         if($scope.ticket.apuestas.combinaciones.length < 8){
-
-            console.log("Anadimos la segunda");
-
             $scope.ticket.apuestas.combinaciones[$scope.ticket.apuestas.combinaciones.length] = [
                 [
                     {
@@ -223,15 +150,14 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
     };
 
     $scope.guardar = function(){
-
-        $http.post('/api/primitiva/tickets/', $scope.ticket)
-            .success(function(data){
+        primitiva.createTicket($scope.ticket)
+            .then(function(data){
                 angular.element("#modalTitleRegistroAnadidoCorrectamente").text("Ticket de Primitiva añadido correctamente");
                 angular.element("#modalTextRegistroAnadidoCorrectamente").text("A continuación se le redirigirá al listado de tickets de Primitiva registrados.");
                 angular.element("#modal-registroAnadidoCorrectamente").modal('show');
             })
-            .error(function(data){
-                console.log(data);
+            .catch(function(err){
+                console.log(err);
             });
     };
 
@@ -241,4 +167,4 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
         $window.location.href = nuevaURL;
     };
 
-});
+};

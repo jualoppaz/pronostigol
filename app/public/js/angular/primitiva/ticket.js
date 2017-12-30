@@ -1,6 +1,10 @@
 var app = angular.module('qdb');
 
-app.controller('TicketController', function ($scope, $http, VariosService) {
+app.controller('TicketController', Controller);
+
+Controller.$inject = ['$scope', '$http', 'VariosService', 'primitiva'];
+
+function Controller ($scope, $http, VariosService, primitiva) {
 
     $scope.ticket = {};
 
@@ -12,22 +16,18 @@ app.controller('TicketController', function ($scope, $http, VariosService) {
 
     var fragmentos = url.split("/");
 
-    $http.get('/api/primitiva/tickets', {
-        params: {
-            year: fragmentos[5],
-            raffle: fragmentos[6]
-        }
+    primitiva.getAllTickets({
+        year: fragmentos[5],
+        raffle: fragmentos[6]
     })
-    .success(function(data){
-        $scope.ticket = data[0];
-        $scope.consultaRealizada = true;
-
-    })
-    .error(function(data){
-        $scope.consultaRealizada = true;
-        console.log(JSON.stringify(data));
-
-    });
+        .then(function(data){
+            $scope.ticket = data[0];
+            $scope.consultaRealizada = true;
+        })
+        .catch(function(err){
+            $scope.consultaRealizada = true;
+            console.log(err);
+        });
 
     $scope.determinarCategoriaPremio = function(combinacion){
         var res = "";
@@ -216,9 +216,4 @@ app.controller('TicketController', function ($scope, $http, VariosService) {
     $scope.ticketEstaVacio = function(){
         return VariosService.jsonVacio($scope.ticket);
     };
-
-});
-
-
-
-
+};

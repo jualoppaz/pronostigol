@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('TicketController', function ($scope, $http, $window, $filter){
+app.controller('TicketController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', '$filter', 'primitiva'];
+
+function Controller ($scope, $http, $window, $filter, primitiva){
 
     $scope.ticket = {};
 
@@ -10,18 +14,17 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
 
     var id = url.split("/tickets/")[1];
 
-    $http.get('/api/primitiva/tickets/' + id)
-        .success(function(data){
+    primitiva.getTicketById(id)
+        .then(function(data){
             $scope.ticket = data;
 
             $scope.ticket.fecha = $filter('date')(data.fecha, 'dd/MM/yyyy');
 
             $scope.consultando = false;
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
-
 
     $scope.anyos = [
         {
@@ -129,9 +132,6 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
         }
 
         if($scope.ticket.apuestas.combinaciones.length < 8){
-
-            console.log("Anadimos la segunda");
-
             $scope.ticket.apuestas.combinaciones[$scope.ticket.apuestas.combinaciones.length] = [
                 [
                     {
@@ -153,7 +153,6 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
     };
 
     $scope.eliminarApuesta = function(){
-
         if($scope.ticket.apuestas.combinaciones.length != 0){
 
             $scope.ticket.apuestas.combinaciones.pop();
@@ -166,15 +165,14 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
     };
 
     $scope.guardar = function(){
-
-        $http.put('/api/primitiva/tickets', $scope.ticket)
-            .success(function(data){
+        primitiva.editTicket($scope.ticket)
+            .then(function(){
                 angular.element("#modalTitleRegistroEditadoCorrectamente").text("Ticket de Bonoloto editado correctamente");
                 angular.element("#modalTextRegistroEditadoCorrectamente").text("A continuación se le redirigirá al listado de tickets de Bonoloto registrados.");
                 angular.element("#modal-registroEditadoCorrectamente").modal('show');
             })
-            .error(function(data){
-                console.log(data);
+            .catch(function(err){
+                console.log(err);
             });
     };
 
@@ -185,5 +183,4 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
 
         $window.location.href = nuevaURL;
     };
-
-});
+};

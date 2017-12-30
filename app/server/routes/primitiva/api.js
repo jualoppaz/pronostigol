@@ -148,13 +148,7 @@ module.exports = function(app){
                     res.status(400).send(err2);
                 }
 
-                PRI_DBM.getAllTickets(function(err3, result3){
-                    if(err){
-                        res.status(400).send(err3);
-                    }
-
-                    res.status(200).send(result3);
-                });
+                res.status(200).send({});
             });
         });
     };

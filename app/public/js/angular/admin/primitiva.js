@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('PrimitivaController', function ($scope, $http){
+app.controller('PrimitivaController', Controller);
+
+Controller.$inject = ['$scope', '$http', 'primitiva'];
+
+function Controller ($scope, $http, primitiva){
 
     $scope.tickets = [];
     $scope.ticketAEliminar = {};
@@ -18,8 +22,8 @@ app.controller('PrimitivaController', function ($scope, $http){
     var ticketsPerPage_default = 20;
     $scope.ticketsPerPage = ticketsPerPage_default;
 
-    $http.get('/api/primitiva/tickets')
-        .success(function(data){
+    primitiva.getAllTickets()
+        .then(function(data){
             $scope.tickets = data;
 
             $scope.totalItems = $scope.tickets.length;
@@ -33,10 +37,9 @@ app.controller('PrimitivaController', function ($scope, $http){
             if($scope.numOfPages > floor){
                 $scope.numOfPages = Math.floor($scope.tickets.length / $scope.ticketsPerPage) + 1;
             }
-
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
 
     $scope.verTicket = function(id){
@@ -49,12 +52,15 @@ app.controller('PrimitivaController', function ($scope, $http){
     };
 
     $scope.eliminarRegistroDefinitivamente = function(){
-        $http.delete('/api/primitiva/tickets/' + String($scope.ticketAEliminar))
-            .success(function(data){
+        primitiva.deleteTicketById($scope.ticketAEliminar)
+            .then(function(data){
+                return primitiva.getAllTickets();
+            })
+            .then(function(data){
                 $scope.tickets = data;
             })
-            .error(function(data){
-                console.log(data);
+            .catch(function(err){
+                console.log(err);
             });
     };
-});
+};

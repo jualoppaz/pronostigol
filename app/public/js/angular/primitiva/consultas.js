@@ -1,6 +1,10 @@
 var app = angular.module('qdb');
 
-app.controller('ConsultasController', function ($scope, $http, $filter) {
+app.controller('ConsultasController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$filter', 'primitiva'];
+
+function Controller($scope, $http, $filter, primitiva) {
 
     $scope.mostrar = {};
     $scope.mostrar.tablaAparicionesPorNumero = false;
@@ -83,10 +87,8 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
         if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorNumero"){
 
-            console.log("/api/primitiva/historical/aparicionesPorNumero");
-            $http.get('/api/primitiva/historical/aparicionesPorNumero')
-                .success(function(data){
-
+            primitiva.getOccurrencesByNumber()
+                .then(function(data){
                     $scope.aparicionesPorNumero = data;
 
                     $scope.criterioOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
@@ -98,20 +100,14 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.mostrar.tablaAparicionesPorNumero = true;
 
                     $scope.consultando = false;
-
                 })
-                .error(function(data){
-                    console.log(data);
+                .catch(function(err){
+                    console.log(err);
                     $scope.consultando = false;
-
                 });
-
         }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorResultado"){
-
-            console.log("/api/primitiva/historical/aparicionesPorResultado");
-            $http.get('/api/primitiva/historical/aparicionesPorResultado')
-                .success(function(data){
-
+            primitiva.getOccurrencesByResult()
+                .then(function(data){
                     $scope.aparicionesPorResultado = data;
 
                     $scope.criterioOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
@@ -123,20 +119,14 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.mostrar.tablaAparicionesPorResultado = true;
 
                     $scope.consultando = false;
-
                 })
-                .error(function(data){
-                    console.log(data);
+                .catch(function(err){
+                    console.log(err);
                     $scope.consultando = false;
-
                 });
-
         }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorResultadoConReintegro"){
-
-            console.log("/api/primitiva/historical/aparicionesPorResultadoConReintegro");
-            $http.get('/api/primitiva/historical/aparicionesPorResultadoConReintegro')
-                .success(function(data){
-
+            primitiva.getOccurrencesByResultWithReimbursement()
+                .then(function(data){
                     $scope.aparicionesPorResultadoConReintegro = data;
 
                     $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_resultWithReimbursement;
@@ -148,20 +138,14 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.mostrar.tablaAparicionesPorResultadoConReintegro = true;
 
                     $scope.consultando = false;
-
                 })
-                .error(function(data){
+                .catch(function(err){
                     console.log(data);
                     $scope.consultando = false;
-
                 });
-
         }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorReintegro"){
-
-            console.log("/api/primitiva/historical/aparicionesPorReintegro");
-            $http.get('/api/primitiva/historical/aparicionesPorReintegro')
-                .success(function(data){
-
+            primitiva.getOccurrencesByReimbursement()
+                .then(function(data){
                     $scope.aparicionesPorReintegro = data;
 
                     $scope.criterioOrdenacionAparicionesPorReintegro = $scope.sortFunction_reimbursement;
@@ -175,11 +159,12 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.consultando = false;
 
                 })
-                .error(function(data){
-                    console.log(data);
+                .catch(function(err){
+                    console.log(err);
                     $scope.consultando = false;
-
                 });
+
+
         }
 
 
@@ -482,9 +467,4 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
             $scope.numOfPages = Math.floor($scope.tickets.length / $scope.ticketsPerPage) + 1;
         }
     };
-
-});
-
-
-
-
+};
