@@ -155,7 +155,7 @@ module.exports = function(app){
                 res.status(400).send(err);
             }
 
-            res.status(200).send(JSON.stringify(result, null, 4));
+            res.status(200).send(JSON.stringify(result.ops[0], null, 4));
         });
     };
 
@@ -194,13 +194,7 @@ module.exports = function(app){
                     res.status(400).send(err2);
                 }
 
-                BON_DBM.getAllTickets(function(err3, result3){
-                    if(err){
-                        res.status(400).send(err3);
-                    }
-
-                    res.status(200).send(JSON.stringify(result3, null, 4));
-                });
+                res.status(200).send({});
             });
         });
     };

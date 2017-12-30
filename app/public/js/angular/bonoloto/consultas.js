@@ -1,6 +1,10 @@
 var app = angular.module('qdb');
 
-app.controller('ConsultasController', function ($scope, $http, $filter) {
+app.controller('ConsultasController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$filter', 'bonoloto'];
+
+function Controller ($scope, $http, $filter, bonoloto) {
 
     $scope.mostrar = {};
     $scope.mostrar.tablaAparicionesPorNumero = false;
@@ -86,10 +90,8 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
         if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorNumero"){
 
-            console.log("/api/bonoloto/historical/aparicionesPorNumero");
-            $http.get('/api/bonoloto/historical/aparicionesPorNumero')
-                .success(function(data){
-
+            bonoloto.getOccurrencesByNumber()
+                .then(function(data){
                     $scope.aparicionesPorNumero = data;
 
                     $scope.criterioOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
@@ -101,20 +103,15 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.mostrar.tablaAparicionesPorNumero = true;
 
                     $scope.consultando = false;
-
                 })
-                .error(function(data){
-                    console.log(data);
+                .catch(function(err){
+                    console.log(err);
                     $scope.consultando = false;
-
                 });
 
         }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorResultado"){
-
-            console.log("/api/bonoloto/historical/aparicionesPorResultado");
-            $http.get('/api/bonoloto/historical/aparicionesPorResultado')
-                .success(function(data){
-
+            bonoloto.getOccurrencesByResult()
+                .then(function(data){
                     $scope.aparicionesPorResultado = data;
 
                     $scope.criterioOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
@@ -126,20 +123,15 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.mostrar.tablaAparicionesPorResultado = true;
 
                     $scope.consultando = false;
-
                 })
-                .error(function(data){
-                    console.log(data);
+                .catch(function(err){
+                    console.log(err);
                     $scope.consultando = false;
-
                 });
 
         }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorResultadoConReintegro"){
-
-            console.log("/api/bonoloto/historical/aparicionesPorResultadoConReintegro");
-            $http.get('/api/bonoloto/historical/aparicionesPorResultadoConReintegro')
-                .success(function(data){
-
+            bonoloto.getOccurrencesByResultWithReimbursement()
+                .then(function(data){
                     $scope.aparicionesPorResultadoConReintegro = data;
 
                     $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_resultWithReimbursement;
@@ -151,20 +143,15 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.mostrar.tablaAparicionesPorResultadoConReintegro = true;
 
                     $scope.consultando = false;
-
                 })
-                .error(function(data){
+                .catch(function(err){
                     console.log(data);
                     $scope.consultando = false;
-
                 });
 
         }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorReintegro"){
-
-            console.log("/api/bonoloto/historical/aparicionesPorReintegro");
-            $http.get('/api/bonoloto/historical/aparicionesPorReintegro')
-                .success(function(data){
-
+            bonoloto.getOccurrencesByReimbursement()
+                .then(function(data){
                     $scope.aparicionesPorReintegro = data;
 
                     $scope.criterioOrdenacionAparicionesPorReintegro = $scope.sortFunction_reimbursement;
@@ -176,17 +163,12 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.mostrar.tablaAparicionesPorReintegro = true;
 
                     $scope.consultando = false;
-
                 })
-                .error(function(data){
-                    console.log(data);
+                .catch(function(err){
+                    console.log(err);
                     $scope.consultando = false;
-
                 });
-
         }
-
-
     };
 
     $scope.inicializarAparicionesPorNumero = function(){
@@ -485,8 +467,4 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         }
     };
 
-});
-
-
-
-
+};

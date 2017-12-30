@@ -44,9 +44,7 @@ services.service('VariosService', [function(){
     };
 
     this.jsonVacio = function(json){
-
-        var res = Object.keys(json).length == 0;
-        //console.log("Vacio: " + res);
+        var res = json === null || json === undefined || Object.keys(json).length == 0;
         return res;
     };
 
@@ -64,10 +62,4 @@ services.service('VariosService', [function(){
         }
         return res;
     }
-
 }]);
-
-
-
-
-

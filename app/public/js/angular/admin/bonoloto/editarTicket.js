@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('TicketController', function ($scope, $http, $window, $filter){
+app.controller('TicketController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', '$filter', 'bonoloto'];
+
+function Controller ($scope, $http, $window, $filter, bonoloto){
 
     $scope.ticket = {};
 
@@ -10,27 +14,26 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
 
     var id = url.split("/tickets/")[1];
 
-    $http.get('/api/bonoloto/tickets/' + id)
-        .success(function(data){
+    bonoloto.getTicketById(id)
+        .then(function(data){
             $scope.ticket = data;
 
             $scope.ticket.fecha = $filter('date')(data.fecha, 'dd/MM/yyyy');
 
             $scope.consultando = false;
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
-
 
     $scope.anyos = [];
 
-    $http.get('/api/bonoloto/years')
-        .success(function(data){
+    bonoloto.getAllYears()
+        .then(function(data){
             $scope.anyos = $filter('orderBy')(data, "name");
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
 
     $scope.ticket.resultado = {
@@ -129,9 +132,6 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
         }
 
         if($scope.ticket.apuestas.combinaciones.length < 8){
-
-            console.log("Anadimos la segunda");
-
             $scope.ticket.apuestas.combinaciones[$scope.ticket.apuestas.combinaciones.length] = [
                 [
                     {
@@ -166,15 +166,14 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
     };
 
     $scope.guardar = function(){
-
-        $http.put('/api/bonoloto/tickets', $scope.ticket)
-            .success(function(data){
+        bonoloto.editTicket($scope.ticket)
+            .then(function(data){
                 angular.element("#modalTitleRegistroEditadoCorrectamente").text("Ticket de Bonoloto editado correctamente");
                 angular.element("#modalTextRegistroEditadoCorrectamente").text("A continuación se le redirigirá al listado de tickets de Bonoloto registrados.");
                 angular.element("#modal-registroEditadoCorrectamente").modal('show');
             })
-            .error(function(data){
-                console.log(data);
+            .catch(function(err){
+                console.log(err);
             });
     };
 
@@ -186,4 +185,4 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
         $window.location.href = nuevaURL;
     };
 
-});
+};

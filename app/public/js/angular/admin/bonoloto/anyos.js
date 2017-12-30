@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('AnyosController', function ($scope, $http){
+app.controller('AnyosController', Controller);
+
+Controller.$inject = ['$scope', '$http', 'bonoloto'];
+
+function Controller ($scope, $http, bonoloto){
 
     $scope.anyos = {};
     $scope.anyoAEliminar = {};
@@ -13,12 +17,13 @@ app.controller('AnyosController', function ($scope, $http){
 
     $scope.form.letraSeleccionada = "A";
 
-    $http.get('/api/bonoloto/years')
-        .success(function(data){
+    bonoloto.getAllYears()
+        .then(function(data){
+            console.log("Respuesta de años:", data);
             $scope.anyos = data;
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
 
     $scope.verRegistro = function(id){
@@ -31,13 +36,15 @@ app.controller('AnyosController', function ($scope, $http){
     };
 
     $scope.eliminarRegistroDefinitivamente = function(){
-        $http.delete('/api/bonoloto/years/' + String($scope.anyoAEliminar))
-            .success(function(data){
+        bonoloto.deleteYearById($scope.anyoAEliminar)
+            .then(function(){
+                return bonoloto.getAllYears();
+            })
+            .then(function(data){
                 $scope.anyos = data;
             })
-            .error(function(data){
-                console.log(data);
+            .catch(function(err){
+                console.log(err);
             });
     };
-
-});
+};

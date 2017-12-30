@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('TicketController', function ($scope, $http, $window, $filter){
+app.controller('TicketController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', '$filter', 'bonoloto'];
+
+function Controller ($scope, $http, $window, $filter, bonoloto){
 
     $scope.ticket = {};
 
@@ -8,12 +12,12 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
 
     $scope.anyos = [];
 
-    $http.get('/api/bonoloto/years')
-        .success(function(data){
+    bonoloto.getAllYears()
+        .then(function(data){
             $scope.anyos = $filter('orderBy')(data, "name");
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
 
     $scope.ticket.resultado = {
@@ -35,43 +39,6 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
         reintegro: "",
         complementario: ""
     };
-
-    /*
-    $scope.ticket.apuestas = {
-        reintegro: "",
-        combinaciones: [
-            [
-                {
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                }
-            ], [
-                {
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                }
-            ]
-        ]
-    };
-    */
 
     $scope.ticket.apuestas = {
         reintegro: "",
@@ -149,9 +116,6 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
         }
 
         if($scope.ticket.apuestas.combinaciones.length < 8){
-
-            console.log("Anadimos la segunda");
-
             $scope.ticket.apuestas.combinaciones[$scope.ticket.apuestas.combinaciones.length] = [
                 [
                     {
@@ -173,7 +137,6 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
     };
 
     $scope.eliminarApuesta = function(){
-
         if($scope.ticket.apuestas.combinaciones.length != 0){
 
             $scope.ticket.apuestas.combinaciones.pop();
@@ -181,20 +144,18 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
             if($scope.ticket.apuestas.combinaciones.length == 1){
                 $scope.ticket.apuestas.combinaciones = [];
             }
-
         }
     };
 
     $scope.guardar = function(){
-
-        $http.post('/api/bonoloto/tickets/', $scope.ticket)
-            .success(function(data){
+        bonoloto.createTicket($scope.ticket)
+            .then(function(){
                 angular.element("#modalTitleRegistroAnadidoCorrectamente").text("Ticket de Bonoloto añadido correctamente");
                 angular.element("#modalTextRegistroAnadidoCorrectamente").text("A continuación se le redirigirá al listado de tickets de Bonoloto registrados.");
                 angular.element("#modal-registroAnadidoCorrectamente").modal('show');
             })
-            .error(function(data){
-                console.log(data);
+            .catch(function(err){
+                console.log(err);
             });
     };
 
@@ -206,4 +167,4 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
         $window.location.href = nuevaURL;
     };
 
-});
+};

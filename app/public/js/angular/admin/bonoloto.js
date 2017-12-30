@@ -60,12 +60,18 @@ function Controller ($scope, $http, bonoloto){
     };
 
     $scope.eliminarRegistroDefinitivamente = function(){
-        $http.delete('/api/bonoloto/tickets/' + String($scope.ticketAEliminar))
-            .success(function(data){
-                $scope.tickets = data;
+        bonoloto.deleteTicketById($scope.ticketAEliminar)
+            .then(function(){
+                return bonoloto.getAllTickets({
+                    page: $scope.currentPage,
+                    per_page: $scope.ticketsPerPage
+                });
             })
-            .error(function(data){
-                console.log(data);
+            .then(function(data){
+                $scope.tickets = data.data;
+            })
+            .catch(function(err){
+                console.log(err);
             });
     };
 
