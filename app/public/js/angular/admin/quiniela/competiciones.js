@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('CompeticionesController', function ($scope, $http){
+app.controller('CompeticionesController', Controller);
+
+Controller.$inject = ['$scope', '$http', 'quiniela'];
+
+function Controller ($scope, $http, quiniela){
 
     $scope.competiciones = {};
     $scope.competicionAEliminar = {};
@@ -16,12 +20,12 @@ app.controller('CompeticionesController', function ($scope, $http){
 
     $scope.form.letraSeleccionada = "A";
 
-    $http.get('/api/quiniela/competiciones')
-        .success(function(data){
+    quiniela.getAllCompetitions()
+        .then(function(data){
             $scope.competiciones = data;
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
 
     $scope.verRegistro = function(id){
@@ -34,12 +38,12 @@ app.controller('CompeticionesController', function ($scope, $http){
     };
 
     $scope.eliminarRegistroDefinitivamente = function(){
-        $http.delete('/api/quiniela/competiciones/' + String($scope.competicionAEliminar))
-            .success(function(data){
+        quiniela.deleteCompetitionById($scope.competicionAEliminar)
+            .then(function(data){
                 $scope.competiciones = data;
             })
-            .error(function(data){
-                console.log(data);
+            .catch(function(err){
+                console.log(err);
             });
     };
 

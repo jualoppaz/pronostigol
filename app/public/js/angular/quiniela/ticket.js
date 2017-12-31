@@ -1,6 +1,10 @@
 var app = angular.module('qdb');
 
-app.controller('TicketController', function ($scope, $http) {
+app.controller('TicketController', Controller);
+
+Controller.$inject = ['$scope', '$http', 'quiniela'];
+
+function Controller ($scope, $http, quiniela) {
 
     $scope.ticket = {};
 
@@ -9,9 +13,11 @@ app.controller('TicketController', function ($scope, $http) {
     var url = window.location.href;
 
     var fragmentos = url.split("/");
+    var season = fragmentos[5];
+    var day = fragmentos[6];
 
-    $http.get('/api/quiniela/tickets/season/' + fragmentos[5] + '/day/' + fragmentos[6])
-        .success(function(data){
+    quiniela.getTicketBySeasonAndDay(season, day)
+        .then(function(data){
             $scope.ticket = data;
 
             for(var i=0; i<data.partidos.length; i++){ // Recorremos los partidos
@@ -34,16 +40,9 @@ app.controller('TicketController', function ($scope, $http) {
             for(i=0; i<data.partidos[0].pronosticos.length; i++){
                 $scope.aciertos[i] = $scope.aciertos[i] || 0;
             }
-
         })
-        .error(function(data){
+        .catch(function(err){
             alert(JSON.stringify(data));
             console.log(JSON.stringify(data));
-
         });
-
-});
-
-
-
-
+};

@@ -1,30 +1,28 @@
 var app = angular.module('dashboard');
 
-app.controller('AnadirCompeticionController', function ($scope, $http, $window){
+app.controller('AnadirCompeticionController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', 'quiniela'];
+
+function Controller ($scope, $http, $window, quiniela){
 
     $scope.competicion = {};
 
     $scope.guardar = function(){
-
-        $http.post('/api/quiniela/competiciones', $scope.competicion)
-            .success(function(data){
+        quiniela.createCompetition($scope.competicion)
+            .then(function(){
                 angular.element("#modalTitleRegistroAnadidoCorrectamente").text("Competición añadida correctamente");
                 angular.element("#modalTextRegistroAnadidoCorrectamente").text("A continuación se le redirigirá al listado de competiciones registradas.");
                 angular.element("#modal-registroAnadidoCorrectamente").modal('show');
             })
-            .error(function(data){
-                alert(data);
+            .catch(function(err){
+                alert(err);
             });
     };
 
     $scope.redirigir = function(){
-        console.log("Vamos a redirigir");
-
         var nuevaURL = "/admin/quiniela/competiciones";
 
         $window.location.href = nuevaURL;
     };
-
-
-
-});
+};

@@ -41,8 +41,8 @@ function Controller ($scope, $http, $window, quiniela) {
 
     $scope.mostrarTickets = function(temporada){
         if($scope.tickets.length == 0 || $scope.tickets[0].temporada != temporada){
-            $http.get('/api/quiniela/tickets/season/' + temporada)
-                .success(function(data){
+            quiniela.getAllTicketsBySeason(temporada)
+                .then(function(data){
                     $scope.tickets = data;
 
                     $scope.totalItems = data.length;
@@ -54,9 +54,8 @@ function Controller ($scope, $http, $window, quiniela) {
                     if($scope.numOfPages > floor){
                         $scope.numOfPages = Math.floor(data.length / $scope.ticketsPerPage) + 1;
                     }
-
                 })
-                .error(function(err){
+                .catch(function(err){
                     console.log(err);
                 });
         }

@@ -1,9 +1,12 @@
 var app = angular.module('dashboard');
 
-app.controller('EditarEquipoController', function ($scope, $http, $window){
+app.controller('EditarEquipoController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', 'quiniela'];
+
+function Controller ($scope, $http, $window, quiniela){
 
     $scope.equipo = {};
-
 
     var url = window.location.href;
 
@@ -11,24 +14,23 @@ app.controller('EditarEquipoController', function ($scope, $http, $window){
 
     var id = fragmentos[6];
 
-    $http.get('/api/quiniela/equipos/' + id)
-        .success(function(data){
+    quiniela.getTeamById(id)
+        .then(function(data){
             $scope.equipo = data;
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
 
     $scope.guardar = function(){
-
-        $http.put('/api/quiniela/equipos', $scope.equipo)
-            .success(function(data){
+        quiniela.editTeam($scope.equipo)
+            .then(function(){
                 angular.element("#modalTitleRegistroEditadoCorrectamente").text("Equipo editado correctamente");
                 angular.element("#modalTextRegistroEditadoCorrectamente").text("A continuación se le redirigirá al listado de equipos registrados.");
                 angular.element("#modal-registroEditadoCorrectamente").modal('show');
             })
-            .error(function(data){
-                console.log(data);
+            .catch(function(err){
+                console.log(err);
             });
     };
 
@@ -39,7 +41,4 @@ app.controller('EditarEquipoController', function ($scope, $http, $window){
 
         $window.location.href = nuevaURL;
     };
-
-
-
-});
+};

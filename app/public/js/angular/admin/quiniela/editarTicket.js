@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('TicketController', function ($scope, $http, $window, $filter){
+app.controller('TicketController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', '$filter', 'quiniela'];
+
+function Controller ($scope, $http, $window, $filter, quiniela){
 
     $scope.quiniela = {};
 
@@ -11,22 +15,17 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
     var season = url.split("/tickets/")[1].split("/")[0];
     var jornada = url.split("/tickets/")[1].split("/")[1];
 
-    $http.get('/api/quiniela/tickets/season/' + season + "/day/" + jornada)
-        .success(function(data){
-
+    quiniela.getTicketBySeasonAndDay(season, jornada)
+        .then(function(data){
             data.fecha = $filter('date')(data.fecha, 'dd/MM/yyyy');
-
-            //data.precio = String(data.precio);
-            //data.premio = String(data.premio);
 
             $scope.quiniela = data;
 
             $scope.consultando = false;
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
-
 
     $scope.anyos = [
         {
@@ -77,15 +76,14 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
     };
 
     $scope.guardar = function(){
-
-        $http.put('/api/quiniela/tickets', $scope.quiniela)
-            .success(function(data){
+        quiniela.editTicket($scope.quiniela)
+            .then(function(){
                 angular.element("#modalTitleRegistroEditadoCorrectamente").text("Ticket de Quiniela editado correctamente");
                 angular.element("#modalTextRegistroEditadoCorrectamente").text("A continuación se le redirigirá al listado de tickets de Quiniela registrados.");
                 angular.element("#modal-registroEditadoCorrectamente").modal('show');
             })
-            .error(function(data){
-                console.log(data);
+            .catch(function(err){
+                console.log(err);
             });
     };
 
@@ -96,5 +94,4 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
 
         $window.location.href = nuevaURL;
     };
-
-});
+};

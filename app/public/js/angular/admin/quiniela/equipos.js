@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('EquiposController', function ($scope, $http){
+app.controller('EquiposController', Controller);
+
+Controller.$inject = ['$scope', '$http', 'quiniela'];
+
+function Controller ($scope, $http, quiniela){
 
     $scope.equipos = {};
     $scope.equiposAEliminar = {};
@@ -16,12 +20,12 @@ app.controller('EquiposController', function ($scope, $http){
 
     $scope.form.letraSeleccionada = "A";
 
-    $http.get('/api/quiniela/equipos')
-        .success(function(data){
+    quiniela.getAllTeams()
+        .then(function(data){
             $scope.equipos = data;
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
 
     $scope.verRegistro = function(id){
@@ -34,12 +38,12 @@ app.controller('EquiposController', function ($scope, $http){
     };
 
     $scope.eliminarRegistroDefinitivamente = function(){
-        $http.delete('/api/quiniela/equipos/' + String($scope.equipoAEliminar))
-            .success(function(data){
+        quiniela.deleteTeamById($scope.equipoAEliminar)
+            .then(function(data){
                 $scope.equipos = data;
             })
-            .error(function(data){
-                console.log(data);
+            .catch(function(err){
+                console.log(err);
             });
     };
 
@@ -73,6 +77,4 @@ app.controller('EquiposController', function ($scope, $http){
 
         return res;
     };
-
-
-});
+};

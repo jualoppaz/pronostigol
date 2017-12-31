@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('EditarTemporadaController', function ($scope, $http, $window){
+app.controller('EditarTemporadaController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', 'quiniela'];
+
+function Controller ($scope, $http, $window, quiniela){
 
     $scope.registro = {};
 
@@ -11,24 +15,23 @@ app.controller('EditarTemporadaController', function ($scope, $http, $window){
 
     var id = fragmentos[6];
 
-    $http.get('/api/quiniela/temporadas/' + id)
-        .success(function(data){
+    quiniela.getSeasonById(id)
+        .then(function(data){
             $scope.registro = data;
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
 
     $scope.guardar = function(){
-
-        $http.put('/api/quiniela/temporadas', $scope.registro)
-            .success(function(data){
+        quiniela.editSeason($scope.registro)
+            .then(function(){
                 angular.element("#modalTitleRegistroEditadoCorrectamente").text("Temporada editada correctamente");
                 angular.element("#modalTextRegistroEditadoCorrectamente").text("A continuación se le redirigirá al listado de temporadas registradas.");
                 angular.element("#modal-registroEditadoCorrectamente").modal('show');
             })
-            .error(function(data){
-                console.log(data);
+            .catch(function(err){
+                console.log(err);
             });
     };
 
@@ -39,7 +42,4 @@ app.controller('EditarTemporadaController', function ($scope, $http, $window){
 
         $window.location.href = nuevaURL;
     };
-
-
-
-});
+};

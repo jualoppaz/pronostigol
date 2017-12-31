@@ -1,6 +1,10 @@
 var app = angular.module('qdb');
 
-app.controller('ConsultasController', function ($scope, $http, $filter) {
+app.controller('ConsultasController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$filter', 'quiniela'];
+
+function Controller ($scope, $http, $filter, quiniela) {
 
     $scope.mostrar = null;
 
@@ -46,8 +50,6 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
     $scope.filasVisitante = [];
 
-
-
     $scope.resultadosPlenoRenovado = [
         '0-0', '0-1', '0-2', '0-M', '1-0', '1-1', '1-2', '1-M',
         '2-0', '2-1', '2-2', '2-M', 'M-0', 'M-1', 'M-2', 'M-M'
@@ -70,104 +72,6 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
     $scope.plenosRenovadosLocal = {};
 
     $scope.plenosRenovadosVisitante = {};
-
-    /*
-    $scope.temporadas = [
-        {
-            name: 'Histórico',
-            value: 'Histórico'
-        },
-        {
-            name: '2013-2014',
-            value: '2013-2014'
-        },{
-            name: '2014-2015',
-            value: '2014-2015'
-        }
-    ];
-    */
-
-    /*
-    $scope.competiciones = [
-        {
-            name: 'Todas',
-            value: 'Todas'
-        },{
-            name: '2ª División B',
-            value: '2ª División B'
-        },{
-            name: 'Amistoso',
-            value: 'Amistoso'
-        },{
-            name: 'Bundesliga',
-            value: 'Bundesliga'
-        },{
-            name: 'Calcio',
-            value: 'Calcio'
-        },{
-            name: 'Champions League',
-            value: 'Champions League'
-        },{
-            name: 'Clasificación Eurocopa 2016',
-            value: 'Clasificación Eurocopa 2016'
-        },{
-            name: 'Copa del Rey',
-            value: 'Copa del Rey'
-        },{
-            name: 'Europa League',
-            value: 'Europa League'
-        },{
-            name: 'Liga Adelante',
-            value: 'Liga Adelante'
-        },{
-            name: 'Liga BBVA',
-            value: 'Liga BBVA'
-        },{
-            name: 'Ligue 1',
-            value: 'Ligue 1'
-        },{
-            name: 'Premier League',
-            value: 'Premier League'
-        }
-    ];
-    */
-
-    /*
-    $scope.equipos = [
-        {name: 'Zaragoza', value: 'Zaragoza'},{name: 'Numancia', value: 'Numancia'},
-        {name: 'Mallorca', value: 'Mallorca'},{name: 'Tenerife', value: 'Tenerife'},
-        {name: 'Lugo', value: 'Lugo'},{name: 'Alcorcón', value: 'Alcorcón'},
-        {name: 'Sabadell', value: 'Sabadell'},{name: 'Racing', value: 'Racing'},
-        {name: 'Éibar', value: 'Éibar'},{name: 'Celta', value: 'Celta'},
-        {name: 'Levante', value: 'Levante'},{name: 'Villarreal', value: 'Villarreal'},
-        {name: 'Córdoba', value: 'Córdoba'},{name: 'Elche', value: 'Elche'},
-        {name: 'Real Sociedad', value: 'Real Sociedad'},{name: 'Deportivo', value: 'Deportivo'},
-        {name: 'Málaga', value: 'Málaga'},{name: 'Manchester City', value: 'Manchester City'},
-        {name: 'Bayern de Munich', value: 'Bayern de Munich'},{name: 'Valencia', value: 'Valencia'},
-        {name: 'Almería', value: 'Almería'},{name: 'Atlético de Madrid', value: 'Atlético de Madrid'},
-        {name: 'Athletic de Bilbao', value: 'Athletic de Bilbao'},{name: 'Betis', value: 'Betis'},
-        {name: 'Sevilla', value: 'Sevilla'},{name: 'Barcelona', value: 'Barcelona'},
-        {name: 'Coruxo', value: 'Coruxo'},{name: 'Getafe', value: 'Getafe'},
-        {name: 'Rayo Vallecano', value: 'Rayo Vallecano'},{name: 'Real Madrid',value: 'Real Madrid'},
-        {name: 'Espanyol', value: 'Espanyol'},{name: 'Albacete', value:'Albacete'},
-        {name: 'Osasuna', value: 'Osasuna'},{name: 'Girona', value: 'Girona'},
-        {name: 'Recreativo', value: 'Recreativo'},{name: 'Valladolid', value: 'Valladolid'},
-        {name: 'Las Palmas', value: 'Las Palmas'}, {name: 'PSG', value: 'PSG'},
-        {name: 'Chelsea', value: 'Chelsea'},{ name: 'Shakhtar Donetsk', value: 'Shakhtar Donetsk'},
-        {name: 'Basilea', value: 'Basilea'},{ name: 'Oporto', value: 'Oporto'},
-        {name: 'Young Boys', value: 'Young Boys'}, {name: 'Everton', value: 'Everton'},
-        {name: 'Torino', value: 'Torino'}, {name:'Wolfsburgo', value: 'Wolfsburgo'},
-        {name: 'Sporting de Lisboa', value: 'Sporting de Lisboa'}, {name: 'Trabzonspor', value: 'Trabzonspor'},
-        {name: 'Nápoles', value: 'Nápoles'}, {name: 'Roma', value:'Roma'}, {name: 'Feyenoord', value: 'Feyenoord'},
-        {name: 'PSV', value: 'PSV'}, {name: 'Zenit', value: 'Zenit'}, {name: 'Liverpool', value: 'Liverpool'},
-        {name: 'Besiktas', value: 'Besiktas'}, {name:'Tottenham', value:'Tottenham'},
-        {name: 'Fiorentina', value: 'Fiorentina'}, {name: 'Celtic', value: 'Celtic'},
-        {name: 'Inter de Milán', value: 'Inter de Milán'}, {name:'Salzburgo', value: 'Salzburgo'},
-        {name: 'Borussia Dortmund', value: 'Borussia Dortmund'}, {name: 'Borussia Monchengladbach', value: 'Borussia Monchengladbach'},
-        {name: 'Schalke', value: 'Schalke'}, {name: 'Apoel de Nicosia', value: 'Apoel de Nicosia'}
-
-    ];
-    */
 
     $scope.sumaDeVictoriasLocales = function(){
         var suma = 0;
@@ -473,16 +377,6 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         var equipoLocal = $scope.form.equipoLocalSeleccionado;
         var equipoVisitante = $scope.form.equipoVisitanteSeleccionado;
 
-        /*
-        var temporada = angular.element("#temporadaSeleccionada").val();
-        var competicion = angular.element("#competicionSeleccionada").val();
-        var opcionBusqueda = $scope.opcionBusqueda;
-        var equipo = angular.element("#equipoSeleccionado").val();
-        var equipoLocal = angular.element("#equipoLocalSeleccionadoPC").val() || angular.element("#equipoLocalSeleccionadoMovil").val();
-        var equipoVisitante = angular.element("#equipoVisitanteSeleccionadoPC").val() || angular.element("#equipoVisitanteSeleccionado").val();
-
-        */
-
         console.log("Competicion: " + competicion);
 
         console.log("Temporada: " + temporada);
@@ -493,58 +387,51 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
 
             if(competicion == 'Todas' || competicion == null || competicion == ""){
                 if(opcionBusqueda == "general"){
-                    console.log("/api/quiniela/historical");
-                    $http.get('/api/quiniela/historical')
-                        .success(function(data){
+                    quiniela.getHistorical()
+                        .then(function(data){
                             $scope.cargarTabla(data);
 
                             $scope.mostrar = true;
 
                             $scope.consultando = false;
                         })
-                        .error(function(data){
-                            console.log(data);
+                        .catch(function(err){
+                            console.log(err);
                             $scope.mostrar = false;
 
                             $scope.consultando = false;
-
                         });
-
                 }else if(opcionBusqueda == "equipo"){
                     if(equipo == "" || equipo == null){
                         alert("Debe introducir un equipo.");
                         $scope.consultando = false;
                     }else{ // Se ha introducido un equipo
-                        console.log("/api/quiniela/historical/localTeam/" + equipo);
-                        $http.get('/api/quiniela/historical/localTeam/' + equipo)
-                            .success(function(data){
+
+                        quiniela.getHistoricalByLocalTeam(equipo)
+                            .then(function(data){
                                 $scope.cargarTablaLocal(data);
 
                                 $scope.mostrarLocalYVisitante = true;
 
                                 $scope.consultando = false;
-
                             })
-                            .error(function(data){
-                                console.log(data);
+                            .catch(function(err){
+                                console.log(err);
                                 $scope.mostrarLocalYVisitante = false;
                                 $scope.consultando = false;
                             });
 
-                        console.log("/api/quiniela/historical/visitorTeam/" + equipo);
-                        $http.get('/api/quiniela/historical/visitorTeam/' + equipo)
-                            .success(function(data){
+                        quiniela.getHistoricalByVisitorTeam(equipo)
+                            .then(function(data){
                                 $scope.cargarTablaVisitante(data);
 
                                 $scope.mostrarLocalYVisitante = true;
                                 $scope.consultando = false;
-
                             })
-                            .error(function(data){
-                                console.log(data);
+                            .catch(function(err){
+                                console.log(err);
                                 $scope.mostrarLocalYVisitante = false;
                                 $scope.consultando = false;
-
                             });
                     }
                 }else if(opcionBusqueda == "partido"){
@@ -562,114 +449,79 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                             alert("Debe introducir el equipo visitante.");
                             $scope.consultando = false;
                         }else{
-                            console.log("/api/quiniela/historical/footballMatch/localTeam/" + equipoLocal + "/visitorTeam/" + equipoVisitante);
-                            $http.get("/api/quiniela/historical/footballMatch/localTeam/" + equipoLocal + "/visitorTeam/" + equipoVisitante)
-                                .success(function(data){
+                            quiniela.getHistoricalByLocalAndVisitorTeam(equipoLocal, equipoVisitante)
+                                .then(function(data){
                                     $scope.cargarTabla(data);
 
                                     $scope.mostrar = true;
                                     $scope.consultando = false;
-
                                 })
-                                .error(function(data){
-                                    console.log(data);
+                                .catch(function(err){
+                                    console.log(err);
                                     $scope.mostrar = false;
                                     $scope.consultando = false;
-
                                 });
                         }
                     }
-
-                    /*
-                    if(equipoLocal != null && equipoVisitante != null){ // Se ha indicado el partido correctamente
-                        console.log("/api/quiniela/historical/footballMatch/localTeam/" + equipoLocal + "/visitorTeam/" + equipoVisitante);
-                        $http.get("/api/quiniela/historical/footballMatch/localTeam/" + equipoLocal + "/visitorTeam/" + equipoVisitante)
-                            .success(function(data){
-                                $scope.cargarTabla(data);
-
-                                $scope.mostrar = true;
-                                $scope.consultando = false;
-
-                            })
-                            .error(function(data){
-                                console.log(data);
-                                $scope.mostrar = false;
-                                $scope.consultando = false;
-
-                            });
-                    }
-                    */
                 }
 
             }else{
                 if(opcionBusqueda == "general"){
-                    console.log("/api/quiniela/historical/competition/" + competicion);
-                    $http.get('/api/quiniela/historical/competition/' + competicion)
-                        .success(function(data){
+                    quiniela.getHistoricalByCompetition(competicion)
+                        .then(function(data){
                             $scope.cargarTabla(data);
 
                             $scope.mostrar = true;
                             $scope.consultando = false;
-
                         })
-                        .error(function(data){
-                            console.log(data);
+                        .catch(function(err){
+                            console.log(err);
                             $scope.mostrar = false;
                             $scope.consultando = false;
-
-                        })
+                        });
                 }else if(opcionBusqueda == "equipo"){
                     if(equipo == ""){
                         alert("Debe introducir un equipo.");
                         $scope.consultando = false;
                     }else{
-                        console.log("/api/quiniela/historical/competition/" + competicion + "/localTeam/" + equipo);
-                        $http.get('/api/quiniela/historical/competition/' + competicion + "/localTeam/" + equipo)
-                            .success(function(data){
+                        quiniela.getHistoricalByCompetitionAndLocalTeam(competicion, equipo)
+                            .then(function(data){
                                 $scope.cargarTablaLocal(data);
 
                                 $scope.mostrarLocalYVisitante = true;
 
                                 $scope.consultando = false;
-
                             })
-                            .error(function(data){
-                                console.log(data);
+                            .catch(function(err){
+                                console.log(err);
                                 $scope.mostrarLocalYVisitante = false;
                                 $scope.consultando = false;
-
                             });
 
-                        console.log("/api/quiniela/historical/competition/" + competicion + "/visitorTeam/" + equipo);
-                        $http.get('/api/quiniela/historical/competition/' + competicion + "/visitorTeam/" + equipo)
-                            .success(function(data){
+                        quiniela.getHistoricalByCompetitionAndVisitorTeam(competicion, equipo)
+                            .then(function(data){
                                 $scope.cargarTablaVisitante(data);
                                 $scope.mostrarLocalYVisitante = true;
                                 $scope.consultando = false;
-
                             })
-                            .error(function(data){
-                                console.log(data);
+                            .catch(function(err){
+                                console.log(err);
                                 $scope.mostrarLocalYVisitante = false;
                                 $scope.consultando = false;
-
                             });
                     }
                 }else if(opcionBusqueda == "partido"){
                     if(equipoLocal != null && equipoVisitante != null){
-                        console.log('/api/quiniela/historical/competition/' + competicion + "/footballMatch/localTeam/" + equipoLocal  + "/visitorTeam/" + equipoVisitante);
-                        $http.get('/api/quiniela/historical/competition/' + competicion + "/footballMatch/localTeam/" + equipoLocal  + "/visitorTeam/" + equipoVisitante)
-                            .success(function(data){
+                        quiniela.getHistoricalByCompetitionAndLocalAndVisitorTeam(competicion, equipoLocal, equipoVisitante)
+                            .then(function(data){
                                 $scope.cargarTabla(data);
                                 $scope.mostrar = true;
                                 $scope.consultando = false;
-
                             })
-                            .error(function(data){
-                                console.log(data);
+                            .catch(function(err){
+                                console.log(err);
                                 $scope.mostrar = false;
                                 $scope.consultando = false;
-
                             });
                     }
                 }
@@ -677,156 +529,131 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         }else{
             if(competicion == 'Todas' || competicion == null || competicion == ""){
                 if(opcionBusqueda == "general"){
-                    console.log('/api/quiniela/historical/season/' + temporada);
-                    $http.get('/api/quiniela/historical/season/' + temporada)
-                        .success(function(data){
+                    quiniela.getHistoricalBySeason(temporada)
+                        .then(function(data){
                             $scope.cargarTabla(data);
                             $scope.mostrar = true;
 
                             $scope.consultando = false;
-
                         })
-                        .error(function(data){
-                            console.log(data);
+                        .catch(function(err){
+                            console.log(err);
                             $scope.mostrar = false;
 
                             $scope.consultando = false;
-
                         });
-
                 }else if(opcionBusqueda == "equipo"){
                     if(equipo == ""){
                         alert("Debe introducir un equipo.");
                     }else{
-                        console.log('/api/quiniela/historical/season/' + temporada + "/localTeam/" + equipo);
-                        $http.get('/api/quiniela/historical/season/' + temporada + "/localTeam/" + equipo)
-                            .success(function(data){
+                        quiniela.getHistoricalBySeasonAndLocalTeam(temporada, equipo)
+                            .then(function(data){
                                 $scope.cargarTablaLocal(data);
                                 $scope.mostrarLocalYVisitante = true;
 
                                 $scope.consultando = false;
-
                             })
-                            .error(function(data){
+                            .catch(function(err){
                                 console.log(data);
                                 $scope.mostrarLocalYVisitante = false;
 
                                 $scope.consultando = false;
-
                             });
 
-                        console.log('/api/quiniela/historical/season/' + temporada + "/visitorTeam/" + equipo);
-                        $http.get('/api/quiniela/historical/season/' + temporada + "/visitorTeam/" + equipo)
-                            .success(function(data){
+                        quiniela.getHistoricalBySeasonAndVisitorTeam(temporada, equipo)
+                            .then(function(data){
                                 $scope.cargarTablaVisitante(data);
                                 $scope.mostrarLocalYVisitante = true;
 
                                 $scope.consultando = false;
-
                             })
-                            .error(function(data){
-                                console.log(data);
+                            .catch(function(err){
+                                console.log(err);
                                 $scope.mostrarLocalYVisitante = false;
 
                                 $scope.consultando = false;
-
                             });
                     }
                 }else if(opcionBusqueda == "partido"){
                     if(equipoLocal != null && equipoVisitante != null){
-                        console.log('/api/quiniela/historical/season/' + temporada + "/footballMatch/localTeam/" + equipoLocal + "/visitorTeam/" + equipoVisitante);
-                        $http.get('/api/quiniela/historical/season/' + temporada + "/footballMatch/localTeam/" + equipoLocal + "/visitorTeam/" + equipoVisitante)
-                            .success(function(data){
+                        quiniela.getHistoricalBySeasonAndLocalAndVisitorTeam(temporada, equipoLocal, equipoVisitante)
+                            .then(function(data){
                                 $scope.cargarTabla(data);
                                 $scope.mostrar = true;
 
                                 $scope.consultando = false;
-
                             })
-                            .error(function(data){
-                                console.log(data);
+                            .catch(function(err){
+                                console.log(err);
                                 $scope.mostrar = false;
 
                                 $scope.consultando = false;
-
                             });
                     }
                 }
             }else{ // Se ha seleccionado una competicion
                 if(opcionBusqueda == "general"){
-                    console.log('/api/quiniela/historical/season/' + temporada + "/competition/" + competicion);
-                    $http.get('/api/quiniela/historical/season/' + temporada + "/competition/" + competicion)
-                        .success(function(data){
+                    quiniela.getHistoricalBySeasonAndCompetition(temporada, competicion)
+                        .then(function(data){
                             $scope.cargarTabla(data);
                             $scope.mostrar = true;
 
                             $scope.consultando = false;
-
                         })
-                        .error(function(data){
-                            console.log(data);
+                        .catch(function(err){
+                            console.log(err);
                             $scope.mostrar = false;
 
                             $scope.consultando = false;
-
                         });
                 }else if(opcionBusqueda == "equipo"){
                     if(equipo == ""){
                         alert("Debe introducir un equipo.");
                     }else{ // Se ha introducido un equipo
-                        console.log('/api/quiniela/historical/season/' + temporada + "/competition/" + competicion + "/localTeam/" + equipo);
-                        $http.get('/api/quiniela/historical/season/' + temporada + "/competition/" + competicion + "/localTeam/" + equipo)
-                            .success(function(data){
+                        quiniela.getHistoricalBySeasonCompetitionAndLocalTeam(temporada, competicion, equipo)
+                            .then(function(data){
                                 $scope.cargarTablaLocal(data);
                                 $scope.mostrarLocalYVisitante = true;
 
                                 $scope.consultando = false;
-
                             })
-                            .error(function(data){
-                                console.log(data);
+                            .catch(function(err){
+                                console.log(err);
                                 $scope.mostrarLocalYVisitante = false;
 
                                 $scope.consultando = false;
-
                             });
 
-                        console.log('/api/quiniela/historical/season/' + temporada + "/competition/" + competicion + "/visitorTeam/" + equipo);
-                        $http.get('/api/quiniela/historical/season/' + temporada + "/competition/" + competicion + "/visitorTeam/" + equipo)
-                            .success(function(data){
+                        quiniela.getHistoricalBySeasonCompetitionAndVisitorTeam(temporada, competicion, equipo)
+                            .then(function(data){
                                 $scope.cargarTablaVisitante(data);
                                 $scope.mostrarLocalYVisitante = true;
 
                                 $scope.consultando = false;
-
                             })
-                            .error(function(data){
-                                console.log(data);
+                            .catch(function(err){
+                                console.log(err);
                                 $scope.mostrarLocalYVisitante = false;
 
                                 $scope.consultando = false;
-
                             });
                     }
                 }else if(opcionBusqueda == "partido"){
                     if(equipoLocal != null && equipoVisitante != null){
-                        console.log("/api/quiniela/historical/season/" + temporada + "/competition/" + competicion + "/footballMatch/" +
-                            "localTeam/" + equipoLocal + "/visitorTeam/" + equipoVisitante)
-                        $http.get("/api/quiniela/historical/season/" + temporada + "/competition/" + competicion + "/footballMatch/" +
-                        "localTeam/" + equipoLocal + "/visitorTeam/" + equipoVisitante)
-                            .success(function(data){
+
+                        quiniela.getHistoricalBySeasonCompetitionAndLocalAndVisitorTeam(temporada, competicion,
+                            equipoLocal, equipoVisitante)
+                            .then(function(data){
                                 $scope.cargarTabla(data);
                                 $scope.mostrar = true;
 
                                 $scope.consultando = false;
-
                             })
-                            .error(function(data){
-                                console.log(data);
+                            .catch(function(err){
+                                console.log(err);
                                 $scope.mostrar = false;
 
                                 $scope.consultando = false;
-
                             });
                     }
                 }
@@ -979,17 +806,16 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         $scope.limpiarTablasEstandar();
         $scope.consultando = true;
 
-
-        $http.get('/api/quiniela/historical/combinaciones')
-            .success(function(data){
+        quiniela.getHistoricalCombinations()
+            .then(function(data){
                 $scope.cargarTablaCombinaciones(data);
 
                 $scope.mostrarCombinacionesSucedidas = true;
 
                 $scope.consultando = false;
             })
-            .error(function(data){
-                console.log(data);
+            .catch(function(err){
+                console.log(err);
             });
     };
 
@@ -1001,32 +827,27 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         $scope.mostrarCombinacionesSucedidas = false;
     };
 
-    $http.get('/api/quiniela/equipos')
-        .success(function(data){
+    quiniela.getAllTeams()
+        .then(function(data){
             $scope.equipos = data;
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
 
-    $http.get('/api/quiniela/competiciones')
-        .success(function(data){
+    quiniela.getAllCompetitions()
+        .then(function(data){
             $scope.competiciones = data;
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
 
-    $http.get('/api/quiniela/temporadas')
-        .success(function(data){
+    quiniela.getAllSeasons()
+        .then(function(data){
             $scope.temporadas = data;
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
-
-});
-
-
-
-
+};

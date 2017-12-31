@@ -1,20 +1,23 @@
 var app = angular.module('dashboard');
 
-app.controller('AnadirTemporadaController', function ($scope, $http, $window){
+app.controller('AnadirTemporadaController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', 'quiniela'];
+
+function Controller ($scope, $http, $window, quiniela){
 
     $scope.registro = {};
 
     $scope.guardar = function(){
-
-        $http.post('/api/quiniela/temporadas', $scope.registro)
-            .success(function(data){
+        quiniela.createSeason($scope.registro)
+            .then(function(data){
                 angular.element("#modalTitleRegistroAnadidoCorrectamente").text("Temporada añadida correctamente");
                 angular.element("#modalTextRegistroAnadidoCorrectamente").text("A continuación se le redirigirá al listado de temporadas registradas.");
                 angular.element("#modal-registroAnadidoCorrectamente").modal('show');
             })
-            .error(function(data){
-                alert(data);
-                console.log(data);
+            .catch(function(err){
+                alert(err);
+                console.log(err);
             });
     };
 
@@ -25,7 +28,4 @@ app.controller('AnadirTemporadaController', function ($scope, $http, $window){
 
         $window.location.href = nuevaURL;
     };
-
-
-
-});
+};

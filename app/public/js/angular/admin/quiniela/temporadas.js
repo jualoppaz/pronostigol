@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('TemporadasController', function ($scope, $http){
+app.controller('TemporadasController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', 'quiniela'];
+
+function Controller ($scope, $http, $window, quiniela){
 
     $scope.temporadas = {};
     $scope.competicionAEliminar = {};
@@ -16,16 +20,16 @@ app.controller('TemporadasController', function ($scope, $http){
 
     $scope.form.letraSeleccionada = "A";
 
-    $http.get('/api/quiniela/temporadas')
-        .success(function(data){
+    quiniela.getAllSeasons()
+        .then(function(data){
             $scope.temporadas = data;
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
 
     $scope.verRegistro = function(id){
-        window.location.href = "/admin/quiniela/temporadas/" + id;
+        $window.location.href = "/admin/quiniela/temporadas/" + id;
     };
 
     $scope.eliminarRegistro = function(id){
@@ -34,12 +38,12 @@ app.controller('TemporadasController', function ($scope, $http){
     };
 
     $scope.eliminarRegistroDefinitivamente = function(){
-        $http.delete('/api/quiniela/temporadas/' + String($scope.competicionAEliminar))
-            .success(function(data){
+        quiniela.deleteSeasonById($scope.competicionAEliminar)
+            .then(function(data){
                 $scope.temporadas = data;
             })
-            .error(function(data){
-                console.log(data);
+            .catch(function(err){
+                console.log(err);
             });
     };
 
@@ -73,6 +77,4 @@ app.controller('TemporadasController', function ($scope, $http){
 
         return res;
     };
-
-
-});
+};

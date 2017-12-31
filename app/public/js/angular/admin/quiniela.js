@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('QuinielaController', function ($scope, $http, $window){
+app.controller('QuinielaController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', 'quiniela'];
+
+function Controller ($scope, $http, $window, quiniela){
 
     $scope.tickets = [];
     $scope.quinielaAEliminar = {};
@@ -16,8 +20,8 @@ app.controller('QuinielaController', function ($scope, $http, $window){
     var ticketsPerPage_default = 20;
     $scope.ticketsPerPage = ticketsPerPage_default;
 
-    $http.get('/api/quiniela/tickets')
-        .success(function(data){
+    quiniela.getAllTickets()
+        .then(function(data){
             $scope.tickets = data;
 
             $scope.totalItems = $scope.tickets.length;
@@ -32,8 +36,8 @@ app.controller('QuinielaController', function ($scope, $http, $window){
                 $scope.numOfPages = Math.floor($scope.tickets.length / $scope.ticketsPerPage) + 1;
             }
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
 
     $scope.verEmail = function(id){
@@ -58,4 +62,4 @@ app.controller('QuinielaController', function ($scope, $http, $window){
     $scope.verQuiniela = function(season, id){
         $window.location.href = "/admin/quiniela/tickets/" + season + "/" + id;
     };
-});
+};
