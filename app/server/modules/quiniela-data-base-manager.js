@@ -836,7 +836,6 @@ exports.getTicketsByCompetitionGroupedByRes = function(competition, callback){
         if (e){
             callback(e);
         }else{
-            res.resultadoConGoles = resultadosPleno[i];
             callback(null, res);
         }
     });
