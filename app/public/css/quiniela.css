@@ -1,240 +1,10 @@
-.textoTurquesa{
-    color: #41B19C !important;
-}
-
-.textoTurquesa label{
-    font-family: 'Abel', sans-serif !important;
-    font-size: 18px;
-    font-weight: normal;
-    text-align: left !important;
-}
-
-.textoBlanco{
-    color: #FFFFFF;
-    padding-top: 20px;
-}
-
-.fondo{
-    float:left;
-    width: 70%;
-    height: 100%;
-}
-
-.seccionActual{
-    color: red;
-    font-style: Italic;
-}
-
-.tituloBarra{
-    font-family: 'Abel', sans-serif !important;
-    font-weight: bold;
-    font-size: 30px;
-}
-
 .abel{
     font-family: 'Abel', sans-serif !important;
 }
 
-.tituloBarra{
-    color: #41B19C !important;
-}
-
-.tituloBarra a{
-    color: #41B19C !important;
-}
-
-.formulario{
+.formulario {
     font-family: sans-serif !important;
 }
-/*CSS pagina principal*/
-
-.panelPrincipal{
-    color:white;
-    width:65%;
-    margin-left:25%;
-}
-
-.panelPrincipal h1,p{
-    padding-left: 5%;
-}
-
-.panelPrincipal h1{
-    padding-top: 1%;
-}
-
-.panelPrincipal p{
-    padding-bottom: 2%;
-}
-
-/*CSS caramelos blandos*/
-
-.fondoGamaPropia{
-    width: 12%;
-    margin-left: 3%;
-}
-
-.fondoGamaPropia p.gamaPropia{
-    background-color: #E32D28;
-    font-size: 18px;
-    color:white;
-    font: bold;
-    text-align:center;
-    padding-top: 10px;
-    padding-left: 7px;
-    padding-right: 7px;
-    padding-bottom: 10px;
-}
-
-.fondoToffees{
-    margin-left: 5%;
-    width:37%;
-}
-
-.fondoMasticables{
-    width:37%;
-    margin-left:4%;
-    float:left;
-}
-
-.fondoGamaPropia p{
-    text-align: left;
-    font:bold;
-    font-size: 12px;
-    padding-left:15%;
-}
-
-.fondoGamaPropia p b{
-
-}
-
-.fondoTurquesa{
-    background-color: #41B19C !important;
-}
-
-.titulo3{
-    display: block;
-    font-size: 20px;
-    margin-left: 20px;
-}
-
-.imagenPrincipal{
-    display:block;
-    margin-left:5%;
-    float:left;
-    width: 60%;
-    height: 55%;
-    margin-bottom:3%
-}
-
-.imagenPrincipal img{
-    height: 64%;
-}
-
-.imagenSecundaria{
-    margin-bottom: 2%;
-    display:inline-block;
-    margin-left: 4%;
-    margin-right: 4%;
-    width: 26%;
-    height: 10%;
-    float:left;
-}
-
-.imagenSecundaria img{
-    height: 20%;
-    width: 100%;
-}
-
-.divLogos{
-    float:left;
-    width:100%;
-    height: 60%;
-    margin-bottom: 2%;
-}
-
-.divLogoBarraPrincipal{
-    float:left;
-    height: 35%;
-    width: 18%;
-    margin-left: 4%;
-}
-
-.divLogoBarraPrincipal img{
-    width: 100%;
-    height: 12%;
-}
-
-.divLogoEmpresa{
-    height: 25%;
-    width: 25%;
-    float:left;
-}
-
-.divLogoEmpresa img{
-    height: 35%;
-}
-
-.divLogoGamaPropia img{
-    height: 15%;
-}
-
-.divLogoPublicitarios{
-    margin-top: 0%;
-}
-
-.divLogoPublicitarios img{
-    height: 13%;
-}
-
-.divLogoNosotros{
-    margin-top:1%;
-}
-
-.divLogoNosotros img{
-    height:11.5%;
-}
-
-.divLogoContacto{
-    margin-top:1%;
-}
-
-.divLogoContacto img{
-    height:12%;
-}
-
-.divLogoCarrito{
-    margin-top:1%;
-    width:7%;
-    height:10%;
-}
-
-.divLogoCarrito img{
-    height: 10%;
-}
-
-.logoSocial{
-    width: 50px;
-    height: 50px;
-}
-
-.divLogosMenu{
-    bottom: 0%;
-    float:left;
-    width:75%;
-    margin-top:7%;
-}
-
-.divRedesSociales{
-    float:left;
-}
-
-/*
-.footer{
-    clear: both;
-    margin-top:5%;
-}
-*/
-
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
     background-color: #41B19C !important;
@@ -281,23 +51,9 @@
     border-color: #eeeeee;
 }
 
-.border-search{
-    border-color: #eeeeee;
-}
-
 .input-group-btn-red > .btn {
     background-color: #41B19C !important;
     border-color: #eeeeee;
-}
-
-/*
-.main-card-name span{
-    color: #41B19C !important;
-}
-*/
-
-.recipe-time{
-    color: #41B19C !important;
 }
 
 .btn-eathub-red.btn.btn-default:hover, .btn-eathub-red.btn.btn-default:focus, .btn-eathub-red.btn.btn-default:active {
@@ -377,7 +133,6 @@ li > a:hover, .navbar-brand:hover, .btn-default:hover, .btn:hover{
     padding-top: 8px;
     padding-bottom: 8px;
     color: white;
-    /*background-color: #41B19C;*/
 }
 
 #comprar, #buscar, #enviar, #comentar{
@@ -408,31 +163,6 @@ nav.navbar-inner{
     vertical-align: middle !important;
 }
 
-/*
-a, nav, div{
-    border: 1px solid #000000;
-}
-*/
-
-/*
-body{
-    background-image: url('/img/gominolas.jpg') !important;
-}
-*/
-
-.margen-superior-50{
-    padding-top: 50px;
-}
-
-.main-card#gamaPropia, .main-card#publicitarios{
-    height: 140px;
-}
-
-
-.main-card#gama-propia-toffeesYMasticables, .main-card#gama-propia-duros, .main-card#gama-propia-grageados, .main-card#gama-propia-conPalo{
-    height: 320px;
-}
-
 .main-card-description > p{
     padding-left: 15px;
     font-size: 16px;
@@ -448,10 +178,6 @@ body{
 
 main{
     padding-bottom: 0px !important;
-}
-
-#toffees, #masticables, #crystals, #glorias, #ponnies, #especiales, #grageados, #conPalo{
-    height: auto;
 }
 
 .imagenCategoria{
@@ -472,7 +198,6 @@ main{
 }
 
 .panel-toffee, .panel-masticable, .panel-crystal, .panel-gloria, .panel-ponny, .panel-especial, .panel-grageado, .panel-conPalo{
-    /*height: 450px;*/
     height: 375px;
 }
 
@@ -480,7 +205,6 @@ main{
 .grageado-description, .conPalo-description{
     padding-top: 10px;
     margin-top: 30px;
-    /*padding-left: 10px;*/
 }
 
 .toffee-info-description, .masticable-info-description, .crystal-info-description, .gloria-info-description, .ponny-info-description,
@@ -513,16 +237,6 @@ h3{
     color: #41B19C !important;
     font-family: 'Abel', sans-serif;
 }
-
-/*
-.modelo-toffee > h1, .modelo-masticable > h1, .modelo-crystal > h1, .modelo-gloria > h1{
-    padding-left: 15px;
-    font-size: 25px !important;
-    font-weight: bold;
-    color: #41B19C !important;
-    font-family: 'Abel', sans-serif;
-}
-*/
 
 .panel-toffee-info, .panel-masticable-info, .panel-crystal-info, .panel-gloria-info, .panel-ponny-info, .panel-especial-info,
 .panel-grageado-info, .panel-conPalo-info{
@@ -697,23 +411,6 @@ th, td{
     color: #CC3E27 !important;
 }
 
-.galeria{
-
-    /*
-    margin-top:     100px;
-    margin-right:   50px;
-    margin-bottom:  90px;
-    margin-left:    50px;
-    */
-
-    height: 250px;
-}
-
-.galeria .sabor{
-    /*padding-left: 15px !important;*/
-    margin: auto !important;
-}
-
 .carousel-indicators li{
     border: 1px solid #41B19C;
 }
@@ -767,7 +464,7 @@ th, td{
 }
 
 h1.green, h1.red{
-    font-family: 'Abel' sans-serif !important;
+    font-family: 'Abel', sans-serif !important;
     font-weight: bold;
 }
 
@@ -914,84 +611,6 @@ label{
     display: inline-block;
 }
 
-
-/* Estas dos propiedades media son para que el footer se pegue mas o menos a la parte superior segun
-   el dispisitivo */
-
-/*
-@media (min-width: 768px){
-    .body-quinielas, .body-consultas{
-        min-height: 403px;
-    }
-
-    .body-contacto{
-        min-height: 403px;
-    }
-}
-
-@media (min-width: 992px){
-    .body-quinielas, .body-consultas{
-        min-height: 480px;
-    }
-
-    .body-contacto{
-        min-height: 480px;
-    }
-}
-
-@media (min-width: 1370px) {
-    .body-quinielas, .body-consultas{
-        min-height: 552px;
-    }
-
-    .body-contacto{
-        min-height: 552px;
-    }
-}
-
-@media (min-width: 1570px) {
-    .body-quinielas, .body-consultas{
-        min-height: 694px;
-    }
-
-    .body-contacto{
-        min-height: 694px;
-    }
-}*/
-
-/*
-#body-quinielas{
-    overflow: auto;
-    padding-bottom: 225px !important;
-}
-
-#body-consultas{
-    overflow: auto;
-    padding-bottom: 167px !important;
-}
-
-#body-contacto{
-    overflow: auto;
-    padding-bottom: 210px !important;
-}
-
-#body-index{
-    overflow: auto;
-    padding-bottom: 150px !important;
-}*/
-
-/*
-.footer {
-    position: relative;
-    margin-top: -81px;
-    clear:both;
-    padding-top:20px;
-    display: table-row;
-    height: auto;
-}
-*/
-
-
 /*Sticky footer*/
 
 /* Esta opcion completa y usando el .container funciona. Pero la clave esta en el display: table.
@@ -1021,20 +640,6 @@ body {
 #footer {
     min-height: 113px;
 }
-
-/* Lastly, apply responsive CSS fixes as necessary */
-/*
-@media (max-width: 767px) {
-    #footer {
-        margin-left: -20px;
-        margin-right: -20px;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-}
-*/
-
-
 
 /* Custom page CSS
 -------------------------------------------------- */
@@ -1301,10 +906,6 @@ th.badge-pleno{
         border-bottom: 0;
     }
 
-    /*::-webkit-scrollbar {
-        -webkit-appearance: none;
-    }*/
-
     ::-webkit-scrollbar:vertical {
         width: 12px;
     }
@@ -1536,15 +1137,6 @@ ul.nav.nav-tabs li a{
     color: #0480be;
 }
 
-/*
-@media (max-width: 768px){
-    .logo-quiniela-con-texto-invertido{
-        font-size: 70px;
-        display: table-cell;
-        vertical-align: middle;
-    }
-}*/
-
 body{
     background-color: #ddd !important;
 }
@@ -1564,21 +1156,6 @@ body{
     border-bottom: 2px solid #0480be;
 }
 
-/*
-.tabla-quinielas thead tr th{
-    border-bottom: 2px solid #2b2b2b !important;
-}
-
-.tabla-quinielas tbody tr td{
-    border-top: 1px solid #2b2b2b !important;
-}
-
-.tabla-quinielas tbody tr td:first-child{
-    border-top: none;
-}
-*/
-
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover{
     border-top: 1px solid white;
 }
-

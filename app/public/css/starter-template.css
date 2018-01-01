@@ -167,14 +167,6 @@ header .container {
     border-bottom: 1px solid #CC3E27;
 }
 
-.recipe-time {
-    bottom: 0;
-    left: 0;
-    padding: 10px;
-    color: #CC3E27;
-    font-size: 20px;
-}
-
 .recipe-list-time {
     color: #CC3E27;
     font-size: 18px;
@@ -493,10 +485,6 @@ header .container {
     padding-bottom: 5px;
     margin-top: 8px;
     display: none;
-}
-
-.border-search {
-    border-color: #a23422;
 }
 
 .border-default {
