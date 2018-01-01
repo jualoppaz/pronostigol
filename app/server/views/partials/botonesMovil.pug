@@ -1,9 +1,0 @@
-div.hidden-md.hidden-lg.hidden-sm.col-xs-12
-    div.panel.panel-default.panel-body.text-center
-        div.col-xs-6.hidden-md.hidden-lg
-            a.btn.btn-default.btn-lagloria(href="/buscar")#buscar Buscar
-                i.fa.fa-search(style="margin-left:15px")
-        div.col-xs-6.hidden-md.hidden-lg(ng-show="usuarioEstaLogueado == false")
-            a.btn.btn-default.btn-lagloria(href="/login", role="button")#entrar Entrar
-        div.col-xs-6.hidden-md.hidden-lg(ng-show="usuarioEstaLogueado")
-            a.btn.btn-default.btn-lagloria(href="#", ng-click="cerrarSesion();", role="button")#entrar Cerrar sesión

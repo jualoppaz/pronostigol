@@ -51,36 +51,11 @@
     border-color: #eeeeee;
 }
 
-.input-group-btn-red > .btn {
-    background-color: #41B19C !important;
-    border-color: #eeeeee;
-}
-
 .btn-eathub-red.btn.btn-default:hover, .btn-eathub-red.btn.btn-default:focus, .btn-eathub-red.btn.btn-default:active {
     background-color: #ffffff;
     border-color: #41B19C !important;
     color: #41B19C !important;
 }
-
-.input-group-btn-red > .btn:hover{
-    background-color: #eeeeee;
-    border-color: #41B19C;
-    color: #41B19C;
-}
-
-.css-form input.ng-invalid.ng-dirty {
-    background-color: #FA787E;
-}
-
-.css-form input.ng-valid.ng-dirty {
-    background-color: #78FA89;
-}
-
-/*
-p, a, span{
-    font-family: 'Abel', sans-serif !important;
-}
-*/
 
 a{
     font-size: 18px !important;
@@ -181,33 +156,10 @@ main{
     padding-bottom: 0px !important;
 }
 
-.imagenCategoria{
-    display:block;
-    margin:auto;
-}
-
-.imagenCategoria.duros{
-    padding-top: 15%;
-}
-
-.main-card-picture{
-
-}
-
-.imagenToffee, .imagenMasticable, .imagenCrystal, .imagenGloria, .imagenPonny, .imagenEspecial, .imagenGrageado, .imagenConPalo{
-    float:left;
-}
-
-.panel-toffee, .panel-masticable, .panel-crystal, .panel-gloria, .panel-ponny, .panel-especial, .panel-grageado, .panel-conPalo{
-    /*height: 450px;*/
-    height: 375px;
-}
-
 .toffee-description, .masticable-description, .crystal-description, .gloria-description, .ponny-description, .especial-description,
 .grageado-description, .conPalo-description{
     padding-top: 10px;
     margin-top: 30px;
-    /*padding-left: 10px;*/
 }
 
 .toffee-info-description, .masticable-info-description, .crystal-info-description, .gloria-info-description, .ponny-info-description,
@@ -239,21 +191,6 @@ h3{
     font-weight: bold;
     color: #41B19C !important;
     font-family: 'Abel', sans-serif;
-}
-
-/*
-.modelo-toffee > h1, .modelo-masticable > h1, .modelo-crystal > h1, .modelo-gloria > h1{
-    padding-left: 15px;
-    font-size: 25px !important;
-    font-weight: bold;
-    color: #41B19C !important;
-    font-family: 'Abel', sans-serif;
-}
-*/
-
-.panel-toffee-info, .panel-masticable-info, .panel-crystal-info, .panel-gloria-info, .panel-ponny-info, .panel-especial-info,
-.panel-grageado-info, .panel-conPalo-info{
-    padding-top: 30px;
 }
 
 .separador-horizontal{
@@ -360,11 +297,6 @@ div.row div h3.blue{
     margin-bottom: 0px !important;
 }
 
-.panel-toffee-buscar{
-    height: 300px;
-    border: 2px solid #41B19C !important;
-}
-
 nav{
     height: auto !important;
 }
@@ -385,20 +317,8 @@ th, td{
     font-size: 22px !important;
 }
 
-.css-form input.ng-invalid.ng-dirty {
-    background-color: #FA787E;
-}
-
-.css-form input.ng-valid.ng-dirty {
-    background-color: #78FA89;
-}
-
 .lagloria{
     color: #41B19C !important;
-}
-
-.eathub{
-    color: #CC3E27 !important;
 }
 
 .mensajeEmail{
@@ -420,64 +340,12 @@ th, td{
     color: #E32D28 !important;
 }
 
-#confirmarPedido:hover{
-    color: #CC3E27 !important;
-}
-
-.carousel-indicators li{
-    border: 1px solid #41B19C;
-}
-
-.carousel-indicators li.active{
-    background-color: #41B19C;
-}
-
-.carousel-indicators{
-    bottom: 10px;
-}
-
-.carousel-control.left, .carousel-control.right{
-    background-image: none;
-    color: #41B19C;
-}
-
-.carousel-control.left span, .carousel-control.right span{
-    color: #41B19C;
-}
-
-.carousel-control{
-    color: #41B19C !important;
-    opacity: 0.5;
-}
-
-.flecha{
-    top: 45%;
-    position: absolute;
-
-}
-
-.flecha.fa-arrow-left{
-    left: 10px;
-}
-
-.flecha.fa-arrow-right{
-    right: 10px;
-}
-
-.borde-lagloria{
-    border: 2px solid #41B19C !important;
-}
-
-.centrar{
-    text-align: center;
-}
-
 .pointer:hover{
     cursor: pointer !important;
 }
 
 h1.green, h1.red{
-    font-family: 'Abel' sans-serif !important;
+    font-family: 'Abel', sans-serif !important;
     font-weight: bold;
 }
 
@@ -489,7 +357,6 @@ h1.green, h1.red{
 .product-comment{
     margin-top: 0px;
 }
-
 
 .fondoAzul{
     background-color: #0480be;
@@ -555,7 +422,6 @@ h1.green, h1.red{
     background-color: #2b2b2b;
 }
 
-
 .badge{
     border-radius: 10px !important;
 }
@@ -572,7 +438,6 @@ label{
     text-align: left !important;
 }
 
-
 .badge-pleno{
     letter-spacing: 5px;
     padding-left: 9px !important;
@@ -587,7 +452,6 @@ label{
 label{
     padding-top: 0px;
 }
-
 
 .letra-roja{
     color: #E32D28;
@@ -618,7 +482,6 @@ label{
     display: none !important;
 }
 
-
 .cookies-parrafo{
     font-size: 18px !important;
     padding-left: 0px;
@@ -635,84 +498,6 @@ label{
 .espacio-letras span{
     display: inline-block;
 }
-
-
-/* Estas dos propiedades media son para que el footer se pegue mas o menos a la parte superior segun
-   el dispisitivo */
-
-/*
-@media (min-width: 768px){
-    .body-bonolotos, .body-consultas{
-        min-height: 403px;
-    }
-
-    .body-contacto{
-        min-height: 403px;
-    }
-}
-
-@media (min-width: 992px){
-    .body-bonolotos, .body-consultas{
-        min-height: 480px;
-    }
-
-    .body-contacto{
-        min-height: 480px;
-    }
-}
-
-@media (min-width: 1370px) {
-    .body-bonolotos, .body-consultas{
-        min-height: 552px;
-    }
-
-    .body-contacto{
-        min-height: 552px;
-    }
-}
-
-@media (min-width: 1570px) {
-    .body-bonolotos, .body-consultas{
-        min-height: 694px;
-    }
-
-    .body-contacto{
-        min-height: 694px;
-    }
-}*/
-
-/*
-#body-bonolotos{
-    overflow: auto;
-    padding-bottom: 225px !important;
-}
-
-#body-consultas{
-    overflow: auto;
-    padding-bottom: 167px !important;
-}
-
-#body-contacto{
-    overflow: auto;
-    padding-bottom: 210px !important;
-}
-
-#body-index{
-    overflow: auto;
-    padding-bottom: 150px !important;
-}*/
-
-/*
-.footer {
-    position: relative;
-    margin-top: -81px;
-    clear:both;
-    padding-top:20px;
-    display: table-row;
-    height: auto;
-}
-*/
-
 
 /*Sticky footer*/
 
@@ -743,20 +528,6 @@ body {
 #footer {
     min-height: 113px;
 }
-
-/* Lastly, apply responsive CSS fixes as necessary */
-/*
-@media (max-width: 767px) {
-    #footer {
-        margin-left: -20px;
-        margin-right: -20px;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-}
-*/
-
-
 
 /* Custom page CSS
 -------------------------------------------------- */
@@ -826,8 +597,6 @@ h1.page-header{
 th.badge-pleno{
     white-space: nowrap;
 }
-
-
 
 @media screen and (max-width: 991px) {
     .table-responsive {
@@ -973,7 +742,6 @@ th.badge-pleno{
         border-radius: 10px;
         background-color: #ffffff;
     }
-
 }
 
 /* Para el ordenador */
@@ -1224,7 +992,6 @@ ul.nav.nav-tabs li a{
         margin-right: 0;
     }
 }
-
 
 .fondoGordo{
     background-color: #E32D28 !important;

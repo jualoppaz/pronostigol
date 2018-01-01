@@ -47,29 +47,10 @@
     border-color: #eeeeee;
 }
 
-.input-group-btn-red > .btn {
-    background-color: #41B19C !important;
-    border-color: #eeeeee;
-}
-
 .btn-eathub-red.btn.btn-default:hover, .btn-eathub-red.btn.btn-default:focus, .btn-eathub-red.btn.btn-default:active {
     background-color: #ffffff;
     border-color: #41B19C !important;
     color: #41B19C !important;
-}
-
-.input-group-btn-red > .btn:hover{
-    background-color: #eeeeee;
-    border-color: #41B19C;
-    color: #41B19C;
-}
-
-.css-form input.ng-invalid.ng-dirty {
-    background-color: #FA787E;
-}
-
-.css-form input.ng-valid.ng-dirty {
-    background-color: #78FA89;
 }
 
 a{
@@ -123,7 +104,6 @@ li > a:hover, .navbar-brand:hover, .btn-default:hover, .btn:hover{
     padding-top: 8px;
     padding-bottom: 8px;
     color: white;
-    /*background-color: #41B19C;*/
 }
 
 #comprar, #buscar, #enviar, #comentar{
@@ -171,33 +151,10 @@ main{
     padding-bottom: 0px !important;
 }
 
-.imagenCategoria{
-    display:block;
-    margin:auto;
-}
-
-.imagenCategoria.duros{
-    padding-top: 15%;
-}
-
-.main-card-picture{
-
-}
-
-.imagenToffee, .imagenMasticable, .imagenCrystal, .imagenGloria, .imagenPonny, .imagenEspecial, .imagenGrageado, .imagenConPalo{
-    float:left;
-}
-
-.panel-toffee, .panel-masticable, .panel-crystal, .panel-gloria, .panel-ponny, .panel-especial, .panel-grageado, .panel-conPalo{
-    /*height: 450px;*/
-    height: 375px;
-}
-
 .toffee-description, .masticable-description, .crystal-description, .gloria-description, .ponny-description, .especial-description,
 .grageado-description, .conPalo-description{
     padding-top: 10px;
     margin-top: 30px;
-    /*padding-left: 10px;*/
 }
 
 .toffee-info-description, .masticable-info-description, .crystal-info-description, .gloria-info-description, .ponny-info-description,
@@ -229,11 +186,6 @@ h3{
     font-weight: bold;
     color: #41B19C !important;
     font-family: 'Abel', sans-serif;
-}
-
-.panel-toffee-info, .panel-masticable-info, .panel-crystal-info, .panel-gloria-info, .panel-ponny-info, .panel-especial-info,
-.panel-grageado-info, .panel-conPalo-info{
-    padding-top: 30px;
 }
 
 .separador-horizontal{
@@ -340,11 +292,6 @@ div.row div h3.blue{
     margin-bottom: 0px !important;
 }
 
-.panel-toffee-buscar{
-    height: 300px;
-    border: 2px solid #41B19C !important;
-}
-
 nav{
     height: auto !important;
 }
@@ -365,20 +312,8 @@ th, td{
     font-size: 22px !important;
 }
 
-.css-form input.ng-invalid.ng-dirty {
-    background-color: #FA787E;
-}
-
-.css-form input.ng-valid.ng-dirty {
-    background-color: #78FA89;
-}
-
 .lagloria{
     color: #41B19C !important;
-}
-
-.eathub{
-    color: #CC3E27 !important;
 }
 
 .mensajeEmail{
@@ -398,58 +333,6 @@ th, td{
 
 #confirmarEliminacion:hover{
     color: #2b2b2b !important;
-}
-
-#confirmarPedido:hover{
-    color: #CC3E27 !important;
-}
-
-.carousel-indicators li{
-    border: 1px solid #41B19C;
-}
-
-.carousel-indicators li.active{
-    background-color: #41B19C;
-}
-
-.carousel-indicators{
-    bottom: 10px;
-}
-
-.carousel-control.left, .carousel-control.right{
-    background-image: none;
-    color: #41B19C;
-}
-
-.carousel-control.left span, .carousel-control.right span{
-    color: #41B19C;
-}
-
-.carousel-control{
-    color: #41B19C !important;
-    opacity: 0.5;
-}
-
-.flecha{
-    top: 45%;
-    position: absolute;
-
-}
-
-.flecha.fa-arrow-left{
-    left: 10px;
-}
-
-.flecha.fa-arrow-right{
-    right: 10px;
-}
-
-.borde-lagloria{
-    border: 2px solid #41B19C !important;
-}
-
-.centrar{
-    text-align: center;
 }
 
 .pointer:hover{

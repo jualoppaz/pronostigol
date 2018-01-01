@@ -40,24 +40,6 @@ block content
                                             gama de consultas a realizar.
                                             De este modo te ser&aacute; mucho m&aacute;s sencillo realizar tus apuestas.
 
-                                    //h3.text-center(style="margin-top: 0px; padding-top: 5px", ng-show="usuarioEsAnonimo && comments.length > 0", ng-cloak)
-                                        a.green(href="/login", ng-bind-template="¡Debes loguearte para comentar!")#logueate
-
-                                    //div.col-md-12.col-sm-12.col-xs-12.alert.alert-danger(ng-show="comentarioPalabrasLargas", ng-cloak)
-                                        | El comentario contiene palabras no registradas en el diccionario.
-
-                                    //div.col-md-12.col-sm-12.col-xs-12.alert.alert-info(ng-show="comentarioEliminadoCorrectamente", ng-cloak)
-                                        | El comentario ha sido eliminado con &eacute;xito.
-                                    //div.col-md-12.col-sm-12.col-xs-12.alert.alert-info(ng-show="comentarioEnviadoCorrectamente", ng-cloak)
-                                        | El comentario ha sido enviado. Se mostrar&aacute; cuando sea validado por el administrador.
-                                    //form(ng-show="usuarioEstaLogueado", ng-cloak)
-                                        textarea(placeholder="Escribe un comentario", ng-model="comentario.texto").form-control.nuevo-comentario#comentario
-                                        div.centrar(style="margin-top:25px")
-                                            a.btn.btn-default.btn-qdb(ng-click="comentar()").btn.btn-danger.btn-large#entrar Enviar
-
-
-
-
                         div.col-md-2.col-sm-12.col-xs-12(style="padding-bottom: 15px; padding-top: 30px")
                             script(async, src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
                             ins.adsbygoogle(style="display:block", data-ad-client="ca-pub-2309187828170787", data-ad-slot="1504415157", data-ad-format="auto")
@@ -66,10 +48,8 @@ block content
 
                 include partials/cookiesNotification
 
-                //include modals/editarComentario
                 include modals/eliminarRegistro
 
-        //div#push(style="height: 180px")
         div#push
 
     include primitiva/partials/footer
