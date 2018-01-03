@@ -156,41 +156,8 @@ main {
     padding-bottom: 0px !important;
 }
 
-.toffee-description, .masticable-description, .crystal-description, .gloria-description, .ponny-description, .especial-description,
-.grageado-description, .conPalo-description{
-    padding-top: 10px;
-    margin-top: 30px;
-}
-
-.toffee-info-description, .masticable-info-description, .crystal-info-description, .gloria-info-description, .ponny-info-description,
-.especial-info-description, .grageado-info-description, .conPalo-info-description{
-    padding-left: 15px;
-    padding-top: 10px;
-}
-
-.margenInferior-30{
-    margin-bottom: 30px;
-}
-
 h3{
     font-size: 18px;
-}
-
-.col-md-right-offset-3 {
-    margin-right: 25%;
-}
-
-.col-sm-right-offset-3{
-    margin-right: 25%;
-}
-
-.modelo-toffee > a, .modelo-masticable > a, .modelo-crystal > a, .modelo-gloria > a, .modelo-ponny > a, .modelo-especial > a,
-.modelo-grageado > a, .modelo-conPalo > a{
-    padding-left: 15px;
-    font-size: 25px !important;
-    font-weight: bold;
-    color: #41B19C !important;
-    font-family: 'Abel', sans-serif;
 }
 
 .separador-horizontal{
@@ -277,20 +244,9 @@ div.row div h3.blue{
     padding-left: 15px;
 }
 
-.reset-padding-left{
-    padding-left: 0px !important;
-}
-
 .navbar .container .navbar-brand{
     padding: 13px 15px 0px 15px;
     margin-left: 0px;
-}
-
-.mayorQue{
-    margin-left:10px;
-    margin-right: 10px;
-    margin-top: 5px;
-    float:left
 }
 
 .main-card-name{
@@ -432,15 +388,6 @@ label{
     padding-top: 5px;
 }
 
-.span-derecha{
-    text-align: right !important;
-}
-
-.span-izquierda{
-    text-align: left !important;
-}
-
-
 .badge-pleno{
     letter-spacing: 5px;
     padding-left: 9px !important;
@@ -455,7 +402,6 @@ label{
 label{
     padding-top: 0px;
 }
-
 
 .letra-roja{
     color: #E32D28;
@@ -486,7 +432,6 @@ label{
     display: none !important;
 }
 
-
 .cookies-parrafo{
     font-size: 18px !important;
     padding-left: 0px;
@@ -503,84 +448,6 @@ label{
 .espacio-letras span{
     display: inline-block;
 }
-
-
-/* Estas dos propiedades media son para que el footer se pegue mas o menos a la parte superior segun
-   el dispisitivo */
-
-/*
-@media (min-width: 768px){
-    .body-bonolotos, .body-consultas{
-        min-height: 403px;
-    }
-
-    .body-contacto{
-        min-height: 403px;
-    }
-}
-
-@media (min-width: 992px){
-    .body-bonolotos, .body-consultas{
-        min-height: 480px;
-    }
-
-    .body-contacto{
-        min-height: 480px;
-    }
-}
-
-@media (min-width: 1370px) {
-    .body-bonolotos, .body-consultas{
-        min-height: 552px;
-    }
-
-    .body-contacto{
-        min-height: 552px;
-    }
-}
-
-@media (min-width: 1570px) {
-    .body-bonolotos, .body-consultas{
-        min-height: 694px;
-    }
-
-    .body-contacto{
-        min-height: 694px;
-    }
-}*/
-
-/*
-#body-bonolotos{
-    overflow: auto;
-    padding-bottom: 225px !important;
-}
-
-#body-consultas{
-    overflow: auto;
-    padding-bottom: 167px !important;
-}
-
-#body-contacto{
-    overflow: auto;
-    padding-bottom: 210px !important;
-}
-
-#body-index{
-    overflow: auto;
-    padding-bottom: 150px !important;
-}*/
-
-/*
-.footer {
-    position: relative;
-    margin-top: -81px;
-    clear:both;
-    padding-top:20px;
-    display: table-row;
-    height: auto;
-}
-*/
-
 
 /*Sticky footer*/
 
@@ -611,20 +478,6 @@ body {
 #footer {
     min-height: 113px;
 }
-
-/* Lastly, apply responsive CSS fixes as necessary */
-/*
-@media (max-width: 767px) {
-    #footer {
-        margin-left: -20px;
-        margin-right: -20px;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-}
-*/
-
-
 
 /* Custom page CSS
 -------------------------------------------------- */
