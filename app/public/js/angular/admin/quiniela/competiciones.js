@@ -77,6 +77,4 @@ function Controller ($scope, $http, quiniela){
 
         return res;
     };
-
-
-});
+};

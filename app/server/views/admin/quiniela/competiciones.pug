@@ -21,8 +21,8 @@ block content
 
 
                         ul.pagination#paginador(ng-cloak)
-                            li.col-md-4.col-md-offset-4.col-md-offset-right-4(style="padding-left: 0px; padding-right: 0px").text-center
-                                a.col-md-12(href="#", ng-click="mostrarTodos()") Mostrar todas
+                            li(style="padding-left: 0px; padding-right: 0px").text-center
+                                a(href="#", ng-click="mostrarTodos()") Mostrar todas
                             li(ng-repeat="letra in letras")
                                 a(ng-focus="letra == 'A'", ng-cloak, href="#", ng-bind-template="{{letra}}", ng-click="seleccionarLetra(letra)")
 
