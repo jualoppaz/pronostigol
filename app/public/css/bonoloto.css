@@ -296,7 +296,7 @@ th, td{
 }
 
 h1.green, h1.red{
-    font-family: 'Abel' sans-serif !important;
+    font-family: 'Abel', sans-serif !important;
     font-weight: bold;
 }
 
