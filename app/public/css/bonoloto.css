@@ -148,7 +148,7 @@ nav.navbar-inner{
 }
 
 main{
-    padding-bottom: 0px !important;
+    padding-bottom: 0 !important;
 }
 
 h3{
@@ -188,7 +188,7 @@ h3{
 }
 
 h1{
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 div.row div h3{
@@ -240,12 +240,12 @@ div.row div h3.blue{
 }
 
 .navbar .container .navbar-brand{
-    padding: 13px 15px 0px 15px;
-    margin-left: 0px;
+    padding: 13px 15px 0 15px;
+    margin-left: 0;
 }
 
 .main-card-name{
-    margin-bottom: 0px !important;
+    margin-bottom: 0 !important;
 }
 
 nav{
@@ -306,7 +306,7 @@ h1.green, h1.red{
 }
 
 .product-comment{
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 .fondoAzul{
@@ -388,12 +388,12 @@ label{
 }
 
 .page-header{
-    margin-top: 0px;
+    margin-top: 0;
     padding-top: 40px;
 }
 
 label{
-    padding-top: 0px;
+    padding-top: 0;
 }
 
 
@@ -429,7 +429,7 @@ label{
 
 .cookies-parrafo{
     font-size: 18px !important;
-    padding-left: 0px;
+    padding-left: 0;
     text-indent: 1.5em;
     font-family: 'Abel', sans-serif !important;
     text-align: justify;
@@ -479,7 +479,7 @@ body {
 /* Not required for template or sticky footer method. */
 
 #wrap > .container {
-    padding-top: 0px;
+    padding-top: 0;
 }
 .container{
     margin: 0 0;
@@ -490,17 +490,17 @@ code {
 }
 
 .container{
-    margin-left: 0px;
-    margin-right: 0px;
+    margin-left: 0;
+    margin-right: 0;
     width: 100%;
 }
 
 .footer h3, .footer h2{
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 .footer{
-    padding-bottom: 0px !important;
+    padding-bottom: 0 !important;
 }
 
 .footer{
@@ -762,7 +762,7 @@ th.badge-pleno{
 }
 
 ul.nav.nav-tabs li a{
-    margin-right: 0px !important;
+    margin-right: 0 !important;
 }
 
 .pagination li a:hover{
