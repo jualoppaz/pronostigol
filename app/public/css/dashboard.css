@@ -143,6 +143,6 @@ body{
     cursor: default !important;
 }
 
-.table > tbody > tr > td{
+.table > tbody > tr > td:first-child{
     vertical-align: middle;
 }
