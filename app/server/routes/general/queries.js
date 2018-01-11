@@ -26,44 +26,44 @@ module.exports = function(app){
     var pronostigol_queries_emailsNoLeidos = function(req, res){
         GEN_DBM.getNotReadedEmails(function(err, emails){
             if(err){
-                res.status(400).send(err);
-            }else{
-                res.status(200).send(emails);
+                return res.status(400).send(err);
             }
+
+            res.status(200).send(emails);
         });
     };
 
     var pronostigol_queries_numeroEmailsNoLeidos = function(req, res){
         GEN_DBM.getNotReadedEmails(function(err, emails){
             if(err){
-                res.status(400).send(err);
-            }else{
-                res.status(200).send({
-                    emails: emails.length
-                });
+                return res.status(400).send(err);
             }
+
+            res.status(200).send({
+                emails: emails.length
+            });
         });
     };
 
     var pronostigol_queries_usuariosNuevos = function(req, res){
         GEN_DBM.getNotActiveUsers(function(err, users){
             if(err){
-                res.status(400).send(err);
-            }else{
-                res.status(200).send({
-                    newUsers: users.length
-                });
+                return res.status(400).send(err);
             }
+
+            res.status(200).send({
+                newUsers: users.length
+            });
         });
     };
 
     var pronostigol_queries_comentariosNoVerificados = function(req, res){
         GEN_DBM.getNotVerifiedComments(function(err, result){
             if(err){
-                res.status(400).send(err);
-            }else{
-                res.status(200).send(result);
+                return res.status(400).send(err);
             }
+
+            res.status(200).send(result);
         })
     };
 
@@ -72,103 +72,103 @@ module.exports = function(app){
 
         QUI_DBM.getEconomicBalanceBySeason(function(err, resultQuiniela){
             if(err){
-                res.status(400).send(err);
-            }else{
-                for(var i=0; i<resultQuiniela.length; i++){
+                return res.status(400).send(err);
+            }
+
+            for(var i=0; i<resultQuiniela.length; i++){
+
+                var json = {};
+
+                json["sorteo"] = "Quiniela";
+                json["temporada"] = resultQuiniela[i]._id;
+                json["invertido"] = resultQuiniela[i].invertido;
+                json["ganado"] = resultQuiniela[i].ganado;
+
+                if(json["invertido"] > 0){
+                    respuesta.push(json);
+                }
+            }
+
+            BON_DBM.getEconomicBalanceByYear(function(err, resultBonoloto){
+                if(err){
+                    return res.status(400).send(err);
+                }
+
+                for(var j=0; j<resultBonoloto.length; j++){
 
                     var json = {};
 
-                    json["sorteo"] = "Quiniela";
-                    json["temporada"] = resultQuiniela[i]._id;
-                    json["invertido"] = resultQuiniela[i].invertido;
-                    json["ganado"] = resultQuiniela[i].ganado;
+                    json["sorteo"] = "Bonoloto";
+                    json["anyo"] = resultBonoloto[j]._id;
+                    json["invertido"] = resultBonoloto[j].invertido;
+                    json["ganado"] = resultBonoloto[j].ganado;
 
                     if(json["invertido"] > 0){
                         respuesta.push(json);
                     }
                 }
 
-                BON_DBM.getEconomicBalanceByYear(function(err, resultBonoloto){
+                PRI_DBM.getEconomicBalanceByYear(function(err, resultPrimitiva){
                     if(err){
-                        res.status(400).send(err);
-                    }else{
-                        for(var j=0; j<resultBonoloto.length; j++){
+                        return res.status(400).send(err);
+                    }
+
+                    for(var k=0; k<resultPrimitiva.length; k++){
+
+                        var json = {};
+
+                        json["sorteo"] = "Primitiva";
+                        json["anyo"] = resultPrimitiva[k]._id;
+                        json["invertido"] = resultPrimitiva[k].invertido;
+                        json["ganado"] = resultPrimitiva[k].ganado;
+
+                        if(json["invertido"] > 0){
+                            respuesta.push(json);
+                        }
+                    }
+
+                    GOR_DBM.getEconomicBalanceByYear(function(err, resultGordo){
+                        if(err){
+                            return res.status(400).send(err);
+                        }
+
+                        for(var l=0; l<resultGordo.length; l++){
 
                             var json = {};
 
-                            json["sorteo"] = "Bonoloto";
-                            json["anyo"] = resultBonoloto[j]._id;
-                            json["invertido"] = resultBonoloto[j].invertido;
-                            json["ganado"] = resultBonoloto[j].ganado;
+                            json["sorteo"] = "El Gordo";
+                            json["anyo"] = resultGordo[l]._id;
+                            json["invertido"] = resultGordo[l].invertido;
+                            json["ganado"] = resultGordo[l].ganado;
 
                             if(json["invertido"] > 0){
                                 respuesta.push(json);
                             }
                         }
 
-                        PRI_DBM.getEconomicBalanceByYear(function(err, resultPrimitiva){
+                        EUR_DBM.getEconomicBalanceByYear(function(err, resultEuromillones){
                             if(err){
-                                res.status(400).send(err);
-                            }else{
-                                for(var k=0; k<resultPrimitiva.length; k++){
-
-                                    var json = {};
-
-                                    json["sorteo"] = "Primitiva";
-                                    json["anyo"] = resultPrimitiva[k]._id;
-                                    json["invertido"] = resultPrimitiva[k].invertido;
-                                    json["ganado"] = resultPrimitiva[k].ganado;
-
-                                    if(json["invertido"] > 0){
-                                        respuesta.push(json);
-                                    }
-                                }
-
-                                GOR_DBM.getEconomicBalanceByYear(function(err, resultGordo){
-                                    if(err){
-                                        res.status(400).send(err);
-                                    }else{
-                                        for(var l=0; l<resultGordo.length; l++){
-
-                                            var json = {};
-
-                                            json["sorteo"] = "El Gordo";
-                                            json["anyo"] = resultGordo[l]._id;
-                                            json["invertido"] = resultGordo[l].invertido;
-                                            json["ganado"] = resultGordo[l].ganado;
-
-                                            if(json["invertido"] > 0){
-                                                respuesta.push(json);
-                                            }
-                                        }
-
-                                        EUR_DBM.getEconomicBalanceByYear(function(err, resultEuromillones){
-                                            if(err){
-                                                res.status(400).send(err);
-                                            }else{
-                                                for(var m=0; m<resultEuromillones.length; m++){
-
-                                                    var json = {};
-
-                                                    json["sorteo"] = "Euromillones";
-                                                    json["anyo"] = resultEuromillones[m]._id;
-                                                    json["invertido"] = resultEuromillones[m].invertido;
-                                                    json["ganado"] = resultEuromillones[m].ganado;
-
-                                                    if(json["invertido"] > 0){
-                                                        respuesta.push(json);
-                                                    }
-                                                }
-                                                res.status(200).send(respuesta);
-                                            }
-                                        });
-                                    }
-                                });
+                                return res.status(400).send(err);
                             }
+
+                            for(var m=0; m<resultEuromillones.length; m++){
+
+                                var json = {};
+
+                                json["sorteo"] = "Euromillones";
+                                json["anyo"] = resultEuromillones[m]._id;
+                                json["invertido"] = resultEuromillones[m].invertido;
+                                json["ganado"] = resultEuromillones[m].ganado;
+
+                                if(json["invertido"] > 0){
+                                    respuesta.push(json);
+                                }
+                            }
+                            res.status(200).send(respuesta);
                         });
-                    }
+                    });
                 });
-            }
+            });
         });
     };
 

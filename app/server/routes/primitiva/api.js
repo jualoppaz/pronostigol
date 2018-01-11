@@ -59,7 +59,7 @@ module.exports = function(app){
 
         PRI_DBM.getAllTickets(filtros, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var response = [];
@@ -104,7 +104,7 @@ module.exports = function(app){
 
         PRI_DBM.addNewTicket(ticket, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(result);
@@ -116,15 +116,15 @@ module.exports = function(app){
 
         PRI_DBM.getTicketById(ticket._id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else{
                 if(result == null){
-                    res.status(400).send('not-found');
+                    return res.status(400).send('not-found');
                 }
 
                 PRI_DBM.editTicket(ticket, function(err, result){
                     if(err){
-                        res.status(400).send(err);
+                        return res.status(400).send(err);
                     }
 
                     res.status(200).send(result);
@@ -138,14 +138,14 @@ module.exports = function(app){
 
         PRI_DBM.getTicketById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('not-found');
+                return res.status(400).send('not-found');
             }
 
             PRI_DBM.deleteTicketById(id, function(err2){
                 if(err){
-                    res.status(400).send(err2);
+                    return res.status(400).send(err2);
                 }
 
                 res.status(200).send({});
@@ -156,7 +156,7 @@ module.exports = function(app){
     var primitiva_api_historicoDeAparicionesPorNumero = function(req, res){
         PRI_DBM.getOcurrencesByNumber(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var response = [];
@@ -177,7 +177,7 @@ module.exports = function(app){
     var primitiva_api_historicoDeAparicionesPorReintegro = function(req, res){
         PRI_DBM.getOcurrencesByReimbursement(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var response = [];
@@ -197,7 +197,7 @@ module.exports = function(app){
     var primitiva_api_historicoDeResultadosGlobales = function(req, res){
         PRI_DBM.getOcurrencesByResultWithoutReimbursement(function(err, tickets){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var response = [];
@@ -216,7 +216,7 @@ module.exports = function(app){
     var primitiva_api_historicoDeResultadosGlobalesConReintegro = function(req, res){
         PRI_DBM.getOcurrencesByResultWithReimbursement(function(err, tickets){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var response = [];
@@ -235,7 +235,7 @@ module.exports = function(app){
     var primitiva_api_years = function(req, res){
         PRI_DBM.getAllYears(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(result);
@@ -247,7 +247,7 @@ module.exports = function(app){
 
         PRI_DBM.getYearById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(result);
@@ -259,12 +259,12 @@ module.exports = function(app){
 
         PRI_DBM.deleteYearById(id, function(err){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             PRI_DBM.getAllYears(function(err2, result2){
                 if(err){
-                    res.status(400).send(err2);
+                    return res.status(400).send(err2);
                 }
 
                 res.status(200).send(result2);
@@ -280,17 +280,17 @@ module.exports = function(app){
 
         PRI_DBM.getYearByName(name, function(err, result){
             if(err){
-                res.status(400).send(name);
+                return res.status(400).send(name);
             }else if(JSON.stringify(result) === "{}"){ // No existe aun
                 PRI_DBM.addNewYear(year, function(err, result){
                     if(err){
-                        res.status(400).send(err);
+                        return res.status(400).send(err);
                     }
 
                     res.status(200).send(result);
                 });
             }else{ // Ya hay uno con ese nombre
-                res.status(400).send('year-already-exists');
+                return res.status(400).send('year-already-exists');
             }
         });
     };
@@ -303,14 +303,14 @@ module.exports = function(app){
 
         PRI_DBM.getYearById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('not-found');
+                return res.status(400).send('not-found');
             }
 
             PRI_DBM.editYear(year, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 res.status(200).send(result);
@@ -323,7 +323,7 @@ module.exports = function(app){
 
         PRI_DBM.getTicketById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             if(req.session.user == null){

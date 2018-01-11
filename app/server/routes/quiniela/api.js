@@ -41,7 +41,7 @@ module.exports = function(app){
     var quiniela_api_tickets = function(req, res){
         QUI_DBM.getAllTickets(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(result);
@@ -51,7 +51,7 @@ module.exports = function(app){
     var quiniela_api_ticketsQuinielaPorTemporada = function(req, res){
         QUI_DBM.getAllTicketsBySeason(req.params.season, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(result);
@@ -71,12 +71,12 @@ module.exports = function(app){
         }
 
         if(hayErrores){
-            res.status(400).send(errores);
+            return res.status(400).send(errores);
         }
 
         QUI_DBM.getTicketsBySeasonAndDay(req.params.season, jornada, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             json = result;
@@ -109,7 +109,7 @@ module.exports = function(app){
 
         QUI_DBM.getSeasonByName(temporada, function(err, result){
             if(err) {
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result != null){
                 if(result.name == temporada){
                     if(modalidad == null || modalidad == ""){
@@ -168,24 +168,24 @@ module.exports = function(app){
                     }
 
                     if(hayErrores){
-                        res.status(400).send(errores);
-                    }else{
-
-                        QUI_DBM.addNewTicket(req.body, function(err, result){
-                            if(err){
-                                res.status(400).send(err);
-                            }else{
-                                console.log("Result: " + JSON.stringify(result));
-
-                                res.status(200).send(result);
-                            }
-                        });
+                        return res.status(400).send(errores);
                     }
+
+                    QUI_DBM.addNewTicket(req.body, function(err, result){
+                        if(err){
+                            return res.status(400).send(err);
+                        }
+
+                        console.log("Result: " + JSON.stringify(result));
+
+                        res.status(200).send(result);
+
+                    });
                 }else{
-                    res.status(400).send("wrong-season-found");
+                    return res.status(400).send("wrong-season-found");
                 }
             }else{
-                res.status(400).send("season-not-found");
+                return res.status(400).send("season-not-found");
             }
         });
     };
@@ -206,7 +206,7 @@ module.exports = function(app){
 
         QUI_DBM.getSeasonByName(temporada, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else{
                 if(JSON.stringify(result) != '{}'){
                     if(result.name == temporada){
@@ -264,22 +264,21 @@ module.exports = function(app){
                         }
 
                         if(hayErrores){
-                            res.status(400).send(errores);
-                        }else{
-
-                            QUI_DBM.editTicket(req.body, function(err, result){
-                                if(err){
-                                    res.status(400).send(err);
-                                }else{
-                                    res.status(200).send("ok");
-                                }
-                            });
+                            return res.status(400).send(errores);
                         }
+
+                        QUI_DBM.editTicket(req.body, function(err, result){
+                            if(err){
+                                return res.status(400).send(err);
+                            }
+
+                            res.status(200).send("ok");
+                        });
                     }else{
-                        res.status(400).send("wrong-season-found");
+                        return res.status(400).send("wrong-season-found");
                     }
                 }else{
-                    res.status(400).send("season-not-found");
+                    return res.status(400).send("season-not-found");
                 }
             }
         });
@@ -292,7 +291,7 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsGroupedByRow(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             for(var i=0; i<result.length; i++){
@@ -308,7 +307,7 @@ module.exports = function(app){
 
             QUI_DBM.getTicketsGroupedByRes(function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 var jsonPlenoModerno = {};
@@ -336,7 +335,7 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsByCompetitionGroupedByRow(req.params.competition, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             for(var i=0; i<result.length; i++){
@@ -352,7 +351,7 @@ module.exports = function(app){
 
             QUI_DBM.getTicketsByCompetitionGroupedByRes(req.params.competition, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 var jsonPlenoModerno = {};
@@ -381,7 +380,7 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsByCompetitionAndLocalTeamGroupedByRow(req.params.competition, req.params.team, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             for(var i=0; i<result.length; i++){
@@ -393,7 +392,7 @@ module.exports = function(app){
 
             QUI_DBM.getTicketsByCompetitionAndLocalTeamGroupedByRes(req.params.competition, req.params.team, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 var jsonPlenoModerno = {};
@@ -420,7 +419,7 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsByCompetitionAndVisitorTeamGroupedByRow(req.params.competition, req.params.team, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             for(var i=0; i<result.length; i++){
@@ -437,7 +436,7 @@ module.exports = function(app){
 
             QUI_DBM.getTicketsByCompetitionAndVisitorTeamGroupedByRes(req.params.competition, req.params.team, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 var jsonPlenoModerno = {};
@@ -463,7 +462,7 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsBySeasonGroupedByRow(req.params.season, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             for(var i=0; i<result.length; i++){
@@ -479,7 +478,7 @@ module.exports = function(app){
 
             QUI_DBM.getTicketsBySeasonGroupedByRes(req.params.season, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 var jsonPlenoModerno = {};
@@ -507,7 +506,7 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsBySeasonAndCompetitionGroupedByRow(req.params.season, req.params.competition, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             for(var i=0; i<result.length; i++){
@@ -522,7 +521,7 @@ module.exports = function(app){
 
             QUI_DBM.getTicketsBySeasonAndCompetitionGroupedByRes(req.params.season, req.params.competition, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 var jsonPlenoModerno = {};
@@ -548,7 +547,7 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsBySeasonAndLocalTeamGroupedByRow(req.params.season, req.params.team, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             for(var i=0; i<result.length; i++){
@@ -563,7 +562,7 @@ module.exports = function(app){
 
             QUI_DBM.getTicketsBySeasonAndLocalTeamGroupedByRes(req.params.season, req.params.team, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 var jsonPlenoModerno = {};
@@ -591,7 +590,7 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsBySeasonAndVisitorTeamGroupedByRow(req.params.season, req.params.team, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             for(var i=0; i<result.length; i++){
@@ -603,7 +602,7 @@ module.exports = function(app){
 
             QUI_DBM.getTicketsBySeasonAndVisitorTeamGroupedByRes(req.params.season, req.params.team, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 var jsonPlenoModerno = {};
@@ -631,7 +630,7 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsBySeasonCompetitionAndLocalTeamGroupedByRow(req.params.season, req.params.competition, req.params.team, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             for(var i=0; i<result.length; i++){
@@ -643,7 +642,7 @@ module.exports = function(app){
 
             QUI_DBM.getTicketsBySeasonCompetitionAndLocalTeamGroupedByRes(req.params.season, req.params.competition, req.params.team, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 var jsonPlenoModerno = {};
@@ -670,7 +669,7 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsBySeasonCompetitionAndVisitorTeamGroupedByRow(req.params.season, req.params.competition, req.params.team, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             for(var i=0; i<result.length; i++){
@@ -682,7 +681,7 @@ module.exports = function(app){
 
             QUI_DBM.getTicketsBySeasonCompetitionAndVisitorTeamGroupedByRes(req.params.season, req.params.competition, req.params.team, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 var jsonPlenoModerno = {};
@@ -708,7 +707,7 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsByLocalTeamGroupedByRow(req.params.team, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             for(var i=0; i<result.length; i++){
@@ -720,7 +719,7 @@ module.exports = function(app){
 
             QUI_DBM.getTicketsByLocalTeamGroupedByRes(req.params.team, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 var jsonPlenoModerno = {};
@@ -747,7 +746,7 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsByVisitorTeamGroupedByRow(req.params.team, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             for(var i=0; i<result.length; i++){
@@ -759,7 +758,7 @@ module.exports = function(app){
 
             QUI_DBM.getTicketsByVisitorTeamGroupedByRes(req.params.team, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 var jsonPlenoModerno = {};
@@ -786,7 +785,7 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsByLocalAndVisitorTeamGroupedByRow(req.params.localTeam, req.params.visitorTeam, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             for(var i=0; i<result.length; i++){
@@ -799,7 +798,7 @@ module.exports = function(app){
 
             QUI_DBM.getTicketsByLocalAndVisitorTeamGroupedByRes(req.params.localTeam, req.params.visitorTeam, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 var jsonPlenoModerno = {};
@@ -826,7 +825,7 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsBySeasonLocalAndVisitorTeamGroupedByRow(req.params.season, req.params.localTeam, req.params.visitorTeam, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             for(var i=0; i<result.length; i++){
@@ -839,7 +838,7 @@ module.exports = function(app){
 
             QUI_DBM.getTicketsBySeasonAndLocalAndVisitorTeamGroupedByRes(req.params.season, req.params.localTeam, req.params.visitorTeam, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 var jsonPlenoModerno = {};
@@ -866,7 +865,7 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsBySeasonCompetitionAndLocalAndVisitorTeamGroupedByRow(req.params.season, req.params.competition, req.params.localTeam, req.params.visitorTeam, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             for(var i=0; i<result.length; i++){
@@ -878,7 +877,7 @@ module.exports = function(app){
 
             QUI_DBM.getTicketsBySeasonCompetitionAndLocalAndVisitorTeamGroupedByRes(req.params.season, req.params.competition, req.params.localTeam, req.params.visitorTeam, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 var jsonPlenoModerno = {};
@@ -905,7 +904,7 @@ module.exports = function(app){
 
         QUI_DBM.getTicketsByCompetitionAndLocalAndVisitorTeamGroupedByRow(req.params.competition, req.params.localTeam, req.params.visitorTeam, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             for(var i=0; i<result.length; i++){
@@ -917,7 +916,7 @@ module.exports = function(app){
 
             QUI_DBM.getTicketsByCompetitionAndLocalAndVisitorTeamGroupedByRes(req.params.competition, req.params.localTeam, req.params.visitorTeam, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 var jsonPlenoModerno = {};
@@ -945,7 +944,7 @@ module.exports = function(app){
 
         QUI_DBM.getAllAppearedResults(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             try{
@@ -989,7 +988,7 @@ module.exports = function(app){
     var quiniela_api_equipos = function(req, res){
         QUI_DBM.getAllTeams(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(result);
@@ -1003,14 +1002,14 @@ module.exports = function(app){
 
         QUI_DBM.getTeamByName(team, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result != null){
-                res.status(400).send('team-already-exists');
+                return res.status(400).send('team-already-exists');
             }
 
             QUI_DBM.addNewTeam(team, function(err){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 res.status(200).send('ok');
@@ -1023,19 +1022,19 @@ module.exports = function(app){
 
         QUI_DBM.getTeamById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                    res.status(400).send('team-not-exists');
+                return res.status(400).send('team-not-exists');
             }
 
             QUI_DBM.deleteTeamById(id, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 QUI_DBM.getAllTeams(function(err, result){
                     if(err){
-                        res.status(400).send(err);
+                        return res.status(400).send(err);
                     }
 
                     res.status(200).send(result);
@@ -1051,14 +1050,14 @@ module.exports = function(app){
 
         QUI_DBM.getTeamById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('team-not-exists');
+                return res.status(400).send('team-not-exists');
             }
 
             QUI_DBM.editTeamById(id, equipo, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 res.status(200).send("ok");
@@ -1072,9 +1071,9 @@ module.exports = function(app){
 
         QUI_DBM.getTeamById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('team-not-exists');
+                return res.status(400).send('team-not-exists');
             }
 
             res.status(200).send(result);
@@ -1084,7 +1083,7 @@ module.exports = function(app){
     var quiniela_api_competiciones = function(req, res){
         QUI_DBM.getAllCompetitions(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(result);
@@ -1097,14 +1096,14 @@ module.exports = function(app){
 
         QUI_DBM.getCompetitionByName(competition, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result != null){
-                res.status(400).send('competition-already-exists');
+                return res.status(400).send('competition-already-exists');
             }
 
             QUI_DBM.addNewCompetition(competition, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 res.status(200).send('ok');
@@ -1117,24 +1116,24 @@ module.exports = function(app){
 
         QUI_DBM.getCompetitionById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('competition-not-exists');
-            }else{
-                QUI_DBM.deleteCompetitionById(id, function(err, result){
+                return res.status(400).send('competition-not-exists');
+            }
+
+            QUI_DBM.deleteCompetitionById(id, function(err, result){
+                if(err){
+                    return res.status(400).send(err);
+                }
+
+                QUI_DBM.getAllCompetitions(function(err, result){
                     if(err){
-                        res.status(400).send(err);
+                        return res.status(400).send(err);
                     }
 
-                    QUI_DBM.getAllCompetitions(function(err, result){
-                        if(err){
-                            res.status(400).send(err);
-                        }
-
-                        res.status(200).send(result);
-                    });
+                    res.status(200).send(result);
                 });
-            }
+            });
         });
     };
 
@@ -1143,9 +1142,9 @@ module.exports = function(app){
 
         QUI_DBM.getCompetitionById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('competition-not-exists');
+                return res.status(400).send('competition-not-exists');
             }
 
             res.status(200).send(result);
@@ -1159,14 +1158,14 @@ module.exports = function(app){
 
         QUI_DBM.getCompetitionById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('competition-not-exists');
+                return res.status(400).send('competition-not-exists');
             }
 
             QUI_DBM.editCompetitionById(id, competicion, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 res.status(200).send("ok");
@@ -1178,7 +1177,7 @@ module.exports = function(app){
     var quiniela_api_temporadas = function(req, res){
         QUI_DBM.getAllSeasons(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(result);
@@ -1190,9 +1189,9 @@ module.exports = function(app){
 
         QUI_DBM.getSeasonById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(JSON.stringify(result) === "{}"){
-                res.status(400).send('season-not-exists');
+                return res.status(400).send('season-not-exists');
             }
 
             res.status(200).send(result);
@@ -1205,14 +1204,14 @@ module.exports = function(app){
 
         QUI_DBM.getSeasonByName(season, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(JSON.stringify(result) !== "{}"){
-                res.status(400).send('season-already-exists');
+                return res.status(400).send('season-already-exists');
             }
 
             QUI_DBM.addNewSeason(season, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 res.status(200).send('ok');
@@ -1226,14 +1225,14 @@ module.exports = function(app){
         var temporada = body.name;
         QUI_DBM.getSeasonById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('season-not-exists');
+                return res.status(400).send('season-not-exists');
             }
 
             QUI_DBM.editSeasonById(id, temporada, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 res.status(200).send("ok");
@@ -1245,19 +1244,19 @@ module.exports = function(app){
         var id = req.params.id;
         QUI_DBM.getSeasonById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('season-not-exists');
+                return res.status(400).send('season-not-exists');
             }
 
             QUI_DBM.deleteSeasonByName(result.name, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 QUI_DBM.getAllSeasons(function(err, result){
                     if(err){
-                        res.status(400).send(err);
+                        return res.status(400).send(err);
                     }
 
                     res.status(200).send(result);
@@ -1271,7 +1270,7 @@ module.exports = function(app){
 
         QUI_DBM.getAllTickets(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             for(var i=0; i<result.length; i++){

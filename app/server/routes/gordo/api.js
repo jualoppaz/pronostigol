@@ -60,7 +60,7 @@ module.exports = function(app){
 
         GOR_DBM.getAllTickets(filtros, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var response = [];
@@ -103,7 +103,7 @@ module.exports = function(app){
 
         GOR_DBM.addNewTicket(ticket, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(result);
@@ -116,14 +116,14 @@ module.exports = function(app){
 
         GOR_DBM.getTicketById(ticket._id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('not-found');
+                return res.status(400).send('not-found');
             }
 
             GOR_DBM.editTicket(ticket, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 res.status(200).send(result);
@@ -136,31 +136,31 @@ module.exports = function(app){
 
         GOR_DBM.getTicketById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('not-found');
-            }else{
-                GOR_DBM.deleteTicketById(id, function(err2, result2){
+                return res.status(400).send('not-found');
+            }
+
+            GOR_DBM.deleteTicketById(id, function(err2, result2){
+                if(err){
+                    return res.status(400).send(err2);
+                }
+
+                GOR_DBM.getAllTickets(function(err3, result3){
                     if(err){
-                        res.status(400).send(err2);
+                        return res.status(400).send(err3);
                     }
 
-                    GOR_DBM.getAllTickets(function(err3, result3){
-                        if(err){
-                            res.status(400).send(err3);
-                        }
-
-                        res.status(200).send(result3);
-                    });
+                    res.status(200).send(result3);
                 });
-            }
+            });
         });
     };
 
     var gordo_api_historicoDeAparicionesPorNumero = function(req, res){
         GOR_DBM.getOcurrencesByNumber(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var response = [];
@@ -180,7 +180,7 @@ module.exports = function(app){
     var gordo_api_historicoDeAparicionesPorNumeroClave = function(req, res){
         GOR_DBM.getOcurrencesBySpecialNumber(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var response = [];
@@ -201,7 +201,7 @@ module.exports = function(app){
     var gordo_api_historicoDeAparicionesPorResultados = function(req, res){
         GOR_DBM.getOcurrencesByResultWithoutSpecialNumber(function(err, tickets){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var response = [];
@@ -219,7 +219,7 @@ module.exports = function(app){
     var gordo_api_historicoDeAparicionesPorResultadoConNumeroClave = function(req, res){
         GOR_DBM.getOcurrencesByResultWithSpecialNumber(function(err, tickets){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var response = [];
@@ -238,7 +238,7 @@ module.exports = function(app){
     var gordo_api_years = function(req, res){
         GOR_DBM.getAllYears(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(result);
@@ -250,7 +250,7 @@ module.exports = function(app){
 
         GOR_DBM.getYearById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(result);
@@ -262,12 +262,12 @@ module.exports = function(app){
 
         GOR_DBM.deleteYearById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             GOR_DBM.getAllYears(function(err2, result2){
                 if(err){
-                    res.status(400).send(err2);
+                    return res.status(400).send(err2);
                 }
 
                 res.status(200).send(result2);
@@ -285,17 +285,17 @@ module.exports = function(app){
 
         GOR_DBM.getYearByName(name, function(err, result){
             if(err){
-                res.status(400).send(name);
+                return res.status(400).send(name);
             }else if(JSON.stringify(result) === "{}"){ // No existe aun
                 GOR_DBM.addNewYear(year, function(err, result){
                     if(err){
-                        res.status(400).send(err);
+                        return res.status(400).send(err);
                     }
 
                     res.status(200).send(result);
                 });
             }else{ // Ya hay uno con ese nombre
-                res.status(400).send('year-already-exists');
+                return res.status(400).send('year-already-exists');
             }
         });
     };
@@ -308,14 +308,14 @@ module.exports = function(app){
 
         GOR_DBM.getYearById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('not-found');
+                return res.status(400).send('not-found');
             }
 
             GOR_DBM.editYear(year, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 res.status(200).send(result);
@@ -328,19 +328,20 @@ module.exports = function(app){
 
         GOR_DBM.getTicketById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
-            }else{
-                if(req.session.user == null){
-                    var json = filtrarInformacion(result);
-                }else{
-                    if(req.session.user.role === ROL.PRIVILEGED || req.session.user.role === ROL.ADMIN){
-                        json = result;
-                    }else{
-                        json = filtrarInformacion(result);
-                    }
-                }
-                res.status(200).send(json);
+                return res.status(400).send(err);
             }
+
+            var json;
+            if(req.session.user == null){
+                json = filtrarInformacion(result);
+            }else{
+                if(req.session.user.role === ROL.PRIVILEGED || req.session.user.role === ROL.ADMIN){
+                    json = result;
+                }else{
+                    json = filtrarInformacion(result);
+                }
+            }
+            res.status(200).send(json);
         });
     };
 

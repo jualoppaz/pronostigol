@@ -18,7 +18,7 @@ module.exports = function(app){
 
         GEN_DBM.manualLogin(usuario, pass, function(e, o){
             if (!o){
-                res.status(400).send(e);
+                return res.status(400).send(e);
             }
 
             if(o.estaActivo){
@@ -28,7 +28,7 @@ module.exports = function(app){
                 }
                 res.status(200).send(o);
             }else{
-                res.status(400).send('user-not-active');
+                return res.status(400).send('user-not-active');
             }
         });
     };
@@ -87,14 +87,14 @@ module.exports = function(app){
                 estaBaneado : false
             }, function(e){
                 if (e){
-                    res.status(400).send(e);
+                    return res.status(400).send(e);
                 }
 
                 res.status(200).send('ok');
             });
         }
 
-        res.status(400).send(errores);
+        return res.status(400).send(errores);
     };
 
     var general_api_usuarioLogueado = function(req, res) {
@@ -109,7 +109,7 @@ module.exports = function(app){
     var general_api_usuarios = function(req, res){
         GEN_DBM.getAllRecords(function(err, users){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(users);
@@ -119,7 +119,7 @@ module.exports = function(app){
     var general_api_usuarios_usuario = function(req, res){
         GEN_DBM.findUserById(req.params.id, function(err, user){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(user);
@@ -129,7 +129,7 @@ module.exports = function(app){
     var general_api_comentarios = function(req, res){
         GEN_DBM.getAllComments(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(result);
@@ -140,9 +140,9 @@ module.exports = function(app){
         var id = req.params.id;
         GEN_DBM.getCommentById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('comment-not-found');
+                return res.status(400).send('comment-not-found');
             }
 
             if(req.session.user.role === ROL.ADMIN){
@@ -151,7 +151,7 @@ module.exports = function(app){
                 var json = result;
 
                 if(!json.validado){
-                    res.status(400).send('comment-vot-validated');
+                    return res.status(400).send('comment-vot-validated');
                 }
 
                 if(json.respuestas != null){
@@ -169,7 +169,7 @@ module.exports = function(app){
     var general_api_comentariosVerificados = function(req, res){
         GEN_DBM.getAllVerifiedComments(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(result);
@@ -180,22 +180,22 @@ module.exports = function(app){
         var id = req.params.id;
         GEN_DBM.getCommentById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('comment-not-exist');
+                return res.status(400).send('comment-not-exist');
             }
 
             if((result.user == req.session.user.user) || req.session.user.role === ROL.ADMIN){
 
                 GEN_DBM.deleteCommentById(id, function(err, result){
                     if(err){
-                        res.status(400).send(err);
+                        return res.status(400).send(err);
                     }
 
                     if(req.session.user.role === ROL.ADMIN){
                         GEN_DBM.getAllComments(function(err, result){
                             if(err){
-                                res.status(400).send(err);
+                                return res.status(400).send(err);
                             }
 
                             res.status(200).send(result);
@@ -203,7 +203,7 @@ module.exports = function(app){
                     }else{
                         GEN_DBM.getAllVerifiedComments(function(err, result){
                             if(err){
-                                res.status(400).send(err);
+                                return res.status(400).send(err);
                             }
 
                             res.status(200).send(result);
@@ -211,7 +211,7 @@ module.exports = function(app){
                     }
                 });
             }else{
-                res.status(400).send('not-authorized-operation');
+                return res.status(400).send('not-authorized-operation');
             }
         });
     };
@@ -233,17 +233,17 @@ module.exports = function(app){
         }
 
         if(comentarioIncorrecto){
-            res.status(400).send('comentario-incorrecto');
+            return res.status(400).send('comentario-incorrecto');
         }
 
         GEN_DBM.addNewComment(user, texto, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             GEN_DBM.getAllVerifiedComments(function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 res.status(200).send(result);
@@ -270,17 +270,17 @@ module.exports = function(app){
         }
 
         if(comentarioIncorrecto){
-            res.status(400).send('comentario-incorrecto');
+            return res.status(400).send('comentario-incorrecto');
         }
 
         GEN_DBM.addNewCommentAnswer(id, user, texto, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             GEN_DBM.getAllVerifiedComments(function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 res.status(200).send(result);
@@ -329,31 +329,31 @@ module.exports = function(app){
             if(comentarioVacio){
                 errores["comentario-vacio"] = true;
             }
-            res.status(400).send(errores);
+            return res.status(400).send(errores);
         }
 
         // Comprobamos que el autor del comentario es el que está logado
         GEN_DBM.getCommentById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('comment-not-exists');
+                return res.status(400).send('comment-not-exists');
             }else if(result.user == req.session.user.user || req.session.user.role === ROL.ADMIN){
                 GEN_DBM.editComment(id, texto, function(err, result){
                     if(err){
-                        res.status(400).send(err);
+                        return res.status(400).send(err);
                     }
 
                     GEN_DBM.getAllVerifiedComments(function(err, result){
                         if(err){
-                            res.status(400).send(err);
+                            return res.status(400).send(err);
                         }
 
                         res.status(200).send(result);
                     });
                 });
             }else{
-                res.status(400).send('not-authorized-operation');
+                return res.status(400).send('not-authorized-operation');
             }
         });
     };
@@ -477,7 +477,7 @@ module.exports = function(app){
             if(fechaRespuestaInvalida){
                 errores["fecha-respuesta-invalida"] = true;
             }
-            res.status(400).send(errores);
+            return res.status(400).send(errores);
         }
 
         var comentario_dia = Number(fecha.split(" ")[0].split("/")[0]);
@@ -523,26 +523,26 @@ module.exports = function(app){
 
         GEN_DBM.getCommentById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('comment-not-exists');
+                return res.status(400).send('comment-not-exists');
             }else{
                 if(req.session.user.role === ROL.ADMIN){
                     GEN_DBM.editCommentAsAdmin(id, texto, user, fecha, validado, respuestas, function(err, result){
                         if(err){
-                            res.status(400).send(err);
+                            return res.status(400).send(err);
                         }
 
                         GEN_DBM.getAllVerifiedComments(function(err, result){
                             if(err){
-                                res.status(400).send(err);
+                                return res.status(400).send(err);
                             }
 
                             res.status(200).send(result);
                         });
                     });
                 }else{
-                    res.status(400).send('not-authorized-operation');
+                    return res.status(400).send('not-authorized-operation');
                 }
             }
         });
@@ -629,25 +629,25 @@ module.exports = function(app){
                 _id         : id
             }, function(e){
                 if (e){
-                    res.status(400).send(e);
+                    return res.status(400).send(e);
                 }
 
                 res.status(200).send('ok');
             });
         }
 
-        res.status(400).send(errores);
+        return res.status(400).send(errores);
     };
 
     var general_api_borrarUsuario = function(req, res){
         GEN_DBM.deleteUser(req.params.id, function(err, user){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             GEN_DBM.getAllRecords(function(err2, users){
                 if(err2){
-                    res.status(400).send(err2);
+                    return res.status(400).send(err2);
                 }
 
                 res.status(200).send(users);
@@ -658,7 +658,7 @@ module.exports = function(app){
     var general_api_emails = function(req, res){
         GEN_DBM.getAllEmails(function(err, mails){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(mails);
@@ -668,11 +668,13 @@ module.exports = function(app){
     var general_api_email = function(req, res){
         GEN_DBM.getEmailById(req.params.id, function(err, mail){
             if(err){
-                res.status(400).send(err);
-            }else if(mail.leido == false){
+                return res.status(400).send(err);
+            }
+
+            if(mail.leido == false){
                 GEN_DBM.setEmailReaded(req.params.id, function(err2, mail2){
                     if(err2){
-                        res.status(400).send(err2);
+                        return res.status(400).send(err2);
                     }
 
                     res.status(200).send(mail2);
@@ -702,7 +704,7 @@ module.exports = function(app){
                 leido       : false
             }, function(e){
                 if(e){
-                    res.status(400).send(e);
+                    return res.status(400).send(e);
                 }
 
                 res.status(200).send("ok");
@@ -713,12 +715,12 @@ module.exports = function(app){
     var general_api_borrarEmail = function(req, res){
         GEN_DBM.deleteEmail(req.params.id, function(err, mail){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             GEN_DBM.getAllEmails(function(err2, mails){
                 if(err2){
-                    res.status(400).send(err2);
+                    return res.status(400).send(err2);
                 }
 
                 res.status(200).send(mails);
@@ -782,19 +784,19 @@ module.exports = function(app){
 
                     repo.commit(sha, function(error, commit){
                         if(error){
-                            res.status(400).send(error);
-                        }else{
-                            res.status(200).send({
-                                fecha: commit.commit.committer.date
-                            });
+                            return res.status(400).send(error);
                         }
+
+                        res.status(200).send({
+                            fecha: commit.commit.committer.date
+                        });
                     });
                 }catch(Exception){
-                    res.status(400).send("not-avaible");
+                    return res.status(400).send("not-avaible");
                 }
             });
         }else {
-            res.status(400).send("local-environment");
+            return res.status(400).send("local-environment");
         }
 
     };
@@ -823,26 +825,26 @@ module.exports = function(app){
 
         GEN_DBM.actualizarVisitas(ipRouter, navegador, so, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             GEN_DBM.getVisitantesUnicosHoy(function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 respuesta.visitantesHoy = result.length;
 
                 GEN_DBM.getVisitantesUnicos(function(err, result){
                     if(err){
-                        res.status(400).send(err);
+                        return res.status(400).send(err);
                     }
 
                     respuesta.visitantesUnicos = result.length;
 
                     GEN_DBM.getVisitasTotales(function(err, result){
                         if(err){
-                            res.status(400).send(err);
+                            return res.status(400).send(err);
                         }
 
                         respuesta.visitasTotales = result;

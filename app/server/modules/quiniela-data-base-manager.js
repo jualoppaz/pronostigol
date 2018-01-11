@@ -7,18 +7,16 @@ var DBM = require('./init-data-base-manager');
 DBM.getDatabaseInstance(function(err, res){
     if(err){
         console.log(err);
-    }else{
-        db = res;
-
-        accounts = db.collection("accounts");
-
-        tickets = db.collection("quiniela_tickets");
-
-        teams = db.collection("quiniela_teams");
-        seasons = db.collection("quiniela_seasons");
-        competitions = db.collection("quiniela_competitions");
-
+        return;
     }
+
+    db = res;
+
+    accounts = db.collection("accounts");
+    tickets = db.collection("quiniela_tickets");
+    teams = db.collection("quiniela_teams");
+    seasons = db.collection("quiniela_seasons");
+    competitions = db.collection("quiniela_competitions");
 });
 
 var resultadosPleno = [
@@ -1710,7 +1708,6 @@ exports.editTeamById = function(id, name, callback){
     teams.findOne({
         _id: getObjectId(id)
     }, function(err, res){
-
         if(err){
             callback(err);
         }else{
@@ -1731,7 +1728,6 @@ exports.editCompetitionById = function(id, name, callback){
     competitions.findOne({
         _id: getObjectId(id)
     }, function(err, res){
-
         if(err){
             callback(err);
         }else{
@@ -1752,7 +1748,6 @@ exports.editSeasonById = function(id, name, callback){
     seasons.findOne({
         _id: getObjectId(id)
     }, function(err, res){
-
         if(err){
             callback(err);
         }else{

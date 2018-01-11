@@ -7,7 +7,7 @@ module.exports = function(app){
 
         EUR_DBM.getHigherDayByYear(anyo, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             result.anyo = result._id;
@@ -19,7 +19,7 @@ module.exports = function(app){
     var euromillones_queries_sorteoMasReciente = function (req, res){
         EUR_DBM.getNewestDay(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             result.anyo = result._id;
@@ -31,7 +31,7 @@ module.exports = function(app){
     var euromillones_queries_sorteoMasAntiguo = function (req, res){
         EUR_DBM.getOldestDay(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             result.anyo = result._id;

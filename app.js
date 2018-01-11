@@ -36,10 +36,10 @@ require('./app/server/router')(app);
 function clientErrorHandler (err, req, res, next) {
     console.log("Entramos en clientErrorHandler");
     if (req.url.indexOf('/api') > -1) {
-        res.status(500).send(JSON.stringify(err, null, 4));
-    } else {
-        next(err);
+        return res.status(500).send(JSON.stringify(err, null, 4));
     }
+
+    next(err);
 }
 
 function errorHandler (err, req, res, next) {

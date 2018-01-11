@@ -75,12 +75,12 @@ function isAuthorized_view(allowedRoles){
  */
 function isLogged_api(req, res, next){
     if(req.session.user == null){
-        res.status(401).send({
+        return res.status(401).send({
             message : 'No puede acceder a este recurso porque no está logado.'
         });
-    }else{
-        next();
     }
+
+    next();
 }
 
 /**
@@ -112,12 +112,12 @@ function isAuthorized_api(allowedRoles){
             }
         }
 
-        if(authorized){
-            next();
-        }else{
-            res.status(403).send({
+        if(!authorized){
+            return res.status(403).send({
                 message: 'No puede acceder a este recurso porque no está autorizado.'
             });
         }
+
+        next();
     };
 }

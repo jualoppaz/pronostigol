@@ -9,12 +9,13 @@ var gordo_tickets, gordo_years;
 DBM.getDatabaseInstance(function(err, res){
    if(err){
        console.log(err);
-   }else{
-       db = res;
-
-       gordo_tickets = db.collection("gordo_tickets");
-       gordo_years = db.collection("gordo_years");
+       return;
    }
+
+   db = res;
+
+   gordo_tickets = db.collection("gordo_tickets");
+   gordo_years = db.collection("gordo_years");
 });
 
 var getObjectId = function(id){

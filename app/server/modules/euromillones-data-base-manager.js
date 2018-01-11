@@ -9,12 +9,13 @@ var euromillones_tickets, euromillones_years;
 DBM.getDatabaseInstance(function(err, res){
    if(err){
        console.log(err);
-   }else{
-       db = res;
-
-       euromillones_tickets = db.collection("euromillones_tickets");
-       euromillones_years = db.collection("euromillones_years");
+       return;
    }
+
+   db = res;
+
+   euromillones_tickets = db.collection("euromillones_tickets");
+   euromillones_years = db.collection("euromillones_years");
 });
 
 var getObjectId = function(id){

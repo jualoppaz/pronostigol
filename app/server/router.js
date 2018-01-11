@@ -1,26 +1,12 @@
-//var DBM             = require('./modules/data-base-manager');
-
-var ip              = require("ip");
-
-var https = require('https');
-
-var request = require('request-json');
-
-//var numeroDeTemporadas = DBM.getNumeroDeTemporadas();
-
-var temporadas = {
-    "2013-2014": 'ok',
-    "2014-2015": 'ok'
-};
-
 var DBM = require('./modules/init-data-base-manager');
 
 DBM.setup(function(err, res){
     if(err){
         console.log("Error al abrir la conexión con la BBDD.");
-    }else{
-        console.log("Conexión establecida con la BBDD correctamente.");
+        return;
     }
+
+    console.log("Conexión establecida con la BBDD correctamente.");
 });
 
 module.exports = function(app){
@@ -68,7 +54,7 @@ module.exports = function(app){
     require('./routes/euromillones/queries')(app);
 
     app.get('/api/*', function(req, res){
-        res.status(400).send('API Method Not Found');
+        return res.status(400).send('API Method Not Found');
     });
 
     app.get('*', function(req, res) {

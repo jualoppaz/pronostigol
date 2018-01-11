@@ -82,7 +82,7 @@ module.exports = function(app){
 
         BON_DBM.getAllTickets(filtros, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var filteredData = [];
@@ -112,7 +112,7 @@ module.exports = function(app){
 
         BON_DBM.getTicketById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             if(req.session.user == null){
@@ -152,7 +152,7 @@ module.exports = function(app){
 
         BON_DBM.addNewTicket(ticket, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(JSON.stringify(result.ops[0], null, 4));
@@ -164,14 +164,14 @@ module.exports = function(app){
 
         BON_DBM.getTicketById(ticket._id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('not-found');
+                return res.status(400).send('not-found');
             }
 
             BON_DBM.editTicket(ticket, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 res.status(200).send(JSON.stringify(result, null, 4));
@@ -184,14 +184,14 @@ module.exports = function(app){
 
         BON_DBM.getTicketById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('not-found');
+                return res.status(400).send('not-found');
             }
 
             BON_DBM.deleteTicketById(id, function(err2, result2){
                 if(err){
-                    res.status(400).send(err2);
+                    return res.status(400).send(err2);
                 }
 
                 res.status(200).send({});
@@ -213,7 +213,7 @@ module.exports = function(app){
     var bonoloto_api_historicoDeAparicionesPorNumero = function(req, res){
         BON_DBM.getOcurrencesByNumber(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var response = [];
@@ -243,7 +243,7 @@ module.exports = function(app){
     var bonoloto_api_historicoDeAparicionesPorReintegro = function(req, res){
         BON_DBM.getOcurrencesByReimbursement(function(err, result){
             if(err) {
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var response = [];
@@ -273,7 +273,7 @@ module.exports = function(app){
     var bonoloto_api_historicoDeResultadosGlobales = function(req, res){
         BON_DBM.getOcurrencesByResultWithoutReimbursement(function(err, tickets){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var response = [];
@@ -303,7 +303,7 @@ module.exports = function(app){
     var bonoloto_api_historicoDeResultadosGlobalesConReintegro = function(req, res){
         BON_DBM.getOcurrencesByResultWithReimbursement(function(err, tickets){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var response = [];
@@ -334,7 +334,7 @@ module.exports = function(app){
     var bonoloto_api_years = function(req, res){
         BON_DBM.getAllYears(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(JSON.stringify(result, null, 4));
@@ -359,7 +359,7 @@ module.exports = function(app){
 
         BON_DBM.getYearById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(JSON.stringify(result, null, 4));
@@ -371,12 +371,12 @@ module.exports = function(app){
 
         BON_DBM.deleteYearById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             BON_DBM.getAllYears(function(err2, result2){
                 if(err){
-                    res.status(400).send(err2);
+                    return res.status(400).send(err2);
                 }
 
                 res.status(200).send(JSON.stringify(result2, null, 4));
@@ -392,19 +392,19 @@ module.exports = function(app){
 
         BON_DBM.getYearByName(name, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             if(JSON.stringify(result) === "{}"){ // No existe aun
                 BON_DBM.addNewYear(year, function(err, result){
                     if(err){
-                        res.status(400).send(err);
+                        return res.status(400).send(err);
                     }
 
                     res.status(200).send(JSON.stringify(result, null, 4));
                 });
             }else{ // Ya hay uno con ese nombre
-                res.status(400).send('year-already-exists');
+                return res.status(400).send('year-already-exists');
             }
         });
     };
@@ -418,14 +418,14 @@ module.exports = function(app){
 
         BON_DBM.getYearById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('not-found');
+                return res.status(400).send('not-found');
             }
 
             BON_DBM.editYear(year, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 res.status(200).send(JSON.stringify(result, null, 4));

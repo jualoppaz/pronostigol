@@ -58,7 +58,7 @@ module.exports = function(app){
 
         EUR_DBM.getAllTickets(filtros, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var response = [];
@@ -101,7 +101,7 @@ module.exports = function(app){
 
         EUR_DBM.addNewTicket(ticket, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(result);
@@ -113,17 +113,16 @@ module.exports = function(app){
 
         EUR_DBM.getTicketById(ticket._id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('not-found');
+                return res.status(400).send('not-found');
             }
 
             EUR_DBM.editTicket(ticket, function(err, result){
                 if(err){
-                    res.status(400).send(err);
-                }else{
-                    res.status(200).send(JSON.stringify(result, null, 4));
+                    return res.status(400).send(err);
                 }
+                res.status(200).send(JSON.stringify(result, null, 4));
             });
         });
     };
@@ -133,19 +132,19 @@ module.exports = function(app){
 
         EUR_DBM.getTicketById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('not-found');
+                return res.status(400).send('not-found');
             }
 
             EUR_DBM.deleteTicketById(id, function(err2, result2){
                 if(err){
-                    res.status(400).send(err2);
+                    return res.status(400).send(err2);
                 }
 
                 EUR_DBM.getAllTickets(function(err3, result3){
                     if(err){
-                        res.status(400).send(err3);
+                        return res.status(400).send(err3);
                     }
 
                     res.status(200).send(result3);
@@ -157,7 +156,7 @@ module.exports = function(app){
     var euromillones_api_historicoDeAparicionesPorNumero = function(req, res){
         EUR_DBM.getOcurrencesByNumber(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var response = [];
@@ -176,7 +175,7 @@ module.exports = function(app){
     var euromillones_api_historicoDeAparicionesPorEstrella = function(req, res){
         EUR_DBM.getOcurrencesByStar(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var response = [];
@@ -195,7 +194,7 @@ module.exports = function(app){
     var euromillones_api_historicoDeAparicionesPorParejaDeEstrellas = function(req, res){
         EUR_DBM.getOcurrencesByStarsPair(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var response = [];
@@ -214,7 +213,7 @@ module.exports = function(app){
     var euromillones_api_historicoDeResultadosGlobales = function(req, res){
         EUR_DBM.getOcurrencesByResultWithoutStars(function(err, tickets){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var response = [];
@@ -233,7 +232,7 @@ module.exports = function(app){
     var euromillones_api_historicoDeResultadosGlobalesConEstrellas = function(req, res){
         EUR_DBM.getOcurrencesByResultWithStars(function(err, tickets){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var response = [];
@@ -252,7 +251,7 @@ module.exports = function(app){
     var euromillones_api_years = function(req, res){
         EUR_DBM.getAllYears(function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(result);
@@ -264,7 +263,7 @@ module.exports = function(app){
 
         EUR_DBM.getYearById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             res.status(200).send(result);
@@ -276,12 +275,12 @@ module.exports = function(app){
 
         EUR_DBM.deleteYearById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             EUR_DBM.getAllYears(function(err2, result2){
                 if(err){
-                    res.status(400).send(err2);
+                    return res.status(400).send(err2);
                 }
 
                 res.status(200).send(result2);
@@ -298,17 +297,17 @@ module.exports = function(app){
 
         EUR_DBM.getYearByName(name, function(err, result){
             if(err){
-                res.status(400).send(name);
+                return res.status(400).send(name);
             }else if(JSON.stringify(result) === "{}"){ // No existe aun
                 EUR_DBM.addNewYear(year, function(err, result){
                     if(err){
-                        res.status(400).send(err);
+                        return res.status(400).send(err);
                     }
 
                     res.status(200).send(result);
                 });
             }else{ // Ya hay uno con ese nombre
-                res.status(400).send('year-already-exists');
+                return res.status(400).send('year-already-exists');
             }
         });
     };
@@ -321,14 +320,14 @@ module.exports = function(app){
 
         EUR_DBM.getYearById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }else if(result == null){
-                res.status(400).send('not-found');
+                return res.status(400).send('not-found');
             }
 
             EUR_DBM.editYear(year, function(err, result){
                 if(err){
-                    res.status(400).send(err);
+                    return res.status(400).send(err);
                 }
 
                 res.status(200).send(result);
@@ -341,7 +340,7 @@ module.exports = function(app){
 
         EUR_DBM.getTicketById(id, function(err, result){
             if(err){
-                res.status(400).send(err);
+                return res.status(400).send(err);
             }
 
             var json;
