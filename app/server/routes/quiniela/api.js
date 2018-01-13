@@ -3,6 +3,9 @@ module.exports = function(app){
     var middlewares = require('../../middlewares');
     var ROL = require('../../roles');
 
+    var express = require("express");
+    var quiniela = express.Router();
+
     var QUI_DBM = require('../../modules/quiniela-data-base-manager');
 
     var filtrarInformacion = function(result){
@@ -1295,54 +1298,64 @@ module.exports = function(app){
     };
 
     /* Equipos */
-    app.get('/api/quiniela/equipos', quiniela_api_equipos);
-    app.get('/api/quiniela/equipos/:id', quiniela_api_equipo);
-    app.post('/api/quiniela/equipos', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_anadirEquipo);
-    app.put('/api/quiniela/equipos', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_editarEquipo);
-    app.delete('/api/quiniela/equipos/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_borrarEquipo);
+    quiniela.route('/equipos')
+        .get(quiniela_api_equipos)
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_anadirEquipo)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_editarEquipo);
+    quiniela.route('/equipos/:id')
+        .get(quiniela_api_equipo)
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_borrarEquipo);
 
     /* Competiciones */
-    app.get('/api/quiniela/competiciones', quiniela_api_competiciones);
-    app.get('/api/quiniela/competiciones/:id', quiniela_api_competicion);
-    app.post('/api/quiniela/competiciones', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_anadirCompeticion);
-    app.put('/api/quiniela/competiciones', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_editarCompeticion);
-    app.delete('/api/quiniela/competiciones/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_borrarCompeticion);
+    quiniela.route('/competiciones')
+        .get(quiniela_api_competiciones)
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_anadirCompeticion)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_editarCompeticion);
+    quiniela.route('/competiciones/:id')
+        .get(quiniela_api_competicion)
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_borrarCompeticion);
 
     /* Temporadas */
-    app.get('/api/quiniela/temporadas', quiniela_api_temporadas);
-    app.get('/api/quiniela/temporadas/:id', quiniela_api_temporada);
-    app.post('/api/quiniela/temporadas', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_anadirTemporada);
-    app.put('/api/quiniela/temporadas', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_editarTemporada);
-    app.delete('/api/quiniela/temporadas/:id', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_borrarTemporada);
+    quiniela.route('/temporadas')
+        .get(quiniela_api_temporadas)
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_anadirTemporada)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_editarTemporada);
+    quiniela.route('/temporadas/:id')
+        .get(quiniela_api_temporada)
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_borrarTemporada);
 
     /* Tickets de quinielas*/
-    app.get('/api/quiniela/tickets', quiniela_api_tickets);
-    app.get('/api/quiniela/tickets/season/:season', quiniela_api_ticketsQuinielaPorTemporada);
-    app.get('/api/quiniela/tickets/season/:season/day/:day', quiniela_api_ticketsQuinielaPorTemporadaYJornada);
-    app.put('/api/quiniela/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_editarTicketQuiniela);
-    app.post('/api/quiniela/tickets', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_anadirTicketQuiniela);
+    quiniela.route('/tickets')
+        .get(quiniela_api_tickets)
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_anadirTicketQuiniela)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_editarTicketQuiniela);
+
+    quiniela.get('/tickets/season/:season', quiniela_api_ticketsQuinielaPorTemporada);
+    quiniela.get('/tickets/season/:season/day/:day', quiniela_api_ticketsQuinielaPorTemporadaYJornada);
 
     /* Historico (Consultas Personalizadas) */
-    app.get('/api/quiniela/historical', quiniela_api_historicoPartidos);
-    app.get('/api/quiniela/historical/competition/:competition', quiniela_api_historicoPartidosPorCompeticion);
-    app.get('/api/quiniela/historical/competition/:competition/localTeam/:team', quiniela_api_historicoPartidosPorCompeticionYEquipoLocal);
-    app.get('/api/quiniela/historical/competition/:competition/visitorTeam/:team', quiniela_api_historicoPartidosPorCompeticionYEquipoVisitante);
-    app.get('/api/quiniela/historical/competition/:competition/footballMatch/localTeam/:localTeam/visitorTeam/:visitorTeam', quiniela_api_historicoPartidosPorCompeticionYPartido);
-    app.get('/api/quiniela/historical/season/:season', quiniela_api_historicoPartidosPorTemporada);
-    app.get('/api/quiniela/historical/season/:season/competition/:competition', quiniela_api_historicoPartidosPorTemporadaYCompeticion);
-    app.get('/api/quiniela/historical/season/:season/localTeam/:team', quiniela_api_historicoPartidosPorTemporadaYEquipoLocal);
-    app.get('/api/quiniela/historical/season/:season/visitorTeam/:team', quiniela_api_historicoPartidosPorTemporadaYEquipoVisitante);
-    app.get('/api/quiniela/historical/season/:season/competition/:competition/localTeam/:team', quiniela_api_historicoPartidosPorTemporadaCompeticionYEquipoLocal);
-    app.get('/api/quiniela/historical/season/:season/competition/:competition/visitorTeam/:team', quiniela_api_historicoPartidosPorTemporadaCompeticionYEquipoVisitante);
-    app.get('/api/quiniela/historical/season/:season/footballMatch/localTeam/:localTeam/visitorTeam/:visitorTeam', quiniela_api_historicoPartidosPorTemporadaYPartido);
-    app.get('/api/quiniela/historical/season/:season/competition/:competition/footballMatch/localTeam/:localTeam/visitorTeam/:visitorTeam', quiniela_api_historicoPartidosPorTemporadaCompeticionYPartido);
-    app.get('/api/quiniela/historical/localTeam/:team', quiniela_api_historicoPartidosPorEquipoLocal);
-    app.get('/api/quiniela/historical/visitorTeam/:team', quiniela_api_historicoPartidosPorEquipoVisitante);
-    app.get('/api/quiniela/historical/footballMatch/localTeam/:localTeam/visitorTeam/:visitorTeam', quiniela_api_historicoPartidosPorPartido);
+    quiniela.get('/historical', quiniela_api_historicoPartidos);
+    quiniela.get('/historical/competition/:competition', quiniela_api_historicoPartidosPorCompeticion);
+    quiniela.get('/historical/competition/:competition/localTeam/:team', quiniela_api_historicoPartidosPorCompeticionYEquipoLocal);
+    quiniela.get('/historical/competition/:competition/visitorTeam/:team', quiniela_api_historicoPartidosPorCompeticionYEquipoVisitante);
+    quiniela.get('/historical/competition/:competition/footballMatch/localTeam/:localTeam/visitorTeam/:visitorTeam', quiniela_api_historicoPartidosPorCompeticionYPartido);
+    quiniela.get('/historical/season/:season', quiniela_api_historicoPartidosPorTemporada);
+    quiniela.get('/historical/season/:season/competition/:competition', quiniela_api_historicoPartidosPorTemporadaYCompeticion);
+    quiniela.get('/historical/season/:season/localTeam/:team', quiniela_api_historicoPartidosPorTemporadaYEquipoLocal);
+    quiniela.get('/historical/season/:season/visitorTeam/:team', quiniela_api_historicoPartidosPorTemporadaYEquipoVisitante);
+    quiniela.get('/historical/season/:season/competition/:competition/localTeam/:team', quiniela_api_historicoPartidosPorTemporadaCompeticionYEquipoLocal);
+    quiniela.get('/historical/season/:season/competition/:competition/visitorTeam/:team', quiniela_api_historicoPartidosPorTemporadaCompeticionYEquipoVisitante);
+    quiniela.get('/historical/season/:season/footballMatch/localTeam/:localTeam/visitorTeam/:visitorTeam', quiniela_api_historicoPartidosPorTemporadaYPartido);
+    quiniela.get('/historical/season/:season/competition/:competition/footballMatch/localTeam/:localTeam/visitorTeam/:visitorTeam', quiniela_api_historicoPartidosPorTemporadaCompeticionYPartido);
+    quiniela.get('/historical/localTeam/:team', quiniela_api_historicoPartidosPorEquipoLocal);
+    quiniela.get('/historical/visitorTeam/:team', quiniela_api_historicoPartidosPorEquipoVisitante);
+    quiniela.get('/historical/footballMatch/localTeam/:localTeam/visitorTeam/:visitorTeam', quiniela_api_historicoPartidosPorPartido);
 
     /* Historico (Consultas Estandar/Fijas) */
-    app.get('/api/quiniela/historical/combinaciones', quiniela_api_historicoPartidosPorCombinaciones);
+    quiniela.get('/historical/combinaciones', quiniela_api_historicoPartidosPorCombinaciones);
 
-    app.get('/api/quiniela/getAllStoredTeams', general_api_storedTeams);
+    quiniela.get('/getAllStoredTeams', general_api_storedTeams);
+
+    app.use('/api/quiniela', quiniela);
 
 };
