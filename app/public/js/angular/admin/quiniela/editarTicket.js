@@ -14,6 +14,14 @@ function Controller ($scope, $http, $window, $filter, quiniela){
             console.log(err);
         });
 
+    quiniela.getAllTeams()
+        .then(function(data){
+            $scope.equipos = data;
+        })
+        .catch(function(err){
+            console.log(err);
+        });
+
     quiniela.getAllSeasons()
         .then(function(data){
             $scope.temporadas = data;
