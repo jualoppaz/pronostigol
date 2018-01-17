@@ -6,6 +6,14 @@ Controller.$inject = ['$scope', '$http', '$window', '$filter', 'quiniela'];
 
 function Controller ($scope, $http, $window, $filter, quiniela){
 
+    quiniela.getAllCompetitions()
+        .then(function(data){
+            $scope.competiciones = data;
+        })
+        .catch(function(err){
+            console.log(err);
+        });
+
     quiniela.getAllSeasons()
         .then(function(data){
             $scope.temporadas = data;
