@@ -6,6 +6,14 @@ Controller.$inject = ['$scope', '$http', '$window', '$filter', 'quiniela'];
 
 function Controller ($scope, $http, $window, $filter, quiniela){
 
+    quiniela.getAllSeasons()
+        .then(function(data){
+            $scope.temporadas = data;
+        })
+        .catch(function(err){
+            console.log(err);
+        });
+
     $scope.quiniela = {};
 
     $scope.consultando = true;
@@ -26,16 +34,6 @@ function Controller ($scope, $http, $window, $filter, quiniela){
         .catch(function(err){
             console.log(err);
         });
-
-    $scope.anyos = [
-        {
-            name: "2014",
-            value: "2014"
-        },{
-            name: "2015",
-            value: "2015"
-        }
-    ];
 
     $scope.anadirPronostico = function(){
         if($scope.quiniela.partidos[0].pronosticos == null){
