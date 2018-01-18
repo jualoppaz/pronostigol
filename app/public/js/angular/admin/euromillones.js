@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('EuromillonesController', function ($scope, $http){
+app.controller('EuromillonesController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', 'euromillones'];
+
+function Controller($scope, $http, $window, euromillones){
 
     $scope.tickets = [];
     $scope.ticketAEliminar = {};
@@ -18,8 +22,8 @@ app.controller('EuromillonesController', function ($scope, $http){
     var ticketsPerPage_default = 20;
     $scope.ticketsPerPage = ticketsPerPage_default;
 
-    $http.get('/api/euromillones/tickets')
-        .success(function(data){
+    euromillones.getAllTickets()
+        .then(function(data){
             $scope.tickets = data;
 
             $scope.totalItems = $scope.tickets.length;
@@ -35,12 +39,12 @@ app.controller('EuromillonesController', function ($scope, $http){
             }
 
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
 
     $scope.verTicket = function(id){
-        window.location.href = "/admin/euromillones/tickets/" + id;
+        $window.location.href = "/admin/euromillones/tickets/" + id;
     };
 
     $scope.eliminarTicket = function(id){
@@ -49,12 +53,12 @@ app.controller('EuromillonesController', function ($scope, $http){
     };
 
     $scope.eliminarRegistroDefinitivamente = function(){
-        $http.delete('/api/euromillones/tickets/' + String($scope.ticketAEliminar))
-            .success(function(data){
+        euromillones.deleteTicketById($scope.ticketAEliminar)
+            .then(function(data){
                 $scope.tickets = data;
             })
-            .error(function(data){
-                console.log(data);
+            .catch(function(err){
+                console.log(err);
             });
     };
-});
+}

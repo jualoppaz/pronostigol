@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('TicketController', function ($scope, $http, $window, $filter){
+app.controller('TicketController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', '$filter', 'euromillones'];
+
+function Controller($scope, $http, $window, $filter, euromillones){
 
     $scope.ticket = {};
 
@@ -10,18 +14,17 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
 
     var id = url.split("/tickets/")[1];
 
-    $http.get('/api/euromillones/tickets/' + id)
-        .success(function(data){
+    euromillones.getTicketById(id)
+        .then(function(data){
             $scope.ticket = data;
 
             $scope.ticket.fecha = $filter('date')(data.fecha, 'dd/MM/yyyy');
 
             $scope.consultando = false;
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
-
 
     $scope.anyos = [
         {
@@ -159,15 +162,14 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
     };
 
     $scope.guardar = function(){
-
-        $http.put('/api/euromillones/tickets', $scope.ticket)
-            .success(function(data){
+        euromillones.editTicket($scope.ticket)
+            .then(function(){
                 angular.element("#modalTitleRegistroEditadoCorrectamente").text("Ticket de Euromillones editado correctamente");
                 angular.element("#modalTextRegistroEditadoCorrectamente").text("A continuación se le redirigirá al listado de tickets de Euromillones registrados.");
                 angular.element("#modal-registroEditadoCorrectamente").modal('show');
             })
-            .error(function(data){
-                console.log(data);
+            .catch(function(err){
+                console.log(err);
             });
     };
 
@@ -178,5 +180,4 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
 
         $window.location.href = nuevaURL;
     };
-
-});
+}

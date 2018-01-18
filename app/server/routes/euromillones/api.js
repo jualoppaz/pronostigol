@@ -315,8 +315,11 @@ module.exports = function(app){
     var euromillones_api_editYear = function(req, res){
         var body = req.body;
         var id = body._id;
-        var year = {};
-        year.name = body.name;
+        var name = body.name;
+        var year = {
+            _id: id,
+            name: name
+        };
 
         EUR_DBM.getYearById(id, function(err, result){
             if(err){

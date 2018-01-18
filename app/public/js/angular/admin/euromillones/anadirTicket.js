@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('TicketController', function ($scope, $http, $window, $filter){
+app.controller('TicketController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', '$filter', 'euromillones'];
+
+function Controller($scope, $http, $window, $filter, euromillones){
 
     $scope.ticket = {};
 
@@ -8,12 +12,12 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
 
     $scope.anyos = [];
 
-    $http.get('/api/euromillones/years')
-        .success(function(data){
+    euromillones.getAllYears()
+        .then(function(data){
             $scope.anyos = $filter('orderBy')(data, "name");
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
 
     $scope.ticket.resultado = {
@@ -193,15 +197,14 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
     };
 
     $scope.guardar = function(){
-
-        $http.post('/api/euromillones/tickets/', $scope.ticket)
-            .success(function(data){
+        euromillones.createTicket($scope.ticket)
+            .then(function(){
                 angular.element("#modalTitleRegistroAnadidoCorrectamente").text("Ticket de Euromillones añadido correctamente");
                 angular.element("#modalTextRegistroAnadidoCorrectamente").text("A continuación se le redirigirá al listado de tickets de Euromillones registrados.");
                 angular.element("#modal-registroAnadidoCorrectamente").modal('show');
             })
-            .error(function(data){
-                console.log(data);
+            .catch(function(err){
+                console.log(err);
             });
     };
 
@@ -213,4 +216,4 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
         $window.location.href = nuevaURL;
     };
 
-});
+}

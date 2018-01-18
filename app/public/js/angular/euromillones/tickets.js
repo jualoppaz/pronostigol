@@ -1,6 +1,10 @@
 var app = angular.module('qdb');
 
-app.controller('TicketsController', function ($scope, $http, $window, $filter, VariosService) {
+app.controller('TicketsController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', '$filter', 'VariosService', 'euromillones'];
+
+function Controller($scope, $http, $window, $filter, VariosService, euromillones) {
     $scope.tickets = [];
     $scope.numOfPages;
     $scope.totalItems;
@@ -8,41 +12,39 @@ app.controller('TicketsController', function ($scope, $http, $window, $filter, V
     $scope.currentPage = 1;
     $scope.ticketsPerPage = 5;
 
-    $http.get('/api/euromillones/years')
-        .success(function(data){
-            $scope.years = data;
+    euromillones.getAllYears()
+        .then(function(data){
+            $scope.years = $filter('orderBy')(data, "name");
         })
-        .error(function(err){
+        .catch(function(err){
             console.log(err);
         });
 
     $scope.mostrarTickets = function(anyo){
-        if($scope.tickets.length == 0 || $scope.tickets[0].anyo != anyo){
-            $http.get('/api/euromillones/tickets', {
-                params: {
-                    year: anyo
-                }
+        if($scope.tickets.length === 0 || $scope.tickets[0].anyo != anyo){
+            euromillones.getAllTickets({
+                year: anyo
             })
-            .success(function(data){
-                $scope.tickets = data;
-                $scope.totalItems = data.length;
-                $scope.numOfPages = data.length / $scope.ticketsPerPage;
+                .then(function(data){
+                    $scope.tickets = data;
+                    $scope.totalItems = data.length;
+                    $scope.numOfPages = data.length / $scope.ticketsPerPage;
 
-                var floor = Math.floor(data.length / $scope.ticketsPerPage);
+                    var floor = Math.floor(data.length / $scope.ticketsPerPage);
 
-                if($scope.numOfPages > floor){
-                    $scope.numOfPages = Math.floor(data.length / $scope.ticketsPerPage) + 1;
-                }
+                    if($scope.numOfPages > floor){
+                        $scope.numOfPages = Math.floor(data.length / $scope.ticketsPerPage) + 1;
+                    }
 
-                $scope.paginas = [];
+                    $scope.paginas = [];
 
-                for(var i=0; i<$scope.numOfPages; i++){
-                    $scope.paginas[i] = i+1;
-                }
-            })
-            .error(function(data){
-                console.log(data);
-            });
+                    for(var i=0; i<$scope.numOfPages; i++){
+                        $scope.paginas[i] = i+1;
+                    }
+                })
+                .catch(function(err){
+                    console.log(err);
+                });
         }
     };
 
@@ -67,5 +69,4 @@ app.controller('TicketsController', function ($scope, $http, $window, $filter, V
     $scope.apuestaRealizada = function(ticket){
         return VariosService.apuestaRealizada(ticket);
     };
-
-});
+}

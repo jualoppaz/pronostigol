@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('AnyosController', function ($scope, $http){
+app.controller('AnyosController', Controller);
+
+Controller.$inject = ['$scope', '$http', 'euromillones'];
+
+function Controller ($scope, $http, euromillones){
 
     $scope.anyos = {};
     $scope.anyoAEliminar = {};
@@ -13,12 +17,12 @@ app.controller('AnyosController', function ($scope, $http){
 
     $scope.form.letraSeleccionada = "A";
 
-    $http.get('/api/euromillones/years')
-        .success(function(data){
+    euromillones.getAllYears()
+        .then(function(data){
             $scope.anyos = data;
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
 
     $scope.verRegistro = function(id){
@@ -31,13 +35,12 @@ app.controller('AnyosController', function ($scope, $http){
     };
 
     $scope.eliminarRegistroDefinitivamente = function(){
-        $http.delete('/api/euromillones/years/' + String($scope.anyoAEliminar))
-            .success(function(data){
+        euromillones.deleteYearById($scope.anyoAEliminar)
+            .then(function(data){
                 $scope.anyos = data;
             })
-            .error(function(data){
-                console.log(data);
+            .catch(function(err){
+                console.log(err);
             });
     };
-
-});
+}

@@ -1,6 +1,10 @@
 var app = angular.module('qdb');
 
-app.controller('ConsultasController', function ($scope, $http, $filter) {
+app.controller('ConsultasController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$filter', 'euromillones'];
+
+function Controller($scope, $http, $filter, euromillones) {
 
     $scope.mostrar = {};
     $scope.mostrar.tablaAparicionesPorNumero = false;
@@ -133,11 +137,8 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         $scope.consultando = true;
 
         if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorNumero"){
-
-            console.log("/api/euromillones/historical/aparicionesPorNumero");
-            $http.get('/api/euromillones/historical/aparicionesPorNumero')
-                .success(function(data){
-                    
+            euromillones.getOccurrencesByNumber()
+                .then(function(data){
                     $scope.aparicionesPorNumero = data;
 
                     $scope.criterioOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
@@ -149,20 +150,14 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.mostrar.tablaAparicionesPorNumero = true;
 
                     $scope.consultando = false;
-
                 })
-                .error(function(data){
-                    console.log(data);
+                .catch(function(err){
+                    console.log(err);
                     $scope.consultando = false;
-
                 });
-
         }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorResultado"){
-
-            console.log("/api/euromillones/historical/aparicionesPorResultado");
-            $http.get('/api/euromillones/historical/aparicionesPorResultado')
-                .success(function(data){
-
+            euromillones.getOccurrencesByResult()
+                .then(function(data){
                     $scope.aparicionesPorResultado = data;
 
                     $scope.criterioOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
@@ -174,20 +169,14 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.mostrar.tablaAparicionesPorResultado = true;
 
                     $scope.consultando = false;
-
                 })
-                .error(function(data){
-                    console.log(data);
+                .catch(function(err){
+                    console.log(err);
                     $scope.consultando = false;
-
                 });
-
         }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorResultadoConEstrellas"){
-
-            console.log("/api/euromillones/historical/aparicionesPorResultadoConEstrellas");
-            $http.get('/api/euromillones/historical/aparicionesPorResultadoConEstrellas')
-                .success(function(data){
-
+            euromillones.getOccurrencesByResultWithStars()
+                .then(function(data){
                     $scope.aparicionesPorResultadoConEstrellas = data;
 
                     $scope.criterioOrdenacionAparicionesPorResultadoConEstrellas = $scope.sortFunction_resultWithStars;
@@ -199,20 +188,14 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.mostrar.tablaAparicionesPorResultadoConEstrellas = true;
 
                     $scope.consultando = false;
-
                 })
-                .error(function(data){
-                    console.log(data);
+                .catch(function(err){
+                    console.log(err);
                     $scope.consultando = false;
-
                 });
-
         }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorEstrella"){
-
-            console.log("/api/euromillones/historical/aparicionesPorEstrella");
-            $http.get('/api/euromillones/historical/aparicionesPorEstrella')
-                .success(function(data){
-
+            euromillones.getOccurrencesByStar()
+                .then(function(data){
                     $scope.aparicionesPorEstrella = data;
 
                     $scope.criterioOrdenacionAparicionesPorEstrella = $scope.sortFunction_star;
@@ -224,20 +207,14 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.mostrar.tablaAparicionesPorEstrella = true;
 
                     $scope.consultando = false;
-
                 })
-                .error(function(data){
-                    console.log(data);
+                .catch(function(err){
+                    console.log(err);
                     $scope.consultando = false;
-
                 });
-
         }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorParejaDeEstrellas"){
-
-            console.log("/api/euromillones/historical/aparicionesPorParejaDeEstrellas");
-            $http.get('/api/euromillones/historical/aparicionesPorParejaDeEstrellas')
-                .success(function(data){
-
+            euromillones.getOccurrencesByStarsPair()
+                .then(function(data){
                     $scope.aparicionesPorParejaDeEstrellas = data;
 
                     $scope.criterioOrdenacionAparicionesPorParejaDeEstrellas = $scope.sortFunction_starsPair;
@@ -249,17 +226,13 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.mostrar.tablaAparicionesPorParejaDeEstrellas = true;
 
                     $scope.consultando = false;
-
                 })
-                .error(function(data){
-                    console.log(data);
+                .catch(function(err){
+                    console.log(err);
                     $scope.consultando = false;
 
                 });
-
         }
-
-
     };
 
     $scope.inicializarAparicionesPorNumero = function(){
@@ -649,9 +622,4 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
             $scope.numOfPages = Math.floor($scope.tickets.length / $scope.ticketsPerPage) + 1;
         }
     };
-
-});
-
-
-
-
+}

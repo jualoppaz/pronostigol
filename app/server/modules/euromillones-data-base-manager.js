@@ -34,8 +34,6 @@ exports.getAllTickets = function(filtros, callback){
         filters.sorteo = filtros.raffle;
     }
 
-    console.log(filtros);
-
     euromillones_tickets.find(filters).toArray(function(err, res){
         if(err){
             callback(err);
@@ -349,7 +347,6 @@ exports.addNewYear = function(year, callback){
 };
 
 exports.editYear = function(year, callback){
-
     euromillones_years.update({
         _id: getObjectId(year._id)
     }, {
@@ -357,17 +354,13 @@ exports.editYear = function(year, callback){
             name: year.name,
             value: year.name
         }
-    }
-
-    , function(err, number) {
-
-        if(err || number == 0){
+    }, function(err, res) {
+        if(err){
             callback('not-updated');
         }else{
-            callback(null, year);
+            callback(null, res);
         }
     });
-
 };
 
 // TODO
