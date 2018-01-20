@@ -927,7 +927,7 @@ module.exports = function(app){
 
                 for(var j=0; j<result.length; j++){
                     var resultadoConGoles = result[j]._id;
-                    var total = result[i].total;
+                    var total = result[j].total;
 
                     jsonPlenoModerno[resultadoConGoles] = total;
                 }
