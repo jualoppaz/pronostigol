@@ -1,6 +1,10 @@
 var app = angular.module('qdb');
 
-app.controller('TicketsController', function ($scope, $http, $window, $filter, VariosService) {
+app.controller('TicketsController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', '$filter', 'VariosService', 'gordo'];
+
+function Controller ($scope, $http, $window, $filter, VariosService, gordo) {
 
     $scope.tickets = [];
 
@@ -15,35 +19,33 @@ app.controller('TicketsController', function ($scope, $http, $window, $filter, V
     var ticketsPerPage_default = 5;
     $scope.ticketsPerPage = ticketsPerPage_default;
 
-    $http.get('/api/gordo/years')
-        .success(function(data){
+    gordo.getAllYears()
+        .then(function(data){
             $scope.years = data;
         })
-        .error(function(err){
+        .catch(function(err){
             console.log(err);
         });
 
     $scope.mostrarTickets = function(anyo){
         if($scope.tickets.length == 0 || $scope.tickets[0].anyo != anyo){
-            $http.get('/api/gordo/tickets', {
-                params: {
-                    year: anyo
-                }
+            gordo.getAllTickets({
+                year: anyo
             })
-            .success(function(data){
-                $scope.tickets = data;
-                $scope.totalItems = data.length;
-                $scope.numOfPages = data.length / $scope.ticketsPerPage;
+                .then(function(data){
+                    $scope.tickets = data;
+                    $scope.totalItems = data.length;
+                    $scope.numOfPages = data.length / $scope.ticketsPerPage;
 
-                var floor = Math.floor(data.length / $scope.ticketsPerPage);
+                    var floor = Math.floor(data.length / $scope.ticketsPerPage);
 
-                if($scope.numOfPages > floor){
-                    $scope.numOfPages = Math.floor(data.length / $scope.ticketsPerPage) + 1;
-                }
-            })
-            .error(function(data){
-                console.log(data);
-            });
+                    if($scope.numOfPages > floor){
+                        $scope.numOfPages = Math.floor(data.length / $scope.ticketsPerPage) + 1;
+                    }
+                })
+                .catch(function(err){
+                    console.log(err);
+                });
         }
     };
 
@@ -69,5 +71,4 @@ app.controller('TicketsController', function ($scope, $http, $window, $filter, V
     $scope.apuestaRealizada = function(ticket){
         return VariosService.apuestaRealizada(ticket);
     };
-
-});
+}

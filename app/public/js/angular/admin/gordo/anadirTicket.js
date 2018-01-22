@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('TicketController', function ($scope, $http, $window, $filter){
+app.controller('TicketController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', '$filter', 'gordo'];
+
+function Controller($scope, $http, $window, $filter, gordo){
 
     $scope.ticket = {};
 
@@ -8,12 +12,12 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
 
     $scope.anyos = [];
 
-    $http.get('/api/gordo/years')
-        .success(function(data){
+    gordo.getAllYears()
+        .then(function(data){
             $scope.anyos = $filter('orderBy')(data, "name");
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
 
     $scope.ticket.resultado = {
@@ -169,15 +173,14 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
     };
 
     $scope.guardar = function(){
-
-        $http.post('/api/gordo/tickets/', $scope.ticket)
-            .success(function(data){
+        gordo.createTicket($scope.ticket)
+            .then(function(){
                 angular.element("#modalTitleRegistroAnadidoCorrectamente").text("Ticket de El Gordo de la Primitiva añadido correctamente");
                 angular.element("#modalTextRegistroAnadidoCorrectamente").text("A continuación se le redirigirá al listado de tickets de El Gordo de la Primitiva registrados.");
                 angular.element("#modal-registroAnadidoCorrectamente").modal('show');
             })
-            .error(function(data){
-                console.log(data);
+            .catch(function(err){
+                console.log(err);
             });
     };
 
@@ -188,5 +191,4 @@ app.controller('TicketController', function ($scope, $http, $window, $filter){
 
         $window.location.href = nuevaURL;
     };
-
-});
+}

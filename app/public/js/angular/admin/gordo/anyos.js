@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('AnyosController', function ($scope, $http){
+app.controller('AnyosController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', 'gordo'];
+
+function Controller($scope, $http, $window, gordo){
 
     $scope.anyos = {};
     $scope.anyoAEliminar = {};
@@ -13,16 +17,16 @@ app.controller('AnyosController', function ($scope, $http){
 
     $scope.form.letraSeleccionada = "A";
 
-    $http.get('/api/gordo/years')
-        .success(function(data){
+    gordo.getAllYears()
+        .then(function(data){
             $scope.anyos = data;
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
 
     $scope.verRegistro = function(id){
-        window.location.href = "/admin/gordo/anyos/" + id;
+        $window.location.href = "/admin/gordo/anyos/" + id;
     };
 
     $scope.eliminarRegistro = function(id){
@@ -31,13 +35,12 @@ app.controller('AnyosController', function ($scope, $http){
     };
 
     $scope.eliminarRegistroDefinitivamente = function(){
-        $http.delete('/api/gordo/years/' + String($scope.anyoAEliminar))
-            .success(function(data){
+        gordo.deleteYearById($scope.anyoAEliminar)
+            .then(function(data){
                 $scope.anyos = data;
             })
-            .error(function(data){
-                console.log(data);
+            .catch(function(err){
+                console.log(err);
             });
     };
-
-});
+}

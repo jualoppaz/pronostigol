@@ -1,6 +1,10 @@
 var app = angular.module('qdb');
 
-app.controller('ConsultasController', function ($scope, $http, $filter) {
+app.controller('ConsultasController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$filter', 'gordo'];
+
+function Controller ($scope, $http, $filter, gordo) {
 
     $scope.mostrar = {};
     $scope.mostrar.tablaAparicionesPorNumero = false;
@@ -83,11 +87,8 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
         $scope.consultando = true;
 
         if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorNumero"){
-
-            console.log("/api/gordo/historical/aparicionesPorNumero");
-            $http.get('/api/gordo/historical/aparicionesPorNumero')
-                .success(function(data){
-
+            gordo.getOccurrencesByNumber()
+                .then(function(data){
                     $scope.aparicionesPorNumero = data;
 
                     $scope.criterioOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
@@ -99,20 +100,15 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.mostrar.tablaAparicionesPorNumero = true;
 
                     $scope.consultando = false;
-
                 })
-                .error(function(data){
+                .catch(function(data){
                     console.log(data);
                     $scope.consultando = false;
-
                 });
 
         }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorResultado"){
-
-            console.log("/api/gordo/historical/aparicionesPorResultado");
-            $http.get('/api/gordo/historical/aparicionesPorResultado')
-                .success(function(data){
-
+            gordo.getOccurrencesByResult()
+                .then(function(data){
                     $scope.aparicionesPorResultado = data;
 
                     $scope.criterioOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
@@ -124,20 +120,14 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.mostrar.tablaAparicionesPorResultado = true;
 
                     $scope.consultando = false;
-
                 })
-                .error(function(data){
+                .catch(function(err){
                     console.log(data);
                     $scope.consultando = false;
-
                 });
-
         }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorResultadoConNumeroClave"){
-
-            console.log("/api/gordo/historical/aparicionesPorResultadoConNumeroClave");
-            $http.get('/api/gordo/historical/aparicionesPorResultadoConNumeroClave')
-                .success(function(data){
-
+            gordo.getOccurrencesByResultWithSpecialNumber()
+                .then(function(data){
                     $scope.aparicionesPorResultadoConNumeroClave = data;
 
                     $scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave = $scope.sortFunction_resultWithKeyNumber;
@@ -149,20 +139,14 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.mostrar.tablaAparicionesPorResultadoConNumeroClave = true;
 
                     $scope.consultando = false;
-
                 })
-                .error(function(data){
-                    console.log(data);
+                .catch(function(err){
+                    console.log(err);
                     $scope.consultando = false;
-
                 });
-
         }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorNumeroClave"){
-
-            console.log("/api/gordo/historical/aparicionesPorNumeroClave");
-            $http.get('/api/gordo/historical/aparicionesPorNumeroClave')
-                .success(function(data){
-
+            gordo.getOccurrencesBySpecialNumber()
+                .then(function(data){
                     $scope.aparicionesPorNumeroClave = data;
 
                     $scope.criterioOrdenacionAparicionesPorNumeroClave = $scope.sortFunction_keyNumber;
@@ -174,17 +158,12 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
                     $scope.mostrar.tablaAparicionesPorNumeroClave = true;
 
                     $scope.consultando = false;
-
                 })
-                .error(function(data){
-                    console.log(data);
+                .catch(function(err){
+                    console.log(err);
                     $scope.consultando = false;
-
                 });
-
         }
-
-
     };
 
     $scope.inicializarAparicionesPorNumero = function(){
@@ -481,9 +460,4 @@ app.controller('ConsultasController', function ($scope, $http, $filter) {
             $scope.numOfPages = Math.floor($scope.tickets.length / $scope.ticketsPerPage) + 1;
         }
     };
-
-});
-
-
-
-
+}

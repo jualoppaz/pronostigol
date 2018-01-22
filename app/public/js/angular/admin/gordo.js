@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('GordoController', function ($scope, $http){
+app.controller('GordoController', Controller);
+
+Controller.$inject = ['$scope', '$http', 'gordo'];
+
+function Controller ($scope, $http, gordo){
 
     $scope.tickets = [];
     $scope.ticketAEliminar = {};
@@ -18,8 +22,8 @@ app.controller('GordoController', function ($scope, $http){
     var ticketsPerPage_default = 20;
     $scope.ticketsPerPage = ticketsPerPage_default;
 
-    $http.get('/api/gordo/tickets')
-        .success(function(data){
+    gordo.getAllTickets()
+        .then(function(data){
             $scope.tickets = data;
 
             $scope.totalItems = $scope.tickets.length;
@@ -35,8 +39,8 @@ app.controller('GordoController', function ($scope, $http){
             }
 
         })
-        .error(function(data){
-            console.log(data);
+        .catch(function(err){
+            console.log(err);
         });
 
     $scope.verTicket = function(id){
@@ -49,12 +53,12 @@ app.controller('GordoController', function ($scope, $http){
     };
 
     $scope.eliminarRegistroDefinitivamente = function(){
-        $http.delete('/api/gordo/tickets/' + String($scope.ticketAEliminar))
-            .success(function(data){
+        gordo.deleteTicketById($scope.ticketAEliminar)
+            .then(function(data){
                 $scope.tickets = data;
             })
-            .error(function(data){
-                console.log(data);
+            .catch(function(err){
+                console.log(err);
             });
     };
-});
+}
