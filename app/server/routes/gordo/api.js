@@ -53,8 +53,7 @@ module.exports = function(app){
         var raffle = query.raffle;
 
         var filtros = {
-            year: year
-            ,
+            year: year,
             raffle: Number(raffle)
         };
 
@@ -158,7 +157,7 @@ module.exports = function(app){
     };
 
     var gordo_api_historicoDeAparicionesPorNumero = function(req, res){
-        GOR_DBM.getOcurrencesByNumber(function(err, result){
+        GOR_DBM.getOccurrencesByNumber(function(err, result){
             if(err){
                 return res.status(400).send(err);
             }
@@ -178,7 +177,7 @@ module.exports = function(app){
     };
 
     var gordo_api_historicoDeAparicionesPorNumeroClave = function(req, res){
-        GOR_DBM.getOcurrencesBySpecialNumber(function(err, result){
+        GOR_DBM.getOccurrencesBySpecialNumber(function(err, result){
             if(err){
                 return res.status(400).send(err);
             }
@@ -199,7 +198,7 @@ module.exports = function(app){
     };
 
     var gordo_api_historicoDeAparicionesPorResultados = function(req, res){
-        GOR_DBM.getOcurrencesByResultWithoutSpecialNumber(function(err, tickets){
+        GOR_DBM.getOccurrencesByResultWithoutSpecialNumber(function(err, tickets){
             if(err){
                 return res.status(400).send(err);
             }
@@ -217,7 +216,7 @@ module.exports = function(app){
     };
 
     var gordo_api_historicoDeAparicionesPorResultadoConNumeroClave = function(req, res){
-        GOR_DBM.getOcurrencesByResultWithSpecialNumber(function(err, tickets){
+        GOR_DBM.getOccurrencesByResultWithSpecialNumber(function(err, tickets){
             if(err){
                 return res.status(400).send(err);
             }

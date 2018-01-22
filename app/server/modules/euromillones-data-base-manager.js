@@ -160,7 +160,7 @@ exports.editTicket = function(ticket, callback){
 
 };
 
-exports.getOcurrencesByResultWithoutStars = function(callback){
+exports.getOccurrencesByResultWithoutStars = function(callback){
     euromillones_tickets.aggregate({
         $group: {
             '_id': "$resultado.bolas",
@@ -177,7 +177,7 @@ exports.getOcurrencesByResultWithoutStars = function(callback){
     });
 };
 
-exports.getOcurrencesByResultWithoutStars = function(callback){
+exports.getOccurrencesByResultWithoutStars = function(callback){
     euromillones_tickets.aggregate({
         $group: {
             '_id': "$resultado.bolas",
@@ -194,7 +194,7 @@ exports.getOcurrencesByResultWithoutStars = function(callback){
     });
 };
 
-exports.getOcurrencesByResultWithStars = function(callback){
+exports.getOccurrencesByResultWithStars = function(callback){
     euromillones_tickets.aggregate({
         $group: {
             '_id': {
@@ -220,7 +220,7 @@ exports.getOcurrencesByResultWithStars = function(callback){
     });
 };
 
-exports.getOcurrencesByNumber = function(callback){
+exports.getOccurrencesByNumber = function(callback){
     euromillones_tickets.aggregate({
         $unwind: '$resultado.bolas'
     },{
@@ -239,7 +239,7 @@ exports.getOcurrencesByNumber = function(callback){
     });
 };
 
-exports.getOcurrencesByStar = function(callback){
+exports.getOccurrencesByStar = function(callback){
     euromillones_tickets.aggregate({
         $unwind: '$resultado.estrellas'
     },{
@@ -258,7 +258,7 @@ exports.getOcurrencesByStar = function(callback){
     });
 };
 
-exports.getOcurrencesByStarsPair = function(callback){
+exports.getOccurrencesByStarsPair = function(callback){
     euromillones_tickets.aggregate({
         $group: {
             '_id': '$resultado.estrellas',

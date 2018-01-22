@@ -163,7 +163,7 @@ exports.editTicket = function(ticket, callback){
 
 };
 
-exports.getOcurrencesByNumber = function(callback){
+exports.getOccurrencesByNumber = function(callback){
     gordo_tickets.aggregate({
         $unwind: '$resultado.bolas'
     },{
@@ -182,7 +182,7 @@ exports.getOcurrencesByNumber = function(callback){
     });
 };
 
-exports.getOcurrencesByResultWithSpecialNumber = function(callback){
+exports.getOccurrencesByResultWithSpecialNumber = function(callback){
     gordo_tickets.aggregate({
         $group: {
             '_id': {
@@ -208,7 +208,7 @@ exports.getOcurrencesByResultWithSpecialNumber = function(callback){
     });
 };
 
-exports.getOcurrencesByResultWithoutSpecialNumber = function(callback){
+exports.getOccurrencesByResultWithoutSpecialNumber = function(callback){
     gordo_tickets.aggregate({
         $group: {
             '_id': "$resultado.bolas",
@@ -225,7 +225,7 @@ exports.getOcurrencesByResultWithoutSpecialNumber = function(callback){
     });
 };
 
-exports.getOcurrencesBySpecialNumber = function(callback){
+exports.getOccurrencesBySpecialNumber = function(callback){
     gordo_tickets.aggregate({
         $group: {
             '_id': '$resultado.numeroClave',

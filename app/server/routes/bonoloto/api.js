@@ -211,7 +211,7 @@ module.exports = function(app){
      * @apiSampleRequest /api/bonoloto/historical/aparicionesPorNumero
      */
     var bonoloto_api_historicoDeAparicionesPorNumero = function(req, res){
-        BON_DBM.getOcurrencesByNumber(function(err, result){
+        BON_DBM.getOccurrencesByNumber(function(err, result){
             if(err){
                 return res.status(400).send(err);
             }
@@ -241,7 +241,7 @@ module.exports = function(app){
      * @apiSampleRequest /api/bonoloto/historical/aparicionesPorReintegro
      */
     var bonoloto_api_historicoDeAparicionesPorReintegro = function(req, res){
-        BON_DBM.getOcurrencesByReimbursement(function(err, result){
+        BON_DBM.getOccurrencesByReimbursement(function(err, result){
             if(err) {
                 return res.status(400).send(err);
             }
@@ -271,7 +271,7 @@ module.exports = function(app){
      * @apiSampleRequest /api/bonoloto/historical/aparicionesPorResultado
      */
     var bonoloto_api_historicoDeResultadosGlobales = function(req, res){
-        BON_DBM.getOcurrencesByResultWithoutReimbursement(function(err, tickets){
+        BON_DBM.getOccurrencesByResultWithoutReimbursement(function(err, tickets){
             if(err){
                 return res.status(400).send(err);
             }
@@ -301,7 +301,7 @@ module.exports = function(app){
      * @apiSampleRequest /api/bonoloto/historical/aparicionesPorResultadoConReintegro
      */
     var bonoloto_api_historicoDeResultadosGlobalesConReintegro = function(req, res){
-        BON_DBM.getOcurrencesByResultWithReimbursement(function(err, tickets){
+        BON_DBM.getOccurrencesByResultWithReimbursement(function(err, tickets){
             if(err){
                 return res.status(400).send(err);
             }

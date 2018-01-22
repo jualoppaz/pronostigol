@@ -160,7 +160,7 @@ exports.editTicket = function(ticket, callback){
 
 };
 
-exports.getOcurrencesByResultWithReimbursement = function(callback){
+exports.getOccurrencesByResultWithReimbursement = function(callback){
     primitiva_tickets.aggregate({
         $group: {
             '_id': {
@@ -186,7 +186,7 @@ exports.getOcurrencesByResultWithReimbursement = function(callback){
     });
 };
 
-exports.getOcurrencesByResultWithoutReimbursement = function(callback){
+exports.getOccurrencesByResultWithoutReimbursement = function(callback){
     primitiva_tickets.aggregate({
         $group: {
             '_id': "$resultado.bolas",
@@ -203,7 +203,7 @@ exports.getOcurrencesByResultWithoutReimbursement = function(callback){
     });
 };
 
-exports.getOcurrencesByNumber = function(callback){
+exports.getOccurrencesByNumber = function(callback){
     primitiva_tickets.aggregate({
         $unwind: '$resultado.bolas'
     },{
@@ -222,7 +222,7 @@ exports.getOcurrencesByNumber = function(callback){
     });
 };
 
-exports.getOcurrencesByReimbursement = function(callback){
+exports.getOccurrencesByReimbursement = function(callback){
     primitiva_tickets.aggregate({
         $group: {
             '_id': '$resultado.reintegro',

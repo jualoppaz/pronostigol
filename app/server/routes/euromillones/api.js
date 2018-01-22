@@ -154,7 +154,7 @@ module.exports = function(app){
     };
 
     var euromillones_api_historicoDeAparicionesPorNumero = function(req, res){
-        EUR_DBM.getOcurrencesByNumber(function(err, result){
+        EUR_DBM.getOccurrencesByNumber(function(err, result){
             if(err){
                 return res.status(400).send(err);
             }
@@ -173,7 +173,7 @@ module.exports = function(app){
     };
 
     var euromillones_api_historicoDeAparicionesPorEstrella = function(req, res){
-        EUR_DBM.getOcurrencesByStar(function(err, result){
+        EUR_DBM.getOccurrencesByStar(function(err, result){
             if(err){
                 return res.status(400).send(err);
             }
@@ -192,7 +192,7 @@ module.exports = function(app){
     };
 
     var euromillones_api_historicoDeAparicionesPorParejaDeEstrellas = function(req, res){
-        EUR_DBM.getOcurrencesByStarsPair(function(err, result){
+        EUR_DBM.getOccurrencesByStarsPair(function(err, result){
             if(err){
                 return res.status(400).send(err);
             }
@@ -211,7 +211,7 @@ module.exports = function(app){
     };
 
     var euromillones_api_historicoDeResultadosGlobales = function(req, res){
-        EUR_DBM.getOcurrencesByResultWithoutStars(function(err, tickets){
+        EUR_DBM.getOccurrencesByResultWithoutStars(function(err, tickets){
             if(err){
                 return res.status(400).send(err);
             }
@@ -230,7 +230,7 @@ module.exports = function(app){
     };
 
     var euromillones_api_historicoDeResultadosGlobalesConEstrellas = function(req, res){
-        EUR_DBM.getOcurrencesByResultWithStars(function(err, tickets){
+        EUR_DBM.getOccurrencesByResultWithStars(function(err, tickets){
             if(err){
                 return res.status(400).send(err);
             }

@@ -154,7 +154,7 @@ module.exports = function(app){
     };
 
     var primitiva_api_historicoDeAparicionesPorNumero = function(req, res){
-        PRI_DBM.getOcurrencesByNumber(function(err, result){
+        PRI_DBM.getOccurrencesByNumber(function(err, result){
             if(err){
                 return res.status(400).send(err);
             }
@@ -175,7 +175,7 @@ module.exports = function(app){
     };
 
     var primitiva_api_historicoDeAparicionesPorReintegro = function(req, res){
-        PRI_DBM.getOcurrencesByReimbursement(function(err, result){
+        PRI_DBM.getOccurrencesByReimbursement(function(err, result){
             if(err){
                 return res.status(400).send(err);
             }
@@ -195,7 +195,7 @@ module.exports = function(app){
     };
 
     var primitiva_api_historicoDeResultadosGlobales = function(req, res){
-        PRI_DBM.getOcurrencesByResultWithoutReimbursement(function(err, tickets){
+        PRI_DBM.getOccurrencesByResultWithoutReimbursement(function(err, tickets){
             if(err){
                 return res.status(400).send(err);
             }
@@ -214,7 +214,7 @@ module.exports = function(app){
     };
 
     var primitiva_api_historicoDeResultadosGlobalesConReintegro = function(req, res){
-        PRI_DBM.getOcurrencesByResultWithReimbursement(function(err, tickets){
+        PRI_DBM.getOccurrencesByResultWithReimbursement(function(err, tickets){
             if(err){
                 return res.status(400).send(err);
             }
