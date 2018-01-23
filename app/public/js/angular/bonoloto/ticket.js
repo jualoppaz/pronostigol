@@ -16,7 +16,7 @@ function Controller ($scope, $http, $filter, VariosService, bonoloto) {
 
     var fragmentos = url.split("/");
 
-    bonoloto.getAllTickets({
+    bonoloto.getTickets({
         year: fragmentos[5],
         raffle: fragmentos[6]
     })

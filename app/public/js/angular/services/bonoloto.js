@@ -8,15 +8,18 @@
     service.$inject = ['$http', '$q'];
 
     function service($http, $q){
+
+        var apiPrefix = "/api/bonoloto";
+
         var service = {
             // Tickets
-            getAllTickets: getAllTickets,
+            getTickets: getTickets,
             getTicketById: getTicketById,
             createTicket: createTicket,
             editTicket: editTicket,
             deleteTicketById: deleteTicketById,
             // Years
-            getAllYears: getAllYears,
+            getYears: getYears,
             getYearById: getYearById,
             createYear: createYear,
             editYear: editYear,
@@ -30,18 +33,18 @@
 
         return service;
 
-        function getAllTickets(queryParameters){
+        function getTickets(queryParameters){
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/bonoloto/tickets', {
+            $http.get(apiPrefix + '/tickets', {
                 params: queryParameters
             })
                 .then(function(data){
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -51,12 +54,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/bonoloto/tickets/' + id)
+            $http.get(apiPrefix + '/tickets/' + id)
                 .then(function(data){
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -66,12 +69,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/api/bonoloto/tickets', ticket)
+            $http.post(apiPrefix + '/tickets', ticket)
                 .then(function(data){
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -81,12 +84,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.put('/api/bonoloto/tickets', ticket)
+            $http.put(apiPrefix + '/tickets', ticket)
                 .then(function(data){
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -96,27 +99,27 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.delete('/api/bonoloto/tickets/' + id)
+            $http.delete(apiPrefix + '/tickets/' + id)
                 .then(function(data){
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
         }
 
-        function getAllYears(){
+        function getYears(){
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/bonoloto/years')
+            $http.get(apiPrefix + '/years')
                 .then(function(data){
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -126,12 +129,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/bonoloto/years/' + id)
+            $http.get(apiPrefix + '/years/' + id)
                 .then(function(data){
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -141,12 +144,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/api/bonoloto/years', year)
+            $http.post(apiPrefix + '/years', year)
                 .then(function(data){
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -156,12 +159,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.put('/api/bonoloto/years', year)
+            $http.put(apiPrefix + '/years', year)
                 .then(function(data){
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -171,12 +174,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.delete('/api/bonoloto/years/' + id)
+            $http.delete(apiPrefix + '/years/' + id)
                 .then(function(data){
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -186,12 +189,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/bonoloto/historical/aparicionesPorNumero')
+            $http.get(apiPrefix + '/historical/occurrencesByNumber')
                 .then(function(data){
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -201,12 +204,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/bonoloto/historical/aparicionesPorResultado')
+            $http.get(apiPrefix + '/historical/occurrencesByResult')
                 .then(function(data){
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -216,12 +219,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/bonoloto/historical/aparicionesPorResultadoConReintegro')
+            $http.get(apiPrefix + '/historical/occurrencesByResultWithReimbursement')
                 .then(function(data){
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -231,12 +234,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/bonoloto/historical/aparicionesPorReintegro')
+            $http.get(apiPrefix + '/historical/occurrencesByReimbursement')
                 .then(function(data){
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;

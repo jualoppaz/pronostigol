@@ -17,7 +17,7 @@ function Controller ($scope, $http, bonoloto){
 
     $scope.form.letraSeleccionada = "A";
 
-    bonoloto.getAllYears()
+    bonoloto.getYears()
         .then(function(data){
             console.log("Respuesta de años:", data);
             $scope.anyos = data;
@@ -38,7 +38,7 @@ function Controller ($scope, $http, bonoloto){
     $scope.eliminarRegistroDefinitivamente = function(){
         bonoloto.deleteYearById($scope.anyoAEliminar)
             .then(function(){
-                return bonoloto.getAllYears();
+                return bonoloto.getYears();
             })
             .then(function(data){
                 $scope.anyos = data;
@@ -47,4 +47,4 @@ function Controller ($scope, $http, bonoloto){
                 console.log(err);
             });
     };
-};
+}

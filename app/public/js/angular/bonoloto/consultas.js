@@ -145,7 +145,7 @@ function Controller ($scope, $http, $filter, bonoloto) {
                     $scope.consultando = false;
                 })
                 .catch(function(err){
-                    console.log(data);
+                    console.log(err);
                     $scope.consultando = false;
                 });
 

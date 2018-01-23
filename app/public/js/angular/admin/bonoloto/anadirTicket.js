@@ -12,7 +12,7 @@ function Controller ($scope, $http, $window, $filter, bonoloto){
 
     $scope.anyos = [];
 
-    bonoloto.getAllYears()
+    bonoloto.getYears()
         .then(function(data){
             $scope.anyos = $filter('orderBy')(data, "name");
         })

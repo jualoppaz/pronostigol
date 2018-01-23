@@ -15,7 +15,7 @@ function Controller ($scope, $http, $window, $filter, VariosService, bonoloto) {
     $scope.currentPage = 1;
     $scope.ticketsPerPage = 5;
 
-    bonoloto.getAllYears()
+    bonoloto.getYears()
         .then(function(data){
             $scope.years = data;
         })
@@ -30,7 +30,7 @@ function Controller ($scope, $http, $window, $filter, VariosService, bonoloto) {
 
         if($scope.tickets.length == 0 || $scope.tickets[0].anyo != anyo){
 
-            bonoloto.getAllTickets({
+            bonoloto.getTickets({
                 year: anyo,
                 per_page: $scope.ticketsPerPage,
                 page: $scope.currentPage
@@ -84,7 +84,7 @@ function Controller ($scope, $http, $window, $filter, VariosService, bonoloto) {
 
         $scope.tickets = [];
 
-        bonoloto.getAllTickets({
+        bonoloto.getTickets({
             year: $scope.selected.year,
             per_page: $scope.ticketsPerPage,
             page: $scope.currentPage

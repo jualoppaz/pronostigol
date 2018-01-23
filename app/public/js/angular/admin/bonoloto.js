@@ -22,7 +22,7 @@ function Controller ($scope, $http, bonoloto){
     var ticketsPerPage_default = 20;
     $scope.ticketsPerPage = ticketsPerPage_default;
 
-    bonoloto.getAllTickets({
+    bonoloto.getTickets({
         page: $scope.currentPage,
         per_page: ticketsPerPage_default
     })
@@ -62,7 +62,7 @@ function Controller ($scope, $http, bonoloto){
     $scope.eliminarRegistroDefinitivamente = function(){
         bonoloto.deleteTicketById($scope.ticketAEliminar)
             .then(function(){
-                return bonoloto.getAllTickets({
+                return bonoloto.getTickets({
                     page: $scope.currentPage,
                     per_page: $scope.ticketsPerPage
                 });
@@ -79,7 +79,7 @@ function Controller ($scope, $http, bonoloto){
 
         $scope.tickets = [];
 
-        bonoloto.getAllTickets({
+        bonoloto.getTickets({
             page: $scope.currentPage,
             per_page: $scope.ticketsPerPage
         })
