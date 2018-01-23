@@ -1048,7 +1048,7 @@ module.exports = function(app){
 
     var quiniela_api_editarEquipo = function(req, res){
         var body = req.body;
-        var id = body.id;
+        var id = body._id;
         var equipo = body.name;
 
         QUI_DBM.getTeamById(id, function(err, result){
