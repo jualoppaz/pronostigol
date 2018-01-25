@@ -4,6 +4,9 @@ var Server 		= require('mongodb').Server;
 var dbPort, dbHost, dbName, dbUser, dbPass, db;
 
 exports.setup = function(callback){
+
+    process.env.MONGODB_URI = "mongodb://jualoppaz:US92AY6J@ds059722.mlab.com:59722/pronostigol";
+
     if (process.env.MONGODB_URI){
         var elems   = String(process.env.MONGODB_URI).split(":");
         dbPort      = Number(elems[elems.length-1].split("/")[0]);
@@ -40,8 +43,6 @@ exports.setup = function(callback){
     });
 };
 
-
 exports.getDatabaseInstance = function(callback){
     callback(null, db);
 };
-

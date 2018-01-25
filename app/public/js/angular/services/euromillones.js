@@ -13,7 +13,7 @@
 
         var service = {
             // Tickets
-            getAllTickets: getAllTickets,
+            getTickets: getTickets,
             getTicketById: getTicketById,
             createTicket: createTicket,
             editTicket: editTicket,
@@ -34,7 +34,7 @@
 
         return service;
 
-        function getAllTickets(queryParameters){
+        function getTickets(queryParameters){
             var defered = $q.defer();
             var promise = defered.promise;
 
@@ -45,7 +45,7 @@
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -60,7 +60,7 @@
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -75,7 +75,7 @@
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -90,7 +90,7 @@
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -105,7 +105,7 @@
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -120,7 +120,7 @@
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -135,7 +135,7 @@
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -150,7 +150,7 @@
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -165,7 +165,7 @@
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -180,7 +180,7 @@
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -195,7 +195,7 @@
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -210,7 +210,7 @@
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -225,7 +225,7 @@
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -240,7 +240,7 @@
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;
@@ -255,7 +255,7 @@
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;

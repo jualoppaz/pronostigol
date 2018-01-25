@@ -32,7 +32,7 @@ block content
                                     th Fecha
                                     th Sorteo
                             tbody
-                                tr(ng-show="tickets", ng-repeat="ticket in tickets | orderBy:['-fecha']").verEmail
+                                tr(ng-show="tickets", ng-repeat="ticket in tickets").verEmail
                                     td(style="font-weight: bold")
                                         span(ng-click="eliminarTicket(ticket._id)")
                                             i.fa.fa-trash-o
@@ -42,8 +42,9 @@ block content
 
                             include ../modals/eliminarRegistro
 
-                        uib-pagination(ng-show="numOfPages > 1",
-                            ng-change="consultarTickets()"
+                        uib-pagination(
+                            ng-hide="tickets.length === 0",
+                            ng-change="consultarTickets()",
                             ng-cloak,
                             items-per-page="ticketsPerPage",
                             boundary-link-numbers="true",

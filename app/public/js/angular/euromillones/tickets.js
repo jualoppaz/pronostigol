@@ -21,26 +21,33 @@ function Controller($scope, $http, $window, $filter, VariosService, euromillones
         });
 
     $scope.mostrarTickets = function(anyo){
+        $scope.selected = {
+            year: anyo
+        };
+
         if($scope.tickets.length === 0 || $scope.tickets[0].anyo != anyo){
-            euromillones.getAllTickets({
-                year: anyo
+
+            euromillones.getTickets({
+                year: anyo,
+                per_page: $scope.ticketsPerPage,
+                page: $scope.currentPage
             })
                 .then(function(data){
-                    $scope.tickets = data;
-                    $scope.totalItems = data.length;
-                    $scope.numOfPages = data.length / $scope.ticketsPerPage;
+                    var tickets = data.data;
+                    var total = data.total;
+                    var perPage = data.perPage;
+                    var numOfPages = total / perPage;
 
-                    var floor = Math.floor(data.length / $scope.ticketsPerPage);
+                    $scope.tickets =  tickets;
+                    $scope.totalItems = total;
 
-                    if($scope.numOfPages > floor){
-                        $scope.numOfPages = Math.floor(data.length / $scope.ticketsPerPage) + 1;
+                    var floor = Math.floor(total / perPage);
+
+                    if(numOfPages > floor){
+                        numOfPages = Math.floor(total / perPage) + 1;
                     }
 
-                    $scope.paginas = [];
-
-                    for(var i=0; i<$scope.numOfPages; i++){
-                        $scope.paginas[i] = i+1;
-                    }
+                    $scope.numOfPages = numOfPages;
                 })
                 .catch(function(err){
                     console.log(err);
@@ -53,7 +60,6 @@ function Controller($scope, $http, $window, $filter, VariosService, euromillones
     };
 
     $scope.traducirDia = function(fecha){
-
         var dia = $filter('date')(fecha, 'EEEE');
         return VariosService.traducirDia(dia);
     };
@@ -62,6 +68,41 @@ function Controller($scope, $http, $window, $filter, VariosService, euromillones
 
     $scope.actualizarPagina = function(pagina){
         $scope.currentPage = pagina;
+    };
+
+    $scope.consultarTickets = function(){
+
+        $scope.reset();
+
+        euromillones.getTickets({
+            year: $scope.selected.year,
+            per_page: $scope.ticketsPerPage,
+            page: $scope.currentPage
+        })
+            .then(function(data){
+                var tickets = data.data;
+                var total = data.total;
+                var perPage = data.perPage;
+                var numOfPages = total / perPage;
+
+                $scope.tickets =  tickets;
+                $scope.totalItems = total;
+
+                var floor = Math.floor(total / perPage);
+
+                if(numOfPages > floor){
+                    numOfPages = Math.floor(total / perPage) + 1;
+                }
+
+                $scope.numOfPages = numOfPages;
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+    };
+
+    $scope.reset = function(){
+        $scope.tickets = [];
     };
 
     $scope.propiedad = 'fecha';

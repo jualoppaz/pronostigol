@@ -2,9 +2,9 @@ var app = angular.module('dashboard');
 
 app.controller('BonolotoController', Controller);
 
-Controller.$inject = ['$scope', '$http', 'bonoloto'];
+Controller.$inject = ['$scope', '$http', '$window', 'bonoloto'];
 
-function Controller ($scope, $http, bonoloto){
+function Controller ($scope, $http, $window, bonoloto){
 
     $scope.tickets = [];
     $scope.ticketAEliminar = {};
@@ -51,7 +51,7 @@ function Controller ($scope, $http, bonoloto){
         });
 
     $scope.verTicket = function(id){
-        window.location.href = "/admin/bonoloto/tickets/" + id;
+        $window.location.href = "/admin/bonoloto/tickets/" + id;
     };
 
     $scope.eliminarTicket = function(id){
@@ -77,7 +77,7 @@ function Controller ($scope, $http, bonoloto){
 
     $scope.consultarTickets = function(){
 
-        $scope.tickets = [];
+        $scope.reset();
 
         bonoloto.getTickets({
             page: $scope.currentPage,
@@ -106,5 +106,9 @@ function Controller ($scope, $http, bonoloto){
             .catch(function(err){
                 console.log(err);
             });
-    }
-};
+    };
+
+    $scope.reset = function(){
+        $scope.tickets = [];
+    };
+}
