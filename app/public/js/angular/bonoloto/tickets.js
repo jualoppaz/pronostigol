@@ -112,4 +112,7 @@ function Controller ($scope, $http, $window, $filter, VariosService, bonoloto) {
 
     };
 
-};
+    $scope.reset = function(){
+        $scope.tickets = [];
+    };
+}

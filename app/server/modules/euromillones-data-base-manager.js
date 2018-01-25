@@ -34,11 +34,40 @@ exports.getAllTickets = function(filtros, callback){
         filters.sorteo = filtros.raffle;
     }
 
-    euromillones_tickets.find(filters).toArray(function(err, res){
+    var limit = filtros.perPage;
+    var page = filtros.page;
+    var skip = (page - 1) * limit;
+    var sort = filtros.sort;
+    var type = filtros.type;
+
+    var options = {
+        sort: [[sort, type]],
+        limit: limit,
+        skip: skip
+    };
+
+    console.log("Filters: ", filters);
+    console.log("Options: ", options);
+
+    euromillones_tickets.count(filters, function(err, total){
         if(err){
             callback(err);
         }else{
-            callback(null, res);
+            euromillones_tickets.find(filters, options).toArray(function(err, res){
+                if(err){
+                    callback(err);
+                }else{
+
+                    var result = {
+                        page: page,
+                        perPage: limit,
+                        total: total,
+                        data: res
+                    };
+
+                    callback(null, result);
+                }
+            });
         }
     });
 };

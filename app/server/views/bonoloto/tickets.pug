@@ -65,6 +65,8 @@ block content
                                                     i.fa.fa-close.fa-2x(style="color: red")
 
                                 uib-pagination(
+                                    ng-hide="tickets.length === 0",
+                                    ng-cloak,
                                     items-per-page="ticketsPerPage",
                                     boundary-links="true",
                                     boundary-link-numbers="true",

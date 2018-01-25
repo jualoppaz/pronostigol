@@ -29,7 +29,6 @@ block content
                                     | Aqu&iacute; podr&aacute;s buscar los sorteos de Euromillones de los años que se indican a continuaci&oacute;n.
 
                         div.col-md-12.col-sm-12.col-xs-12
-
                             div.col-md-3
                                 div.alert.alert-euromillones
                                     div.text-center
@@ -45,7 +44,7 @@ block content
                                 div.col-md-12(style="padding-top: 20px")
                                     label.col-md-4.col-sm-4.col-xs-6(style="clear:both; padding-top:5px") Tickets por página:
                                     div.col-md-2.col-sm-2.col-xs-6
-                                        input(type="number", min="1", ng-model="ticketsPerPage").form-control
+                                        input(type="number", min="1", ng-model="ticketsPerPage", ng-change="consultarTickets()").form-control
 
                                 table.table.tabla-euromilloness
                                     thead
@@ -55,11 +54,10 @@ block content
                                             th Fecha
                                             th(ng-show="usuarioEstaLogueado && tickets[0].precio != null", ng-cloak) Apostado
                                     tbody
-                                        tr(ng-repeat="ticket in tickets | orderBy:propiedad")
-                                            //td(ng-show="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)") {{$index+1}}
-                                            td(ng-show="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-click="verTicket(ticket)", ng-bind-template="{{ticket.sorteo}}").pointer
-                                            td(ng-show="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-click="verTicket(ticket)", ng-bind-template="{{traducirDia(ticket.fecha)}}").pointer
-                                            td(ng-show="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-click="verTicket(ticket)", ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}").pointer
+                                        tr(ng-repeat="ticket in tickets")
+                                            td(ng-click="verTicket(ticket)", ng-bind-template="{{ticket.sorteo}}").pointer
+                                            td(ng-click="verTicket(ticket)", ng-bind-template="{{traducirDia(ticket.fecha)}}").pointer
+                                            td(ng-click="verTicket(ticket)", ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}").pointer
                                             td(ng-show="usuarioEstaLogueado && ticket.precio != null && ($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage) && apuestaRealizada(ticket)", ng-cloak)
                                                 span
                                                     i.fa.fa-check.fa-2x(style="color: green")
@@ -67,7 +65,21 @@ block content
                                                 span
                                                     i.fa.fa-close.fa-2x(style="color: red")
 
-                                uib-pagination(items-per-page="ticketsPerPage", boundary-links="true", boundary-link-numbers="true", max-size="maxSize", force-ellipsis="true", total-items="totalItems", ng-model="currentPage", previous-text="<", next-text=">", first-text="Inicio", last-text="Fin").pagination-sm.abel
+                                uib-pagination(
+                                    ng-hide="tickets.length === 0",
+                                    ng-cloak,
+                                    items-per-page="ticketsPerPage",
+                                    boundary-links="true",
+                                    boundary-link-numbers="true",
+                                    max-size="maxSize",
+                                    force-ellipsis="true",
+                                    total-items="totalItems",
+                                    ng-model="currentPage",
+                                    ng-change="consultarTickets()",
+                                    previous-text="<",
+                                    next-text=">",
+                                    first-text="Inicio",
+                                    last-text="Fin").pagination-sm.abel
 
         div#push
 

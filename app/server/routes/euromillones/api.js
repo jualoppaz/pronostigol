@@ -50,10 +50,17 @@ module.exports = function(app){
         var query = req.query;
         var year = query.year;
         var raffle = query.raffle;
+        var page = query.page || 1;
+        var perPage = query.per_page || 10;
+        var type = query.sort_type || 'desc';
 
         var filtros = {
             year: year,
-            raffle: Number(raffle)
+            raffle: Number(raffle),
+            page: Number(page),
+            perPage: Number(perPage),
+            sort: 'fecha',
+            type: type
         };
 
         EUR_DBM.getAllTickets(filtros, function(err, result){
@@ -61,21 +68,25 @@ module.exports = function(app){
                 return res.status(400).send(err);
             }
 
-            var response = [];
-            for(var i=0; i<result.length;i++){
+            var filteredData = [];
+            var tickets = result.data;
+            for(var i=0; i<tickets.length; i++){
                 var json;
                 if(req.session.user == null){
-                    json = filtrarInformacion(result[i]);
+                    json = filtrarInformacion(tickets[i]);
                 }else{
-                    if(req.session.user.role === ROL.PRIVILEGED){
-                        json = result[i];
+                    if(req.session.user.role === ROL.PRIVILEGED || req.session.user.role === ROL.ADMIN){
+                        json = tickets[i];
                     }else{
-                        json = filtrarInformacion(result[i]);
+                        json = filtrarInformacion(tickets[i]);
                     }
                 }
-                response.push(json);
+                filteredData.push(json);
             }
-            res.status(200).send(JSON.stringify(response, null, 4));
+
+            result.data = filteredData;
+
+            res.status(200).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -137,13 +148,13 @@ module.exports = function(app){
                 return res.status(400).send('not-found');
             }
 
-            EUR_DBM.deleteTicketById(id, function(err2, result2){
-                if(err){
+            EUR_DBM.deleteTicketById(id, function(err2){
+                if(err2){
                     return res.status(400).send(err2);
                 }
 
                 EUR_DBM.getAllTickets(function(err3, result3){
-                    if(err){
+                    if(err3){
                         return res.status(400).send(err3);
                     }
 
@@ -273,13 +284,13 @@ module.exports = function(app){
     var euromillones_api_deleteYear = function(req, res){
         var id = req.params.id;
 
-        EUR_DBM.deleteYearById(id, function(err, result){
+        EUR_DBM.deleteYearById(id, function(err){
             if(err){
                 return res.status(400).send(err);
             }
 
             EUR_DBM.getAllYears(function(err2, result2){
-                if(err){
+                if(err2){
                     return res.status(400).send(err2);
                 }
 

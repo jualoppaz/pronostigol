@@ -20,7 +20,7 @@ function Controller($scope, $http, VariosService, $window, euromillones) {
 
     var fragmentos = url.split("/");
 
-    euromillones.getAllTickets({
+    euromillones.getTickets({
         year: fragmentos[5],
         raffle: fragmentos[6]
     })
@@ -247,7 +247,7 @@ function Controller($scope, $http, VariosService, $window, euromillones) {
 
         var sorteo = Number($scope.ticket.sorteo) + 1;
 
-        euromillones.getAllTickets({
+        euromillones.getTickets({
             year: $scope.ticket.anyo,
             raffle: sorteo
         })
@@ -258,7 +258,7 @@ function Controller($scope, $http, VariosService, $window, euromillones) {
                     console.log("/euromillones/tickets/" + data.anyo + "/" + data.sorteo);
                 }else{
                     var anyo = Number($scope.ticket.anyo) + 1;
-                    euromillones.getAllTickets({
+                    euromillones.getTickets({
                         year: anyo,
                         raffle: 1
                     })
@@ -287,7 +287,7 @@ function Controller($scope, $http, VariosService, $window, euromillones) {
 
         if(nuevoSorteo >= 1) {
 
-            euromillones.getAllTickets({
+            euromillones.getTickets({
                 year: $scope.getAnyoFromURL(),
                 raffle: nuevoSorteo
             })
