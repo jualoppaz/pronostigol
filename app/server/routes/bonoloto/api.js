@@ -348,7 +348,7 @@ module.exports = function(app){
      * @apiName GetBonolotoYear
      * @apiGroup BonolotoYears
      *
-     * @apiDescription Recurso para la consulta de un año de Bonoloto registrados en el sistema.
+     * @apiDescription Recurso para la consulta de un año de Bonoloto registrado en el sistema.
      *
      * @apiVersion 1.0.0
      *

@@ -46,6 +46,22 @@ module.exports = function(app){
         return json;
     };
 
+    /**
+     * @api {get} /euromillones/tickets Obtención de todos los tickets de Euromillones
+     * @apiName GetEuromillonesTickets
+     * @apiGroup EuromillonesTickets
+     *
+     * @apiDescription Recurso para la consulta de tickets de Euromillones registrados en el sistema.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {Number} year Año asociado a los sorteos consultados
+     * @apiParam {Number} raffle Identificador único del sorteo dentro de un año
+     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {String} sort_type Sentido de la ordenación de registros. Por defecto se ordenan por fecha descendentemente.
+     * @apiSampleRequest /api/euromillones/tickets
+     */
     var euromillones_api_tickets = function(req, res){
         var query = req.query;
         var year = query.year;
@@ -164,6 +180,17 @@ module.exports = function(app){
         });
     };
 
+    /**
+     * @api {get} /euromillones/historical/occurrencesByNumber Consulta de apariciones por número en histórico de Euromillones
+     * @apiName GetEuromillonesOccurrencesByNumber
+     * @apiGroup EuromillonesHistorical
+     *
+     * @apiDescription Recurso para la consulta de apariciones por número en histórico de Euromillones.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/euromillones/historical/occurrencesByNumber
+     */
     var euromillones_api_occurrencesByNumber = function(req, res){
         EUR_DBM.getOccurrencesByNumber(function(err, result){
             if(err){
@@ -183,6 +210,17 @@ module.exports = function(app){
         });
     };
 
+    /**
+     * @api {get} /euromillones/historical/occurrencesByStar Consulta de apariciones por estrella en histórico de Euromillones
+     * @apiName GetEuromillonesOccurrencesByStar
+     * @apiGroup EuromillonesHistorical
+     *
+     * @apiDescription Recurso para la consulta de apariciones por estrella en histórico de Euromillones.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/euromillones/historical/occurrencesByStar
+     */
     var euromillones_api_occurrencesByStar = function(req, res){
         EUR_DBM.getOccurrencesByStar(function(err, result){
             if(err){
@@ -202,6 +240,17 @@ module.exports = function(app){
         });
     };
 
+    /**
+     * @api {get} /euromillones/historical/occurrencesByStarsPair Consulta de apariciones por pareja de estrellas en histórico de Euromillones
+     * @apiName GetEuromillonesOccurrencesByStarsPair
+     * @apiGroup EuromillonesHistorical
+     *
+     * @apiDescription Recurso para la consulta de apariciones por pareja de estrellas en histórico de Euromillones.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/euromillones/historical/occurrencesByStarsPair
+     */
     var euromillones_api_occurrencesByStarsPair = function(req, res){
         EUR_DBM.getOccurrencesByStarsPair(function(err, result){
             if(err){
@@ -221,6 +270,17 @@ module.exports = function(app){
         });
     };
 
+    /**
+     * @api {get} /euromillones/historical/occurrencesByResult Consulta de apariciones por resultado en histórico de Euromillones
+     * @apiName GetEuromillonesOccurrencesByResult
+     * @apiGroup EuromillonesHistorical
+     *
+     * @apiDescription Recurso para la consulta de apariciones por resultado en histórico de Euromillones.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/euromillones/historical/occurrencesByResult
+     */
     var euromillones_api_occurrencesByResult = function(req, res){
         EUR_DBM.getOccurrencesByResultWithoutStars(function(err, tickets){
             if(err){
@@ -240,6 +300,17 @@ module.exports = function(app){
 
     };
 
+    /**
+     * @api {get} /euromillones/historical/occurrencesByResultWithStars Consulta de apariciones por resultado con estrellas en histórico de Euromillones
+     * @apiName GetEuromillonesOccurrencesByResultWithStars
+     * @apiGroup EuromillonesHistorical
+     *
+     * @apiDescription Recurso para la consulta de apariciones por resultado con estrellas en histórico de Euromillones.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/euromillones/historical/occurrencesByResultWithStars
+     */
     var euromillones_api_occurrencesByResultWithStars = function(req, res){
         EUR_DBM.getOccurrencesByResultWithStars(function(err, tickets){
             if(err){
@@ -259,6 +330,17 @@ module.exports = function(app){
         });
     };
 
+    /**
+     * @api {get} /euromillones/years Obtención de todos los años de Euromillones
+     * @apiName GetEuromillonesYears
+     * @apiGroup EuromillonesYears
+     *
+     * @apiDescription Recurso para la consulta de años de Euromillones registrados en el sistema.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/euromillones/years
+     */
     var euromillones_api_years = function(req, res){
         EUR_DBM.getAllYears(function(err, result){
             if(err){
@@ -269,6 +351,19 @@ module.exports = function(app){
         });
     };
 
+    /**
+     * @api {get} /euromillones/years/:id Obtención de un año de Euromillones según su id
+     * @apiName GetEuromillonesYear
+     * @apiGroup EuromillonesYears
+     *
+     * @apiDescription Recurso para la consulta de un año de Euromillones registrado en el sistema.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/euromillones/years/:id
+     *
+     * @apiParam {String} id Identificador del año de Euromillones
+     */
     var euromillones_api_year = function(req, res){
         var id = req.params.id;
 
