@@ -46,9 +46,6 @@ exports.getAllTickets = function(filtros, callback){
         skip: skip
     };
 
-    console.log("Filters: ", filters);
-    console.log("Options: ", options);
-
     euromillones_tickets.count(filters, function(err, total){
         if(err){
             callback(err);

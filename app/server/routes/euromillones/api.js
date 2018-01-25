@@ -164,7 +164,7 @@ module.exports = function(app){
         });
     };
 
-    var euromillones_api_historicoDeAparicionesPorNumero = function(req, res){
+    var euromillones_api_occurrencesByNumber = function(req, res){
         EUR_DBM.getOccurrencesByNumber(function(err, result){
             if(err){
                 return res.status(400).send(err);
@@ -183,7 +183,7 @@ module.exports = function(app){
         });
     };
 
-    var euromillones_api_historicoDeAparicionesPorEstrella = function(req, res){
+    var euromillones_api_occurrencesByStar = function(req, res){
         EUR_DBM.getOccurrencesByStar(function(err, result){
             if(err){
                 return res.status(400).send(err);
@@ -202,7 +202,7 @@ module.exports = function(app){
         });
     };
 
-    var euromillones_api_historicoDeAparicionesPorParejaDeEstrellas = function(req, res){
+    var euromillones_api_occurrencesByStarsPair = function(req, res){
         EUR_DBM.getOccurrencesByStarsPair(function(err, result){
             if(err){
                 return res.status(400).send(err);
@@ -221,7 +221,7 @@ module.exports = function(app){
         });
     };
 
-    var euromillones_api_historicoDeResultadosGlobales = function(req, res){
+    var euromillones_api_occurrencesByResult = function(req, res){
         EUR_DBM.getOccurrencesByResultWithoutStars(function(err, tickets){
             if(err){
                 return res.status(400).send(err);
@@ -240,7 +240,7 @@ module.exports = function(app){
 
     };
 
-    var euromillones_api_historicoDeResultadosGlobalesConEstrellas = function(req, res){
+    var euromillones_api_occurrencesByResultWithStars = function(req, res){
         EUR_DBM.getOccurrencesByResultWithStars(function(err, tickets){
             if(err){
                 return res.status(400).send(err);
@@ -391,11 +391,11 @@ module.exports = function(app){
         .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_deleteYear);
 
     /* Consultas: Estandar */
-    euromillones.get('/historical/aparicionesPorResultado', euromillones_api_historicoDeResultadosGlobales);
-    euromillones.get('/historical/aparicionesPorResultadoConEstrellas', euromillones_api_historicoDeResultadosGlobalesConEstrellas);
-    euromillones.get('/historical/aparicionesPorNumero', euromillones_api_historicoDeAparicionesPorNumero);
-    euromillones.get('/historical/aparicionesPorEstrella', euromillones_api_historicoDeAparicionesPorEstrella);
-    euromillones.get('/historical/aparicionesPorParejaDeEstrellas', euromillones_api_historicoDeAparicionesPorParejaDeEstrellas);
+    euromillones.get('/historical/occurrencesByResult', euromillones_api_occurrencesByResult);
+    euromillones.get('/historical/occurrencesByResultWithStars', euromillones_api_occurrencesByResultWithStars);
+    euromillones.get('/historical/occurrencesByNumber', euromillones_api_occurrencesByNumber);
+    euromillones.get('/historical/occurrencesByStar', euromillones_api_occurrencesByStar);
+    euromillones.get('/historical/occurrencesByStarsPair', euromillones_api_occurrencesByStarsPair);
 
     app.use('/api/euromillones', euromillones);
 };
