@@ -15,6 +15,9 @@ function Controller ($scope, $http, $filter, bonoloto) {
     $scope.ordenAparicionesPorResultado = true;
     $scope.criterioOrdenacionAparicionesPorResultado = "apariciones";
 
+    $scope.ordenAparicionesPorResultadoConReintegro = true;
+    $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = "apariciones";
+
     $scope.maxSize = 5;
 
     $scope.currentPage = 1;
@@ -131,22 +134,26 @@ function Controller ($scope, $http, $filter, bonoloto) {
                 });
 
         }else if($scope.form.opcionBusquedaEstandar.name === "aparicionesPorResultadoConReintegro"){
-            bonoloto.getOccurrencesByResultWithReimbursement()
+
+            queryParameters = {
+                page: $scope.currentPage,
+                per_page: $scope.ticketsPerPage,
+                sort_property: $scope.criterioOrdenacionAparicionesPorNumero,
+                sort_type: $scope.ordenAparicionesPorResultadoConReintegro ? 'desc' : 'asc'
+            };
+
+            bonoloto.getOccurrencesByResultWithReimbursement(queryParameters)
                 .then(function(data){
-                    $scope.aparicionesPorResultadoConReintegro = data;
+                    $scope.aparicionesPorResultadoConReintegro = data.data;
 
-                    $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_resultWithReimbursement;
-
-                    $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = "apariciones";
-
-                    $scope.actualizarPaginacion($scope.aparicionesPorResultadoConReintegro, null, $scope.ticketsPerPage);
+                    $scope.actualizarPaginacion($scope.aparicionesPorResultadoConReintegro, data.total, data.perPage);
 
                     $scope.mostrar.tablaAparicionesPorResultadoConReintegro = true;
-
-                    $scope.consultando = false;
                 })
                 .catch(function(err){
-                    console.log(err);
+
+                })
+                .finally(function(){
                     $scope.consultando = false;
                 });
 
@@ -227,43 +234,27 @@ function Controller ($scope, $http, $filter, bonoloto) {
     };
 
     $scope.ordenarAparicionesPorResultadoConReintegroSegun = function(criterio){
-        if(criterio === "resultadoString"){
-
-            if($scope.criterioOrdenacionAparicionesPorResultadoConReintegro === $scope.sortFunction_resultWithReimbursement){ //Sólo vamos a invertir el orden
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = "apariciones";
-
+        if(criterio === "resultado"){
+            if($scope.criterioOrdenacionAparicionesPorResultadoConReintegro === criterio){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorResultadoConReintegro == null){
                     $scope.ordenAparicionesPorResultadoConReintegro = true;
                 }else{
                     $scope.ordenAparicionesPorResultadoConReintegro = !$scope.ordenAparicionesPorResultadoConReintegro;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_resultWithReimbursement;
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = "apariciones";
-
+                $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = criterio;
                 $scope.ordenAparicionesPorResultadoConReintegro = false;
-
             }
-
         }else if(criterio === "apariciones"){
             if($scope.criterioOrdenacionAparicionesPorResultadoConReintegro === criterio){ //Sólo vamos a invertir el orden
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_resultWithReimbursement;
-
                 if($scope.ordenAparicionesPorResultadoConReintegro == null){
                     $scope.ordenAparicionesPorResultadoConReintegro = true;
                 }else{
                     $scope.ordenAparicionesPorResultadoConReintegro = !$scope.ordenAparicionesPorResultadoConReintegro;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = "apariciones";
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_resultWithReimbursement;
-
+                $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = criterio;
                 $scope.ordenAparicionesPorResultadoConReintegro = true;
-
             }
         }
     };

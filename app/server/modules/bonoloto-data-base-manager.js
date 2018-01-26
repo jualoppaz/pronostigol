@@ -190,8 +190,18 @@ exports.editTicket = function(ticket, callback){
 
 };
 
-exports.getOccurrencesByResultWithReimbursement = function(callback){
-    bonoloto_tickets.aggregate({
+exports.getOccurrencesByResultWithReimbursement = function(filtros, callback){
+    var limit = filtros.perPage;
+    var page = filtros.page;
+    var skip = (page - 1) * limit;
+    var sort = filtros.sort;
+    var type = filtros.type;
+
+    var sort_property = sort;
+    var sort_type = type === 'asc' ? 1 : -1;
+
+    var query = [];
+    query.push({
         $group: {
             '_id': {
                 resultado: "$resultado.bolas",
@@ -207,11 +217,56 @@ exports.getOccurrencesByResultWithReimbursement = function(callback){
                 $sum: 1
             }
         }
-    }, function(e, res) {
+    });
+
+    query.push({
+        $project: {
+            '_id': 0,
+            'resultado': 1,
+            'reintegro': 1,
+            'apariciones': 1
+        }
+    });
+
+    bonoloto_tickets.aggregate(query, function(e, res) {
         if (e){
             callback(e);
         }else{
-            callback(null, res);
+            var result = {
+                page: page,
+                perPage: limit,
+                total: res.length
+            };
+
+            var sortConfig = {};
+            sortConfig[sort_property] = sort_type;
+
+            // Añadimos ordenación alternativa
+            if(sort_property === "apariciones"){
+                sortConfig["resultado"] = sort_type;
+                sortConfig["reintegro"] = sort_type;
+            }
+
+            query.push({
+                $sort: sortConfig
+            });
+
+            query.push({
+                $skip: skip
+            });
+
+            query.push({
+                $limit: limit
+            });
+
+            bonoloto_tickets.aggregate(query, function(e, res) {
+                if (e) {
+                    callback(e);
+                } else {
+                    result.data = res;
+                    callback(null, result);
+                }
+            });
         }
     });
 };
