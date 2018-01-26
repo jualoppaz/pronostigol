@@ -18,6 +18,9 @@ function Controller ($scope, $http, $filter, bonoloto) {
     $scope.ordenAparicionesPorResultadoConReintegro = true;
     $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = "apariciones";
 
+    $scope.ordenAparicionesPorReintegro = true;
+    $scope.criterioOrdenacionAparicionesPorReintegro = "apariciones";
+
     $scope.maxSize = 5;
 
     $scope.currentPage = 1;
@@ -138,7 +141,7 @@ function Controller ($scope, $http, $filter, bonoloto) {
             queryParameters = {
                 page: $scope.currentPage,
                 per_page: $scope.ticketsPerPage,
-                sort_property: $scope.criterioOrdenacionAparicionesPorNumero,
+                sort_property: $scope.criterioOrdenacionAparicionesPorResultadoConReintegro,
                 sort_type: $scope.ordenAparicionesPorResultadoConReintegro ? 'desc' : 'asc'
             };
 
@@ -158,22 +161,26 @@ function Controller ($scope, $http, $filter, bonoloto) {
                 });
 
         }else if($scope.form.opcionBusquedaEstandar.name === "aparicionesPorReintegro"){
-            bonoloto.getOccurrencesByReimbursement()
+
+            queryParameters = {
+                page: $scope.currentPage,
+                per_page: $scope.ticketsPerPage,
+                sort_property: $scope.criterioOrdenacionAparicionesPorReintegro,
+                sort_type: $scope.ordenAparicionesPorReintegro ? 'desc' : 'asc'
+            };
+
+            bonoloto.getOccurrencesByReimbursement(queryParameters)
                 .then(function(data){
-                    $scope.aparicionesPorReintegro = data;
+                    $scope.aparicionesPorReintegro = data.data;
 
-                    $scope.criterioOrdenacionAparicionesPorReintegro = $scope.sortFunction_reimbursement;
-
-                    $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = "apariciones";
-
-                    $scope.actualizarPaginacion($scope.aparicionesPorReintegro, null, 11);
+                    $scope.actualizarPaginacion($scope.aparicionesPorReintegro, data.total, data.perPage);
 
                     $scope.mostrar.tablaAparicionesPorReintegro = true;
-
-                    $scope.consultando = false;
                 })
                 .catch(function(err){
-                    console.log(err);
+
+                })
+                .finally(function(){
                     $scope.consultando = false;
                 });
         }
@@ -181,25 +188,25 @@ function Controller ($scope, $http, $filter, bonoloto) {
 
     $scope.ordenarAparicionesPorNumeroSegun = function(criterio){
         if(criterio === "numero"){
-            if($scope.criterioOrdenacionAparicionesPorNumero === "numero"){ //Sólo vamos a invertir el orden
+            if($scope.criterioOrdenacionAparicionesPorNumero === criterio){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorNumero === null){
                     $scope.ordenAparicionesPorNumero = true;
                 }else{
                     $scope.ordenAparicionesPorNumero = !$scope.ordenAparicionesPorNumero;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorNumero = "numero";
+                $scope.criterioOrdenacionAparicionesPorNumero = criterio;
                 $scope.ordenAparicionesPorNumero = false;
             }
         }else if(criterio === "apariciones"){
-            if($scope.criterioOrdenacionAparicionesPorNumero === "apariciones"){ //Sólo vamos a invertir el orden
+            if($scope.criterioOrdenacionAparicionesPorNumero === criterio){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorNumero == null){
                     $scope.ordenAparicionesPorNumero = true;
                 }else{
                     $scope.ordenAparicionesPorNumero = !$scope.ordenAparicionesPorNumero;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorNumero = "apariciones";
+                $scope.criterioOrdenacionAparicionesPorNumero = criterio;
                 $scope.ordenAparicionesPorNumero = true;
             }
         }
@@ -207,7 +214,7 @@ function Controller ($scope, $http, $filter, bonoloto) {
 
     $scope.ordenarAparicionesPorResultadoSegun = function(criterio){
         if(criterio === "resultado"){
-            if($scope.criterioOrdenacionAparicionesPorResultado === "resultado"){ //Sólo vamos a invertir el orden
+            if($scope.criterioOrdenacionAparicionesPorResultado === criterio){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorResultado == null){
                     $scope.ordenAparicionesPorResultado = true;
                 }else{
@@ -219,7 +226,7 @@ function Controller ($scope, $http, $filter, bonoloto) {
                 $scope.ordenAparicionesPorResultado = false;
             }
         }else if(criterio === "apariciones"){
-            if($scope.criterioOrdenacionAparicionesPorResultado === "apariciones"){ //Sólo vamos a invertir el orden
+            if($scope.criterioOrdenacionAparicionesPorResultado === criterio){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorResultado == null){
                     $scope.ordenAparicionesPorResultado = true;
                 }else{
@@ -261,43 +268,26 @@ function Controller ($scope, $http, $filter, bonoloto) {
 
     $scope.ordenarAparicionesPorReintegroSegun = function(criterio){
         if(criterio === "reintegro"){
-
-            if($scope.criterioOrdenacionAparicionesPorReintegro === $scope.sortFunction_reimbursement){ //Sólo vamos a invertir el orden
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = "apariciones";
-
+            if($scope.criterioOrdenacionAparicionesPorReintegro === criterio){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorReintegro == null){
                     $scope.ordenAparicionesPorReintegro = true;
                 }else{
                     $scope.ordenAparicionesPorReintegro = !$scope.ordenAparicionesPorReintegro;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorReintegro = $scope.sortFunction_reimbursement;
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = "apariciones";
-
+                $scope.criterioOrdenacionAparicionesPorReintegro = criterio;
                 $scope.ordenAparicionesPorReintegro = false;
-
             }
-
         }else if(criterio === "apariciones"){
-            if($scope.criterioOrdenacionAparicionesPorReintegro === "apariciones"){ //Sólo vamos a invertir el orden
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = $scope.sortFunction_reimbursement;
-
+            if($scope.criterioOrdenacionAparicionesPorReintegro === criterio){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorReintegro == null){
                     $scope.ordenAparicionesPorReintegro = true;
                 }else{
-
                     $scope.ordenAparicionesPorReintegro = !$scope.ordenAparicionesPorReintegro;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorReintegro = "apariciones";
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = $scope.sortFunction_reimbursement;
-
+                $scope.criterioOrdenacionAparicionesPorReintegro = criterio;
                 $scope.ordenAparicionesPorReintegro = true;
-
             }
         }
     };
