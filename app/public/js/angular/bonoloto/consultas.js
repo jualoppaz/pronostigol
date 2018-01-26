@@ -12,6 +12,9 @@ function Controller ($scope, $http, $filter, bonoloto) {
     $scope.ordenAparicionesPorNumero = true;
     $scope.criterioOrdenacionAparicionesPorNumero = "apariciones";
 
+    $scope.ordenAparicionesPorResultado = true;
+    $scope.criterioOrdenacionAparicionesPorResultado = "apariciones";
+
     $scope.maxSize = 5;
 
     $scope.currentPage = 1;
@@ -77,9 +80,11 @@ function Controller ($scope, $http, $filter, bonoloto) {
 
         $scope.consultando = true;
 
+        var queryParameters;
+
         if($scope.form.opcionBusquedaEstandar.name === "aparicionesPorNumero"){
 
-            var queryParameters = {
+            queryParameters = {
                 page: $scope.currentPage,
                 per_page: $scope.ticketsPerPage,
                 sort_property: $scope.criterioOrdenacionAparicionesPorNumero,
@@ -102,22 +107,26 @@ function Controller ($scope, $http, $filter, bonoloto) {
                 });
 
         }else if($scope.form.opcionBusquedaEstandar.name === "aparicionesPorResultado"){
-            bonoloto.getOccurrencesByResult()
+
+            queryParameters = {
+                page: $scope.currentPage,
+                per_page: $scope.ticketsPerPage,
+                sort_property: $scope.criterioOrdenacionAparicionesPorResultado,
+                sort_type: $scope.ordenAparicionesPorResultado ? 'desc' : 'asc'
+            };
+
+            bonoloto.getOccurrencesByResult(queryParameters)
                 .then(function(data){
-                    $scope.aparicionesPorResultado = data;
+                    $scope.aparicionesPorResultado = data.data;
 
-                    $scope.criterioOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
-
-                    $scope.criterioAlternativoOrdenacionAparicionesPorResultado = "apariciones";
-
-                    $scope.actualizarPaginacion($scope.aparicionesPorResultado, null, $scope.ticketsPerPage);
+                    $scope.actualizarPaginacion($scope.aparicionesPorResultado, data.total, data.perPage);
 
                     $scope.mostrar.tablaAparicionesPorResultado = true;
-
-                    $scope.consultando = false;
                 })
                 .catch(function(err){
-                    console.log(err);
+
+                })
+                .finally(function(){
                     $scope.consultando = false;
                 });
 
@@ -190,46 +199,29 @@ function Controller ($scope, $http, $filter, bonoloto) {
     };
 
     $scope.ordenarAparicionesPorResultadoSegun = function(criterio){
-
-        if(criterio === "resultadoString"){
-
-            if($scope.criterioOrdenacionAparicionesPorResultado === $scope.sortFunction_result){ //Sólo vamos a invertir el orden
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultado = "apariciones";
-
+        if(criterio === "resultado"){
+            if($scope.criterioOrdenacionAparicionesPorResultado === "resultado"){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorResultado == null){
                     $scope.ordenAparicionesPorResultado = true;
                 }else{
                     $scope.ordenAparicionesPorResultado = !$scope.ordenAparicionesPorResultado;
                 }
-
             }else{ // Cambiamos de criterio: De apariciones a Resultado
-                $scope.criterioOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultado = "apariciones";
+                $scope.criterioOrdenacionAparicionesPorResultado = criterio;
 
                 $scope.ordenAparicionesPorResultado = false;
-
             }
-
         }else if(criterio === "apariciones"){
             if($scope.criterioOrdenacionAparicionesPorResultado === "apariciones"){ //Sólo vamos a invertir el orden
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
-
                 if($scope.ordenAparicionesPorResultado == null){
                     $scope.ordenAparicionesPorResultado = true;
                 }else{
-
                     $scope.ordenAparicionesPorResultado = !$scope.ordenAparicionesPorResultado;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorResultado = "apariciones";
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
+                $scope.criterioOrdenacionAparicionesPorResultado = criterio;
 
                 $scope.ordenAparicionesPorResultado = true;
-
             }
         }
     };

@@ -11,12 +11,8 @@ div.table-responsive(style="margin-top: 15px", ng-if="mostrar.tablaAparicionesPo
                     span(ng-if="criterioOrdenacionAparicionesPorNumero == 'apariciones' && ordenAparicionesPorNumero").fa.fa-caret-down
                     span(ng-if="criterioOrdenacionAparicionesPorNumero == 'apariciones' && !ordenAparicionesPorNumero").fa.fa-caret-up
 
-
         tbody
             tr(ng-repeat="item in aparicionesPorNumero")
                 td
                     span.badge.badge-azul(ng-bind-template="{{printNumber(item.numero)}}")
                 td(ng-bind-template="{{item.apariciones}}")
-
-
-
