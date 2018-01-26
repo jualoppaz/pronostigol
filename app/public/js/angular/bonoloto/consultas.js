@@ -9,11 +9,8 @@ function Controller ($scope, $http, $filter, bonoloto) {
     $scope.mostrar = {};
     $scope.mostrar.tablaAparicionesPorNumero = false;
 
-    $scope.ordenAparicionesPorNumero = null;
-
-    $scope.numOfPages;
-
-    $scope.totalItems;
+    $scope.ordenAparicionesPorNumero = true;
+    $scope.criterioOrdenacionAparicionesPorNumero = "apariciones";
 
     $scope.maxSize = 5;
 
@@ -67,15 +64,7 @@ function Controller ($scope, $http, $filter, bonoloto) {
 
         $scope.consultando = true;
 
-        $scope.ordenAparicionesPorNumero = null;
-        $scope.ordenAparicionesPorResultado = null;
-        $scope.ordenAparicionesPorResultadoConReintegro = null;
-        $scope.ordenAparicionesPorReintegro = null;
-
         $scope.tickets = [];
-
-        $scope.currentPage = 1;
-        $scope.ticketsPerPage = ticketsPerPage_default;
     };
 
     $scope.aparicionesPorReintegro = [];
@@ -88,28 +77,31 @@ function Controller ($scope, $http, $filter, bonoloto) {
 
         $scope.consultando = true;
 
-        if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorNumero"){
+        if($scope.form.opcionBusquedaEstandar.name === "aparicionesPorNumero"){
 
-            bonoloto.getOccurrencesByNumber()
+            var queryParameters = {
+                page: $scope.currentPage,
+                per_page: $scope.ticketsPerPage,
+                sort_property: $scope.criterioOrdenacionAparicionesPorNumero,
+                sort_type: $scope.ordenAparicionesPorNumero ? 'desc' : 'asc'
+            };
+
+            bonoloto.getOccurrencesByNumber(queryParameters)
                 .then(function(data){
-                    $scope.aparicionesPorNumero = data;
+                    $scope.aparicionesPorNumero = data.data;
 
-                    $scope.criterioOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
-
-                    $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
-
-                    $scope.actualizarPaginacion($scope.aparicionesPorNumero, $scope.aparicionesPorNumero.length, $scope.ticketsPerPage);
+                    $scope.actualizarPaginacion($scope.aparicionesPorNumero, data.total, data.perPage);
 
                     $scope.mostrar.tablaAparicionesPorNumero = true;
-
-                    $scope.consultando = false;
                 })
                 .catch(function(err){
-                    console.log(err);
+
+                })
+                .finally(function(){
                     $scope.consultando = false;
                 });
 
-        }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorResultado"){
+        }else if($scope.form.opcionBusquedaEstandar.name === "aparicionesPorResultado"){
             bonoloto.getOccurrencesByResult()
                 .then(function(data){
                     $scope.aparicionesPorResultado = data;
@@ -129,7 +121,7 @@ function Controller ($scope, $http, $filter, bonoloto) {
                     $scope.consultando = false;
                 });
 
-        }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorResultadoConReintegro"){
+        }else if($scope.form.opcionBusquedaEstandar.name === "aparicionesPorResultadoConReintegro"){
             bonoloto.getOccurrencesByResultWithReimbursement()
                 .then(function(data){
                     $scope.aparicionesPorResultadoConReintegro = data;
@@ -149,7 +141,7 @@ function Controller ($scope, $http, $filter, bonoloto) {
                     $scope.consultando = false;
                 });
 
-        }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorReintegro"){
+        }else if($scope.form.opcionBusquedaEstandar.name === "aparicionesPorReintegro"){
             bonoloto.getOccurrencesByReimbursement()
                 .then(function(data){
                     $scope.aparicionesPorReintegro = data;
@@ -171,65 +163,20 @@ function Controller ($scope, $http, $filter, bonoloto) {
         }
     };
 
-    $scope.inicializarAparicionesPorNumero = function(){
-        var res = [];
-
-        for(var i=0; i<$scope.numerosBolas.length; i++){
-
-            var json = {
-                numero: $scope.numerosBolas[i],
-                apariciones: 0
-            };
-
-            res.push(json);
-        }
-
-        return res;
-    };
-
-    $scope.inicializarAparicionesPorReintegro = function(){
-        var res = [];
-
-        for(var i=0; i<$scope.numerosReintegros.length; i++){
-
-            var json = {
-                reintegro: $scope.numerosReintegros[i],
-                apariciones: 0
-            };
-
-            res.push(json);
-        }
-
-        return res;
-
-    };
-
     $scope.ordenarAparicionesPorNumeroSegun = function(criterio){
-        if(criterio == "numero"){
-
-            if($scope.criterioOrdenacionAparicionesPorNumero == $scope.sortFunction_number){ //Sólo vamos a invertir el orden
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
-
-                if($scope.ordenAparicionesPorNumero == null){
+        if(criterio === "numero"){
+            if($scope.criterioOrdenacionAparicionesPorNumero === "numero"){ //Sólo vamos a invertir el orden
+                if($scope.ordenAparicionesPorNumero === null){
                     $scope.ordenAparicionesPorNumero = true;
                 }else{
                     $scope.ordenAparicionesPorNumero = !$scope.ordenAparicionesPorNumero;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
-
+                $scope.criterioOrdenacionAparicionesPorNumero = "numero";
                 $scope.ordenAparicionesPorNumero = false;
-
             }
-
-        }else if(criterio == "apariciones"){
-            if($scope.criterioOrdenacionAparicionesPorNumero == "apariciones"){ //Sólo vamos a invertir el orden
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
-
+        }else if(criterio === "apariciones"){
+            if($scope.criterioOrdenacionAparicionesPorNumero === "apariciones"){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorNumero == null){
                     $scope.ordenAparicionesPorNumero = true;
                 }else{
@@ -237,20 +184,16 @@ function Controller ($scope, $http, $filter, bonoloto) {
                 }
             }else{ // Cambiamos de criterio
                 $scope.criterioOrdenacionAparicionesPorNumero = "apariciones";
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
-
                 $scope.ordenAparicionesPorNumero = true;
-
             }
         }
     };
 
     $scope.ordenarAparicionesPorResultadoSegun = function(criterio){
 
-        if(criterio == "resultadoString"){
+        if(criterio === "resultadoString"){
 
-            if($scope.criterioOrdenacionAparicionesPorResultado == $scope.sortFunction_result){ //Sólo vamos a invertir el orden
+            if($scope.criterioOrdenacionAparicionesPorResultado === $scope.sortFunction_result){ //Sólo vamos a invertir el orden
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorResultado = "apariciones";
 
@@ -269,8 +212,8 @@ function Controller ($scope, $http, $filter, bonoloto) {
 
             }
 
-        }else if(criterio == "apariciones"){
-            if($scope.criterioOrdenacionAparicionesPorResultado == "apariciones"){ //Sólo vamos a invertir el orden
+        }else if(criterio === "apariciones"){
+            if($scope.criterioOrdenacionAparicionesPorResultado === "apariciones"){ //Sólo vamos a invertir el orden
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
 
@@ -292,9 +235,9 @@ function Controller ($scope, $http, $filter, bonoloto) {
     };
 
     $scope.ordenarAparicionesPorResultadoConReintegroSegun = function(criterio){
-        if(criterio == "resultadoString"){
+        if(criterio === "resultadoString"){
 
-            if($scope.criterioOrdenacionAparicionesPorResultadoConReintegro == $scope.sortFunction_resultWithReimbursement){ //Sólo vamos a invertir el orden
+            if($scope.criterioOrdenacionAparicionesPorResultadoConReintegro === $scope.sortFunction_resultWithReimbursement){ //Sólo vamos a invertir el orden
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = "apariciones";
 
@@ -312,8 +255,8 @@ function Controller ($scope, $http, $filter, bonoloto) {
 
             }
 
-        }else if(criterio == "apariciones"){
-            if($scope.criterioOrdenacionAparicionesPorResultadoConReintegro == criterio){ //Sólo vamos a invertir el orden
+        }else if(criterio === "apariciones"){
+            if($scope.criterioOrdenacionAparicionesPorResultadoConReintegro === criterio){ //Sólo vamos a invertir el orden
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_resultWithReimbursement;
 
@@ -334,9 +277,9 @@ function Controller ($scope, $http, $filter, bonoloto) {
     };
 
     $scope.ordenarAparicionesPorReintegroSegun = function(criterio){
-        if(criterio == "reintegro"){
+        if(criterio === "reintegro"){
 
-            if($scope.criterioOrdenacionAparicionesPorReintegro == $scope.sortFunction_reimbursement){ //Sólo vamos a invertir el orden
+            if($scope.criterioOrdenacionAparicionesPorReintegro === $scope.sortFunction_reimbursement){ //Sólo vamos a invertir el orden
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = "apariciones";
 
@@ -354,8 +297,8 @@ function Controller ($scope, $http, $filter, bonoloto) {
 
             }
 
-        }else if(criterio == "apariciones"){
-            if($scope.criterioOrdenacionAparicionesPorReintegro == "apariciones"){ //Sólo vamos a invertir el orden
+        }else if(criterio === "apariciones"){
+            if($scope.criterioOrdenacionAparicionesPorReintegro === "apariciones"){ //Sólo vamos a invertir el orden
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = $scope.sortFunction_reimbursement;
 
@@ -379,12 +322,7 @@ function Controller ($scope, $http, $filter, bonoloto) {
     // Funciones para ordenacion
 
     $scope.sortFunction_number = function(ticket){
-
-        var res = "";
-
-        res = Number(ticket.numero);
-
-        return res;
+        return Number(ticket.numero);
     };
 
     $scope.sortFunction_result = function(ticket){
@@ -395,9 +333,9 @@ function Controller ($scope, $http, $filter, bonoloto) {
 
             var numero = ticket.numeros[i].numero;
 
-            if(numero.length == 1){
+            if(numero.length === 1){
                 res += "0" + numero.toString();
-            }else if(numero.length == 2){
+            }else if(numero.length === 2){
                 res += numero.toString();
             }
 
@@ -414,9 +352,9 @@ function Controller ($scope, $http, $filter, bonoloto) {
 
             var numero = ticket.numeros[i].numero;
 
-            if(numero.length == 1){
+            if(numero.length === 1){
                 res += "0" + numero.toString();
-            }else if(numero.length == 2){
+            }else if(numero.length === 2){
                 res += numero.toString();
             }
 
@@ -428,19 +366,14 @@ function Controller ($scope, $http, $filter, bonoloto) {
     };
 
     $scope.sortFunction_reimbursement = function(ticket){
-
-        var res = "";
-
-        res = ticket.reintegro;
-
-        return res;
+        return ticket.reintegro;
     };
 
     $scope.printNumber = function(number){
 
         var res = "";
 
-        if(number.toString().length == 1){
+        if(number.toString().length === 1){
             res = "0" + number.toString();
         }else{
             res = number.toString();
@@ -449,22 +382,23 @@ function Controller ($scope, $http, $filter, bonoloto) {
         return res;
     };
 
-    $scope.actualizarPaginacion = function(items, itemsLength, ticketsPerPage){
+    $scope.actualizarPaginacion = function(items, totalItems, ticketsPerPage){
 
         // Uso de esta variable para reutilizar el mismo paginador para todas las consultas
         $scope.tickets = items;
 
         $scope.ticketsPerPage = ticketsPerPage;
 
-        $scope.totalItems = itemsLength == null ? $scope.tickets.length : itemsLength;
+        $scope.totalItems = totalItems;
 
         $scope.numOfPages = $scope.totalItems / $scope.ticketsPerPage;
 
         var floor = Math.floor($scope.tickets.length / $scope.ticketsPerPage);
 
         if($scope.numOfPages > floor){
-            $scope.numOfPages = Math.floor($scope.tickets.length / $scope.ticketsPerPage) + 1;
+            $scope.numOfPages = Math.floor($scope.totalItems / $scope.ticketsPerPage) + 1;
         }
-    };
 
-};
+        console.log("NumOfPages:", $scope.numOfPages);
+    };
+}

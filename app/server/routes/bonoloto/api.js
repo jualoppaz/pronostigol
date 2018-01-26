@@ -210,24 +210,35 @@ module.exports = function(app){
      *
      * @apiVersion 1.0.0
      *
+     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {String} sort_property Propiedad por la que ordenar los registros. Los posibles valores son "numero"
+     * y "apariciones". Por defecto se ordenan por "numero".
+     * @apiParam {String} sort_type Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
+     * Por defecto se ordenan descendentemente.
+     *
      * @apiSampleRequest /api/bonoloto/historical/occurrencesByNumber
      */
     var bonoloto_api_occurrencesByNumber = function(req, res){
-        BON_DBM.getOccurrencesByNumber(function(err, result){
+        var query = req.query;
+        var page = query.page || 1;
+        var perPage = query.per_page || 10;
+        var sort = query.sort_property || 'numero';
+        var type = query.sort_type || 'desc';
+
+        var filtros = {
+            page: Number(page),
+            perPage: Number(perPage),
+            sort: sort,
+            type: type
+        };
+
+        BON_DBM.getOccurrencesByNumber(filtros, function(err, result){
             if(err){
                 return res.status(400).send(err);
             }
 
-            var response = [];
-
-            for(var i=0; i<result.length; i++){
-                var json = {
-                    numero: result[i]._id,
-                    apariciones: result[i].apariciones
-                };
-                response.push(json);
-            }
-            res.status(200).send(JSON.stringify(response, null, 4));
+            res.status(200).send(JSON.stringify(result, null, 4));
         });
     };
 
