@@ -39,21 +39,21 @@ function Controller ($scope, $http, $window, $filter, bonoloto){
     $scope.ticket.resultado = {
         bolas: [
             {
-                numero: ""
+                numero: null
             },{
-                numero: ""
+                numero: null
             },{
-                numero: ""
+                numero: null
             },{
-                numero: ""
+                numero: null
             },{
-                numero: ""
+                numero: null
             },{
-                numero: ""
+                numero: null
             }
         ],
-        reintegro: "",
-        complementario: ""
+        reintegro: null,
+        complementario: null
     };
 
     $scope.ticket.apuestas = {
@@ -61,31 +61,31 @@ function Controller ($scope, $http, $window, $filter, bonoloto){
         combinaciones: [
             [
                 {
-                    numero: ""
+                    numero: null
                 },{
-                    numero: ""
+                    numero: null
                 },{
-                    numero: ""
+                    numero: null
                 },{
-                    numero: ""
+                    numero: null
                 },{
-                    numero: ""
+                    numero: null
                 },{
-                    numero: ""
+                    numero: null
                 }
             ], [
                 {
-                    numero: ""
+                    numero: null
                 },{
-                    numero: ""
+                    numero: null
                 },{
-                    numero: ""
+                    numero: null
                 },{
-                    numero: ""
+                    numero: null
                 },{
-                    numero: ""
+                    numero: null
                 },{
-                    numero: ""
+                    numero: null
                 }
             ]
         ]
@@ -97,35 +97,35 @@ function Controller ($scope, $http, $window, $filter, bonoloto){
             $scope.ticket.apuestas.combinaciones = [
                 [
                     {
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     }
                 ]
             ];
-        }else if($scope.ticket.apuestas.combinaciones.length == 0){
+        }else if($scope.ticket.apuestas.combinaciones.length === 0){
             $scope.ticket.apuestas.combinaciones = [
                 [
                     {
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     }
                 ]
             ];
@@ -135,17 +135,17 @@ function Controller ($scope, $http, $window, $filter, bonoloto){
             $scope.ticket.apuestas.combinaciones[$scope.ticket.apuestas.combinaciones.length] = [
                 [
                     {
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     }
                 ]
             ];
@@ -153,15 +153,11 @@ function Controller ($scope, $http, $window, $filter, bonoloto){
     };
 
     $scope.eliminarApuesta = function(){
-
-        if($scope.ticket.apuestas.combinaciones.length != 0){
-
+        if($scope.ticket.apuestas.combinaciones.length !== 0){
             $scope.ticket.apuestas.combinaciones.pop();
-
-            if($scope.ticket.apuestas.combinaciones.length == 1){
+            if($scope.ticket.apuestas.combinaciones.length === 1){
                 $scope.ticket.apuestas.combinaciones = [];
             }
-
         }
     };
 
@@ -178,11 +174,6 @@ function Controller ($scope, $http, $window, $filter, bonoloto){
     };
 
     $scope.redirigir = function(){
-        console.log("Vamos a redirigir");
-
-        var nuevaURL = "/admin/bonoloto";
-
-        $window.location.href = nuevaURL;
+        $window.location.href = "/admin/bonoloto";
     };
-
-};
+}

@@ -66,19 +66,19 @@ block content
                                         td(ng-bind-template="{{$index + 1}}")
 
                                         td
-                                            input(type="text", placeholder="[1-49]", ng-model="combinacion[0].numero").form-control.text-center
+                                            input(type="number", placeholder="[1-49]", ng-model="combinacion[0].numero").form-control.text-center
                                         td
-                                            input(type="text", placeholder="[1-49]", ng-model="combinacion[1].numero").form-control.text-center
+                                            input(type="number", placeholder="[1-49]", ng-model="combinacion[1].numero").form-control.text-center
                                         td
-                                            input(type="text", placeholder="[1-49]", ng-model="combinacion[2].numero").form-control.text-center
+                                            input(type="number", placeholder="[1-49]", ng-model="combinacion[2].numero").form-control.text-center
                                         td
-                                            input(type="text", placeholder="[1-49]", ng-model="combinacion[3].numero").form-control.text-center
+                                            input(type="number", placeholder="[1-49]", ng-model="combinacion[3].numero").form-control.text-center
                                         td
-                                            input(type="text", placeholder="[1-49]", ng-model="combinacion[4].numero").form-control.text-center
+                                            input(type="number", placeholder="[1-49]", ng-model="combinacion[4].numero").form-control.text-center
                                         td
-                                            input(type="text", placeholder="[1-49]", ng-model="combinacion[5].numero").form-control.text-center
+                                            input(type="number", placeholder="[1-49]", ng-model="combinacion[5].numero").form-control.text-center
                                         td(ng-show="{{$index == 0}}", rowspan="{{ticket.apuestas.combinaciones.length}}")
-                                            input(type="text", placeholder="[0-9]", ng-model="ticket.apuestas.reintegro").form-control.text-center
+                                            input(type="number", placeholder="[0-9]", ng-model="ticket.apuestas.reintegro").form-control.text-center
 
                         h2.page-header Resultado
 
@@ -99,14 +99,11 @@ block content
                                     tbody
                                         tr
                                             td(ng-repeat="bola in ticket.resultado.bolas")
-                                                input(type="text", placeholder="[1-49]", ng-model="bola.numero").form-control.text-center
-
+                                                input(type="number", placeholder="[1-49]", ng-model="bola.numero").form-control.text-center
                                             td
-                                                input(type="text", placeholder="[1-49]", ng-model="ticket.resultado.complementario").form-control.text-center
+                                                input(type="number", placeholder="[1-49]", ng-model="ticket.resultado.complementario").form-control.text-center
                                             td
-                                                input(type="text", placeholder="[0-9]", ng-model="ticket.resultado.reintegro").form-control.text-center
-
-
+                                                input(type="number", placeholder="[0-9]", ng-model="ticket.resultado.reintegro").form-control.text-center
 
                         div.form-group
                             div.col-sm-2.col-sm-offset-2

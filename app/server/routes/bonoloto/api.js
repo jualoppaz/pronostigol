@@ -72,7 +72,7 @@ module.exports = function(app){
         var type = query.sort_type || 'desc';
 
         var filtros = {
-            year: year,
+            year: Number(year),
             raffle: Number(raffle),
             page: Number(page),
             perPage: Number(perPage),
@@ -143,9 +143,9 @@ module.exports = function(app){
         var resultado = body.resultado;
         var observaciones = body.observaciones;
 
-        ticket.anyo = anyo;
+        ticket.anyo = Number(anyo);
         ticket.fecha = fecha;
-        ticket.sorteo = sorteo;
+        ticket.sorteo = Number(sorteo);
         ticket.precio = precio;
         ticket.premio = premio;
         ticket.apuestas = apuestas;

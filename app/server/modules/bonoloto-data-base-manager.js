@@ -108,7 +108,7 @@ exports.addNewTicket = function(ticket, callback){
     var fecha = trozos[2] + "-" + trozos[1] + "-" + trozos[0];
 
     bonoloto_tickets.insert({
-        anyo: ticket.anyo,
+        anyo: Number(ticket.anyo),
         fecha: new Date(fecha),
         sorteo: Number(ticket.sorteo),
         precio: parseFloat(ticket.precio),
@@ -166,7 +166,7 @@ exports.editTicket = function(ticket, callback){
         _id: getObjectId(ticket._id)
     }, {
             $set: {
-                anyo: ticket.anyo,
+                anyo: Number(ticket.anyo),
                 precio: parseFloat(ticket.precio),
                 premio: parseFloat(ticket.premio),
                 fecha: new Date(fecha),
