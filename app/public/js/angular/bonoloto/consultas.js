@@ -84,8 +84,6 @@ function Controller ($scope, $http, $filter, bonoloto) {
 
         $scope.limpiarTablas();
 
-        $scope.consultando = true;
-
         var queryParameters;
 
         if($scope.form.opcionBusquedaEstandar.name === "aparicionesPorNumero"){
