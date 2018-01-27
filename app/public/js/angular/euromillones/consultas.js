@@ -11,6 +11,8 @@ function Controller($scope, $http, $filter, euromillones) {
 
     $scope.ordenAparicionesPorNumero = true;
     $scope.criterioOrdenacionAparicionesPorNumero = 'apariciones';
+    $scope.ordenAparicionesPorResultado = true;
+    $scope.criterioOrdenacionAparicionesPorResultado = 'apariciones';
 
     $scope.maxSize = 5;
 
@@ -105,23 +107,27 @@ function Controller($scope, $http, $filter, euromillones) {
                 .finally(function(){
                     $scope.consultando = false;
                 });
-        }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorResultado"){
-            euromillones.getOccurrencesByResult()
+        }else if($scope.form.opcionBusquedaEstandar.name === "aparicionesPorResultado"){
+
+            queryParameters = {
+                page: $scope.currentPage,
+                per_page: $scope.ticketsPerPage,
+                sort_property: $scope.criterioOrdenacionAparicionesPorResultado,
+                sort_type: $scope.ordenAparicionesPorResultado ? 'desc' : 'asc'
+            };
+
+            euromillones.getOccurrencesByResult(queryParameters)
                 .then(function(data){
-                    $scope.aparicionesPorResultado = data;
+                    $scope.aparicionesPorResultado = data.data;
 
-                    $scope.criterioOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
-
-                    $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
-
-                    $scope.actualizarPaginacion($scope.aparicionesPorResultado, null, $scope.ticketsPerPage);
+                    $scope.actualizarPaginacion($scope.aparicionesPorResultado, data.total, data.perPage);
 
                     $scope.mostrar.tablaAparicionesPorResultado = true;
-
-                    $scope.consultando = false;
                 })
                 .catch(function(err){
-                    console.log(err);
+
+                })
+                .finally(function(){
                     $scope.consultando = false;
                 });
         }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorResultadoConEstrellas"){
@@ -278,46 +284,28 @@ function Controller($scope, $http, $filter, euromillones) {
     };
 
     $scope.ordenarAparicionesPorResultadoSegun = function(criterio){
-        if(criterio == "resultadoString"){
-
-            if($scope.criterioOrdenacionAparicionesPorResultado == $scope.sortFunction_result){ //Sólo vamos a invertir el orden
-                
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultado = "apariciones";
-
+        if(criterio === "resultado"){
+            if($scope.criterioOrdenacionAparicionesPorResultado === criterio){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorResultado == null){
                     $scope.ordenAparicionesPorResultado = true;
                 }else{
                     $scope.ordenAparicionesPorResultado = !$scope.ordenAparicionesPorResultado;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultado = "apariciones";
-
+                $scope.criterioOrdenacionAparicionesPorResultado = criterio;
                 $scope.ordenAparicionesPorResultado = false;
-
             }
-            
-        }else if(criterio == "apariciones"){
-            if($scope.criterioOrdenacionAparicionesPorResultado == criterio){ //Sólo vamos a invertir el orden
-
-                $scope.criterioOrdenacionAparicionesPorResultado = "apariciones";
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
-
+        }else if(criterio === "apariciones"){
+            if($scope.criterioOrdenacionAparicionesPorResultado === criterio){ //Sólo vamos a invertir el orden
+                $scope.criterioOrdenacionAparicionesPorResultado = criterio;
                 if($scope.ordenAparicionesPorResultado == null){
                     $scope.ordenAparicionesPorResultado = true;
                 }else{
-
                     $scope.ordenAparicionesPorResultado = !$scope.ordenAparicionesPorResultado;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorResultado = "apariciones";
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
-
+                $scope.criterioOrdenacionAparicionesPorResultado = criterio;
                 $scope.ordenAparicionesPorResultado = true;
-
             }
         }
     };
