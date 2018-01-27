@@ -15,6 +15,8 @@ function Controller($scope, $http, $filter, euromillones) {
     $scope.criterioOrdenacionAparicionesPorResultado = 'apariciones';
     $scope.ordenAparicionesPorResultadoConEstrellas = true;
     $scope.criterioOrdenacionAparicionesPorResultadoConEstrellas = 'apariciones';
+    $scope.ordenAparicionesPorEstrella = true;
+    $scope.criterioOrdenacionAparicionesPorEstrella = 'apariciones';
 
     $scope.maxSize = 5;
 
@@ -155,23 +157,27 @@ function Controller($scope, $http, $filter, euromillones) {
                 .finally(function(){
                     $scope.consultando = false;
                 });
-        }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorEstrella"){
-            euromillones.getOccurrencesByStar()
+        }else if($scope.form.opcionBusquedaEstandar.name === "aparicionesPorEstrella"){
+
+            queryParameters = {
+                page: $scope.currentPage,
+                per_page: $scope.ticketsPerPage,
+                sort_property: $scope.criterioOrdenacionAparicionesPorEstrella,
+                sort_type: $scope.ordenAparicionesPorEstrella ? 'desc' : 'asc'
+            };
+
+            euromillones.getOccurrencesByStar(queryParameters)
                 .then(function(data){
-                    $scope.aparicionesPorEstrella = data;
+                    $scope.aparicionesPorEstrella = data.data;
 
-                    $scope.criterioOrdenacionAparicionesPorEstrella = $scope.sortFunction_star;
-
-                    $scope.criterioAlternativoOrdenacionAparicionesPorEstrella = "apariciones";
-
-                    $scope.actualizarPaginacion($scope.aparicionesPorEstrella, null, 11);
+                    $scope.actualizarPaginacion($scope.aparicionesPorEstrella, data.total, data.perPage);
 
                     $scope.mostrar.tablaAparicionesPorEstrella = true;
-
-                    $scope.consultando = false;
                 })
                 .catch(function(err){
-                    console.log(err);
+
+                })
+                .finally(function(){
                     $scope.consultando = false;
                 });
         }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorParejaDeEstrellas"){
@@ -239,14 +245,14 @@ function Controller($scope, $http, $filter, euromillones) {
 
             var estrellasString = "";
 
-            if(String(json.estrellas[0].numero).length == 2){
+            if(String(json.estrellas[0].numero).length === 2){
                 estrellasString = String(json.estrellas[0].numero);
             }else{
                 estrellasString = "0" + String(json.estrellas[0].numero);
                 json.estrellas[0].numero = estrellasString;
             }
 
-            if(String(json.estrellas[1].numero).length == 2){
+            if(String(json.estrellas[1].numero).length === 2){
                 estrellasString += String(json.estrellas[1].numero);
             }else{
                 estrellasString += "0" + String(json.estrellas[1].numero);
@@ -343,44 +349,27 @@ function Controller($scope, $http, $filter, euromillones) {
     };
 
     $scope.ordenarAparicionesPorEstrellaSegun = function(criterio){
-        if(criterio == "estrella"){
-
-            if($scope.criterioOrdenacionAparicionesPorEstrella == $scope.sortFunction_star){ //Sólo vamos a invertir el orden
-                
-                $scope.criterioAlternativoOrdenacionAparicionesPorEstrella = "apariciones";
-
+        if(criterio === "estrella"){
+            if($scope.criterioOrdenacionAparicionesPorEstrella === criterio){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorEstrella == null){
                     $scope.ordenAparicionesPorEstrella = true;
                 }else{
                     $scope.ordenAparicionesPorEstrella = !$scope.ordenAparicionesPorEstrella;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorEstrella = $scope.sortFunction_star;
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorEstrella = "apariciones";
-
+                $scope.criterioOrdenacionAparicionesPorEstrella = criterio;
                 $scope.ordenAparicionesPorEstrella = false;
-
             }
-
-        }else if(criterio == "apariciones"){
-            if($scope.criterioOrdenacionAparicionesPorEstrella == "apariciones"){ //Sólo vamos a invertir el orden
-                
-                $scope.criterioAlternativoOrdenacionAparicionesPorEstrella = $scope.sortFunction_star;
-
+        }else if(criterio === "apariciones"){
+            if($scope.criterioOrdenacionAparicionesPorEstrella === criterio){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorEstrella == null){
                     $scope.ordenAparicionesPorEstrella = true;
                 }else{
-
                     $scope.ordenAparicionesPorEstrella = !$scope.ordenAparicionesPorEstrella;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorEstrella = "apariciones";
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorEstrella = $scope.sortFunction_star;
-
+                $scope.criterioOrdenacionAparicionesPorEstrella = criterio;
                 $scope.ordenAparicionesPorEstrella = true;
-
             }
         }
     };
@@ -447,9 +436,9 @@ function Controller($scope, $http, $filter, euromillones) {
 
             var numero = ticket.numeros[i].numero;
 
-            if(numero.length == 1){
+            if(numero.length === 1){
                 res += "0" + numero.toString();
-            }else if(numero.length == 2){
+            }else if(numero.length === 2){
                 res += numero.toString();
             }
 
@@ -466,9 +455,9 @@ function Controller($scope, $http, $filter, euromillones) {
 
             var numero = ticket.numeros[i].numero;
 
-            if(numero.length == 1){
+            if(numero.length === 1){
                 res += "0" + numero.toString();
-            }else if(numero.length == 2){
+            }else if(numero.length === 2){
                 res += numero.toString();
             }
 
