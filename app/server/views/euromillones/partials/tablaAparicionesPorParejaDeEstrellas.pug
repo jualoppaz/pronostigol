@@ -3,27 +3,17 @@ div.table-responsive(style="margin-top: 15px", ng-if="mostrar.tablaAparicionesPo
         thead
             tr
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorParejaDeEstrellasSegun('estrellasString')", ng-bind-template="Estrellas", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == sortFunction_starsPair && !ordenAparicionesPorParejaDeEstrellas").fa.fa-caret-up
-                    span(ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == sortFunction_starsPair && ordenAparicionesPorParejaDeEstrellas").fa.fa-caret-down
+                    a.columnaOrdenable(ng-click="ordenarAparicionesPorParejaDeEstrellasSegun('estrellas'); consultarEstandar()", ng-bind-template="Estrellas", style="padding-right: 15px")
+                    span(ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == 'estrellas' && !ordenAparicionesPorParejaDeEstrellas").fa.fa-caret-up
+                    span(ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == 'estrellas' && ordenAparicionesPorParejaDeEstrellas").fa.fa-caret-down
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorParejaDeEstrellasSegun('apariciones')", ng-bind-template="Apariciones", style="padding-right: 15px")
+                    a.columnaOrdenable(ng-click="ordenarAparicionesPorParejaDeEstrellasSegun('apariciones'); consultarEstandar()", ng-bind-template="Apariciones", style="padding-right: 15px")
                     span(ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == 'apariciones' && ordenAparicionesPorParejaDeEstrellas").fa.fa-caret-down
                     span(ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == 'apariciones' && !ordenAparicionesPorParejaDeEstrellas").fa.fa-caret-up
 
 
         tbody
-            tr(ng-if="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-repeat="parejaDeEstrellas in aparicionesPorParejaDeEstrellas | orderBy:[criterioOrdenacionAparicionesPorParejaDeEstrellas, criterioAlternativoOrdenacionAparicionesPorParejaDeEstrellas]:ordenAparicionesPorParejaDeEstrellas")
-                td(ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == sortFunction_starsPair")
+            tr(ng-repeat="parejaDeEstrellas in aparicionesPorParejaDeEstrellas")
+                td
                     span.badge.badge-azul(ng-repeat="estrella in parejaDeEstrellas.estrellas", ng-bind-template="{{printNumber(estrella.numero)}}")
-                td(ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == 'apariciones' && $index >=1 && ordenAparicionesPorParejaDeEstrellas", ng-cloak)
-                    span.badge.badge-rojo(ng-repeat="estrella in parejaDeEstrellas.estrellas", ng-bind-template="{{printNumber(estrella.numero)}}")
-                td(ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == 'apariciones' && $index == 0 && ordenAparicionesPorParejaDeEstrellas", ng-cloak)
-                    span.badge.badge-verde(ng-repeat="estrella in parejaDeEstrellas.estrellas", ng-bind-template="{{printNumber(estrella.numero)}}")
-                td(ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == 'apariciones' && $index <aparicionesPorParejaDeEstrellas.length - 1 && !ordenAparicionesPorParejaDeEstrellas", ng-cloak)
-                    span.badge.badge-rojo(ng-repeat="estrella in parejaDeEstrellas.estrellas", ng-bind-template="{{printNumber(estrella.numero)}}")
-                td(ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == 'apariciones' && $index == aparicionesPorParejaDeEstrellas.length - 1 && !ordenAparicionesPorParejaDeEstrellas", ng-cloak)
-                    span.badge.badge-verde(ng-repeat="estrella in parejaDeEstrellas.estrellas", ng-bind-template="{{printNumber(estrella.numero)}}")
                 td(ng-bind-template="{{parejaDeEstrellas.apariciones}}")
-
-

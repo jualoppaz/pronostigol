@@ -254,11 +254,13 @@
             return promise;
         }
 
-        function getOccurrencesByStarsPair(){
+        function getOccurrencesByStarsPair(queryParameters){
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/historical/occurrencesByStarsPair')
+            $http.get(apiPrefix + '/historical/occurrencesByStarsPair', {
+                params: queryParameters
+            })
                 .then(function(data){
                     defered.resolve(data.data);
                 })

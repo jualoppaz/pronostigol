@@ -17,6 +17,8 @@ function Controller($scope, $http, $filter, euromillones) {
     $scope.criterioOrdenacionAparicionesPorResultadoConEstrellas = 'apariciones';
     $scope.ordenAparicionesPorEstrella = true;
     $scope.criterioOrdenacionAparicionesPorEstrella = 'apariciones';
+    $scope.ordenAparicionesPorParejaDeEstrellas = true;
+    $scope.criterioOrdenacionAparicionesPorParejaDeEstrellas = 'apariciones';
 
     $scope.maxSize = 5;
 
@@ -68,7 +70,9 @@ function Controller($scope, $http, $filter, euromillones) {
 
     $scope.aparicionesPorNumero = [];
 
-    //$scope.aparicionesPorResultado = [];
+    $scope.aparicionesPorResultado = [];
+
+    $scope.aparicionesPorResultadoConEstrellas = [];
 
     $scope.aparicionesPorEstrella = [];
 
@@ -180,93 +184,30 @@ function Controller($scope, $http, $filter, euromillones) {
                 .finally(function(){
                     $scope.consultando = false;
                 });
-        }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorParejaDeEstrellas"){
-            euromillones.getOccurrencesByStarsPair()
+        }else if($scope.form.opcionBusquedaEstandar.name === "aparicionesPorParejaDeEstrellas"){
+
+            queryParameters = {
+                page: $scope.currentPage,
+                per_page: $scope.ticketsPerPage,
+                sort_property: $scope.criterioOrdenacionAparicionesPorParejaDeEstrellas,
+                sort_type: $scope.ordenAparicionesPorParejaDeEstrellas ? 'desc' : 'asc'
+            };
+
+            euromillones.getOccurrencesByStarsPair(queryParameters)
                 .then(function(data){
-                    $scope.aparicionesPorParejaDeEstrellas = data;
+                    $scope.aparicionesPorParejaDeEstrellas = data.data;
 
-                    $scope.criterioOrdenacionAparicionesPorParejaDeEstrellas = $scope.sortFunction_starsPair;
-
-                    $scope.criterioAlternativoOrdenacionAparicionesPorParejaDeEstrellas = "apariciones";
-
-                    $scope.actualizarPaginacion($scope.aparicionesPorParejaDeEstrellas, $scope.aparicionesPorParejaDeEstrellas.length, $scope.ticketsPerPage);
+                    $scope.actualizarPaginacion($scope.aparicionesPorParejaDeEstrellas, data.total, data.perPage);
 
                     $scope.mostrar.tablaAparicionesPorParejaDeEstrellas = true;
-
-                    $scope.consultando = false;
                 })
                 .catch(function(err){
-                    console.log(err);
-                    $scope.consultando = false;
 
+                })
+                .finally(function () {
+                    $scope.consultando = false;
                 });
         }
-    };
-
-    $scope.inicializarAparicionesPorNumero = function(){
-        var res = [];
-
-        for(var i=0; i<$scope.numerosBolas.length; i++){
-
-            var json = {
-                numero: $scope.numerosBolas[i],
-                apariciones: 0
-            };
-
-            res.push(json);
-        }
-
-        return res;
-    };
-
-    $scope.inicializarAparicionesPorEstrella = function(){
-        var res = [];
-
-        for(var i=0; i<$scope.estrellas.length; i++){
-            var json = {
-                estrella: $scope.estrellas[i],
-                apariciones: 0
-            };
-
-            res.push(json);
-        }
-
-        return res;
-    };
-
-    $scope.inicializarAparicionesPorParejaDeEstrellas = function(){
-        var res = [];
-
-        for(var i=0; i<$scope.parejasDeEstrellas.length; i++){
-            var json = {
-                estrellas: $scope.parejasDeEstrellas[i].estrellas,
-                apariciones: 0
-            };
-
-            var estrellasString = "";
-
-            if(String(json.estrellas[0].numero).length === 2){
-                estrellasString = String(json.estrellas[0].numero);
-            }else{
-                estrellasString = "0" + String(json.estrellas[0].numero);
-                json.estrellas[0].numero = estrellasString;
-            }
-
-            if(String(json.estrellas[1].numero).length === 2){
-                estrellasString += String(json.estrellas[1].numero);
-            }else{
-                estrellasString += "0" + String(json.estrellas[1].numero);
-                json.estrellas[1].numero = "0" + String(json.estrellas[1].numero);
-            }
-
-            json.estrellasString = estrellasString;
-
-            res.push(json);
-        }
-
-        console.log("Numero de parejas: " + res.length);
-        return res;
-
     };
 
     $scope.ordenarAparicionesPorNumeroSegun = function(criterio){
@@ -375,127 +316,36 @@ function Controller($scope, $http, $filter, euromillones) {
     };
 
     $scope.ordenarAparicionesPorParejaDeEstrellasSegun = function(criterio){
-        if(criterio == "estrellasString"){
-
-            if($scope.criterioOrdenacionAparicionesPorParejaDeEstrellas == $scope.sortFunction_starsPair){ //Sólo vamos a invertir el orden
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorParejaDeEstrellas = "apariciones";
-
+        if(criterio === "estrellas"){
+            if($scope.criterioOrdenacionAparicionesPorParejaDeEstrellas === criterio){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorParejaDeEstrellas == null){
                     $scope.ordenAparicionesPorParejaDeEstrellas = true;
                 }else{
                     $scope.ordenAparicionesPorParejaDeEstrellas = !$scope.ordenAparicionesPorParejaDeEstrellas;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorParejaDeEstrellas = $scope.sortFunction_starsPair;
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorParejaDeEstrellas = "apariciones";
-
+                $scope.criterioOrdenacionAparicionesPorParejaDeEstrellas = criterio;
                 $scope.ordenAparicionesPorParejaDeEstrellas = false;
-
             }
-
-        }else if(criterio == "apariciones"){
-            if($scope.criterioOrdenacionAparicionesPorParejaDeEstrellas == "apariciones"){ //Sólo vamos a invertir el orden
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorParejaDeEstrellas = $scope.sortFunction_starsPair;
-
+        }else if(criterio === "apariciones"){
+            if($scope.criterioOrdenacionAparicionesPorParejaDeEstrellas === criterio){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorParejaDeEstrellas == null){
                     $scope.ordenAparicionesPorParejaDeEstrellas = true;
                 }else{
-
                     $scope.ordenAparicionesPorParejaDeEstrellas = !$scope.ordenAparicionesPorParejaDeEstrellas;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorParejaDeEstrellas = "apariciones";
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorParejaDeEstrellas = $scope.sortFunction_starsPair;
-
+                $scope.criterioOrdenacionAparicionesPorParejaDeEstrellas = criterio;
                 $scope.ordenAparicionesPorParejaDeEstrellas = true;
-
             }
         }
-    };
-
-    // Funciones para ordenacion
-
-    $scope.sortFunction_number = function(ticket){
-
-        var res = "";
-
-        res = Number(ticket.numero);
-
-        return res;
-    };
-
-    $scope.sortFunction_result = function(ticket){
-
-        var res = "";
-
-        for(var i=0; i<ticket.numeros.length; i++){
-
-            var numero = ticket.numeros[i].numero;
-
-            if(numero.length === 1){
-                res += "0" + numero.toString();
-            }else if(numero.length === 2){
-                res += numero.toString();
-            }
-
-        }
-
-        return res;
-    };
-
-    $scope.sortFunction_resultWithStars = function(ticket){
-
-        var res = "";
-
-        for(var i=0; i<ticket.numeros.length; i++){
-
-            var numero = ticket.numeros[i].numero;
-
-            if(numero.length === 1){
-                res += "0" + numero.toString();
-            }else if(numero.length === 2){
-                res += numero.toString();
-            }
-
-        }
-
-        res += "E" + ticket.estrellas[0].numero + "E" + ticket.estrellas[1].numero;
-
-        return res;
-    };
-
-    $scope.sortFunction_star = function(ticket){
-
-        var res = "";
-
-        res = Number(ticket.estrella);
-
-        return res;
-    };
-
-    $scope.sortFunction_starsPair = function(starPair){
-
-        var res = "";
-
-        var star1 = $scope.printNumber(starPair.estrellas[0].numero);
-
-        var star2 = $scope.printNumber(starPair.estrellas[1].numero);
-
-        res = star1 + star2;
-
-        return res;
-
     };
 
     $scope.printNumber = function(number){
 
         var res = "";
 
-        if(number.toString().length == 1){
+        if(number.toString().length === 1){
             res = "0" + number.toString();
         }else{
             res = number.toString();
