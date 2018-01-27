@@ -332,24 +332,34 @@ module.exports = function(app){
      *
      * @apiVersion 1.0.0
      *
+     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {String} sort_property Propiedad por la que ordenar los registros. Los posibles valores son "resultado"
+     * y "apariciones". Por defecto se ordenan por "apariciones".
+     * @apiParam {String} sort_type Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
+     * Por defecto se ordenan descendentemente.
      * @apiSampleRequest /api/euromillones/historical/occurrencesByResultWithStars
      */
     var euromillones_api_occurrencesByResultWithStars = function(req, res){
-        EUR_DBM.getOccurrencesByResultWithStars(function(err, tickets){
+        var query = req.query;
+        var page = query.page || 1;
+        var perPage = query.per_page || 10;
+        var sort = query.sort_property || 'apariciones';
+        var type = query.sort_type || 'desc';
+
+        var filtros = {
+            page: Number(page),
+            perPage: Number(perPage),
+            sort: sort,
+            type: type
+        };
+
+        EUR_DBM.getOccurrencesByResultWithStars(filtros, function(err, result){
             if(err){
                 return res.status(400).send(err);
             }
 
-            var response = [];
-
-            for(var i=0; i<tickets.length; i++){
-                var json = {};
-                json.numeros = tickets[i].resultado;
-                json.estrellas = tickets[i].estrellas;
-                json.apariciones = tickets[i].apariciones;
-                response.push(json);
-            }
-            res.status(200).send(JSON.stringify(response, null, 4));
+            res.status(200).send(JSON.stringify(result, null, 4));
         });
     };
 

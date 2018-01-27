@@ -13,6 +13,8 @@ function Controller($scope, $http, $filter, euromillones) {
     $scope.criterioOrdenacionAparicionesPorNumero = 'apariciones';
     $scope.ordenAparicionesPorResultado = true;
     $scope.criterioOrdenacionAparicionesPorResultado = 'apariciones';
+    $scope.ordenAparicionesPorResultadoConEstrellas = true;
+    $scope.criterioOrdenacionAparicionesPorResultadoConEstrellas = 'apariciones';
 
     $scope.maxSize = 5;
 
@@ -130,23 +132,27 @@ function Controller($scope, $http, $filter, euromillones) {
                 .finally(function(){
                     $scope.consultando = false;
                 });
-        }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorResultadoConEstrellas"){
-            euromillones.getOccurrencesByResultWithStars()
+        }else if($scope.form.opcionBusquedaEstandar.name === "aparicionesPorResultadoConEstrellas"){
+
+            queryParameters = {
+                page: $scope.currentPage,
+                per_page: $scope.ticketsPerPage,
+                sort_property: $scope.criterioOrdenacionAparicionesPorResultadoConEstrellas,
+                sort_type: $scope.ordenAparicionesPorResultadoConEstrellas ? 'desc' : 'asc'
+            };
+
+            euromillones.getOccurrencesByResultWithStars(queryParameters)
                 .then(function(data){
-                    $scope.aparicionesPorResultadoConEstrellas = data;
+                    $scope.aparicionesPorResultadoConEstrellas = data.data;
 
-                    $scope.criterioOrdenacionAparicionesPorResultadoConEstrellas = $scope.sortFunction_resultWithStars;
-
-                    $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConEstrellas = "apariciones";
-
-                    $scope.actualizarPaginacion($scope.aparicionesPorResultadoConEstrellas, null, $scope.ticketsPerPage);
+                    $scope.actualizarPaginacion($scope.aparicionesPorResultadoConEstrellas, data.total, data.perPage);
 
                     $scope.mostrar.tablaAparicionesPorResultadoConEstrellas = true;
-
-                    $scope.consultando = false;
                 })
                 .catch(function(err){
-                    console.log(err);
+
+                })
+                .finally(function(){
                     $scope.consultando = false;
                 });
         }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorEstrella"){
@@ -311,44 +317,27 @@ function Controller($scope, $http, $filter, euromillones) {
     };
 
     $scope.ordenarAparicionesPorResultadoConEstrellasSegun = function(criterio){
-        if(criterio == "resultadoString"){
-
-            if($scope.criterioOrdenacionAparicionesPorResultadoConEstrellas == $scope.sortFunction_resultWithStars){ //Sólo vamos a invertir el orden
-                
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConEstrellas = "apariciones";
-
+        if(criterio === "resultado"){
+            if($scope.criterioOrdenacionAparicionesPorResultadoConEstrellas === criterio){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorResultadoConEstrellas == null){
                     $scope.ordenAparicionesPorResultadoConEstrellas = true;
                 }else{
                     $scope.ordenAparicionesPorResultadoConEstrellas = !$scope.ordenAparicionesPorResultadoConEstrellas;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorResultadoConEstrellas = $scope.sortFunction_resultWithStars;
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConEstrellas = "apariciones";
-
+                $scope.criterioOrdenacionAparicionesPorResultadoConEstrellas = criterio;
                 $scope.ordenAparicionesPorResultadoConEstrellas = false;
-
             }
-            
-        }else if(criterio == "apariciones"){
-            if($scope.criterioOrdenacionAparicionesPorResultadoConEstrellas == criterio){ //Sólo vamos a invertir el orden
-                
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConEstrellas = $scope.sortFunction_resultWithStars;
-
+        }else if(criterio === "apariciones"){
+            if($scope.criterioOrdenacionAparicionesPorResultadoConEstrellas === criterio){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorResultadoConEstrellas == null){
                     $scope.ordenAparicionesPorResultadoConEstrellas = true;
                 }else{
-
                     $scope.ordenAparicionesPorResultadoConEstrellas = !$scope.ordenAparicionesPorResultadoConEstrellas;
                 }
             }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorResultadoConEstrellas = "apariciones";
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConEstrellas = $scope.sortFunction_resultWithStars;
-
+                $scope.criterioOrdenacionAparicionesPorResultadoConEstrellas = criterio;
                 $scope.ordenAparicionesPorResultadoConEstrellas = true;
-
             }
         }
     };
