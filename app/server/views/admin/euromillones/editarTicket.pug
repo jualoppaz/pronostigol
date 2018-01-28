@@ -61,17 +61,17 @@ block content
                                         td(ng-bind-template="{{$index + 1}}")
 
                                         td
-                                            input(type="text", placeholder="[1-50]", ng-model="combinacion.numeros[0].numero").form-control.text-center
+                                            input(type="number", placeholder="[1-50]", ng-model="combinacion.numeros[0].numero").form-control.text-center
                                         td
-                                            input(type="text", placeholder="[1-50]", ng-model="combinacion.numeros[1].numero").form-control.text-center
+                                            input(type="number", placeholder="[1-50]", ng-model="combinacion.numeros[1].numero").form-control.text-center
                                         td
-                                            input(type="text", placeholder="[1-50]", ng-model="combinacion.numeros[2].numero").form-control.text-center
+                                            input(type="number", placeholder="[1-50]", ng-model="combinacion.numeros[2].numero").form-control.text-center
                                         td
-                                            input(type="text", placeholder="[1-50]", ng-model="combinacion.numeros[3].numero").form-control.text-center
+                                            input(type="number", placeholder="[1-50]", ng-model="combinacion.numeros[3].numero").form-control.text-center
                                         td
-                                            input(type="text", placeholder="[1-50]", ng-model="combinacion.numeros[4].numero").form-control.text-center
+                                            input(type="number", placeholder="[1-50]", ng-model="combinacion.numeros[4].numero").form-control.text-center
                                         td(ng-repeat="a in [0,1]")
-                                            input(type="text", placeholder="[0-11]", ng-model="combinacion.estrellas[a].numero").form-control.text-center
+                                            input(type="number", placeholder="[0-11]", ng-model="combinacion.estrellas[a].numero").form-control.text-center
 
                         h2.page-header Resultado
 
@@ -90,10 +90,10 @@ block content
                                     tbody
                                         tr
                                             td(ng-repeat="bola in ticket.resultado.bolas")
-                                                input(type="text", placeholder="[1-50]", ng-model="bola.numero").form-control.text-center
+                                                input(type="number", placeholder="[1-50]", ng-model="bola.numero").form-control.text-center
 
                                             td(ng-repeat="estrella in ticket.resultado.estrellas")
-                                                input(type="text", placeholder="[0-11]", ng-model="estrella.numero").form-control.text-center
+                                                input(type="number", placeholder="[0-11]", ng-model="estrella.numero").form-control.text-center
 
 
 

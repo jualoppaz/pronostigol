@@ -39,109 +39,107 @@ function Controller($scope, $http, $window, $filter, euromillones){
     $scope.ticket.resultado = {
         bolas: [
             {
-                numero: ""
+                numero: null
             },{
-                numero: ""
+                numero: null
             },{
-                numero: ""
+                numero: null
             },{
-                numero: ""
+                numero: null
             },{
-                numero: ""
+                numero: null
             }
         ],
-        numeroClave: ""
+        estrellas: [
+            {
+                numero: null
+            },{
+                numero: null
+            }
+        ]
     };
 
     $scope.ticket.apuestas = {
-        numeroClave: "",
         combinaciones: [
-            [
-                {
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                }
-            ], [
-                {
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                }
-            ]
+            {
+                numeros: [
+                    {
+                        numero: null
+                    },{
+                        numero: null
+                    },{
+                        numero: null
+                    },{
+                        numero: null
+                    },{
+                        numero: null
+                    }
+                ],
+                estrellas: [
+                    {
+                        numero: null
+                    },{
+                        numero: null
+                    }
+                ]
+            }
         ]
     };
 
     $scope.anadirApuesta = function(){
         if($scope.ticket.apuestas.combinaciones == null){
-
             $scope.ticket.apuestas.combinaciones = [
                 [
                     {
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     }
                 ]
             ];
-        }else if($scope.ticket.apuestas.combinaciones.length == 0){
+        }else if($scope.ticket.apuestas.combinaciones.length === 0){
             $scope.ticket.apuestas.combinaciones = [
                 [
                     {
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     }
                 ]
             ];
         }
 
         if($scope.ticket.apuestas.combinaciones.length < 8){
-
-            console.log("Anadimos la segunda");
-
             $scope.ticket.apuestas.combinaciones[$scope.ticket.apuestas.combinaciones.length] = [
                 [
                     {
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     },{
-                        numero: ""
+                        numero: null
                     }
                 ]
             ];
@@ -149,15 +147,11 @@ function Controller($scope, $http, $window, $filter, euromillones){
     };
 
     $scope.eliminarApuesta = function(){
-
-        if($scope.ticket.apuestas.combinaciones.length != 0){
-
+        if($scope.ticket.apuestas.combinaciones.length !== 0){
             $scope.ticket.apuestas.combinaciones.pop();
-
-            if($scope.ticket.apuestas.combinaciones.length == 1){
+            if($scope.ticket.apuestas.combinaciones.length === 1){
                 $scope.ticket.apuestas.combinaciones = [];
             }
-
         }
     };
 
@@ -174,10 +168,6 @@ function Controller($scope, $http, $window, $filter, euromillones){
     };
 
     $scope.redirigir = function(){
-        console.log("Vamos a redirigir");
-
-        var nuevaURL = "/admin/euromillones";
-
-        $window.location.href = nuevaURL;
+        $window.location.href = "/admin/euromillones";
     };
 }

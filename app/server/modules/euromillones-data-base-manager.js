@@ -27,11 +27,11 @@ exports.getAllTickets = function(filtros, callback){
     var filters = {};
 
     if(filtros.year){
-        filters.anyo = filtros.year;
+        filters.anyo = Number(filtros.year);
     }
 
     if(filtros.raffle){
-        filters.sorteo = filtros.raffle;
+        filters.sorteo = Number(filtros.raffle);
     }
 
     var limit = filtros.perPage;
@@ -672,7 +672,7 @@ exports.getEconomicBalanceByYear = function(callback){
 exports.getHigherDayByYear = function(year, callback){
     euromillones_tickets.aggregate({
         $match: {
-            anyo: year
+            anyo: Number(year)
         }
     },{
         $group: {
@@ -706,7 +706,7 @@ exports.getNewestDay = function(callback){
 
             euromillones_tickets.aggregate({
                 $match: {
-                    anyo: res[0].anyo
+                    anyo: Number(res[0].anyo)
                 }
             },{
                 $group: {
@@ -742,7 +742,7 @@ exports.getOldestDay = function(callback){
 
             euromillones_tickets.aggregate({
                 $match: {
-                    anyo: res[0].anyo
+                    anyo: Number(res[0].anyo)
                 }
             },{
                 $group: {
