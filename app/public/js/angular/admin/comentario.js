@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('ComentarioController', function ($scope, $http, $window, $filter){
+app.controller('ComentarioController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', '$filter'];
+
+function Controller($scope, $http, $window, $filter){
 
     // Este usuario es el actual del sistema
 
@@ -16,7 +20,7 @@ app.controller('ComentarioController', function ($scope, $http, $window, $filter
         }
     ];
 
-    var url = window.location.href;
+    var url = $window.location.href;
 
     var fragmento = url.split("/");
 
@@ -27,7 +31,6 @@ app.controller('ComentarioController', function ($scope, $http, $window, $filter
 
             var json = data;
 
-            //var timezoneComentario = "+0" + String(data.fechaOffset/-60) + "00";
             var timezoneComentario = "+0000";
             json.fecha = $filter('date')(new Date(new Date(data.fecha).getTime() - (data.fechaOffset * 60000)), 'dd/MM/yyyy HH:mm', timezoneComentario);
 
@@ -50,26 +53,16 @@ app.controller('ComentarioController', function ($scope, $http, $window, $filter
 
     $scope.guardar = function(){
         $http.put('/api/admin/comments', $scope.comentario)
-            .success(function(data){
-                angular.element("#modalTitleComentarioEditado").text("Edición correcta");
-                angular.element("#modalTextComentarioEditado").text("El comentario ha sido editado correctamente.");
-                angular.element("#modal-comentarioEditado").modal('show');
+            .success(function(){
+                $scope.redirigir();
             })
             .error(function(data){
                 console.log(data);
             });
     };
 
-    $scope.redirigirTrasEditar = function(){
-        var nuevaURL = "/admin/comentarios";
-
-        $window.location.href = nuevaURL;
-    };
-
-    $scope.redirigirTrasCancelar = function(){
-        var nuevaURL = "/admin/comentarios";
-
-        $window.location.href = nuevaURL;
+    $scope.redirigir = function(){
+        $window.location.href = "/admin/comentarios";
     };
 
     $scope.anadirRespuesta = function(){
@@ -84,5 +77,4 @@ app.controller('ComentarioController', function ($scope, $http, $window, $filter
     $scope.eliminarRespuesta = function(){
         $scope.comentario.respuestas.pop();
     };
-
-});
+}

@@ -11,24 +11,16 @@ function Controller($scope, $http, $window, euromillones){
     $scope.guardar = function(){
         euromillones.createYear($scope.registro)
             .then(function(){
-                angular.element("#modalTitleRegistroAnadidoCorrectamente").text("Año añadido correctamente");
-                angular.element("#modalTextRegistroAnadidoCorrectamente").text("A continuación se le redirigirá al listado de años registrados.");
-                angular.element("#modal-registroAnadidoCorrectamente").modal('show');
+                $scope.redirigir();
             })
             .catch(function(err){
-                console.log(err);
-
-                if(err == "year-already-exists"){
+                if(err === "year-already-exists"){
                     alert("El año introducido ya existe.");
                 }
             });
     };
 
     $scope.redirigir = function(){
-        console.log("Vamos a redirigir");
-
-        var nuevaURL = "/admin/euromillones/anyos";
-
-        $window.location.href = nuevaURL;
+        $window.location.href = "/admin/euromillones/anyos";
     };
 }

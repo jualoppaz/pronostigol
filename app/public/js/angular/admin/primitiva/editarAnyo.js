@@ -8,7 +8,7 @@ function Controller ($scope, $http, $window, primitiva){
 
     $scope.registro = {};
 
-    var url = window.location.href;
+    var url = $window.location.href;
 
     var fragmentos = url.split("/");
 
@@ -24,10 +24,8 @@ function Controller ($scope, $http, $window, primitiva){
 
     $scope.guardar = function(){
         primitiva.editYear($scope.registro)
-            .then(function(data){
-                angular.element("#modalTitleRegistroEditadoCorrectamente").text("Año editado correctamente");
-                angular.element("#modalTextRegistroEditadoCorrectamente").text("A continuación se le redirigirá al listado de años registrados.");
-                angular.element("#modal-registroEditadoCorrectamente").modal('show');
+            .then(function(){
+                $scope.redirigir();
             })
             .catch(function(err){
                 console.log(err);
@@ -35,10 +33,6 @@ function Controller ($scope, $http, $window, primitiva){
     };
 
     $scope.redirigir = function(){
-        console.log("Vamos a redirigir");
-
-        var nuevaURL = "/admin/primitiva/anyos";
-
-        $window.location.href = nuevaURL;
+        $window.location.href = "/admin/primitiva/anyos";
     };
-};
+}

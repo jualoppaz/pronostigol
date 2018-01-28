@@ -1,58 +1,44 @@
-//var loginNavbar = angular.module('loginNavbar', [])
-
 var app = angular.module('dashboard');
 
-app.controller('NavbarController', function ($scope, $http, $window, $timeout){
+app.controller('NavbarController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window'];
+
+function Controller($scope, $http, $window){
 
     $scope.seccion = "";
 
     var url = $window.location.href;
 
-    if(url.indexOf("/quiniela") != -1){
+    if(url.indexOf("/quiniela") !== -1){
         $scope.seccion = "Quiniela";
         $scope.loteria = "quiniela";
-    }else if(url.indexOf("/bonoloto") != -1){
+    }else if(url.indexOf("/bonoloto") !== -1){
         $scope.seccion = "Bonoloto";
         $scope.loteria = "bonoloto";
-    }else if(url.indexOf("/primitiva") != -1){
+    }else if(url.indexOf("/primitiva") !== -1){
         $scope.seccion = "Primitiva";
         $scope.loteria = "primitiva";
-    }else if(url.indexOf("/gordo") != -1){
+    }else if(url.indexOf("/gordo") !== -1){
         $scope.seccion = "El Gordo";
         $scope.loteria = "gordo";
-    }else if(url.indexOf("/euromillones") != -1){
+    }else if(url.indexOf("/euromillones") !== -1){
         $scope.seccion = "Euromillones";
         $scope.loteria = "euromillones";
     }
 
     $scope.cerrarSesion = function(){
         $http.get('/api/logout')
-            .success(function(data){
-                    //alert("Ha cerrado sesión correctamente");
-
-                /*angular.element("#modalTitleLogout").text("Sesión cerrada correctamente");
-                angular.element("#modalTextLogout").text("Vuelva pronto.");
-                angular.element("#modal-logout").modal('show');*/
-
+            .success(function(){
                 $scope.usuarioEstaLogueado = false;
-
-                // La redireccion esta hecha en cliente, pero seria ideal conseguir hacerla desde el servidor.
-                // El problema es que la redireccion no se lleva bien con las peticiones AJAX.
-
-                $scope.redirigirTrasLogout();
-
+                $scope.redirigir();
             })
             .error(function(data){
                 console.log(data);
             });
     };
 
-    $scope.redirigirTrasLogout = function(){
-        /*$timeout(function() {
-            $window.location.href = "/";
-        }, 2000);
-        */
+    $scope.redirigir = function(){
         $window.location.href = "/";
     };
-
-});
+}

@@ -47,7 +47,7 @@ function Controller ($scope, $http, $window, $filter, primitiva){
                 {
                     numero: "4"
                 },{
-                numero: "8"
+                    numero: "8"
                 },{
                     numero: "13"
                 },{
@@ -95,7 +95,7 @@ function Controller ($scope, $http, $window, $filter, primitiva){
                     }
                 ]
             ];
-        }else if($scope.ticket.apuestas.combinaciones.length == 0){
+        }else if($scope.ticket.apuestas.combinaciones.length === 0){
             $scope.ticket.apuestas.combinaciones = [
                 [
                     {
@@ -138,11 +138,11 @@ function Controller ($scope, $http, $window, $filter, primitiva){
 
     $scope.eliminarApuesta = function(){
 
-        if($scope.ticket.apuestas.combinaciones.length != 0){
+        if($scope.ticket.apuestas.combinaciones.length !== 0){
 
             $scope.ticket.apuestas.combinaciones.pop();
 
-            if($scope.ticket.apuestas.combinaciones.length == 1){
+            if($scope.ticket.apuestas.combinaciones.length === 1){
                 $scope.ticket.apuestas.combinaciones = [];
             }
 
@@ -151,10 +151,8 @@ function Controller ($scope, $http, $window, $filter, primitiva){
 
     $scope.guardar = function(){
         primitiva.createTicket($scope.ticket)
-            .then(function(data){
-                angular.element("#modalTitleRegistroAnadidoCorrectamente").text("Ticket de Primitiva añadido correctamente");
-                angular.element("#modalTextRegistroAnadidoCorrectamente").text("A continuación se le redirigirá al listado de tickets de Primitiva registrados.");
-                angular.element("#modal-registroAnadidoCorrectamente").modal('show');
+            .then(function(){
+                $scope.redirigir();
             })
             .catch(function(err){
                 console.log(err);
@@ -162,9 +160,6 @@ function Controller ($scope, $http, $window, $filter, primitiva){
     };
 
     $scope.redirigir = function(){
-        var nuevaURL = "/admin/primitiva";
-
-        $window.location.href = nuevaURL;
+        $window.location.href = "/admin/primitiva";
     };
-
-};
+}

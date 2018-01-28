@@ -2,9 +2,9 @@ var app = angular.module('qdb');
 
 app.controller('TicketController', Controller);
 
-Controller.$inject = ['$scope', '$http', '$filter', 'VariosService', 'bonoloto'];
+Controller.$inject = ['$scope', '$http', '$window', '$filter', 'VariosService', 'bonoloto'];
 
-function Controller ($scope, $http, $filter, VariosService, bonoloto) {
+function Controller ($scope, $http, $window, $filter, VariosService, bonoloto) {
 
     $scope.ticket = {};
 
@@ -12,7 +12,7 @@ function Controller ($scope, $http, $filter, VariosService, bonoloto) {
 
     $scope.consultaRealizada = false;
 
-    var url = window.location.href;
+    var url = $window.location.href;
 
     var fragmentos = url.split("/");
 

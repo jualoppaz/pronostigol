@@ -6,14 +6,8 @@ var uniqueItems = function (data, key) {
     for (var i = 0; i < data.length; i++) {
         var value = data[i][key];
 
-        /* Implementacion anterior */
-
-        //if (result.indexOf(value) == -1) {
-        //    result.push(value);
-        //}
-
         if(value != null){
-            if (result.indexOf(value) == -1) {
+            if (result.indexOf(value) === -1) {
                 result.push(value);
             }
         }
@@ -22,7 +16,11 @@ var uniqueItems = function (data, key) {
     return result;
 };
 
-app.controller('BalanceEconomicoController', function($scope, $http, $window){
+app.controller('BalanceEconomicoController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window'];
+
+function Controller($scope, $http, $window){
 
     $scope.balances = [];
 
@@ -61,18 +59,7 @@ app.controller('BalanceEconomicoController', function($scope, $http, $window){
     };
 
     $scope.balanceTotal = function(){
-
-        /*
-        console.log("totalDineroGanado: " + $scope.totalDineroGanado());
-        console.log("totalDineroInvertido: " + $scope.totalDineroInvertido());
-
-        console.log("balanceTotal: " + ($scope.totalDineroGanado()*100 - $scope.totalDineroInvertido() * 100) / 100);
-
-        console.log("totalDineroGanado * 100: " + $scope.totalDineroGanado() * 100);
-        console.log("totalDineroInvertido * 100: " + $scope.totalDineroInvertido() * 100);
-        */
-
-        return ($scope.totalDineroGanado()*100 - $scope.totalDineroInvertido() * 100) / 100;
+        return ($scope.totalDineroGanado() * 100 - $scope.totalDineroInvertido() * 100) / 100;
     };
 
     $scope.$watch(function () {
@@ -108,20 +95,12 @@ app.controller('BalanceEconomicoController', function($scope, $http, $window){
         $scope.filteredBalances = filterAfterSorteos;
     }, true);
 
-
-    /*$scope.$watch('filtered', function (newValue) {
-        if (angular.isArray(newValue)) {
-            console.log(newValue.length);
-        }
-    }, true);*/
-
-
     /* Esta funcion se usa para seleccionar una unica opcion de cada grupo de checkboxes*/
 
     $scope.seleccionarSiEsElUnico = function(input, json, propiedad){
         var seleccionar = true;
         for(var prop in json){
-            if(json[prop] == true && prop != propiedad){
+            if(json[prop] === true && prop != propiedad){
                 seleccionar = false;
                 json[prop] = false;
             }
@@ -174,5 +153,4 @@ app.controller('BalanceEconomicoController', function($scope, $http, $window){
 
         return res;
     };
-
-});
+}

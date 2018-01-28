@@ -8,11 +8,7 @@ function Controller ($scope, $http, $window, quiniela){
 
     $scope.tickets = [];
     $scope.quinielaAEliminar = {};
-
-    $scope.numOfPages;
-
-    $scope.totalItems;
-
+    
     $scope.maxSize = 5;
 
     $scope.currentPage = 1;
@@ -62,4 +58,4 @@ function Controller ($scope, $http, $window, quiniela){
     $scope.verQuiniela = function(season, id){
         $window.location.href = "/admin/quiniela/tickets/" + season + "/" + id;
     };
-};
+}

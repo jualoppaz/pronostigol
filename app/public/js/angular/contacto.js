@@ -1,6 +1,10 @@
 var contacto = angular.module('qdb');
 
-app.controller('ContactoController', function ($scope, $http){
+app.controller('ContactoController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window'];
+
+function Controller($scope, $http, $window){
 
     $scope.loguedUser = {};
 
@@ -41,13 +45,12 @@ app.controller('ContactoController', function ($scope, $http){
             $http.post('/api/emails', $scope.form)
                 .success(function(data){
                     alert("Su mensaje ha sido enviado correctamente.");
-                    window.location.href = '/';
+                    $window.location.href = '/';
                 })
                 .error(function(data){
 
-                })
+                });
         }
-
     };
 
     $scope.validarFormulario = function(){
@@ -57,17 +60,11 @@ app.controller('ContactoController', function ($scope, $http){
         var email   = angular.element("#email").val();
         var mensaje = $scope.form.mensaje;
 
-        /*
-        alert("Nombre: " + nombre);
-        alert("Email: " + email);
-        alert("Mensaje: " + mensaje);
-        */
-
-        if(nombre == undefined || nombre == ""){
+        if(nombre == undefined || nombre === ""){
             $scope.nombreVacio = true;
             $scope.hayErrores = true;
         }
-        if(email == undefined || email == ""){
+        if(email == undefined || email === ""){
             $scope.emailVacio = true;
             $scope.hayErrores = true;
         }
@@ -75,11 +72,10 @@ app.controller('ContactoController', function ($scope, $http){
             $scope.emailInvalido = true;
             $scope.hayErrores = true;
         }
-        if(mensaje == undefined || mensaje == ""){
+        if(mensaje == undefined || mensaje === ""){
             $scope.mensajeVacio = true;
             $scope.hayErrores = true;
         }
 
     };
-
-});
+}

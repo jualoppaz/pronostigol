@@ -850,4 +850,4 @@ function Controller ($scope, $http, $filter, quiniela) {
         .catch(function(err){
             console.log(err);
         });
-};
+}

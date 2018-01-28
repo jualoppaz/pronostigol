@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('UsuarioController', function ($scope, $http, $filter){
+app.controller('UsuarioController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', '$filter'];
+
+function Controller($scope, $http, $window, $filter){
 
     // Este usuario es el actual del sistema
 
@@ -44,22 +48,7 @@ app.controller('UsuarioController', function ($scope, $http, $filter){
         }
     ];
 
-
-    /*
-
-    $scope.opcionesBaneo = [
-        {name: 'Sí'},
-        {name: 'No'}
-    ];
-
-    $scope.opcionesActivo = [
-        {name: 'Sí'},
-        {name: 'No'}
-    ];
-    */
-
-
-    var url = window.location.href;
+    var url = $window.location.href;
     var usuarioId = url.split("/")[url.split("/").length-1];
 
     $http.get('/api/users/' + String(usuarioId))
@@ -75,30 +64,25 @@ app.controller('UsuarioController', function ($scope, $http, $filter){
     $scope.guardar = function(){
         $http.put('/api/users', $scope.usuario)
             .success(function(data){
-                if(data == 'ok'){
-                    angular.element("#modalTitleUsuarioEditadoCorrectamente").text("Edición correcta");
-                    angular.element("#modalTextUsuarioEditadoCorrectamente").text("El usuario ha sido editado correctamente.");
-                    angular.element("#modal-usuarioEditadoCorrectamente").modal('show');
+                if(data === 'ok'){
+                    $scope.redirigir();
                 }
             })
             .error(function(data){
-                alert(data);
-                console.log(data);
-                if(data == "username-taken"){
+                if(data === "username-taken"){
                     angular.element("#modalTitleUsuarioYaExiste").text("El usuario introducido ya existe");
                     angular.element("#modalTextUsuarioYaExiste").text("Introduzca un usuario diferente.");
                     angular.element("#modal-usuarioYaExiste").modal('show');
                 }
 
-            })
+            });
     };
 
     $scope.actualizarActivo = function(){
         alert($scope.usuario.estaActivo);
     };
 
-    $scope.redirigirTrasEditar = function(){
-        window.location.href = '/admin/usuarios';
+    $scope.redirigir = function(){
+        $window.location.href = '/admin/usuarios';
     }
-
-});
+}

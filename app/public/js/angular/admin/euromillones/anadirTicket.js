@@ -92,8 +92,6 @@ function Controller($scope, $http, $window, $filter, euromillones){
     };
 
     $scope.anadirApuesta = function(){
-
-        // Esta insercion se realizara unicamente
         if($scope.ticket.apuestas.combinaciones == null){
 
             $scope.ticket.apuestas.combinaciones = [
@@ -114,9 +112,9 @@ function Controller($scope, $http, $window, $filter, euromillones){
                         ],
                         estrellas: [
                             {
-                                numero: ""
+                                numero: null
                             },{
-                                numero: ""
+                                numero: null
                             }
                         ]
                     }
@@ -189,9 +187,7 @@ function Controller($scope, $http, $window, $filter, euromillones){
     $scope.guardar = function(){
         euromillones.createTicket($scope.ticket)
             .then(function(){
-                angular.element("#modalTitleRegistroAnadidoCorrectamente").text("Ticket de Euromillones añadido correctamente");
-                angular.element("#modalTextRegistroAnadidoCorrectamente").text("A continuación se le redirigirá al listado de tickets de Euromillones registrados.");
-                angular.element("#modal-registroAnadidoCorrectamente").modal('show');
+                $scope.redirigir();
             })
             .catch(function(err){
                 console.log(err);
@@ -201,5 +197,4 @@ function Controller($scope, $http, $window, $filter, euromillones){
     $scope.redirigir = function(){
         $window.location.href = "/admin/euromillones";
     };
-
 }

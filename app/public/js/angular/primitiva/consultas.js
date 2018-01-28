@@ -11,10 +11,6 @@ function Controller($scope, $http, $filter, primitiva) {
 
     $scope.ordenAparicionesPorNumero = null;
 
-    $scope.numOfPages;
-
-    $scope.totalItems;
-
     $scope.maxSize = 5;
 
     $scope.currentPage = 1;

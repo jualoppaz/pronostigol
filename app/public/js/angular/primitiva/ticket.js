@@ -2,9 +2,9 @@ var app = angular.module('qdb');
 
 app.controller('TicketController', Controller);
 
-Controller.$inject = ['$scope', '$http', 'VariosService', 'primitiva'];
+Controller.$inject = ['$scope', '$http', '$window', 'VariosService', 'primitiva'];
 
-function Controller ($scope, $http, VariosService, primitiva) {
+function Controller ($scope, $http, $window, VariosService, primitiva) {
 
     $scope.ticket = {};
 
@@ -12,7 +12,7 @@ function Controller ($scope, $http, VariosService, primitiva) {
 
     $scope.aciertos = [];
 
-    var url = window.location.href;
+    var url = $window.location.href;
 
     var fragmentos = url.split("/");
 
@@ -216,4 +216,4 @@ function Controller ($scope, $http, VariosService, primitiva) {
     $scope.ticketEstaVacio = function(){
         return VariosService.jsonVacio($scope.ticket);
     };
-};
+}

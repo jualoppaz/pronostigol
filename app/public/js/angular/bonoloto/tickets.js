@@ -68,11 +68,9 @@ function Controller ($scope, $http, $window, $filter, VariosService, bonoloto) {
 
 
     $scope.traducirDia = function(fecha){
-
         var dia = $filter('date')(fecha, 'EEEE');
         return VariosService.traducirDia(dia);
     };
-
 
     // Paginacion manual
 

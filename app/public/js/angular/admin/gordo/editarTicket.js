@@ -105,7 +105,7 @@ function Controller ($scope, $http, $window, $filter, gordo){
                     }
                 ]
             ];
-        }else if($scope.ticket.apuestas.combinaciones.length == 0){
+        }else if($scope.ticket.apuestas.combinaciones.length === 0){
             $scope.ticket.apuestas.combinaciones = [
                 [
                     {
@@ -126,9 +126,6 @@ function Controller ($scope, $http, $window, $filter, gordo){
         }
 
         if($scope.ticket.apuestas.combinaciones.length < 8){
-
-            console.log("Anadimos la segunda");
-
             $scope.ticket.apuestas.combinaciones[$scope.ticket.apuestas.combinaciones.length] = [
                 [
                     {
@@ -151,11 +148,11 @@ function Controller ($scope, $http, $window, $filter, gordo){
 
     $scope.eliminarApuesta = function(){
 
-        if($scope.ticket.apuestas.combinaciones.length != 0){
+        if($scope.ticket.apuestas.combinaciones.length !== 0){
 
             $scope.ticket.apuestas.combinaciones.pop();
 
-            if($scope.ticket.apuestas.combinaciones.length == 1){
+            if($scope.ticket.apuestas.combinaciones.length === 1){
                 $scope.ticket.apuestas.combinaciones = [];
             }
 
@@ -165,9 +162,7 @@ function Controller ($scope, $http, $window, $filter, gordo){
     $scope.guardar = function(){
         gordo.editTicket($scope.ticket)
             .then(function(){
-                angular.element("#modalTitleRegistroEditadoCorrectamente").text("Ticket de El Gordo editado correctamente");
-                angular.element("#modalTextRegistroEditadoCorrectamente").text("A continuación se le redirigirá al listado de tickets de El Gordo de la Primitiva registrados.");
-                angular.element("#modal-registroEditadoCorrectamente").modal('show');
+                $scope.redirigir();
             })
             .catch(function(err){
                 console.log(err);
@@ -175,10 +170,6 @@ function Controller ($scope, $http, $window, $filter, gordo){
     };
 
     $scope.redirigir = function(){
-        console.log("Vamos a redirigir");
-
-        var nuevaURL = "/admin/gordo";
-
-        $window.location.href = nuevaURL;
+        $window.location.href = "/admin/gordo";
     };
 }

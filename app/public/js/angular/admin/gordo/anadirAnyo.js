@@ -11,13 +11,9 @@ function Controller ($scope, $http, $window, gordo){
     $scope.guardar = function(){
         gordo.createYear($scope.registro)
             .then(function(){
-                angular.element("#modalTitleRegistroAnadidoCorrectamente").text("Año añadido correctamente");
-                angular.element("#modalTextRegistroAnadidoCorrectamente").text("A continuación se le redirigirá al listado de años registrados.");
-                angular.element("#modal-registroAnadidoCorrectamente").modal('show');
+                $scope.redirigir();
             })
             .catch(function(err){
-                console.log(err);
-
                 if(err === "year-already-exists"){
                     alert("El año introducido ya existe.");
                 }
@@ -25,10 +21,6 @@ function Controller ($scope, $http, $window, gordo){
     };
 
     $scope.redirigir = function(){
-        console.log("Vamos a redirigir");
-
-        var nuevaURL = "/admin/gordo/anyos";
-
-        $window.location.href = nuevaURL;
+        $window.location.href = "/admin/gordo/anyos";
     };
 }

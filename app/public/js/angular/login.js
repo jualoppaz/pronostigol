@@ -1,6 +1,10 @@
 var app = angular.module('qdb');
 
-app.controller('LoginController', function ($scope, $http, $window) {
+app.controller('LoginController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window'];
+
+function Controller($scope, $http, $window) {
     $scope.loguedUser = {};
     $scope.usuarioEstaLogueado = false;
 
@@ -35,12 +39,12 @@ app.controller('LoginController', function ($scope, $http, $window) {
             $scope.form.recordar = true;
         }
 
-        if(usuario == 'undefined' || usuario.length == 0){
+        if(usuario == 'undefined' || usuario.length === 0){
             $scope.usuarioVacio = true;
             $scope.hayErrores = true;
         }
 
-        if(pass == 'undefined' || pass.length == 0){
+        if(pass == 'undefined' || pass.length === 0){
             $scope.passVacio = true;
             $scope.hayErrores = true;
 
@@ -49,27 +53,22 @@ app.controller('LoginController', function ($scope, $http, $window) {
         if(!$scope.hayErrores){
 
             $http.post('/api/login', $scope.form)
-                .success(function(data){
-
-                    //angular.element("#modalTitleLogin").text("Login correcto");
-                    //angular.element("#modalTextLogin").text("Pulse el botón para continuar");
-                    //angular.element("#modal-login").modal('show');
-
-                    $scope.redirigirTrasLogin();
+                .success(function(){
+                    $scope.redirigir();
                 })
                 .error(function(data){
-                    if(data == "invalid-password"){
+                    if(data === "invalid-password"){
                         $scope.passErroneo = true;
-                    }else if(data == "user-not-found"){
+                    }else if(data === "user-not-found"){
                         $scope.usuarioInexistente = true;
-                    }else if(data == 'user-not-active'){
+                    }else if(data === 'user-not-active'){
                         $scope.usuarioNoActivo = true;
                     }
                 });
         }
     };
 
-    $scope.redirigirTrasLogin = function(){
+    $scope.redirigir = function(){
         $http.get('/api/lastURL')
             .success(function(data){
                 $window.location.href = data;
@@ -78,5 +77,4 @@ app.controller('LoginController', function ($scope, $http, $window) {
                 console.log(data);
             });
     };
-
-});
+}

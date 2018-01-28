@@ -16,7 +16,7 @@ function Controller($scope, $http, VariosService, $window, euromillones) {
 
     $scope.mostrarFlechaSiguiente = true;
 
-    var url = window.location.href;
+    var url = $window.location.href;
 
     var fragmentos = url.split("/");
 

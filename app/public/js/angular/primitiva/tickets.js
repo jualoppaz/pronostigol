@@ -8,8 +8,6 @@ function Controller ($scope, $http, $window, $filter, VariosService, primitiva) 
 
     $scope.tickets = [];
 
-    $scope.numOfPages;
-    $scope.totalItems;
     $scope.maxSize = 5;
 
     $scope.currentPage = 1;
@@ -24,7 +22,7 @@ function Controller ($scope, $http, $window, $filter, VariosService, primitiva) 
         });
 
     $scope.mostrarTickets = function(anyo){
-        if($scope.tickets.length == 0 || $scope.tickets[0].anyo != anyo){
+        if($scope.tickets.length === 0 || $scope.tickets[0].anyo != anyo){
 
             primitiva.getAllTickets({
                 year: anyo
@@ -68,5 +66,4 @@ function Controller ($scope, $http, $window, $filter, VariosService, primitiva) 
     $scope.apuestaRealizada = function(ticket){
         return VariosService.apuestaRealizada(ticket);
     };
-
-};
+}

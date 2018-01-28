@@ -2,9 +2,9 @@ var app = angular.module('dashboard');
 
 app.controller('EquiposController', Controller);
 
-Controller.$inject = ['$scope', '$http', 'quiniela'];
+Controller.$inject = ['$scope', '$http', '$window', 'quiniela'];
 
-function Controller ($scope, $http, quiniela){
+function Controller ($scope, $http, $window, quiniela){
 
     $scope.equipos = {};
     $scope.equiposAEliminar = {};
@@ -29,7 +29,7 @@ function Controller ($scope, $http, quiniela){
         });
 
     $scope.verRegistro = function(id){
-        window.location.href = "/admin/quiniela/equipos/" + id;
+        $window.location.href = "/admin/quiniela/equipos/" + id;
     };
 
     $scope.eliminarRegistro = function(id){
@@ -77,4 +77,4 @@ function Controller ($scope, $http, quiniela){
 
         return res;
     };
-};
+}

@@ -109,7 +109,7 @@ function Controller ($scope, $http, $window, $filter, primitiva){
                     }
                 ]
             ];
-        }else if($scope.ticket.apuestas.combinaciones.length == 0){
+        }else if($scope.ticket.apuestas.combinaciones.length === 0){
             $scope.ticket.apuestas.combinaciones = [
                 [
                     {
@@ -151,11 +151,11 @@ function Controller ($scope, $http, $window, $filter, primitiva){
     };
 
     $scope.eliminarApuesta = function(){
-        if($scope.ticket.apuestas.combinaciones.length != 0){
+        if($scope.ticket.apuestas.combinaciones.length !== 0){
 
             $scope.ticket.apuestas.combinaciones.pop();
 
-            if($scope.ticket.apuestas.combinaciones.length == 1){
+            if($scope.ticket.apuestas.combinaciones.length === 1){
                 $scope.ticket.apuestas.combinaciones = [];
             }
 
@@ -165,9 +165,7 @@ function Controller ($scope, $http, $window, $filter, primitiva){
     $scope.guardar = function(){
         primitiva.editTicket($scope.ticket)
             .then(function(){
-                angular.element("#modalTitleRegistroEditadoCorrectamente").text("Ticket de Bonoloto editado correctamente");
-                angular.element("#modalTextRegistroEditadoCorrectamente").text("A continuación se le redirigirá al listado de tickets de Bonoloto registrados.");
-                angular.element("#modal-registroEditadoCorrectamente").modal('show');
+                $scope.redirigir();
             })
             .catch(function(err){
                 console.log(err);
@@ -175,10 +173,6 @@ function Controller ($scope, $http, $window, $filter, primitiva){
     };
 
     $scope.redirigir = function(){
-        console.log("Vamos a redirigir");
-
-        var nuevaURL = "/admin/primitiva";
-
-        $window.location.href = nuevaURL;
+        $window.location.href = "/admin/primitiva";
     };
-};
+}

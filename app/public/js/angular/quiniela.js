@@ -1,15 +1,12 @@
 var app = angular.module('qdb');
 
-app.controller('QuinielaController', function ($scope, $http, $window) {
+app.controller('QuinielaController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window'];
+
+function Controller($scope, $http, $window) {
 
     $scope.mensajeInformativoEliminacion = "Si acepta, el comentario será eliminado de forma definitiva.";
-
-
-    /* paginacion */
-
-    $scope.numOfPages;
-
-    $scope.totalItems;
 
     $scope.currentPage = 1;
     $scope.commentsPerPage = 3;
@@ -37,9 +34,6 @@ app.controller('QuinielaController', function ($scope, $http, $window) {
     $scope.comentarioEliminadoCorrectamente = false;
 
     $scope.aceptarCookies = function(){
-
-        console.log("/api/aceptarCookies");
-
         $http.get('/api/aceptarCookies')
             .success(function(data){
                 $scope.mostrarAvisoCookies = data;
@@ -48,9 +42,4 @@ app.controller('QuinielaController', function ($scope, $http, $window) {
                 console.log(data);
             })
     };
-
-});
-
-
-
-
+}

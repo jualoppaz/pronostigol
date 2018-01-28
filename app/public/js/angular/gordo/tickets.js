@@ -8,10 +8,6 @@ function Controller ($scope, $http, $window, $filter, VariosService, gordo) {
 
     $scope.tickets = [];
 
-    $scope.numOfPages;
-
-    $scope.totalItems;
-
     $scope.maxSize = 5;
 
     $scope.currentPage = 1;

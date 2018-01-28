@@ -2,15 +2,15 @@ var app = angular.module('qdb');
 
 app.controller('TicketController', Controller);
 
-Controller.$inject = ['$scope', '$http', 'quiniela'];
+Controller.$inject = ['$scope', '$http', '$window', 'quiniela'];
 
-function Controller ($scope, $http, quiniela) {
+function Controller ($scope, $http, $window, quiniela) {
 
     $scope.ticket = {};
 
     $scope.aciertos = [];
 
-    var url = window.location.href;
+    var url = $window.location.href;
 
     var fragmentos = url.split("/");
     var season = fragmentos[5];
@@ -45,4 +45,4 @@ function Controller ($scope, $http, quiniela) {
             alert(JSON.stringify(data));
             console.log(JSON.stringify(data));
         });
-};
+}

@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('UsuariosController', function ($scope, $http){
+app.controller('UsuariosController', Controller);
+
+Controller.$inject = ['$scope', '$window', '$http'];
+
+function Controller($scope, $window, $http){
 
     $scope.usuarios = {};
 
@@ -15,7 +19,7 @@ app.controller('UsuariosController', function ($scope, $http){
         });
 
     $scope.verUsuario = function(id){
-        window.location.href = "/admin/usuarios/" + id;
+        $window.location.href = "/admin/usuarios/" + id;
     };
 
     $scope.eliminarUsuario = function(id){
@@ -32,4 +36,4 @@ app.controller('UsuariosController', function ($scope, $http){
 
             });
     };
-});
+}

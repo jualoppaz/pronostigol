@@ -1,11 +1,13 @@
 var app = angular.module('dashboard');
 
-app.controller('EmailsController', function ($scope, $http){
+app.controller('EmailsController', Controller);
+
+Controller.$inject = ['$scope', '$window', '$http'];
+
+function Controller($scope, $window, $http){
 
     $scope.emails = {};
     $scope.emailAEliminar = {};
-
-
 
     $http.get('/api/emails')
         .success(function(data){
@@ -15,12 +17,8 @@ app.controller('EmailsController', function ($scope, $http){
             alert("Ha sucedido algún error. Recargue la página.");
         });
 
-
-
-
-
     $scope.verEmail = function(id){
-        window.location.href = "/admin/emails/" + id;
+        $window.location.href = "/admin/emails/" + id;
     };
 
     $scope.eliminarEmail = function(id){
@@ -35,6 +33,6 @@ app.controller('EmailsController', function ($scope, $http){
             })
             .error(function(data){
 
-            })
+            });
     };
-});
+}

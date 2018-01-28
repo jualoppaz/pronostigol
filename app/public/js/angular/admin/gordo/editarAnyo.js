@@ -8,7 +8,7 @@ function Controller ($scope, $http, $window, gordo){
 
     $scope.registro = {};
 
-    var url = window.location.href;
+    var url = $window.location.href;
 
     var fragmentos = url.split("/");
 
@@ -25,9 +25,7 @@ function Controller ($scope, $http, $window, gordo){
     $scope.guardar = function(){
         gordo.editYear($scope.registro)
             .then(function(){
-                angular.element("#modalTitleRegistroEditadoCorrectamente").text("Año editado correctamente");
-                angular.element("#modalTextRegistroEditadoCorrectamente").text("A continuación se le redirigirá al listado de años registrados.");
-                angular.element("#modal-registroEditadoCorrectamente").modal('show');
+                $scope.redirigir();
             })
             .catch(function(err){
                 console.log(err);
@@ -35,10 +33,6 @@ function Controller ($scope, $http, $window, gordo){
     };
 
     $scope.redirigir = function(){
-        console.log("Vamos a redirigir");
-
-        var nuevaURL = "/admin/gordo/anyos";
-
-        $window.location.href = nuevaURL;
+        $window.location.href = "/admin/gordo/anyos";
     };
 }

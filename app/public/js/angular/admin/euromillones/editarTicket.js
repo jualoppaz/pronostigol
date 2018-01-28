@@ -158,9 +158,7 @@ function Controller($scope, $http, $window, $filter, euromillones){
     $scope.guardar = function(){
         euromillones.editTicket($scope.ticket)
             .then(function(){
-                angular.element("#modalTitleRegistroEditadoCorrectamente").text("Ticket de Euromillones editado correctamente");
-                angular.element("#modalTextRegistroEditadoCorrectamente").text("A continuación se le redirigirá al listado de tickets de Euromillones registrados.");
-                angular.element("#modal-registroEditadoCorrectamente").modal('show');
+                $scope.redirigir();
             })
             .catch(function(err){
                 console.log(err);

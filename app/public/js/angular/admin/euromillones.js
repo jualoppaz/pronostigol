@@ -11,10 +11,6 @@ function Controller($scope, $http, $window, euromillones){
 
     $scope.mensajeInformativoEliminacion = "El ticket será eliminado de forma definitiva.";
 
-    $scope.numOfPages;
-
-    $scope.totalItems;
-
     $scope.maxSize = 5;
 
     $scope.currentPage = 1;

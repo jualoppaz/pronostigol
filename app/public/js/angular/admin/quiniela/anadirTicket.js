@@ -61,7 +61,7 @@ function Controller ($scope, $http, $window, quiniela){
         if($scope.quiniela.partidos[0].pronosticos.length < 8){
 
             for(var i=0; i<$scope.quiniela.partidos.length; i++){
-                if(i != $scope.quiniela.partidos.length - 1){
+                if(i !== $scope.quiniela.partidos.length - 1){
                     $scope.quiniela.partidos[i].pronosticos.push({signo: ""});
                 }
             }
@@ -71,9 +71,9 @@ function Controller ($scope, $http, $window, quiniela){
     $scope.eliminarPronostico = function(){
 
         for(var i=0; i<$scope.quiniela.partidos.length; i++){
-            if(i != $scope.quiniela.partidos.length - 1){ //No es el pleno
+            if(i !== $scope.quiniela.partidos.length - 1){ //No es el pleno
                 $scope.quiniela.partidos[i].pronosticos.pop();
-                if($scope.quiniela.partidos[i].pronosticos.length == 1){
+                if($scope.quiniela.partidos[i].pronosticos.length === 1){
                     $scope.quiniela.partidos[i].pronosticos.pop();
                     delete $scope.quiniela.partidos[i].pronosticos;
                 }
@@ -88,21 +88,15 @@ function Controller ($scope, $http, $window, quiniela){
     $scope.guardar = function(){
         quiniela.createTicket($scope.quiniela)
             .then(function(data){
-                angular.element("#modalTitleQuinielaAnadidaCorrectamente").text("Quiniela añadida correctamente");
-                angular.element("#modalTextQuinielaAnadidaCorrectamente").text("A continuación se le redirigirá al listado de quinielas registradas.");
-                angular.element("#modal-quinielaAnadidaCorrectamente").modal('show');
+                $scope.redirigir();
             })
             .catch(function(err){
                 console.log(err);
             });
     };
 
-    $scope.redirigirTrasAnadir = function(){
-        console.log("Vamos a redirigir");
-
-        var nuevaURL = "/admin/quiniela";
-
-        $window.location.href = nuevaURL;
+    $scope.redirigir = function(){
+        $window.location.href = "/admin/quiniela";
     };
 
     $scope.calcularSigno = function(nuevoValor){
@@ -206,4 +200,4 @@ function Controller ($scope, $http, $window, quiniela){
     $scope.esNumero = function(caracter){
         return !isNaN(caracter);
     };
-};
+}

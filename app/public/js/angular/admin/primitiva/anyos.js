@@ -2,9 +2,9 @@ var app = angular.module('dashboard');
 
 app.controller('AnyosController', Controller);
 
-Controller.$inject = ['$scope', '$http', 'primitiva'];
+Controller.$inject = ['$scope', '$http', '$window', 'primitiva'];
 
-function Controller ($scope, $http, primitiva){
+function Controller ($scope, $http, $window, primitiva){
 
     $scope.anyos = {};
     $scope.anyoAEliminar = {};
@@ -26,7 +26,7 @@ function Controller ($scope, $http, primitiva){
         });
 
     $scope.verRegistro = function(id){
-        window.location.href = "/admin/primitiva/anyos/" + id;
+        $window.location.href = "/admin/primitiva/anyos/" + id;
     };
 
     $scope.eliminarRegistro = function(id){
@@ -43,4 +43,4 @@ function Controller ($scope, $http, primitiva){
                 console.log(err);
             });
     };
-};
+}

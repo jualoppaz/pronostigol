@@ -7,7 +7,11 @@ app.config(function(uiSelectConfig) {
     uiSelectConfig.theme = 'bootstrap';
 });
 
-app.controller('LoguedUserController', function($scope, UserService, $http, $window){
+app.controller('LoguedUserController', Controller);
+
+Controller.$inject = ['$scope', 'UserService', '$http', '$window'];
+
+function Controller($scope, UserService, $http, $window){
     $scope.usuarioEstaLogueado = false;
 
     $scope.usuarioLogueado = {};
@@ -21,7 +25,7 @@ app.controller('LoguedUserController', function($scope, UserService, $http, $win
                 $scope.usuarioLogueado = data;
             })
             .error(function(data){
-                if(data == "not-loguedin-user"){
+                if(data === "not-loguedin-user"){
                     $scope.usuarioEstaLogueado = false;
                 }
             });
@@ -29,28 +33,16 @@ app.controller('LoguedUserController', function($scope, UserService, $http, $win
 
     $scope.cerrarSesion = function(){
         $http.get('/api/logout')
-            .success(function(data){
-                /*angular.element("#modalTitleLogout").text("Sesión cerrada correctamente");
-                angular.element("#modalTextLogout").text("Vuelva pronto.");
-                angular.element("#modal-logout").modal('show');*/
-
+            .success(function(){
                 $scope.usuarioEstaLogueado = false;
-
-                // La redireccion esta hecha en cliente, pero seria ideal conseguir hacerla desde el servidor.
-                // El problema es que la redireccion no se lleva bien con las peticiones AJAX.
-
-                $scope.redirigirTrasLogout();
-
+                $scope.redirigir();
             })
             .error(function(data){
                 console.log(data);
             });
     };
 
-    $scope.redirigirTrasLogout = function(){
-        //$window.location.href = window.location.href;
+    $scope.redirigir = function(){
         $window.location.reload();
     };
-
-});
-
+}

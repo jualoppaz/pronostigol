@@ -1,7 +1,10 @@
 var app = angular.module('qdb');
 
-app.controller('SignupController', function ($scope, $http, $timeout, $window) {
-    $scope.caramelos = {};
+app.controller('SignupController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$timeout', '$window'];
+
+function Controller($scope, $http, $timeout, $window) {
     $scope.loguedUser = {};
 
     $scope.form = {};
@@ -41,7 +44,7 @@ app.controller('SignupController', function ($scope, $http, $timeout, $window) {
             $scope.hayErrores = true;
         }else{
             for(var i=0; i<usuario.length;i++){
-                if(usuario.charAt(i) == " "){
+                if(usuario.charAt(i) === " "){
                     $scope.usuarioInvalido = true;
                     $scope.hayErrores = true;
                 }
@@ -59,7 +62,7 @@ app.controller('SignupController', function ($scope, $http, $timeout, $window) {
 
             $http.post('/api/signup', $scope.form)
                 .success(function(data){
-                    if(data == "ok"){
+                    if(data === "ok"){
                         $scope.registroConExito = true;
                         $timeout(function(){
                             $window.location = "/login";
@@ -67,8 +70,7 @@ app.controller('SignupController', function ($scope, $http, $timeout, $window) {
                     }
                 })
                 .error(function(data){
-                    alert(JSON.stringify(data));
-                    if(data == "username-taken"){
+                    if(data === "username-taken"){
                         $scope.usuarioEnUso = true;
                     }else{
                         if(data.usuarioVacio){
@@ -84,4 +86,4 @@ app.controller('SignupController', function ($scope, $http, $timeout, $window) {
                 });
         }
     };
-});
+}

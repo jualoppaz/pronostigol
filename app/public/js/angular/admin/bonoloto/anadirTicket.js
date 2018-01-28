@@ -150,9 +150,7 @@ function Controller ($scope, $http, $window, $filter, bonoloto){
     $scope.guardar = function(){
         bonoloto.createTicket($scope.ticket)
             .then(function(){
-                angular.element("#modalTitleRegistroAnadidoCorrectamente").text("Ticket de Bonoloto añadido correctamente");
-                angular.element("#modalTextRegistroAnadidoCorrectamente").text("A continuación se le redirigirá al listado de tickets de Bonoloto registrados.");
-                angular.element("#modal-registroAnadidoCorrectamente").modal('show');
+                $scope.redirigir();
             })
             .catch(function(err){
                 console.log(err);

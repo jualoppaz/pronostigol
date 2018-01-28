@@ -10,11 +10,7 @@ function Controller ($scope, $http, $filter, gordo) {
     $scope.mostrar.tablaAparicionesPorNumero = false;
 
     $scope.ordenAparicionesPorNumero = null;
-
-    $scope.numOfPages;
-
-    $scope.totalItems;
-
+    
     $scope.maxSize = 5;
 
     $scope.currentPage = 1;

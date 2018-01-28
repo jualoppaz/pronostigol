@@ -1,6 +1,10 @@
 var app = angular.module('lagloria');
 
-app.controller('ComentariosController', function($scope, $http){
+app.controller('ComentariosController', Controller);
+
+Controller.$inject = ['$scope', '$http'];
+
+function Controller($scope, $http){
 
     $scope.comentarioEditadoCorrectamente = false;
     $scope.comentarioEliminadoCorrectamente = false;
@@ -10,9 +14,7 @@ app.controller('ComentariosController', function($scope, $http){
     $scope.ocultarAlerts = function(){
         $scope.comentarioEditadoCorrectamente = false;
         $scope.comentarioEliminadoCorrectamente = false;
-
     };
-
 
     $scope.comentar = function(){
 
@@ -30,11 +32,11 @@ app.controller('ComentariosController', function($scope, $http){
             })
             .error(function(data){
 
-            })
+            });
     };
 
     $scope.hayComentarios = function(){
-        if($scope.producto.comments == undefined){
+        if($scope.producto.comments == null){
             return false;
         }else{
             return $scope.producto.comments.length > 0;
@@ -81,5 +83,4 @@ app.controller('ComentariosController', function($scope, $http){
                 alert(data);
             })
     };
-
-});
+}

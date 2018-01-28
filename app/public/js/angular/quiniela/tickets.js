@@ -7,11 +7,7 @@ Controller.$inject = ['$scope', '$http', '$window', 'quiniela'];
 function Controller ($scope, $http, $window, quiniela) {
 
     $scope.tickets = [];
-
-    $scope.numOfPages;
-
-    $scope.totalItems;
-
+    
     $scope.currentPage = 1;
     $scope.ticketsPerPage = 5;
     $scope.maxSize = 5;
@@ -77,5 +73,4 @@ function Controller ($scope, $http, $window, quiniela) {
     $scope.apuestaRealizada = function(ticket){
         return VariosService.apuestaRealizada(ticket);
     };
-
-};
+}

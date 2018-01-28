@@ -2,19 +2,15 @@ var app = angular.module('dashboard');
 
 app.controller('GordoController', Controller);
 
-Controller.$inject = ['$scope', '$http', 'gordo'];
+Controller.$inject = ['$scope', '$http', '$window', 'gordo'];
 
-function Controller ($scope, $http, gordo){
+function Controller ($scope, $http, $window, gordo){
 
     $scope.tickets = [];
     $scope.ticketAEliminar = {};
 
     $scope.mensajeInformativoEliminacion = "El ticket será eliminado de forma definitiva.";
-
-    $scope.numOfPages;
-
-    $scope.totalItems;
-
+    
     $scope.maxSize = 5;
 
     $scope.currentPage = 1;
@@ -44,7 +40,7 @@ function Controller ($scope, $http, gordo){
         });
 
     $scope.verTicket = function(id){
-        window.location.href = "/admin/gordo/tickets/" + id;
+        $window.location.href = "/admin/gordo/tickets/" + id;
     };
 
     $scope.eliminarTicket = function(id){

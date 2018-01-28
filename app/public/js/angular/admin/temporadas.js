@@ -1,6 +1,10 @@
 var app = angular.module('dashboard');
 
-app.controller('TemporadasController', function ($scope, $http){
+app.controller('TemporadasController', Controller);
+
+Controller.$inject = ['$scope', '$window', '$http'];
+
+function Controller($scope, $window, $http){
 
     $scope.temporadas = {};
     $scope.competicionAEliminar = {};
@@ -25,7 +29,7 @@ app.controller('TemporadasController', function ($scope, $http){
         });
 
     $scope.verRegistro = function(id){
-        window.location.href = "/admin/temporadas/" + id;
+        $window.location.href = "/admin/temporadas/" + id;
     };
 
     $scope.eliminarRegistro = function(id){
@@ -73,6 +77,4 @@ app.controller('TemporadasController', function ($scope, $http){
 
         return res;
     };
-
-
-});
+}

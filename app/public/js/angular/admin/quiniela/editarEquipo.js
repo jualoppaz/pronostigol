@@ -8,7 +8,7 @@ function Controller ($scope, $http, $window, quiniela){
 
     $scope.equipo = {};
 
-    var url = window.location.href;
+    var url = $window.location.href;
 
     var fragmentos = url.split("/");
 
@@ -25,9 +25,7 @@ function Controller ($scope, $http, $window, quiniela){
     $scope.guardar = function(){
         quiniela.editTeam($scope.equipo)
             .then(function(){
-                angular.element("#modalTitleRegistroEditadoCorrectamente").text("Equipo editado correctamente");
-                angular.element("#modalTextRegistroEditadoCorrectamente").text("A continuación se le redirigirá al listado de equipos registrados.");
-                angular.element("#modal-registroEditadoCorrectamente").modal('show');
+                $scope.redirigir();
             })
             .catch(function(err){
                 console.log(err);
@@ -35,10 +33,6 @@ function Controller ($scope, $http, $window, quiniela){
     };
 
     $scope.redirigir = function(){
-        console.log("Vamos a redirigir");
-
-        var nuevaURL = "/admin/quiniela/equipos";
-
-        $window.location.href = nuevaURL;
+        $window.location.href = "/admin/quiniela/equipos";
     };
-};
+}

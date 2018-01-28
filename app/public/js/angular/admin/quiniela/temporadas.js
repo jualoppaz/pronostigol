@@ -77,4 +77,4 @@ function Controller ($scope, $http, $window, quiniela){
 
         return res;
     };
-};
+}

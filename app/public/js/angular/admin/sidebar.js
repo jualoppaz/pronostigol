@@ -1,20 +1,24 @@
 var app = angular.module('dashboard');
 
-app.controller('SidebarController', function ($scope, $http, $window){
+app.controller('SidebarController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window'];
+
+function Controller($scope, $http, $window){
 
     $scope.loteria = "";
 
     var url = $window.location.href;
 
-    if(url.indexOf("/quiniela") != -1){
+    if(url.indexOf("/quiniela") !== -1){
         $scope.loteria = "quiniela";
-    }else if(url.indexOf("/bonoloto") != -1){
+    }else if(url.indexOf("/bonoloto") !== -1){
         $scope.loteria = "bonoloto";
-    }else if(url.indexOf("/primitiva") != -1){
+    }else if(url.indexOf("/primitiva") !== -1){
         $scope.loteria = "primitiva";
-    }else if(url.indexOf("/gordo") != -1){
+    }else if(url.indexOf("/gordo") !== -1){
         $scope.loteria = "gordo";
-    }else if(url.indexOf("/euromillones") != -1){
+    }else if(url.indexOf("/euromillones") !== -1){
         $scope.loteria = "euromillones";
     }
 
@@ -57,5 +61,4 @@ app.controller('SidebarController', function ($scope, $http, $window){
         .error(function(data){
             console.log(data);
         });
-
-});
+}

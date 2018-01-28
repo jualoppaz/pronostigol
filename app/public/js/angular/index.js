@@ -1,21 +1,15 @@
 var app = angular.module('qdb');
 
-app.controller('IndexController', function ($scope, $http, $window, $filter) {
+app.controller('IndexController', Controller);
+
+Controller.$inject = ['$scope', '$http', '$window', '$filter'];
+
+function Controller($scope, $http, $window, $filter) {
 
     $scope.mensajeInformativoEliminacion = "Si acepta, el comentario será eliminado de forma definitiva.";
 
-
-    /* paginacion */
-
-    $scope.numOfPages;
-
-    $scope.totalItems;
-
     $scope.currentPage = 1;
     $scope.commentsPerPage = 3;
-
-    /*fin paginacion*/
-
 
     $scope.fecha = "empty";
     $scope.visitorInfo = "empty";
@@ -43,12 +37,11 @@ app.controller('IndexController', function ($scope, $http, $window, $filter) {
             $scope.fecha = data.fecha;
         })
         .error(function(data){
-            if(data == "not-avaible"){
+            if(data === "not-avaible"){
                 $scope.fecha = "No disponible";
-            }else if(data == "local-environment"){
+            }else if(data === "local-environment"){
                 $scope.fecha = "Estamos en local";
             }
-
         });
 
     $http.get('/getVisitorInfo')
@@ -89,7 +82,7 @@ app.controller('IndexController', function ($scope, $http, $window, $filter) {
             $scope.usuarioEsAnonimo = false;
         })
         .error(function(data){
-            if(data == "not-logued-in"){
+            if(data === "not-logued-in"){
                 $scope.usuarioEstaLogueado = false;
                 $scope.usuarioEsAnonimo = true;
             }else{
@@ -103,14 +96,13 @@ app.controller('IndexController', function ($scope, $http, $window, $filter) {
             var aux = [];
 
             for(var i=0; aux.length<4; i++){ // Nos quedamos con los 4 tweets mas recientes
-                if(data[i].text.indexOf("RT @") == -1){
+                if(data[i].text.indexOf("RT @") === -1){
                     aux[aux.length] = data[i];
                 }
             }
 
             for(var j=0; j<aux.length; j++){ // Cambiamos el formato de las fechas
-                var fecha = new Date(aux[j].created_at);
-                aux[j].created_at = fecha;
+                aux[j].created_at = new Date(aux[j].created_at);
             }
 
             $scope.tweets = aux;
@@ -161,11 +153,11 @@ app.controller('IndexController', function ($scope, $http, $window, $filter) {
             $scope.comentarioVacio = true;
             hayErrores = true;
         }else{
-            if(comentario.texto == null || comentario.texto == "" || comentario.texto.trim() == ""){
+            if(comentario.texto == null || comentario.texto === "" || comentario.texto.trim() === ""){
                 $scope.comentarioVacio = true;
                 hayErrores = true;
             }else{
-                var palabras = comentario.texto.split(" ");
+                palabras = comentario.texto.split(" ");
             }
         }
 
@@ -246,15 +238,15 @@ app.controller('IndexController', function ($scope, $http, $window, $filter) {
 
 
     $scope.navegarA = function(seccion){
-        if(seccion == "Q"){
+        if(seccion === "Q"){
             $window.location.href = "/quiniela";
-        }else if(seccion == "B"){
+        }else if(seccion === "B"){
             $window.location.href = "/bonoloto";
-        }else if(seccion == "P"){
+        }else if(seccion === "P"){
             $window.location.href = "/primitiva";
-        }else if(seccion == "G"){
+        }else if(seccion === "G"){
             $window.location.href = "/gordo";
-        }else if(seccion == "E"){
+        }else if(seccion === "E"){
             $window.location.href = "/euromillones";
         }
     };
@@ -292,11 +284,4 @@ app.controller('IndexController', function ($scope, $http, $window, $filter) {
         }
 
     };
-
-
-
-});
-
-
-
-
+}

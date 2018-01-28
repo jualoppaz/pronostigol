@@ -2,19 +2,15 @@ var app = angular.module('dashboard');
 
 app.controller('PrimitivaController', Controller);
 
-Controller.$inject = ['$scope', '$http', 'primitiva'];
+Controller.$inject = ['$scope', '$http', '$window', 'primitiva'];
 
-function Controller ($scope, $http, primitiva){
+function Controller ($scope, $http, $window, primitiva){
 
     $scope.tickets = [];
     $scope.ticketAEliminar = {};
 
     $scope.mensajeInformativoEliminacion = "El ticket será eliminado de forma definitiva.";
-
-    $scope.numOfPages;
-
-    $scope.totalItems;
-
+    
     $scope.maxSize = 5;
 
     $scope.currentPage = 1;
@@ -43,7 +39,7 @@ function Controller ($scope, $http, primitiva){
         });
 
     $scope.verTicket = function(id){
-        window.location.href = "/admin/primitiva/tickets/" + id;
+        $window.location.href = "/admin/primitiva/tickets/" + id;
     };
 
     $scope.eliminarTicket = function(id){
@@ -53,7 +49,7 @@ function Controller ($scope, $http, primitiva){
 
     $scope.eliminarRegistroDefinitivamente = function(){
         primitiva.deleteTicketById($scope.ticketAEliminar)
-            .then(function(data){
+            .then(function(){
                 return primitiva.getAllTickets();
             })
             .then(function(data){
@@ -63,4 +59,4 @@ function Controller ($scope, $http, primitiva){
                 console.log(err);
             });
     };
-};
+}

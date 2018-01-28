@@ -2,9 +2,9 @@ var app = angular.module('dashboard');
 
 app.controller('AnyosController', Controller);
 
-Controller.$inject = ['$scope', '$http', 'bonoloto'];
+Controller.$inject = ['$scope', '$http', '$window', 'bonoloto'];
 
-function Controller ($scope, $http, bonoloto){
+function Controller ($scope, $http, $window, bonoloto){
 
     $scope.anyos = {};
     $scope.anyoAEliminar = {};
@@ -27,7 +27,7 @@ function Controller ($scope, $http, bonoloto){
         });
 
     $scope.verRegistro = function(id){
-        window.location.href = "/admin/bonoloto/anyos/" + id;
+        $window.location.href = "/admin/bonoloto/anyos/" + id;
     };
 
     $scope.eliminarRegistro = function(id){
