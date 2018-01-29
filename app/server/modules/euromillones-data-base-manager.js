@@ -110,7 +110,7 @@ exports.addNewTicket = function(ticket, callback){
     var fecha = trozos[2] + "-" + trozos[1] + "-" + trozos[0];
 
     euromillones_tickets.insert({
-        anyo: ticket.anyo,
+        anyo: Number(ticket.anyo),
         fecha: new Date(fecha),
         sorteo: Number(ticket.sorteo),
         precio: parseFloat(ticket.precio),
