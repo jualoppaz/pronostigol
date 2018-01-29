@@ -246,16 +246,16 @@ function Controller($scope, $http, VariosService, $window, euromillones) {
     $scope.ticketSiguiente = function(){
 
         var sorteo = Number($scope.ticket.sorteo) + 1;
+        var tickets;
 
         euromillones.getTickets({
             year: $scope.ticket.anyo,
             raffle: sorteo
         })
             .then(function(data){
-                if(data.length > 0 && data[0].sorteo){
-                    $window.location.href = "/euromillones/tickets/" + data.anyo + "/" + data.sorteo;
-
-                    console.log("/euromillones/tickets/" + data.anyo + "/" + data.sorteo);
+                tickets = data.data;
+                if(tickets.length > 0 && tickets[0].sorteo){
+                    $window.location.href = "/euromillones/tickets/" + tickets[0].anyo + "/" + tickets[0].sorteo;
                 }else{
                     var anyo = Number($scope.ticket.anyo) + 1;
                     euromillones.getTickets({
@@ -263,18 +263,17 @@ function Controller($scope, $http, VariosService, $window, euromillones) {
                         raffle: 1
                     })
                         .then(function(data){
-                            if(data.length > 0 && data[0].sorteo){
-                                $window.location.href = "/euromillones/tickets/" + data[0].anyo + "/" + data[0].sorteo;
+                            tickets = data.data;
+                            if(tickets.length > 0 && tickets[0].sorteo){
+                                $window.location.href = "/euromillones/tickets/" + tickets[0].anyo + "/" + tickets[0].sorteo;
                             }else{
                                 console.log("No hay tickets más recientes o hay un salto entre el ticket actual y el próximo.");
                             }
-
                         })
                         .catch(function(err){
                             console.log(err);
                         });
                 }
-
             })
             .catch(function(err){
                 console.log(err);
@@ -284,6 +283,7 @@ function Controller($scope, $http, VariosService, $window, euromillones) {
     $scope.ticketAnterior = function(){
 
         var nuevoSorteo = Number($scope.getDayFromURL()) - 1;
+        var tickets;
 
         if(nuevoSorteo >= 1) {
 
@@ -292,13 +292,15 @@ function Controller($scope, $http, VariosService, $window, euromillones) {
                 raffle: nuevoSorteo
             })
                 .then(function(data) {
-                    if(data.length > 0 && data[0].sorteo) {
-                        $window.location.href = "/euromillones/tickets/" + data.anyo + "/" + nuevoSorteo;
+                    tickets = data.data;
+                    if(tickets.length > 0 && tickets[0].sorteo) {
+                        $window.location.href = "/euromillones/tickets/" + tickets[0].anyo + "/" + nuevoSorteo;
                     }else{
                         $http.get('/query/euromillones/higherDayByYear/' + $scope.getAnyoFromURL())
                             .success(function (data) {
-                                if(data.sorteo){
-                                    $window.location.href = "/euromillones/tickets/" + data.anyo + "/" + data.sorteo;
+                                tickets = data.data;
+                                if(tickets[0].sorteo){
+                                    $window.location.href = "/euromillones/tickets/" + tickets[0].anyo + "/" + tickets[0].sorteo;
                                 }else{
                                     console.log("No hay tickets anteriores o hay un salto en las fechas.");
                                 }
@@ -317,8 +319,9 @@ function Controller($scope, $http, VariosService, $window, euromillones) {
 
             $http.get('/query/euromillones/higherDayByYear/' + anyo)
                 .success(function (data) {
-                    if(data.sorteo){
-                        $window.location.href = "/euromillones/tickets/" + data.anyo + "/" + data.sorteo;
+                    tickets = data.data;
+                    if(tickets[0].sorteo){
+                        $window.location.href = "/euromillones/tickets/" + tickets[0].anyo + "/" + tickets[0].sorteo;
                     }else{
                         console.log("No hay tickets anteriores o hay un salto en las fechas.");
                         $scope.mostrarFlechaAnterior = false;
@@ -341,5 +344,4 @@ function Controller($scope, $http, VariosService, $window, euromillones) {
 
         return url.split("/")[6];
     };
-
 }
