@@ -26,15 +26,13 @@ function Controller($scope, $http, $window, $filter, euromillones){
             console.log(err);
         });
 
-    $scope.anyos = [
-        {
-            name: "2014",
-            value: "2014"
-        },{
-            name: "2015",
-            value: "2015"
-        }
-    ];
+    euromillones.getAllYears()
+        .then(function(data){
+            $scope.anyos = data;
+        })
+        .catch(function(err){
+            console.log(err);
+        });
 
     $scope.ticket.resultado = {
         bolas: [
