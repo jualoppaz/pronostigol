@@ -40,14 +40,10 @@ block content
                             div.col-sm-4
                                 input(ng-model="quiniela.premio").form-control
 
-
                         div.col-md-4.col-md-offset-8
                             a.pull-right(href="", ng-click="anadirPronostico()").pointer Añadir pronóstico
                         div.col-md-4.col-md-offset-8
                             a.pull-right(href="", ng-click="eliminarPronostico()").pointer Eliminar pronóstico
-
-
-                        //pre {{quiniela}}
 
                         div.table-responsive
                             table.table.table-bordered.col-md-12.col-sm-12.col-xs-12
@@ -57,7 +53,6 @@ block content
                                         th(colspan="{{quiniela.partidos[0].pronosticos.length}}") Pronósticos
                                     tr
                                         th Fila
-                                        //th Temporada
                                         th Competición
                                         th Jornada
                                         th Local
@@ -68,34 +63,26 @@ block content
                                         th R. Pleno
                                         th(ng-repeat="pronostico in quiniela.partidos[0].pronosticos track by $index", ng-bind-template="{{$index + 1}}")
 
-
-
-
                                 tbody
                                     tr(ng-repeat="partido in quiniela.partidos")
-                                        td(ng-bind-template="{{partido.fila}}")
-                                        //td
-                                            input.form-control(ng-model="partido.temporada")
+                                        td.align-middle(ng-bind-template="{{partido.fila}}")
                                         td(style="min-width: 150px")
-                                            //input.form-control(ng-model="partido.competicion")
                                             input#competicionSeleccionada(type="text", placeholder="Todas", ng-model="partido.competicion", uib-typeahead="competicion.value as competicion.name for competicion in competiciones | filter:{name:$viewValue}").form-control
                                         td
                                             input.form-control(ng-model="partido.jornada").text-center
                                         td(style="min-width: 200px")
-                                            //input.form-control(ng-model="partido.local")
                                             input#equipoSeleccionado.form-control(ng-model="partido.local", placeholder="Equipo", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
                                         td
                                             input.form-control(ng-model="partido.golesLocal").text-center
                                         td
                                             input.form-control(ng-model="partido.golesVisitante").text-center
                                         td(style="min-width: 200px")
-                                            //input.form-control(ng-model="partido.visitante")
                                             input#equipoSeleccionado.form-control(ng-model="partido.visitante", placeholder="Equipo", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
                                         td
                                             input.form-control(ng-model="partido.resultado").text-center
                                         td(ng-show="partido.fila == 15")
                                             input.form-control(ng-model="partido.resultadoConGoles").text-center
-                                        td(ng-show="partido.fila < 15")
+                                        td.align-middle(ng-show="partido.fila < 15")
                                             | N/A
                                         td(style="min-width: 60px", ng-repeat="pronostico in partido.pronosticos", ng-show="partido.fila < 15")
                                             input.form-control(ng-model="pronostico.signo").text-center
@@ -108,11 +95,6 @@ block content
                                 a.btn.btn-default(href="/admin/quiniela", role="button")#cancel Cancelar
                             div.col-sm-2(style="text-align:right")
                                 a.btn.btn-default.btn-primary(href="#", role="button", ng-click="guardar()")#confirmarEliminacion Aceptar
-
-
-                        //pre {{quiniela.partidos[0].pronosticos}}
-
-                        //pre {{quiniela}}
 
                         include ../../modals/quinielaAnadidaCorrectamente
 
