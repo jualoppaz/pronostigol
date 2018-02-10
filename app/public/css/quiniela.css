@@ -366,6 +366,10 @@ h1.green, h1.red{
     border-radius: 10px !important;
 }
 
+.badge-azul{
+    background-color: #0480be;
+}
+
 label{
     padding-top: 5px;
 }
