@@ -1492,7 +1492,7 @@ exports.getAllAppearedResults = function(callback){
                         else: {
                             $cond: {
                                 if: {
-                                    $eq: [undefined, "$partidos.resultadoConGoles"]
+                                    $eq: ["-", "$partidos.resultadoConGoles"]
                                 },
                                 then: "$partidos.resultado",
                                 else: "$partidos.resultadoConGoles"
