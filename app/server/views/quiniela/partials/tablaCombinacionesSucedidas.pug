@@ -7,7 +7,8 @@ div.table-responsive(style="margin-top: 15px", ng-if="mostrarCombinacionesSucedi
                 th(ng-bind-template="Apariciones")
 
         tbody
-            tr(ng-repeat="(key, value) in resultadosSucedidos | orderBy:'value'")
+            tr(ng-repeat="combinacion in resultadosSucedidos | orderBy:'value'")
                 td(ng-bind-template="{{$index+1}}")
-                td(ng-bind-template="{{key}}")
-                td(ng-bind-template="{{value}}")
+                td
+                    span.badge.badge-azul(ng-repeat="resultado in combinacion.resultados", ng-bind-template="{{resultado.resultado}}")
+                td(ng-bind-template="{{combinacion.apariciones}}")

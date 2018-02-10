@@ -943,48 +943,13 @@ module.exports = function(app){
     var quiniela_api_historicoPartidosPorCombinaciones = function(req, res){
         var resultados = [];
         var resultadosPorRepeticiones = {};
-        var temporadasConsultadas = 0;
 
         QUI_DBM.getAllAppearedResults(function(err, result){
             if(err){
                 return res.status(400).send(err);
             }
 
-            try{
-                for(var i=0; i<result.length; i++){
-                    var resultadosTicket = [];
-                    var ticket = result[i];
-                    var partidos = ticket.partidos;
-                    var resultadoString = "";
-
-                    for(var p=0; p<partidos.length; p++){
-                        resultadosTicket.push({
-                            resultado: partidos[p].resultado
-                        });
-
-                        resultadoString += partidos[p].resultado;
-                    }
-
-                    resultados.push({
-                        temporada: ticket.temporada,
-                        jornada: ticket.jornada,
-                        string: resultadoString,
-                        longitud: resultadoString.length
-                    });
-
-                    if(resultadosPorRepeticiones[resultadoString]){
-                        resultadosPorRepeticiones[resultadoString] = resultadosPorRepeticiones[resultadoString] + 1;
-                    }else{
-                        resultadosPorRepeticiones[resultadoString] = 1;
-                    }
-                }
-
-                temporadasConsultadas += 1;
-            }catch(Exception){
-                temporadasConsultadas += 1;
-            }
-
-            res.status(200).send(resultadosPorRepeticiones);
+            res.status(200).send(JSON.stringify(result, null, 4));
         });
     };
 

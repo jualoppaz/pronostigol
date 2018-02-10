@@ -1474,8 +1474,65 @@ exports.getAllTickets = function(callback){
 
 exports.getAllAppearedResults = function(callback){
 
-    tickets.find()
-    .toArray(function(err, res){
+    tickets.aggregate([
+        {
+            $unwind: "$partidos"
+        },{
+            $project: {
+                "_id": 0
+                ,"temporada": 1
+                ,"jornada": 1
+                ,"partidos.fila": 1
+                ,"partidos.resultado": {
+                    $cond: {
+                        if: {
+                            $ne: ["15", "$partidos.fila"]
+                        },
+                        then: "$partidos.resultado",
+                        else: {
+                            $cond: {
+                                if: {
+                                    $eq: [undefined, "$partidos.resultadoConGoles"]
+                                },
+                                then: "$partidos.resultado",
+                                else: "$partidos.resultadoConGoles"
+                            }
+                        }
+                    }
+                }
+            }
+        }, {
+            $group: {
+                "_id": {
+                    "jornada": "$jornada",
+                    "temporada": "$temporada"
+                },
+                "partidos": {
+                    $push: "$partidos"
+                }
+            }
+        }, {
+            $project: {
+                "_id": 0,
+                "jornada": "$_id.jornada",
+                "temporada": "$_id.temporada",
+                "resultados": "$partidos"
+            }
+        }, {
+            $group: {
+                "_id": "$resultados",
+                "apariciones": {
+                    $sum: 1
+                }
+            }
+        }, {
+            $project: {
+                "_id": 0,
+                "resultados": "$_id",
+                "apariciones": 1
+            }
+        }
+    ], function(err, res){
         if(err){
             callback(err);
         }else{
