@@ -608,42 +608,19 @@ exports.actualizarVisitas = function(ipRouter, navegador, so, callback){
                             navegador: navegador
                         }
                     }
+                }, {
+                    upsert: true
                 }, function(e, res){
                     if(e){
-                        console.log(e);
-                        callback(e);
+                        var message = "No se ha podido añadir.";
+                        console.log(message);
+                        callback(message);
                     }else{
-                        if(!res){
-
-                            console.log("No habia datos de este usuario. Vamos a añadirlo de cero.");
-                            visits.insert({
-                                "routerIpAddress": ipRouter,
-                                "visitas": [{
-                                    fecha: fechaActual,
-                                    fechaOffset: fechaActual.getTimezoneOffset(),
-                                    so: so,
-                                    navegador: navegador
-                                }]
-                            }, function(err, res){
-                                if(err){
-                                    console.log(err);
-                                    callback(err);
-                                }else{
-                                    if(!res){
-                                        var message = "No se ha podido añadir.";
-                                        console.log(message);
-                                        callback(message);
-                                    }else{
-                                        callback(null, 'ok');
-                                    }
-                                }
-                            });
-                        }else{
-                            callback(null, 'actualizado');
-                        }
+                        callback(null, 'ok');
                     }
                 });
             }else{
+                console.log("No hay que actualizar");
                 callback(null, 'no hay que actualizar');
             }
         }
