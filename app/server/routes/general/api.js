@@ -78,23 +78,23 @@ module.exports = function(app){
             }
         }
 
-        if(!hayErrores){
-            GEN_DBM.addNewAccount({
-                user 	    : usuario,
-                pass	    : pass,
-                estaActivo  : true,
-                role        : ROL.BASIC,
-                estaBaneado : false
-            }, function(e){
-                if (e){
-                    return res.status(400).send(e);
-                }
-
-                res.status(200).send('ok');
-            });
+        if(hayErrores){
+            return res.status(400).send(errores);
         }
 
-        return res.status(400).send(errores);
+        GEN_DBM.addNewAccount({
+            user 	    : usuario,
+            pass	    : pass,
+            estaActivo  : true,
+            role        : ROL.BASIC,
+            estaBaneado : false
+        }, function(e){
+            if (e){
+                return res.status(400).send(e);
+            }
+
+            return res.status(200).send('ok');
+        });
     };
 
     var general_api_usuarioLogueado = function(req, res) {
