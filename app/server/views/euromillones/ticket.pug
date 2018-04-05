@@ -77,7 +77,7 @@ block content
                                             th Bola 4
                                             th Bola 5
                                             th(ng-repeat="a in [1,2]", ng-bind-template="Estrella {{a}}")
-                                            th N&iacute;mero de aciertos
+                                            th N&uacute;mero de aciertos
                                             th Categor&iacute;a de Premio
 
                                     tbody
@@ -86,8 +86,7 @@ block content
 
                                             td(ng-repeat="bola in combinacion.numeros").text-center
                                                 span.badge.badge-verde(ng-show="bolaHaSidoAcertada(bola)", ng-bind-template="{{bola.numero}}")
-                                                span.badge.badge-naranja(ng-show="bolaHaSidoAcertadaComoComplementario(bola)", ng-bind-template="{{bola.numero}}")
-                                                span.badge.badge-rojo(ng-show="!bolaHaSidoAcertada(bola) && !bolaHaSidoAcertadaComoComplementario(bola)", ng-bind-template="{{bola.numero}}")
+                                                span.badge.badge-rojo(ng-show="!bolaHaSidoAcertada(bola)", ng-bind-template="{{bola.numero}}")
 
                                             td.text-center
                                                 span.badge.badge-verde(ng-show="combinacion.estrellas[0].numero == ticket.resultado.estrellas[0].numero || combinacion.estrellas[0].numero == ticket.resultado.estrellas[1].numero", ng-bind-template="{{combinacion.estrellas[0].numero}}")

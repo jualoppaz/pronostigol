@@ -12,6 +12,10 @@
         var apiPrefix = "/api/euromillones";
 
         var service = {
+            // Utils
+            getPrizeCategory: getPrizeCategory,
+            getSuccessfulNumbersAmount: getSuccessfulNumbersAmount,
+            isSuccessfulNumber: isSuccessfulNumber,
             // Tickets
             getTickets: getTickets,
             getTicketById: getTicketById,
@@ -33,6 +37,174 @@
         };
 
         return service;
+
+        function getPrizeCategory(resultado, combinacion){
+            var res = "";
+    
+            var resultado = resultado;
+    
+            var numeroAciertos = 0;
+    
+            var numeroEstrellasAcertadas = 0;
+    
+            // Determinamos cuantas bolas se han acertado de las 5
+    
+            for(var i=0; i<combinacion.numeros.length; i++){
+                for(var j=0; j<resultado.bolas.length; j++){
+                    if(combinacion.numeros[i].numero === resultado.bolas[j].numero){
+                        numeroAciertos += 1;
+                    }
+                }
+            }
+    
+            for(i=0; i<combinacion.estrellas.length; i++){
+                for(j=0; j<resultado.estrellas.length; j++){
+                    if(combinacion.estrellas[i].numero === resultado.estrellas[j].numero){
+                        numeroEstrellasAcertadas += 1;
+                    }
+                }
+            }
+    
+            if(numeroAciertos === 5){
+                if(numeroEstrellasAcertadas === 2){
+                    res = "1ª Categoría";
+                }else if(numeroEstrellasAcertadas === 1){
+                    res = "2ª Categoría";
+                }else{
+                    res = "3ª Categoría";
+                }
+            }else if(numeroAciertos === 4){
+                if(numeroEstrellasAcertadas === 2){
+                    res = "4ª Categoría";
+                }else if(numeroEstrellasAcertadas === 1){
+                    res = "5ª Categoría";
+                }else{
+                    res = "6ª Categoría";
+                }
+            }else if(numeroAciertos === 3){
+                if(numeroEstrellasAcertadas === 2){
+                    res = "7ª Categoría";
+                }else if(numeroEstrellasAcertadas === 1){
+                    res = "9ª Categoría";
+                }else{
+                    res = "10ª Categoría";
+                }
+            }else if(numeroAciertos === 2){
+                if(numeroEstrellasAcertadas === 2){
+                    res = "8ª Categoría";
+                }else if(numeroEstrellasAcertadas === 1){
+                    res = "12ª Categoría";
+                }else{
+                    res = "13ª Categoría";
+                }
+            }else if(numeroAciertos === 1){
+                if(numeroEstrellasAcertadas === 2){
+                    res = "11ª Categoría";
+                }else{
+                    res = "-";
+                }
+            }else{
+                res = "-";
+            }
+    
+            return res;
+    
+        };
+
+        function getSuccessfulNumbersAmount(resultado, combinacion){
+
+            var res = "";
+    
+            var resultado = resultado;
+    
+            var numeroAciertos = 0;
+    
+            var numeroEstrellasAcertadas = 0;
+    
+            // Determinamos cuantas bolas se han acertado de las 5
+    
+            for(var i=0; i<combinacion.numeros.length; i++){
+                for(var j=0; j<resultado.bolas.length; j++){
+                    if(combinacion.numeros[i].numero === resultado.bolas[j].numero){
+                        numeroAciertos += 1;
+                    }
+                }
+            }
+    
+            for(i=0; i<combinacion.estrellas.length; i++){
+                for(j=0; j<resultado.estrellas.length; j++){
+                    if(combinacion.estrellas[i].numero === resultado.estrellas[j].numero){
+                        numeroEstrellasAcertadas += 1;
+                    }
+                }
+            }
+    
+            if(numeroAciertos === 5){
+                if(numeroEstrellasAcertadas === 2){
+                    res = "5 + 2 E";
+                }else if(numeroEstrellasAcertadas === 1){
+                    res = "5 + 1 E";
+                }else{
+                    res = "5";
+                }
+            }else if(numeroAciertos === 4){
+                if(numeroEstrellasAcertadas === 2){
+                    res = "4 + 2 E";
+                }else if(numeroEstrellasAcertadas === 1){
+                    res = "4 + 1 E";
+                }else{
+                    res = "4";
+                }
+            }else if(numeroAciertos === 3){
+                if(numeroEstrellasAcertadas === 2){
+                    res = "3 + 2 E";
+                }else if(numeroEstrellasAcertadas === 1){
+                    res = "3 + 1 E";
+                }else{
+                    res = "3";
+                }
+            }else if(numeroAciertos === 2){
+                if(numeroEstrellasAcertadas === 2){
+                    res = "2 + 2 E";
+                }else if(numeroEstrellasAcertadas === 1){
+                    res = "2 + 1 E";
+                }else{
+                    res = "2";
+                }
+            }else if(numeroAciertos === 1){
+                if(numeroEstrellasAcertadas === 2){
+                    res = "1 + 2 E";
+                }else if(numeroEstrellasAcertadas === 1){
+                    res = "1 + 1 E";
+                }else{
+                    res = "1";
+                }
+            }else if(numeroAciertos === 0){
+                if(numeroEstrellasAcertadas === 2){
+                    res = "0 + 2 E";
+                }else if(numeroEstrellasAcertadas === 1){
+                    res = "0 + 1 E";
+                }else{
+                    res = "0";
+                }
+            }
+    
+            return res;
+        }
+
+        function isSuccessfulNumber(resultado, bola){
+            var resultado = resultado;
+            var res = false;
+    
+            for(var i=0; i<resultado.bolas.length; i++){
+                if(bola.numero === resultado.bolas[i].numero){
+                    res = true;
+                    break;
+                }
+            }
+    
+            return res;
+        };
 
         function getTickets(queryParameters){
             var defered = $q.defer();
