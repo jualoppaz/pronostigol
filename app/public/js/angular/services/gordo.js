@@ -189,7 +189,7 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/historical/aparicionesPorNumero')
+            $http.get(apiPrefix + '/historical/occurrencesByNumber')
                 .then(function(data){
                     defered.resolve(data.data);
                 })
@@ -204,7 +204,7 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/historical/aparicionesPorResultado')
+            $http.get(apiPrefix + '/historical/occurrencesByResult')
                 .then(function(data){
                     defered.resolve(data.data);
                 })
@@ -219,7 +219,7 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/historical/aparicionesPorResultadoConNumeroClave')
+            $http.get(apiPrefix + '/historical/occurrencesByResultWithSpecialNumber')
                 .then(function(data){
                     defered.resolve(data.data);
                 })
@@ -234,7 +234,7 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/historical/aparicionesPorNumeroClave')
+            $http.get(apiPrefix + '/historical/OccurrencesBySpecialNumber')
                 .then(function(data){
                     defered.resolve(data.data);
                 })

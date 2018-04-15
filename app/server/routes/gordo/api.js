@@ -80,7 +80,7 @@ module.exports = function(app){
         });
     };
 
-    var gordo_api_nuevoTicket = function(req, res){
+    var gordo_api_newTicket = function(req, res){
         var body = req.body;
         var ticket = {};
 
@@ -109,7 +109,7 @@ module.exports = function(app){
         });
     };
 
-    var gordo_api_editarTicket = function(req, res){
+    var gordo_api_editTicket = function(req, res){
 
         var ticket = req.body;
 
@@ -130,7 +130,7 @@ module.exports = function(app){
         });
     };
 
-    var gordo_api_borrarTicket = function(req, res){
+    var gordo_api_deleteTicket = function(req, res){
         var id = req.params.id;
 
         GOR_DBM.getTicketById(id, function(err, result){
@@ -156,7 +156,7 @@ module.exports = function(app){
         });
     };
 
-    var gordo_api_historicoDeAparicionesPorNumero = function(req, res){
+    var gordo_api_occurrencesByNumber = function(req, res){
         GOR_DBM.getOccurrencesByNumber(function(err, result){
             if(err){
                 return res.status(400).send(err);
@@ -176,7 +176,7 @@ module.exports = function(app){
         });
     };
 
-    var gordo_api_historicoDeAparicionesPorNumeroClave = function(req, res){
+    var gordo_api_occurrencesBySpecialNumber = function(req, res){
         GOR_DBM.getOccurrencesBySpecialNumber(function(err, result){
             if(err){
                 return res.status(400).send(err);
@@ -197,7 +197,7 @@ module.exports = function(app){
 
     };
 
-    var gordo_api_historicoDeAparicionesPorResultados = function(req, res){
+    var gordo_api_occurrencesByResult = function(req, res){
         GOR_DBM.getOccurrencesByResultWithoutSpecialNumber(function(err, tickets){
             if(err){
                 return res.status(400).send(err);
@@ -215,7 +215,7 @@ module.exports = function(app){
         });
     };
 
-    var gordo_api_historicoDeAparicionesPorResultadoConNumeroClave = function(req, res){
+    var gordo_api_occurrencesByResultWithSpecialNumber = function(req, res){
         GOR_DBM.getOccurrencesByResultWithSpecialNumber(function(err, tickets){
             if(err){
                 return res.status(400).send(err);
@@ -347,11 +347,11 @@ module.exports = function(app){
     /* Tickets de El Gordo */
     gordo.route('/tickets')
         .get(gordo_api_tickets)
-        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_nuevoTicket)
-        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_editarTicket);
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_newTicket)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_editTicket);
     gordo.route('/tickets/:id')
         .get(gordo_api_ticketPorId)
-        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_borrarTicket);
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_deleteTicket);
 
     /* Anyos */
     gordo.route('/years')
@@ -363,10 +363,10 @@ module.exports = function(app){
         .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_deleteYear);
 
     /* Consultas: Estandar */
-    gordo.get('/historical/aparicionesPorResultado', gordo_api_historicoDeAparicionesPorResultados);
-    gordo.get('/historical/aparicionesPorResultadoConNumeroClave', gordo_api_historicoDeAparicionesPorResultadoConNumeroClave);
-    gordo.get('/historical/aparicionesPorNumero', gordo_api_historicoDeAparicionesPorNumero);
-    gordo.get('/historical/aparicionesPorNumeroClave', gordo_api_historicoDeAparicionesPorNumeroClave);
+    gordo.get('/historical/occurrencesByResult', gordo_api_occurrencesByResult);
+    gordo.get('/historical/occurrencesByResultWithSpecialNumber', gordo_api_occurrencesByResultWithSpecialNumber);
+    gordo.get('/historical/occurrencesByNumber', gordo_api_occurrencesByNumber);
+    gordo.get('/historical/occurrencesBySpecialNumber', gordo_api_occurrencesBySpecialNumber);
 
     app.use('/api/gordo', gordo);
 

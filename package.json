@@ -17,7 +17,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app",
-    "postinstall": "node_modules/apidoc/bin/apidoc -i app/server -o app/public/docs/",
+    "postinstall": "node node_modules/apidoc/bin/apidoc -i app/server -o app/public/docs/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Juan Manuel López Pazos",
