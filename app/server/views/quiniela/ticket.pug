@@ -66,21 +66,22 @@ block content
                                             td(ng-bind-template="{{partido.local}}", style="text-align: right !important")
                                             td(ng-bind-template="{{partido.golesLocal}} - {{partido.golesVisitante}}")
                                             td(ng-bind-template="{{partido.visitante}}", style="text-align: left !important")
+                                            // Pronosticos
                                             td(ng-if="partido.fila != 15", ng-repeat="pronostico in partido.pronosticos", style="")
                                                 span.badge(ng-if="pronostico.signo == partido.resultado", ng-bind-template="{{pronostico.signo}}").fondoVerde
                                                 span.badge(ng-if="pronostico.signo != partido.resultado", ng-bind-template="{{pronostico.signo}}").fondoRojo
-                                            //td(ng-if="partido.fila == 15", ng-repeat="pronostico in partido.pronosticos", style="")
-                                                span.badge(ng-if="pronostico.signo == partido.resultado").fondoVerde {{pronostico.signo}}
-                                                span.badge(ng-if="pronostico.signo != partido.resultado").fondoRojo {{pronostico.signo}}
-                                            td(ng-if="partido.fila == 15 && ticket.temporada == '2013-2014'", colspan="{{ticket.partidos[0].pronosticos.length}}", ng-repeat="pronostico in partido.pronosticos")
+                                            td(ng-if="partido.fila == 15 && partido.resultadoConGoles == null", colspan="{{ticket.partidos[0].pronosticos.length}}", ng-repeat="pronostico in partido.pronosticos")
                                                 span.badge.badge-pleno(ng-if="pronostico.signo == partido.resultado", ng-bind-template="{{pronostico.signo}}").fondoVerde
                                                 span.badge.badge-pleno(ng-if="pronostico.signo != partido.resultado", ng-bind-template="{{pronostico.signo}}").fondoRojo
-                                            td(ng-if="partido.fila == 15 && ticket.temporada != '2013-2014'", colspan="{{ticket.partidos[0].pronosticos.length}}", ng-repeat="pronostico in partido.pronosticos")
+                                            td(ng-if="partido.fila == 15 && partido.resultadoConGoles != null", colspan="{{ticket.partidos[0].pronosticos.length}}", ng-repeat="pronostico in partido.pronosticos")
                                                 span.badge.badge-pleno(ng-if="pronostico.signo == partido.resultadoConGoles", ng-bind-template="{{pronostico.signo}}").fondoVerde
                                                 span.badge.badge-pleno(ng-if="pronostico.signo != partido.resultadoConGoles", ng-bind-template="{{pronostico.signo}}").fondoRojo
-                                            td(ng-if="ticket.temporada == '2013-2014'", ng-bind-template="{{partido.resultado}}").badge-pleno
-                                            td(ng-if="ticket.temporada != '2013-2014' && partido.fila == '15'", ng-bind-template="{{partido.resultadoConGoles}}").badge-pleno
-                                            td(ng-if="ticket.temporada != '2013-2014' && partido.fila != '15'", ng-bind-template="{{partido.resultado}}").badge-pleno
+                                            // Resultado tradicional (sin pleno moderno)
+                                            td(ng-if="partido.resultadoConGoles == null || partido.resultadoConGoles == '-'", ng-bind-template="{{partido.resultado}}").badge-pleno
+                                            // Pleno moderno
+                                            td(ng-if="partido.fila == '15' && partido.resultadoConGoles != null && partido.resultadoConGoles != '-'", ng-bind-template="{{partido.resultadoConGoles}}").badge-pleno
+                                            // Pleno tradicional
+                                            td(ng-if="partido.fila != '15' && partido.resultadoConGoles != null && partido.resultadoConGoles != '-'", ng-bind-template="{{partido.resultado}}").badge-pleno
 
                                         tr(ng-if="ticket.partidos[0].pronosticos.length", ng-cloak)
                                             td Aciertos:
