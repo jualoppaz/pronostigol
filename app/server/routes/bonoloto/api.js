@@ -56,15 +56,16 @@ module.exports = function(app){
      *
      * @apiVersion 1.0.0
      *
-     * @apiParam {Number} year Año asociado a los sorteos consultados
-     * @apiParam {Number} raffle Identificador único del sorteo dentro de un año
-     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
-     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
-     * @apiParam {String} sort_type Sentido de la ordenación de registros. Por defecto se ordenan por fecha descendentemente.
+     * @apiParam {Number} [year] Año asociado a los sorteos consultados
+     * @apiParam {Number} [raffle] Identificador único del sorteo dentro de un año
+     * @apiParam {Number} [page] Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} [per_page] Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Por defecto se ordenan por fecha descendentemente.
      * @apiSampleRequest /api/bonoloto/tickets
      */
     var bonoloto_api_tickets = function(req, res){
         var query = req.query;
+
         var year = query.year;
         var raffle = query.raffle;
         var page = query.page || 1;
