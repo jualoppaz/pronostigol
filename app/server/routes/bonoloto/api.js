@@ -8,6 +8,10 @@ module.exports = function(app){
 
     var BON_DBM = require('../../modules/bonoloto-data-base-manager');
 
+    var validate = require('express-validation');
+    var validations = require('./validations.js');
+    var getTicketsValidations = validations.getTickets;
+
     var filtrarInformacion = function(result){
         var json = JSON.parse(JSON.stringify(result));
         json = borrarPronosticos(json);
@@ -480,7 +484,7 @@ module.exports = function(app){
 
     /* Tickets de Bonoloto */
     bonoloto.route('/tickets')
-        .get(bonoloto_api_tickets)
+        .get(validate(getTicketsValidations), bonoloto_api_tickets)
         .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_newTicket)
         .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_editTicket);
     bonoloto.route('/tickets/:id')

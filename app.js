@@ -31,10 +31,23 @@ app.use(session({
 
 app.use(bodyParser.json());
 
+var ev = require('express-validation');
+
+ev.options({
+    status: 422,
+    statusText: 'Unprocessable Entity'
+});
+
 require('./app/server/router')(app);
+
 
 function clientErrorHandler (err, req, res, next) {
     console.log("Entramos en clientErrorHandler");
+
+    if (err instanceof ev.ValidationError){
+        return res.status(422).json(err);
+    }
+
     if (req.url.indexOf('/api') > -1) {
         return res.status(500).send(JSON.stringify(err, null, 4));
     }
