@@ -3,13 +3,13 @@ div.table-responsive(style="margin-top: 15px", ng-if="mostrar.tablaAparicionesPo
         thead
             tr
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorReintegroSegun('reintegro'); consultarEstandar()", ng-bind-template="Reintegro", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorReintegro == 'reintegro' && !ordenAparicionesPorReintegro").fa.fa-caret-up
-                    span(ng-if="criterioOrdenacionAparicionesPorReintegro == 'reintegro' && ordenAparicionesPorReintegro").fa.fa-caret-down
+                    a.columnaOrdenable(ng-click="ordenarAparicionesPorReintegroSegun('reimbursement'); consultarEstandar()", ng-bind-template="Reintegro", style="padding-right: 15px")
+                    span(ng-if="criterioOrdenacionAparicionesPorReintegro == 'reimbursement' && !ordenAparicionesPorReintegro").fa.fa-caret-up
+                    span(ng-if="criterioOrdenacionAparicionesPorReintegro == 'reimbursement' && ordenAparicionesPorReintegro").fa.fa-caret-down
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorReintegroSegun('apariciones'); consultarEstandar()", ng-bind-template="Apariciones", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorReintegro == 'apariciones' && ordenAparicionesPorReintegro").fa.fa-caret-down
-                    span(ng-if="criterioOrdenacionAparicionesPorReintegro == 'apariciones' && !ordenAparicionesPorReintegro").fa.fa-caret-up
+                    a.columnaOrdenable(ng-click="ordenarAparicionesPorReintegroSegun('occurrences'); consultarEstandar()", ng-bind-template="Apariciones", style="padding-right: 15px")
+                    span(ng-if="criterioOrdenacionAparicionesPorReintegro == 'occurrences' && ordenAparicionesPorReintegro").fa.fa-caret-down
+                    span(ng-if="criterioOrdenacionAparicionesPorReintegro == 'occurrences' && !ordenAparicionesPorReintegro").fa.fa-caret-up
 
         tbody
             tr(ng-repeat="item in aparicionesPorReintegro")

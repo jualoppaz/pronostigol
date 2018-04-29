@@ -19,7 +19,7 @@ function Controller ($scope, $http, $filter, bonoloto) {
     $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = "apariciones";
 
     $scope.ordenAparicionesPorReintegro = true;
-    $scope.criterioOrdenacionAparicionesPorReintegro = "apariciones";
+    $scope.criterioOrdenacionAparicionesPorReintegro = "occurrences";
 
     $scope.maxSize = 5;
 
@@ -265,7 +265,7 @@ function Controller ($scope, $http, $filter, bonoloto) {
     };
 
     $scope.ordenarAparicionesPorReintegroSegun = function(criterio){
-        if(criterio === "reintegro"){
+        if(criterio === "reimbursement"){
             if($scope.criterioOrdenacionAparicionesPorReintegro === criterio){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorReintegro == null){
                     $scope.ordenAparicionesPorReintegro = true;
