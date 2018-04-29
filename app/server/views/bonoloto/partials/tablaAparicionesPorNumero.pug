@@ -3,13 +3,13 @@ div.table-responsive(style="margin-top: 15px", ng-if="mostrar.tablaAparicionesPo
         thead
             tr
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorNumeroSegun('numero'); consultarEstandar()", ng-bind-template="Número", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorNumero === 'numero' && !ordenAparicionesPorNumero").fa.fa-caret-up
-                    span(ng-if="criterioOrdenacionAparicionesPorNumero === 'numero' && ordenAparicionesPorNumero").fa.fa-caret-down
+                    a.columnaOrdenable(ng-click="ordenarAparicionesPorNumeroSegun('number'); consultarEstandar()", ng-bind-template="Número", style="padding-right: 15px")
+                    span(ng-if="criterioOrdenacionAparicionesPorNumero === 'number' && !ordenAparicionesPorNumero").fa.fa-caret-up
+                    span(ng-if="criterioOrdenacionAparicionesPorNumero === 'number' && ordenAparicionesPorNumero").fa.fa-caret-down
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorNumeroSegun('apariciones'); consultarEstandar()", ng-bind-template="Apariciones", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorNumero == 'apariciones' && ordenAparicionesPorNumero").fa.fa-caret-down
-                    span(ng-if="criterioOrdenacionAparicionesPorNumero == 'apariciones' && !ordenAparicionesPorNumero").fa.fa-caret-up
+                    a.columnaOrdenable(ng-click="ordenarAparicionesPorNumeroSegun('occurrences'); consultarEstandar()", ng-bind-template="Apariciones", style="padding-right: 15px")
+                    span(ng-if="criterioOrdenacionAparicionesPorNumero == 'occurrences' && ordenAparicionesPorNumero").fa.fa-caret-down
+                    span(ng-if="criterioOrdenacionAparicionesPorNumero == 'occurrences' && !ordenAparicionesPorNumero").fa.fa-caret-up
 
         tbody
             tr(ng-repeat="item in aparicionesPorNumero")

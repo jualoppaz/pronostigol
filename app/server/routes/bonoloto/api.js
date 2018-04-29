@@ -5,12 +5,15 @@ module.exports = function(app){
 
     var express = require("express");
     var bonoloto = express.Router();
+    var historical = express.Router();
 
     var BON_DBM = require('../../modules/bonoloto-data-base-manager');
 
+    // Validations
     var validate = require('express-validation');
     var validations = require('./validations.js');
     var getTicketsValidations = validations.getTickets;
+    var getOccurrencesByNumberValidations = validations.getOccurrencesByNumber;
 
     var filtrarInformacion = function(result){
         var json = JSON.parse(JSON.stringify(result));
@@ -215,11 +218,11 @@ module.exports = function(app){
      *
      * @apiVersion 1.0.0
      *
-     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
-     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
-     * @apiParam {String} sort_property Propiedad por la que ordenar los registros. Los posibles valores son "numero"
+     * @apiParam {Number} [page] Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} [per_page] Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "numero"
      * y "apariciones". Por defecto se ordenan por "apariciones".
-     * @apiParam {String} sort_type Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
+     * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
      * Por defecto se ordenan descendentemente.
      *
      * @apiSampleRequest /api/bonoloto/historical/occurrencesByNumber
@@ -228,7 +231,7 @@ module.exports = function(app){
         var query = req.query;
         var page = query.page || 1;
         var perPage = query.per_page || 10;
-        var sort = query.sort_property || 'apariciones';
+        var sort = query.sort_property || 'occurrences';
         var type = query.sort_type || 'desc';
 
         var filtros = {
@@ -308,7 +311,7 @@ module.exports = function(app){
         var query = req.query;
         var page = query.page || 1;
         var perPage = query.per_page || 10;
-        var sort = query.sort_property || 'apariciones';
+        var sort = query.sort_property || 'occurrences';
         var type = query.sort_type || 'desc';
 
         var filtros = {
@@ -501,10 +504,12 @@ module.exports = function(app){
         .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_deleteYear);
 
     /* Consultas: Estandar */
-    bonoloto.get('/historical/occurrencesByResult', bonoloto_api_occurrencesByResult);
-    bonoloto.get('/historical/occurrencesByResultWithReimbursement', bonoloto_api_occurrencesByResultWithReimbursement);
-    bonoloto.get('/historical/occurrencesByNumber', bonoloto_api_occurrencesByNumber);
-    bonoloto.get('/historical/occurrencesByReimbursement', bonoloto_api_occurrencesByReimbursement);
+    historical.get('/occurrencesByResult', bonoloto_api_occurrencesByResult);
+    historical.get('/occurrencesByResultWithReimbursement', bonoloto_api_occurrencesByResultWithReimbursement);
+    historical.get('/occurrencesByNumber', validate(getOccurrencesByNumberValidations), bonoloto_api_occurrencesByNumber);
+    historical.get('/occurrencesByReimbursement', bonoloto_api_occurrencesByReimbursement);
+
+    bonoloto.use('/historical', historical);
 
     app.use('/api/bonoloto', bonoloto);
 };

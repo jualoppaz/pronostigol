@@ -10,7 +10,7 @@ function Controller ($scope, $http, $filter, bonoloto) {
     $scope.mostrar.tablaAparicionesPorNumero = false;
 
     $scope.ordenAparicionesPorNumero = true;
-    $scope.criterioOrdenacionAparicionesPorNumero = "apariciones";
+    $scope.criterioOrdenacionAparicionesPorNumero = "occurrences";
 
     $scope.ordenAparicionesPorResultado = true;
     $scope.criterioOrdenacionAparicionesPorResultado = "apariciones";
@@ -185,7 +185,7 @@ function Controller ($scope, $http, $filter, bonoloto) {
     };
 
     $scope.ordenarAparicionesPorNumeroSegun = function(criterio){
-        if(criterio === "numero"){
+        if(criterio === "number"){
             if($scope.criterioOrdenacionAparicionesPorNumero === criterio){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorNumero === null){
                     $scope.ordenAparicionesPorNumero = true;
@@ -196,7 +196,7 @@ function Controller ($scope, $http, $filter, bonoloto) {
                 $scope.criterioOrdenacionAparicionesPorNumero = criterio;
                 $scope.ordenAparicionesPorNumero = false;
             }
-        }else if(criterio === "apariciones"){
+        }else if(criterio === "occurrences"){
             if($scope.criterioOrdenacionAparicionesPorNumero === criterio){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorNumero == null){
                     $scope.ordenAparicionesPorNumero = true;
