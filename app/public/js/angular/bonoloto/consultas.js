@@ -16,7 +16,7 @@ function Controller ($scope, $http, $filter, bonoloto) {
     $scope.criterioOrdenacionAparicionesPorResultado = "apariciones";
 
     $scope.ordenAparicionesPorResultadoConReintegro = true;
-    $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = "apariciones";
+    $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = "occurrences";
 
     $scope.ordenAparicionesPorReintegro = true;
     $scope.criterioOrdenacionAparicionesPorReintegro = "occurrences";
@@ -239,7 +239,7 @@ function Controller ($scope, $http, $filter, bonoloto) {
     };
 
     $scope.ordenarAparicionesPorResultadoConReintegroSegun = function(criterio){
-        if(criterio === "resultado"){
+        if(criterio === "result"){
             if($scope.criterioOrdenacionAparicionesPorResultadoConReintegro === criterio){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorResultadoConReintegro == null){
                     $scope.ordenAparicionesPorResultadoConReintegro = true;
@@ -250,7 +250,7 @@ function Controller ($scope, $http, $filter, bonoloto) {
                 $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = criterio;
                 $scope.ordenAparicionesPorResultadoConReintegro = false;
             }
-        }else if(criterio === "apariciones"){
+        }else if(criterio === "occurrences"){
             if($scope.criterioOrdenacionAparicionesPorResultadoConReintegro === criterio){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorResultadoConReintegro == null){
                     $scope.ordenAparicionesPorResultadoConReintegro = true;
@@ -276,7 +276,7 @@ function Controller ($scope, $http, $filter, bonoloto) {
                 $scope.criterioOrdenacionAparicionesPorReintegro = criterio;
                 $scope.ordenAparicionesPorReintegro = false;
             }
-        }else if(criterio === "apariciones"){
+        }else if(criterio === "occurrences"){
             if($scope.criterioOrdenacionAparicionesPorReintegro === criterio){ //Sólo vamos a invertir el orden
                 if($scope.ordenAparicionesPorReintegro == null){
                     $scope.ordenAparicionesPorReintegro = true;

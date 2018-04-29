@@ -155,9 +155,6 @@ exports.deleteTicketById = function(id, callback){
 };
 
 exports.editTicket = function(ticket, callback){
-
-    console.log("Id recibido: " + ticket._id);
-
     var trozos = ticket.fecha.split("/");
 
     var fecha = trozos[2] + "-" + trozos[1] + "-" + trozos[0];
@@ -197,7 +194,7 @@ exports.getOccurrencesByResultWithReimbursement = function(filtros, callback){
     var sort = filtros.sort;
     var type = filtros.type;
 
-    var sort_property = sort;
+    var sort_property = sort === 'result' ? 'resultado' : 'apariciones';
     var sort_type = type === 'asc' ? 1 : -1;
 
     var query = [];
