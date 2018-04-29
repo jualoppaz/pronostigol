@@ -275,7 +275,7 @@ exports.getOccurrencesByResultWithoutReimbursement = function(filtros, callback)
     var sort = filtros.sort;
     var type = filtros.type;
 
-    var sort_property = sort;
+    var sort_property = sort === 'result' ? 'resultado' : 'apariciones';
     var sort_type = type === 'asc' ? 1 : -1;
 
     var query = [];

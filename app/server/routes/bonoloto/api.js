@@ -16,6 +16,7 @@ module.exports = function(app){
     var getOccurrencesByNumberValidations = validations.getOccurrencesByNumber;
     var getOccurrencesByReimbursementValidations = validations.getOccurrencesByReimbursement;
     var getOccurrencesByResultWithReimbursementValidations = validations.getOccurrencesByResultWithReimbursement;
+    var getOccurrencesByResultValidations = validations.getOccurrencesByResult;
 
     var filtrarInformacion = function(result){
         var json = JSON.parse(JSON.stringify(result));
@@ -301,11 +302,11 @@ module.exports = function(app){
      *
      * @apiVersion 1.0.0
      *
-     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
-     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
-     * @apiParam {String} sort_property Propiedad por la que ordenar los registros. Los posibles valores son "resultado"
-     * y "apariciones". Por defecto se ordenan por "apariciones".
-     * @apiParam {String} sort_type Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
+     * @apiParam {Number} [page] Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} [per_page] Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "result"
+     * y "occurrences". Por defecto se ordenan por "occurrences".
+     * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
      * Por defecto se ordenan descendentemente.
      * @apiSampleRequest /api/bonoloto/historical/occurrencesByResult
      */
@@ -506,7 +507,7 @@ module.exports = function(app){
         .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_deleteYear);
 
     /* Consultas: Estandar */
-    historical.get('/occurrencesByResult', bonoloto_api_occurrencesByResult);
+    historical.get('/occurrencesByResult', validate(getOccurrencesByResultValidations), bonoloto_api_occurrencesByResult);
     historical.get('/occurrencesByResultWithReimbursement', validate(getOccurrencesByResultWithReimbursementValidations), bonoloto_api_occurrencesByResultWithReimbursement);
     historical.get('/occurrencesByNumber', validate(getOccurrencesByNumberValidations), bonoloto_api_occurrencesByNumber);
     historical.get('/occurrencesByReimbursement', validate(getOccurrencesByReimbursementValidations), bonoloto_api_occurrencesByReimbursement);
