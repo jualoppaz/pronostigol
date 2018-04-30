@@ -1,7 +1,7 @@
 module.exports = function(app){
 
     var middlewares = require('../../middlewares');
-    var ROL = require('../../roles');
+    var {ROLES} = require('../../constants');
 
     var express = require("express");
     var euromillones = express.Router();
@@ -91,7 +91,7 @@ module.exports = function(app){
                 if(req.session.user == null){
                     json = filtrarInformacion(tickets[i]);
                 }else{
-                    if(req.session.user.role === ROL.PRIVILEGED || req.session.user.role === ROL.ADMIN){
+                    if(req.session.user.role === ROLES.PRIVILEGED || req.session.user.role === ROLES.ADMIN){
                         json = tickets[i];
                     }else{
                         json = filtrarInformacion(tickets[i]);
@@ -510,7 +510,7 @@ module.exports = function(app){
             if(req.session.user == null){
                 json = filtrarInformacion(result);
             }else{
-                if(req.session.user.role === ROL.PRIVILEGED || req.session.user.role === ROL.ADMIN){
+                if(req.session.user.role === ROLES.PRIVILEGED || req.session.user.role === ROLES.ADMIN){
                     json = result;
                 }else{
                     json = filtrarInformacion(result);
@@ -523,20 +523,20 @@ module.exports = function(app){
     /* Tickets del Euromillones */
     euromillones.route('/tickets')
         .get(euromillones_api_tickets)
-        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_nuevoTicket)
-        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_editarTicket);
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), euromillones_api_nuevoTicket)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), euromillones_api_editarTicket);
     euromillones.route('/tickets/:id')
         .get(euromillones_api_ticketPorId)
-        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_borrarTicket);
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), euromillones_api_borrarTicket);
 
     /* Anyos */
     euromillones.route('/years')
         .get(euromillones_api_years)
-        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_addNewYear)
-        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_editYear);
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), euromillones_api_addNewYear)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), euromillones_api_editYear);
     euromillones.route('/years/:id')
         .get(euromillones_api_year)
-        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), euromillones_api_deleteYear);
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), euromillones_api_deleteYear);
 
     /* Consultas: Estandar */
     euromillones.get('/historical/occurrencesByResult', euromillones_api_occurrencesByResult);

@@ -1,5 +1,5 @@
 var middlewares = require('../../middlewares');
-var ROL = require('../../roles');
+var {ROLES} = require('../../constants');
 
 module.exports = function(app){
     var actualizarUltimaPagina = function(req){
@@ -8,7 +8,6 @@ module.exports = function(app){
         //console.log("Ruta previa: " + req.path);
         if(req.path.indexOf("/api/") == -1 && req.path.indexOf("login") == -1){
             console.log("Ultima pagina actualizada: " + req.path);
-            //req.session.ultimaPagina = req.path;
             req.session.ultimaPagina = req.path;
         }
     };
@@ -63,18 +62,18 @@ module.exports = function(app){
 
     // Parte Publica
 
-    app.get('/euromillones', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), euromillones_vistas_index);
-    app.get('/euromillones/tickets', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), euromillones_vistas_tickets);
-    app.get('/euromillones/tickets/:temporada/:jornada', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), euromillones_vistas_ticket);
-    app.get('/euromillones/consultas', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), euromillones_vistas_consultas);
+    app.get('/euromillones', middlewares.isAuthorized_view([ROLES.GUEST, ROLES.BASIC, ROLES.PRIVILEGED]), euromillones_vistas_index);
+    app.get('/euromillones/tickets', middlewares.isAuthorized_view([ROLES.GUEST, ROLES.BASIC, ROLES.PRIVILEGED]), euromillones_vistas_tickets);
+    app.get('/euromillones/tickets/:temporada/:jornada', middlewares.isAuthorized_view([ROLES.GUEST, ROLES.BASIC, ROLES.PRIVILEGED]), euromillones_vistas_ticket);
+    app.get('/euromillones/consultas', middlewares.isAuthorized_view([ROLES.GUEST, ROLES.BASIC, ROLES.PRIVILEGED]), euromillones_vistas_consultas);
 
     // Administracion
 
-    app.get('/admin/euromillones', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), euromillones_vistas_admin_euromillones);
-    app.get('/admin/euromillones/anadirTicket', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), euromillones_vistas_admin_anadirTicket);
-    app.get('/admin/euromillones/tickets/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), euromillones_vistas_admin_editarTicket);
+    app.get('/admin/euromillones', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), euromillones_vistas_admin_euromillones);
+    app.get('/admin/euromillones/anadirTicket', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), euromillones_vistas_admin_anadirTicket);
+    app.get('/admin/euromillones/tickets/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), euromillones_vistas_admin_editarTicket);
 
-    app.get('/admin/euromillones/anyos', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), euromillones_vistas_admin_anyos);
-    app.get('/admin/euromillones/anadirAnyo', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), euromillones_vistas_admin_anadirAnyo);
-    app.get('/admin/euromillones/anyos/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), euromillones_vistas_admin_editarAnyo);
+    app.get('/admin/euromillones/anyos', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), euromillones_vistas_admin_anyos);
+    app.get('/admin/euromillones/anadirAnyo', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), euromillones_vistas_admin_anadirAnyo);
+    app.get('/admin/euromillones/anyos/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), euromillones_vistas_admin_editarAnyo);
 };

@@ -1,7 +1,7 @@
 module.exports = function(app){
 
     var middlewares = require('../../middlewares');
-    var ROL = require('../../roles');
+    var {ROLES} = require('../../constants');
 
     var express = require("express");
     var bonoloto = express.Router();
@@ -103,7 +103,7 @@ module.exports = function(app){
                 if(req.session.user == null){
                     json = filtrarInformacion(tickets[i]);
                 }else{
-                    if(req.session.user.role === ROL.PRIVILEGED || req.session.user.role === ROL.ADMIN){
+                    if(req.session.user.role === ROLES.PRIVILEGED || req.session.user.role === ROLES.ADMIN){
                         json = tickets[i];
                     }else{
                         json = filtrarInformacion(tickets[i]);
@@ -131,7 +131,7 @@ module.exports = function(app){
             if(req.session.user == null){
                 json = filtrarInformacion(result);
             }else{
-                if(req.session.user.role === ROL.PRIVILEGED || req.session.user.role === ROL.ADMIN){
+                if(req.session.user.role === ROLES.PRIVILEGED || req.session.user.role === ROLES.ADMIN){
                     json = result;
                 }else{
                     json = filtrarInformacion(result);
@@ -491,20 +491,20 @@ module.exports = function(app){
     /* Tickets de Bonoloto */
     bonoloto.route('/tickets')
         .get(validate(getTicketsValidations), bonoloto_api_tickets)
-        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_newTicket)
-        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_editTicket);
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), bonoloto_api_newTicket)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), bonoloto_api_editTicket);
     bonoloto.route('/tickets/:id')
         .get(bonoloto_api_ticketById)
-        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_deleteTicket);
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), bonoloto_api_deleteTicket);
     
     /* Anyos */
     bonoloto.route('/years')
         .get(bonoloto_api_years)
-        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_newYear)
-        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_editYear);
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), bonoloto_api_newYear)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), bonoloto_api_editYear);
     bonoloto.route('/years/:id')
         .get(bonoloto_api_yearById)
-        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), bonoloto_api_deleteYear);
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), bonoloto_api_deleteYear);
 
     /* Consultas: Estandar */
     historical.get('/occurrencesByResult', validate(getOccurrencesByResultValidations), bonoloto_api_occurrencesByResult);

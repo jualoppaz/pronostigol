@@ -1,5 +1,5 @@
 var middlewares = require('../../middlewares');
-var ROL = require('../../roles');
+var {ROLES} = require('../../constants');
 
 module.exports = function(app){
     var actualizarUltimaPagina = function(req){
@@ -86,25 +86,25 @@ module.exports = function(app){
     };
 
     // Parte Publica
-    app.get('/quiniela', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), quiniela_vistas_inicio);
+    app.get('/quiniela', middlewares.isAuthorized_view([ROLES.GUEST, ROLES.BASIC, ROLES.PRIVILEGED]), quiniela_vistas_inicio);
 
-    app.get('/quiniela/tickets', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), quiniela_vistas_quinielas);
-    app.get('/quiniela/tickets/:temporada/:jornada', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), quiniela_vistas_ticket);
-    app.get('/quiniela/consultas', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), quiniela_vistas_consultas);
+    app.get('/quiniela/tickets', middlewares.isAuthorized_view([ROLES.GUEST, ROLES.BASIC, ROLES.PRIVILEGED]), quiniela_vistas_quinielas);
+    app.get('/quiniela/tickets/:temporada/:jornada', middlewares.isAuthorized_view([ROLES.GUEST, ROLES.BASIC, ROLES.PRIVILEGED]), quiniela_vistas_ticket);
+    app.get('/quiniela/consultas', middlewares.isAuthorized_view([ROLES.GUEST, ROLES.BASIC, ROLES.PRIVILEGED]), quiniela_vistas_consultas);
 
     // Administracion
-    app.get('/admin/quiniela', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_quiniela);
-    app.get('/admin/quiniela/anadirTicket', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_anadirTicket);
-    app.get('/admin/quiniela/tickets/:season/:day', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_editarTicket);
-    app.get('/admin/quiniela/equipos', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_equipos);
-    app.get('/admin/quiniela/equipos/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_editarEquipo);
-    app.get('/admin/quiniela/competiciones', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_competiciones);
-    app.get('/admin/quiniela/competiciones/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_editarCompeticion);
-    app.get('/admin/quiniela/temporadas', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_temporadas);
-    app.get('/admin/quiniela/temporadas/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_editarTemporada);
-    app.get('/admin/quiniela/anadirEquipo', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_anadirEquipo);
-    app.get('/admin/quiniela/anadirCompeticion', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_anadirCompeticion);
-    app.get('/admin/quiniela/anadirTemporada', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), quiniela_vistas_admin_anadirTemporada);
+    app.get('/admin/quiniela', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), quiniela_vistas_admin_quiniela);
+    app.get('/admin/quiniela/anadirTicket', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), quiniela_vistas_admin_anadirTicket);
+    app.get('/admin/quiniela/tickets/:season/:day', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), quiniela_vistas_admin_editarTicket);
+    app.get('/admin/quiniela/equipos', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), quiniela_vistas_admin_equipos);
+    app.get('/admin/quiniela/equipos/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), quiniela_vistas_admin_editarEquipo);
+    app.get('/admin/quiniela/competiciones', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), quiniela_vistas_admin_competiciones);
+    app.get('/admin/quiniela/competiciones/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), quiniela_vistas_admin_editarCompeticion);
+    app.get('/admin/quiniela/temporadas', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), quiniela_vistas_admin_temporadas);
+    app.get('/admin/quiniela/temporadas/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), quiniela_vistas_admin_editarTemporada);
+    app.get('/admin/quiniela/anadirEquipo', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), quiniela_vistas_admin_anadirEquipo);
+    app.get('/admin/quiniela/anadirCompeticion', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), quiniela_vistas_admin_anadirCompeticion);
+    app.get('/admin/quiniela/anadirTemporada', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), quiniela_vistas_admin_anadirTemporada);
 
 };
 

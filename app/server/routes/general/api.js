@@ -7,7 +7,7 @@ module.exports = function(app){
     var general = express.Router();
 
     var middlewares = require('../../middlewares');
-    var ROL = require('../../roles');
+    var {ROLES} = require('../../constants');
 
     var GEN_DBM = require('../../modules/general-data-base-manager');
 
@@ -23,7 +23,7 @@ module.exports = function(app){
 
             if(o.estaActivo){
                 req.session.user = o;
-                if(o.role === ROL.ADMIN){
+                if(o.role === ROLES.ADMIN){
                     req.session.ultimaPagina = "/admin";
                 }
                 res.status(200).send(o);
@@ -86,7 +86,7 @@ module.exports = function(app){
             user 	    : usuario,
             pass	    : pass,
             estaActivo  : true,
-            role        : ROL.BASIC,
+            role        : ROLES.BASIC,
             estaBaneado : false
         }, function(e){
             if (e){
@@ -145,7 +145,7 @@ module.exports = function(app){
                 return res.status(400).send('comment-not-found');
             }
 
-            if(req.session.user.role === ROL.ADMIN){
+            if(req.session.user.role === ROLES.ADMIN){
                 res.status(200).send(result);
             }else{
                 var json = result;
@@ -185,14 +185,14 @@ module.exports = function(app){
                 return res.status(400).send('comment-not-exist');
             }
 
-            if((result.user == req.session.user.user) || req.session.user.role === ROL.ADMIN){
+            if((result.user == req.session.user.user) || req.session.user.role === ROLES.ADMIN){
 
                 GEN_DBM.deleteCommentById(id, function(err, result){
                     if(err){
                         return res.status(400).send(err);
                     }
 
-                    if(req.session.user.role === ROL.ADMIN){
+                    if(req.session.user.role === ROLES.ADMIN){
                         GEN_DBM.getAllComments(function(err, result){
                             if(err){
                                 return res.status(400).send(err);
@@ -338,7 +338,7 @@ module.exports = function(app){
                 return res.status(400).send(err);
             }else if(result == null){
                 return res.status(400).send('comment-not-exists');
-            }else if(result.user == req.session.user.user || req.session.user.role === ROL.ADMIN){
+            }else if(result.user == req.session.user.user || req.session.user.role === ROLES.ADMIN){
                 GEN_DBM.editComment(id, texto, function(err, result){
                     if(err){
                         return res.status(400).send(err);
@@ -527,7 +527,7 @@ module.exports = function(app){
             }else if(result == null){
                 return res.status(400).send('comment-not-exists');
             }else{
-                if(req.session.user.role === ROL.ADMIN){
+                if(req.session.user.role === ROLES.ADMIN){
                     GEN_DBM.editCommentAsAdmin(id, texto, user, fecha, validado, respuestas, function(err, result){
                         if(err){
                             return res.status(400).send(err);
@@ -857,17 +857,17 @@ module.exports = function(app){
     };
 
     /* Login en la aplicacion */
-    general.post('/login', middlewares.isAuthorized_api([ROL.GUEST]), general_api_login);
+    general.post('/login', middlewares.isAuthorized_api([ROLES.GUEST]), general_api_login);
     general.get('/logout', middlewares.isLogged_api, general_api_logout);
-    general.post('/signup', middlewares.isAuthorized_api([ROL.GUEST]), general_api_registroUsuario);
+    general.post('/signup', middlewares.isAuthorized_api([ROLES.GUEST]), general_api_registroUsuario);
 
     /* Usuarios */
     general.route('/users')
-        .get(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_usuarios)
-        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_editarUsuario);
+        .get(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), general_api_usuarios)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), general_api_editarUsuario);
     general.route('/users/:id')
-        .get(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_usuarios_usuario)
-        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_borrarUsuario);
+        .get(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), general_api_usuarios_usuario)
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), general_api_borrarUsuario);
 
     general.get('/user', middlewares.isLogged_api, general_api_usuarioLogueado);
 
@@ -886,18 +886,18 @@ module.exports = function(app){
     /* Respuestas a comentarios */
     general.post('/comments/:id/answers', general_api_comentario_nuevaRespuesta);
     /* Comentarios (específicos de Administración) */
-    general.put('/admin/comments', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_admin_editarComentario);
+    general.put('/admin/comments', middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), general_api_admin_editarComentario);
 
     /* Respuestas a comentarios */
     general.post('/comments/:id/answers', general_api_comentario_nuevaRespuesta);
 
     /* Emails */
     general.route('/emails')
-        .get(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_emails)
-        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_enviarEmail);
+        .get(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), general_api_emails)
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), general_api_enviarEmail);
     general.route('/emails/:id')
-        .get(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_email)
-        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), general_api_borrarEmail);
+        .get(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), general_api_email)
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), general_api_borrarEmail);
 
     /* Miscelanea */
     general.get('/aceptarCookies', general_api_aceptarCookies);

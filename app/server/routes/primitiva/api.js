@@ -1,7 +1,7 @@
 module.exports = function(app){
 
     var middlewares = require('../../middlewares');
-    var ROL = require('../../roles');
+    var {ROLES} = require('../../constants');
 
     var express = require("express");
     var primitiva = express.Router();
@@ -68,7 +68,7 @@ module.exports = function(app){
                 if(req.session.user == null){
                     json = filtrarInformacion(result[i]);
                 }else{
-                    if(req.session.user.role === ROL.PRIVILEGED){
+                    if(req.session.user.role === ROLES.PRIVILEGED){
                         json = result[i];
                     }else{
                         json = filtrarInformacion(result[i]);
@@ -329,7 +329,7 @@ module.exports = function(app){
             if(req.session.user == null){
                 var json = filtrarInformacion(result);
             }else{
-                if(req.session.user.role === ROL.PRIVILEGED || req.session.user.role === ROL.ADMIN){
+                if(req.session.user.role === ROLES.PRIVILEGED || req.session.user.role === ROLES.ADMIN){
                     json = result;
                 }else{
                     var json = filtrarInformacion(result);
@@ -342,20 +342,20 @@ module.exports = function(app){
     /* Tickets de Primitiva */
     primitiva.route('/tickets')
         .get(primitiva_api_tickets)
-        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), primitiva_api_nuevoTicket)
-        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), primitiva_api_editarTicket);
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), primitiva_api_nuevoTicket)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), primitiva_api_editarTicket);
     primitiva.route('/tickets/:id')
         .get(primitiva_api_ticketPorId)
-        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), primitiva_api_borrarTicket);
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), primitiva_api_borrarTicket);
 
     /* Anyos */
     primitiva.route('/years')
         .get(primitiva_api_years)
-        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), primitiva_api_addNewYear)
-        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), primitiva_api_editYear);
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), primitiva_api_addNewYear)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), primitiva_api_editYear);
     primitiva.route('/years/:id')
         .get(primitiva_api_year)
-        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), primitiva_api_deleteYear);
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), primitiva_api_deleteYear);
 
     /* Consultas: Estandar */
     primitiva.get('/historical/aparicionesPorResultado', primitiva_api_historicoDeResultadosGlobales);

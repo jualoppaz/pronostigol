@@ -1,5 +1,5 @@
 var middlewares = require('../../middlewares');
-var ROL = require('../../roles');
+var {ROLES} = require('../../constants');
 
 module.exports = function(app){
     var actualizarUltimaPagina = function(req){
@@ -63,18 +63,18 @@ module.exports = function(app){
 
     // Parte Publica
 
-    app.get('/primitiva', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), primitiva_vistas_index);
-    app.get('/primitiva/tickets', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), primitiva_vistas_tickets);
-    app.get('/primitiva/tickets/:temporada/:jornada', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), primitiva_vistas_ticket);
-    app.get('/primitiva/consultas', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), primitiva_vistas_consultas);
+    app.get('/primitiva', middlewares.isAuthorized_view([ROLES.GUEST, ROLES.BASIC, ROLES.PRIVILEGED]), primitiva_vistas_index);
+    app.get('/primitiva/tickets', middlewares.isAuthorized_view([ROLES.GUEST, ROLES.BASIC, ROLES.PRIVILEGED]), primitiva_vistas_tickets);
+    app.get('/primitiva/tickets/:temporada/:jornada', middlewares.isAuthorized_view([ROLES.GUEST, ROLES.BASIC, ROLES.PRIVILEGED]), primitiva_vistas_ticket);
+    app.get('/primitiva/consultas', middlewares.isAuthorized_view([ROLES.GUEST, ROLES.BASIC, ROLES.PRIVILEGED]), primitiva_vistas_consultas);
 
     // Administracion
 
-    app.get('/admin/primitiva', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), primitiva_vistas_admin_primitiva);
-    app.get('/admin/primitiva/anadirTicket', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), primitiva_vistas_admin_anadirTicket);
-    app.get('/admin/primitiva/tickets/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), primitiva_vistas_admin_editarTicket);
+    app.get('/admin/primitiva', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), primitiva_vistas_admin_primitiva);
+    app.get('/admin/primitiva/anadirTicket', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), primitiva_vistas_admin_anadirTicket);
+    app.get('/admin/primitiva/tickets/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), primitiva_vistas_admin_editarTicket);
 
-    app.get('/admin/primitiva/anyos', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), primitiva_vistas_admin_anyos);
-    app.get('/admin/primitiva/anadirAnyo', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), primitiva_vistas_admin_anadirAnyo);
-    app.get('/admin/primitiva/anyos/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), primitiva_vistas_admin_editarAnyo);
+    app.get('/admin/primitiva/anyos', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), primitiva_vistas_admin_anyos);
+    app.get('/admin/primitiva/anadirAnyo', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), primitiva_vistas_admin_anadirAnyo);
+    app.get('/admin/primitiva/anyos/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), primitiva_vistas_admin_editarAnyo);
 };

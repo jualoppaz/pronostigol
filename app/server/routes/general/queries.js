@@ -1,7 +1,7 @@
 module.exports = function(app){
 
     var middlewares = require('../../middlewares');
-    var ROL = require('../../roles');
+    var {ROLES} = require('../../constants');
 
     var GEN_DBM = require('../../modules/general-data-base-manager');
     var QUI_DBM = require('../../modules/quiniela-data-base-manager');
@@ -173,10 +173,10 @@ module.exports = function(app){
     };
 
     app.get('/query/mostrarAvisoCookies', pronostigol_queries_mostrarAvisoCookies);
-    app.get('/query/notReadedEmails', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), pronostigol_queries_emailsNoLeidos);
-    app.get('/query/notReadedEmailsNumber', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), pronostigol_queries_numeroEmailsNoLeidos);
-    app.get('/query/newUsers', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), pronostigol_queries_usuariosNuevos);
-    app.get('/query/notVerifiedComments', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), pronostigol_queries_comentariosNoVerificados);
-    app.get('/query/balanceEconomico', middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), pronostigol_queries_balanceEconomico);
+    app.get('/query/notReadedEmails', middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), pronostigol_queries_emailsNoLeidos);
+    app.get('/query/notReadedEmailsNumber', middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), pronostigol_queries_numeroEmailsNoLeidos);
+    app.get('/query/newUsers', middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), pronostigol_queries_usuariosNuevos);
+    app.get('/query/notVerifiedComments', middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), pronostigol_queries_comentariosNoVerificados);
+    app.get('/query/balanceEconomico', middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), pronostigol_queries_balanceEconomico);
 
 };

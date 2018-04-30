@@ -1,7 +1,7 @@
 module.exports = function(app){
 
     var middlewares = require('../../middlewares');
-    var ROL = require('../../roles');
+    var {ROLES} = require('../../constants');
 
     var express = require("express");
     var quiniela = express.Router();
@@ -87,7 +87,7 @@ module.exports = function(app){
             if(req.session.user == null){
                 filtrarInformacion(json);
             }else{
-                if(req.session.user.role !== ROL.PRIVILEGED && req.session.user.role !== ROL.ADMIN){
+                if(req.session.user.role !== ROLES.PRIVILEGED && req.session.user.role !== ROLES.ADMIN){
                     filtrarInformacion(json);
                 }
             }
@@ -1265,35 +1265,35 @@ module.exports = function(app){
     /* Equipos */
     quiniela.route('/equipos')
         .get(quiniela_api_equipos)
-        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_anadirEquipo)
-        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_editarEquipo);
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), quiniela_api_anadirEquipo)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), quiniela_api_editarEquipo);
     quiniela.route('/equipos/:id')
         .get(quiniela_api_equipo)
-        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_borrarEquipo);
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), quiniela_api_borrarEquipo);
 
     /* Competiciones */
     quiniela.route('/competiciones')
         .get(quiniela_api_competiciones)
-        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_anadirCompeticion)
-        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_editarCompeticion);
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), quiniela_api_anadirCompeticion)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), quiniela_api_editarCompeticion);
     quiniela.route('/competiciones/:id')
         .get(quiniela_api_competicion)
-        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_borrarCompeticion);
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), quiniela_api_borrarCompeticion);
 
     /* Temporadas */
     quiniela.route('/temporadas')
         .get(quiniela_api_temporadas)
-        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_anadirTemporada)
-        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_editarTemporada);
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), quiniela_api_anadirTemporada)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), quiniela_api_editarTemporada);
     quiniela.route('/temporadas/:id')
         .get(quiniela_api_temporada)
-        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_borrarTemporada);
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), quiniela_api_borrarTemporada);
 
     /* Tickets de quinielas*/
     quiniela.route('/tickets')
         .get(quiniela_api_tickets)
-        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_anadirTicketQuiniela)
-        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), quiniela_api_editarTicketQuiniela);
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), quiniela_api_anadirTicketQuiniela)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), quiniela_api_editarTicketQuiniela);
 
     quiniela.get('/tickets/season/:season', quiniela_api_ticketsQuinielaPorTemporada);
     quiniela.get('/tickets/season/:season/day/:day', quiniela_api_ticketsQuinielaPorTemporadaYJornada);

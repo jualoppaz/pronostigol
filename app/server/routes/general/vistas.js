@@ -1,5 +1,5 @@
 var middlewares = require('../../middlewares');
-var ROL = require('../../roles');
+var {ROLES} = require('../../constants');
 
 module.exports = function(app){
     var actualizarUltimaPagina = function(req){
@@ -74,19 +74,19 @@ module.exports = function(app){
         res.render('admin/usuario');
     };
 
-    app.get('/', middlewares.isAuthorized_view([ROL.GUEST, ROL.BASIC, ROL.PRIVILEGED]), general_vistas_inicio);
+    app.get('/', middlewares.isAuthorized_view([ROLES.GUEST, ROLES.BASIC, ROLES.PRIVILEGED]), general_vistas_inicio);
     app.get('/politicaDeCookies', general_vistas_politicaDeCookies);
     app.get('/preguntasFrecuentes', general_vistas_preguntasFrecuentes);
-    app.get('/login', middlewares.isAuthorized_view([ROL.GUEST]), general_vistas_login);
+    app.get('/login', middlewares.isAuthorized_view([ROLES.GUEST]), general_vistas_login);
     app.get('/signup', general_vistas_registro);
     app.get('/contacto', general_vistas_contacto);
 
-    app.get('/admin', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), general_vistas_admin);
-    app.get('/admin/emails', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), general_vistas_admin_emails);
-    app.get('/admin/emails/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), general_vistas_admin_emails_email);
-    app.get('/admin/comentarios', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), general_vistas_admin_comentarios);
-    app.get('/admin/comentarios/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), general_vistas_admin_comentarios_comentario);
-    app.get('/admin/balanceEconomico', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), general_vistas_admin_balanceEconomico);
-    app.get('/admin/usuarios', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), general_vistas_admin_usuarios);
-    app.get('/admin/usuarios/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROL.ADMIN]), general_vistas_admin_usuarios_usuario);
+    app.get('/admin', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), general_vistas_admin);
+    app.get('/admin/emails', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), general_vistas_admin_emails);
+    app.get('/admin/emails/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), general_vistas_admin_emails_email);
+    app.get('/admin/comentarios', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), general_vistas_admin_comentarios);
+    app.get('/admin/comentarios/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), general_vistas_admin_comentarios_comentario);
+    app.get('/admin/balanceEconomico', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), general_vistas_admin_balanceEconomico);
+    app.get('/admin/usuarios', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), general_vistas_admin_usuarios);
+    app.get('/admin/usuarios/:id', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), general_vistas_admin_usuarios_usuario);
 };

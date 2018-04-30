@@ -1,7 +1,7 @@
 module.exports = function(app){
 
     var middlewares = require('../../middlewares');
-    var ROL = require('../../roles');
+    var {ROLES} = require('../../constants');
 
     var express = require("express");
     var gordo = express.Router();
@@ -68,7 +68,7 @@ module.exports = function(app){
                 if(req.session.user == null){
                     json = filtrarInformacion(result[i]);
                 }else{
-                    if(req.session.user.role === ROL.PRIVILEGED){
+                    if(req.session.user.role === ROLES.PRIVILEGED){
                         json = result[i];
                     }else{
                         json = filtrarInformacion(result[i]);
@@ -334,7 +334,7 @@ module.exports = function(app){
             if(req.session.user == null){
                 json = filtrarInformacion(result);
             }else{
-                if(req.session.user.role === ROL.PRIVILEGED || req.session.user.role === ROL.ADMIN){
+                if(req.session.user.role === ROLES.PRIVILEGED || req.session.user.role === ROLES.ADMIN){
                     json = result;
                 }else{
                     json = filtrarInformacion(result);
@@ -347,20 +347,20 @@ module.exports = function(app){
     /* Tickets de El Gordo */
     gordo.route('/tickets')
         .get(gordo_api_tickets)
-        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_newTicket)
-        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_editTicket);
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), gordo_api_newTicket)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), gordo_api_editTicket);
     gordo.route('/tickets/:id')
         .get(gordo_api_ticketPorId)
-        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_deleteTicket);
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), gordo_api_deleteTicket);
 
     /* Anyos */
     gordo.route('/years')
         .get(gordo_api_years)
-        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_addNewYear)
-        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_editYear);
+        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), gordo_api_addNewYear)
+        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), gordo_api_editYear);
     gordo.route('/years/:id')
         .get(gordo_api_year)
-        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROL.ADMIN]), gordo_api_deleteYear);
+        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), gordo_api_deleteYear);
 
     /* Consultas: Estandar */
     gordo.get('/historical/occurrencesByResult', gordo_api_occurrencesByResult);
