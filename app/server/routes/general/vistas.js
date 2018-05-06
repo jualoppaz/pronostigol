@@ -42,6 +42,10 @@ module.exports = function(app){
         res.render('contacto');
     };
 
+    var general_vistas_verificacion_google = function(req, res){
+        res.render('google1e2e247e7cbf40b6');
+    };
+
     var general_vistas_admin = function(req, res, next) {
         res.render('admin/dashboard');
     };
@@ -80,6 +84,7 @@ module.exports = function(app){
     app.get('/login', middlewares.isAuthorized_view([ROLES.GUEST]), general_vistas_login);
     app.get('/signup', general_vistas_registro);
     app.get('/contacto', general_vistas_contacto);
+    app.get('/google1e2e247e7cbf40b6.html', general_vistas_verificacion_google);
 
     app.get('/admin', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), general_vistas_admin);
     app.get('/admin/emails', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), general_vistas_admin_emails);
