@@ -1450,12 +1450,37 @@ exports.getAllTickets = function(filters, callback){
         parsedFilters.temporada = filters.season;
     }
 
-    tickets.find(parsedFilters)
-    .toArray(function(err, res){
+    var limit = filters.perPage;
+    var page = filters.page;
+    var skip = (page - 1) * limit;
+    var sort = filters.sort;
+    var type = filters.type;
+
+    var options = {
+        sort: [[sort, type]],
+        limit: limit,
+        skip: skip
+    };
+
+    tickets.count(parsedFilters, function(err, total){
         if(err){
             callback(err);
         }else{
-            callback(null, res);
+            tickets.find(parsedFilters, options).toArray(function(err, res){
+                if(err){
+                    callback(err);
+                }else{
+
+                    var result = {
+                        page: page,
+                        perPage: limit,
+                        total: total,
+                        data: res
+                    };
+                    
+                    callback(null, result);
+                }
+            });
         }
     });
 

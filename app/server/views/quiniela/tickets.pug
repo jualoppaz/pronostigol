@@ -52,12 +52,25 @@ block content
                                             th Modalidad
                                             th Fecha
                                     tbody
-                                        tr(ng-repeat="ticket in tickets | orderBy:propiedad")
-                                            td(ng-show="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-click="verTicket(ticket)", ng-bind-template="{{ticket.jornada}}").pointer
-                                            td(ng-show="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-click="verTicket(ticket)", ng-bind-template="{{ticket.modalidad}}").pointer
-                                            td(ng-show="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-click="verTicket(ticket)", ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}").pointer
+                                        tr(ng-repeat="ticket in tickets")
+                                            td(ng-click="verTicket(ticket)", ng-bind-template="{{ticket.jornada}}").pointer
+                                            td(ng-click="verTicket(ticket)", ng-bind-template="{{ticket.modalidad}}").pointer
+                                            td(ng-click="verTicket(ticket)", ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}").pointer
 
-                                uib-pagination(items-per-page="ticketsPerPage", boundary-links="true", boundary-link-numbers="true", max-size="maxSize", force-ellipses="true", total-items="totalItems", ng-model="currentPage", previous-text="<", next-text=">", first-text="Inicio", last-text="Fin").pagination-sm.abel
+                                uib-pagination(
+                                    items-per-page="ticketsPerPage", 
+                                    boundary-links="true", 
+                                    boundary-link-numbers="true", 
+                                    max-size="maxSize", 
+                                    force-ellipses="true", 
+                                    total-items="totalItems", 
+                                    ng-model="currentPage",
+                                    ng-change="consultarTickets()", 
+                                    previous-text="<", 
+                                    next-text=">", 
+                                    first-text="Inicio", 
+                                    last-text="Fin").pagination-sm.abel
+
 
         div#push
 

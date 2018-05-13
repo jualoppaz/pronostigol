@@ -32,7 +32,7 @@ block content
                                     th Fecha
                                     th Jornada
                             tbody
-                                tr(ng-show="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-repeat="quiniela in tickets | orderBy:['-temporada','-fecha']", ng-cloak).verEmail
+                                tr(ng-repeat="quiniela in tickets", ng-cloak).verEmail
                                     td(style="font-weight: bold")
                                         span(ng-click="eliminarEmail(email._id)")
                                             i.fa.fa-trash-o
@@ -44,19 +44,20 @@ block content
 
 
                         uib-pagination(ng-show="numOfPages > 1",
-                        ng-cloak,
-                        items-per-page="ticketsPerPage",
-                        boundary-link-numbers="true",
-                        boundary-links="true",
-                        total-items="totalItems",
-                        rotate="true",
-                        max-size="maxSize",
-                        force-ellipses="true",
-                        ng-model="currentPage",
-                        previous-text="<",
-                        next-text=">",
-                        first-text="Inicio",
-                        last-text="Fin").pagination-sm.abel
+                            ng-cloak,
+                            items-per-page="ticketsPerPage",
+                            boundary-link-numbers="true",
+                            boundary-links="true",
+                            total-items="totalItems",
+                            rotate="true",
+                            max-size="maxSize",
+                            force-ellipses="true",
+                            ng-model="currentPage",
+                            ng-change="consultarTickets()",
+                            previous-text="<",
+                            next-text=">",
+                            first-text="Inicio",
+                            last-text="Fin").pagination-sm.abel
 block scripts
     script(src="/js/jquery.js")
     script(src="/js/bootstrap.js")

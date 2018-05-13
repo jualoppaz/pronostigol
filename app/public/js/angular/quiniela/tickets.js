@@ -12,10 +12,6 @@ function Controller ($scope, $http, $window, quiniela) {
     $scope.ticketsPerPage = 5;
     $scope.maxSize = 5;
 
-    $scope.selected = {
-        season: null
-    };
-
     quiniela.getAllSeasons()
         .then(function(data){
 
@@ -36,27 +32,71 @@ function Controller ($scope, $http, $window, quiniela) {
         });
 
     $scope.mostrarTickets = function(temporada){
+        $scope.selected = {
+            season: temporada
+        };
+
         if($scope.tickets.length == 0 || $scope.tickets[0].temporada != temporada){
             quiniela.getAllTickets({
-                season: temporada
+                season: temporada,
+                per_page: $scope.ticketsPerPage,
+                page: $scope.currentPage
             })
                 .then(function(data){
-                    $scope.tickets = data;
+                    var tickets = data.data;
+                    var total = data.total;
+                    var perPage = data.perPage;
+                    var numOfPages = total / perPage;
 
-                    $scope.totalItems = data.length;
+                    $scope.tickets =  tickets;
+                    $scope.totalItems = total;
 
-                    $scope.numOfPages = data.length / $scope.ticketsPerPage;
+                    var floor = Math.floor(total / perPage);
 
-                    var floor = Math.floor(data.length / $scope.ticketsPerPage);
-
-                    if($scope.numOfPages > floor){
-                        $scope.numOfPages = Math.floor(data.length / $scope.ticketsPerPage) + 1;
+                    if(numOfPages > floor){
+                        numOfPages = Math.floor(total / perPage) + 1;
                     }
+
+                    $scope.numOfPages = numOfPages;                    
                 })
                 .catch(function(err){
                     console.log(err);
                 });
         }
+    };
+
+    $scope.consultarTickets = function() {
+
+        $scope.tickets = [];
+
+        console.log("Season: ", $scope.selected.season);
+
+        quiniela.getAllTickets({
+            season: $scope.selected.season,
+            per_page: $scope.ticketsPerPage,
+            page: $scope.currentPage
+        })
+            .then(function(data){
+                var tickets = data.data;
+                var total = data.total;
+                var perPage = data.perPage;
+                var numOfPages = total / perPage;
+
+                $scope.tickets =  tickets;
+                $scope.totalItems = total;
+
+                var floor = Math.floor(total / perPage);
+
+                if(numOfPages > floor){
+                    numOfPages = Math.floor(total / perPage) + 1;
+                }
+
+                $scope.numOfPages = numOfPages;
+            })
+            .catch(function(err){
+                console.log(err);
+            });
+
     };
 
     $scope.verTicket = function(ticket){

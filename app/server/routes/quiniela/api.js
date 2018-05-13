@@ -42,13 +42,19 @@ module.exports = function(app){
     };
 
     var quiniela_api_tickets = function(req, res){
-
         var query = req.query;
 
         var season = query.season;
+        var page = query.page || 1;
+        var perPage = query.per_page || 10;
+        var type = query.sort_type || 'desc';
 
         var filters = {
-            season: season
+            page: Number(page),
+            perPage: Number(perPage),
+            season: season,
+            sort: 'fecha',
+            type: type
         };
 
         QUI_DBM.getAllTickets(filters, function(err, result){
@@ -1147,7 +1153,7 @@ module.exports = function(app){
                 return res.status(400).send(err);
             }
 
-            res.status(200).send(result);
+            res.status(200).send(JSON.stringify(result, null, 4));
         });
     };
 

@@ -16,46 +16,72 @@ function Controller ($scope, $http, $window, quiniela){
     var ticketsPerPage_default = 20;
     $scope.ticketsPerPage = ticketsPerPage_default;
 
-    quiniela.getAllTickets()
+    quiniela.getAllTickets({
+        page: $scope.currentPage,
+        per_page: ticketsPerPage_default
+    })
         .then(function(data){
-            $scope.tickets = data;
+            var tickets = data.data;
+            var perPage = data.perPage;
+            var total = data.total;
+            var numOfPages = total / perPage;
 
-            $scope.totalItems = $scope.tickets.length;
+            $scope.tickets = tickets;
 
-            $scope.numOfPages = $scope.tickets.length / $scope.ticketsPerPage;
+            $scope.totalItems = data.total;
 
-            console.log("Numero de paginas: " + $scope.numOfPages);
+            $scope.numOfPages = numOfPages;
 
-            var floor = Math.floor($scope.tickets.length / $scope.ticketsPerPage);
+            var floor = Math.floor(total / perPage);
 
-            if($scope.numOfPages > floor){
-                $scope.numOfPages = Math.floor($scope.tickets.length / $scope.ticketsPerPage) + 1;
+            if(numOfPages > floor){
+                numOfPages = Math.floor(total / perPage) + 1;
             }
+
+            $scope.numOfPages = numOfPages;
         })
         .catch(function(err){
             console.log(err);
         });
 
-    $scope.verEmail = function(id){
-        $window.location.href = "/admin/emails/" + id;
+    $scope.verQuiniela = function(season, id){
+        $window.location.href = "/admin/quiniela/tickets/" + season + "/" + id;
     };
 
-    $scope.eliminarEmail = function(id){
-        angular.element("#modal-eliminar-email").modal('show');
-        $scope.emailAEliminar = id;
-    };
+    $scope.consultarTickets = function(){
 
-    $scope.eliminarEmailDefinitivamente = function(){
-        $http.delete('/api/emails/' + String($scope.emailAEliminar))
-            .success(function(data){
-                $scope.emails = data;
+        $scope.reset();
+
+        quiniela.getAllTickets({
+            page: $scope.currentPage,
+            per_page: $scope.ticketsPerPage
+        })
+            .then(function(data){
+                var tickets = data.data;
+                var perPage = data.perPage;
+                var total = data.total;
+                var numOfPages = total / perPage;
+
+                $scope.tickets = tickets;
+
+                $scope.totalItems = data.total;
+
+                $scope.numOfPages = numOfPages;
+
+                var floor = Math.floor(total / perPage);
+
+                if(numOfPages > floor){
+                    numOfPages = Math.floor(total / perPage) + 1;
+                }
+
+                $scope.numOfPages = numOfPages;
             })
-            .error(function(data){
-                console.log(data);
+            .catch(function(err){
+                console.log(err);
             });
     };
 
-    $scope.verQuiniela = function(season, id){
-        $window.location.href = "/admin/quiniela/tickets/" + season + "/" + id;
+    $scope.reset = function(){
+        $scope.tickets = [];
     };
 }
