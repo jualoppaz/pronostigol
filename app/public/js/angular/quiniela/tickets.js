@@ -37,7 +37,9 @@ function Controller ($scope, $http, $window, quiniela) {
 
     $scope.mostrarTickets = function(temporada){
         if($scope.tickets.length == 0 || $scope.tickets[0].temporada != temporada){
-            quiniela.getAllTicketsBySeason(temporada)
+            quiniela.getAllTickets({
+                season: temporada
+            })
                 .then(function(data){
                     $scope.tickets = data;
 

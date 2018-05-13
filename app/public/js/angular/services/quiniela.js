@@ -8,10 +8,12 @@
     service.$inject = ['$http', '$q'];
 
     function service($http, $q){
+
+        var apiPrefix = "/api/quiniela";
+
         var service = {
             // Tickets
             getAllTickets: getAllTickets,
-            getAllTicketsBySeason: getAllTicketsBySeason,
             getTicketBySeasonAndDay: getTicketBySeasonAndDay,
             createTicket: createTicket,
             editTicket: editTicket,
@@ -55,31 +57,18 @@
 
         return service;
 
-        function getAllTickets(){
+        function getAllTickets(queryParameters){
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/tickets')
+            $http.get(apiPrefix + '/tickets', {
+                params: queryParameters
+            })
                 .then(function(data){
                     defered.resolve(data.data);
                 })
                 .catch(function(err){
-                    defered.reject(err);
-                });
-
-            return promise;
-        }
-
-        function getAllTicketsBySeason(season){
-            var defered = $q.defer();
-            var promise = defered.promise;
-
-            $http.get('/api/quiniela/tickets/season/' + season)
-                .then(function(data){
-                    defered.resolve(data.data);
-                })
-                .catch(function(err){
-                    defered.reject(err);
+                    defered.reject(err.data);
                 });
 
             return promise;

@@ -42,17 +42,16 @@ module.exports = function(app){
     };
 
     var quiniela_api_tickets = function(req, res){
-        QUI_DBM.getAllTickets(function(err, result){
-            if(err){
-                return res.status(400).send(err);
-            }
 
-            res.status(200).send(result);
-        });
-    };
+        var query = req.query;
 
-    var quiniela_api_ticketsQuinielaPorTemporada = function(req, res){
-        QUI_DBM.getAllTicketsBySeason(req.params.season, function(err, result){
+        var season = query.season;
+
+        var filters = {
+            season: season
+        };
+
+        QUI_DBM.getAllTickets(filters, function(err, result){
             if(err){
                 return res.status(400).send(err);
             }
@@ -1295,7 +1294,6 @@ module.exports = function(app){
         .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), quiniela_api_anadirTicketQuiniela)
         .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), quiniela_api_editarTicketQuiniela);
 
-    quiniela.get('/tickets/season/:season', quiniela_api_ticketsQuinielaPorTemporada);
     quiniela.get('/tickets/season/:season/day/:day', quiniela_api_ticketsQuinielaPorTemporadaYJornada);
 
     /* Historico (Consultas Personalizadas) */

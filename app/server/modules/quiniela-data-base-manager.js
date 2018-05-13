@@ -83,21 +83,6 @@ var getObjectId = function(id){
 
 // CONSULTAS QUINIELA DATA BASE
 
-exports.getAllTicketsBySeason = function(season, callback){
-    tickets.find({
-        temporada: season
-    })
-    .toArray(
-        function(e, res) {
-            if (e){
-                callback(e);
-            }else{
-                callback(null, res);
-            }
-        }
-    );
-};
-
 exports.getTicketsBySeasonAndDay = function(season, day, callback){
 
     console.log("Temporada recibida: " + season);
@@ -1457,11 +1442,15 @@ exports.getTicketsByCompetitionAndLocalAndVisitorTeamGroupedByRes = function(com
     });
 };
 
-exports.getAllTickets = function(callback){
+exports.getAllTickets = function(filters, callback){
 
-    tickets.find({
+    var parsedFilters = {};
 
-    })
+    if(filters.season){
+        parsedFilters.temporada = filters.season;
+    }
+
+    tickets.find(parsedFilters)
     .toArray(function(err, res){
         if(err){
             callback(err);
