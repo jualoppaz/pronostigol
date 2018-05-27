@@ -409,7 +409,15 @@
                 params: queryParameters
             })
                 .then(function(data){
-                    defered.resolve(data.data);
+                    var data = data.data;
+
+                    data.data.forEach(element => {
+                        if(element.reintegro == null){
+                            element.reintegro = "-";
+                        }
+                    });
+
+                    defered.resolve(data);
                 })
                 .catch(function(err){
                     defered.reject(err.data);
