@@ -58,7 +58,7 @@ module.exports = function(app){
     });
 
     app.get('*', function(req, res) {
-        res.render('404');
+        res.status(404).render('404');
     });
 
 };
