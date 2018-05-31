@@ -22,7 +22,7 @@ module.exports = function(app){
         funcionesComunes(req, res, next);
 
         res.render('index', {
-            estructuredData_webApplication: JSON.parse(fs.readFileSync('./app/server/views/estructuredData/webApplication.json', 'utf8'))
+            structuredData_webApplication: JSON.parse(fs.readFileSync('./app/server/views/structuredData/webApplication.json', 'utf8'))
         });
     };
 
