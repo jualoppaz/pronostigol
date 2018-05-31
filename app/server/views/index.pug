@@ -22,15 +22,20 @@ block content
 
                         div.col-md-12.text-center
                             div.col-md-2.col-md-offset-1.col-sm-6.col-xs-12
-                                span.logo.logo-quiniela(title="Quiniela", ng-click="navegarA('Q')") Q
+                                a#link-quiniela(ng-href="/quiniela")
+                                    span.logo.logo-quiniela(title="Quiniela") Q
                             div.col-md-2.col-sm-6.col-xs-12
-                                span.logo.logo-bonoloto(title="Bonoloto", ng-click="navegarA('B')") B
+                                a#link-bonoloto(ng-href="/bonoloto")
+                                    span.logo.logo-bonoloto(title="Bonoloto") B
                             div.col-md-2.col-sm-6.col-xs-12
-                                span.logo.logo-primitiva(title="Primitiva", ng-click="navegarA('P')") P
+                                a#link-primitiva(ng-href="/primitiva")
+                                    span.logo.logo-primitiva(title="Primitiva") P
                             div.col-md-2.col-sm-6.col-xs-12
-                                span.logo.logo-gordo(title="El Gordo de la Primitiva", ng-click="navegarA('G')") G
+                                a#link-gordo(ng-href="/gordo")
+                                    span.logo.logo-gordo(title="El Gordo de la Primitiva") G
                             div.col-md-2.col-md-offset-0.col-sm-6.col-sm-offset-3.col-xs-12(style="")
-                                span.logo.logo-euromillones(title="Euromillones", ng-click="navegarA('E')") E
+                                a#link-euromillones(ng-href="/euromillones")
+                                    span.logo.logo-euromillones(title="Euromillones") E
 
                         div.col-md-10.col-md-offset-1.col-sm-12.col-xs-12(style="margin-top: 20px; padding-left: 0px; padding-right: 0px")
                             div.col-md-12.col-sm-12.col-xs-12.panel.panel-body.main-card.border-qdb#bienvenido

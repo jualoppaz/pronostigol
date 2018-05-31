@@ -1171,3 +1171,23 @@ body{
     display: table;
     float: none;
 }
+
+a#link-quiniela:hover{
+    text-decoration: none;
+}
+
+a#link-bonoloto:hover{
+    text-decoration: none;
+}
+
+a#link-primitiva:hover{
+    text-decoration: none;
+}
+
+a#link-gordo:hover{
+    text-decoration: none;
+}
+
+a#link-euromillones:hover{
+    text-decoration: none;
+}

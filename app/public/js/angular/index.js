@@ -236,21 +236,6 @@ function Controller($scope, $http, $window, $filter) {
         return 'primary';
     };
 
-
-    $scope.navegarA = function(seccion){
-        if(seccion === "Q"){
-            $window.location.href = "/quiniela";
-        }else if(seccion === "B"){
-            $window.location.href = "/bonoloto";
-        }else if(seccion === "P"){
-            $window.location.href = "/primitiva";
-        }else if(seccion === "G"){
-            $window.location.href = "/gordo";
-        }else if(seccion === "E"){
-            $window.location.href = "/euromillones";
-        }
-    };
-
     $scope.responderComentario = function(comentarioRaiz){
 
         var hayErrores = $scope.validarComentario($scope.nuevaRespuesta);
