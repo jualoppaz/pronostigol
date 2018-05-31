@@ -1,8 +1,8 @@
 extends layout
 
 block head
-    title Pronostigol | Histórico de sorteos y consulta de estadísticas de Quiniela, Bonoloto, Primitiva, Gordo de la Primitiva y Euromillones
-    meta(name="description", content="Pronostigol. Histórico de sorteos y consulta de estadísticas de Quiniela, Bonoloto, Primitiva, Gordo de la Primitiva y Euromillones")  
+    title Pronostigol | Histórico de sorteos y consulta de estadísticas y resultados de Quiniela, Bonoloto, Primitiva, Gordo de la Primitiva y Euromillones
+    meta(name="description", content="Pronostigol. Histórico de sorteos y consulta de estadísticas y resultados de Quiniela, Bonoloto, Primitiva, Gordo de la Primitiva y Euromillones")  
     link(rel="stylesheet", href="/css/pronostigol.css")
 
 block content
@@ -175,3 +175,6 @@ block scripts
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
             ga('create', 'UA-57106519-1', 'auto');
         ga('send', 'pageview');
+
+    script(type="application/ld+json").
+        !{JSON.stringify(estructuredData_webApplication)}

@@ -57,8 +57,7 @@ function clientErrorHandler (err, req, res, next) {
 
 function errorHandler (err, req, res, next) {
     console.log("Entramos en errorHandler");
-    res.status(500);
-    res.render('error', { error: err });
+    res.status(500).render('error', { message: err });
 }
 
 app.use(clientErrorHandler);

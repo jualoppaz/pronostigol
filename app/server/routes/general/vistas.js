@@ -1,4 +1,5 @@
 var middlewares = require('../../middlewares');
+var fs = require('fs');
 var {ROLES} = require('../../constants');
 
 module.exports = function(app){
@@ -19,7 +20,10 @@ module.exports = function(app){
 
     var general_vistas_inicio = function(req, res, next) {
         funcionesComunes(req, res, next);
-        res.render('index');
+
+        res.render('index', {
+            estructuredData_webApplication: JSON.parse(fs.readFileSync('./app/server/views/estructuredData/webApplication.json', 'utf8'))
+        });
     };
 
     var general_vistas_politicaDeCookies = function(req, res){

@@ -1,0 +1,21 @@
+{ 
+    "@context": "http://schema.org", 
+    "@type": "WebApplication",
+    "url": "http://www.pronostigol.es/", 
+    "name": "Pronostigol",
+    "image": "http://www.pronostigol.es/img/favicon.png",
+    "description": "Consulta de histórico de sorteos y estadísticas de resultados de Quiniela, Bonoloto, Primitiva, Gordo de la Primitiva y Euromillones",
+    "creator": {
+        "@type": "Person",
+        "name": "Juan Manuel López Pazos",
+        "url": "http://juanmanuellopezpazos.es"
+    },
+    "operatingSystem": "Windows, Linux, iOS, mobile",
+    "browserRequirements": "Requiere JavaScript",
+    "applicationCategory": "Bet",
+    "offers": {
+        "@type": "Offer",
+        "price": 0,
+        "priceCurrency": "EUR"
+    }
+}
