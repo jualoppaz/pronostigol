@@ -1,5 +1,6 @@
 var middlewares = require('../../middlewares');
 var fs = require('fs');
+var path = require('path');
 var {ROLES} = require('../../constants');
 
 module.exports = function(app){
@@ -50,6 +51,10 @@ module.exports = function(app){
         res.render('google1e2e247e7cbf40b6');
     };
 
+    var general_vistas_sitemap = function(req, res){
+        res.sendFile('./sitemap.xml', { root: path.join(__dirname, '../../views') });
+    };
+
     var general_vistas_admin = function(req, res, next) {
         res.render('admin/dashboard');
     };
@@ -89,6 +94,7 @@ module.exports = function(app){
     app.get('/signup', general_vistas_registro);
     app.get('/contacto', general_vistas_contacto);
     app.get('/google1e2e247e7cbf40b6.html', general_vistas_verificacion_google);
+    app.get('/sitemap.xml', general_vistas_sitemap);
 
     app.get('/admin', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), general_vistas_admin);
     app.get('/admin/emails', middlewares.isLogged_view, middlewares.isAuthorized_view([ROLES.ADMIN]), general_vistas_admin_emails);
