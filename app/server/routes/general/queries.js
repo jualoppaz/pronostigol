@@ -12,17 +12,6 @@ module.exports = function(app){
 
     //TODO: todos estos metodos deberan ser aplicables a toda la web, no solo a la quiniela
 
-    var pronostigol_queries_mostrarAvisoCookies = function(req, res){
-        var json = "";
-        if(req.session.mostrarAvisoCookies != null){
-            json = req.session.mostrarAvisoCookies;
-        }else{
-            json = true;
-        }
-
-        res.status(200).send(json);
-    };
-
     var pronostigol_queries_emailsNoLeidos = function(req, res){
         GEN_DBM.getNotReadedEmails(function(err, emails){
             if(err){
@@ -172,7 +161,6 @@ module.exports = function(app){
         });
     };
 
-    app.get('/query/mostrarAvisoCookies', pronostigol_queries_mostrarAvisoCookies);
     app.get('/query/notReadedEmails', middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), pronostigol_queries_emailsNoLeidos);
     app.get('/query/notReadedEmailsNumber', middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), pronostigol_queries_numeroEmailsNoLeidos);
     app.get('/query/newUsers', middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), pronostigol_queries_usuariosNuevos);

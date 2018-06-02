@@ -728,11 +728,6 @@ module.exports = function(app){
         });
     };
 
-    var general_api_aceptarCookies = function(req, res){
-        req.session.mostrarAvisoCookies = false;
-        res.status(200).send(req.session.mostrarAvisoCookies);
-    };
-
     var general_api_pronostigolTweets = function(req,res){
         var client = new Twitter({
             consumer_key: 'sph28xlG9UW8FV3K1vNIZjn5X',
@@ -900,7 +895,6 @@ module.exports = function(app){
         .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), general_api_borrarEmail);
 
     /* Miscelanea */
-    general.get('/aceptarCookies', general_api_aceptarCookies);
     general.get('/twitter/pronostigolTweets', general_api_pronostigolTweets);
     general.get('/lastURL', general_api_lastURL);
     app.get('/lastModified', general_api_lastModified);

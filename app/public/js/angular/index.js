@@ -14,8 +14,6 @@ function Controller($scope, $http, $window, $filter) {
     $scope.fecha = "empty";
     $scope.visitorInfo = "empty";
 
-    $scope.mostrarAvisoCookies = false;
-
     $scope.comentarioPalabrasLargas = false;
 
     $scope.comments = null;
@@ -54,27 +52,12 @@ function Controller($scope, $http, $window, $filter) {
         });
 
     $scope.aceptarCookies = function(){
-
-        console.log("/api/aceptarCookies");
-
-        $http.get('/api/aceptarCookies')
-            .success(function(data){
-                $scope.mostrarAvisoCookies = data;
-            })
-            .error(function(data){
-                console.log(data);
-            })
+        window.sessionStorage.setItem('pronostigol_cookies_accepted', true);
     };
 
-    $http.get('/query/mostrarAvisoCookies')
-        .success(function(data){
-            $scope.mostrarAvisoCookies = data;
-        })
-        .error(function(data){
-            console.log(data);
-        });
-
-
+    $scope.mostrarAvisoCookies = function(){
+        return !window.sessionStorage.getItem('pronostigol_cookies_accepted');
+    };
 
     $http.get('/api/user')
         .success(function(data){

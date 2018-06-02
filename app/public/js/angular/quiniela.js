@@ -17,8 +17,6 @@ function Controller($scope, $http, $window) {
     $scope.fecha = "empty";
     $scope.visitorInfo = "empty";
 
-    $scope.mostrarAvisoCookies = false;
-
     $scope.comentarioPalabrasLargas = false;
 
     $scope.comments = null;
@@ -32,14 +30,4 @@ function Controller($scope, $http, $window) {
     $scope.comentarioEnviadoCorrectamente = false;
 
     $scope.comentarioEliminadoCorrectamente = false;
-
-    $scope.aceptarCookies = function(){
-        $http.get('/api/aceptarCookies')
-            .success(function(data){
-                $scope.mostrarAvisoCookies = data;
-            })
-            .error(function(data){
-                console.log(data);
-            })
-    };
 }
