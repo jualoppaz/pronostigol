@@ -22,8 +22,11 @@ module.exports = function(app){
     var general_vistas_inicio = function(req, res, next) {
         funcionesComunes(req, res, next);
 
+        const structured_data_path = './app/server/views/structuredData/';
+
         res.render('index', {
-            structuredData_webApplication: JSON.parse(fs.readFileSync('./app/server/views/structuredData/webApplication.json', 'utf8'))
+            structuredData_webApplication: JSON.parse(fs.readFileSync(structured_data_path + 'webApplication.json', 'utf8')),
+            structuredData_organization: JSON.parse(fs.readFileSync(structured_data_path + 'organization.json', 'utf8'))
         });
     };
 
