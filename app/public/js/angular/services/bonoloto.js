@@ -1,4 +1,4 @@
-(function(){
+(function () {
 
     'use strict';
 
@@ -7,7 +7,7 @@
 
     service.$inject = ['$http', '$q'];
 
-    function service($http, $q){
+    function service($http, $q) {
 
         var apiPrefix = "/api/bonoloto";
 
@@ -41,7 +41,7 @@
         /**
          * Metodo para determinar la categoria del premio asociada a una apuesta dados el resultado, apuesta y reintegro apostado
          */
-        function getPrizeCategory(resultado, combinacion, reintegroApostado){
+        function getPrizeCategory(resultado, combinacion, reintegroApostado) {
             var res = "";
             var numeroAciertos = 0;
             var reintegroAcertado = false;
@@ -114,7 +114,7 @@
         /**
          * Metodo para determinar el número de aciertos en una apuesta
          */
-        function getSuccessfulNumbersAmount(resultado, combinacion, reintegroApostado){
+        function getSuccessfulNumbersAmount(resultado, combinacion, reintegroApostado) {
             var res = "";
 
             var numeroAciertos = 0;
@@ -172,7 +172,7 @@
         /**
          * Metodo para determinar si un número incluido en una apuesta ha aparecido en la apuesta ganadora
          */
-        function isSuccessfulNumber(resultado, bola){
+        function isSuccessfulNumber(resultado, bola) {
             var res = false;
 
             for (var i = 0; i < resultado.bolas.length; i++) {
@@ -188,7 +188,7 @@
         /**
          * Metodo para determinar si un número incluido en una apuesta coincide con el complementario de la apuesta ganadora
          */
-        function isSuccessfulNumberAsComplementary(resultado, bola){
+        function isSuccessfulNumberAsComplementary(resultado, bola) {
             var res = false;
 
             if (String(bola.numero) === String(resultado.complementario)) {
@@ -198,228 +198,228 @@
             return res;
         }
 
-        function getTickets(queryParameters){
+        function getTickets(queryParameters) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.get(apiPrefix + '/tickets', {
                 params: queryParameters
             })
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err.data);
                 });
 
             return promise;
         }
 
-        function getTicketById(id){
+        function getTicketById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.get(apiPrefix + '/tickets/' + id)
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err.data);
                 });
 
             return promise;
         }
 
-        function createTicket(ticket){
+        function createTicket(ticket) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.post(apiPrefix + '/tickets', ticket)
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err.data);
                 });
 
             return promise;
         }
 
-        function editTicket(ticket){
+        function editTicket(ticket) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.put(apiPrefix + '/tickets', ticket)
-                .then(function(data){
+            $http.put(apiPrefix + '/tickets/' + ticket._id, ticket)
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err.data);
                 });
 
             return promise;
         }
 
-        function deleteTicketById(id){
+        function deleteTicketById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.delete(apiPrefix + '/tickets/' + id)
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err.data);
                 });
 
             return promise;
         }
 
-        function getYears(){
+        function getYears() {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.get(apiPrefix + '/years')
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err.data);
                 });
 
             return promise;
         }
 
-        function getYearById(id){
+        function getYearById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.get(apiPrefix + '/years/' + id)
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err.data);
                 });
 
             return promise;
         }
 
-        function createYear(year){
+        function createYear(year) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.post(apiPrefix + '/years', year)
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err.data);
                 });
 
             return promise;
         }
 
-        function editYear(year){
+        function editYear(year) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.put(apiPrefix + '/years', year)
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err.data);
                 });
 
             return promise;
         }
 
-        function deleteYearById(id){
+        function deleteYearById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.delete(apiPrefix + '/years/' + id)
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err.data);
                 });
 
             return promise;
         }
 
-        function getOccurrencesByNumber(queryParameters){
+        function getOccurrencesByNumber(queryParameters) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.get(apiPrefix + '/historical/occurrencesByNumber', {
                 params: queryParameters
             })
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err.data);
                 });
 
             return promise;
         }
 
-        function getOccurrencesByResult(queryParameters){
+        function getOccurrencesByResult(queryParameters) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.get(apiPrefix + '/historical/occurrencesByResult', {
                 params: queryParameters
             })
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err.data);
                 });
 
             return promise;
         }
 
-        function getOccurrencesByResultWithReimbursement(queryParameters){
+        function getOccurrencesByResultWithReimbursement(queryParameters) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.get(apiPrefix + '/historical/occurrencesByResultWithReimbursement', {
                 params: queryParameters
             })
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err.data);
                 });
 
             return promise;
         }
 
-        function getOccurrencesByReimbursement(queryParameters){
+        function getOccurrencesByReimbursement(queryParameters) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.get(apiPrefix + '/historical/occurrencesByReimbursement', {
                 params: queryParameters
             })
-                .then(function(data){
+                .then(function (data) {
                     var data = data.data;
 
                     data.data.forEach(element => {
-                        if(element.reintegro == null){
+                        if (element.reintegro == null) {
                             element.reintegro = "-";
                         }
                     });
 
                     defered.resolve(data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err.data);
                 });
 
