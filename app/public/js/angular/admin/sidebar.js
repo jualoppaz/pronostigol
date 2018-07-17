@@ -4,21 +4,21 @@ app.controller('SidebarController', Controller);
 
 Controller.$inject = ['$scope', '$http', '$window'];
 
-function Controller($scope, $http, $window){
+function Controller($scope, $http, $window) {
 
     $scope.loteria = "";
 
     var url = $window.location.href;
 
-    if(url.indexOf("/quiniela") !== -1){
+    if (url.indexOf("/quiniela") !== -1) {
         $scope.loteria = "quiniela";
-    }else if(url.indexOf("/bonoloto") !== -1){
+    } else if (url.indexOf("/bonoloto") !== -1) {
         $scope.loteria = "bonoloto";
-    }else if(url.indexOf("/primitiva") !== -1){
+    } else if (url.indexOf("/primitiva") !== -1) {
         $scope.loteria = "primitiva";
-    }else if(url.indexOf("/gordo") !== -1){
+    } else if (url.indexOf("/gordo") !== -1) {
         $scope.loteria = "gordo";
-    }else if(url.indexOf("/euromillones") !== -1){
+    } else if (url.indexOf("/euromillones") !== -1) {
         $scope.loteria = "euromillones";
     }
 
@@ -31,34 +31,26 @@ function Controller($scope, $http, $window){
     $scope.comentariosNuevosOEditados = 0;
 
     $http.get('/query/notReadedEmailsNumber')
-        .success(function(data){
+        .success(function (data) {
             $scope.correosNoLeidos = data.emails;
         })
-        .error(function(data){
-            console.log(data);
-        });
-
-    $http.get('/query/notReadedOrders')
-        .success(function(data){
-            $scope.pedidos = data.orders;
-        })
-        .error(function(data){
+        .error(function (data) {
             console.log(data);
         });
 
     $http.get('/query/newUsers')
-        .success(function(data){
+        .success(function (data) {
             $scope.usuariosNuevos = data.newUsers;
         })
-        .error(function(data){
+        .error(function (data) {
             console.log(data);
         });
 
     $http.get('/query/notVerifiedComments')
-        .success(function(data){
+        .success(function (data) {
             $scope.comentariosNuevosOEditados = data.length;
         })
-        .error(function(data){
+        .error(function (data) {
             console.log(data);
         });
 }
