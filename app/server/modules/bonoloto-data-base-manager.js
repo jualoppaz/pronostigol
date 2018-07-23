@@ -6,29 +6,29 @@ var DBM = require('./init-data-base-manager');
 
 var bonoloto_tickets, bonoloto_years;
 
-DBM.getDatabaseInstance(function(err, res){
-   if(err){
-       console.log(err);
-   }else{
-       db = res;
+DBM.getDatabaseInstance(function (err, res) {
+    if (err) {
+        console.log(err);
+    } else {
+        db = res;
 
-       bonoloto_tickets = db.collection("bonoloto_tickets");
-       bonoloto_years = db.collection("bonoloto_years");
-   }
+        bonoloto_tickets = db.collection("bonoloto_tickets");
+        bonoloto_years = db.collection("bonoloto_years");
+    }
 });
 
-var getObjectId = function(id){
+var getObjectId = function (id) {
     return ObjectID(id);
 };
 
-exports.getAllTickets = function(filtros, callback){
+exports.getAllTickets = function (filtros, callback) {
     var filters = {};
 
-    if(filtros.year){
+    if (filtros.year) {
         filters.anyo = filtros.year;
     }
 
-    if(filtros.raffle){
+    if (filtros.raffle) {
         filters.sorteo = filtros.raffle;
     }
 
@@ -44,14 +44,14 @@ exports.getAllTickets = function(filtros, callback){
         skip: skip
     };
 
-    bonoloto_tickets.count(filters, function(err, total){
-        if(err){
+    bonoloto_tickets.count(filters, function (err, total) {
+        if (err) {
             callback(err);
-        }else{
-            bonoloto_tickets.find(filters, options).toArray(function(err, res){
-                if(err){
+        } else {
+            bonoloto_tickets.find(filters, options).toArray(function (err, res) {
+                if (err) {
                     callback(err);
-                }else{
+                } else {
 
                     var result = {
                         page: page,
@@ -59,7 +59,7 @@ exports.getAllTickets = function(filtros, callback){
                         total: total,
                         data: res
                     };
-                    
+
                     callback(null, result);
                 }
             });
@@ -67,41 +67,41 @@ exports.getAllTickets = function(filtros, callback){
     });
 };
 
-exports.getTicketsByAnyo = function(anyo, callback){
+exports.getTicketsByAnyo = function (anyo, callback) {
 
     bonoloto_tickets.find({
         anyo: anyo
-    }).toArray(function(err, res){
-        if(err){
+    }).toArray(function (err, res) {
+        if (err) {
             callback(err);
-        }else{
+        } else {
             callback(null, res);
         }
     });
 };
 
-exports.getTicketsByAnyoAndRaffle = function(anyo, sorteo, callback){
+exports.getTicketsByAnyoAndRaffle = function (anyo, sorteo, callback) {
 
     bonoloto_tickets.findOne({
         anyo: anyo,
         $or: [
             {
                 sorteo: Number(sorteo)
-            },{
+            }, {
                 sorteo: sorteo.toString()
             }
         ]
-    }, function(err, res){
-        if(err){
+    }, function (err, res) {
+        if (err) {
             callback(err);
-        }else{
+        } else {
             res = res || {};
             callback(null, res);
         }
     });
 };
 
-exports.addNewTicket = function(ticket, callback){
+exports.addNewTicket = function (ticket, callback) {
 
     var trozos = ticket.fecha.split("/");
 
@@ -116,45 +116,45 @@ exports.addNewTicket = function(ticket, callback){
         apuestas: ticket.apuestas,
         resultado: ticket.resultado,
         observaciones: ticket.observaciones
-    },{
-        w:1
-    },function(e, res){
-        if(e){
-            callback(e);
-        }else{
-            callback(null, res);
-        }
-    });
+    }, {
+            w: 1
+        }, function (e, res) {
+            if (e) {
+                callback(e);
+            } else {
+                callback(null, res);
+            }
+        });
 
 };
 
-exports.getTicketById = function(id, callback){
+exports.getTicketById = function (id, callback) {
 
     bonoloto_tickets.findOne({
         _id: getObjectId(id)
-    }, function(err, res){
-        if(err){
+    }, function (err, res) {
+        if (err) {
             callback(err);
-        }else{
+        } else {
             res = res || {};
             callback(null, res);
         }
     });
 };
 
-exports.deleteTicketById = function(id, callback){
+exports.deleteTicketById = function (id, callback) {
     bonoloto_tickets.remove({
         _id: getObjectId(id)
-    },function(e, res){
-        if(e || !res){
+    }, function (e, res) {
+        if (e || !res) {
             callback('ticket-not-deleted');
-        }else{
+        } else {
             callback(null, res);
         }
     });
 };
 
-exports.editTicket = function(ticket, callback){
+exports.editTicket = function (ticket, callback) {
     var trozos = ticket.fecha.split("/");
 
     var fecha = trozos[2] + "-" + trozos[1] + "-" + trozos[0];
@@ -174,20 +174,20 @@ exports.editTicket = function(ticket, callback){
             }
         }
 
-    , function(err, number) {
+        , function (err, number) {
 
-        console.log("Numero: " + number);
+            console.log("Numero: " + number);
 
-        if(err || number == 0){
-            callback('not-updated');
-        }else{
-            callback(null, ticket);
-        }
-    });
+            if (err || number == 0) {
+                callback('not-updated');
+            } else {
+                callback(null, ticket);
+            }
+        });
 
 };
 
-exports.getOccurrencesByResultWithReimbursement = function(filtros, callback){
+exports.getOccurrencesByResultWithReimbursement = function (filtros, callback) {
     var limit = filtros.perPage;
     var page = filtros.page;
     var skip = (page - 1) * limit;
@@ -225,10 +225,10 @@ exports.getOccurrencesByResultWithReimbursement = function(filtros, callback){
         }
     });
 
-    bonoloto_tickets.aggregate(query, function(e, res) {
-        if (e){
+    bonoloto_tickets.aggregate(query, function (e, res) {
+        if (e) {
             callback(e);
-        }else{
+        } else {
             var result = {
                 page: page,
                 perPage: limit,
@@ -239,7 +239,7 @@ exports.getOccurrencesByResultWithReimbursement = function(filtros, callback){
             sortConfig[sort_property] = sort_type;
 
             // Añadimos ordenación alternativa
-            if(sort_property === "apariciones"){
+            if (sort_property === "apariciones") {
                 sortConfig["resultado"] = sort_type;
                 sortConfig["reintegro"] = sort_type;
             }
@@ -256,7 +256,7 @@ exports.getOccurrencesByResultWithReimbursement = function(filtros, callback){
                 $limit: limit
             });
 
-            bonoloto_tickets.aggregate(query, function(e, res) {
+            bonoloto_tickets.aggregate(query, function (e, res) {
                 if (e) {
                     callback(e);
                 } else {
@@ -268,14 +268,14 @@ exports.getOccurrencesByResultWithReimbursement = function(filtros, callback){
     });
 };
 
-exports.getOccurrencesByResultWithoutReimbursement = function(filtros, callback){
+exports.getOccurrencesByResultWithoutReimbursement = function (filtros, callback) {
     var limit = filtros.perPage;
     var page = filtros.page;
     var skip = (page - 1) * limit;
     var sort = filtros.sort;
     var type = filtros.type;
 
-    var sort_property = sort === 'result' ? 'resultado' : 'apariciones';
+    var sort_property = sort === 'result' ? 'resultadoAsString' : 'apariciones';
     var sort_type = type === 'asc' ? 1 : -1;
 
     var query = [];
@@ -296,10 +296,10 @@ exports.getOccurrencesByResultWithoutReimbursement = function(filtros, callback)
         }
     });
 
-    bonoloto_tickets.aggregate(query, function(e, res) {
-        if (e){
+    bonoloto_tickets.aggregate(query, function (e, res) {
+        if (e) {
             callback(e);
-        }else{
+        } else {
             var result = {
                 page: page,
                 perPage: limit,
@@ -310,9 +310,51 @@ exports.getOccurrencesByResultWithoutReimbursement = function(filtros, callback)
             sortConfig[sort_property] = sort_type;
 
             // Añadimos ordenación alternativa
-            if(sort_property === "apariciones"){
-                sortConfig["resultado"] = sort_type;
+            if (sort_property === "apariciones") {
+                sortConfig["resultadoAsString"] = sort_type;
+            } else {
+                sort_property["apariciones"] = sort_type;
             }
+
+            console.log("sortConfig:", sortConfig);
+
+            query.push({
+                $addFields: {
+                    resultadoAsString: {
+                        $reduce: {
+                            input: "$resultado",
+                            initialValue: "",
+                            in: {
+                                $concat: [
+                                    "$$value", {
+                                        $substr: [
+                                            {
+                                                $cond: [
+                                                    {
+                                                        $gte: [
+                                                            "$$this.numero", 10
+                                                        ]
+                                                    },
+                                                    "$$this.numero",
+                                                    {
+                                                        $concat: [
+                                                            "0", {
+                                                                $substr: [
+                                                                    "$$this.numero", 0, -1
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }, 0, -1
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            });
 
             query.push({
                 $sort: sortConfig
@@ -326,7 +368,9 @@ exports.getOccurrencesByResultWithoutReimbursement = function(filtros, callback)
                 $limit: limit
             });
 
-            bonoloto_tickets.aggregate(query, function(e, res) {
+            console.log("Query:", query);
+
+            bonoloto_tickets.aggregate(query, function (e, res) {
                 if (e) {
                     callback(e);
                 } else {
@@ -338,7 +382,7 @@ exports.getOccurrencesByResultWithoutReimbursement = function(filtros, callback)
     });
 };
 
-exports.getOccurrencesByNumber = function(filtros, callback){
+exports.getOccurrencesByNumber = function (filtros, callback) {
     var limit = filtros.perPage;
     var page = filtros.page;
     var skip = (page - 1) * limit;
@@ -370,10 +414,10 @@ exports.getOccurrencesByNumber = function(filtros, callback){
         }
     });
 
-    bonoloto_tickets.aggregate(query, function(e, res) {
-        if (e){
+    bonoloto_tickets.aggregate(query, function (e, res) {
+        if (e) {
             callback(e);
-        }else{
+        } else {
             var result = {
                 page: page,
                 perPage: limit,
@@ -384,7 +428,7 @@ exports.getOccurrencesByNumber = function(filtros, callback){
             sortConfig[sort_property] = sort_type;
 
             // Añadimos ordenación alternativa
-            if(sort_property === "apariciones"){
+            if (sort_property === "apariciones") {
                 sortConfig["numero"] = sort_type;
             }
 
@@ -400,10 +444,10 @@ exports.getOccurrencesByNumber = function(filtros, callback){
                 $limit: limit
             });
 
-            bonoloto_tickets.aggregate(query, function(e, res){
-                if (e){
+            bonoloto_tickets.aggregate(query, function (e, res) {
+                if (e) {
                     callback(e);
-                }else{
+                } else {
                     result.data = res;
                     callback(null, result);
                 }
@@ -412,7 +456,7 @@ exports.getOccurrencesByNumber = function(filtros, callback){
     });
 };
 
-exports.getOccurrencesByReimbursement = function(filtros, callback){
+exports.getOccurrencesByReimbursement = function (filtros, callback) {
     var limit = filtros.perPage;
     var page = filtros.page;
     var skip = (page - 1) * limit;
@@ -440,10 +484,10 @@ exports.getOccurrencesByReimbursement = function(filtros, callback){
         }
     });
 
-    bonoloto_tickets.aggregate(query, function(e, res) {
-        if (e){
+    bonoloto_tickets.aggregate(query, function (e, res) {
+        if (e) {
             callback(e);
-        }else{
+        } else {
             var result = {
                 page: page,
                 perPage: limit,
@@ -454,7 +498,7 @@ exports.getOccurrencesByReimbursement = function(filtros, callback){
             sortConfig[sort_property] = sort_type;
 
             // Añadimos ordenación alternativa
-            if(sort_property === "apariciones"){
+            if (sort_property === "apariciones") {
                 sortConfig["reintegro"] = sort_type;
             }
 
@@ -470,10 +514,10 @@ exports.getOccurrencesByReimbursement = function(filtros, callback){
                 $limit: limit
             });
 
-            bonoloto_tickets.aggregate(query, function(e, res){
-                if (e){
+            bonoloto_tickets.aggregate(query, function (e, res) {
+                if (e) {
                     callback(e);
-                }else{
+                } else {
                     result.data = res;
                     callback(null, result);
                 }
@@ -482,104 +526,104 @@ exports.getOccurrencesByReimbursement = function(filtros, callback){
     });
 };
 
-exports.getAllYears = function(callback){
+exports.getAllYears = function (callback) {
 
     bonoloto_years.find({
 
-    }).toArray(function(err, res){
-            if(err){
-                callback(err);
-            }else{
-                callback(null, res);
-            }
-        });
+    }).toArray(function (err, res) {
+        if (err) {
+            callback(err);
+        } else {
+            callback(null, res);
+        }
+    });
 };
 
-exports.getYearById = function(id, callback){
+exports.getYearById = function (id, callback) {
 
     bonoloto_years.findOne({
         _id: getObjectId(id)
-    }, function(err, res){
-        if(err){
+    }, function (err, res) {
+        if (err) {
             callback(err);
-        }else{
+        } else {
             res = res || {};
             callback(null, res);
         }
     });
 };
 
-exports.getYearByName = function(name, callback){
+exports.getYearByName = function (name, callback) {
 
     bonoloto_years.findOne({
         name: name
-    }, function(err, res){
-        if(err){
+    }, function (err, res) {
+        if (err) {
             callback(err);
-        }else{
+        } else {
             res = res || {};
             callback(null, res);
         }
     });
 };
 
-exports.deleteYearById = function(id, callback){
+exports.deleteYearById = function (id, callback) {
     bonoloto_years.remove({
         _id: getObjectId(id)
-    },function(e, res){
-        if(e || !res){
+    }, function (e, res) {
+        if (e || !res) {
             callback('year-not-deleted');
-        }else{
+        } else {
             callback(null, res);
         }
     });
 };
 
-exports.addNewYear = function(year, callback){
+exports.addNewYear = function (year, callback) {
 
     bonoloto_years.insert({
         name: year.name,
         value: year.name
 
-    },{
-        w:1
-    },function(e, res){
-        if(e){
-            callback(e);
-        }else{
-            callback(null, res);
-        }
-    });
+    }, {
+            w: 1
+        }, function (e, res) {
+            if (e) {
+                callback(e);
+            } else {
+                callback(null, res);
+            }
+        });
 
 };
 
-exports.editYear = function(year, callback){
+exports.editYear = function (year, callback) {
 
     console.log("Id a buscar: " + year._id);
 
     bonoloto_years.update({
         _id: getObjectId(year._id)
     }, {
-        $set: {
-            name: year.name,
-            value: year.name
+            $set: {
+                name: year.name,
+                value: year.name
+            }
         }
-    }
 
-    , function(err, number) {
+        , function (err, number) {
 
-        console.log("Numero: " + number);
+            console.log("Numero: " + number);
 
-        if(err || number == 0){
-            callback('not-updated');
-        }else{
-            callback(null, year);
-        }
-    });
+            if (err || number == 0) {
+                callback('not-updated');
+            } else {
+                callback(null, year);
+            }
+        });
 
 };
 
-exports.getEconomicBalanceByYear = function(callback){
+exports.getEconomicBalanceByYear = function (callback) {
     bonoloto_tickets.aggregate({
         $group: {
             '_id': '$anyo',
@@ -590,10 +634,10 @@ exports.getEconomicBalanceByYear = function(callback){
                 $sum: '$premio'
             }
         }
-    }, function(err, res){
-        if(err){
+    }, function (err, res) {
+        if (err) {
             callback(err);
-        }else{
+        } else {
             callback(null, res);
         }
     });
