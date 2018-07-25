@@ -15,5 +15,5 @@ div.table-responsive(style="margin-top: 15px", ng-if="mostrar.tablaAparicionesPo
             tr(ng-repeat="item in aparicionesPorResultadoConReintegro")
                 td
                     span.badge.badge-azul(ng-repeat="numero in item.resultado", ng-bind-template="{{printNumber(numero.numero)}}")
-                    span.badge.badge-azul(style="margin-left: 15px", ng-bind-template="R {{item.reintegro}}")
+                    span.badge.badge-azul(style="margin-left: 15px", ng-bind-template="R {{item.reintegro || '-'}}")
                 td(ng-bind-template="{{item.apariciones}}")

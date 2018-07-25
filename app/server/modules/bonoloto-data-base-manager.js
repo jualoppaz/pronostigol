@@ -194,7 +194,7 @@ exports.getOccurrencesByResultWithReimbursement = function (filtros, callback) {
     var sort = filtros.sort;
     var type = filtros.type;
 
-    var sort_property = sort === 'result' ? 'resultado' : 'apariciones';
+    var sort_property = sort === 'result' ? 'resultadoAsString' : 'apariciones';
     var sort_type = type === 'asc' ? 1 : -1;
 
     var query = [];
@@ -240,9 +240,93 @@ exports.getOccurrencesByResultWithReimbursement = function (filtros, callback) {
 
             // Añadimos ordenación alternativa
             if (sort_property === "apariciones") {
-                sortConfig["resultado"] = sort_type;
+                sortConfig["resultadoAsString"] = sort_type;
+                sortConfig["reintegro"] = sort_type;
+            } else {
+                sortConfig["apariciones"] = sort_type;
                 sortConfig["reintegro"] = sort_type;
             }
+
+            query.push({
+                $addFields: {
+                    resultadoAsString: {
+                        $concat: [
+                            {
+                                $reduce: {
+                                    input: "$resultado",
+                                    initialValue: "",
+                                    in: {
+                                        $concat: [
+                                            "$$value",
+                                            {
+                                                $substr: [
+                                                    {
+                                                        $cond: [
+                                                            {
+                                                                $gte: [
+                                                                    "$$this.numero", 10
+                                                                ]
+                                                            },
+                                                            "$$this.numero",
+                                                            {
+                                                                $concat: [
+                                                                    "0", {
+                                                                        $substr: [
+                                                                            "$$this.numero", 0, -1
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }, 0, -1
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            },
+                            'R',
+                            {
+                                $substr: [
+                                    {
+                                        $cond: [
+                                            {
+                                                $gte: [
+                                                    "$reintegro", 10
+                                                ]
+                                            },
+                                            "$reintegro",
+                                            {
+                                                $concat: [
+                                                    {
+                                                        $cond: [
+                                                            {
+                                                                $eq: [
+                                                                    '$reintegro', null
+                                                                ]
+                                                            },
+                                                            '--',
+                                                            {
+                                                                $concat: [
+                                                                    "0", {
+                                                                        $substr: [
+                                                                            "$reintegro", 0, -1
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }, 0, -1
+                                ]
+                            }
+                        ]
+                    }
+                }
+            });
 
             query.push({
                 $sort: sortConfig
@@ -313,7 +397,7 @@ exports.getOccurrencesByResultWithoutReimbursement = function (filtros, callback
             if (sort_property === "apariciones") {
                 sortConfig["resultadoAsString"] = sort_type;
             } else {
-                sort_property["apariciones"] = sort_type;
+                sortConfig["apariciones"] = sort_type;
             }
 
             console.log("sortConfig:", sortConfig);
