@@ -133,21 +133,19 @@ function Controller ($scope, $http, $window, $filter, bonoloto){
 
         if($scope.ticket.apuestas.combinaciones.length < 8){
             $scope.ticket.apuestas.combinaciones[$scope.ticket.apuestas.combinaciones.length] = [
-                [
-                    {
-                        numero: null
-                    },{
-                        numero: null
-                    },{
-                        numero: null
-                    },{
-                        numero: null
-                    },{
-                        numero: null
-                    },{
-                        numero: null
-                    }
-                ]
+                {
+                    numero: null
+                }, {
+                    numero: null
+                }, {
+                    numero: null
+                }, {
+                    numero: null
+                }, {
+                    numero: null
+                }, {
+                    numero: null
+                }
             ];
         }
     };
