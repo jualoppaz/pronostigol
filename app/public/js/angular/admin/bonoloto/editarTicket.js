@@ -4,7 +4,7 @@ app.controller('TicketController', Controller);
 
 Controller.$inject = ['$scope', '$http', '$window', '$filter', 'bonoloto'];
 
-function Controller ($scope, $http, $window, $filter, bonoloto){
+function Controller($scope, $http, $window, $filter, bonoloto) {
 
     $scope.ticket = {};
 
@@ -15,24 +15,24 @@ function Controller ($scope, $http, $window, $filter, bonoloto){
     var id = url.split("/tickets/")[1];
 
     bonoloto.getTicketById(id)
-        .then(function(data){
+        .then(function (data) {
             $scope.ticket = data;
 
             $scope.ticket.fecha = $filter('date')(data.fecha, 'dd/MM/yyyy');
 
             $scope.consultando = false;
         })
-        .catch(function(err){
+        .catch(function (err) {
             console.log(err);
         });
 
     $scope.anyos = [];
 
     bonoloto.getYears()
-        .then(function(data){
+        .then(function (data) {
             $scope.anyos = $filter('orderBy')(data, "name");
         })
-        .catch(function(err){
+        .catch(function (err) {
             console.log(err);
         });
 
@@ -40,15 +40,15 @@ function Controller ($scope, $http, $window, $filter, bonoloto){
         bolas: [
             {
                 numero: null
-            },{
+            }, {
                 numero: null
-            },{
+            }, {
                 numero: null
-            },{
+            }, {
                 numero: null
-            },{
+            }, {
                 numero: null
-            },{
+            }, {
                 numero: null
             }
         ],
@@ -62,76 +62,76 @@ function Controller ($scope, $http, $window, $filter, bonoloto){
             [
                 {
                     numero: null
-                },{
+                }, {
                     numero: null
-                },{
+                }, {
                     numero: null
-                },{
+                }, {
                     numero: null
-                },{
+                }, {
                     numero: null
-                },{
+                }, {
                     numero: null
                 }
             ], [
                 {
                     numero: null
-                },{
+                }, {
                     numero: null
-                },{
+                }, {
                     numero: null
-                },{
+                }, {
                     numero: null
-                },{
+                }, {
                     numero: null
-                },{
+                }, {
                     numero: null
                 }
             ]
         ]
     };
 
-    $scope.anadirApuesta = function(){
-        if($scope.ticket.apuestas.combinaciones == null){
+    $scope.anadirApuesta = function () {
+        if ($scope.ticket.apuestas.combinaciones == null) {
 
             $scope.ticket.apuestas.combinaciones = [
                 [
                     {
                         numero: null
-                    },{
+                    }, {
                         numero: null
-                    },{
+                    }, {
                         numero: null
-                    },{
+                    }, {
                         numero: null
-                    },{
+                    }, {
                         numero: null
-                    },{
+                    }, {
                         numero: null
                     }
                 ]
             ];
-        }else if($scope.ticket.apuestas.combinaciones.length === 0){
+        } else if ($scope.ticket.apuestas.combinaciones.length === 0) {
             $scope.ticket.apuestas.combinaciones = [
                 [
                     {
                         numero: null
-                    },{
+                    }, {
                         numero: null
-                    },{
+                    }, {
                         numero: null
-                    },{
+                    }, {
                         numero: null
-                    },{
+                    }, {
                         numero: null
-                    },{
+                    }, {
                         numero: null
                     }
                 ]
             ];
         }
 
-        if($scope.ticket.apuestas.combinaciones.length < 8){
+        if ($scope.ticket.apuestas.combinaciones.length < 8) {
             $scope.ticket.apuestas.combinaciones[$scope.ticket.apuestas.combinaciones.length] = [
                 {
                     numero: null
@@ -150,26 +150,26 @@ function Controller ($scope, $http, $window, $filter, bonoloto){
         }
     };
 
-    $scope.eliminarApuesta = function(){
-        if($scope.ticket.apuestas.combinaciones.length !== 0){
+    $scope.eliminarApuesta = function () {
+        if ($scope.ticket.apuestas.combinaciones.length !== 0) {
             $scope.ticket.apuestas.combinaciones.pop();
-            if($scope.ticket.apuestas.combinaciones.length === 1){
+            if ($scope.ticket.apuestas.combinaciones.length === 1) {
                 $scope.ticket.apuestas.combinaciones = [];
             }
         }
     };
 
-    $scope.guardar = function(){
+    $scope.guardar = function () {
         bonoloto.editTicket($scope.ticket)
-            .then(function(){
+            .then(function () {
                 $scope.redirigir();
             })
-            .catch(function(err){
+            .catch(function (err) {
                 console.log(err);
             });
     };
 
-    $scope.redirigir = function(){
+    $scope.redirigir = function () {
         $window.location.href = "/admin/bonoloto";
     };
 }
