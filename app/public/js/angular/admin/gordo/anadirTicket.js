@@ -106,19 +106,17 @@ function Controller($scope, $http, $window, $filter, gordo){
 
         if($scope.ticket.apuestas.combinaciones.length < 8){
             $scope.ticket.apuestas.combinaciones[$scope.ticket.apuestas.combinaciones.length] = [
-                [
-                    {
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
-                    }
-                ]
+                {
+                    numero: ""
+                }, {
+                    numero: ""
+                }, {
+                    numero: ""
+                }, {
+                    numero: ""
+                }, {
+                    numero: ""
+                }
             ];
         }
     };
