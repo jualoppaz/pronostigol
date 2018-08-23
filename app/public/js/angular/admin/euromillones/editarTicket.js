@@ -87,61 +87,80 @@ function Controller($scope, $http, $window, $filter, euromillones){
     $scope.anadirApuesta = function(){
         if($scope.ticket.apuestas.combinaciones == null){
             $scope.ticket.apuestas.combinaciones = [
-                [
-                    {
-                        numero: null
-                    },{
-                        numero: null
-                    },{
-                        numero: null
-                    },{
-                        numero: null
-                    },{
-                        numero: null
-                    },{
-                        numero: null
-                    }
-                ]
+                {
+                    numeros: [
+                        {
+                            numero: null
+                        }, {
+                            numero: null
+                        }, {
+                            numero: null
+                        }, {
+                            numero: null
+                        }, {
+                            numero: null
+                        }
+                    ],
+                    estrellas: [
+                        {
+                            numero: null
+                        }, {
+                            numero: null
+                        }
+                    ]
+                }
             ];
         }else if($scope.ticket.apuestas.combinaciones.length === 0){
             $scope.ticket.apuestas.combinaciones = [
-                [
-                    {
-                        numero: null
-                    },{
-                        numero: null
-                    },{
-                        numero: null
-                    },{
-                        numero: null
-                    },{
-                        numero: null
-                    },{
-                        numero: null
-                    }
-                ]
+                {
+                    numeros: [
+                        {
+                            numero: null
+                        }, {
+                            numero: null
+                        }, {
+                            numero: null
+                        }, {
+                            numero: null
+                        }, {
+                            numero: null
+                        }
+                    ],
+                    estrellas: [
+                        {
+                            numero: null
+                        }, {
+                            numero: null
+                        }
+                    ]
+                }
             ];
         }
 
-        if($scope.ticket.apuestas.combinaciones.length < 8){
-            $scope.ticket.apuestas.combinaciones[$scope.ticket.apuestas.combinaciones.length] = [
-                [
+        if ($scope.ticket.apuestas.combinaciones.length < 8) {
+            $scope.ticket.apuestas.combinaciones[$scope.ticket.apuestas.combinaciones.length] = {
+                numeros: [
                     {
                         numero: null
-                    },{
+                    }, {
                         numero: null
-                    },{
+                    }, {
                         numero: null
-                    },{
+                    }, {
                         numero: null
-                    },{
+                    }, {
                         numero: null
-                    },{
+                    }
+                ],
+                estrellas: [
+                    {
+                        numero: null
+                    }, {
                         numero: null
                     }
                 ]
-            ];
-        }
+            };
+        };
     };
 
     $scope.eliminarApuesta = function(){
