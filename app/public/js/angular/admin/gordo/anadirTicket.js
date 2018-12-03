@@ -4,19 +4,19 @@ app.controller('TicketController', Controller);
 
 Controller.$inject = ['$scope', '$http', '$window', '$filter', 'gordo'];
 
-function Controller($scope, $http, $window, $filter, gordo){
+function Controller($scope, $http, $window, $filter, gordo) {
 
     $scope.ticket = {};
 
-    $scope.ticket.precio = "3";
+    $scope.ticket.precio = "6";
 
     $scope.anyos = [];
 
     gordo.getAllYears()
-        .then(function(data){
+        .then(function (data) {
             $scope.anyos = $filter('orderBy')(data, "name");
         })
-        .catch(function(err){
+        .catch(function (err) {
             console.log(err);
         });
 
@@ -24,13 +24,13 @@ function Controller($scope, $http, $window, $filter, gordo){
         bolas: [
             {
                 numero: ""
-            },{
+            }, {
                 numero: ""
-            },{
+            }, {
                 numero: ""
-            },{
+            }, {
                 numero: ""
-            },{
+            }, {
                 numero: ""
             }
         ],
@@ -43,68 +43,92 @@ function Controller($scope, $http, $window, $filter, gordo){
             [
                 {
                     numero: "4"
-                },{
+                }, {
                     numero: "8"
-                },{
+                }, {
                     numero: "13"
-                },{
+                }, {
                     numero: "19"
-                },{
+                }, {
                     numero: "27"
                 }
             ], [
                 {
                     numero: "6"
-                },{
+                }, {
                     numero: "10"
-                },{
+                }, {
                     numero: "22"
-                },{
+                }, {
                     numero: "37"
-                },{
+                }, {
                     numero: "46"
+                }
+            ], [
+                {
+                    numero: "32"
+                }, {
+                    numero: "36"
+                }, {
+                    numero: "39"
+                }, {
+                    numero: "42"
+                }, {
+                    numero: "45"
+                }
+            ], [
+                {
+                    numero: "40"
+                }, {
+                    numero: "41"
+                }, {
+                    numero: "43"
+                }, {
+                    numero: "44"
+                }, {
+                    numero: "48"
                 }
             ]
         ]
     };
 
-    $scope.anadirApuesta = function(){
-        if($scope.ticket.apuestas.combinaciones == null){
+    $scope.anadirApuesta = function () {
+        if ($scope.ticket.apuestas.combinaciones == null) {
 
             $scope.ticket.apuestas.combinaciones = [
                 [
                     {
                         numero: ""
-                    },{
+                    }, {
                         numero: ""
-                    },{
+                    }, {
                         numero: ""
-                    },{
+                    }, {
                         numero: ""
-                    },{
+                    }, {
                         numero: ""
                     }
                 ]
             ];
-        }else if($scope.ticket.apuestas.combinaciones.length === 0){
+        } else if ($scope.ticket.apuestas.combinaciones.length === 0) {
             $scope.ticket.apuestas.combinaciones = [
                 [
                     {
                         numero: ""
-                    },{
+                    }, {
                         numero: ""
-                    },{
+                    }, {
                         numero: ""
-                    },{
+                    }, {
                         numero: ""
-                    },{
+                    }, {
                         numero: ""
                     }
                 ]
             ];
         }
 
-        if($scope.ticket.apuestas.combinaciones.length < 8){
+        if ($scope.ticket.apuestas.combinaciones.length < 8) {
             $scope.ticket.apuestas.combinaciones[$scope.ticket.apuestas.combinaciones.length] = [
                 {
                     numero: ""
@@ -121,30 +145,30 @@ function Controller($scope, $http, $window, $filter, gordo){
         }
     };
 
-    $scope.eliminarApuesta = function(){
+    $scope.eliminarApuesta = function () {
 
-        if($scope.ticket.apuestas.combinaciones.length !== 0){
+        if ($scope.ticket.apuestas.combinaciones.length !== 0) {
 
             $scope.ticket.apuestas.combinaciones.pop();
 
-            if($scope.ticket.apuestas.combinaciones.length === 1){
+            if ($scope.ticket.apuestas.combinaciones.length === 1) {
                 $scope.ticket.apuestas.combinaciones = [];
             }
 
         }
     };
 
-    $scope.guardar = function(){
+    $scope.guardar = function () {
         gordo.createTicket($scope.ticket)
-            .then(function(){
+            .then(function () {
                 $scope.redirigir();
             })
-            .catch(function(err){
+            .catch(function (err) {
                 console.log(err);
             });
     };
 
-    $scope.redirigir = function(){
+    $scope.redirigir = function () {
         $window.location.href = "/admin/gordo";
     };
 }
