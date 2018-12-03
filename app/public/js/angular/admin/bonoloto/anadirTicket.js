@@ -7,7 +7,7 @@ Controller.$inject = ["$scope", "$http", "$window", "$filter", "bonoloto"];
 function Controller($scope, $http, $window, $filter, bonoloto) {
   $scope.ticket = {};
 
-  $scope.ticket.precio = "1";
+  $scope.ticket.precio = "2";
 
   $scope.anyos = [];
 
