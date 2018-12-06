@@ -15,7 +15,7 @@ exports.setup = function (callback) {
     } else {
         dbPort = 27017;
         dbHost = 'localhost';
-        dbName = 'quiniela-data-base';
+        dbName = 'pronostigol';
     }
 
     db = new MongoDB(dbName, new Server(dbHost, dbPort, { auto_reconnect: true }), { w: 1 });
