@@ -10,7 +10,7 @@
     function service($http, $q){
         var service = {
             // Tickets
-            getAllTickets: getAllTickets,
+            getTickets: getTickets,
             getTicketById: getTicketById,
             createTicket: createTicket,
             editTicket: editTicket,
@@ -30,7 +30,7 @@
 
         return service;
 
-        function getAllTickets(queryParameters){
+        function getTickets(queryParameters) {
             var defered = $q.defer();
             var promise = defered.promise;
 
