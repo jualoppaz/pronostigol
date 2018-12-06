@@ -16,7 +16,7 @@ function Controller ($scope, $http, $window, VariosService, primitiva) {
 
     var fragmentos = url.split("/");
 
-    primitiva.getAllTickets({
+    primitiva.getTickets({
         year: fragmentos[5],
         raffle: fragmentos[6]
     })
