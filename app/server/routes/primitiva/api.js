@@ -8,7 +8,11 @@ module.exports = function(app){
 
     var PRI_DBM = require('../../modules/primitiva-data-base-manager');
 
-    var filtrarInformacion = function(result){
+    // Validations
+    var validate = require('express-validation');
+    var validations = require('./validations.js');
+
+    var filtrarInformacion = function (result) {
         var json = JSON.parse(JSON.stringify(result));
         json = borrarPronosticos(json);
         json = borrarPrecio(json);
@@ -47,37 +51,63 @@ module.exports = function(app){
         return json;
     };
 
-    var primitiva_api_tickets = function(req, res){
+    /**
+     * @api {get} /primitiva/tickets Obtención de todos los tickets de Primitiva
+     * @apiName GetPrimitivaTickets
+     * @apiGroup PrimitivaTickets
+     *
+     * @apiDescription Recurso para la consulta de tickets de Primitiva registrados en el sistema.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {Number} [year] Año asociado a los sorteos consultados
+     * @apiParam {Number} [raffle] Identificador único del sorteo dentro de un año
+     * @apiParam {Number} [page] Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} [per_page] Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Por defecto se ordenan por fecha descendentemente.
+     * @apiSampleRequest /api/primitiva/tickets
+     */
+    var primitiva_api_tickets = function (req, res) {
         var query = req.query;
+
         var year = query.year;
         var raffle = query.raffle;
+        var page = query.page || 1;
+        var perPage = query.per_page || 10;
+        var type = query.sort_type || 'desc';
 
         var filtros = {
-            year: year,
-            raffle: Number(raffle)
+            year: Number(year),
+            raffle: Number(raffle),
+            page: Number(page),
+            perPage: Number(perPage),
+            sort: 'fecha',
+            type: type
         };
 
-        PRI_DBM.getAllTickets(filtros, function(err, result){
-            if(err){
+        PRI_DBM.getAllTickets(filtros, function (err, result) {
+            if (err) {
                 return res.status(400).send(err);
             }
-
-            var response = [];
-            for(var i=0; i<result.length;i++){
+            var filteredData = [];
+            var tickets = result.data;
+            for (var i = 0; i < tickets.length; i++) {
                 var json;
-                if(req.session.user == null){
-                    json = filtrarInformacion(result[i]);
-                }else{
-                    if(req.session.user.role === ROLES.PRIVILEGED){
-                        json = result[i];
-                    }else{
-                        json = filtrarInformacion(result[i]);
+                if (req.session.user == null) {
+                    json = filtrarInformacion(tickets[i]);
+                } else {
+                    if (req.session.user.role === ROLES.PRIVILEGED || req.session.user.role === ROLES.ADMIN) {
+                        json = tickets[i];
+                    } else {
+                        json = filtrarInformacion(tickets[i]);
                     }
                 }
-                response.push(json);
+                filteredData.push(json);
             }
 
-            res.status(200).send(JSON.stringify(response, null, 4));
+            result.data = filteredData;
+
+            res.status(200).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -341,7 +371,7 @@ module.exports = function(app){
 
     /* Tickets de Primitiva */
     primitiva.route('/tickets')
-        .get(primitiva_api_tickets)
+        .get(validate(validations.getTickets), primitiva_api_tickets)
         .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), primitiva_api_nuevoTicket)
         .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), primitiva_api_editarTicket);
     primitiva.route('/tickets/:id')

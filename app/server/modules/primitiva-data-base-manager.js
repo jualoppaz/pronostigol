@@ -21,22 +21,48 @@ var getObjectId = function(id){
     return ObjectID(id);
 };
 
-exports.getAllTickets = function(filtros, callback){
+exports.getAllTickets = function (filtros, callback) {
     var filters = {};
 
-    if(filtros.year){
+    if (filtros.year) {
         filters.anyo = filtros.year;
     }
 
-    if(filtros.raffle){
+    if (filtros.raffle) {
         filters.sorteo = filtros.raffle;
     }
 
-    primitiva_tickets.find(filters).toArray(function(err, res){
-        if(err){
+    var limit = filtros.perPage;
+    var page = filtros.page;
+    var skip = (page - 1) * limit;
+    var sort = filtros.sort;
+    var type = filtros.type;
+
+    var options = {
+        sort: [[sort, type]],
+        limit: limit,
+        skip: skip
+    };
+
+    primitiva_tickets.count(filters, function (err, total) {
+        if (err) {
             callback(err);
-        }else{
-            callback(null, res);
+        } else {
+            primitiva_tickets.find(filters, options).toArray(function (err, res) {
+                if (err) {
+                    callback(err);
+                } else {
+
+                    var result = {
+                        page: page,
+                        perPage: limit,
+                        total: total,
+                        data: res
+                    };
+
+                    callback(null, result);
+                }
+            });
         }
     });
 };
