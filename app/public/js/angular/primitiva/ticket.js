@@ -21,7 +21,7 @@ function Controller($scope, $http, $window, VariosService, primitiva) {
         raffle: fragmentos[6]
     })
         .then(function (data) {
-            $scope.ticket = data[0];
+            $scope.ticket = data.data[0];
             $scope.consultaRealizada = true;
         })
         .catch(function (err) {
