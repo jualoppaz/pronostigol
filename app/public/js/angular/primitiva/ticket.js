@@ -4,7 +4,7 @@ app.controller('TicketController', Controller);
 
 Controller.$inject = ['$scope', '$http', '$window', 'VariosService', 'primitiva'];
 
-function Controller ($scope, $http, $window, VariosService, primitiva) {
+function Controller($scope, $http, $window, VariosService, primitiva) {
 
     $scope.ticket = {};
 
@@ -20,37 +20,37 @@ function Controller ($scope, $http, $window, VariosService, primitiva) {
         year: fragmentos[5],
         raffle: fragmentos[6]
     })
-        .then(function(data){
+        .then(function (data) {
             $scope.ticket = data[0];
             $scope.consultaRealizada = true;
         })
-        .catch(function(err){
+        .catch(function (err) {
             $scope.consultaRealizada = true;
             console.log(err);
         });
 
-    $scope.determinarCategoriaPremio = function(combinacion){
+    $scope.determinarCategoriaPremio = function (combinacion) {
         var res = "";
         var resultado = $scope.ticket.resultado;
         var numeroAciertos = 0;
         var reintegroAcertado = false;
         var complementarioAcertado = false;
 
-        if($scope.ticket.apuestas.reintegro == resultado.reintegro){ // 0<=R<=9. Por tanto, podemos tener cualquier categoría.
+        if ($scope.ticket.apuestas.reintegro == resultado.reintegro) { // 0<=R<=9. Por tanto, podemos tener cualquier categoría.
             var reintegroAcertado = true;
 
-            for(i=0; i<combinacion.length; i++){
-                for(j=0; j<resultado.bolas.length; j++){
-                    if(combinacion[i].numero == resultado.bolas[j].numero){
+            for (i = 0; i < combinacion.length; i++) {
+                for (j = 0; j < resultado.bolas.length; j++) {
+                    if (combinacion[i].numero == resultado.bolas[j].numero) {
                         numeroAciertos += 1;
                     }
                 }
             }
 
-            if(numeroAciertos == 5){
-                for(i=0; i<combinacion.length; i++){
-                    for(j=0; j<resultado.bolas.length; j++){
-                        if(combinacion[i].numero == resultado.complementario){
+            if (numeroAciertos == 5) {
+                for (i = 0; i < combinacion.length; i++) {
+                    for (j = 0; j < resultado.bolas.length; j++) {
+                        if (combinacion[i].numero == resultado.complementario) {
                             complementarioAcertado = true;
                             break;
                         }
@@ -58,19 +58,19 @@ function Controller ($scope, $http, $window, VariosService, primitiva) {
                 }
             }
 
-        }else{ // Se puede acertar 6, 5, 4 o 3
-            for(i=0; i<combinacion.length; i++){
-                for(j=0; j<resultado.bolas.length; j++){
-                    if(combinacion[i].numero == resultado.bolas[j].numero){
+        } else { // Se puede acertar 6, 5, 4 o 3
+            for (i = 0; i < combinacion.length; i++) {
+                for (j = 0; j < resultado.bolas.length; j++) {
+                    if (combinacion[i].numero == resultado.bolas[j].numero) {
                         numeroAciertos += 1;
                     }
                 }
             }
 
-            if(numeroAciertos == 5){
-                for(var i=0; i<combinacion.length; i++){
-                    for(var j=0; j<resultado.bolas.length; j++){
-                        if(combinacion[i].numero == resultado.complementario){
+            if (numeroAciertos == 5) {
+                for (var i = 0; i < combinacion.length; i++) {
+                    for (var j = 0; j < resultado.bolas.length; j++) {
+                        if (combinacion[i].numero == resultado.complementario) {
                             complementarioAcertado = true;
                             break;
                         }
@@ -79,25 +79,25 @@ function Controller ($scope, $http, $window, VariosService, primitiva) {
             }
         }
 
-        if(numeroAciertos == 6){
-            if(reintegroAcertado){
+        if (numeroAciertos == 6) {
+            if (reintegroAcertado) {
                 res = "Especial";
-            }else{
+            } else {
                 res = "1ª"
             }
-        }else if(numeroAciertos == 5){
-            if(complementarioAcertado){
+        } else if (numeroAciertos == 5) {
+            if (complementarioAcertado) {
                 res = "2ª";
-            }else{
+            } else {
                 res = "3ª";
             }
-        }else if(numeroAciertos == 4){
+        } else if (numeroAciertos == 4) {
             res = "4ª";
-        }else if(numeroAciertos == 3){
+        } else if (numeroAciertos == 3) {
             res = "5ª";
-        }else if(reintegroAcertado){
+        } else if (reintegroAcertado) {
             res = "R";
-        }else{
+        } else {
             res = "-";
         }
 
@@ -105,7 +105,7 @@ function Controller ($scope, $http, $window, VariosService, primitiva) {
 
     };
 
-    $scope.determinarNumeroAciertos = function(combinacion){
+    $scope.determinarNumeroAciertos = function (combinacion) {
 
         var res = "";
 
@@ -117,21 +117,21 @@ function Controller ($scope, $http, $window, VariosService, primitiva) {
 
         var complementarioAcertado = false;
 
-        if($scope.ticket.apuestas.reintegro == resultado.reintegro){ // 0<=R<=9. Por tanto, podemos tener cualquier categoría.
+        if ($scope.ticket.apuestas.reintegro == resultado.reintegro) { // 0<=R<=9. Por tanto, podemos tener cualquier categoría.
             var reintegroAcertado = true;
 
-            for(i=0; i<combinacion.length; i++){
-                for(j=0; j<resultado.bolas.length; j++){
-                    if(combinacion[i].numero == resultado.bolas[j].numero){
+            for (i = 0; i < combinacion.length; i++) {
+                for (j = 0; j < resultado.bolas.length; j++) {
+                    if (combinacion[i].numero == resultado.bolas[j].numero) {
                         numeroAciertos += 1;
                     }
                 }
             }
 
-            if(numeroAciertos == 5){
-                for(i=0; i<combinacion.length; i++){
-                    for(j=0; j<resultado.bolas.length; j++){
-                        if(combinacion[i].numero == resultado.complementario){
+            if (numeroAciertos == 5) {
+                for (i = 0; i < combinacion.length; i++) {
+                    for (j = 0; j < resultado.bolas.length; j++) {
+                        if (combinacion[i].numero == resultado.complementario) {
                             complementarioAcertado = true;
                             break;
                         }
@@ -139,19 +139,19 @@ function Controller ($scope, $http, $window, VariosService, primitiva) {
                 }
             }
 
-        }else{ // Se puede acertar 6, 5, 4 o 3
-            for(i=0; i<combinacion.length; i++){
-                for(j=0; j<resultado.bolas.length; j++){
-                    if(combinacion[i].numero == resultado.bolas[j].numero){
+        } else { // Se puede acertar 6, 5, 4 o 3
+            for (i = 0; i < combinacion.length; i++) {
+                for (j = 0; j < resultado.bolas.length; j++) {
+                    if (combinacion[i].numero == resultado.bolas[j].numero) {
                         numeroAciertos += 1;
                     }
                 }
             }
 
-            if(numeroAciertos == 5){
-                for(var i=0; i<combinacion.length; i++){
-                    for(var j=0; j<resultado.bolas.length; j++){
-                        if(combinacion[i].numero == resultado.complementario){
+            if (numeroAciertos == 5) {
+                for (var i = 0; i < combinacion.length; i++) {
+                    for (var j = 0; j < resultado.bolas.length; j++) {
+                        if (combinacion[i].numero == resultado.complementario) {
                             complementarioAcertado = true;
                             break;
                         }
@@ -160,27 +160,27 @@ function Controller ($scope, $http, $window, VariosService, primitiva) {
             }
         }
 
-        if(numeroAciertos == 6){
-            if(reintegroAcertado){
+        if (numeroAciertos == 6) {
+            if (reintegroAcertado) {
                 res = "6 + R";
-            }else{
+            } else {
                 res = "6";
             }
-        }else if(numeroAciertos == 5){
-            if(complementarioAcertado){
+        } else if (numeroAciertos == 5) {
+            if (complementarioAcertado) {
                 res = "5 + C";
-            }else{
+            } else {
                 res = "5";
             }
-        }else if(numeroAciertos == 4){
+        } else if (numeroAciertos == 4) {
             res = "4";
-        }else if(numeroAciertos == 3){
+        } else if (numeroAciertos == 3) {
             res = "3";
-        }else if(numeroAciertos == 2){
+        } else if (numeroAciertos == 2) {
             res = "2";
-        }else if(numeroAciertos == 1){
+        } else if (numeroAciertos == 1) {
             res = "1";
-        }else{
+        } else {
             res = "0";
         }
 
@@ -188,12 +188,12 @@ function Controller ($scope, $http, $window, VariosService, primitiva) {
 
     };
 
-    $scope.bolaHaSidoAcertada = function(bola){
+    $scope.bolaHaSidoAcertada = function (bola) {
         var resultado = $scope.ticket.resultado;
         var res = false;
 
-        for(var i=0; i<resultado.bolas.length; i++){
-            if(bola.numero == resultado.bolas[i].numero){
+        for (var i = 0; i < resultado.bolas.length; i++) {
+            if (bola.numero == resultado.bolas[i].numero) {
                 res = true;
                 break;
             }
@@ -202,7 +202,7 @@ function Controller ($scope, $http, $window, VariosService, primitiva) {
         return res;
     };
 
-    $scope.bolaHaSidoAcertadaComoComplementario = function(bola){
+    $scope.bolaHaSidoAcertadaComoComplementario = function (bola) {
 
         var resultado = $scope.ticket.resultado;
 
@@ -213,7 +213,7 @@ function Controller ($scope, $http, $window, VariosService, primitiva) {
         return res;
     };
 
-    $scope.ticketEstaVacio = function(){
+    $scope.ticketEstaVacio = function () {
         return VariosService.jsonVacio($scope.ticket);
     };
 }

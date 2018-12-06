@@ -1,7 +1,7 @@
-module.exports = function(app){
+module.exports = function (app) {
 
     var middlewares = require('../../middlewares');
-    var {ROLES} = require('../../constants');
+    var { ROLES } = require('../../constants');
 
     var express = require("express");
     var primitiva = express.Router();
@@ -20,31 +20,31 @@ module.exports = function(app){
         return json;
     };
 
-    var borrarPronosticos = function(aux){
+    var borrarPronosticos = function (aux) {
 
         var json = aux;
 
-        if(json['apuestas'] != null){
+        if (json['apuestas'] != null) {
             delete json['apuestas'];
         }
 
         return json;
     };
 
-    var borrarPrecio = function(aux){
+    var borrarPrecio = function (aux) {
         var json = aux;
 
-        if(json['precio'] != null){
+        if (json['precio'] != null) {
             delete json['precio'];
         }
 
         return json;
     };
 
-    var borrarPremio = function(aux){
+    var borrarPremio = function (aux) {
         var json = aux;
 
-        if(json['premio'] != null){
+        if (json['premio'] != null) {
             delete json['premio'];
         }
 
@@ -111,7 +111,7 @@ module.exports = function(app){
         });
     };
 
-    var primitiva_api_nuevoTicket = function(req, res){
+    var primitiva_api_nuevoTicket = function (req, res) {
         var ticket = {};
 
         var body = req.body;
@@ -132,8 +132,8 @@ module.exports = function(app){
         ticket.apuestas = apuestas;
         ticket.resultado = resultado;
 
-        PRI_DBM.addNewTicket(ticket, function(err, result){
-            if(err){
+        PRI_DBM.addNewTicket(ticket, function (err, result) {
+            if (err) {
                 return res.status(400).send(err);
             }
 
@@ -141,19 +141,19 @@ module.exports = function(app){
         });
     };
 
-    var primitiva_api_editarTicket = function(req, res){
+    var primitiva_api_editarTicket = function (req, res) {
         var ticket = req.body;
 
-        PRI_DBM.getTicketById(ticket._id, function(err, result){
-            if(err){
+        PRI_DBM.getTicketById(ticket._id, function (err, result) {
+            if (err) {
                 return res.status(400).send(err);
-            }else{
-                if(result == null){
+            } else {
+                if (result == null) {
                     return res.status(400).send('not-found');
                 }
 
-                PRI_DBM.editTicket(ticket, function(err, result){
-                    if(err){
+                PRI_DBM.editTicket(ticket, function (err, result) {
+                    if (err) {
                         return res.status(400).send(err);
                     }
 
@@ -163,18 +163,18 @@ module.exports = function(app){
         });
     };
 
-    var primitiva_api_borrarTicket = function(req, res){
+    var primitiva_api_borrarTicket = function (req, res) {
         var id = req.params.id;
 
-        PRI_DBM.getTicketById(id, function(err, result){
-            if(err){
+        PRI_DBM.getTicketById(id, function (err, result) {
+            if (err) {
                 return res.status(400).send(err);
-            }else if(result == null){
+            } else if (result == null) {
                 return res.status(400).send('not-found');
             }
 
-            PRI_DBM.deleteTicketById(id, function(err2){
-                if(err){
+            PRI_DBM.deleteTicketById(id, function (err2) {
+                if (err) {
                     return res.status(400).send(err2);
                 }
 
@@ -183,15 +183,15 @@ module.exports = function(app){
         });
     };
 
-    var primitiva_api_historicoDeAparicionesPorNumero = function(req, res){
-        PRI_DBM.getOccurrencesByNumber(function(err, result){
-            if(err){
+    var primitiva_api_historicoDeAparicionesPorNumero = function (req, res) {
+        PRI_DBM.getOccurrencesByNumber(function (err, result) {
+            if (err) {
                 return res.status(400).send(err);
             }
 
             var response = [];
 
-            for(var i=0; i<result.length; i++){
+            for (var i = 0; i < result.length; i++) {
                 var json = {
                     numero: result[i]._id,
                     apariciones: result[i].apariciones
@@ -204,15 +204,15 @@ module.exports = function(app){
         });
     };
 
-    var primitiva_api_historicoDeAparicionesPorReintegro = function(req, res){
-        PRI_DBM.getOccurrencesByReimbursement(function(err, result){
-            if(err){
+    var primitiva_api_historicoDeAparicionesPorReintegro = function (req, res) {
+        PRI_DBM.getOccurrencesByReimbursement(function (err, result) {
+            if (err) {
                 return res.status(400).send(err);
             }
 
             var response = [];
 
-            for(var i=0; i<result.length; i++){
+            for (var i = 0; i < result.length; i++) {
                 var json = {
                     reintegro: result[i]._id,
                     apariciones: result[i].apariciones
@@ -224,15 +224,15 @@ module.exports = function(app){
         });
     };
 
-    var primitiva_api_historicoDeResultadosGlobales = function(req, res){
-        PRI_DBM.getOccurrencesByResultWithoutReimbursement(function(err, tickets){
-            if(err){
+    var primitiva_api_historicoDeResultadosGlobales = function (req, res) {
+        PRI_DBM.getOccurrencesByResultWithoutReimbursement(function (err, tickets) {
+            if (err) {
                 return res.status(400).send(err);
             }
 
             var response = [];
 
-            for(var i=0; i<tickets.length; i++){
+            for (var i = 0; i < tickets.length; i++) {
                 var json = {};
                 json.numeros = tickets[i]._id;
                 json.apariciones = tickets[i].apariciones;
@@ -243,15 +243,15 @@ module.exports = function(app){
         });
     };
 
-    var primitiva_api_historicoDeResultadosGlobalesConReintegro = function(req, res){
-        PRI_DBM.getOccurrencesByResultWithReimbursement(function(err, tickets){
-            if(err){
+    var primitiva_api_historicoDeResultadosGlobalesConReintegro = function (req, res) {
+        PRI_DBM.getOccurrencesByResultWithReimbursement(function (err, tickets) {
+            if (err) {
                 return res.status(400).send(err);
             }
 
             var response = [];
 
-            for(var i=0; i<tickets.length; i++){
+            for (var i = 0; i < tickets.length; i++) {
                 var json = {};
                 json.numeros = tickets[i].resultado;
                 json.reintegro = tickets[i].reintegro;
@@ -262,9 +262,9 @@ module.exports = function(app){
         });
     };
 
-    var primitiva_api_years = function(req, res){
-        PRI_DBM.getAllYears(function(err, result){
-            if(err){
+    var primitiva_api_years = function (req, res) {
+        PRI_DBM.getAllYears(function (err, result) {
+            if (err) {
                 return res.status(400).send(err);
             }
 
@@ -272,11 +272,11 @@ module.exports = function(app){
         });
     };
 
-    var primitiva_api_year = function(req, res){
+    var primitiva_api_year = function (req, res) {
         var id = req.params.id;
 
-        PRI_DBM.getYearById(id, function(err, result){
-            if(err){
+        PRI_DBM.getYearById(id, function (err, result) {
+            if (err) {
                 return res.status(400).send(err);
             }
 
@@ -284,16 +284,16 @@ module.exports = function(app){
         });
     };
 
-    var primitiva_api_deleteYear = function(req, res){
+    var primitiva_api_deleteYear = function (req, res) {
         var id = req.params.id;
 
-        PRI_DBM.deleteYearById(id, function(err){
-            if(err){
+        PRI_DBM.deleteYearById(id, function (err) {
+            if (err) {
                 return res.status(400).send(err);
             }
 
-            PRI_DBM.getAllYears(function(err2, result2){
-                if(err){
+            PRI_DBM.getAllYears(function (err2, result2) {
+                if (err) {
                     return res.status(400).send(err2);
                 }
 
@@ -302,44 +302,44 @@ module.exports = function(app){
         });
     };
 
-    var primitiva_api_addNewYear = function(req, res){
+    var primitiva_api_addNewYear = function (req, res) {
         var body = req.body;
         var year = {};
         var name = body.name;
         year.name = name;
 
-        PRI_DBM.getYearByName(name, function(err, result){
-            if(err){
+        PRI_DBM.getYearByName(name, function (err, result) {
+            if (err) {
                 return res.status(400).send(name);
-            }else if(JSON.stringify(result) === "{}"){ // No existe aun
-                PRI_DBM.addNewYear(year, function(err, result){
-                    if(err){
+            } else if (JSON.stringify(result) === "{}") { // No existe aun
+                PRI_DBM.addNewYear(year, function (err, result) {
+                    if (err) {
                         return res.status(400).send(err);
                     }
 
                     res.status(200).send(result);
                 });
-            }else{ // Ya hay uno con ese nombre
+            } else { // Ya hay uno con ese nombre
                 return res.status(400).send('year-already-exists');
             }
         });
     };
 
-    var primitiva_api_editYear = function(req, res){
+    var primitiva_api_editYear = function (req, res) {
         var body = req.body;
         var id = body._id;
         var year = {};
         year.name = body.name;
 
-        PRI_DBM.getYearById(id, function(err, result){
-            if(err){
+        PRI_DBM.getYearById(id, function (err, result) {
+            if (err) {
                 return res.status(400).send(err);
-            }else if(result == null){
+            } else if (result == null) {
                 return res.status(400).send('not-found');
             }
 
-            PRI_DBM.editYear(year, function(err, result){
-                if(err){
+            PRI_DBM.editYear(year, function (err, result) {
+                if (err) {
                     return res.status(400).send(err);
                 }
 
@@ -348,20 +348,20 @@ module.exports = function(app){
         });
     };
 
-    var primitiva_api_ticketPorId = function(req, res){
+    var primitiva_api_ticketPorId = function (req, res) {
         var id = req.params.id;
 
-        PRI_DBM.getTicketById(id, function(err, result){
-            if(err){
+        PRI_DBM.getTicketById(id, function (err, result) {
+            if (err) {
                 return res.status(400).send(err);
             }
 
-            if(req.session.user == null){
+            if (req.session.user == null) {
                 var json = filtrarInformacion(result);
-            }else{
-                if(req.session.user.role === ROLES.PRIVILEGED || req.session.user.role === ROLES.ADMIN){
+            } else {
+                if (req.session.user.role === ROLES.PRIVILEGED || req.session.user.role === ROLES.ADMIN) {
                     json = result;
-                }else{
+                } else {
                     var json = filtrarInformacion(result);
                 }
             }

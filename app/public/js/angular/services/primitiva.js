@@ -1,4 +1,4 @@
-(function(){
+(function () {
 
     'use strict';
 
@@ -7,7 +7,7 @@
 
     service.$inject = ['$http', '$q'];
 
-    function service($http, $q){
+    function service($http, $q) {
         var service = {
             // Tickets
             getTickets: getTickets,
@@ -37,205 +37,205 @@
             $http.get('/api/primitiva/tickets', {
                 params: queryParameters
             })
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getTicketById(id){
+        function getTicketById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.get('/api/primitiva/tickets/' + id)
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function createTicket(ticket){
+        function createTicket(ticket) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.post('/api/primitiva/tickets', ticket)
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function editTicket(ticket){
+        function editTicket(ticket) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.put('/api/primitiva/tickets', ticket)
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function deleteTicketById(id){
+        function deleteTicketById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.delete('/api/primitiva/tickets/' + id)
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getAllYears(){
+        function getAllYears() {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.get('/api/primitiva/years')
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getYearById(id){
+        function getYearById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.get('/api/primitiva/years/' + id)
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function createYear(year){
+        function createYear(year) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.post('/api/primitiva/years', year)
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function editYear(year){
+        function editYear(year) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.put('/api/primitiva/years', year)
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function deleteYearById(id){
+        function deleteYearById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.delete('/api/primitiva/years/' + id)
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getOccurrencesByNumber(){
+        function getOccurrencesByNumber() {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.get('/api/primitiva/historical/aparicionesPorNumero')
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getOccurrencesByResult(){
+        function getOccurrencesByResult() {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.get('/api/primitiva/historical/aparicionesPorResultado')
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getOccurrencesByResultWithReimbursement(){
+        function getOccurrencesByResultWithReimbursement() {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.get('/api/primitiva/historical/aparicionesPorResultadoConReintegro')
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getOccurrencesByReimbursement(){
+        function getOccurrencesByReimbursement() {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http.get('/api/primitiva/historical/aparicionesPorReintegro')
-                .then(function(data){
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     defered.reject(err);
                 });
 

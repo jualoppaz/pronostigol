@@ -6,18 +6,18 @@ var DBM = require('./init-data-base-manager');
 
 var primitiva_tickets, primitiva_years;
 
-DBM.getDatabaseInstance(function(err, res){
-   if(err){
-       console.log(err);
-   }else{
-       db = res;
+DBM.getDatabaseInstance(function (err, res) {
+    if (err) {
+        console.log(err);
+    } else {
+        db = res;
 
-       primitiva_tickets = db.collection("primitiva_tickets");
-       primitiva_years = db.collection("primitiva_years");
-   }
+        primitiva_tickets = db.collection("primitiva_tickets");
+        primitiva_years = db.collection("primitiva_years");
+    }
 });
 
-var getObjectId = function(id){
+var getObjectId = function (id) {
     return ObjectID(id);
 };
 
@@ -67,40 +67,40 @@ exports.getAllTickets = function (filtros, callback) {
     });
 };
 
-exports.getTicketsByAnyo = function(anyo, callback){
+exports.getTicketsByAnyo = function (anyo, callback) {
     primitiva_tickets.find({
         anyo: anyo
-    }).toArray(function(err, res){
-        if(err){
+    }).toArray(function (err, res) {
+        if (err) {
             callback(err);
-        }else{
+        } else {
             callback(null, res);
         }
     });
 };
 
-exports.getTicketsByAnyoAndRaffle = function(anyo, sorteo, callback){
+exports.getTicketsByAnyoAndRaffle = function (anyo, sorteo, callback) {
 
     primitiva_tickets.findOne({
         anyo: anyo,
         $or: [
             {
                 sorteo: Number(sorteo)
-            },{
+            }, {
                 sorteo: sorteo.toString()
             }
         ]
-    }, function(err, res){
-        if(err){
+    }, function (err, res) {
+        if (err) {
             callback(err);
-        }else{
+        } else {
             res = res || {};
             callback(null, res);
         }
     });
 };
 
-exports.addNewTicket = function(ticket, callback){
+exports.addNewTicket = function (ticket, callback) {
 
     var trozos = ticket.fecha.split("/");
 
@@ -114,44 +114,44 @@ exports.addNewTicket = function(ticket, callback){
         premio: parseFloat(ticket.premio),
         apuestas: ticket.apuestas,
         resultado: ticket.resultado
-    },{
-        w:1
-    },function(e, res){
-        if(e){
-            callback(e);
-        }else{
-            callback(null, res);
-        }
-    });
+    }, {
+            w: 1
+        }, function (e, res) {
+            if (e) {
+                callback(e);
+            } else {
+                callback(null, res);
+            }
+        });
 
 };
 
-exports.getTicketById = function(id, callback){
+exports.getTicketById = function (id, callback) {
 
     primitiva_tickets.findOne({
         _id: getObjectId(id)
-    }, function(err, result){
-        if(err){
+    }, function (err, result) {
+        if (err) {
             callback(err);
-        }else{
+        } else {
             callback(null, result);
         }
     });
 };
 
-exports.deleteTicketById = function(id, callback){
+exports.deleteTicketById = function (id, callback) {
     primitiva_tickets.remove({
         _id: getObjectId(id)
-    },function(e, res){
-        if(e || !res){
+    }, function (e, res) {
+        if (e || !res) {
             callback('ticket-not-deleted');
-        }else{
+        } else {
             callback(null, res);
         }
     });
 };
 
-exports.editTicket = function(ticket, callback){
+exports.editTicket = function (ticket, callback) {
 
     console.log("Id recibido: " + ticket._id);
 
@@ -173,20 +173,20 @@ exports.editTicket = function(ticket, callback){
             }
         }
 
-    , function(err, number) {
+        , function (err, number) {
 
-        console.log("Numero: " + number);
+            console.log("Numero: " + number);
 
-        if(err || number == 0){
-            callback('not-updated');
-        }else{
-            callback(null, ticket);
-        }
-    });
+            if (err || number == 0) {
+                callback('not-updated');
+            } else {
+                callback(null, ticket);
+            }
+        });
 
 };
 
-exports.getOccurrencesByResultWithReimbursement = function(callback){
+exports.getOccurrencesByResultWithReimbursement = function (callback) {
     primitiva_tickets.aggregate({
         $group: {
             '_id': {
@@ -203,16 +203,16 @@ exports.getOccurrencesByResultWithReimbursement = function(callback){
                 $sum: 1
             }
         }
-    }, function(e, res) {
-        if (e){
+    }, function (e, res) {
+        if (e) {
             callback(e);
-        }else{
+        } else {
             callback(null, res);
         }
     });
 };
 
-exports.getOccurrencesByResultWithoutReimbursement = function(callback){
+exports.getOccurrencesByResultWithoutReimbursement = function (callback) {
     primitiva_tickets.aggregate({
         $group: {
             '_id': "$resultado.bolas",
@@ -220,35 +220,35 @@ exports.getOccurrencesByResultWithoutReimbursement = function(callback){
                 $sum: 1
             }
         }
-    }, function(e, res) {
-        if (e){
+    }, function (e, res) {
+        if (e) {
             callback(e);
-        }else{
+        } else {
             callback(null, res);
         }
     });
 };
 
-exports.getOccurrencesByNumber = function(callback){
+exports.getOccurrencesByNumber = function (callback) {
     primitiva_tickets.aggregate({
         $unwind: '$resultado.bolas'
-    },{
-        $group: {
-            '_id': '$resultado.bolas.numero',
-            'apariciones': {
-                $sum: 1
+    }, {
+            $group: {
+                '_id': '$resultado.bolas.numero',
+                'apariciones': {
+                    $sum: 1
+                }
             }
-        }
-    }, function(e, res) {
-        if (e){
-            callback(e);
-        }else{
-            callback(null, res);
-        }
-    });
+        }, function (e, res) {
+            if (e) {
+                callback(e);
+            } else {
+                callback(null, res);
+            }
+        });
 };
 
-exports.getOccurrencesByReimbursement = function(callback){
+exports.getOccurrencesByReimbursement = function (callback) {
     primitiva_tickets.aggregate({
         $group: {
             '_id': '$resultado.reintegro',
@@ -256,110 +256,110 @@ exports.getOccurrencesByReimbursement = function(callback){
                 $sum: 1
             }
         }
-    }, function(e, res) {
-        if (e){
+    }, function (e, res) {
+        if (e) {
             callback(e);
-        }else{
+        } else {
             callback(null, res);
         }
     });
 };
 
-exports.getAllYears = function(callback){
+exports.getAllYears = function (callback) {
 
     primitiva_years.find({
 
-    }).toArray(function(err, res){
-            if(err){
-                callback(err);
-            }else{
-                callback(null, res);
-            }
-        });
-};
-
-exports.getYearById = function(id, callback){
-
-    primitiva_years.findOne({
-        _id: getObjectId(id)
-    }, function(err, res){
-        if(err){
+    }).toArray(function (err, res) {
+        if (err) {
             callback(err);
-        }else{
+        } else {
             callback(null, res);
         }
     });
 };
 
-exports.getYearByName = function(name, callback){
+exports.getYearById = function (id, callback) {
+
+    primitiva_years.findOne({
+        _id: getObjectId(id)
+    }, function (err, res) {
+        if (err) {
+            callback(err);
+        } else {
+            callback(null, res);
+        }
+    });
+};
+
+exports.getYearByName = function (name, callback) {
 
     primitiva_years.findOne({
         name: name
-    }, function(err, res){
-        if(err){
+    }, function (err, res) {
+        if (err) {
             callback(err);
-        }else{
+        } else {
             res = res || {};
             callback(null, res);
         }
     });
 };
 
-exports.deleteYearById = function(id, callback){
+exports.deleteYearById = function (id, callback) {
     primitiva_years.remove({
         _id: getObjectId(id)
-    },function(e, res){
-        if(e || !res){
+    }, function (e, res) {
+        if (e || !res) {
             callback('year-not-deleted');
-        }else{
+        } else {
             callback(null, res);
         }
     });
 };
 
-exports.addNewYear = function(year, callback){
+exports.addNewYear = function (year, callback) {
 
     primitiva_years.insert({
         name: year.name,
         value: year.name
 
-    },{
-        w:1
-    },function(e, res){
-        if(e){
-            callback(e);
-        }else{
-            callback(null, res);
-        }
-    });
+    }, {
+            w: 1
+        }, function (e, res) {
+            if (e) {
+                callback(e);
+            } else {
+                callback(null, res);
+            }
+        });
 
 };
 
-exports.editYear = function(year, callback){
+exports.editYear = function (year, callback) {
 
     primitiva_years.update({
         _id: getObjectId(year._id)
     }, {
-        $set: {
-            name: year.name,
-            value: year.name
+            $set: {
+                name: year.name,
+                value: year.name
+            }
         }
-    }
 
-    , function(err, number) {
+        , function (err, number) {
 
-        console.log("Numero: " + number);
+            console.log("Numero: " + number);
 
-        if(err || number == 0){
-            callback('not-updated');
-        }else{
-            callback(null, year);
-        }
-    });
+            if (err || number == 0) {
+                callback('not-updated');
+            } else {
+                callback(null, year);
+            }
+        });
 
 };
 
-exports.getEconomicBalanceByYear = function(callback){
+exports.getEconomicBalanceByYear = function (callback) {
     primitiva_tickets.aggregate({
         $group: {
             '_id': '$anyo',
@@ -370,10 +370,10 @@ exports.getEconomicBalanceByYear = function(callback){
                 $sum: '$premio'
             }
         }
-    }, function(err, res){
-        if(err){
+    }, function (err, res) {
+        if (err) {
             callback(err);
-        }else{
+        } else {
             callback(null, res);
         }
     });

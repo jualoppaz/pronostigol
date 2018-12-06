@@ -4,7 +4,7 @@ app.controller('TicketsController', Controller);
 
 Controller.$inject = ['$scope', '$http', '$window', '$filter', 'VariosService', 'primitiva'];
 
-function Controller ($scope, $http, $window, $filter, VariosService, primitiva) {
+function Controller($scope, $http, $window, $filter, VariosService, primitiva) {
 
     $scope.tickets = [];
 
@@ -14,10 +14,10 @@ function Controller ($scope, $http, $window, $filter, VariosService, primitiva) 
     $scope.ticketsPerPage = 5;
 
     primitiva.getAllYears()
-        .then(function(data){
+        .then(function (data) {
             $scope.years = data;
         })
-        .catch(function(err){
+        .catch(function (err) {
             console.log(err);
         });
 
@@ -50,17 +50,17 @@ function Controller ($scope, $http, $window, $filter, VariosService, primitiva) 
 
                     $scope.numOfPages = numOfPages;
                 })
-                .catch(function(err){
+                .catch(function (err) {
                     console.log(err);
                 });
         }
     };
 
-    $scope.verTicket = function(ticket){
+    $scope.verTicket = function (ticket) {
         $window.location.href = "/primitiva/tickets/" + ticket.anyo + "/" + ticket.sorteo;
     };
 
-    $scope.traducirDia = function(fecha){
+    $scope.traducirDia = function (fecha) {
 
         var dia = $filter('date')(fecha, 'EEEE');
         return VariosService.traducirDia(dia);
@@ -69,13 +69,13 @@ function Controller ($scope, $http, $window, $filter, VariosService, primitiva) 
 
     // Paginacion manual
 
-    $scope.actualizarPagina = function(pagina){
+    $scope.actualizarPagina = function (pagina) {
         $scope.currentPage = pagina;
     };
 
     $scope.propiedad = 'fecha';
 
-    $scope.apuestaRealizada = function(ticket){
+    $scope.apuestaRealizada = function (ticket) {
         return VariosService.apuestaRealizada(ticket);
     };
 
