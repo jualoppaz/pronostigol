@@ -18,21 +18,29 @@ function Controller ($scope, $http, $window, primitiva){
     var ticketsPerPage_default = 20;
     $scope.ticketsPerPage = ticketsPerPage_default;
 
-    primitiva.getAllTickets()
-        .then(function(data){
-            $scope.tickets = data;
+    primitiva.getTickets({
+        page: $scope.currentPage,
+        per_page: ticketsPerPage_default
+    })
+        .then(function (data) {
+            var tickets = data.data;
+            var perPage = data.perPage;
+            var total = data.total;
+            var numOfPages = total / perPage;
 
-            $scope.totalItems = $scope.tickets.length;
+            $scope.tickets = tickets;
 
-            $scope.numOfPages = $scope.tickets.length / $scope.ticketsPerPage;
+            $scope.totalItems = data.total;
 
-            console.log("Numero de paginas: " + $scope.numOfPages);
+            $scope.numOfPages = numOfPages;
 
-            var floor = Math.floor($scope.tickets.length / $scope.ticketsPerPage);
+            var floor = Math.floor(total / perPage);
 
-            if($scope.numOfPages > floor){
-                $scope.numOfPages = Math.floor($scope.tickets.length / $scope.ticketsPerPage) + 1;
+            if (numOfPages > floor) {
+                numOfPages = Math.floor(total / perPage) + 1;
             }
+
+            $scope.numOfPages = numOfPages;
         })
         .catch(function(err){
             console.log(err);
@@ -58,5 +66,42 @@ function Controller ($scope, $http, $window, primitiva){
             .catch(function(err){
                 console.log(err);
             });
+    };
+
+    $scope.consultarTickets = function () {
+
+        $scope.reset();
+
+        primitiva.getTickets({
+            page: $scope.currentPage,
+            per_page: $scope.ticketsPerPage
+        })
+            .then(function (data) {
+                var tickets = data.data;
+                var perPage = data.perPage;
+                var total = data.total;
+                var numOfPages = total / perPage;
+
+                $scope.tickets = tickets;
+
+                $scope.totalItems = data.total;
+
+                $scope.numOfPages = numOfPages;
+
+                var floor = Math.floor(total / perPage);
+
+                if (numOfPages > floor) {
+                    numOfPages = Math.floor(total / perPage) + 1;
+                }
+
+                $scope.numOfPages = numOfPages;
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+    };
+
+    $scope.reset = function () {
+        $scope.tickets = [];
     };
 }

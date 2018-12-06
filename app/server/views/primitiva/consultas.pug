@@ -175,20 +175,22 @@ block content
 
                                     div.col-md-12.col-sm-12.col-xs-12#panelesEstandar
                                         div.text-center
-                                            uib-pagination(ng-show="numOfPages > 1",
-                                            ng-cloak,
-                                            items-per-page="ticketsPerPage",
-                                            boundary-link-numbers="true",
-                                            boundary-links="true",
-                                            total-items="totalItems",
-                                            rotate="true",
-                                            max-size="maxSize",
-                                            force-ellipses="true",
-                                            ng-model="currentPage",
-                                            previous-text="<",
-                                            next-text=">",
-                                            first-text="Inicio",
-                                            last-text="Fin").pagination-sm.abel
+                                            uib-pagination(
+                                                ng-show="numOfPages > 1",
+                                                ng-cloak,
+                                                ng-change="consultarEstandar()"
+                                                items-per-page="ticketsPerPage",
+                                                boundary-link-numbers="true",
+                                                boundary-links="true",
+                                                total-items="totalItems",
+                                                rotate="true",
+                                                max-size="maxSize",
+                                                force-ellipses="true",
+                                                ng-model="currentPage",
+                                                previous-text="<",
+                                                next-text=">",
+                                                first-text="Inicio",
+                                                last-text="Fin").pagination-sm.abel
 
                                         include partials/tablaAparicionesPorNumero
 

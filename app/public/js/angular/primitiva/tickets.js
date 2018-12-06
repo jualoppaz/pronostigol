@@ -21,22 +21,34 @@ function Controller ($scope, $http, $window, $filter, VariosService, primitiva) 
             console.log(err);
         });
 
-    $scope.mostrarTickets = function(anyo){
-        if($scope.tickets.length === 0 || $scope.tickets[0].anyo != anyo){
+    $scope.mostrarTickets = function (anyo) {
+        $scope.selected = {
+            year: anyo
+        };
 
-            primitiva.getAllTickets({
-                year: anyo
+        if ($scope.tickets.length === 0 || $scope.tickets[0].anyo != anyo) {
+
+            primitiva.getTickets({
+                year: anyo,
+                per_page: $scope.ticketsPerPage,
+                page: $scope.currentPage
             })
-                .then(function(data){
-                    $scope.tickets = data;
-                    $scope.totalItems = data.length;
-                    $scope.numOfPages = data.length / $scope.ticketsPerPage;
+                .then(function (data) {
+                    var tickets = data.data;
+                    var total = data.total;
+                    var perPage = data.perPage;
+                    var numOfPages = total / perPage;
 
-                    var floor = Math.floor(data.length / $scope.ticketsPerPage);
+                    $scope.tickets = tickets;
+                    $scope.totalItems = total;
 
-                    if($scope.numOfPages > floor){
-                        $scope.numOfPages = Math.floor(data.length / $scope.ticketsPerPage) + 1;
+                    var floor = Math.floor(total / perPage);
+
+                    if (numOfPages > floor) {
+                        numOfPages = Math.floor(total / perPage) + 1;
                     }
+
+                    $scope.numOfPages = numOfPages;
                 })
                 .catch(function(err){
                     console.log(err);
@@ -65,5 +77,37 @@ function Controller ($scope, $http, $window, $filter, VariosService, primitiva) 
 
     $scope.apuestaRealizada = function(ticket){
         return VariosService.apuestaRealizada(ticket);
+    };
+
+    $scope.consultarTickets = function () {
+
+        $scope.tickets = [];
+
+        primitiva.getTickets({
+            year: $scope.selected.year,
+            per_page: $scope.ticketsPerPage,
+            page: $scope.currentPage
+        })
+            .then(function (data) {
+                var tickets = data.data;
+                var total = data.total;
+                var perPage = data.perPage;
+                var numOfPages = total / perPage;
+
+                $scope.tickets = tickets;
+                $scope.totalItems = total;
+
+                var floor = Math.floor(total / perPage);
+
+                if (numOfPages > floor) {
+                    numOfPages = Math.floor(total / perPage) + 1;
+                }
+
+                $scope.numOfPages = numOfPages;
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+
     };
 }
