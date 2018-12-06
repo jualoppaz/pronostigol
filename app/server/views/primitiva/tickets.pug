@@ -55,7 +55,7 @@ block content
                                             th Fecha
                                             th(ng-show="usuarioEstaLogueado && tickets[0].precio != null", ng-cloak) Apostado
                                     tbody
-                                        tr(ng-repeat="ticket in tickets | orderBy:propiedad")
+                                        tr(ng-repeat="ticket in tickets")
                                             td(ng-click="verTicket(ticket)", ng-bind-template="{{ticket.sorteo}}").pointer
                                             td(ng-click="verTicket(ticket)", ng-bind-template="{{traducirDia(ticket.fecha)}}").pointer
                                             td(ng-click="verTicket(ticket)", ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}").pointer

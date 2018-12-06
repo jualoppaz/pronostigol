@@ -73,8 +73,6 @@ function Controller($scope, $http, $window, $filter, VariosService, primitiva) {
         $scope.currentPage = pagina;
     };
 
-    $scope.propiedad = 'fecha';
-
     $scope.apuestaRealizada = function (ticket) {
         return VariosService.apuestaRealizada(ticket);
     };
