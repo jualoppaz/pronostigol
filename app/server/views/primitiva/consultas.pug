@@ -89,7 +89,7 @@ block content
                                     div.col-md-12.col-sm-12.col-xs-12#panelesEstandar
                                         div.text-center
                                             uib-pagination(
-                                                ng-show="numOfPages > 1",
+                                                ng-show="tickets.length",
                                                 ng-cloak,
                                                 ng-change="consultarEstandar()"
                                                 items-per-page="ticketsPerPage",
