@@ -9,5 +9,13 @@ module.exports = {
             per_page: Joi.number().min(1),
             sort_type: Joi.string().valid(['asc', 'desc'])
         }
+    },
+    getOccurrencesByResult: {
+        query: {
+            page: Joi.number().min(1),
+            per_page: Joi.number().min(1),
+            sort_type: Joi.string().valid(['asc', 'desc']),
+            sort_property: Joi.string().valid(['result', 'occurrences'])
+        }
     }
 };
