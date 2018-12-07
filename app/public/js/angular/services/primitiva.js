@@ -8,6 +8,9 @@
     service.$inject = ['$http', '$q'];
 
     function service($http, $q) {
+
+        var apiPrefix = "/api/primitiva";
+
         var service = {
             // Tickets
             getTickets: getTickets,
@@ -34,7 +37,7 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/primitiva/tickets', {
+            $http.get(apiPrefix + '/tickets', {
                 params: queryParameters
             })
                 .then(function (data) {
@@ -51,7 +54,7 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/primitiva/tickets/' + id)
+            $http.get(apiPrefix + '/tickets/' + id)
                 .then(function (data) {
                     defered.resolve(data.data);
                 })
@@ -66,7 +69,7 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/api/primitiva/tickets', ticket)
+            $http.post(apiPrefix + '/tickets', ticket)
                 .then(function (data) {
                     defered.resolve(data.data);
                 })
@@ -81,7 +84,7 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.put('/api/primitiva/tickets', ticket)
+            $http.put(apiPrefix + '/tickets', ticket)
                 .then(function (data) {
                     defered.resolve(data.data);
                 })
@@ -96,7 +99,7 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.delete('/api/primitiva/tickets/' + id)
+            $http.delete(apiPrefix + '/tickets/' + id)
                 .then(function (data) {
                     defered.resolve(data.data);
                 })
@@ -111,7 +114,7 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/primitiva/years')
+            $http.get(apiPrefix + '/years')
                 .then(function (data) {
                     defered.resolve(data.data);
                 })
@@ -126,7 +129,7 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/primitiva/years/' + id)
+            $http.get(apiPrefix + '/years/' + id)
                 .then(function (data) {
                     defered.resolve(data.data);
                 })
@@ -141,7 +144,7 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/api/primitiva/years', year)
+            $http.post(apiPrefix + '/years', year)
                 .then(function (data) {
                     defered.resolve(data.data);
                 })
@@ -156,7 +159,7 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.put('/api/primitiva/years', year)
+            $http.put(apiPrefix + '/years', year)
                 .then(function (data) {
                     defered.resolve(data.data);
                 })
@@ -171,7 +174,7 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.delete('/api/primitiva/years/' + id)
+            $http.delete(apiPrefix + '/years/' + id)
                 .then(function (data) {
                     defered.resolve(data.data);
                 })
@@ -186,7 +189,7 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/primitiva/historical/aparicionesPorNumero')
+            $http.get(apiPrefix + '/historical/aparicionesPorNumero')
                 .then(function (data) {
                     defered.resolve(data.data);
                 })
@@ -197,11 +200,13 @@
             return promise;
         }
 
-        function getOccurrencesByResult() {
+        function getOccurrencesByResult(queryParameters) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/primitiva/historical/aparicionesPorResultado')
+            $http.get(apiPrefix + '/historical/occurrencesByResult', {
+                params: queryParameters
+            })
                 .then(function (data) {
                     defered.resolve(data.data);
                 })
@@ -216,7 +221,7 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/primitiva/historical/aparicionesPorResultadoConReintegro')
+            $http.get(apiPrefix + '/historical/aparicionesPorResultadoConReintegro')
                 .then(function (data) {
                     defered.resolve(data.data);
                 })
@@ -231,7 +236,7 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/primitiva/historical/aparicionesPorReintegro')
+            $http.get(apiPrefix + '/historical/aparicionesPorReintegro')
                 .then(function (data) {
                     defered.resolve(data.data);
                 })
