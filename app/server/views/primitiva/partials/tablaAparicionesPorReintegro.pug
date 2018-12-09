@@ -3,25 +3,16 @@ div.table-responsive(style="margin-top: 15px", ng-if="mostrar.tablaAparicionesPo
         thead
             tr
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorReintegroSegun('reintegro')", ng-bind-template="Reintegro", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorReintegro == sortFunction_reimbursement && !ordenAparicionesPorReintegro").fa.fa-caret-up
-                    span(ng-if="criterioOrdenacionAparicionesPorReintegro == sortFunction_reimbursement && ordenAparicionesPorReintegro").fa.fa-caret-down
+                    a.columnaOrdenable(ng-click="ordenarAparicionesPorReintegroSegun('reimbursement'); consultarEstandar()", ng-bind-template="Reintegro", style="padding-right: 15px")
+                    span(ng-if="criterioOrdenacionAparicionesPorReintegro == 'reimbursement' && !ordenAparicionesPorReintegro").fa.fa-caret-up
+                    span(ng-if="criterioOrdenacionAparicionesPorReintegro == 'reimbursement' && ordenAparicionesPorReintegro").fa.fa-caret-down
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorReintegroSegun('apariciones')", ng-bind-template="Apariciones", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorReintegro == 'apariciones' && ordenAparicionesPorReintegro").fa.fa-caret-down
-                    span(ng-if="criterioOrdenacionAparicionesPorReintegro == 'apariciones' && !ordenAparicionesPorReintegro").fa.fa-caret-up
+                    a.columnaOrdenable(ng-click="ordenarAparicionesPorReintegroSegun('occurrences'); consultarEstandar()", ng-bind-template="Apariciones", style="padding-right: 15px")
+                    span(ng-if="criterioOrdenacionAparicionesPorReintegro == 'occurrences' && ordenAparicionesPorReintegro").fa.fa-caret-down
+                    span(ng-if="criterioOrdenacionAparicionesPorReintegro == 'occurrences' && !ordenAparicionesPorReintegro").fa.fa-caret-up
+
         tbody
-            tr(ng-if="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-repeat="item in aparicionesPorReintegro | orderBy:[criterioOrdenacionAparicionesPorReintegro, criterioAlternativoOrdenacionAparicionesPorReintegro]:ordenAparicionesPorReintegro")
-                td(ng-if="criterioOrdenacionAparicionesPorReintegro == sortFunction_reimbursement")
-                    span(ng-bind-template="{{item.reintegro}}")
-                td(ng-if="criterioOrdenacionAparicionesPorReintegro == 'apariciones' && $index >=1 && ordenAparicionesPorReintegro", ng-cloak)
-                    span.badge.badge-rojo(ng-bind-template="{{item.reintegro}}")
-                td(ng-if="criterioOrdenacionAparicionesPorReintegro == 'apariciones' && $index == 0 && ordenAparicionesPorReintegro", ng-cloak)
-                    span.badge.badge-verde(ng-bind-template="{{item.reintegro}}")
-                td(ng-if="criterioOrdenacionAparicionesPorReintegro == 'apariciones' && $index < aparicionesPorReintegro.length - 1 && !ordenAparicionesPorReintegro", ng-cloak)
-                    span.badge.badge-rojo(ng-bind-template="{{item.reintegro}}")
-                td(ng-if="criterioOrdenacionAparicionesPorReintegro == 'apariciones' && $index == aparicionesPorReintegro.length - 1 && !ordenAparicionesPorReintegro", ng-cloak)
-                    span.badge.badge-verde(ng-bind-template="{{item.reintegro}}")
+            tr(ng-repeat="item in aparicionesPorReintegro")
+                td
+                    span.badge.badge-azul(ng-bind-template="{{item.reintegro}}")
                 td(ng-bind-template="{{item.apariciones}}")
-
-

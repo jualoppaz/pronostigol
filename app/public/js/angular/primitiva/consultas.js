@@ -145,9 +145,9 @@ function Controller($scope, $http, $filter, primitiva) {
 
             primitiva.getOccurrencesByReimbursement(queryParameters)
                 .then(function (data) {
-                    $scope.aparicionesPorReintegro = data;
+                    $scope.aparicionesPorReintegro = data.data;
 
-                    $scope.actualizarPaginacion($scope.aparicionesPorReintegro, null, 11);
+                    $scope.actualizarPaginacion($scope.aparicionesPorReintegro, data.total, 12);
 
                     $scope.mostrar.tablaAparicionesPorReintegro = true;
                 })
@@ -298,9 +298,9 @@ function Controller($scope, $http, $filter, primitiva) {
     };
 
     $scope.ordenarAparicionesPorReintegroSegun = function (criterio) {
-        if (criterio == "reintegro") {
+        if (criterio == "reimbursement") {
 
-            if ($scope.criterioOrdenacionAparicionesPorReintegro == $scope.sortFunction_reimbursement) { //Sólo vamos a invertir el orden
+            if ($scope.criterioOrdenacionAparicionesPorReintegro === criterio) { //Sólo vamos a invertir el orden
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = "occurrences";
 
@@ -310,7 +310,7 @@ function Controller($scope, $http, $filter, primitiva) {
                     $scope.ordenAparicionesPorReintegro = !$scope.ordenAparicionesPorReintegro;
                 }
             } else { // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorReintegro = $scope.sortFunction_reimbursement;
+                $scope.criterioOrdenacionAparicionesPorReintegro = "reimbursement";
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = "occurrences";
 
@@ -319,9 +319,9 @@ function Controller($scope, $http, $filter, primitiva) {
             }
 
         } else if (criterio == "occurrences") {
-            if ($scope.criterioOrdenacionAparicionesPorReintegro == "occurrences") { //Sólo vamos a invertir el orden
+            if ($scope.criterioOrdenacionAparicionesPorReintegro === criterio) { //Sólo vamos a invertir el orden
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = $scope.sortFunction_reimbursement;
+                $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = "reimbursement";
 
                 if ($scope.ordenAparicionesPorReintegro == null) {
                     $scope.ordenAparicionesPorReintegro = true;
@@ -332,7 +332,7 @@ function Controller($scope, $http, $filter, primitiva) {
             } else { // Cambiamos de criterio
                 $scope.criterioOrdenacionAparicionesPorReintegro = "occurrences";
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = $scope.sortFunction_reimbursement;
+                $scope.criterioAlternativoOrdenacionAparicionesPorReintegro = "reimbursement";
 
                 $scope.ordenAparicionesPorReintegro = true;
 
