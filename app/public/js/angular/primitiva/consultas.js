@@ -97,9 +97,9 @@ function Controller($scope, $http, $filter, primitiva) {
 
             primitiva.getOccurrencesByNumber(queryParameters)
                 .then(function (data) {
-                    $scope.aparicionesPorNumero = data;
+                    $scope.aparicionesPorNumero = data.data;
 
-                    $scope.actualizarPaginacion($scope.aparicionesPorNumero, $scope.aparicionesPorNumero.length, $scope.ticketsPerPage);
+                    $scope.actualizarPaginacion($scope.aparicionesPorNumero, data.total, data.perPage);
 
                     $scope.mostrar.tablaAparicionesPorNumero = true;
                 })
@@ -190,7 +190,7 @@ function Controller($scope, $http, $filter, primitiva) {
 
     $scope.ordenarAparicionesPorNumeroSegun = function (criterio) {
         if (criterio == "number") {
-            if ($scope.criterioOrdenacionAparicionesPorNumero == $scope.sortFunction_number) { //Sólo vamos a invertir el orden
+            if ($scope.criterioOrdenacionAparicionesPorNumero == criterio) { //Sólo vamos a invertir el orden
                 $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "occurrences";
                 if ($scope.ordenAparicionesPorNumero == null) {
                     $scope.ordenAparicionesPorNumero = true;
@@ -198,7 +198,7 @@ function Controller($scope, $http, $filter, primitiva) {
                     $scope.ordenAparicionesPorNumero = !$scope.ordenAparicionesPorNumero;
                 }
             } else { // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
+                $scope.criterioOrdenacionAparicionesPorNumero = "number";
                 $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "occurrences";
                 $scope.ordenAparicionesPorNumero = false;
             }
@@ -206,7 +206,7 @@ function Controller($scope, $http, $filter, primitiva) {
         } else if (criterio == "occurrences") {
             if ($scope.criterioOrdenacionAparicionesPorNumero == "occurrences") { //Sólo vamos a invertir el orden
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
+                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "number";
 
                 if ($scope.ordenAparicionesPorNumero == null) {
                     $scope.ordenAparicionesPorNumero = true;
@@ -217,7 +217,7 @@ function Controller($scope, $http, $filter, primitiva) {
             } else { // Cambiamos de criterio
                 $scope.criterioOrdenacionAparicionesPorNumero = "occurrences";
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
+                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "number";
 
                 $scope.ordenAparicionesPorNumero = true;
 
