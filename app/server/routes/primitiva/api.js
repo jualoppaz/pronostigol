@@ -184,24 +184,44 @@ module.exports = function (app) {
         });
     };
 
-    var primitiva_api_historicoDeAparicionesPorNumero = function (req, res) {
-        PRI_DBM.getOccurrencesByNumber(function (err, result) {
+    /**
+     * @api {get} /primitiva/historical/occurrencesByNumber Consulta de apariciones por número en histórico de Primitiva
+     * @apiName GetPrimitivaOccurrencesByNumber
+     * @apiGroup PrimitivaHistorical
+     *
+     * @apiDescription Recurso para la consulta de apariciones por número en histórico de Primitiva.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {Number} [page] Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} [per_page] Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "number"
+     * y "occurrences". Por defecto se ordenan por "occurrences".
+     * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
+     * Por defecto se ordenan descendentemente.
+     *
+     * @apiSampleRequest /api/primitiva/historical/occurrencesByNumber
+     */
+    var primitiva_api_occurrencesByNumber = function (req, res) {
+        var query = req.query;
+        var page = query.page || 1;
+        var perPage = query.per_page || 10;
+        var sort = query.sort_property || 'occurrences';
+        var type = query.sort_type || 'desc';
+
+        var filtros = {
+            page: Number(page),
+            perPage: Number(perPage),
+            sort: sort,
+            type: type
+        };
+
+        PRI_DBM.getOccurrencesByNumber(filtros, function (err, result) {
             if (err) {
                 return res.status(400).send(err);
             }
 
-            var response = [];
-
-            for (var i = 0; i < result.length; i++) {
-                var json = {
-                    numero: result[i]._id,
-                    apariciones: result[i].apariciones
-                };
-
-                response.push(json);
-            }
-
-            res.status(200).send(JSON.stringify(response, null, 4));
+            res.status(200).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -411,10 +431,10 @@ module.exports = function (app) {
 
     /* Consultas: Estandar */
     primitiva.get('/historical/aparicionesPorResultadoConReintegro', primitiva_api_historicoDeResultadosGlobalesConReintegro);
-    primitiva.get('/historical/aparicionesPorNumero', primitiva_api_historicoDeAparicionesPorNumero);
     primitiva.get('/historical/aparicionesPorReintegro', primitiva_api_historicoDeAparicionesPorReintegro);
 
     historical.get('/occurrencesByResult', validate(validations.getOccurrencesByResult), primitiva_api_occurrencesByResult);
+    historical.get('/occurrencesByNumber', validate(validations.getOccurrencesByNumber), primitiva_api_occurrencesByNumber);
 
     primitiva.use('/historical', historical);
 
