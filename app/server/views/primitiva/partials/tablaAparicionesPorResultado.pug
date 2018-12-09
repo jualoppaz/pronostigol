@@ -3,9 +3,9 @@ div.table-responsive(style="margin-top: 15px", ng-if="mostrar.tablaAparicionesPo
         thead
             tr
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoSegun('resultadoAsString'); consultarEstandar()", ng-bind-template="Resultado", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorResultado == 'resultadoAsString' && !ordenAparicionesPorResultado").fa.fa-caret-up
-                    span(ng-if="criterioOrdenacionAparicionesPorResultado == 'resultadoAsString' && ordenAparicionesPorResultado").fa.fa-caret-down
+                    a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoSegun('result'); consultarEstandar()", ng-bind-template="Resultado", style="padding-right: 15px")
+                    span(ng-if="criterioOrdenacionAparicionesPorResultado == 'result' && !ordenAparicionesPorResultado").fa.fa-caret-up
+                    span(ng-if="criterioOrdenacionAparicionesPorResultado == 'result' && ordenAparicionesPorResultado").fa.fa-caret-down
                 th
                     a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoSegun('occurrences'); consultarEstandar()", ng-bind-template="Apariciones", style="padding-right: 15px")
                     span(ng-if="criterioOrdenacionAparicionesPorResultado == 'occurrences' && ordenAparicionesPorResultado").fa.fa-caret-down

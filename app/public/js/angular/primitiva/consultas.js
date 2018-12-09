@@ -108,7 +108,7 @@ function Controller($scope, $http, $filter, primitiva) {
                 });
         } else if ($scope.form.opcionBusquedaEstandar.name == "aparicionesPorResultado") {
 
-            queryParameters.sort_property = $scope.criterioOrdenacionAparicionesPorResultado === "resultadoAsString" ? "result" : $scope.criterioOrdenacionAparicionesPorResultado;
+            queryParameters.sort_property = $scope.criterioOrdenacionAparicionesPorResultado;
             queryParameters.sort_type = $scope.ordenAparicionesPorResultado ? 'desc' : 'asc'
 
             primitiva.getOccurrencesByResult(queryParameters)
@@ -124,14 +124,14 @@ function Controller($scope, $http, $filter, primitiva) {
                 });
         } else if ($scope.form.opcionBusquedaEstandar.name == "aparicionesPorResultadoConReintegro") {
 
-            queryParameters.sort_property = $scope.criterioOrdenacionAparicionesPorResultadoConReintegro;
+            queryParameters.sort_property = $scope.criterioOrdenacionAparicionesPorResultado;
             queryParameters.sort_type = $scope.ordenAparicionesPorResultadoConReintegro ? 'desc' : 'asc';
 
             primitiva.getOccurrencesByResultWithReimbursement(queryParameters)
                 .then(function (data) {
-                    $scope.aparicionesPorResultadoConReintegro = data;
+                    $scope.aparicionesPorResultadoConReintegro = data.data;
 
-                    $scope.actualizarPaginacion($scope.aparicionesPorResultadoConReintegro, null, $scope.ticketsPerPage);
+                    $scope.actualizarPaginacion($scope.aparicionesPorResultadoConReintegro, data.total, data.perPage);
 
                     $scope.mostrar.tablaAparicionesPorResultadoConReintegro = true;
                 })
@@ -226,7 +226,7 @@ function Controller($scope, $http, $filter, primitiva) {
     };
 
     $scope.ordenarAparicionesPorResultadoSegun = function (criterio) {
-        if (criterio == "resultadoAsString") {
+        if (criterio == "result") {
             if ($scope.criterioOrdenacionAparicionesPorResultado === criterio) { //Sólo vamos a invertir el orden
                 $scope.criterioAlternativoOrdenacionAparicionesPorResultado = "occurrences";
                 if ($scope.ordenAparicionesPorResultado == null) {
@@ -235,13 +235,13 @@ function Controller($scope, $http, $filter, primitiva) {
                     $scope.ordenAparicionesPorResultado = !$scope.ordenAparicionesPorResultado;
                 }
             } else { // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorResultado = "resultadoAsString";
+                $scope.criterioOrdenacionAparicionesPorResultado = "result";
                 $scope.criterioAlternativoOrdenacionAparicionesPorResultado = "occurrences";
                 $scope.ordenAparicionesPorResultado = false;
             }
         } else if (criterio == "occurrences") {
             if ($scope.criterioOrdenacionAparicionesPorResultado === criterio) { //Sólo vamos a invertir el orden
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultado = "resultadoAsString";
+                $scope.criterioAlternativoOrdenacionAparicionesPorResultado = "result";
                 if ($scope.ordenAparicionesPorResultado == null) {
                     $scope.ordenAparicionesPorResultado = true;
                 } else {
@@ -249,16 +249,16 @@ function Controller($scope, $http, $filter, primitiva) {
                 }
             } else { // Cambiamos de criterio
                 $scope.criterioOrdenacionAparicionesPorResultado = "occurrences";
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultado = "resultadoAsString";
+                $scope.criterioAlternativoOrdenacionAparicionesPorResultado = "result";
                 $scope.ordenAparicionesPorResultado = true;
             }
         }
     };
 
     $scope.ordenarAparicionesPorResultadoConReintegroSegun = function (criterio) {
-        if (criterio == "resultadoString") {
+        if (criterio == "result") {
 
-            if ($scope.criterioOrdenacionAparicionesPorResultadoConReintegro == $scope.sortFunction_resultWithReimbursement) { //Sólo vamos a invertir el orden
+            if ($scope.criterioOrdenacionAparicionesPorResultadoConReintegro == criterio) { //Sólo vamos a invertir el orden
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = "occurrences";
 
@@ -268,7 +268,7 @@ function Controller($scope, $http, $filter, primitiva) {
                     $scope.ordenAparicionesPorResultadoConReintegro = !$scope.ordenAparicionesPorResultadoConReintegro;
                 }
             } else { // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = $scope.sortFunction_resultWithReimbursement;
+                $scope.criterioOrdenacionAparicionesPorResultadoConReintegro = "result";
 
                 $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConReintegro = "occurrences";
 
