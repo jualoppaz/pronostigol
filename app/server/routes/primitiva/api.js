@@ -346,6 +346,17 @@ module.exports = function (app) {
 
     };
 
+    /**
+     * @api {get} /primitiva/years Obtención de todos los años de Primitiva
+     * @apiName GetPrimitivaYears
+     * @apiGroup PrimitivaYears
+     *
+     * @apiDescription Recurso para la consulta de años de la Primitiva registrados en el sistema.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/primitiva/years
+     */
     var primitiva_api_years = function (req, res) {
         PRI_DBM.getAllYears(function (err, result) {
             if (err) {
