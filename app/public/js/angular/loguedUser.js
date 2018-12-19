@@ -1,7 +1,7 @@
 // Controlador Base. Por eso es el único que tiene dependencias
 
 var app = angular.module('qdb', ['services', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'bonoloto', 'euromillones',
-    'quiniela', 'primitiva', 'gordo']);
+    'quiniela', 'primitiva', 'gordo', 'detectAdblock']);
 
 app.config(function(uiSelectConfig) {
     uiSelectConfig.theme = 'bootstrap';
@@ -46,3 +46,7 @@ function Controller($scope, UserService, $http, $window){
         $window.location.reload();
     };
 }
+
+app.run(function (adblock) {
+    adblock.detect();
+});
