@@ -6,15 +6,19 @@
             this.title = 'Adblock Detected!';
             this.description = 'Oops! Your browser is using the Adblock Plugin. You can not access to this website with the adblock plugin. To continue website please disable adblock plugin in you browser settings.';
             this.cancel = true;
+            this.cancelText = 'Cancel';
             this.refresh = true;
+            this.refreshText = 'I disabled Adblock';
 
-                        this.$get = ['$injector', '$document', function ($injector, $document) {
+            this.$get = ['$injector', '$document', function ($injector, $document) {
 
                 var imagePath = this.imagePath;
                 var title = this.title;
                 var description = this.description;
                 var cancel = this.cancel;
+                var cancelText = this.cancelText;
                 var refresh = this.refresh;
+                var refreshText = this.refreshText;
 
                 function _detect() {
                     var ad = angular.element('<ins></ins>');
@@ -50,7 +54,7 @@
                         },
                         button: function () {
                             return angular.element('<button></button>');
-                        }    
+                        }
                     }
 
                     var image = element.img(),
@@ -65,7 +69,7 @@
                         body = $document.find('body').eq(0),
                         adblock = element.div();
 
-                    image.attr('src', imagePath);                    
+                    image.attr('src', imagePath);
                     alertImage.addClass('alert-image');
                     alertImage.append(image);
                     alertTitle.append(title);
@@ -74,27 +78,27 @@
                     alertContent.append(alertTitle);
                     alertContent.append(alertDescription);
                     cancelButton.append('<i class="fa fa-times"></i>');
-                    cancelButton.append('Cancel');
-                    cancelButton.bind('click', function($event) {
+                    cancelButton.append(cancelText);
+                    cancelButton.bind('click', function ($event) {
                         body.find(".adblock-detect").remove();
                     });
                     refreshButton.append('<i class="fa fa-refresh"></i>');
                     refreshButton.addClass('refresh');
-                    refreshButton.append('I Have Dısable Adblock');
-                    refreshButton.bind('click', function($event) {
-                       location.reload(); 
+                    refreshButton.append(refreshText);
+                    refreshButton.bind('click', function ($event) {
+                        location.reload();
                     });
                     alertButtons.addClass('alert-buttons');
-                    if(cancel){
+                    if (cancel) {
                         alertButtons.append(cancelButton);
                     }
-                    if(refresh){
+                    if (refresh) {
                         alertButtons.append(refreshButton);
                     }
                     adAlert.addClass('ad-alert');
                     adAlert.append(alertImage);
                     adAlert.append(alertContent);
-                     if(cancel || refresh){
+                    if (cancel || refresh) {
                         adAlert.append(alertButtons);
                         adAlert.css({
                             'height': '380px'
