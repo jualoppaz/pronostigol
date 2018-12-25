@@ -3,8 +3,15 @@
 var app = angular.module('qdb', ['services', 'ui.bootstrap', 'ngSanitize', 'ui.select', 'bonoloto', 'euromillones',
     'quiniela', 'primitiva', 'gordo', 'detectAdblock']);
 
-app.config(function(uiSelectConfig) {
+app.config(function (uiSelectConfig, adblockProvider) {
     uiSelectConfig.theme = 'bootstrap';
+
+    adblockProvider.title = 'Adblock detectado';
+    adblockProvider.description = 'Parece que tu navegador está utilizando el plugin Adblock. Dado que nuestra publicidad no es abusiva y es nuestra única vía de financiación, es necesario que desactives Adblock para el dominio pronostigol.es. Gracias por tu comprensión.';
+    adblockProvider.cancel = true; // Cancel button in alert
+    adblockProvider.cancelText = "Cancelar";
+    adblockProvider.refresh = true; // I have Dısable Adblock button in alert 
+    adblockProvider.refreshText = "He desactivado Adblock";
 });
 
 app.controller('LoguedUserController', Controller);
