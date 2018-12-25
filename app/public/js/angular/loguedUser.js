@@ -8,7 +8,7 @@ app.config(function (uiSelectConfig, adblockProvider) {
 
     adblockProvider.title = 'Adblock detectado';
     adblockProvider.description = 'Parece que tu navegador está utilizando el plugin Adblock. Dado que nuestra publicidad no es abusiva y es nuestra única vía de financiación, es necesario que desactives Adblock para el dominio pronostigol.es. Gracias por tu comprensión.';
-    adblockProvider.cancel = true; // Cancel button in alert
+    adblockProvider.cancel = false; // Cancel button in alert
     adblockProvider.cancelText = "Cancelar";
     adblockProvider.refresh = true; // I have Dısable Adblock button in alert 
     adblockProvider.refreshText = "He desactivado Adblock";
