@@ -367,7 +367,20 @@ module.exports = function (app) {
         });
     };
 
-    var primitiva_api_year = function (req, res) {
+    /**
+     * @api {get} /primitiva/years/:id Obtención de un año de Primitiva según su id
+     * @apiName GetPrimitivaYear
+     * @apiGroup PrimitivaYears
+     *
+     * @apiDescription Recurso para la consulta de un año de Primitiva registrado en el sistema.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/primitiva/years/:id
+     *
+     * @apiParam {String} id Identificador del año de Primitiva
+     */
+    var primitiva_api_yearById = function (req, res) {
         var id = req.params.id;
 
         PRI_DBM.getYearById(id, function (err, result) {
@@ -479,7 +492,7 @@ module.exports = function (app) {
         .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), primitiva_api_addNewYear)
         .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), primitiva_api_editYear);
     primitiva.route('/years/:id')
-        .get(primitiva_api_year)
+        .get(primitiva_api_yearById)
         .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), primitiva_api_deleteYear);
 
     /* Consultas: Estandar */
