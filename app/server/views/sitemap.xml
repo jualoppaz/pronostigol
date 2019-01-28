@@ -6,112 +6,112 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url>
   <loc>http://www.pronostigol.es/</loc>
-  <lastmod>2018-05-31T18:55:12+00:00</lastmod>
+  <lastmod>2019-01-28T18:38:55+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>http://www.pronostigol.es/contacto</loc>
-  <lastmod>2018-05-31T18:55:12+00:00</lastmod>
+  <lastmod>2019-01-28T18:38:55+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.pronostigol.es/login</loc>
-  <lastmod>2018-05-31T18:55:12+00:00</lastmod>
+  <lastmod>2019-01-28T18:38:55+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.pronostigol.es/signup</loc>
-  <lastmod>2018-05-31T18:55:12+00:00</lastmod>
+  <lastmod>2019-01-28T18:38:55+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.pronostigol.es/quiniela</loc>
-  <lastmod>2018-05-31T18:55:12+00:00</lastmod>
+  <lastmod>2019-01-28T18:38:55+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.pronostigol.es/bonoloto</loc>
-  <lastmod>2018-05-31T18:55:12+00:00</lastmod>
+  <lastmod>2019-01-28T18:38:55+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.pronostigol.es/primitiva</loc>
-  <lastmod>2018-05-31T18:55:12+00:00</lastmod>
+  <lastmod>2019-01-28T18:38:55+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.pronostigol.es/gordo</loc>
-  <lastmod>2018-05-31T18:55:12+00:00</lastmod>
+  <lastmod>2019-01-28T18:38:55+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.pronostigol.es/euromillones</loc>
-  <lastmod>2018-05-31T18:55:12+00:00</lastmod>
+  <lastmod>2019-01-28T18:38:55+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.pronostigol.es/politicaDeCookies</loc>
-  <lastmod>2018-05-31T18:55:12+00:00</lastmod>
+  <lastmod>2019-01-28T18:38:55+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.pronostigol.es/preguntasFrecuentes</loc>
-  <lastmod>2018-05-31T18:55:12+00:00</lastmod>
+  <lastmod>2019-01-28T18:38:55+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.pronostigol.es/docs/</loc>
-  <lastmod>2018-05-31T18:54:10+00:00</lastmod>
+  <lastmod>2019-01-28T18:36:19+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>http://www.pronostigol.es/quiniela/tickets</loc>
-  <lastmod>2018-05-31T18:55:12+00:00</lastmod>
+  <lastmod>2019-01-28T18:38:55+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>http://www.pronostigol.es/quiniela/consultas</loc>
-  <lastmod>2018-05-31T18:55:12+00:00</lastmod>
+  <lastmod>2019-01-28T18:38:55+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>http://www.pronostigol.es/bonoloto/tickets</loc>
-  <lastmod>2018-05-31T18:55:12+00:00</lastmod>
+  <lastmod>2019-01-28T18:38:55+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>http://www.pronostigol.es/bonoloto/consultas</loc>
-  <lastmod>2018-05-31T18:55:12+00:00</lastmod>
+  <lastmod>2019-01-28T18:38:55+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>http://www.pronostigol.es/primitiva/tickets</loc>
-  <lastmod>2018-05-31T18:55:12+00:00</lastmod>
+  <lastmod>2019-01-28T18:38:55+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>http://www.pronostigol.es/primitiva/consultas</loc>
-  <lastmod>2018-05-31T18:55:12+00:00</lastmod>
+  <lastmod>2019-01-28T18:38:55+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>http://www.pronostigol.es/gordo/tickets</loc>
-  <lastmod>2018-05-31T18:55:12+00:00</lastmod>
+  <lastmod>2019-01-28T18:38:55+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>http://www.pronostigol.es/gordo/consultas</loc>
-  <lastmod>2018-05-31T18:55:12+00:00</lastmod>
+  <lastmod>2019-01-28T18:38:55+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>http://www.pronostigol.es/euromillones/tickets</loc>
-  <lastmod>2018-05-31T18:55:12+00:00</lastmod>
+  <lastmod>2019-01-28T18:38:55+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>http://www.pronostigol.es/euromillones/consultas</loc>
-  <lastmod>2018-05-31T18:55:12+00:00</lastmod>
+  <lastmod>2019-01-28T18:38:55+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 </urlset>
