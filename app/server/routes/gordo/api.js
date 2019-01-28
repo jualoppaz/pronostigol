@@ -156,9 +156,27 @@ module.exports = function(app){
         });
     };
 
-    var gordo_api_occurrencesByNumber = function(req, res){
-        GOR_DBM.getOccurrencesByNumber(function(err, result){
-            if(err){
+    /**
+     * @api {get} /gordo/historical/occurrencesByNumber Consulta de apariciones por número en histórico de El Gordo
+     * @apiName GetGordoOccurrencesByNumber
+     * @apiGroup GordoHistorical
+     *
+     * @apiDescription Recurso para la consulta de apariciones por número en histórico de El Gordo.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {Number} [page] Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} [per_page] Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "number"
+     * y "occurrences". Por defecto se ordenan por "occurrences".
+     * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
+     * Por defecto se ordenan descendentemente.
+     *
+     * @apiSampleRequest /api/gordo/historical/occurrencesByNumber
+     */
+    var gordo_api_occurrencesByNumber = function(req, res) {
+        GOR_DBM.getOccurrencesByNumber(function(err, result) {
+            if (err) {
                 return res.status(400).send(err);
             }
 
