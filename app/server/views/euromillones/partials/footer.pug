@@ -1,17 +1,41 @@
-div.footer.footerEuromillones.col-md-12.col-sm-12.col-xs-12#footer
-    div.container.col-md-12.col-sm-12.col-xs-12.text-center(ng-controller="FooterController")
-        div.col-md-4.col-sm-6.col-xs-12(style="padding-top:10px")
-            h2 Información
-            h3
-                a(href="/preguntasFrecuentes") Preguntas frecuentes
-            h3
-                a(href="/docs", target="_blank") Documentación de API Rest
-        div.col-md-4.col-sm-6.col-xs-12(style="padding-top:10px")
-            h2 Aviso Legal
-            h3
-                a(href="/politicaDeCookies", target="_blank") Politica de Cookies
+div.footer.footerEuromillones#footer
+    div.container(ng-controller="FooterController")
+        div.row
+            div.col-sm-6.col-xs-12.text-center(style="padding-top:10px")
+                h2 Pronostigol
+                h3
+                    a(href="/politicaDeCookies") Pol&iacute;tica de Cookies
+                h3
+                    a(href="/preguntasFrecuentes") Preguntas frecuentes
+                h3
+                    a(href="/docs", target="_blank") Documentación de API Rest
+            div.col-sm-6.col-xs-12.text-center(style="padding-top:10px")
+                h2 Juegos
+                h3
+                    a(href="/quiniela") Quiniela
+                h3
+                    a(href="/bonoloto") Bonoloto
+                h3
+                    a(href="/primitiva") La Primitiva
+                h3
+                    a(href="/gordo") El Gordo de la Primitiva
+                h3
+                    a(href="/euromillones") Euromillones
+        div.row
+            div.col-xs-12.text-center(style="padding-top: 10px")
+                ul#social-links.list-inline
+                    li
+                        a(href="https://www.facebook.com/pronostigol.es", target="_blank")
+                            i.fa.fa-facebook-square.fa-2x
+                    li
+                        a(href="https://twitter.com/pronostigolesp", target="_blank")
+                            i.fa.fa-twitter-square.fa-2x
+                    li
+                        a(href="https://github.com/jualoppaz/pronostigol", target="_blank")
+                            i.fa.fa-github-square.fa-2x
 
-        div.col-md-4.col-md-offset-0.col-sm-6.col-sm-offset-3.col-xs-12(style="padding-top: 10px")
-            h2 Web desarrollada por
-            h3
-                a(href="http://juanmanuellopezpazos.es", target="_blank") Juan Manuel López Pazos
+            div.col-xs-12.text-center(style="padding-top: 10px")
+                h3
+                    i.fa.fa-copyright(aria-hidden="true")
+                    span#copyright 2014 Pronostigol, Desarrollado por
+                    a(href="http://www.juanmanuellopezpazos.es", target="_blank") Juan Manuel López Pazos
