@@ -1,11 +1,17 @@
-var app = angular.module('qdb');
+var app = angular.module("qdb");
 
-app.controller('TicketsController', Controller);
+app.controller("TicketsController", Controller);
 
-Controller.$inject = ['$scope', '$http', '$window', '$filter', 'VariosService', 'gordo'];
+Controller.$inject = [
+    "$scope",
+    "$http",
+    "$window",
+    "$filter",
+    "VariosService",
+    "gordo"
+];
 
-function Controller ($scope, $http, $window, $filter, VariosService, gordo) {
-
+function Controller($scope, $http, $window, $filter, VariosService, gordo) {
     $scope.tickets = [];
 
     $scope.maxSize = 5;
@@ -15,56 +21,100 @@ function Controller ($scope, $http, $window, $filter, VariosService, gordo) {
     var ticketsPerPage_default = 5;
     $scope.ticketsPerPage = ticketsPerPage_default;
 
-    gordo.getAllYears()
-        .then(function(data){
+    gordo
+        .getAllYears()
+        .then(function(data) {
             $scope.years = data;
         })
-        .catch(function(err){
+        .catch(function(err) {
             console.log(err);
         });
 
-    $scope.mostrarTickets = function(anyo){
-        if($scope.tickets.length == 0 || $scope.tickets[0].anyo != anyo){
-            gordo.getAllTickets({
-                year: anyo
-            })
-                .then(function(data){
-                    $scope.tickets = data;
-                    $scope.totalItems = data.length;
-                    $scope.numOfPages = data.length / $scope.ticketsPerPage;
+    $scope.mostrarTickets = function(anyo) {
+        $scope.selected = {
+            year: anyo
+        };
 
-                    var floor = Math.floor(data.length / $scope.ticketsPerPage);
-
-                    if($scope.numOfPages > floor){
-                        $scope.numOfPages = Math.floor(data.length / $scope.ticketsPerPage) + 1;
-                    }
+        if ($scope.tickets.length == 0 || $scope.tickets[0].anyo != anyo) {
+            gordo
+                .getTickets({
+                    year: anyo,
+                    per_page: $scope.ticketsPerPage,
+                    page: $scope.currentPage
                 })
-                .catch(function(err){
+                .then(function(data) {
+                    var tickets = data.data;
+                    var total = data.total;
+                    var perPage = data.perPage;
+                    var numOfPages = total / perPage;
+
+                    $scope.tickets = tickets;
+                    $scope.totalItems = total;
+
+                    var floor = Math.floor(total / perPage);
+
+                    if (numOfPages > floor) {
+                        numOfPages = Math.floor(total / perPage) + 1;
+                    }
+
+                    $scope.numOfPages = numOfPages;
+                })
+                .catch(function(err) {
                     console.log(err);
                 });
         }
     };
 
-    $scope.verTicket = function(ticket){
-        $window.location.href = "/gordo/tickets/" + ticket.anyo + "/" + ticket.sorteo;
+    $scope.verTicket = function(ticket) {
+        $window.location.href =
+            "/gordo/tickets/" + ticket.anyo + "/" + ticket.sorteo;
     };
 
-    $scope.traducirDia = function(fecha){
-
-        var dia = $filter('date')(fecha, 'EEEE');
+    $scope.traducirDia = function(fecha) {
+        var dia = $filter("date")(fecha, "EEEE");
         return VariosService.traducirDia(dia);
     };
 
-
     // Paginacion manual
 
-    $scope.actualizarPagina = function(pagina){
+    $scope.actualizarPagina = function(pagina) {
         $scope.currentPage = pagina;
     };
 
-    $scope.propiedad = 'fecha';
+    $scope.propiedad = "fecha";
 
-    $scope.apuestaRealizada = function(ticket){
+    $scope.apuestaRealizada = function(ticket) {
         return VariosService.apuestaRealizada(ticket);
+    };
+
+    $scope.consultarTickets = function() {
+        $scope.tickets = [];
+
+        gordo
+            .getTickets({
+                year: $scope.selected.year,
+                per_page: $scope.ticketsPerPage,
+                page: $scope.currentPage
+            })
+            .then(function(data) {
+                var tickets = data.data;
+                var total = data.total;
+                var perPage = data.perPage;
+                var numOfPages = total / perPage;
+
+                $scope.tickets = tickets;
+                $scope.totalItems = total;
+
+                var floor = Math.floor(total / perPage);
+
+                if (numOfPages > floor) {
+                    numOfPages = Math.floor(total / perPage) + 1;
+                }
+
+                $scope.numOfPages = numOfPages;
+            })
+            .catch(function(err) {
+                console.log(err);
+            });
     };
 }

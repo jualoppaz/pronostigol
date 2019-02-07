@@ -1,19 +1,16 @@
-(function(){
+(function() {
+    "use strict";
 
-    'use strict';
+    angular.module("gordo", []).factory("gordo", service);
 
-    angular.module('gordo', [])
-        .factory('gordo', service);
+    service.$inject = ["$http", "$q"];
 
-    service.$inject = ['$http', '$q'];
-
-    function service($http, $q){
-
-        var apiPrefix = '/api/gordo';
+    function service($http, $q) {
+        var apiPrefix = "/api/gordo";
 
         var service = {
             // Tickets
-            getAllTickets: getAllTickets,
+            getTickets: getTickets,
             getTicketById: getTicketById,
             createTicket: createTicket,
             editTicket: editTicket,
@@ -33,217 +30,233 @@
 
         return service;
 
-        function getAllTickets(queryParameters){
+        function getTickets(queryParameters) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/tickets', {
-                params: queryParameters
-            })
-                .then(function(data){
+            $http
+                .get(apiPrefix + "/tickets", {
+                    params: queryParameters
+                })
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getTicketById(id){
+        function getTicketById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/tickets/' + id)
-                .then(function(data){
+            $http
+                .get(apiPrefix + "/tickets/" + id)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function createTicket(ticket){
+        function createTicket(ticket) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post(apiPrefix + '/tickets', ticket)
-                .then(function(data){
+            $http
+                .post(apiPrefix + "/tickets", ticket)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function editTicket(ticket){
+        function editTicket(ticket) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.put(apiPrefix + '/tickets', ticket)
-                .then(function(data){
+            $http
+                .put(apiPrefix + "/tickets", ticket)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function deleteTicketById(id){
+        function deleteTicketById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.delete(apiPrefix + '/tickets/' + id)
-                .then(function(data){
+            $http
+                .delete(apiPrefix + "/tickets/" + id)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getAllYears(){
+        function getAllYears() {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/years')
-                .then(function(data){
+            $http
+                .get(apiPrefix + "/years")
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getYearById(id){
+        function getYearById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/years/' + id)
-                .then(function(data){
+            $http
+                .get(apiPrefix + "/years/" + id)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function createYear(year){
+        function createYear(year) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post(apiPrefix + '/years', year)
-                .then(function(data){
+            $http
+                .post(apiPrefix + "/years", year)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function editYear(year){
+        function editYear(year) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.put(apiPrefix + '/years', year)
-                .then(function(data){
+            $http
+                .put(apiPrefix + "/years", year)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function deleteYearById(id){
+        function deleteYearById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.delete(apiPrefix + '/years/' + id)
-                .then(function(data){
+            $http
+                .delete(apiPrefix + "/years/" + id)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getOccurrencesByNumber(){
+        function getOccurrencesByNumber() {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/historical/occurrencesByNumber')
-                .then(function(data){
+            $http
+                .get(apiPrefix + "/historical/occurrencesByNumber")
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getOccurrencesByResult(){
+        function getOccurrencesByResult() {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/historical/occurrencesByResult')
-                .then(function(data){
+            $http
+                .get(apiPrefix + "/historical/occurrencesByResult")
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getOccurrencesByResultWithSpecialNumber(){
+        function getOccurrencesByResultWithSpecialNumber() {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/historical/occurrencesByResultWithSpecialNumber')
-                .then(function(data){
+            $http
+                .get(
+                    apiPrefix +
+                        "/historical/occurrencesByResultWithSpecialNumber"
+                )
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getOccurrencesBySpecialNumber(){
+        function getOccurrencesBySpecialNumber() {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/historical/OccurrencesBySpecialNumber')
-                .then(function(data){
+            $http
+                .get(apiPrefix + "/historical/OccurrencesBySpecialNumber")
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
-
     }
 })();
