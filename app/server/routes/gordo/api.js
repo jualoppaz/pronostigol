@@ -203,22 +203,25 @@ module.exports = function(app) {
      * @apiSampleRequest /api/gordo/historical/occurrencesByNumber
      */
     var gordo_api_occurrencesByNumber = function(req, res) {
-        GOR_DBM.getOccurrencesByNumber(function(err, result) {
+        var query = req.query;
+        var page = query.page || 1;
+        var perPage = query.per_page || 10;
+        var sort = query.sort_property || "occurrences";
+        var type = query.sort_type || "desc";
+
+        var filtros = {
+            page: Number(page),
+            perPage: Number(perPage),
+            sort: sort,
+            type: type
+        };
+
+        GOR_DBM.getOccurrencesByNumber(filtros, function(err, result) {
             if (err) {
                 return res.status(400).send(err);
             }
 
-            var response = [];
-
-            for (var i = 0; i < result.length; i++) {
-                var json = {
-                    numero: result[i]._id,
-                    apariciones: result[i].apariciones
-                };
-
-                response.push(json);
-            }
-            res.status(200).send(JSON.stringify(response, null, 4));
+            res.status(200).send(JSON.stringify(result, null, 4));
         });
     };
 
