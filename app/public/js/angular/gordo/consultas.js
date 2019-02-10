@@ -176,29 +176,31 @@ function Controller($scope, $http, $filter, gordo) {
             $scope.form.opcionBusquedaEstandar.name ==
             "aparicionesPorNumeroClave"
         ) {
+            queryParameters = {
+                page: $scope.currentPage,
+                per_page: $scope.ticketsPerPage,
+                sort_property:
+                    $scope.criterioOrdenacionAparicionesPorNumeroClave,
+                sort_type: $scope.ordenAparicionesPorNumeroClave
+                    ? "desc"
+                    : "asc"
+            };
+
             gordo
-                .getOccurrencesBySpecialNumber()
+                .getOccurrencesBySpecialNumber(queryParameters)
                 .then(function(data) {
-                    $scope.aparicionesPorNumeroClave = data;
-
-                    $scope.criterioOrdenacionAparicionesPorNumeroClave =
-                        $scope.sortFunction_keyNumber;
-
-                    $scope.criterioAlternativoOrdenacionAparicionesPorNumeroClave =
-                        "apariciones";
+                    $scope.aparicionesPorNumeroClave = data.data;
 
                     $scope.actualizarPaginacion(
                         $scope.aparicionesPorNumeroClave,
-                        null,
-                        11
+                        data.total,
+                        data.perPage
                     );
 
                     $scope.mostrar.tablaAparicionesPorNumeroClave = true;
-
-                    $scope.consultando = false;
                 })
-                .catch(function(err) {
-                    console.log(err);
+                .catch(function() {})
+                .finally(function() {
                     $scope.consultando = false;
                 });
         }
@@ -335,16 +337,11 @@ function Controller($scope, $http, $filter, gordo) {
     };
 
     $scope.ordenarAparicionesPorNumeroClaveSegun = function(criterio) {
-        if (criterio == "numeroClave") {
+        if (criterio === "specialNumber") {
             if (
-                $scope.criterioOrdenacionAparicionesPorNumeroClave ==
-                $scope.sortFunction_keyNumber
+                $scope.criterioOrdenacionAparicionesPorNumeroClave === criterio
             ) {
                 //Sólo vamos a invertir el orden
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumeroClave =
-                    "apariciones";
-
                 if ($scope.ordenAparicionesPorNumeroClave == null) {
                     $scope.ordenAparicionesPorNumeroClave = true;
                 } else {
@@ -352,24 +349,14 @@ function Controller($scope, $http, $filter, gordo) {
                 }
             } else {
                 // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorNumeroClave =
-                    $scope.sortFunction_keyNumber;
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumeroClave =
-                    "apariciones";
-
+                $scope.criterioOrdenacionAparicionesPorNumeroClave = criterio;
                 $scope.ordenAparicionesPorNumeroClave = false;
             }
-        } else if (criterio == "apariciones") {
+        } else if (criterio === "occurrences") {
             if (
-                $scope.criterioOrdenacionAparicionesPorNumeroClave ==
-                "apariciones"
+                $scope.criterioOrdenacionAparicionesPorNumeroClave === criterio
             ) {
                 //Sólo vamos a invertir el orden
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumeroClave =
-                    $scope.sortFunction_keyNumber;
-
                 if ($scope.ordenAparicionesPorNumeroClave == null) {
                     $scope.ordenAparicionesPorNumeroClave = true;
                 } else {
@@ -377,12 +364,7 @@ function Controller($scope, $http, $filter, gordo) {
                 }
             } else {
                 // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorNumeroClave =
-                    "apariciones";
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumeroClave =
-                    $scope.sortFunction_keyNumber;
-
+                $scope.criterioOrdenacionAparicionesPorNumeroClave = criterio;
                 $scope.ordenAparicionesPorNumeroClave = true;
             }
         }
