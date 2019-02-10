@@ -8,6 +8,7 @@ var app 		= express();
 var path        = require("path");
 
 var port = process.env.PORT || 8888;
+const forceDomain = require("forcedomain");
 
 app.use('/css', express.static(__dirname + '/app/public/css'));
 app.use('/docs', express.static(__dirname + '/app/public/docs'));
@@ -39,6 +40,12 @@ ev.options({
 });
 
 require('./app/server/router')(app);
+app.use(
+    forceDomain({
+        hostname: "www.pronostigol.es",
+        excludeRule: /[a-zA-Z0-9][a-zA-Z0-9-]+\.herokuapp\.com/i
+    })
+);
 
 
 function clientErrorHandler (err, req, res, next) {
