@@ -1,16 +1,26 @@
-var app = angular.module('qdb');
+var app = angular.module("qdb");
 
-app.controller('ConsultasController', Controller);
+app.controller("ConsultasController", Controller);
 
-Controller.$inject = ['$scope', '$http', '$filter', 'gordo'];
+Controller.$inject = ["$scope", "$http", "$filter", "gordo"];
 
-function Controller ($scope, $http, $filter, gordo) {
-
+function Controller($scope, $http, $filter, gordo) {
     $scope.mostrar = {};
     $scope.mostrar.tablaAparicionesPorNumero = false;
 
     $scope.ordenAparicionesPorNumero = null;
-    
+    $scope.criterioOrdenacionAparicionesPorNumero = "occurrences";
+
+    $scope.ordenAparicionesPorResultado = true;
+    $scope.criterioOrdenacionAparicionesPorResultado = "occurrences";
+
+    $scope.ordenAparicionesPorResultadoConReintegro = true;
+    $scope.criterioOrdenacionAparicionesPorResultadoConReintegro =
+        "occurrences";
+
+    $scope.ordenAparicionesPorReintegro = true;
+    $scope.criterioOrdenacionAparicionesPorReintegro = "occurrences";
+
     $scope.maxSize = 5;
 
     $scope.currentPage = 1;
@@ -36,137 +46,167 @@ function Controller ($scope, $http, $filter, gordo) {
 
     $scope.ayuda = {};
 
-    $scope.ayudaTemporada = "Para buscar datos sobre todas " +
+    $scope.ayudaTemporada =
+        "Para buscar datos sobre todas " +
         "las temporadas o sobre una única temporada.";
 
-    $scope.ayudaCompeticion = "Para buscar datos sobre todas " +
+    $scope.ayudaCompeticion =
+        "Para buscar datos sobre todas " +
         "las competiciones o sobre una concreta.";
 
-    $scope.ayudaBusqueda = "Para añadir un criterio adicional de búsqueda. " +
+    $scope.ayudaBusqueda =
+        "Para añadir un criterio adicional de búsqueda. " +
         "Se pueden buscar resultados en general, los datos de un equipo o sólo los de un partido.";
 
-    $scope.ayuda.aparicionesPorNumero = "Para consultar los números que han aparecido más veces entre los " +
+    $scope.ayuda.aparicionesPorNumero =
+        "Para consultar los números que han aparecido más veces entre los " +
         "números premiados.";
 
-    $scope.ayuda.aparicionesPorResultado = "Para consultar los resultados que se han dado en más ocasiones.";
+    $scope.ayuda.aparicionesPorResultado =
+        "Para consultar los resultados que se han dado en más ocasiones.";
 
-    $scope.ayuda.aparicionesPorResultadoConNumeroClave = "Para consultar los resultados que se han dado en " +
+    $scope.ayuda.aparicionesPorResultadoConNumeroClave =
+        "Para consultar los resultados que se han dado en " +
         "más ocasiones, incluyendo el Número Clave de dichos resultados.";
 
-    $scope.ayuda.aparicionesPorNumeroClave = "Para consultar los numeroClaves que se han dado en más ocasiones.";
+    $scope.ayuda.aparicionesPorNumeroClave =
+        "Para consultar los numeroClaves que se han dado en más ocasiones.";
 
-
-    $scope.limpiarTablas = function(){
+    $scope.limpiarTablas = function() {
         $scope.mostrar = {};
 
         $scope.consultando = true;
 
-        $scope.ordenAparicionesPorNumero = null;
-        $scope.ordenAparicionesPorResultado = null;
-        $scope.ordenAparicionesPorResultadoConReintegro = null;
-        $scope.ordenAparicionesPorReintegro = null;
-
         $scope.tickets = [];
-
-        $scope.currentPage = 1;
-        $scope.ticketsPerPage = ticketsPerPage_default;
     };
 
     $scope.aparicionesPorNumeroClave = [];
 
     $scope.aparicionesPorNumero = [];
 
-    $scope.consultarEstandar = function(){
-
+    $scope.consultarEstandar = function() {
         $scope.limpiarTablas();
 
         $scope.consultando = true;
 
-        if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorNumero"){
-            gordo.getOccurrencesByNumber()
-                .then(function(data){
+        if ($scope.form.opcionBusquedaEstandar.name == "aparicionesPorNumero") {
+            gordo
+                .getOccurrencesByNumber()
+                .then(function(data) {
                     $scope.aparicionesPorNumero = data;
 
-                    $scope.criterioOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
+                    $scope.criterioOrdenacionAparicionesPorNumero =
+                        $scope.sortFunction_number;
 
-                    $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
+                    $scope.criterioAlternativoOrdenacionAparicionesPorNumero =
+                        "apariciones";
 
-                    $scope.actualizarPaginacion($scope.aparicionesPorNumero, $scope.aparicionesPorNumero.length, $scope.ticketsPerPage);
+                    $scope.actualizarPaginacion(
+                        $scope.aparicionesPorNumero,
+                        $scope.aparicionesPorNumero.length,
+                        $scope.ticketsPerPage
+                    );
 
                     $scope.mostrar.tablaAparicionesPorNumero = true;
 
                     $scope.consultando = false;
                 })
-                .catch(function(data){
+                .catch(function(data) {
                     console.log(data);
                     $scope.consultando = false;
                 });
+        } else if (
+            $scope.form.opcionBusquedaEstandar.name == "aparicionesPorResultado"
+        ) {
+            queryParameters = {
+                page: $scope.currentPage,
+                per_page: $scope.ticketsPerPage,
+                sort_property: $scope.criterioOrdenacionAparicionesPorResultado,
+                sort_type: $scope.ordenAparicionesPorResultado ? "desc" : "asc"
+            };
 
-        }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorResultado"){
-            gordo.getOccurrencesByResult()
-                .then(function(data){
-                    $scope.aparicionesPorResultado = data;
+            gordo
+                .getOccurrencesByResult(queryParameters)
+                .then(function(data) {
+                    $scope.aparicionesPorResultado = data.data;
 
-                    $scope.criterioOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
-
-                    $scope.criterioAlternativoOrdenacionAparicionesPorResultado = "apariciones";
-
-                    $scope.actualizarPaginacion($scope.aparicionesPorResultado, null, $scope.ticketsPerPage);
+                    $scope.actualizarPaginacion(
+                        $scope.aparicionesPorResultado,
+                        data.total,
+                        data.perPage
+                    );
 
                     $scope.mostrar.tablaAparicionesPorResultado = true;
-
-                    $scope.consultando = false;
                 })
-                .catch(function(err){
-                    console.log(data);
+                .catch(function() {})
+                .finally(function() {
                     $scope.consultando = false;
                 });
-        }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorResultadoConNumeroClave"){
-            gordo.getOccurrencesByResultWithSpecialNumber()
-                .then(function(data){
+        } else if (
+            $scope.form.opcionBusquedaEstandar.name ==
+            "aparicionesPorResultadoConNumeroClave"
+        ) {
+            gordo
+                .getOccurrencesByResultWithSpecialNumber()
+                .then(function(data) {
                     $scope.aparicionesPorResultadoConNumeroClave = data;
 
-                    $scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave = $scope.sortFunction_resultWithKeyNumber;
+                    $scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave =
+                        $scope.sortFunction_resultWithKeyNumber;
 
-                    $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConNumeroClave = "apariciones";
+                    $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConNumeroClave =
+                        "apariciones";
 
-                    $scope.actualizarPaginacion($scope.aparicionesPorResultadoConNumeroClave, null, $scope.ticketsPerPage);
+                    $scope.actualizarPaginacion(
+                        $scope.aparicionesPorResultadoConNumeroClave,
+                        null,
+                        $scope.ticketsPerPage
+                    );
 
                     $scope.mostrar.tablaAparicionesPorResultadoConNumeroClave = true;
 
                     $scope.consultando = false;
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     console.log(err);
                     $scope.consultando = false;
                 });
-        }else if($scope.form.opcionBusquedaEstandar.name == "aparicionesPorNumeroClave"){
-            gordo.getOccurrencesBySpecialNumber()
-                .then(function(data){
+        } else if (
+            $scope.form.opcionBusquedaEstandar.name ==
+            "aparicionesPorNumeroClave"
+        ) {
+            gordo
+                .getOccurrencesBySpecialNumber()
+                .then(function(data) {
                     $scope.aparicionesPorNumeroClave = data;
 
-                    $scope.criterioOrdenacionAparicionesPorNumeroClave = $scope.sortFunction_keyNumber;
+                    $scope.criterioOrdenacionAparicionesPorNumeroClave =
+                        $scope.sortFunction_keyNumber;
 
-                    $scope.criterioAlternativoOrdenacionAparicionesPorNumeroClave = "apariciones";
+                    $scope.criterioAlternativoOrdenacionAparicionesPorNumeroClave =
+                        "apariciones";
 
-                    $scope.actualizarPaginacion($scope.aparicionesPorNumeroClave, null, 11);
+                    $scope.actualizarPaginacion(
+                        $scope.aparicionesPorNumeroClave,
+                        null,
+                        11
+                    );
 
                     $scope.mostrar.tablaAparicionesPorNumeroClave = true;
 
                     $scope.consultando = false;
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     console.log(err);
                     $scope.consultando = false;
                 });
         }
     };
 
-    $scope.inicializarAparicionesPorNumero = function(){
+    $scope.inicializarAparicionesPorNumero = function() {
         var res = [];
 
-        for(var i=0; i<$scope.numerosBolas.length; i++){
-
+        for (var i = 0; i < $scope.numerosBolas.length; i++) {
             var json = {
                 numero: $scope.numerosBolas[i],
                 apariciones: 0
@@ -176,14 +216,12 @@ function Controller ($scope, $http, $filter, gordo) {
         }
 
         return res;
-
     };
 
-    $scope.inicializarAparicionesPorNumeroClave = function(){
+    $scope.inicializarAparicionesPorNumeroClave = function() {
         var res = [];
 
-        for(var i=0; i<$scope.numerosNumeroClaves.length; i++){
-
+        for (var i = 0; i < $scope.numerosNumeroClaves.length; i++) {
             var json = {
                 numeroClave: $scope.numerosNumeroClaves[i],
                 apariciones: 0
@@ -193,183 +231,206 @@ function Controller ($scope, $http, $filter, gordo) {
         }
 
         return res;
-
     };
 
-    $scope.ordenarAparicionesPorNumeroSegun = function(criterio){
-        if(criterio == "numero"){
+    $scope.ordenarAparicionesPorNumeroSegun = function(criterio) {
+        if (criterio == "numero") {
+            if (
+                $scope.criterioOrdenacionAparicionesPorNumero ==
+                $scope.sortFunction_number
+            ) {
+                //Sólo vamos a invertir el orden
 
-            if($scope.criterioOrdenacionAparicionesPorNumero == $scope.sortFunction_number){ //Sólo vamos a invertir el orden
+                $scope.criterioAlternativoOrdenacionAparicionesPorNumero =
+                    "apariciones";
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
-
-                if($scope.ordenAparicionesPorNumero == null){
+                if ($scope.ordenAparicionesPorNumero == null) {
                     $scope.ordenAparicionesPorNumero = true;
-                }else{
+                } else {
                     $scope.ordenAparicionesPorNumero = !$scope.ordenAparicionesPorNumero;
                 }
-            }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
+            } else {
+                // Cambiamos de criterio
+                $scope.criterioOrdenacionAparicionesPorNumero =
+                    $scope.sortFunction_number;
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = "apariciones";
+                $scope.criterioAlternativoOrdenacionAparicionesPorNumero =
+                    "apariciones";
 
                 $scope.ordenAparicionesPorNumero = false;
             }
-        }else if(criterio == "apariciones"){
-            if($scope.criterioOrdenacionAparicionesPorNumero == "apariciones"){ //Sólo vamos a invertir el orden
+        } else if (criterio == "apariciones") {
+            if (
+                $scope.criterioOrdenacionAparicionesPorNumero == "apariciones"
+            ) {
+                //Sólo vamos a invertir el orden
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
+                $scope.criterioAlternativoOrdenacionAparicionesPorNumero =
+                    $scope.sortFunction_number;
 
-                if($scope.ordenAparicionesPorNumero == null){
+                if ($scope.ordenAparicionesPorNumero == null) {
                     $scope.ordenAparicionesPorNumero = true;
-                }else{
-
+                } else {
                     $scope.ordenAparicionesPorNumero = !$scope.ordenAparicionesPorNumero;
                 }
-            }else{ // Cambiamos de criterio
+            } else {
+                // Cambiamos de criterio
                 $scope.criterioOrdenacionAparicionesPorNumero = "apariciones";
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero = $scope.sortFunction_number;
+                $scope.criterioAlternativoOrdenacionAparicionesPorNumero =
+                    $scope.sortFunction_number;
 
                 $scope.ordenAparicionesPorNumero = true;
-
             }
         }
     };
 
-    $scope.ordenarAparicionesPorResultadoSegun = function(criterio){
-        if(criterio == "resultadoString"){
-
-            if($scope.criterioOrdenacionAparicionesPorResultado == $scope.sortFunction_result){ //Sólo vamos a invertir el orden
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultado = "apariciones";
-
-                if($scope.ordenAparicionesPorResultado == null){
+    $scope.ordenarAparicionesPorResultadoSegun = function(criterio) {
+        if (criterio === "result") {
+            if ($scope.criterioOrdenacionAparicionesPorResultado === criterio) {
+                //Sólo vamos a invertir el orden
+                if ($scope.ordenAparicionesPorResultado == null) {
                     $scope.ordenAparicionesPorResultado = true;
-                }else{
+                } else {
                     $scope.ordenAparicionesPorResultado = !$scope.ordenAparicionesPorResultado;
                 }
-            }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultado = "apariciones";
+            } else {
+                // Cambiamos de criterio: De apariciones a Resultado
+                $scope.criterioOrdenacionAparicionesPorResultado = criterio;
 
                 $scope.ordenAparicionesPorResultado = false;
             }
-
-        }else if(criterio == "apariciones"){
-            if($scope.criterioOrdenacionAparicionesPorResultado == criterio){ //Sólo vamos a invertir el orden
-
-                $scope.criterioOrdenacionAparicionesPorResultado = "apariciones";
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
-
-                if($scope.ordenAparicionesPorResultado == null){
+        } else if (criterio === "occurrences") {
+            if ($scope.criterioOrdenacionAparicionesPorResultado === criterio) {
+                //Sólo vamos a invertir el orden
+                if ($scope.ordenAparicionesPorResultado == null) {
                     $scope.ordenAparicionesPorResultado = true;
-                }else{
-
+                } else {
                     $scope.ordenAparicionesPorResultado = !$scope.ordenAparicionesPorResultado;
                 }
-            }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorResultado = "apariciones";
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultado = $scope.sortFunction_result;
+            } else {
+                // Cambiamos de criterio
+                $scope.criterioOrdenacionAparicionesPorResultado = criterio;
 
                 $scope.ordenAparicionesPorResultado = true;
-
             }
         }
     };
 
-    $scope.ordenarAparicionesPorResultadoConNumeroClaveSegun = function(criterio){
-        if(criterio == "resultadoString"){
+    $scope.ordenarAparicionesPorResultadoConNumeroClaveSegun = function(
+        criterio
+    ) {
+        if (criterio == "resultadoString") {
+            if (
+                $scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave ==
+                $scope.sortFunction_resultWithKeyNumber
+            ) {
+                //Sólo vamos a invertir el orden
 
-            if($scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave == $scope.sortFunction_resultWithKeyNumber){ //Sólo vamos a invertir el orden
+                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConNumeroClave =
+                    "apariciones";
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConNumeroClave = "apariciones";
-
-                if($scope.ordenAparicionesPorResultadoConNumeroClave == null){
+                if ($scope.ordenAparicionesPorResultadoConNumeroClave == null) {
                     $scope.ordenAparicionesPorResultadoConNumeroClave = true;
-                }else{
+                } else {
                     $scope.ordenAparicionesPorResultadoConNumeroClave = !$scope.ordenAparicionesPorResultadoConNumeroClave;
                 }
-            }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave = $scope.sortFunction_resultWithKeyNumber;
+            } else {
+                // Cambiamos de criterio
+                $scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave =
+                    $scope.sortFunction_resultWithKeyNumber;
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConNumeroClave = "apariciones";
+                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConNumeroClave =
+                    "apariciones";
 
                 $scope.ordenAparicionesPorResultadoConNumeroClave = false;
             }
+        } else if (criterio == "apariciones") {
+            if (
+                $scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave ==
+                criterio
+            ) {
+                //Sólo vamos a invertir el orden
 
-        }else if(criterio == "apariciones"){
-            if($scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave == criterio){ //Sólo vamos a invertir el orden
+                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConNumeroClave =
+                    $scope.sortFunction_resultWithKeyNumber;
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConNumeroClave = $scope.sortFunction_resultWithKeyNumber;
-
-                if($scope.ordenAparicionesPorResultadoConNumeroClave == null){
+                if ($scope.ordenAparicionesPorResultadoConNumeroClave == null) {
                     $scope.ordenAparicionesPorResultadoConNumeroClave = true;
-                }else{
+                } else {
                     $scope.ordenAparicionesPorResultadoConNumeroClave = !$scope.ordenAparicionesPorResultadoConNumeroClave;
                 }
-            }else{ // Cambiamos de criterio
+            } else {
+                // Cambiamos de criterio
 
-                $scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave = "apariciones";
+                $scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave =
+                    "apariciones";
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConNumeroClave = $scope.sortFunction_resultWithKeyNumber;
+                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConNumeroClave =
+                    $scope.sortFunction_resultWithKeyNumber;
 
                 $scope.ordenAparicionesPorResultadoConNumeroClave = true;
-
             }
         }
     };
 
-    $scope.ordenarAparicionesPorNumeroClaveSegun = function(criterio){
-        if(criterio == "numeroClave"){
+    $scope.ordenarAparicionesPorNumeroClaveSegun = function(criterio) {
+        if (criterio == "numeroClave") {
+            if (
+                $scope.criterioOrdenacionAparicionesPorNumeroClave ==
+                $scope.sortFunction_keyNumber
+            ) {
+                //Sólo vamos a invertir el orden
 
-            if($scope.criterioOrdenacionAparicionesPorNumeroClave == $scope.sortFunction_keyNumber){ //Sólo vamos a invertir el orden
+                $scope.criterioAlternativoOrdenacionAparicionesPorNumeroClave =
+                    "apariciones";
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumeroClave = "apariciones";
-
-                if($scope.ordenAparicionesPorNumeroClave == null){
+                if ($scope.ordenAparicionesPorNumeroClave == null) {
                     $scope.ordenAparicionesPorNumeroClave = true;
-                }else{
+                } else {
                     $scope.ordenAparicionesPorNumeroClave = !$scope.ordenAparicionesPorNumeroClave;
                 }
-            }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorNumeroClave = $scope.sortFunction_keyNumber;
+            } else {
+                // Cambiamos de criterio
+                $scope.criterioOrdenacionAparicionesPorNumeroClave =
+                    $scope.sortFunction_keyNumber;
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumeroClave = "apariciones";
+                $scope.criterioAlternativoOrdenacionAparicionesPorNumeroClave =
+                    "apariciones";
 
                 $scope.ordenAparicionesPorNumeroClave = false;
-
             }
+        } else if (criterio == "apariciones") {
+            if (
+                $scope.criterioOrdenacionAparicionesPorNumeroClave ==
+                "apariciones"
+            ) {
+                //Sólo vamos a invertir el orden
 
-        }else if(criterio == "apariciones"){
-            if($scope.criterioOrdenacionAparicionesPorNumeroClave == "apariciones"){ //Sólo vamos a invertir el orden
+                $scope.criterioAlternativoOrdenacionAparicionesPorNumeroClave =
+                    $scope.sortFunction_keyNumber;
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumeroClave = $scope.sortFunction_keyNumber;
-
-                if($scope.ordenAparicionesPorNumeroClave == null){
+                if ($scope.ordenAparicionesPorNumeroClave == null) {
                     $scope.ordenAparicionesPorNumeroClave = true;
-                }else{
-
+                } else {
                     $scope.ordenAparicionesPorNumeroClave = !$scope.ordenAparicionesPorNumeroClave;
                 }
-            }else{ // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorNumeroClave = "apariciones";
+            } else {
+                // Cambiamos de criterio
+                $scope.criterioOrdenacionAparicionesPorNumeroClave =
+                    "apariciones";
 
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumeroClave = $scope.sortFunction_keyNumber;
+                $scope.criterioAlternativoOrdenacionAparicionesPorNumeroClave =
+                    $scope.sortFunction_keyNumber;
 
                 $scope.ordenAparicionesPorNumeroClave = true;
-
             }
         }
     };
 
     // Funciones para ordenacion
 
-    $scope.sortFunction_number = function(ticket){
-
+    $scope.sortFunction_number = function(ticket) {
         var res = "";
 
         res = Number(ticket.numero);
@@ -377,39 +438,33 @@ function Controller ($scope, $http, $filter, gordo) {
         return res;
     };
 
-    $scope.sortFunction_result = function(ticket){
-
+    $scope.sortFunction_result = function(ticket) {
         var res = "";
 
-        for(var i=0; i<ticket.numeros.length; i++){
-
+        for (var i = 0; i < ticket.numeros.length; i++) {
             var numero = ticket.numeros[i].numero;
 
-            if(numero.length == 1){
+            if (numero.length == 1) {
                 res += "0" + numero.toString();
-            }else if(numero.length == 2){
+            } else if (numero.length == 2) {
                 res += numero.toString();
             }
-
         }
 
         return res;
     };
 
-    $scope.sortFunction_resultWithKeyNumber = function(ticket){
-
+    $scope.sortFunction_resultWithKeyNumber = function(ticket) {
         var res = "";
 
-        for(var i=0; i<ticket.numeros.length; i++){
-
+        for (var i = 0; i < ticket.numeros.length; i++) {
             var numero = ticket.numeros[i].numero;
 
-            if(numero.length == 1){
+            if (numero.length == 1) {
                 res += "0" + numero.toString();
-            }else if(numero.length == 2){
+            } else if (numero.length == 2) {
                 res += numero.toString();
             }
-
         }
 
         res += "R" + ticket.numeroClave;
@@ -417,8 +472,7 @@ function Controller ($scope, $http, $filter, gordo) {
         return res;
     };
 
-    $scope.sortFunction_keyNumber = function(ticket){
-
+    $scope.sortFunction_keyNumber = function(ticket) {
         var res = "";
 
         res = Number(ticket.numeroClave);
@@ -426,34 +480,34 @@ function Controller ($scope, $http, $filter, gordo) {
         return res;
     };
 
-    $scope.printNumber = function(number){
-
+    $scope.printNumber = function(number) {
         var res = "";
 
-        if(number.toString().length == 1){
+        if (number.toString().length == 1) {
             res = "0" + number.toString();
-        }else{
+        } else {
             res = number.toString();
         }
 
         return res;
     };
 
-    $scope.actualizarPaginacion = function(items, itemsLength, ticketsPerPage){
-
+    $scope.actualizarPaginacion = function(items, itemsLength, ticketsPerPage) {
         // Uso de esta variable para reutilizar el mismo paginador para todas las consultas
         $scope.tickets = items;
 
         $scope.ticketsPerPage = ticketsPerPage;
 
-        $scope.totalItems = itemsLength == null ? $scope.tickets.length : itemsLength;
+        $scope.totalItems =
+            itemsLength == null ? $scope.tickets.length : itemsLength;
 
         $scope.numOfPages = $scope.totalItems / $scope.ticketsPerPage;
 
         var floor = Math.floor($scope.tickets.length / $scope.ticketsPerPage);
 
-        if($scope.numOfPages > floor){
-            $scope.numOfPages = Math.floor($scope.tickets.length / $scope.ticketsPerPage) + 1;
+        if ($scope.numOfPages > floor) {
+            $scope.numOfPages =
+                Math.floor($scope.tickets.length / $scope.ticketsPerPage) + 1;
         }
     };
 }
