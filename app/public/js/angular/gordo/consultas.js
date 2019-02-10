@@ -8,7 +8,7 @@ function Controller($scope, $http, $filter, gordo) {
     $scope.mostrar = {};
     $scope.mostrar.tablaAparicionesPorNumero = false;
 
-    $scope.ordenAparicionesPorNumero = null;
+    $scope.ordenAparicionesPorNumero = true;
     $scope.criterioOrdenacionAparicionesPorNumero = "occurrences";
 
     $scope.ordenAparicionesPorResultado = true;
@@ -90,29 +90,28 @@ function Controller($scope, $http, $filter, gordo) {
         $scope.consultando = true;
 
         if ($scope.form.opcionBusquedaEstandar.name == "aparicionesPorNumero") {
+            queryParameters = {
+                page: $scope.currentPage,
+                per_page: $scope.ticketsPerPage,
+                sort_property: $scope.criterioOrdenacionAparicionesPorNumero,
+                sort_type: $scope.ordenAparicionesPorNumero ? "desc" : "asc"
+            };
+
             gordo
-                .getOccurrencesByNumber()
+                .getOccurrencesByNumber(queryParameters)
                 .then(function(data) {
-                    $scope.aparicionesPorNumero = data;
-
-                    $scope.criterioOrdenacionAparicionesPorNumero =
-                        $scope.sortFunction_number;
-
-                    $scope.criterioAlternativoOrdenacionAparicionesPorNumero =
-                        "apariciones";
+                    $scope.aparicionesPorNumero = data.data;
 
                     $scope.actualizarPaginacion(
                         $scope.aparicionesPorNumero,
-                        $scope.aparicionesPorNumero.length,
-                        $scope.ticketsPerPage
+                        data.total,
+                        data.perPage
                     );
 
                     $scope.mostrar.tablaAparicionesPorNumero = true;
-
-                    $scope.consultando = false;
                 })
-                .catch(function(data) {
-                    console.log(data);
+                .catch(function() {})
+                .finally(function() {
                     $scope.consultando = false;
                 });
         } else if (
@@ -236,40 +235,22 @@ function Controller($scope, $http, $filter, gordo) {
     };
 
     $scope.ordenarAparicionesPorNumeroSegun = function(criterio) {
-        if (criterio == "numero") {
-            if (
-                $scope.criterioOrdenacionAparicionesPorNumero ==
-                $scope.sortFunction_number
-            ) {
+        if (criterio === "number") {
+            if ($scope.criterioOrdenacionAparicionesPorNumero === criterio) {
                 //Sólo vamos a invertir el orden
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero =
-                    "apariciones";
-
-                if ($scope.ordenAparicionesPorNumero == null) {
+                if ($scope.ordenAparicionesPorNumero === null) {
                     $scope.ordenAparicionesPorNumero = true;
                 } else {
                     $scope.ordenAparicionesPorNumero = !$scope.ordenAparicionesPorNumero;
                 }
             } else {
                 // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorNumero =
-                    $scope.sortFunction_number;
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero =
-                    "apariciones";
-
+                $scope.criterioOrdenacionAparicionesPorNumero = criterio;
                 $scope.ordenAparicionesPorNumero = false;
             }
-        } else if (criterio == "apariciones") {
-            if (
-                $scope.criterioOrdenacionAparicionesPorNumero == "apariciones"
-            ) {
+        } else if (criterio === "occurrences") {
+            if ($scope.criterioOrdenacionAparicionesPorNumero === criterio) {
                 //Sólo vamos a invertir el orden
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero =
-                    $scope.sortFunction_number;
-
                 if ($scope.ordenAparicionesPorNumero == null) {
                     $scope.ordenAparicionesPorNumero = true;
                 } else {
@@ -277,11 +258,7 @@ function Controller($scope, $http, $filter, gordo) {
                 }
             } else {
                 // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorNumero = "apariciones";
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorNumero =
-                    $scope.sortFunction_number;
-
+                $scope.criterioOrdenacionAparicionesPorNumero = criterio;
                 $scope.ordenAparicionesPorNumero = true;
             }
         }

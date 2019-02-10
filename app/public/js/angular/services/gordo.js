@@ -192,12 +192,14 @@
             return promise;
         }
 
-        function getOccurrencesByNumber() {
+        function getOccurrencesByNumber(queryParameters) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http
-                .get(apiPrefix + "/historical/occurrencesByNumber")
+                .get(apiPrefix + "/historical/occurrencesByNumber", {
+                    params: queryParameters
+                })
                 .then(function(data) {
                     defered.resolve(data.data);
                 })

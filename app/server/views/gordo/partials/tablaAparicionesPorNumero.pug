@@ -3,27 +3,18 @@ div.table-responsive(style="margin-top: 15px", ng-if="mostrar.tablaAparicionesPo
         thead
             tr
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorNumeroSegun('numero')", ng-bind-template="Número", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorNumero == sortFunction_number && !ordenAparicionesPorNumero").fa.fa-caret-up
-                    span(ng-if="criterioOrdenacionAparicionesPorNumero == sortFunction_number && ordenAparicionesPorNumero").fa.fa-caret-down
+                    a.columnaOrdenable(ng-click="ordenarAparicionesPorNumeroSegun('number'); consultarEstandar()", ng-bind-template="Número", style="padding-right: 15px")
+                    span(ng-if="criterioOrdenacionAparicionesPorNumero === 'number' && !ordenAparicionesPorNumero").fa.fa-caret-up
+                    span(ng-if="criterioOrdenacionAparicionesPorNumero === 'number' && ordenAparicionesPorNumero").fa.fa-caret-down
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorNumeroSegun('apariciones')", ng-bind-template="Apariciones", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorNumero == 'apariciones' && ordenAparicionesPorNumero").fa.fa-caret-down
-                    span(ng-if="criterioOrdenacionAparicionesPorNumero == 'apariciones' && !ordenAparicionesPorNumero").fa.fa-caret-up
-
+                    a.columnaOrdenable(ng-click="ordenarAparicionesPorNumeroSegun('occurrences'); consultarEstandar()", ng-bind-template="Apariciones", style="padding-right: 15px")
+                    span(ng-if="criterioOrdenacionAparicionesPorNumero === 'occurrences' && ordenAparicionesPorNumero").fa.fa-caret-down
+                    span(ng-if="criterioOrdenacionAparicionesPorNumero === 'occurrences' && !ordenAparicionesPorNumero").fa.fa-caret-up
 
         tbody
-            tr(ng-if="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-repeat="item in aparicionesPorNumero | orderBy:[criterioOrdenacionAparicionesPorNumero, criterioAlternativoOrdenacionAparicionesPorNumero]:ordenAparicionesPorNumero")
-                td(ng-if="criterioOrdenacionAparicionesPorNumero == sortFunction_number")
-                    span(ng-bind-template="{{printNumber(item.numero)}}")
-                td(ng-if="criterioOrdenacionAparicionesPorNumero == 'apariciones' && $index >=5 && ordenAparicionesPorNumero", ng-cloak)
-                    span.badge.badge-rojo(ng-bind-template="{{printNumber(item.numero)}}")
-                td(ng-if="criterioOrdenacionAparicionesPorNumero == 'apariciones' && $index <5 && ordenAparicionesPorNumero", ng-cloak)
-                    span.badge.badge-verde(ng-bind-template="{{printNumber(item.numero)}}")
-                td(ng-if="criterioOrdenacionAparicionesPorNumero == 'apariciones' && $index < aparicionesPorNumero.length - 5 && !ordenAparicionesPorNumero", ng-cloak)
-                    span.badge.badge-rojo(ng-bind-template="{{printNumber(item.numero)}}")
-                td(ng-if="criterioOrdenacionAparicionesPorNumero == 'apariciones' && $index >= aparicionesPorNumero.length - 5 && !ordenAparicionesPorNumero", ng-cloak)
-                    span.badge.badge-verde(ng-bind-template="{{printNumber(item.numero)}}")
+            tr(ng-repeat="item in aparicionesPorNumero")
+                td
+                    span.badge.badge-azul(ng-bind-template="{{printNumber(item.numero)}}")
                 td(ng-bind-template="{{item.apariciones}}")
 
 
