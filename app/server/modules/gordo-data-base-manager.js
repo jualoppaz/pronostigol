@@ -251,24 +251,128 @@ exports.getOccurrencesByResultWithSpecialNumber = function(callback) {
     );
 };
 
-exports.getOccurrencesByResultWithoutSpecialNumber = function(callback) {
-    gordo_tickets.aggregate(
-        {
-            $group: {
-                _id: "$resultado.bolas",
-                apariciones: {
-                    $sum: 1
-                }
-            }
-        },
-        function(e, res) {
-            if (e) {
-                callback(e);
-            } else {
-                callback(null, res);
+exports.getOccurrencesByResultWithoutSpecialNumber = function(
+    filtros,
+    callback
+) {
+    var limit = filtros.perPage;
+    var page = filtros.page;
+    var skip = (page - 1) * limit;
+    var sort = filtros.sort;
+    var type = filtros.type;
+
+    var sort_property = sort === "result" ? "resultadoAsString" : "apariciones";
+    var sort_type = type === "asc" ? 1 : -1;
+
+    var query = [];
+    query.push({
+        $group: {
+            _id: "$resultado.bolas",
+            apariciones: {
+                $sum: 1
             }
         }
-    );
+    });
+
+    query.push({
+        $project: {
+            _id: 0,
+            resultado: "$_id",
+            apariciones: 1
+        }
+    });
+
+    gordo_tickets.aggregate(query, function(e, res) {
+        if (e) {
+            callback(e);
+        } else {
+            var result = {
+                page: page,
+                perPage: limit,
+                total: res.length
+            };
+
+            var sortConfig = {};
+            sortConfig[sort_property] = sort_type;
+
+            // Añadimos ordenación alternativa
+            if (sort_property === "apariciones") {
+                sortConfig["resultadoAsString"] = sort_type;
+            } else {
+                sortConfig["apariciones"] = sort_type;
+            }
+
+            console.log("sortConfig:", sortConfig);
+
+            query.push({
+                $addFields: {
+                    resultadoAsString: {
+                        $reduce: {
+                            input: "$resultado",
+                            initialValue: "",
+                            in: {
+                                $concat: [
+                                    "$$value",
+                                    {
+                                        $substr: [
+                                            {
+                                                $cond: [
+                                                    {
+                                                        $gte: [
+                                                            "$$this.numero",
+                                                            10
+                                                        ]
+                                                    },
+                                                    "$$this.numero",
+                                                    {
+                                                        $concat: [
+                                                            "0",
+                                                            {
+                                                                $substr: [
+                                                                    "$$this.numero",
+                                                                    0,
+                                                                    -1
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            0,
+                                            -1
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            });
+
+            query.push({
+                $sort: sortConfig
+            });
+
+            query.push({
+                $skip: skip
+            });
+
+            query.push({
+                $limit: limit
+            });
+
+            console.log("Query:", query);
+
+            gordo_tickets.aggregate(query, function(e, res) {
+                if (e) {
+                    callback(e);
+                } else {
+                    result.data = res;
+                    callback(null, result);
+                }
+            });
+        }
+    });
 };
 
 exports.getOccurrencesBySpecialNumber = function(callback) {

@@ -242,24 +242,67 @@ module.exports = function(app) {
         });
     };
 
+    /**
+     * @api {get} /gordo/historical/occurrencesByResult Consulta de apariciones por resultado sin reintegro en histórico de El Gordo
+     * @apiName GetGordoOccurrencesByResult
+     * @apiGroup GordoHistorical
+     *
+     * @apiDescription Recurso para la consulta de apariciones por resultado sin reintegro en histórico de El Gordo.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {Number} [page] Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} [per_page] Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "result"
+     * y "occurrences". Por defecto se ordenan por "occurrences".
+     * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
+     * Por defecto se ordenan descendentemente.
+     * @apiSampleRequest /api/gordo/historical/occurrencesByResult
+     */
     var gordo_api_occurrencesByResult = function(req, res) {
-        GOR_DBM.getOccurrencesByResultWithoutSpecialNumber(function(
+        var query = req.query;
+        var page = query.page || 1;
+        var perPage = query.per_page || 10;
+        var sort = query.sort_property || "occurrences";
+        var type = query.sort_type || "desc";
+
+        var filtros = {
+            page: Number(page),
+            perPage: Number(perPage),
+            sort: sort,
+            type: type
+        };
+
+        GOR_DBM.getOccurrencesByResultWithoutSpecialNumber(filtros, function(
             err,
-            tickets
+            result
         ) {
             if (err) {
                 return res.status(400).send(err);
             }
 
-            var response = [];
-
+            var filteredData = [];
+            var tickets = result.data;
             for (var i = 0; i < tickets.length; i++) {
-                var json = {};
-                json.numeros = tickets[i]._id;
-                json.apariciones = tickets[i].apariciones;
-                response.push(json);
+                var json;
+                if (req.session.user == null) {
+                    json = filtrarInformacion(tickets[i]);
+                } else {
+                    if (
+                        req.session.user.role === ROLES.PRIVILEGED ||
+                        req.session.user.role === ROLES.ADMIN
+                    ) {
+                        json = tickets[i];
+                    } else {
+                        json = filtrarInformacion(tickets[i]);
+                    }
+                }
+                filteredData.push(json);
             }
-            res.status(200).send(response);
+
+            result.data = filteredData;
+
+            res.status(200).send(JSON.stringify(result, null, 4));
         });
     };
 
