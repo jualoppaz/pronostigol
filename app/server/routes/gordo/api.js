@@ -243,11 +243,11 @@ module.exports = function(app) {
     };
 
     /**
-     * @api {get} /gordo/historical/occurrencesByResult Consulta de apariciones por resultado sin reintegro en histórico de El Gordo
+     * @api {get} /gordo/historical/occurrencesByResult Consulta de apariciones por resultado sin número clave en histórico de El Gordo
      * @apiName GetGordoOccurrencesByResult
      * @apiGroup GordoHistorical
      *
-     * @apiDescription Recurso para la consulta de apariciones por resultado sin reintegro en histórico de El Gordo.
+     * @apiDescription Recurso para la consulta de apariciones por resultado sin número clave en histórico de El Gordo.
      *
      * @apiVersion 1.0.0
      *
@@ -306,22 +306,46 @@ module.exports = function(app) {
         });
     };
 
+    /**
+     * @api {get} /gordo/historical/occurrencesByResultWithSpecialNumber Consulta de apariciones por resultado con número clave en histórico de El Gordo
+     * @apiName GetGordoOccurrencesByResultWithSpecialNumber
+     * @apiGroup GordoHistorical
+     *
+     * @apiDescription Recurso para la consulta de apariciones por resultado con número clave en histórico de El Gordo.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {Number} [page] Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} [per_page] Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "result"
+     * y "occurrences". Por defecto se ordenan por "occurrences".
+     * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
+     * Por defecto se ordenan descendentemente.
+     * @apiSampleRequest /api/gordo/historical/occurrencesByResultWithSpecialNumber
+     */
     var gordo_api_occurrencesByResultWithSpecialNumber = function(req, res) {
-        GOR_DBM.getOccurrencesByResultWithSpecialNumber(function(err, tickets) {
+        var query = req.query;
+        var page = query.page || 1;
+        var perPage = query.per_page || 10;
+        var sort = query.sort_property || "occurrences";
+        var type = query.sort_type || "desc";
+
+        var filtros = {
+            page: Number(page),
+            perPage: Number(perPage),
+            sort: sort,
+            type: type
+        };
+
+        GOR_DBM.getOccurrencesByResultWithSpecialNumber(filtros, function(
+            err,
+            result
+        ) {
             if (err) {
                 return res.status(400).send(err);
             }
 
-            var response = [];
-
-            for (var i = 0; i < tickets.length; i++) {
-                var json = {};
-                json.numeros = tickets[i].resultado;
-                json.numeroClave = tickets[i].numeroClave;
-                json.apariciones = tickets[i].apariciones;
-                response.push(json);
-            }
-            res.status(200).send(response);
+            res.status(200).send(JSON.stringify(result, null, 4));
         });
     };
 
