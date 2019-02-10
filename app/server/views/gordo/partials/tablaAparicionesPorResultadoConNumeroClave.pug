@@ -3,34 +3,19 @@ div.table-responsive(style="margin-top: 15px", ng-if="mostrar.tablaAparicionesPo
         thead
             tr
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoConNumeroClaveSegun('resultadoString')", ng-bind-template="Resultado", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorResultadoConNumeroClave == sortFunction_resultWithKeyNumber && !ordenAparicionesPorResultadoConNumeroClave").fa.fa-caret-up
-                    span(ng-if="criterioOrdenacionAparicionesPorResultadoConNumeroClave == sortFunction_resultWithKeyNumber && ordenAparicionesPorResultadoConNumeroClave").fa.fa-caret-down
+                    a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoConNumeroClaveSegun('result'); consultarEstandar()", ng-bind-template="Resultado", style="padding-right: 15px")
+                    span(ng-if="criterioOrdenacionAparicionesPorResultadoConNumeroClave === 'result' && !ordenAparicionesPorResultadoConNumeroClave").fa.fa-caret-up
+                    span(ng-if="criterioOrdenacionAparicionesPorResultadoConNumeroClave === 'result' && ordenAparicionesPorResultadoConNumeroClave").fa.fa-caret-down
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoConNumeroClaveSegun('apariciones')", ng-bind-template="Apariciones", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorResultadoConNumeroClave == 'apariciones' && ordenAparicionesPorResultadoConNumeroClave").fa.fa-caret-down
-                    span(ng-if="criterioOrdenacionAparicionesPorResultadoConNumeroClave == 'apariciones' && !ordenAparicionesPorResultadoConNumeroClave").fa.fa-caret-up
-
+                    a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoConNumeroClaveSegun('occurrences'); consultarEstandar()", ng-bind-template="Apariciones", style="padding-right: 15px")
+                    span(ng-if="criterioOrdenacionAparicionesPorResultadoConNumeroClave === 'occurrences' && ordenAparicionesPorResultadoConNumeroClave").fa.fa-caret-down
+                    span(ng-if="criterioOrdenacionAparicionesPorResultadoConNumeroClave === 'occurrences' && !ordenAparicionesPorResultadoConNumeroClave").fa.fa-caret-up
 
         tbody
-
-            tr(ng-if="($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage)", ng-repeat="item in aparicionesPorResultadoConNumeroClave | orderBy:[criterioOrdenacionAparicionesPorResultadoConNumeroClave, criterioAlternativoOrdenacionAparicionesPorResultadoConNumeroClave]:ordenAparicionesPorResultadoConNumeroClave")
-                td(ng-if="criterioOrdenacionAparicionesPorResultadoConNumeroClave == sortFunction_resultWithKeyNumber")
-                    span.badge.badge-azul(ng-repeat="numero in item.numeros", ng-bind-template="{{printNumber(numero.numero)}}")
-                    span.badge.badge-azul(style="margin-left: 15px", ng-bind-template="R {{item.numeroClave}}")
-                td(ng-if="criterioOrdenacionAparicionesPorResultadoConNumeroClave == 'apariciones' && $index == (aparicionesPorResultadoConNumeroClave.length - 1) && !ordenAparicionesPorResultadoConNumeroClave")
-                    span.badge.badge-verde(ng-repeat="numero in item.numeros", ng-bind-template="{{printNumber(numero.numero)}}")
-                    span.badge.badge-verde(style="margin-left: 15px", ng-bind-template="R {{item.numeroClave}}")
-                td(ng-if="criterioOrdenacionAparicionesPorResultadoConNumeroClave == 'apariciones' && $index != (aparicionesPorResultadoConNumeroClave.length - 1) && !ordenAparicionesPorResultadoConNumeroClave")
-                    span.badge.badge-rojo(ng-repeat="numero in item.numeros", ng-bind-template="{{printNumber(numero.numero)}}")
-                    span.badge.badge-rojo(style="margin-left: 15px", ng-bind-template="R {{item.numeroClave}}")
-                td(ng-if="criterioOrdenacionAparicionesPorResultadoConNumeroClave == 'apariciones' && $index == 0 && ordenAparicionesPorResultadoConNumeroClave")
-                    span.badge.badge-verde(ng-repeat="numero in item.numeros", ng-bind-template="{{printNumber(numero.numero)}}")
-                    span.badge.badge-verde(style="margin-left: 15px", ng-bind-template="R {{item.numeroClave}}")
-                td(ng-if="criterioOrdenacionAparicionesPorResultadoConNumeroClave == 'apariciones' && $index != 0 && ordenAparicionesPorResultadoConNumeroClave")
-                    span.badge.badge-rojo(ng-repeat="numero in item.numeros", ng-bind-template="{{printNumber(numero.numero)}}")
-                    span.badge.badge-rojo(style="margin-left: 15px", ng-bind-template="R {{item.numeroClave}}")
-
+            tr(ng-repeat="item in aparicionesPorResultadoConNumeroClave")
+                td
+                    span.badge.badge-azul(ng-repeat="numero in item.resultado", ng-bind-template="{{printNumber(numero.numero)}}")
+                    span.badge.badge-azul(style="margin-left: 15px", ng-bind-template="R {{item.numeroClave || '-'}}")
                 td(ng-bind-template="{{item.apariciones}}")
 
 

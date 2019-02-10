@@ -226,14 +226,17 @@
             return promise;
         }
 
-        function getOccurrencesByResultWithSpecialNumber() {
+        function getOccurrencesByResultWithSpecialNumber(queryParameters) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http
                 .get(
                     apiPrefix +
-                        "/historical/occurrencesByResultWithSpecialNumber"
+                        "/historical/occurrencesByResultWithSpecialNumber",
+                    {
+                        params: queryParameters
+                    }
                 )
                 .then(function(data) {
                     defered.resolve(data.data);

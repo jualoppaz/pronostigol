@@ -14,12 +14,12 @@ function Controller($scope, $http, $filter, gordo) {
     $scope.ordenAparicionesPorResultado = true;
     $scope.criterioOrdenacionAparicionesPorResultado = "occurrences";
 
-    $scope.ordenAparicionesPorResultadoConReintegro = true;
-    $scope.criterioOrdenacionAparicionesPorResultadoConReintegro =
+    $scope.ordenAparicionesPorResultadoConNumeroClave = true;
+    $scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave =
         "occurrences";
 
-    $scope.ordenAparicionesPorReintegro = true;
-    $scope.criterioOrdenacionAparicionesPorReintegro = "occurrences";
+    $scope.ordenAparicionesPorNumeroClave = true;
+    $scope.criterioOrdenacionAparicionesPorNumeroClave = "occurrences";
 
     $scope.maxSize = 5;
 
@@ -146,29 +146,31 @@ function Controller($scope, $http, $filter, gordo) {
             $scope.form.opcionBusquedaEstandar.name ==
             "aparicionesPorResultadoConNumeroClave"
         ) {
+            queryParameters = {
+                page: $scope.currentPage,
+                per_page: $scope.ticketsPerPage,
+                sort_property:
+                    $scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave,
+                sort_type: $scope.ordenAparicionesPorResultadoConNumeroClave
+                    ? "desc"
+                    : "asc"
+            };
+
             gordo
-                .getOccurrencesByResultWithSpecialNumber()
+                .getOccurrencesByResultWithSpecialNumber(queryParameters)
                 .then(function(data) {
-                    $scope.aparicionesPorResultadoConNumeroClave = data;
-
-                    $scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave =
-                        $scope.sortFunction_resultWithKeyNumber;
-
-                    $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConNumeroClave =
-                        "apariciones";
+                    $scope.aparicionesPorResultadoConNumeroClave = data.data;
 
                     $scope.actualizarPaginacion(
                         $scope.aparicionesPorResultadoConNumeroClave,
-                        null,
-                        $scope.ticketsPerPage
+                        data.total,
+                        data.perPage
                     );
 
                     $scope.mostrar.tablaAparicionesPorResultadoConNumeroClave = true;
-
-                    $scope.consultando = false;
                 })
-                .catch(function(err) {
-                    console.log(err);
+                .catch(function() {})
+                .finally(function() {
                     $scope.consultando = false;
                 });
         } else if (
@@ -320,41 +322,12 @@ function Controller($scope, $http, $filter, gordo) {
     $scope.ordenarAparicionesPorResultadoConNumeroClaveSegun = function(
         criterio
     ) {
-        if (criterio == "resultadoString") {
+        if (criterio === "result") {
             if (
-                $scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave ==
-                $scope.sortFunction_resultWithKeyNumber
-            ) {
-                //Sólo vamos a invertir el orden
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConNumeroClave =
-                    "apariciones";
-
-                if ($scope.ordenAparicionesPorResultadoConNumeroClave == null) {
-                    $scope.ordenAparicionesPorResultadoConNumeroClave = true;
-                } else {
-                    $scope.ordenAparicionesPorResultadoConNumeroClave = !$scope.ordenAparicionesPorResultadoConNumeroClave;
-                }
-            } else {
-                // Cambiamos de criterio
-                $scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave =
-                    $scope.sortFunction_resultWithKeyNumber;
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConNumeroClave =
-                    "apariciones";
-
-                $scope.ordenAparicionesPorResultadoConNumeroClave = false;
-            }
-        } else if (criterio == "apariciones") {
-            if (
-                $scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave ==
+                $scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave ===
                 criterio
             ) {
                 //Sólo vamos a invertir el orden
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConNumeroClave =
-                    $scope.sortFunction_resultWithKeyNumber;
-
                 if ($scope.ordenAparicionesPorResultadoConNumeroClave == null) {
                     $scope.ordenAparicionesPorResultadoConNumeroClave = true;
                 } else {
@@ -362,13 +335,23 @@ function Controller($scope, $http, $filter, gordo) {
                 }
             } else {
                 // Cambiamos de criterio
-
-                $scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave =
-                    "apariciones";
-
-                $scope.criterioAlternativoOrdenacionAparicionesPorResultadoConNumeroClave =
-                    $scope.sortFunction_resultWithKeyNumber;
-
+                $scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave = criterio;
+                $scope.ordenAparicionesPorResultadoConNumeroClave = false;
+            }
+        } else if (criterio === "occurrences") {
+            if (
+                $scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave ===
+                criterio
+            ) {
+                //Sólo vamos a invertir el orden
+                if ($scope.ordenAparicionesPorResultadoConNumeroClave == null) {
+                    $scope.ordenAparicionesPorResultadoConNumeroClave = true;
+                } else {
+                    $scope.ordenAparicionesPorResultadoConNumeroClave = !$scope.ordenAparicionesPorResultadoConNumeroClave;
+                }
+            } else {
+                // Cambiamos de criterio
+                $scope.criterioOrdenacionAparicionesPorResultadoConNumeroClave = criterio;
                 $scope.ordenAparicionesPorResultadoConNumeroClave = true;
             }
         }
