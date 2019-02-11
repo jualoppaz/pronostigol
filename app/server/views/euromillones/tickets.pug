@@ -59,10 +59,10 @@ block content
                                             td(ng-click="verTicket(ticket)", ng-bind-template="{{ticket.sorteo}}").pointer
                                             td(ng-click="verTicket(ticket)", ng-bind-template="{{traducirDia(ticket.fecha)}}").pointer
                                             td(ng-click="verTicket(ticket)", ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}").pointer
-                                            td(ng-show="usuarioEstaLogueado && ticket.precio != null && ($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage) && apuestaRealizada(ticket)", ng-cloak)
+                                            td(ng-show="usuarioEstaLogueado && ticket.precio != null && apuestaRealizada(ticket)", ng-cloak)
                                                 span
                                                     i.fa.fa-check.fa-2x(style="color: green")
-                                            td(ng-show="usuarioEstaLogueado && ticket.precio != null && ($index + 1 > (currentPage - 1) * ticketsPerPage) && ($index + 1 <= currentPage * ticketsPerPage) && !apuestaRealizada(ticket)", ng-cloak)
+                                            td(ng-show="usuarioEstaLogueado && ticket.precio != null && !apuestaRealizada(ticket)", ng-cloak)
                                                 span
                                                     i.fa.fa-close.fa-2x(style="color: red")
 
