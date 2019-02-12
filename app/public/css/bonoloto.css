@@ -36,6 +36,10 @@
     border-color: #41B19C !important;
 }
 
+.btn-qdb {
+    font-size: 18px;
+}
+
 .btn-qdb,
 .btn-qdb:focus {
     background-color: #2b2b2b !important;
