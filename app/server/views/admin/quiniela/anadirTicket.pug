@@ -79,15 +79,15 @@ block content
                                         td(style="min-width: 200px")
                                             input#equipoSeleccionado.form-control(ng-model="partido.visitante", placeholder="Equipo", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
                                         td
-                                            input.form-control(ng-model="partido.resultado").text-center
+                                            input.form-control(ng-model="partido.resultado" quiniela-sign).text-center
                                         td(ng-show="partido.fila == 15")
-                                            input.form-control(ng-model="partido.resultadoConGoles").text-center
+                                            input.form-control(ng-model="partido.resultadoConGoles" quiniela-sign goals-required="true" limit-goals="true").text-center
                                         td.align-middle(ng-show="partido.fila < 15")
                                             | N/A
                                         td(style="min-width: 60px", ng-repeat="pronostico in partido.pronosticos", ng-show="partido.fila < 15")
-                                            input.form-control(ng-model="pronostico.signo").text-center
+                                            input.form-control(ng-model="pronostico.signo" quiniela-sign).text-center
                                         td(style="min-width: 60px", ng-show="partido.fila == 15 && quiniela.partidos[0].pronosticos != null", colspan="{{quiniela.partidos[0].pronosticos.length}}")
-                                            input.form-control(ng-show="quiniela.partidos[0].pronosticos.length > 0", ng-cloak, ng-model="partido.pronosticos[0].signo").text-center
+                                            input.form-control(ng-show="quiniela.partidos[0].pronosticos.length > 0", ng-cloak, ng-model="partido.pronosticos[0].signo" quiniela-sign goals-required="true" limited-goals="true").text-center
 
 
                         div.form-group
@@ -107,3 +107,4 @@ block scripts
     script(src="/js/angular/admin/navbar.js")
     script(src="/js/angular/admin/sidebar.js")
     script(src='/js/angular/ui-bootstrap-tpls-1.3.3.js')
+    script(src="/js/angular/components/directives/forecast.directive.js")
