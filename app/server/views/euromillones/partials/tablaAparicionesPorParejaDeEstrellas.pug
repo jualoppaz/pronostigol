@@ -3,13 +3,13 @@ div.table-responsive(style="margin-top: 15px", ng-if="mostrar.tablaAparicionesPo
         thead
             tr
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorParejaDeEstrellasSegun('estrellas'); consultarEstandar()", ng-bind-template="Estrellas", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == 'estrellas' && !ordenAparicionesPorParejaDeEstrellas").fa.fa-caret-up
-                    span(ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == 'estrellas' && ordenAparicionesPorParejaDeEstrellas").fa.fa-caret-down
+                    a.columnaOrdenable(ng-click="ordenarAparicionesPorParejaDeEstrellasSegun('starsPair'); consultarEstandar()", ng-bind-template="Estrellas", style="padding-right: 15px")
+                    span(ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == 'starsPair' && !ordenAparicionesPorParejaDeEstrellas").fa.fa-caret-up
+                    span(ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == 'starsPair' && ordenAparicionesPorParejaDeEstrellas").fa.fa-caret-down
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorParejaDeEstrellasSegun('apariciones'); consultarEstandar()", ng-bind-template="Apariciones", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == 'apariciones' && ordenAparicionesPorParejaDeEstrellas").fa.fa-caret-down
-                    span(ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == 'apariciones' && !ordenAparicionesPorParejaDeEstrellas").fa.fa-caret-up
+                    a.columnaOrdenable(ng-click="ordenarAparicionesPorParejaDeEstrellasSegun('occurrences'); consultarEstandar()", ng-bind-template="Apariciones", style="padding-right: 15px")
+                    span(ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == 'occurrences' && ordenAparicionesPorParejaDeEstrellas").fa.fa-caret-down
+                    span(ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == 'occurrences' && !ordenAparicionesPorParejaDeEstrellas").fa.fa-caret-up
 
 
         tbody

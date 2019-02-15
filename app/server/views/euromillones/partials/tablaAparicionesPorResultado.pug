@@ -3,13 +3,13 @@ div.table-responsive(style="margin-top: 15px", ng-if="mostrar.tablaAparicionesPo
         thead
             tr
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoSegun('resultado'); consultarEstandar()", ng-bind-template="Resultado", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorResultado == 'resultado' && !ordenAparicionesPorResultado").fa.fa-caret-up
-                    span(ng-if="criterioOrdenacionAparicionesPorResultado == 'resultado' && ordenAparicionesPorResultado").fa.fa-caret-down
+                    a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoSegun('result'); consultarEstandar()", ng-bind-template="Resultado", style="padding-right: 15px")
+                    span(ng-if="criterioOrdenacionAparicionesPorResultado == 'result' && !ordenAparicionesPorResultado").fa.fa-caret-up
+                    span(ng-if="criterioOrdenacionAparicionesPorResultado == 'result' && ordenAparicionesPorResultado").fa.fa-caret-down
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoSegun('apariciones'); consultarEstandar()", ng-bind-template="Apariciones", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorResultado == 'apariciones' && ordenAparicionesPorResultado").fa.fa-caret-down
-                    span(ng-if="criterioOrdenacionAparicionesPorResultado == 'apariciones' && !ordenAparicionesPorResultado").fa.fa-caret-up
+                    a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoSegun('occurrences'); consultarEstandar()", ng-bind-template="Apariciones", style="padding-right: 15px")
+                    span(ng-if="criterioOrdenacionAparicionesPorResultado == 'occurrences' && ordenAparicionesPorResultado").fa.fa-caret-down
+                    span(ng-if="criterioOrdenacionAparicionesPorResultado == 'occurrences' && !ordenAparicionesPorResultado").fa.fa-caret-up
 
         tbody
             tr(ng-repeat="item in aparicionesPorResultado")
