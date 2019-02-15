@@ -26,7 +26,7 @@ module.exports = {
             sort_property: Joi.string().valid(["number", "occurrences"])
         }
     },
-    getOccurrencesByReimbursement: {
+    getOccurrencesBySpecialNumber: {
         query: {
             page: Joi.number()
                 .min(1)
@@ -35,10 +35,10 @@ module.exports = {
                 .min(1)
                 .required(),
             sort_type: Joi.string().valid(["asc", "desc"]),
-            sort_property: Joi.string().valid(["reimbursement", "occurrences"])
+            sort_property: Joi.string().valid(["specialNumber", "occurrences"])
         }
     },
-    getOccurrencesByResultWithReimbursement: {
+    getOccurrencesByResult: {
         query: {
             page: Joi.number()
                 .min(1)
@@ -50,7 +50,7 @@ module.exports = {
             sort_property: Joi.string().valid(["result", "occurrences"])
         }
     },
-    getOccurrencesByResult: {
+    getOccurrencesByResultWithSpecialNumber: {
         query: {
             page: Joi.number()
                 .min(1)
