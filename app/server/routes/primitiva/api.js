@@ -1,19 +1,18 @@
-module.exports = function (app) {
-
-    var middlewares = require('../../middlewares');
-    var { ROLES } = require('../../constants');
+module.exports = function(app) {
+    var middlewares = require("../../middlewares");
+    var { ROLES } = require("../../constants");
 
     var express = require("express");
     var primitiva = express.Router();
     var historical = express.Router();
 
-    var PRI_DBM = require('../../modules/primitiva-data-base-manager');
+    var PRI_DBM = require("../../modules/primitiva-data-base-manager");
 
     // Validations
-    var validate = require('express-validation');
-    var validations = require('./validations.js');
+    var validate = require("express-validation");
+    var validations = require("./validations.js");
 
-    var filtrarInformacion = function (result) {
+    var filtrarInformacion = function(result) {
         var json = JSON.parse(JSON.stringify(result));
         json = borrarPronosticos(json);
         json = borrarPrecio(json);
@@ -21,32 +20,31 @@ module.exports = function (app) {
         return json;
     };
 
-    var borrarPronosticos = function (aux) {
-
+    var borrarPronosticos = function(aux) {
         var json = aux;
 
-        if (json['apuestas'] != null) {
-            delete json['apuestas'];
+        if (json["apuestas"] != null) {
+            delete json["apuestas"];
         }
 
         return json;
     };
 
-    var borrarPrecio = function (aux) {
+    var borrarPrecio = function(aux) {
         var json = aux;
 
-        if (json['precio'] != null) {
-            delete json['precio'];
+        if (json["precio"] != null) {
+            delete json["precio"];
         }
 
         return json;
     };
 
-    var borrarPremio = function (aux) {
+    var borrarPremio = function(aux) {
         var json = aux;
 
-        if (json['premio'] != null) {
-            delete json['premio'];
+        if (json["premio"] != null) {
+            delete json["premio"];
         }
 
         return json;
@@ -63,30 +61,30 @@ module.exports = function (app) {
      *
      * @apiParam {Number} [year] Año asociado a los sorteos consultados
      * @apiParam {Number} [raffle] Identificador único del sorteo dentro de un año
-     * @apiParam {Number} [page] Número de página a consultar. Por defecto se establece a 1.
-     * @apiParam {Number} [per_page] Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
      * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Por defecto se ordenan por fecha descendentemente.
      * @apiSampleRequest /api/primitiva/tickets
      */
-    var primitiva_api_tickets = function (req, res) {
+    var primitiva_api_tickets = function(req, res) {
         var query = req.query;
 
         var year = query.year;
         var raffle = query.raffle;
         var page = query.page || 1;
         var perPage = query.per_page || 10;
-        var type = query.sort_type || 'desc';
+        var type = query.sort_type || "desc";
 
         var filtros = {
             year: Number(year),
             raffle: Number(raffle),
             page: Number(page),
             perPage: Number(perPage),
-            sort: 'fecha',
+            sort: "fecha",
             type: type
         };
 
-        PRI_DBM.getAllTickets(filtros, function (err, result) {
+        PRI_DBM.getAllTickets(filtros, function(err, result) {
             if (err) {
                 return res.status(400).send(err);
             }
@@ -97,7 +95,10 @@ module.exports = function (app) {
                 if (req.session.user == null) {
                     json = filtrarInformacion(tickets[i]);
                 } else {
-                    if (req.session.user.role === ROLES.PRIVILEGED || req.session.user.role === ROLES.ADMIN) {
+                    if (
+                        req.session.user.role === ROLES.PRIVILEGED ||
+                        req.session.user.role === ROLES.ADMIN
+                    ) {
                         json = tickets[i];
                     } else {
                         json = filtrarInformacion(tickets[i]);
@@ -112,7 +113,7 @@ module.exports = function (app) {
         });
     };
 
-    var primitiva_api_nuevoTicket = function (req, res) {
+    var primitiva_api_nuevoTicket = function(req, res) {
         var ticket = {};
 
         var body = req.body;
@@ -133,7 +134,7 @@ module.exports = function (app) {
         ticket.apuestas = apuestas;
         ticket.resultado = resultado;
 
-        PRI_DBM.addNewTicket(ticket, function (err, result) {
+        PRI_DBM.addNewTicket(ticket, function(err, result) {
             if (err) {
                 return res.status(400).send(err);
             }
@@ -142,18 +143,18 @@ module.exports = function (app) {
         });
     };
 
-    var primitiva_api_editarTicket = function (req, res) {
+    var primitiva_api_editarTicket = function(req, res) {
         var ticket = req.body;
 
-        PRI_DBM.getTicketById(ticket._id, function (err, result) {
+        PRI_DBM.getTicketById(ticket._id, function(err, result) {
             if (err) {
                 return res.status(400).send(err);
             } else {
                 if (result == null) {
-                    return res.status(400).send('not-found');
+                    return res.status(400).send("not-found");
                 }
 
-                PRI_DBM.editTicket(ticket, function (err, result) {
+                PRI_DBM.editTicket(ticket, function(err, result) {
                     if (err) {
                         return res.status(400).send(err);
                     }
@@ -164,17 +165,17 @@ module.exports = function (app) {
         });
     };
 
-    var primitiva_api_borrarTicket = function (req, res) {
+    var primitiva_api_borrarTicket = function(req, res) {
         var id = req.params.id;
 
-        PRI_DBM.getTicketById(id, function (err, result) {
+        PRI_DBM.getTicketById(id, function(err, result) {
             if (err) {
                 return res.status(400).send(err);
             } else if (result == null) {
-                return res.status(400).send('not-found');
+                return res.status(400).send("not-found");
             }
 
-            PRI_DBM.deleteTicketById(id, function (err2) {
+            PRI_DBM.deleteTicketById(id, function(err2) {
                 if (err) {
                     return res.status(400).send(err2);
                 }
@@ -193,8 +194,8 @@ module.exports = function (app) {
      *
      * @apiVersion 1.0.0
      *
-     * @apiParam {Number} [page] Número de página a consultar. Por defecto se establece a 1.
-     * @apiParam {Number} [per_page] Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
      * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "number"
      * y "occurrences". Por defecto se ordenan por "occurrences".
      * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
@@ -202,12 +203,12 @@ module.exports = function (app) {
      *
      * @apiSampleRequest /api/primitiva/historical/occurrencesByNumber
      */
-    var primitiva_api_occurrencesByNumber = function (req, res) {
+    var primitiva_api_occurrencesByNumber = function(req, res) {
         var query = req.query;
         var page = query.page || 1;
         var perPage = query.per_page || 10;
-        var sort = query.sort_property || 'occurrences';
-        var type = query.sort_type || 'desc';
+        var sort = query.sort_property || "occurrences";
+        var type = query.sort_type || "desc";
 
         var filtros = {
             page: Number(page),
@@ -216,7 +217,7 @@ module.exports = function (app) {
             type: type
         };
 
-        PRI_DBM.getOccurrencesByNumber(filtros, function (err, result) {
+        PRI_DBM.getOccurrencesByNumber(filtros, function(err, result) {
             if (err) {
                 return res.status(400).send(err);
             }
@@ -234,20 +235,20 @@ module.exports = function (app) {
      *
      * @apiVersion 1.0.0
      *
-     * @apiParam {Number} [page] Número de página a consultar. Por defecto se establece a 1.
-     * @apiParam {Number} [per_page] Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
      * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "reimbursement"
      * y "occurrences". Por defecto se ordenan por "occurrences".
      * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
      * Por defecto se ordenan descendentemente.
      * @apiSampleRequest /api/primitiva/historical/occurrencesByReimbursement
      */
-    var primitiva_api_occurrencesByReimbursement = function (req, res) {
+    var primitiva_api_occurrencesByReimbursement = function(req, res) {
         var query = req.query;
         var page = query.page || 1;
         var perPage = query.per_page || 10;
-        var sort = query.sort_property || 'occurrences';
-        var type = query.sort_type || 'desc';
+        var sort = query.sort_property || "occurrences";
+        var type = query.sort_type || "desc";
 
         var filtros = {
             page: Number(page),
@@ -256,7 +257,7 @@ module.exports = function (app) {
             type: type
         };
 
-        PRI_DBM.getOccurrencesByReimbursement(filtros, function (err, result) {
+        PRI_DBM.getOccurrencesByReimbursement(filtros, function(err, result) {
             if (err) {
                 return res.status(400).send(err);
             }
@@ -274,20 +275,20 @@ module.exports = function (app) {
      *
      * @apiVersion 1.0.0
      *
-     * @apiParam {Number} [page] Número de página a consultar. Por defecto se establece a 1.
-     * @apiParam {Number} [per_page] Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
      * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "result"
      * y "occurrences". Por defecto se ordenan por "occurrences".
      * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
      * Por defecto se ordenan descendentemente.
      * @apiSampleRequest /api/primitiva/historical/occurrencesByResult
      */
-    var primitiva_api_occurrencesByResult = function (req, res) {
+    var primitiva_api_occurrencesByResult = function(req, res) {
         var query = req.query;
         var page = query.page || 1;
         var perPage = query.per_page || 10;
-        var sort = query.sort_property || 'occurrences';
-        var type = query.sort_type || 'desc';
+        var sort = query.sort_property || "occurrences";
+        var type = query.sort_type || "desc";
 
         var filtros = {
             page: Number(page),
@@ -296,7 +297,10 @@ module.exports = function (app) {
             type: type
         };
 
-        PRI_DBM.getOccurrencesByResultWithoutReimbursement(filtros, function (err, result) {
+        PRI_DBM.getOccurrencesByResultWithoutReimbursement(filtros, function(
+            err,
+            result
+        ) {
             if (err) {
                 return res.status(400).send(err);
             }
@@ -314,20 +318,23 @@ module.exports = function (app) {
      *
      * @apiVersion 1.0.0
      *
-     * @apiParam {Number} [page] Número de página a consultar. Por defecto se establece a 1.
-     * @apiParam {Number} [per_page] Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
      * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "result"
      * y "occurrences". Por defecto se ordenan por "occurrences".
      * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
      * Por defecto se ordenan descendentemente.
      * @apiSampleRequest /api/primitiva/historical/occurrencesByResultWithReimbursement
      */
-    var primitiva_api_occurrencesByResultWithReimbursement = function (req, res) {
+    var primitiva_api_occurrencesByResultWithReimbursement = function(
+        req,
+        res
+    ) {
         var query = req.query;
         var page = query.page || 1;
         var perPage = query.per_page || 10;
-        var sort = query.sort_property || 'occurrences';
-        var type = query.sort_type || 'desc';
+        var sort = query.sort_property || "occurrences";
+        var type = query.sort_type || "desc";
 
         var filtros = {
             page: Number(page),
@@ -336,14 +343,16 @@ module.exports = function (app) {
             type: type
         };
 
-        PRI_DBM.getOccurrencesByResultWithReimbursement(filtros, function (err, result) {
+        PRI_DBM.getOccurrencesByResultWithReimbursement(filtros, function(
+            err,
+            result
+        ) {
             if (err) {
                 return res.status(400).send(err);
             }
 
             res.status(200).send(JSON.stringify(result, null, 4));
         });
-
     };
 
     /**
@@ -357,8 +366,8 @@ module.exports = function (app) {
      *
      * @apiSampleRequest /api/primitiva/years
      */
-    var primitiva_api_years = function (req, res) {
-        PRI_DBM.getAllYears(function (err, result) {
+    var primitiva_api_years = function(req, res) {
+        PRI_DBM.getAllYears(function(err, result) {
             if (err) {
                 return res.status(400).send(err);
             }
@@ -380,10 +389,10 @@ module.exports = function (app) {
      *
      * @apiParam {String} id Identificador del año de Primitiva
      */
-    var primitiva_api_yearById = function (req, res) {
+    var primitiva_api_yearById = function(req, res) {
         var id = req.params.id;
 
-        PRI_DBM.getYearById(id, function (err, result) {
+        PRI_DBM.getYearById(id, function(err, result) {
             if (err) {
                 return res.status(400).send(err);
             }
@@ -392,15 +401,15 @@ module.exports = function (app) {
         });
     };
 
-    var primitiva_api_deleteYear = function (req, res) {
+    var primitiva_api_deleteYear = function(req, res) {
         var id = req.params.id;
 
-        PRI_DBM.deleteYearById(id, function (err) {
+        PRI_DBM.deleteYearById(id, function(err) {
             if (err) {
                 return res.status(400).send(err);
             }
 
-            PRI_DBM.getAllYears(function (err2, result2) {
+            PRI_DBM.getAllYears(function(err2, result2) {
                 if (err) {
                     return res.status(400).send(err2);
                 }
@@ -410,43 +419,45 @@ module.exports = function (app) {
         });
     };
 
-    var primitiva_api_addNewYear = function (req, res) {
+    var primitiva_api_addNewYear = function(req, res) {
         var body = req.body;
         var year = {};
         var name = body.name;
         year.name = name;
 
-        PRI_DBM.getYearByName(name, function (err, result) {
+        PRI_DBM.getYearByName(name, function(err, result) {
             if (err) {
                 return res.status(400).send(name);
-            } else if (JSON.stringify(result) === "{}") { // No existe aun
-                PRI_DBM.addNewYear(year, function (err, result) {
+            } else if (JSON.stringify(result) === "{}") {
+                // No existe aun
+                PRI_DBM.addNewYear(year, function(err, result) {
                     if (err) {
                         return res.status(400).send(err);
                     }
 
                     res.status(200).send(result);
                 });
-            } else { // Ya hay uno con ese nombre
-                return res.status(400).send('year-already-exists');
+            } else {
+                // Ya hay uno con ese nombre
+                return res.status(400).send("year-already-exists");
             }
         });
     };
 
-    var primitiva_api_editYear = function (req, res) {
+    var primitiva_api_editYear = function(req, res) {
         var body = req.body;
         var id = body._id;
         var year = {};
         year.name = body.name;
 
-        PRI_DBM.getYearById(id, function (err, result) {
+        PRI_DBM.getYearById(id, function(err, result) {
             if (err) {
                 return res.status(400).send(err);
             } else if (result == null) {
-                return res.status(400).send('not-found');
+                return res.status(400).send("not-found");
             }
 
-            PRI_DBM.editYear(year, function (err, result) {
+            PRI_DBM.editYear(year, function(err, result) {
                 if (err) {
                     return res.status(400).send(err);
                 }
@@ -456,10 +467,10 @@ module.exports = function (app) {
         });
     };
 
-    var primitiva_api_ticketPorId = function (req, res) {
+    var primitiva_api_ticketPorId = function(req, res) {
         var id = req.params.id;
 
-        PRI_DBM.getTicketById(id, function (err, result) {
+        PRI_DBM.getTicketById(id, function(err, result) {
             if (err) {
                 return res.status(400).send(err);
             }
@@ -467,7 +478,10 @@ module.exports = function (app) {
             if (req.session.user == null) {
                 var json = filtrarInformacion(result);
             } else {
-                if (req.session.user.role === ROLES.PRIVILEGED || req.session.user.role === ROLES.ADMIN) {
+                if (
+                    req.session.user.role === ROLES.PRIVILEGED ||
+                    req.session.user.role === ROLES.ADMIN
+                ) {
                     json = result;
                 } else {
                     var json = filtrarInformacion(result);
@@ -478,30 +492,74 @@ module.exports = function (app) {
     };
 
     /* Tickets de Primitiva */
-    primitiva.route('/tickets')
+    primitiva
+        .route("/tickets")
         .get(validate(validations.getTickets), primitiva_api_tickets)
-        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), primitiva_api_nuevoTicket)
-        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), primitiva_api_editarTicket);
-    primitiva.route('/tickets/:id')
+        .post(
+            middlewares.isLogged_api,
+            middlewares.isAuthorized_api([ROLES.ADMIN]),
+            primitiva_api_nuevoTicket
+        )
+        .put(
+            middlewares.isLogged_api,
+            middlewares.isAuthorized_api([ROLES.ADMIN]),
+            primitiva_api_editarTicket
+        );
+    primitiva
+        .route("/tickets/:id")
         .get(primitiva_api_ticketPorId)
-        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), primitiva_api_borrarTicket);
+        .delete(
+            middlewares.isLogged_api,
+            middlewares.isAuthorized_api([ROLES.ADMIN]),
+            primitiva_api_borrarTicket
+        );
 
     /* Anyos */
-    primitiva.route('/years')
+    primitiva
+        .route("/years")
         .get(primitiva_api_years)
-        .post(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), primitiva_api_addNewYear)
-        .put(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), primitiva_api_editYear);
-    primitiva.route('/years/:id')
+        .post(
+            middlewares.isLogged_api,
+            middlewares.isAuthorized_api([ROLES.ADMIN]),
+            primitiva_api_addNewYear
+        )
+        .put(
+            middlewares.isLogged_api,
+            middlewares.isAuthorized_api([ROLES.ADMIN]),
+            primitiva_api_editYear
+        );
+    primitiva
+        .route("/years/:id")
         .get(primitiva_api_yearById)
-        .delete(middlewares.isLogged_api, middlewares.isAuthorized_api([ROLES.ADMIN]), primitiva_api_deleteYear);
+        .delete(
+            middlewares.isLogged_api,
+            middlewares.isAuthorized_api([ROLES.ADMIN]),
+            primitiva_api_deleteYear
+        );
 
     /* Consultas: Estandar */
-    historical.get('/occurrencesByResult', validate(validations.getOccurrencesByResult), primitiva_api_occurrencesByResult);
-    historical.get('/occurrencesByResultWithReimbursement', validate(validations.getOccurrencesByResultWithReimbursement), primitiva_api_occurrencesByResultWithReimbursement);
-    historical.get('/occurrencesByNumber', validate(validations.getOccurrencesByNumber), primitiva_api_occurrencesByNumber);
-    historical.get('/occurrencesByReimbursement', validate(validations.getOccurrencesByReimbursement), primitiva_api_occurrencesByReimbursement);
+    historical.get(
+        "/occurrencesByResult",
+        validate(validations.getOccurrencesByResult),
+        primitiva_api_occurrencesByResult
+    );
+    historical.get(
+        "/occurrencesByResultWithReimbursement",
+        validate(validations.getOccurrencesByResultWithReimbursement),
+        primitiva_api_occurrencesByResultWithReimbursement
+    );
+    historical.get(
+        "/occurrencesByNumber",
+        validate(validations.getOccurrencesByNumber),
+        primitiva_api_occurrencesByNumber
+    );
+    historical.get(
+        "/occurrencesByReimbursement",
+        validate(validations.getOccurrencesByReimbursement),
+        primitiva_api_occurrencesByReimbursement
+    );
 
-    primitiva.use('/historical', historical);
+    primitiva.use("/historical", historical);
 
-    app.use('/api/primitiva', primitiva);
+    app.use("/api/primitiva", primitiva);
 };

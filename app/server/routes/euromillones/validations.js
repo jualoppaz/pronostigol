@@ -4,9 +4,7 @@ module.exports = {
     getTickets: {
         query: {
             year: Joi.number(),
-            raffle: Joi.number()
-                .min(1)
-                .allow(""),
+            raffle: Joi.number().min(1),
             page: Joi.number()
                 .min(1)
                 .required(),
