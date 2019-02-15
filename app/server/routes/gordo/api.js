@@ -4,6 +4,7 @@ module.exports = function(app) {
 
     var express = require("express");
     var gordo = express.Router();
+    var historical = express.Router();
 
     var GOR_DBM = require("../../modules/gordo-data-base-manager");
 
@@ -56,8 +57,8 @@ module.exports = function(app) {
      *
      * @apiParam {Number} [year] Año asociado a los sorteos consultados
      * @apiParam {Number} [raffle] Identificador único del sorteo dentro de un año
-     * @apiParam {Number} [page] Número de página a consultar. Por defecto se establece a 1.
-     * @apiParam {Number} [per_page] Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
      * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Por defecto se ordenan por fecha descendentemente.
      * @apiSampleRequest /api/gordo/tickets
      */
@@ -193,8 +194,8 @@ module.exports = function(app) {
      *
      * @apiVersion 1.0.0
      *
-     * @apiParam {Number} [page] Número de página a consultar. Por defecto se establece a 1.
-     * @apiParam {Number} [per_page] Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
      * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "number"
      * y "occurrences". Por defecto se ordenan por "occurrences".
      * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
@@ -227,16 +228,16 @@ module.exports = function(app) {
 
     /**
      * @api {get} /gordo/historical/occurrencesBySpecialNumber Consulta de apariciones por número clave en histórico de El Gordo
-     * @apiName GetGordoOccurrencesByReimbursement
+     * @apiName GetGordoOccurrencesBySpecialNumber
      * @apiGroup GordoHistorical
      *
      * @apiDescription Recurso para la consulta de apariciones por número clave en histórico de El Gordo.
      *
      * @apiVersion 1.0.0
      *
-     * @apiParam {Number} [page] Número de página a consultar. Por defecto se establece a 1.
-     * @apiParam {Number} [per_page] Número de registros por página deseados. Por defecto se establece a 10.
-     * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "reimbursement"
+     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "specialNumber"
      * y "occurrences". Por defecto se ordenan por "occurrences".
      * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
      * Por defecto se ordenan descendentemente.
@@ -274,8 +275,8 @@ module.exports = function(app) {
      *
      * @apiVersion 1.0.0
      *
-     * @apiParam {Number} [page] Número de página a consultar. Por defecto se establece a 1.
-     * @apiParam {Number} [per_page] Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
      * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "result"
      * y "occurrences". Por defecto se ordenan por "occurrences".
      * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
@@ -338,8 +339,8 @@ module.exports = function(app) {
      *
      * @apiVersion 1.0.0
      *
-     * @apiParam {Number} [page] Número de página a consultar. Por defecto se establece a 1.
-     * @apiParam {Number} [per_page] Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
      * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "result"
      * y "occurrences". Por defecto se ordenan por "occurrences".
      * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
@@ -534,16 +535,18 @@ module.exports = function(app) {
         );
 
     /* Consultas: Estandar */
-    gordo.get("/historical/occurrencesByResult", gordo_api_occurrencesByResult);
-    gordo.get(
-        "/historical/occurrencesByResultWithSpecialNumber",
+    historical.get("/occurrencesByResult", gordo_api_occurrencesByResult);
+    historical.get(
+        "/occurrencesByResultWithSpecialNumber",
         gordo_api_occurrencesByResultWithSpecialNumber
     );
-    gordo.get("/historical/occurrencesByNumber", gordo_api_occurrencesByNumber);
-    gordo.get(
-        "/historical/occurrencesBySpecialNumber",
+    historical.get("/occurrencesByNumber", gordo_api_occurrencesByNumber);
+    historical.get(
+        "/occurrencesBySpecialNumber",
         gordo_api_occurrencesBySpecialNumber
     );
+
+    gordo.use("/historical", historical);
 
     app.use("/api/gordo", gordo);
 };
