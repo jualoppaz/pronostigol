@@ -3,13 +3,13 @@ div.table-responsive(style="margin-top: 15px", ng-if="mostrar.tablaAparicionesPo
         thead
             tr
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoConEstrellasSegun('resultado'); consultarEstandar()", ng-bind-template="Resultado", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'resultado' && !ordenAparicionesPorResultadoConEstrellas").fa.fa-caret-up
-                    span(ng-if="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'resultado' && ordenAparicionesPorResultadoConEstrellas").fa.fa-caret-down
+                    a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoConEstrellasSegun('result'); consultarEstandar()", ng-bind-template="Resultado", style="padding-right: 15px")
+                    span(ng-if="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'result' && !ordenAparicionesPorResultadoConEstrellas").fa.fa-caret-up
+                    span(ng-if="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'result' && ordenAparicionesPorResultadoConEstrellas").fa.fa-caret-down
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoConEstrellasSegun('apariciones'); consultarEstandar()", ng-bind-template="Apariciones", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'apariciones' && ordenAparicionesPorResultadoConEstrellas").fa.fa-caret-down
-                    span(ng-if="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'apariciones' && !ordenAparicionesPorResultadoConEstrellas").fa.fa-caret-up
+                    a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoConEstrellasSegun('occurrences'); consultarEstandar()", ng-bind-template="Apariciones", style="padding-right: 15px")
+                    span(ng-if="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'occurrences' && ordenAparicionesPorResultadoConEstrellas").fa.fa-caret-down
+                    span(ng-if="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'occurrences' && !ordenAparicionesPorResultadoConEstrellas").fa.fa-caret-up
 
         tbody
             tr(ng-repeat="item in aparicionesPorResultadoConEstrellas")

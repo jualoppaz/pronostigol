@@ -1,36 +1,35 @@
 var db;
 
-var ObjectID = require('mongodb').ObjectID;
+var ObjectID = require("mongodb").ObjectID;
 
-var DBM = require('./init-data-base-manager');
+var DBM = require("./init-data-base-manager");
 
 var euromillones_tickets, euromillones_years;
 
-DBM.getDatabaseInstance(function(err, res){
-   if(err){
-       console.log(err);
-       return;
-   }
+DBM.getDatabaseInstance(function(err, res) {
+    if (err) {
+        console.log(err);
+        return;
+    }
 
-   db = res;
+    db = res;
 
-   euromillones_tickets = db.collection("euromillones_tickets");
-   euromillones_years = db.collection("euromillones_years");
+    euromillones_tickets = db.collection("euromillones_tickets");
+    euromillones_years = db.collection("euromillones_years");
 });
 
-var getObjectId = function(id){
+var getObjectId = function(id) {
     return ObjectID(id);
 };
 
-exports.getAllTickets = function(filtros, callback){
-
+exports.getAllTickets = function(filtros, callback) {
     var filters = {};
 
-    if(filtros.year){
+    if (filtros.year) {
         filters.anyo = Number(filtros.year);
     }
 
-    if(filtros.raffle){
+    if (filtros.raffle) {
         filters.sorteo = Number(filtros.raffle);
     }
 
@@ -46,124 +45,137 @@ exports.getAllTickets = function(filtros, callback){
         skip: skip
     };
 
-    euromillones_tickets.count(filters, function(err, total){
-        if(err){
+    euromillones_tickets.count(filters, function(err, total) {
+        if (err) {
             callback(err);
-        }else{
-            euromillones_tickets.find(filters, options).toArray(function(err, res){
-                if(err){
-                    callback(err);
-                }else{
+        } else {
+            euromillones_tickets
+                .find(filters, options)
+                .toArray(function(err, res) {
+                    if (err) {
+                        callback(err);
+                    } else {
+                        var result = {
+                            page: page,
+                            perPage: limit,
+                            total: total,
+                            data: res
+                        };
 
-                    var result = {
-                        page: page,
-                        perPage: limit,
-                        total: total,
-                        data: res
-                    };
-
-                    callback(null, result);
-                }
-            });
+                        callback(null, result);
+                    }
+                });
         }
     });
 };
 
-exports.getTicketsByAnyo = function(anyo, callback){
-
-    euromillones_tickets.find({
-        anyo: anyo
-    }).toArray(function(err, res){
-        if(err){
-            callback(err);
-        }else{
-            callback(null, res);
-        }
-    });
-};
-
-exports.getTicketsByAnyoAndRaffle = function(anyo, sorteo, callback){
-
-    euromillones_tickets.findOne({
-        anyo: anyo,
-        $or: [
-            {
-                sorteo: Number(sorteo)
-            },{
-                sorteo: sorteo.toString()
+exports.getTicketsByAnyo = function(anyo, callback) {
+    euromillones_tickets
+        .find({
+            anyo: anyo
+        })
+        .toArray(function(err, res) {
+            if (err) {
+                callback(err);
+            } else {
+                callback(null, res);
             }
-        ]
-    }, function(err, res){
-        if(err){
-            callback(err);
-        }else{
-            res = res || {};
-            callback(null, res);
-        }
-    });
+        });
 };
 
-exports.addNewTicket = function(ticket, callback){
+exports.getTicketsByAnyoAndRaffle = function(anyo, sorteo, callback) {
+    euromillones_tickets.findOne(
+        {
+            anyo: anyo,
+            $or: [
+                {
+                    sorteo: Number(sorteo)
+                },
+                {
+                    sorteo: sorteo.toString()
+                }
+            ]
+        },
+        function(err, res) {
+            if (err) {
+                callback(err);
+            } else {
+                res = res || {};
+                callback(null, res);
+            }
+        }
+    );
+};
 
+exports.addNewTicket = function(ticket, callback) {
     var trozos = ticket.fecha.split("/");
 
     var fecha = trozos[2] + "-" + trozos[1] + "-" + trozos[0];
 
-    euromillones_tickets.insert({
-        anyo: Number(ticket.anyo),
-        fecha: new Date(fecha),
-        sorteo: Number(ticket.sorteo),
-        precio: parseFloat(ticket.precio),
-        premio: parseFloat(ticket.premio),
-        apuestas: ticket.apuestas,
-        resultado: ticket.resultado
-    },{
-        w:1
-    },function(e, res){
-        if(e){
-            callback(e);
-        }else{
-            callback(null, res);
+    euromillones_tickets.insert(
+        {
+            anyo: Number(ticket.anyo),
+            fecha: new Date(fecha),
+            sorteo: Number(ticket.sorteo),
+            precio: parseFloat(ticket.precio),
+            premio: parseFloat(ticket.premio),
+            apuestas: ticket.apuestas,
+            resultado: ticket.resultado
+        },
+        {
+            w: 1
+        },
+        function(e, res) {
+            if (e) {
+                callback(e);
+            } else {
+                callback(null, res);
+            }
         }
-    });
-
+    );
 };
 
-exports.getTicketById = function(id, callback){
-
-    euromillones_tickets.findOne({
-        _id: getObjectId(id)
-    }, function(err, res){
-        if(err){
-            callback(err);
-        }else{
-            res = res || {};
-            callback(null, res);
+exports.getTicketById = function(id, callback) {
+    euromillones_tickets.findOne(
+        {
+            _id: getObjectId(id)
+        },
+        function(err, res) {
+            if (err) {
+                callback(err);
+            } else {
+                res = res || {};
+                callback(null, res);
+            }
         }
-    });
+    );
 };
 
-exports.deleteTicketById = function(id, callback){
-    euromillones_tickets.remove({
-        _id: getObjectId(id)
-    },function(e, res){
-        if(e || !res){
-            callback('ticket-not-deleted');
-        }else{
-            callback(null, res);
+exports.deleteTicketById = function(id, callback) {
+    euromillones_tickets.remove(
+        {
+            _id: getObjectId(id)
+        },
+        function(e, res) {
+            if (e || !res) {
+                callback("ticket-not-deleted");
+            } else {
+                callback(null, res);
+            }
         }
-    });
+    );
 };
 
-exports.editTicket = function(ticket, callback){
-
+exports.editTicket = function(ticket, callback) {
     var trozos = ticket.fecha.split("/");
 
     var fecha = trozos[2] + "-" + trozos[1] + "-" + trozos[0];
 
-    euromillones_tickets.update({
-        _id: getObjectId(ticket._id)
-    }, {
+    euromillones_tickets.update(
+        {
+            _id: getObjectId(ticket._id)
+        },
+        {
             $set: {
                 anyo: ticket.anyo,
                 precio: parseFloat(ticket.precio),
@@ -173,34 +185,33 @@ exports.editTicket = function(ticket, callback){
                 apuestas: ticket.apuestas,
                 resultado: ticket.resultado
             }
+        },
+
+        function(err, number) {
+            if (err || number == 0) {
+                callback("not-updated");
+            } else {
+                callback(null, ticket);
+            }
         }
-
-    , function(err, number) {
-
-        if(err || number == 0){
-            callback('not-updated');
-        }else{
-            callback(null, ticket);
-        }
-    });
-
+    );
 };
 
-exports.getOccurrencesByResultWithoutStars = function(filtros, callback){
+exports.getOccurrencesByResultWithoutStars = function(filtros, callback) {
     var limit = filtros.perPage;
     var page = filtros.page;
     var skip = (page - 1) * limit;
     var sort = filtros.sort;
     var type = filtros.type;
 
-    var sort_property = sort;
-    var sort_type = type === 'asc' ? 1 : -1;
+    var sort_property = sort === "result" ? "resultadoAsString" : "apariciones";
+    var sort_type = type === "asc" ? 1 : -1;
 
     var query = [];
     query.push({
         $group: {
-            '_id': "$resultado.bolas",
-            'apariciones': {
+            _id: "$resultado.bolas",
+            apariciones: {
                 $sum: 1
             }
         }
@@ -208,16 +219,16 @@ exports.getOccurrencesByResultWithoutStars = function(filtros, callback){
 
     query.push({
         $project: {
-            '_id': 0,
-            'resultado': '$_id',
-            'apariciones': 1
+            _id: 0,
+            resultado: "$_id",
+            apariciones: 1
         }
     });
 
     euromillones_tickets.aggregate(query, function(e, res) {
-        if (e){
+        if (e) {
             callback(e);
-        }else{
+        } else {
             var result = {
                 page: page,
                 perPage: limit,
@@ -228,9 +239,54 @@ exports.getOccurrencesByResultWithoutStars = function(filtros, callback){
             sortConfig[sort_property] = sort_type;
 
             // Añadimos ordenación alternativa
-            if(sort_property === "apariciones"){
-                sortConfig["resultado"] = sort_type;
+            if (sort_property === "apariciones") {
+                sortConfig["resultadoAsString"] = sort_type;
             }
+
+            query.push({
+                $addFields: {
+                    resultadoAsString: {
+                        $reduce: {
+                            input: "$resultado",
+                            initialValue: "",
+                            in: {
+                                $concat: [
+                                    "$$value",
+                                    {
+                                        $substr: [
+                                            {
+                                                $cond: [
+                                                    {
+                                                        $gte: [
+                                                            "$$this.numero",
+                                                            10
+                                                        ]
+                                                    },
+                                                    "$$this.numero",
+                                                    {
+                                                        $concat: [
+                                                            "0",
+                                                            {
+                                                                $substr: [
+                                                                    "$$this.numero",
+                                                                    0,
+                                                                    -1
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            0,
+                                            -1
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            });
 
             query.push({
                 $sort: sortConfig
@@ -244,6 +300,8 @@ exports.getOccurrencesByResultWithoutStars = function(filtros, callback){
                 $limit: limit
             });
 
+            console.log("Query:", query);
+
             euromillones_tickets.aggregate(query, function(e, res) {
                 if (e) {
                     callback(e);
@@ -256,22 +314,22 @@ exports.getOccurrencesByResultWithoutStars = function(filtros, callback){
     });
 };
 
-exports.getOccurrencesByResultWithStars = function(filtros, callback){
+exports.getOccurrencesByResultWithStars = function(filtros, callback) {
     var limit = filtros.perPage;
     var page = filtros.page;
     var skip = (page - 1) * limit;
     var sort = filtros.sort;
     var type = filtros.type;
 
-    var sort_property = sort;
-    var sort_type = type === 'asc' ? 1 : -1;
+    var sort_property = sort === "result" ? "resultadoAsString" : "apariciones";
+    var sort_type = type === "asc" ? 1 : -1;
 
     var query = [];
     query.push({
         $group: {
-            '_id': {
+            _id: {
                 resultado: "$resultado.bolas",
-                reintegro: "$resultado.estrellas"
+                estrellas: "$resultado.estrellas"
             },
             resultado: {
                 $first: "$resultado.bolas"
@@ -279,7 +337,7 @@ exports.getOccurrencesByResultWithStars = function(filtros, callback){
             estrellas: {
                 $first: "$resultado.estrellas"
             },
-            'apariciones': {
+            apariciones: {
                 $sum: 1
             }
         }
@@ -287,17 +345,17 @@ exports.getOccurrencesByResultWithStars = function(filtros, callback){
 
     query.push({
         $project: {
-            '_id': 0,
-            'resultado': 1,
-            'estrellas': 1,
-            'apariciones': 1
+            _id: 0,
+            resultado: 1,
+            estrellas: 1,
+            apariciones: 1
         }
     });
 
     euromillones_tickets.aggregate(query, function(e, res) {
-        if (e){
+        if (e) {
             callback(e);
-        }else{
+        } else {
             var result = {
                 page: page,
                 perPage: limit,
@@ -308,9 +366,103 @@ exports.getOccurrencesByResultWithStars = function(filtros, callback){
             sortConfig[sort_property] = sort_type;
 
             // Añadimos ordenación alternativa
-            if(sort_property === "apariciones"){
-                sortConfig["resultado"] = sort_type;
+            if (sort_property === "apariciones") {
+                sortConfig["resultadoAsString"] = sort_type;
+                sortConfig["estrellas"] = sort_type;
+            } else {
+                sortConfig["apariciones"] = sort_type;
+                sortConfig["estrellas"] = sort_type;
             }
+
+            query.push({
+                $addFields: {
+                    resultadoAsString: {
+                        $concat: [
+                            {
+                                $reduce: {
+                                    input: "$resultado",
+                                    initialValue: "",
+                                    in: {
+                                        $concat: [
+                                            "$$value",
+                                            {
+                                                $substr: [
+                                                    {
+                                                        $cond: [
+                                                            {
+                                                                $gte: [
+                                                                    "$$this.numero",
+                                                                    10
+                                                                ]
+                                                            },
+                                                            "$$this.numero",
+                                                            {
+                                                                $concat: [
+                                                                    "0",
+                                                                    {
+                                                                        $substr: [
+                                                                            "$$this.numero",
+                                                                            0,
+                                                                            -1
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    },
+                                                    0,
+                                                    -1
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            },
+                            "E",
+                            {
+                                $reduce: {
+                                    input: "$estrellas",
+                                    initialValue: "",
+                                    in: {
+                                        $concat: [
+                                            "$$value",
+                                            {
+                                                $substr: [
+                                                    {
+                                                        $cond: [
+                                                            {
+                                                                $gte: [
+                                                                    "$$this.numero",
+                                                                    10
+                                                                ]
+                                                            },
+                                                            "$$this.numero",
+                                                            {
+                                                                $concat: [
+                                                                    "0",
+                                                                    {
+                                                                        $substr: [
+                                                                            "$$this.numero",
+                                                                            0,
+                                                                            -1
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    },
+                                                    0,
+                                                    -1
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            });
 
             query.push({
                 $sort: sortConfig
@@ -336,25 +488,25 @@ exports.getOccurrencesByResultWithStars = function(filtros, callback){
     });
 };
 
-exports.getOccurrencesByNumber = function(filtros, callback){
+exports.getOccurrencesByNumber = function(filtros, callback) {
     var limit = filtros.perPage;
     var page = filtros.page;
     var skip = (page - 1) * limit;
     var sort = filtros.sort;
     var type = filtros.type;
 
-    var sort_property = sort;
-    var sort_type = type === 'asc' ? 1 : -1;
+    var sort_property = sort === "number" ? "numero" : "apariciones";
+    var sort_type = type === "asc" ? 1 : -1;
 
     var query = [];
     query.push({
-        $unwind: '$resultado.bolas'
+        $unwind: "$resultado.bolas"
     });
 
     query.push({
         $group: {
-            '_id': '$resultado.bolas.numero',
-            'apariciones': {
+            _id: "$resultado.bolas.numero",
+            apariciones: {
                 $sum: 1
             }
         }
@@ -362,16 +514,16 @@ exports.getOccurrencesByNumber = function(filtros, callback){
 
     query.push({
         $project: {
-            '_id': 0,
-            'numero': '$_id',
-            'apariciones': 1
+            _id: 0,
+            numero: "$_id",
+            apariciones: 1
         }
     });
 
     euromillones_tickets.aggregate(query, function(e, res) {
-        if (e){
+        if (e) {
             callback(e);
-        }else{
+        } else {
             var result = {
                 page: page,
                 perPage: limit,
@@ -382,7 +534,7 @@ exports.getOccurrencesByNumber = function(filtros, callback){
             sortConfig[sort_property] = sort_type;
 
             // Añadimos ordenación alternativa
-            if(sort_property === "apariciones"){
+            if (sort_property === "apariciones") {
                 sortConfig["numero"] = sort_type;
             }
 
@@ -398,10 +550,10 @@ exports.getOccurrencesByNumber = function(filtros, callback){
                 $limit: limit
             });
 
-            euromillones_tickets.aggregate(query, function(e, res){
-                if (e){
+            euromillones_tickets.aggregate(query, function(e, res) {
+                if (e) {
                     callback(e);
-                }else{
+                } else {
                     result.data = res;
                     callback(null, result);
                 }
@@ -410,25 +562,25 @@ exports.getOccurrencesByNumber = function(filtros, callback){
     });
 };
 
-exports.getOccurrencesByStar = function(filtros, callback){
+exports.getOccurrencesByStar = function(filtros, callback) {
     var limit = filtros.perPage;
     var page = filtros.page;
     var skip = (page - 1) * limit;
     var sort = filtros.sort;
     var type = filtros.type;
 
-    var sort_property = sort;
-    var sort_type = type === 'asc' ? 1 : -1;
+    var sort_property = sort === "star" ? "estrella" : "apariciones";
+    var sort_type = type === "asc" ? 1 : -1;
 
     var query = [];
     query.push({
-        $unwind: '$resultado.estrellas'
+        $unwind: "$resultado.estrellas"
     });
 
     query.push({
         $group: {
-            '_id': '$resultado.estrellas.numero',
-            'apariciones': {
+            _id: "$resultado.estrellas.numero",
+            apariciones: {
                 $sum: 1
             }
         }
@@ -436,16 +588,16 @@ exports.getOccurrencesByStar = function(filtros, callback){
 
     query.push({
         $project: {
-            '_id': 0,
-            'estrella': '$_id',
-            'apariciones': 1
+            _id: 0,
+            estrella: "$_id",
+            apariciones: 1
         }
     });
 
     euromillones_tickets.aggregate(query, function(e, res) {
-        if (e){
+        if (e) {
             callback(e);
-        }else{
+        } else {
             var result = {
                 page: page,
                 perPage: limit,
@@ -456,7 +608,7 @@ exports.getOccurrencesByStar = function(filtros, callback){
             sortConfig[sort_property] = sort_type;
 
             // Añadimos ordenación alternativa
-            if(sort_property === "apariciones"){
+            if (sort_property === "apariciones") {
                 sortConfig["estrella"] = sort_type;
             }
 
@@ -472,10 +624,10 @@ exports.getOccurrencesByStar = function(filtros, callback){
                 $limit: limit
             });
 
-            euromillones_tickets.aggregate(query, function(e, res){
-                if (e){
+            euromillones_tickets.aggregate(query, function(e, res) {
+                if (e) {
                     callback(e);
-                }else{
+                } else {
                     result.data = res;
                     callback(null, result);
                 }
@@ -484,21 +636,21 @@ exports.getOccurrencesByStar = function(filtros, callback){
     });
 };
 
-exports.getOccurrencesByStarsPair = function(filtros, callback){
+exports.getOccurrencesByStarsPair = function(filtros, callback) {
     var limit = filtros.perPage;
     var page = filtros.page;
     var skip = (page - 1) * limit;
     var sort = filtros.sort;
     var type = filtros.type;
 
-    var sort_property = sort;
-    var sort_type = type === 'asc' ? 1 : -1;
+    var sort_property = sort === "starsPair" ? "estrellas" : "apariciones";
+    var sort_type = type === "asc" ? 1 : -1;
 
     var query = [];
     query.push({
         $group: {
-            '_id': '$resultado.estrellas',
-            'apariciones': {
+            _id: "$resultado.estrellas",
+            apariciones: {
                 $sum: 1
             }
         }
@@ -506,16 +658,16 @@ exports.getOccurrencesByStarsPair = function(filtros, callback){
 
     query.push({
         $project: {
-            '_id': 0,
-            'estrellas': '$_id',
-            'apariciones': 1
+            _id: 0,
+            estrellas: "$_id",
+            apariciones: 1
         }
     });
 
     euromillones_tickets.aggregate(query, function(e, res) {
-        if (e){
+        if (e) {
             callback(e);
-        }else{
+        } else {
             var result = {
                 page: page,
                 perPage: limit,
@@ -526,7 +678,7 @@ exports.getOccurrencesByStarsPair = function(filtros, callback){
             sortConfig[sort_property] = sort_type;
 
             // Añadimos ordenación alternativa
-            if(sort_property === "apariciones"){
+            if (sort_property === "apariciones") {
                 sortConfig["estrellas"] = sort_type;
             }
 
@@ -542,10 +694,10 @@ exports.getOccurrencesByStarsPair = function(filtros, callback){
                 $limit: limit
             });
 
-            euromillones_tickets.aggregate(query, function(e, res){
-                if (e){
+            euromillones_tickets.aggregate(query, function(e, res) {
+                if (e) {
                     callback(e);
-                }else{
+                } else {
                     result.data = res;
                     callback(null, result);
                 }
@@ -554,92 +706,101 @@ exports.getOccurrencesByStarsPair = function(filtros, callback){
     });
 };
 
-exports.getAllYears = function(callback){
+exports.getAllYears = function(callback) {
+    euromillones_years.find({}).toArray(function(err, res) {
+        if (err) {
+            callback(err);
+        } else {
+            callback(null, res);
+        }
+    });
+};
 
-    euromillones_years.find({
-
-    }).toArray(function(err, res){
-            if(err){
+exports.getYearById = function(id, callback) {
+    euromillones_years.findOne(
+        {
+            _id: getObjectId(id)
+        },
+        function(err, res) {
+            if (err) {
                 callback(err);
-            }else{
+            } else {
+                res = res || {};
                 callback(null, res);
             }
-        });
-};
-
-exports.getYearById = function(id, callback){
-
-    euromillones_years.findOne({
-        _id: getObjectId(id)
-    }, function(err, res){
-        if(err){
-            callback(err);
-        }else{
-            res = res || {};
-            callback(null, res);
         }
-    });
+    );
 };
 
-exports.getYearByName = function(name, callback){
-
-    euromillones_years.findOne({
-        name: name
-    }, function(err, res){
-        if(err){
-            callback(err);
-        }else{
-            res = res || {};
-            callback(null, res);
+exports.getYearByName = function(name, callback) {
+    euromillones_years.findOne(
+        {
+            name: name
+        },
+        function(err, res) {
+            if (err) {
+                callback(err);
+            } else {
+                res = res || {};
+                callback(null, res);
+            }
         }
-    });
+    );
 };
 
-exports.deleteYearById = function(id, callback){
-    euromillones_years.remove({
-        _id: getObjectId(id)
-    },function(e, res){
-        if(e || !res){
-            callback('year-not-deleted');
-        }else{
-            callback(null, res);
+exports.deleteYearById = function(id, callback) {
+    euromillones_years.remove(
+        {
+            _id: getObjectId(id)
+        },
+        function(e, res) {
+            if (e || !res) {
+                callback("year-not-deleted");
+            } else {
+                callback(null, res);
+            }
         }
-    });
+    );
 };
 
-exports.addNewYear = function(year, callback){
-
-    euromillones_years.insert({
-        name: year.name,
-        value: year.name
-
-    },{
-        w:1
-    },function(e, res){
-        if(e){
-            callback(e);
-        }else{
-            callback(null, res);
-        }
-    });
-
-};
-
-exports.editYear = function(year, callback){
-    euromillones_years.update({
-        _id: getObjectId(year._id)
-    }, {
-        $set: {
+exports.addNewYear = function(year, callback) {
+    euromillones_years.insert(
+        {
             name: year.name,
             value: year.name
+        },
+        {
+            w: 1
+        },
+        function(e, res) {
+            if (e) {
+                callback(e);
+            } else {
+                callback(null, res);
+            }
         }
-    }, function(err, res) {
-        if(err){
-            callback('not-updated');
-        }else{
-            callback(null, res);
+    );
+};
+
+exports.editYear = function(year, callback) {
+    euromillones_years.update(
+        {
+            _id: getObjectId(year._id)
+        },
+        {
+            $set: {
+                name: year.name,
+                value: year.name
+            }
+        },
+        function(err, res) {
+            if (err) {
+                callback("not-updated");
+            } else {
+                callback(null, res);
+            }
         }
-    });
+    );
 };
 
 // TODO
@@ -648,117 +809,135 @@ exports.editYear = function(year, callback){
 
 /* $where: "return this.fecha.getFullYear() == 2014" */
 
-
-exports.getEconomicBalanceByYear = function(callback){
-    euromillones_tickets.aggregate({
-        $group: {
-            '_id': '$anyo',
-            'invertido': {
-                $sum: '$precio'
-            },
-            'ganado': {
-                $sum: '$premio'
-            }
-        }
-    }, function(err, res){
-        if(err){
-            callback(err);
-        }else{
-            callback(null, res);
-        }
-    });
-};
-
-exports.getHigherDayByYear = function(year, callback){
-    euromillones_tickets.aggregate({
-        $match: {
-            anyo: Number(year)
-        }
-    },{
-        $group: {
-            _id: null,
-            sorteo: {
-                $max: "$sorteo"
-            }
-        }
-    }, function(err, res){
-        if(err){
-            callback(err);
-        }else{
-            res[0]._id = year;
-            callback(null, res[0]);
-        }
-    });
-};
-
-exports.getNewestDay = function(callback){
-    euromillones_tickets.aggregate({
-        $group: {
-            _id: null,
-            anyo: {
-                $max: "$anyo"
-            }
-        }
-    }, function(err, res){
-        if(err){
-            callback(err);
-        }else{
-
-            euromillones_tickets.aggregate({
-                $match: {
-                    anyo: Number(res[0].anyo)
+exports.getEconomicBalanceByYear = function(callback) {
+    euromillones_tickets.aggregate(
+        {
+            $group: {
+                _id: "$anyo",
+                invertido: {
+                    $sum: "$precio"
+                },
+                ganado: {
+                    $sum: "$premio"
                 }
-            },{
-                $group: {
-                    _id: null,
-                    sorteo: {
-                        $max: "$sorteo"
+            }
+        },
+        function(err, res) {
+            if (err) {
+                callback(err);
+            } else {
+                callback(null, res);
+            }
+        }
+    );
+};
+
+exports.getHigherDayByYear = function(year, callback) {
+    euromillones_tickets.aggregate(
+        {
+            $match: {
+                anyo: Number(year)
+            }
+        },
+        {
+            $group: {
+                _id: null,
+                sorteo: {
+                    $max: "$sorteo"
+                }
+            }
+        },
+        function(err, res) {
+            if (err) {
+                callback(err);
+            } else {
+                res[0]._id = year;
+                callback(null, res[0]);
+            }
+        }
+    );
+};
+
+exports.getNewestDay = function(callback) {
+    euromillones_tickets.aggregate(
+        {
+            $group: {
+                _id: null,
+                anyo: {
+                    $max: "$anyo"
+                }
+            }
+        },
+        function(err, res) {
+            if (err) {
+                callback(err);
+            } else {
+                euromillones_tickets.aggregate(
+                    {
+                        $match: {
+                            anyo: Number(res[0].anyo)
+                        }
+                    },
+                    {
+                        $group: {
+                            _id: null,
+                            sorteo: {
+                                $max: "$sorteo"
+                            }
+                        }
+                    },
+                    function(err2, res2) {
+                        if (err2) {
+                            callback(err2);
+                        } else {
+                            res2[0]._id = res[0].anyo;
+                            callback(null, res2[0]);
+                        }
                     }
-                }
-            }, function(err2, res2){
-                if(err2){
-                    callback(err2);
-                }else{
-                    res2[0]._id = res[0].anyo;
-                    callback(null, res2[0]);
-                }
-            });
-        }
-    });
-};
-
-exports.getOldestDay = function(callback){
-    euromillones_tickets.aggregate({
-        $group: {
-            _id: null,
-            anyo: {
-                $min: "$anyo"
+                );
             }
         }
-    }, function(err, res){
-        if(err){
-            callback(err);
-        }else{
+    );
+};
 
-            euromillones_tickets.aggregate({
-                $match: {
-                    anyo: Number(res[0].anyo)
+exports.getOldestDay = function(callback) {
+    euromillones_tickets.aggregate(
+        {
+            $group: {
+                _id: null,
+                anyo: {
+                    $min: "$anyo"
                 }
-            },{
-                $group: {
-                    _id: null,
-                    sorteo: {
-                        $min: "$sorteo"
+            }
+        },
+        function(err, res) {
+            if (err) {
+                callback(err);
+            } else {
+                euromillones_tickets.aggregate(
+                    {
+                        $match: {
+                            anyo: Number(res[0].anyo)
+                        }
+                    },
+                    {
+                        $group: {
+                            _id: null,
+                            sorteo: {
+                                $min: "$sorteo"
+                            }
+                        }
+                    },
+                    function(err2, res2) {
+                        if (err2) {
+                            callback(err2);
+                        } else {
+                            res2[0]._id = res[0].anyo;
+                            callback(null, res2[0]);
+                        }
                     }
-                }
-            }, function(err2, res2){
-                if(err2){
-                    callback(err2);
-                }else{
-                    res2[0]._id = res[0].anyo;
-                    callback(null, res2[0]);
-                }
-            });
+                );
+            }
         }
-    });
+    );
 };
