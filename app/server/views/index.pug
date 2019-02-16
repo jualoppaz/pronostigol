@@ -86,7 +86,7 @@ block content
                                                         p.sin-padding-izquierdo {{respuesta.texto}}
 
                                                 form(style="margin-top: 25px", data-ng-show="usuarioEstaLogueado", data-ng-cloak)
-                                                    textarea(placeholder="Escribe una respuesta", data-ng-model="nuevaRespuesta.texto").form-control.nuevo-comentario#comentario
+                                                    textarea(placeholder="Escribe una respuesta", data-ng-model="nuevaRespuesta.texto").form-control.nuevo-comentario
                                                     div.text-center(style="margin-top:25px; margin-left: -5%")
                                                         a.btn.btn-default.btn-qdb.btn-login(data-ng-click="responderComentario(comment)").btn.btn-danger.btn-large Responder
 
@@ -121,7 +121,7 @@ block content
                                             span(aria-hidden="true") &times;
                                         div El comentario ha sido enviado. Se mostrar&aacute; cuando sea validado por el administrador.
                                     form(style="margin-top:25px", data-ng-show="usuarioEstaLogueado", data-ng-cloak)
-                                        textarea(placeholder="Escribe un comentario", data-ng-model="comentario.texto").form-control.nuevo-comentario#comentario
+                                        textarea(placeholder="Escribe un comentario", data-ng-model="comentario.texto").form-control.nuevo-comentario
                                         div.text-center(style="margin-top:25px")
                                             a.btn.btn-default.btn-qdb.btn-login(data-ng-click="comentar()").btn.btn-danger.btn-large Enviar
 

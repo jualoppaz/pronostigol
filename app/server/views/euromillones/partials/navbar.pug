@@ -1,5 +1,5 @@
 header(data-ng-controller="NavbarController")
-    nav.navbar.navbar-fixed-top.navbar-default.navbar-qdb.navbar-euromillones.fondoMorado(role="navigation")
+    nav.navbar.navbar-fixed-top.navbar-default.navbar-qdb.navbar-euromillones.fondoMorado
         div.navbar-inner
             div.container-fluid
                 div.navbar-header
@@ -50,6 +50,3 @@ header(data-ng-controller="NavbarController")
                             a.btn.btn-euromillones.btn-login(href="#", role="button", data-ng-click="cerrarSesion()") Cerrar sesión
                         li(data-ng-show="!usuarioEstaLogueado", style="margin-left:15px", data-ng-cloak)
                             a.btn.btn-euromillones.btn-login(href="/login", role="button") Entrar
-
-    include ../../modals/login
-    include ../../modals/logout

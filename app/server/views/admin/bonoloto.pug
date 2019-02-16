@@ -40,8 +40,6 @@ block content
                                     td(data-ng-click="verTicket(ticket._id)", data-ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}")
                                     td(data-ng-click="verTicket(ticket._id)", data-ng-bind-template="{{ticket.sorteo}}")
 
-                            include ../modals/eliminarRegistro
-
                         uib-pagination(
                             data-ng-hide="tickets.length === 0",
                             data-ng-change="consultarTickets()",
