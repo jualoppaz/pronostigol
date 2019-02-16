@@ -50,7 +50,7 @@ block content
                                     span.logo.logo-euromillones(title="Euromillones") E
 
                         div.col-md-10.col-md-offset-1.col-sm-12.col-xs-12(style="margin-top: 20px; padding-left: 0px; padding-right: 0px")
-                            div.col-md-12.col-sm-12.col-xs-12.panel.panel-body.main-card.border-qdb#bienvenido
+                            div.col-md-12.col-sm-12.col-xs-12.panel.panel-body.border-qdb
                                 div.main-card-content(style="word-wrap: break-word;")
                                     div.main-card-name
                                         a.recipe-title
@@ -63,7 +63,7 @@ block content
                                             Podr&aacute;s consultar todo tipo de estad&iacute;sticas que te facilitar&aacute;n la tarea de hacer
                                             tus apuestas y con mayores garant&iacute;as de &eacute;xito.
 
-                            div.col-md-12.col-sm-12.col-xs-12.panel.panel-body.main-card.border-qdb(data-ng-show="comments != null", data-ng-cloak)#bienvenido
+                            div.col-md-12.col-sm-12.col-xs-12.panel.panel-body.border-qdb(data-ng-show="comments != null", data-ng-cloak)
 
                                 div.col-md-12.col-sm-12.col-xs-12.text-center(data-ng-show="comments.length > 0", data-ng-cloak)
                                     h1.green.abel(style="font-size: 42px; font-weight: normal") Comentarios
@@ -88,24 +88,21 @@ block content
                                                 form(style="margin-top: 25px", data-ng-show="usuarioEstaLogueado", data-ng-cloak)
                                                     textarea(placeholder="Escribe una respuesta", data-ng-model="nuevaRespuesta.texto").form-control.nuevo-comentario#comentario
                                                     div.text-center(style="margin-top:25px; margin-left: -5%")
-                                                        a.btn.btn-default.btn-qdb(data-ng-click="responderComentario(comment)").btn.btn-danger.btn-large#entrar Responder
+                                                        a.btn.btn-default.btn-qdb.btn-login(data-ng-click="responderComentario(comment)").btn.btn-danger.btn-large Responder
 
 
                                 div.col-md-12.col-sm-12.col-xs-12.text-center
                                     uib-pagination(data-ng-show="comments.length > commentsPerPage", data-ng-cloak, items-per-page="commentsPerPage", boundary-links="true", total-items="totalItems", data-ng-model="currentPage", previous-text="<", next-text=">", first-text="Inicio", last-text="Fin").pagination-sm.abel
 
-                                div.col-md-12.col-sm-12.col-xs-12.main-card#bienvenido
+                                div.col-md-12.col-sm-12.col-xs-12
 
                                     div.main-card-content(data-ng-show="comments != null && comments.length == 0", data-ng-cloak, style="margin-bottom: 10px")
                                         div.main-card-name(style="padding-left: 0px;")
                                             a.recipe-title
                                                 span.caramelo.qdb-red No hay comentarios. Sé el primero en comentar.
 
-                                    h3.text-center(style="margin-top: 0px; padding-top: 5px", data-ng-show="usuarioEsAnonimo && comments.length == 0", data-ng-cloak)
-                                        a.green(href="/login", data-ng-bind-template="¡Haz login primero!")#logueate
-
-                                    h3.text-center(style="margin-top: 0px; padding-top: 5px", data-ng-show="usuarioEsAnonimo && comments.length > 0", data-ng-cloak)
-                                        a.green(href="/login", data-ng-bind-template="¡Debes hacer login para comentar!")#logueate
+                                    h3.text-center(style="margin-top: 0px; padding-top: 5px", data-ng-show="usuarioEsAnonimo", data-ng-cloak)
+                                        a.green(href="/login", data-ng-bind-template="{{ comments.length > 0 ? '¡Debes hacer login para comentar!' : '¡Haz login primero!'}}")#logueate
 
                                     div.col-md-12.col-sm-12.col-xs-12.alert.alert-danger.alert-dismissible(role="alert", data-ng-show="comentarioPalabrasLargas", data-ng-cloak)
                                         button.close(type="button", data-dismiss="alert", aria-label="Close")
@@ -126,9 +123,9 @@ block content
                                     form(style="margin-top:25px", data-ng-show="usuarioEstaLogueado", data-ng-cloak)
                                         textarea(placeholder="Escribe un comentario", data-ng-model="comentario.texto").form-control.nuevo-comentario#comentario
                                         div.text-center(style="margin-top:25px")
-                                            a.btn.btn-default.btn-qdb(data-ng-click="comentar()").btn.btn-danger.btn-large#entrar Enviar
+                                            a.btn.btn-default.btn-qdb.btn-login(data-ng-click="comentar()").btn.btn-danger.btn-large Enviar
 
-                            div.col-md-12.col-sm-12.col-xs-12.panel.panel-body.main-card.border-qdb(data-ng-show="tweets.length > 0", data-ng-cloak)#bienvenido
+                            div.col-md-12.col-sm-12.col-xs-12.panel.panel-body.border-qdb(data-ng-show="tweets.length > 0", data-ng-cloak)
 
                                 div.col-md-12.col-sm-12.col-xs-12.text-center(data-ng-show="tweets.length > 0", data-ng-cloak)
                                     h1.green.abel(style="font-size: 42px; font-weight: normal") Noticias

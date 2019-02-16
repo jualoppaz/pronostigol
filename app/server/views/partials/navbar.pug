@@ -24,7 +24,7 @@ header(data-ng-controller="NavbarController")
                         li
                             a(href="/contacto") Contacto
                         li.hidden-lg.hidden-md.hidden-sm(data-ng-show="usuarioEstaLogueado == false")
-                            a(href="/login") Entrar
+                            a.btn-login(href="/login") Entrar
                         li.hidden-lg.hidden-md.hidden-sm(data-ng-show="usuarioEstaLogueado")
                             a(href="#", data-ng-click="cerrarSesion()") Cerrar sesión
                         li.hidden-lg.hidden-md.hidden-sm(data-ng-show="usuarioEstaLogueado == false")
@@ -41,9 +41,9 @@ header(data-ng-controller="NavbarController")
                             a(href="https://github.com/jualoppaz/pronostigol", target="_blank", data-ng-cloak)
                                 i.fa.fa-github
                         li(data-ng-show="usuarioEstaLogueado", style="margin-left:15px", data-ng-cloak)
-                            a.btn.btn-qdb(href="#", role="button", data-ng-click="cerrarSesion()")#entrar Cerrar sesión
+                            a.btn.btn-qdb.btn-login(href="#", role="button", data-ng-click="cerrarSesion()") Cerrar sesión
                         li(data-ng-show="!usuarioEstaLogueado", style="margin-left:15px", data-ng-cloak)
-                            a.btn.btn-qdb(href="/login", role="button")#entrar Entrar
+                            a.btn.btn-qdb.btn-login(href="/login", role="button") Entrar
 
     include ../modals/login
     include ../modals/logout

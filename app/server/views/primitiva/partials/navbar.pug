@@ -30,7 +30,7 @@ header(data-ng-controller="NavbarController")
                         li
                             a.primitiva(href="/contacto", target="_blank") Contacto
                         li.hidden-lg.hidden-md.hidden-sm(data-ng-show="usuarioEstaLogueado == false")
-                            a.primitiva(href="/login") Entrar
+                            a.primitiva.btn-login(href="/login") Entrar
                         li.hidden-lg.hidden-md.hidden-sm(data-ng-show="usuarioEstaLogueado")
                             a.primitiva(href="#", data-ng-click="cerrarSesion()") Cerrar sesión
                         li.hidden-lg.hidden-md.hidden-sm(data-ng-show="usuarioEstaLogueado == false")
@@ -47,9 +47,9 @@ header(data-ng-controller="NavbarController")
                             a.primitiva(href="https://github.com/jualoppaz/pronostigol", target="_blank", data-ng-cloak)
                                 i.fa.fa-github
                         li(data-ng-show="usuarioEstaLogueado", style="margin-left:15px", data-ng-cloak)
-                            a.btn.btn-primitiva(href="#", role="button", data-ng-click="cerrarSesion()")#entrar Cerrar sesión
+                            a.btn.btn-primitiva.btn-login(href="#", role="button", data-ng-click="cerrarSesion()") Cerrar sesión
                         li(data-ng-show="!usuarioEstaLogueado", style="margin-left:15px", data-ng-cloak)
-                            a.btn.btn-primitiva(href="/login", role="button")#entrar Entrar
+                            a.btn.btn-primitiva.btn-login(href="/login", role="button") Entrar
 
     include ../../modals/login
     include ../../modals/logout
