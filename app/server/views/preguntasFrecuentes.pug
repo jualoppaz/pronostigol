@@ -5,10 +5,10 @@ block head
     link(rel="stylesheet", href="/css/pronostigol.css")
 
 block content
-    div#wrap(ng-app="qdb")
+    div#wrap(data-ng-app="qdb")
 
-        div.container(ng-controller="LoguedUserController")
-            div(ng-controller="IndexController")
+        div.container(data-ng-controller="LoguedUserController")
+            div(data-ng-controller="IndexController")
 
                 include partials/navbar
 

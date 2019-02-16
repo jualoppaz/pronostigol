@@ -1,18 +1,18 @@
-div.table-responsive(style="margin-top: 15px", ng-if="mostrar.tablaAparicionesPorReintegro", ng-cloak)
+div.table-responsive(style="margin-top: 15px", data-ng-if="mostrar.tablaAparicionesPorReintegro", data-ng-cloak)
     table.table.table-bordered.col-md-12.col-sm-12.col-xs-12
         thead
             tr
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorReintegroSegun('reimbursement'); consultarEstandar()", ng-bind-template="Reintegro", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorReintegro == 'reimbursement' && !ordenAparicionesPorReintegro").fa.fa-caret-up
-                    span(ng-if="criterioOrdenacionAparicionesPorReintegro == 'reimbursement' && ordenAparicionesPorReintegro").fa.fa-caret-down
+                    a.columnaOrdenable(data-ng-click="ordenarAparicionesPorReintegroSegun('reimbursement'); consultarEstandar()", data-ng-bind-template="Reintegro", style="padding-right: 15px")
+                    span(data-ng-if="criterioOrdenacionAparicionesPorReintegro == 'reimbursement' && !ordenAparicionesPorReintegro").fa.fa-caret-up
+                    span(data-ng-if="criterioOrdenacionAparicionesPorReintegro == 'reimbursement' && ordenAparicionesPorReintegro").fa.fa-caret-down
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorReintegroSegun('occurrences'); consultarEstandar()", ng-bind-template="Apariciones", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorReintegro == 'occurrences' && ordenAparicionesPorReintegro").fa.fa-caret-down
-                    span(ng-if="criterioOrdenacionAparicionesPorReintegro == 'occurrences' && !ordenAparicionesPorReintegro").fa.fa-caret-up
+                    a.columnaOrdenable(data-ng-click="ordenarAparicionesPorReintegroSegun('occurrences'); consultarEstandar()", data-ng-bind-template="Apariciones", style="padding-right: 15px")
+                    span(data-ng-if="criterioOrdenacionAparicionesPorReintegro == 'occurrences' && ordenAparicionesPorReintegro").fa.fa-caret-down
+                    span(data-ng-if="criterioOrdenacionAparicionesPorReintegro == 'occurrences' && !ordenAparicionesPorReintegro").fa.fa-caret-up
 
         tbody
-            tr(ng-repeat="item in aparicionesPorReintegro")
+            tr(data-ng-repeat="item in aparicionesPorReintegro")
                 td
-                    span.badge.badge-azul(ng-bind-template="{{item.reintegro}}")
-                td(ng-bind-template="{{item.apariciones}}")
+                    span.badge.badge-azul(data-ng-bind-template="{{item.reintegro}}")
+                td(data-ng-bind-template="{{item.apariciones}}")

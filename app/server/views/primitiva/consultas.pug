@@ -2,21 +2,21 @@ extends ../layout
 
 block head
     title Primitiva | Consulta de estadísticas y resultados de la Primitiva
-    meta(name="description", content="Primitiva. Consulta de estadísticas y resultados de la Primitiva")  
+    meta(name="description", content="Primitiva. Consulta de estadísticas y resultados de la Primitiva")
     link(rel="stylesheet", href="/css/backgroundImage.css")
     link(rel="stylesheet", href="/css/pronostigol.css")
 
 block content
-    div#wrap(ng-app="qdb")
+    div#wrap(data-ng-app="qdb")
 
-        div.container(ng-controller="LoguedUserController")
-            div(ng-controller="ConsultasController")
+        div.container(data-ng-controller="LoguedUserController")
+            div(data-ng-controller="ConsultasController")
 
                 include partials/navbar
 
                 div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0")
 
-                    div.col-md-12.col-sm-12.col-xs-12(ng-cloak, style="margin-top:15px; padding-left: 0px; padding-right: 0px")
+                    div.col-md-12.col-sm-12.col-xs-12(data-ng-cloak, style="margin-top:15px; padding-left: 0px; padding-right: 0px")
                         div.alert.alert-primitiva.
                             Aqu&iacute; podr&aacute;s realizar todo tipo de consultas, de modo que
                             podr&aacute;s saber cu&aacute;les son los n&uacute;meros o los reintegros que
@@ -24,10 +24,10 @@ block content
                             tus apuestas con mayor criterio.
 
 
-                    div.col-md-12.col-md-offset-0.col-sm-12.col-xs-12(style="margin-top:20px; padding: 0 0 0 0; background-color: white; border: 2px solid #398439; border-radius: 4px", ng-cloak)
+                    div.col-md-12.col-md-offset-0.col-sm-12.col-xs-12(style="margin-top:20px; padding: 0 0 0 0; background-color: white; border: 2px solid #398439; border-radius: 4px", data-ng-cloak)
 
-                        tabset.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0;", ng-cloak)
-                            tab.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0", heading="Estándar", active="segundaPestana", ng-click="activarPestana(2)")
+                        tabset.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0;", data-ng-cloak)
+                            tab.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0", heading="Estándar", active="segundaPestana", data-ng-click="activarPestana(2)")
 
                                 div.col-md-12.col-sm-12.col-xs-12(style="border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; border-left: 1px solid #ddd;")
                                     div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0; margin-top: 15px").form-group
@@ -35,9 +35,9 @@ block content
 
 
                                             label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
-                                                //input(type="radio", name="optionsRadiosEstandar", value="combinacionesSucedidas", ng-checked="true", ng-model="form.opcionBusquedaEstandar")#radio1Estandar
+                                                //input(type="radio", name="optionsRadiosEstandar", value="combinacionesSucedidas", data-ng-checked="true", data-ng-model="form.opcionBusquedaEstandar")#radio1Estandar
                                                 //| &nbsp; Apariciones por n&uacute;mero
-                                                input(type="radio", value="aparicionesPorNumero", ng-model="form.opcionBusquedaEstandar.name")#radio1Estandar
+                                                input(type="radio", value="aparicionesPorNumero", data-ng-model="form.opcionBusquedaEstandar.name")#radio1Estandar
                                                 | &nbsp; Apariciones por N&uacute;mero
                                             div.col-md-5.col-sm-5.hidden-xs
                                                 button(uib-popover="{{ayuda.aparicionesPorNumero}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
@@ -47,7 +47,7 @@ block content
                                                     | Ayuda
                                         div.col-md-12.form-group
                                             label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
-                                                input(type="radio", value="aparicionesPorResultado", ng-model="form.opcionBusquedaEstandar.name")#radio2Estandar
+                                                input(type="radio", value="aparicionesPorResultado", data-ng-model="form.opcionBusquedaEstandar.name")#radio2Estandar
                                                 | &nbsp; Apariciones por Resultado (Sin Reintegro)
                                             div.col-md-5.col-sm-5.hidden-xs
                                                 button(uib-popover="{{ayuda.aparicionesPorResultado}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
@@ -58,7 +58,7 @@ block content
 
                                         div.col-md-12.form-group
                                             label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
-                                                input(type="radio", value="aparicionesPorResultadoConReintegro", ng-model="form.opcionBusquedaEstandar.name")#radio2Estandar
+                                                input(type="radio", value="aparicionesPorResultadoConReintegro", data-ng-model="form.opcionBusquedaEstandar.name")#radio2Estandar
                                                 | &nbsp; Apariciones por Resultado (Con Reintegro)
                                             div.col-md-5.col-sm-5.hidden-xs
                                                 button(uib-popover="{{ayuda.aparicionesPorResultadoConReintegro}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
@@ -69,7 +69,7 @@ block content
 
                                         div.col-md-12.form-group
                                             label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
-                                                input(type="radio", value="aparicionesPorReintegro", ng-model="form.opcionBusquedaEstandar.name")#radio3Estandar
+                                                input(type="radio", value="aparicionesPorReintegro", data-ng-model="form.opcionBusquedaEstandar.name")#radio3Estandar
                                                 | &nbsp; Apariciones por Reintegro
                                             div.col-md-5.col-sm-5.hidden-xs
                                                 button(uib-popover="{{ayuda.aparicionesPorReintegro}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
@@ -82,16 +82,16 @@ block content
 
                                     div.col-md-12.col-sm-12.col-xs-12.form-group
                                         div.col-sm-2.col-sm-offset-5.col-xs-12(style="text-align:center")
-                                            button.btn.btn-default.btn-qdb.abel(href="#", role="button", ng-click="consultarEstandar()", ng-disabled="consultando")#confirmarEliminacion Consultar
+                                            button.btn.btn-default.btn-qdb.abel(href="#", role="button", data-ng-click="consultarEstandar()", data-ng-disabled="consultando") Consultar
 
 
 
                                     div.col-md-12.col-sm-12.col-xs-12#panelesEstandar
                                         div.text-center
                                             uib-pagination(
-                                                ng-show="tickets.length",
-                                                ng-cloak,
-                                                ng-change="consultarEstandar()"
+                                                data-ng-show="tickets.length",
+                                                data-ng-cloak,
+                                                data-ng-change="consultarEstandar()"
                                                 items-per-page="ticketsPerPage",
                                                 boundary-link-numbers="true",
                                                 boundary-links="true",
@@ -99,7 +99,7 @@ block content
                                                 rotate="true",
                                                 max-size="maxSize",
                                                 force-ellipses="true",
-                                                ng-model="currentPage",
+                                                data-ng-model="currentPage",
                                                 previous-text="<",
                                                 next-text=">",
                                                 first-text="Inicio",

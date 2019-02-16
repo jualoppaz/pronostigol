@@ -1,18 +1,18 @@
-div.table-responsive(style="margin-top: 15px", ng-if="mostrar.tablaAparicionesPorNumero", ng-cloak)
+div.table-responsive(style="margin-top: 15px", data-ng-if="mostrar.tablaAparicionesPorNumero", data-ng-cloak)
     table.table.table-bordered.col-md-12.col-sm-12.col-xs-12
         thead
             tr
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorNumeroSegun('number'); consultarEstandar()", ng-bind-template="Número", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorNumero == 'number' && !ordenAparicionesPorNumero").fa.fa-caret-up
-                    span(ng-if="criterioOrdenacionAparicionesPorNumero == 'number' && ordenAparicionesPorNumero").fa.fa-caret-down
+                    a.columnaOrdenable(data-ng-click="ordenarAparicionesPorNumeroSegun('number'); consultarEstandar()", data-ng-bind-template="Número", style="padding-right: 15px")
+                    span(data-ng-if="criterioOrdenacionAparicionesPorNumero == 'number' && !ordenAparicionesPorNumero").fa.fa-caret-up
+                    span(data-ng-if="criterioOrdenacionAparicionesPorNumero == 'number' && ordenAparicionesPorNumero").fa.fa-caret-down
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorNumeroSegun('occurrences'); consultarEstandar()", ng-bind-template="Apariciones", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorNumero == 'occurrences' && ordenAparicionesPorNumero").fa.fa-caret-down
-                    span(ng-if="criterioOrdenacionAparicionesPorNumero == 'occurrences' && !ordenAparicionesPorNumero").fa.fa-caret-up
+                    a.columnaOrdenable(data-ng-click="ordenarAparicionesPorNumeroSegun('occurrences'); consultarEstandar()", data-ng-bind-template="Apariciones", style="padding-right: 15px")
+                    span(data-ng-if="criterioOrdenacionAparicionesPorNumero == 'occurrences' && ordenAparicionesPorNumero").fa.fa-caret-down
+                    span(data-ng-if="criterioOrdenacionAparicionesPorNumero == 'occurrences' && !ordenAparicionesPorNumero").fa.fa-caret-up
 
         tbody
-            tr(ng-repeat="item in aparicionesPorNumero")
+            tr(data-ng-repeat="item in aparicionesPorNumero")
                 td
-                    span.badge.badge-azul(ng-bind-template="{{printNumber(item.numero)}}")
-                td(ng-bind-template="{{item.apariciones}}")
+                    span.badge.badge-azul(data-ng-bind-template="{{printNumber(item.numero)}}")
+                td(data-ng-bind-template="{{item.apariciones}}")

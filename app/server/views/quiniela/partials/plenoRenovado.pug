@@ -1,10 +1,10 @@
-div.col-md-12.col-sm-12.col-xs-12.alert.alert-info(ng-if="mostrarPlenoRenovado", ng-cloak).
+div.col-md-12.col-sm-12.col-xs-12.alert.alert-info(data-ng-if="mostrarPlenoRenovado", data-ng-cloak).
     La siguiente tabla contiene los resultados del pleno al 15 a partir de la 2014-2015, en
     la que el formato cambió. Por tanto, esta tabla no mostrará datos de la 2013-2014.
 
 
 
-div.table-responsive(ng-if="mostrarPlenoRenovado", ng-cloak)
+div.table-responsive(data-ng-if="mostrarPlenoRenovado", data-ng-cloak)
     table.table.table-bordered
         thead
             tr
@@ -29,14 +29,14 @@ div.table-responsive(ng-if="mostrarPlenoRenovado", ng-cloak)
 
         tbody
             tr
-                td(ng-bind-template="15")
-                td(ng-repeat="res in resultadosPlenoRenovado")
+                td(data-ng-bind-template="15")
+                td(data-ng-repeat="res in resultadosPlenoRenovado")
                     // El mas frecuente en solitario
-                    span.badge.badge-verde(ng-if="resultadoPlenoMasFrecuenteEnSolitario(plenosRenovados, res, plenosRenovados[res])", ng-bind-template="{{plenosRenovados[res] || 0}}")
-                    span.badge.badge-naranja(ng-if="resultadoPlenoMasFrecuenteEmpatado(plenosRenovados, res, plenosRenovados[res])", ng-bind-template="{{plenosRenovados[res] || 0}}")
-                    span.badge.badge-rojo(ng-if="resultadoPlenoMenosFrecuente(plenosRenovados, res, plenosRenovados[res])", ng-bind-template="{{plenosRenovados[res] || 0}}")
-                td(ng-bind-template="{{sumaDePlenosRenovados()}}")
+                    span.badge.badge-verde(data-ng-if="resultadoPlenoMasFrecuenteEnSolitario(plenosRenovados, res, plenosRenovados[res])", data-ng-bind-template="{{plenosRenovados[res] || 0}}")
+                    span.badge.badge-naranja(data-ng-if="resultadoPlenoMasFrecuenteEmpatado(plenosRenovados, res, plenosRenovados[res])", data-ng-bind-template="{{plenosRenovados[res] || 0}}")
+                    span.badge.badge-rojo(data-ng-if="resultadoPlenoMenosFrecuente(plenosRenovados, res, plenosRenovados[res])", data-ng-bind-template="{{plenosRenovados[res] || 0}}")
+                td(data-ng-bind-template="{{sumaDePlenosRenovados()}}")
             tr
                 td(colspan="17")
                     strong Total
-                td(ng-bind-template="{{sumaDeVictoriasLocales() + sumaDeEmpates() + sumaDeVictoriasVisitantes() + sumaDePlenosRenovados()}}")
+                td(data-ng-bind-template="{{sumaDeVictoriasLocales() + sumaDeEmpates() + sumaDeVictoriasVisitantes() + sumaDePlenosRenovados()}}")

@@ -2,16 +2,16 @@ extends layout
 
 block head
     title Bonoloto | Histórico de sorteos y consulta de estadísticas y resultados de la Bonoloto
-    meta(name="description", content="Bonoloto. Histórico de sorteos y consulta de estadísticas y resultados de lde Bonoloto")  
+    meta(name="description", content="Bonoloto. Histórico de sorteos y consulta de estadísticas y resultados de lde Bonoloto")
     meta(name="keywords", content="estadísticas bonoloto, histórico bonoloto, resultados bonoloto")
     link(rel="stylesheet", href="/css/backgroundImage.css")
     link(rel="stylesheet", href="/css/pronostigol.css")
 
 block content
-    div#wrap(ng-app="qdb")
+    div#wrap(data-ng-app="qdb")
 
-        div.container(ng-controller="LoguedUserController")
-            div(ng-controller="IndexController")
+        div.container(data-ng-controller="LoguedUserController")
+            div(data-ng-controller="IndexController")
 
                 include bonoloto/partials/navbar
 

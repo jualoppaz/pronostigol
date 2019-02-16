@@ -1,43 +1,43 @@
-div.col-sm-3.col-md-2.col-xs-12.sidebar.abel(ng-controller="SidebarController")
+div.col-sm-3.col-md-2.col-xs-12.sidebar.abel(data-ng-controller="SidebarController")
     ul.nav.nav-sidebar
         li.header-section
             a(href="#") Novedades
-                span.badge(ng-bind-template="{{correosNoLeidos + usuariosNuevos}}")
+                span.badge(data-ng-bind-template="{{correosNoLeidos + usuariosNuevos}}")
         li.section
             a(href="/admin/emails") Emails
-                span.badge(ng-bind-template="{{correosNoLeidos}}")
+                span.badge(data-ng-bind-template="{{correosNoLeidos}}")
         li.section
             a(href="/admin/usuarios") Usuarios
-                span.badge(ng-bind-template="{{usuariosNuevos}}")
+                span.badge(data-ng-bind-template="{{usuariosNuevos}}")
         li.section
             a(href="/admin/comentarios") Comentarios
-                span.badge(ng-bind-template="{{comentariosNuevosOEditados}}")
+                span.badge(data-ng-bind-template="{{comentariosNuevosOEditados}}")
         li.header-section
             a(href="/admin/balanceEconomico") Balance económico
         li.separador-horizontal(style="border-bottom: 2px solid #B0B0B0;")
         li.header-section
             a(href="/admin/quiniela", style="color: #0480be !important;") Quiniela
-        li.section(ng-show="loteria == 'quiniela'", ng-cloak)
+        li.section(data-ng-show="loteria == 'quiniela'", data-ng-cloak)
             a(href="/admin/quiniela/equipos") Equipos
-        li.section(ng-show="loteria == 'quiniela'", ng-cloak)
+        li.section(data-ng-show="loteria == 'quiniela'", data-ng-cloak)
             a(href="/admin/quiniela/competiciones") Competiciones
-        li.section(ng-show="loteria == 'quiniela'", ng-cloak)
+        li.section(data-ng-show="loteria == 'quiniela'", data-ng-cloak)
             a(href="/admin/quiniela/temporadas") Temporadas
         li.header-section
             a(href="/admin/bonoloto", style="color: #2b2b2b !important") Bonoloto
-        li.section(ng-show="loteria == 'bonoloto'", ng-cloak)
+        li.section(data-ng-show="loteria == 'bonoloto'", data-ng-cloak)
             a(href="/admin/bonoloto/anyos") Años
         li.header-section
             a(href="/admin/primitiva", style="color: #398439 !important") Primitiva
-        li.section(ng-show="loteria == 'primitiva'", ng-cloak)
+        li.section(data-ng-show="loteria == 'primitiva'", data-ng-cloak)
             a(href="/admin/primitiva/anyos") Años
         li.header-section
             a(href="/admin/gordo", style="color: #E32D28 !important") El Gordo
-        li.section(ng-show="loteria == 'gordo'", ng-cloak)
+        li.section(data-ng-show="loteria == 'gordo'", data-ng-cloak)
             a(href="/admin/gordo/anyos") Años
         li.header-section
             a(href="/admin/euromillones", style="color: #440044 !important") Euromillones
-        li.section(ng-show="loteria == 'euromillones'", ng-cloak)
+        li.section(data-ng-show="loteria == 'euromillones'", data-ng-cloak)
             a(href="/admin/euromillones/anyos") Años
 
 

@@ -1,19 +1,19 @@
-div.table-responsive(style="margin-top: 15px", ng-if="mostrar.tablaAparicionesPorResultadoConEstrellas", ng-cloak)
+div.table-responsive(style="margin-top: 15px", data-ng-if="mostrar.tablaAparicionesPorResultadoConEstrellas", data-ng-cloak)
     table.table.table-bordered.col-md-12.col-sm-12.col-xs-12
         thead
             tr
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoConEstrellasSegun('result'); consultarEstandar()", ng-bind-template="Resultado", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'result' && !ordenAparicionesPorResultadoConEstrellas").fa.fa-caret-up
-                    span(ng-if="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'result' && ordenAparicionesPorResultadoConEstrellas").fa.fa-caret-down
+                    a.columnaOrdenable(data-ng-click="ordenarAparicionesPorResultadoConEstrellasSegun('result'); consultarEstandar()", data-ng-bind-template="Resultado", style="padding-right: 15px")
+                    span(data-ng-if="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'result' && !ordenAparicionesPorResultadoConEstrellas").fa.fa-caret-up
+                    span(data-ng-if="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'result' && ordenAparicionesPorResultadoConEstrellas").fa.fa-caret-down
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorResultadoConEstrellasSegun('occurrences'); consultarEstandar()", ng-bind-template="Apariciones", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'occurrences' && ordenAparicionesPorResultadoConEstrellas").fa.fa-caret-down
-                    span(ng-if="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'occurrences' && !ordenAparicionesPorResultadoConEstrellas").fa.fa-caret-up
+                    a.columnaOrdenable(data-ng-click="ordenarAparicionesPorResultadoConEstrellasSegun('occurrences'); consultarEstandar()", data-ng-bind-template="Apariciones", style="padding-right: 15px")
+                    span(data-ng-if="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'occurrences' && ordenAparicionesPorResultadoConEstrellas").fa.fa-caret-down
+                    span(data-ng-if="criterioOrdenacionAparicionesPorResultadoConEstrellas == 'occurrences' && !ordenAparicionesPorResultadoConEstrellas").fa.fa-caret-up
 
         tbody
-            tr(ng-repeat="item in aparicionesPorResultadoConEstrellas")
+            tr(data-ng-repeat="item in aparicionesPorResultadoConEstrellas")
                 td
-                    span.badge.badge-azul(ng-repeat="numero in item.resultado", ng-bind-template="{{printNumber(numero.numero)}}")
-                    span.badge.badge-azul(ng-repeat="estrella in item.estrellas", ng-bind-template="E: {{printNumber(estrella.numero)}}")
-                td(ng-bind-template="{{item.apariciones}}")
+                    span.badge.badge-azul(data-ng-repeat="numero in item.resultado", data-ng-bind-template="{{printNumber(numero.numero)}}")
+                    span.badge.badge-azul(data-ng-repeat="estrella in item.estrellas", data-ng-bind-template="E: {{printNumber(estrella.numero)}}")
+                td(data-ng-bind-template="{{item.apariciones}}")
