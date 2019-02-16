@@ -2,21 +2,21 @@ extends ../layout
 
 block head
     title Bonoloto | Consulta de estadísticas y resultados de la Bonoloto
-    meta(name="description", content="Bonoloto. Consulta de estadísticas y resultados de la Bonoloto")  
+    meta(name="description", content="Bonoloto. Consulta de estadísticas y resultados de la Bonoloto")
     link(rel="stylesheet", href="/css/backgroundImage.css")
     link(rel="stylesheet", href="/css/pronostigol.css")
 
 block content
-    div#wrap(ng-app="qdb")
+    div#wrap(data-ng-app="qdb")
 
-        div.container(ng-controller="LoguedUserController")
-            div(ng-controller="ConsultasController")
+        div.container(data-ng-controller="LoguedUserController")
+            div(data-ng-controller="ConsultasController")
 
                 include partials/navbar
 
                 div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0")
 
-                    div.col-md-12.col-sm-12.col-xs-12(ng-cloak, style="margin-top:15px; padding-left: 0px; padding-right: 0px")
+                    div.col-md-12.col-sm-12.col-xs-12(data-ng-cloak, style="margin-top:15px; padding-left: 0px; padding-right: 0px")
                         div.alert.alert-bonoloto.
                             Aqu&iacute; podr&aacute;s realizar todo tipo de consultas, de modo que
                             podr&aacute;s saber cu&aacute;les son los n&uacute;meros o los reintegros que
@@ -24,18 +24,18 @@ block content
                             tus apuestas con mayor criterio.
 
 
-                    div.col-md-12.col-md-offset-0.col-sm-12.col-xs-12(style="margin-top:20px; padding: 0 0 0 0; background-color: white; border: 2px solid #2b2b2b; border-radius: 4px", ng-cloak)
+                    div.col-md-12.col-md-offset-0.col-sm-12.col-xs-12(style="margin-top:20px; padding: 0 0 0 0; background-color: white; border: 2px solid #2b2b2b; border-radius: 4px", data-ng-cloak)
 
-                        tabset.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0;", ng-cloak)
-                            //tab.col-md-6.col-sm-6.col-xs-6(style="padding: 0 0 0 0", heading="Personalizadas", active="primeraPestana", ng-click="activarPestana(1)")
+                        tabset.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0;", data-ng-cloak)
+                            //tab.col-md-6.col-sm-6.col-xs-6(style="padding: 0 0 0 0", heading="Personalizadas", active="primeraPestana", data-ng-click="activarPestana(1)")
                                 div.col-md-12.col-sm-12.col-xs-12(style="border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; border-left: 1px solid #ddd;")
                                     div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0; margin-top: 15px").form-group
                                         label.col-md-2.col-md-offset-1.col-sm-2.col-sm-offset-1.col-xs-12.control-label Temporada:
                                         div.col-md-4.col-md-offset-0.col-sm-4.col-sm-offset-0.col-xs-12
                                             // Este select era el original.
-                                            //select.form-control(ng-model="temporadaSeleccionada", ng-init="temporadaSeleccionada = temporadaSeleccionada || temporadas[0].name",
-                                              ng-options="temporada.value as temporada.name for temporada in temporadas")
-                                            input#temporadaSeleccionada(ng-model="form.temporadaSeleccionada", placeholder="Histórico", uib-typeahead="temporada.value as temporada.name for temporada in temporadas | filter:{name:$viewValue}").form-control
+                                            //select.form-control(data-ng-model="temporadaSeleccionada", data-ng-init="temporadaSeleccionada = temporadaSeleccionada || temporadas[0].name",
+                                              data-ng-options="temporada.value as temporada.name for temporada in temporadas")
+                                            input#temporadaSeleccionada(data-ng-model="form.temporadaSeleccionada", placeholder="Histórico", uib-typeahead="temporada.value as temporada.name for temporada in temporadas | filter:{name:$viewValue}").form-control
                                         div.col-md-5.col-sm-5.hidden-xs
                                             button(uib-popover="{{ayudaTemporada}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                 | Ayuda
@@ -47,9 +47,9 @@ block content
                                         label.col-md-2.col-md-offset-1.col-sm-2.col-sm-offset-1.col-xs-12.control-label Competición:
                                         div.col-md-4.col-md-offset-0.col-sm-4.col-sm-offset-0.col-xs-12
                                             // Este select era el original.
-                                            //select.form-control(ng-model="competicionSeleccionada", ng-init="competicionSeleccionada = competicionSeleccionada || competiciones[0].name",
-                                              ng-options="competicion.value as competicion.name for competicion in competiciones")
-                                            input#competicionSeleccionada(type="text", placeholder="Todas", ng-model="form.competicionSeleccionada", uib-typeahead="competicion.value as competicion.name for competicion in competiciones | filter:{name:$viewValue}").form-control
+                                            //select.form-control(data-ng-model="competicionSeleccionada", data-ng-init="competicionSeleccionada = competicionSeleccionada || competiciones[0].name",
+                                              data-ng-options="competicion.value as competicion.name for competicion in competiciones")
+                                            input#competicionSeleccionada(type="text", placeholder="Todas", data-ng-model="form.competicionSeleccionada", uib-typeahead="competicion.value as competicion.name for competicion in competiciones | filter:{name:$viewValue}").form-control
                                         div.col-md-5.col-sm-5.hidden-xs
                                             button(uib-popover="{{ayudaCompeticion}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                 | Ayuda
@@ -61,13 +61,13 @@ block content
                                         label.col-md-2.col-md-offset-1.col-sm-2.col-sm-offset-1.col-xs-12.control-label Buscar por:
                                         div.col-md-3.col-md-offset-1.col-sm-3.col-sm-offset-1.col-xs-9.col-xs-offset-3
                                             label.col-xs-12
-                                                input(type="radio", name="optionsRadios", ng-checked="true", value="general", ng-model="form.opcionBusqueda")#radio1
+                                                input(type="radio", name="optionsRadios", data-ng-checked="true", value="general", data-ng-model="form.opcionBusqueda")#radio1
                                                 | &nbsp; General
                                             label.col-xs-12
-                                                input(type="radio", name="optionsRadios", value="equipo", ng-model="form.opcionBusqueda")#radio2
+                                                input(type="radio", name="optionsRadios", value="equipo", data-ng-model="form.opcionBusqueda")#radio2
                                                 | &nbsp; Equipo
                                             label.col-xs-12
-                                                input(type="radio", name="optionsRadios", value="partido", ng-model="form.opcionBusqueda")#radio3
+                                                input(type="radio", name="optionsRadios", value="partido", data-ng-model="form.opcionBusqueda")#radio3
                                                 | &nbsp; Partido
                                         div.col-md-5.col-sm-5.hidden-xs
                                             button(uib-popover="{{ayudaBusqueda}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
@@ -76,33 +76,33 @@ block content
                                             button(uib-popover="{{ayudaBusqueda}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                 | Ayuda
 
-                                    div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0", ng-show="form.opcionBusqueda == 'equipo'", ng-cloak).form-group
+                                    div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0", data-ng-show="form.opcionBusqueda == 'equipo'", data-ng-cloak).form-group
                                         label.col-md-2.col-md-offset-1.col-sm-2.col-sm-offset-1.col-xs-12.control-label Equipo:
                                         div.col-md-4.col-md-offset-0.col-sm-6.col-xs-12
-                                            //input.form-control(ng-model="equipoSeleccionado", placeholder="Equipo")
-                                            input#equipoSeleccionado.form-control(ng-model="form.equipoSeleccionado", placeholder="Equipo", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
+                                            //input.form-control(data-ng-model="equipoSeleccionado", placeholder="Equipo")
+                                            input#equipoSeleccionado.form-control(data-ng-model="form.equipoSeleccionado", placeholder="Equipo", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
 
-                                    div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0", ng-show="form.opcionBusqueda == 'partido'", ng-cloak).form-group
+                                    div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0", data-ng-show="form.opcionBusqueda == 'partido'", data-ng-cloak).form-group
                                         label.col-md-2.col-md-offset-1.col-sm-2.col-sm-offset-1.col-xs-12.control-label Partido:
 
                                         div.col-md-4.col-md-offset-0.col-sm-4.col-sm-offset-0.hidden-xs
-                                            //input.form-control(ng-model="equipoLocalSeleccionado", placeholder="Equipo local")
-                                            input.form-control(ng-model="form.equipoLocalSeleccionado", placeholder="Equipo local", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
+                                            //input.form-control(data-ng-model="equipoLocalSeleccionado", placeholder="Equipo local")
+                                            input.form-control(data-ng-model="form.equipoLocalSeleccionado", placeholder="Equipo local", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
                                         div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-bottom: 15px")
-                                            //input.form-control(ng-model="equipoLocalSeleccionado", placeholder="Equipo local")
-                                            input.form-control(ng-model="form.equipoLocalSeleccionado", placeholder="Equipo local", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
+                                            //input.form-control(data-ng-model="equipoLocalSeleccionado", placeholder="Equipo local")
+                                            input.form-control(data-ng-model="form.equipoLocalSeleccionado", placeholder="Equipo local", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
 
                                         div.col-md-4.col-md-offset-0.col-sm-4.col-sm-offset-0.hidden-xs
-                                            //input.form-control(ng-model="equipoVisitanteSeleccionado", placeholder="Equipo visitante")
-                                            input.form-control(ng-model="form.equipoVisitanteSeleccionado", placeholder="Equipo visitante", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
+                                            //input.form-control(data-ng-model="equipoVisitanteSeleccionado", placeholder="Equipo visitante")
+                                            input.form-control(data-ng-model="form.equipoVisitanteSeleccionado", placeholder="Equipo visitante", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
                                         div.hidden-lg.hidden-md.hidden-sm.col-xs-12
-                                            //input.form-control(ng-model="equipoVisitanteSeleccionado", placeholder="Equipo visitante")
-                                            input.form-control(ng-model="form.equipoVisitanteSeleccionado", placeholder="Equipo visitante", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
+                                            //input.form-control(data-ng-model="equipoVisitanteSeleccionado", placeholder="Equipo visitante")
+                                            input.form-control(data-ng-model="form.equipoVisitanteSeleccionado", placeholder="Equipo visitante", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
 
 
                                     div.col-md-12.col-sm-12.col-xs-12.form-group
                                         div.col-sm-2.col-sm-offset-5.col-xs-12(style="text-align:center")
-                                            a.btn.btn-default.btn-qdb.abel(href="#", role="button", ng-click="consultar()", ng-disabled="consultando == true")#confirmarEliminacion Consultar
+                                            a.btn.btn-default.btn-qdb.abel(href="#", role="button", data-ng-click="consultar()", data-ng-disabled="consultando == true")#confirmarEliminacion Consultar
 
                                     div.col-md-12.col-sm-12.col-xs-12#paneles
 
@@ -114,7 +114,7 @@ block content
 
                                         //include partials/plenoRenovadoLocalYVisitante
 
-                            tab.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0", heading="Estándar", active="segundaPestana", ng-click="activarPestana(2)")
+                            tab.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0", heading="Estándar", active="segundaPestana", data-ng-click="activarPestana(2)")
 
                                 div.col-md-12.col-sm-12.col-xs-12(style="border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; border-left: 1px solid #ddd;")
                                     div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0; margin-top: 15px").form-group
@@ -122,9 +122,9 @@ block content
 
 
                                             label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
-                                                //input(type="radio", name="optionsRadiosEstandar", value="combinacionesSucedidas", ng-checked="true", ng-model="form.opcionBusquedaEstandar")#radio1Estandar
+                                                //input(type="radio", name="optionsRadiosEstandar", value="combinacionesSucedidas", data-ng-checked="true", data-ng-model="form.opcionBusquedaEstandar")#radio1Estandar
                                                 //| &nbsp; Apariciones por n&uacute;mero
-                                                input(type="radio", value="aparicionesPorNumero", ng-model="form.opcionBusquedaEstandar.name")#radio1Estandar
+                                                input(type="radio", value="aparicionesPorNumero", data-ng-model="form.opcionBusquedaEstandar.name")#radio1Estandar
                                                 | &nbsp; Apariciones por N&uacute;mero
                                             div.col-md-5.col-sm-5.hidden-xs
                                                 button(uib-popover="{{ayuda.aparicionesPorNumero}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
@@ -134,7 +134,7 @@ block content
                                                     | Ayuda
                                         div.col-md-12.form-group
                                             label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
-                                                input(type="radio", value="aparicionesPorResultado", ng-model="form.opcionBusquedaEstandar.name")#radio2Estandar
+                                                input(type="radio", value="aparicionesPorResultado", data-ng-model="form.opcionBusquedaEstandar.name")#radio2Estandar
                                                 | &nbsp; Apariciones por Resultado (Sin Reintegro)
                                             div.col-md-5.col-sm-5.hidden-xs
                                                 button(uib-popover="{{ayuda.aparicionesPorResultado}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
@@ -145,7 +145,7 @@ block content
 
                                         div.col-md-12.form-group
                                             label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
-                                                input(type="radio", value="aparicionesPorResultadoConReintegro", ng-model="form.opcionBusquedaEstandar.name")#radio3Estandar
+                                                input(type="radio", value="aparicionesPorResultadoConReintegro", data-ng-model="form.opcionBusquedaEstandar.name")#radio3Estandar
                                                 | &nbsp; Apariciones por Resultado (Con Reintegro)
                                             div.col-md-5.col-sm-5.hidden-xs
                                                 button(uib-popover="{{ayuda.aparicionesPorResultadoConReintegro}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
@@ -156,7 +156,7 @@ block content
 
                                         div.col-md-12.form-group
                                             label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
-                                                input(type="radio", value="aparicionesPorReintegro", ng-model="form.opcionBusquedaEstandar.name")#radio4Estandar
+                                                input(type="radio", value="aparicionesPorReintegro", data-ng-model="form.opcionBusquedaEstandar.name")#radio4Estandar
                                                 | &nbsp; Apariciones por Reintegro
                                             div.col-md-5.col-sm-5.hidden-xs
                                                 button(uib-popover="{{ayuda.aparicionesPorReintegro}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
@@ -169,16 +169,16 @@ block content
 
                                     div.col-md-12.col-sm-12.col-xs-12.form-group
                                         div.col-sm-2.col-sm-offset-5.col-xs-12(style="text-align:center")
-                                            button.btn-qdb.abel(href="#", role="button", ng-click="currentPage = 1; consultarEstandar()", ng-disabled="consultando")#confirmarEliminacion Consultar
+                                            button.btn-qdb.abel(href="#", role="button", data-ng-click="currentPage = 1; consultarEstandar()", data-ng-disabled="consultando") Consultar
 
 
 
                                     div.col-md-12.col-sm-12.col-xs-12#panelesEstandar
                                         div.text-center
                                             uib-pagination(
-                                                ng-show="tickets.length",
-                                                ng-change="consultarEstandar()"
-                                                ng-cloak,
+                                                data-ng-show="tickets.length",
+                                                data-ng-change="consultarEstandar()"
+                                                data-ng-cloak,
                                                 items-per-page="ticketsPerPage",
                                                 boundary-link-numbers="true",
                                                 boundary-links="true",
@@ -186,7 +186,7 @@ block content
                                                 rotate="true",
                                                 max-size="maxSize",
                                                 force-ellipses="true",
-                                                ng-model="currentPage",
+                                                data-ng-model="currentPage",
                                                 previous-text="<",
                                                 next-text=">",
                                                 first-text="Inicio",

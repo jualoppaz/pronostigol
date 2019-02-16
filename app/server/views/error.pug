@@ -4,9 +4,9 @@ block head
     link(rel="stylesheet", href="/css/pronostigol.css")
     link(rel="stylesheet", href="/css/backgroundImage.css")
 block content
-    div#container.fondoCaramelos(ng-app="qdb")
-        div(ng-controller="LoguedUserController")
-            div(ng-controller="IndexController")
+    div#container.fondoCaramelos(data-ng-app="qdb")
+        div(data-ng-controller="LoguedUserController")
+            div(data-ng-controller="IndexController")
 
                 include partials/navbar
 

@@ -4,7 +4,7 @@ block head
     title Comentarios
 
 block content
-    div(ng-app="dashboard")
+    div(data-ng-app="dashboard")
         div
             include partials/navbar
         div.container-fluid
@@ -12,7 +12,7 @@ block content
                 include partials/sidebar
                 div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.col-xs-12.main
                     h1.page-header(style="padding-top: 5px") Comentarios
-                    div.col-md-12.col-sm-12(ng-controller="ComentariosController")
+                    div.col-md-12.col-sm-12(data-ng-controller="ComentariosController")
                         table.table
                             thead
                                 tr
@@ -21,25 +21,25 @@ block content
                                     th Comentario
                                     th Fecha
                                     th Validado
-                            tbody(ng-repeat="comentario in comentarios")
-                                tr.verEmail(ng-show="!comentario.validado", ng-cloak)
+                            tbody(data-ng-repeat="comentario in comentarios")
+                                tr.verEmail(data-ng-show="!comentario.validado", data-ng-cloak)
                                     td(style="font-weight: bold")
-                                        span(ng-click="eliminarComentario(comentario)")
+                                        span(data-ng-click="eliminarComentario(comentario)")
                                             i.fa.fa-trash-o
-                                    td(style="font-weight: bold", ng-click="verComentario(comentario)") {{comentario.user}}
-                                    td.mensajeEmail(style="font-weight: bold", ng-click="verComentario(comentario)") {{comentario.texto}}
-                                    td(style="font-weight: bold", ng-click="verComentario(comentario)") {{comentario.fecha | date:'dd/MM/yyyy'}}
-                                    td(style="font-weight: bold", ng-click="verComentario(comentario)") No
-                                tr.verEmail(ng-show="comentario.validado", ng-cloak)
+                                    td(style="font-weight: bold", data-ng-click="verComentario(comentario)") {{comentario.user}}
+                                    td.mensajeEmail(style="font-weight: bold", data-ng-click="verComentario(comentario)") {{comentario.texto}}
+                                    td(style="font-weight: bold", data-ng-click="verComentario(comentario)") {{comentario.fecha | date:'dd/MM/yyyy'}}
+                                    td(style="font-weight: bold", data-ng-click="verComentario(comentario)") No
+                                tr.verEmail(data-ng-show="comentario.validado", data-ng-cloak)
                                     td
-                                        span(ng-click="eliminarComentario(comentario)")
+                                        span(data-ng-click="eliminarComentario(comentario)")
                                             i.fa.fa-trash-o
-                                    td(ng-click="verComentario(comentario)") {{comentario.user}}
-                                    td.mensajeEmail(ng-click="verComentario(comentario)") {{comentario.texto}}
-                                    td(ng-click="verComentario(comentario)") {{comentario.fecha | date:'dd/MM/yyyy'}}
-                                    td(ng-click="verComentario(comentario)") Sí
+                                    td(data-ng-click="verComentario(comentario)") {{comentario.user}}
+                                    td.mensajeEmail(data-ng-click="verComentario(comentario)") {{comentario.texto}}
+                                    td(data-ng-click="verComentario(comentario)") {{comentario.fecha | date:'dd/MM/yyyy'}}
+                                    td(data-ng-click="verComentario(comentario)") Sí
 
-                        div.col-xs-12.alert.alert-info(ng-show="comentarios.length == 0 || comentarios == null", ng-cloak)
+                        div.col-xs-12.alert.alert-info(data-ng-show="comentarios.length == 0 || comentarios == null", data-ng-cloak)
                             | No hay comentarios.
 
                         include ../modals/eliminarRegistro

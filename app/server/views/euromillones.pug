@@ -2,17 +2,17 @@ extends layout
 
 block head
     title Euromillones | Histórico de sorteos y consulta de estadísticas y resultados de Euromillones
-    meta(name="description", content="Euromillones. Histórico de sorteos y consulta de estadísticas y resultados de Euromillones")  
+    meta(name="description", content="Euromillones. Histórico de sorteos y consulta de estadísticas y resultados de Euromillones")
     meta(name="keywords", content="estadísticas euromillones, histórico euromillones, resultados euromillones, euromillions")
     link(rel="stylesheet", href="/css/backgroundImage.css")
     link(rel="stylesheet", href="/css/pronostigol.css")
 
 
 block content
-    div#wrap(ng-app="qdb")
+    div#wrap(data-ng-app="qdb")
 
-        div.container(ng-controller="LoguedUserController")
-            div(ng-controller="IndexController")
+        div.container(data-ng-controller="LoguedUserController")
+            div(data-ng-controller="IndexController")
 
                 include euromillones/partials/navbar
 

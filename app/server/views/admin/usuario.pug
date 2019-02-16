@@ -4,7 +4,7 @@ block head
     title Usuario
 
 block content
-    div(ng-app="dashboard")
+    div(data-ng-app="dashboard")
         div
             include partials/navbar
 
@@ -13,9 +13,7 @@ block content
 
                 include partials/sidebar
 
-                div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.col-xs-12.main(ng-controller="UsuarioController")
-
-                    include ../modals/usuarioEditadoCorrectamente
+                div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.col-xs-12.main(data-ng-controller="UsuarioController")
 
                     include ../modals/usuarioYaExiste
 
@@ -25,29 +23,29 @@ block content
                         div.form-group
                             label.col-sm-2.control-label Usuario:
                             div.col-sm-4
-                                input(ng-model="usuario.user").form-control
+                                input(data-ng-model="usuario.user").form-control
                         div(style="padding-left: 0px").form-group
                             label.col-sm-2.control-label Contraseña:
                             div.col-sm-4
-                                input(type="password", ng-model="usuario.pass", placeholder="Dejar en blanco si no se quiere modificar").form-control
+                                input(type="password", data-ng-model="usuario.pass", placeholder="Dejar en blanco si no se quiere modificar").form-control
                         div.form-group
                             label.col-sm-2.control-label Rol:
                             div.col-sm-4
-                                select.form-control(ng-model="usuario.role", ng-options="opcion.value as opcion.name for opcion in opcionesRoles",
-                                ng-init="usuario.role = usuario.role || opcionesRoles[0]")
+                                select.form-control(data-ng-model="usuario.role", data-ng-options="opcion.value as opcion.name for opcion in opcionesRoles",
+                                data-ng-init="usuario.role = usuario.role || opcionesRoles[0]")
 
 
                         div.form-group
                             label.col-sm-2.control-label Activo:
                             div.col-sm-4
-                                select.form-control(ng-model="usuario.estaActivo", ng-options="opcion.value as opcion.name for opcion in opcionesActivo",
-                                ng-init="usuario.estaActivo = usuario.estaActivo || opcionesActivo[0]")
+                                select.form-control(data-ng-model="usuario.estaActivo", data-ng-options="opcion.value as opcion.name for opcion in opcionesActivo",
+                                data-ng-init="usuario.estaActivo = usuario.estaActivo || opcionesActivo[0]")
 
                         div.form-group
                             label.col-sm-2.control-label Baneado:
                             div.col-sm-4
-                                select.form-control(ng-model="usuario.estaBaneado", ng-options="opcion.value as opcion.name for opcion in opcionesBaneo",
-                                ng-init="usuario.estaBaneado = usuario.estaBaneado || opcionesBaneo[0]")
+                                select.form-control(data-ng-model="usuario.estaBaneado", data-ng-options="opcion.value as opcion.name for opcion in opcionesBaneo",
+                                data-ng-init="usuario.estaBaneado = usuario.estaBaneado || opcionesBaneo[0]")
 
 
                         //div.form-group
@@ -59,7 +57,7 @@ block content
                             div.col-sm-2.col-sm-offset-2
                                 a.btn.btn-default(href="/admin/usuarios", role="button")#cancel Cancelar
                             div.col-sm-2(style="text-align:right")
-                                a.btn.btn-default.btn-primary(href="#", role="button", ng-click="guardar()")#confirmarEliminacion Guardar
+                                a.btn.btn-default.btn-primary(href="#", role="button", data-ng-click="guardar()") Guardar
 
 
 block scripts

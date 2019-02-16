@@ -1,5 +1,5 @@
 .abel {
-    font-family: 'Abel', sans-serif !important;
+    font-family: "Abel", sans-serif !important;
 }
 
 .formulario {
@@ -9,31 +9,31 @@
 .navbar-default .navbar-nav>.active>a,
 .navbar-default .navbar-nav>.active>a:hover,
 .navbar-default .navbar-nav>.active>a:focus {
-    background-color: #41B19C !important;
+    background-color: #41b19c !important;
 }
 
 .btn-eathub-red.btn.btn-default:hover,
 .btn-eathub-red.btn.btn-default:focus,
 .btn-eathub-red.btn.btn-default:active {
-    background-color: #CC3E27 !important;
+    background-color: #cc3e27 !important;
 }
 
 .btn-eathub-red {
-    background-color: #CC3E27 !important;
+    background-color: #cc3e27 !important;
     border-color: #eeeeee !important;
 }
 
 .btn-lagloria,
 .btn-lagloria:focus {
-    background-color: #41B19C !important;
+    background-color: #41b19c !important;
     border-color: #eeeeee !important;
     color: #eeeeee;
 }
 
 .btn-lagloria:hover {
     background-color: #eeeeee;
-    color: #41B19C;
-    border-color: #41B19C !important;
+    color: #41b19c;
+    border-color: #41b19c !important;
 }
 
 .btn-qdb {
@@ -61,8 +61,8 @@
 .btn-eathub-red.btn.btn-default:focus,
 .btn-eathub-red.btn.btn-default:active {
     background-color: #ffffff;
-    border-color: #41B19C !important;
-    color: #41B19C !important;
+    border-color: #41b19c !important;
+    color: #41b19c !important;
 }
 
 a {
@@ -76,7 +76,7 @@ span.caramelo {
 }
 
 .white {
-    color: #FFFFFF;
+    color: #ffffff;
 }
 
 .navbar-brand {
@@ -93,31 +93,31 @@ li>a:hover,
 .btn-default:hover,
 .btn:hover {
     color: #398439 !important;
-    background-color: #FFFFFF !important;
+    background-color: #ffffff !important;
 }
 
 .btn-eathub-red:hover {
-    color: #CC3E27 !important;
+    color: #cc3e27 !important;
     background-color: #eeeeee !important;
 }
 
-#entrar:hover,
+.btn-login:hover,
 #buscar:hover {
     color: #398439 !important;
-    background-color: #FFFFFF !important;
+    background-color: #ffffff !important;
     border-color: #398439 !important;
 }
 
 #comprar:hover,
 #enviar:hover,
 #comentar:hover {
-    color: #CC3E27 !important;
+    color: #cc3e27 !important;
     background-color: white !important;
-    border-color: #CC3E27 !important;
+    border-color: #cc3e27 !important;
 }
 
-#entrar,
-#entrar:focus {
+.btn-login,
+.btn-login:focus {
     margin-top: 5px;
     margin-right: 10px;
     padding-top: 8px;
@@ -138,7 +138,7 @@ li>a:hover,
 
 #buscar,
 #buscar:focus {
-    background-color: #41B19C;
+    background-color: #41b19c;
 }
 
 #buscar {
@@ -146,7 +146,7 @@ li>a:hover,
 }
 
 #buscar:focus {
-    border-color: #41B19C !important;
+    border-color: #41b19c !important;
 }
 
 nav {
@@ -179,11 +179,11 @@ h3 {
 }
 
 .separador-horizontal {
-    border-bottom: 1px solid #B0B0B0;
+    border-bottom: 1px solid #b0b0b0;
 }
 
 .red {
-    color: #CC3E27;
+    color: #cc3e27;
 }
 
 .green {
@@ -203,7 +203,7 @@ h3 {
 }
 
 .purple {
-    color: #4400FF;
+    color: #4400ff;
 }
 
 .black {
@@ -215,7 +215,7 @@ h1 {
 }
 
 div.row div h3 {
-    font-family: 'Abel', sans-serif;
+    font-family: "Abel", sans-serif;
     font-size: 22px;
 }
 
@@ -224,7 +224,7 @@ div.row div h3.blue {
 }
 
 .navbar-toggle {
-    color: #FFFFFF !important;
+    color: #ffffff !important;
 }
 
 .navbar-default .navbar-brand {
@@ -232,13 +232,13 @@ div.row div h3.blue {
 }
 
 .navbar-default .navbar-toggle {
-    border-color: #FFFFFF !important;
+    border-color: #ffffff !important;
 }
 
 /* Para que se inviertan los colores cuando nos ponemos encima */
 
 .navbar-default:hover .navbar-toggle:hover {
-    background-color: #FFFFFF !important;
+    background-color: #ffffff !important;
     border-color: #ffffff !important;
     color: #398439 !important;
 }
@@ -259,7 +259,7 @@ div.row div h3.blue {
 /* Para que cuando tenga el foco los colores sean los mismos que los iniciales */
 
 .navbar-default .navbar-toggle:focus .icon-bar {
-    background-color: #FFFFFF !important;
+    background-color: #ffffff !important;
 }
 
 .main-card-name {
@@ -297,7 +297,7 @@ td {
 }
 
 .lagloria {
-    color: #41B19C !important;
+    color: #41b19c !important;
 }
 
 .mensajeEmail {
@@ -309,10 +309,10 @@ td {
 /* Tipografia Abel de Google fonts */
 
 @font-face {
-    font-family: 'Abel';
+    font-family: "Abel";
     font-style: normal;
     font-weight: 400;
-    src: local('Abel'), local('Abel-Regular'), url(/fonts/brdGGFwqYJxjg2CD1E9o7g.woff2) format('woff2'), url(/fonts/EAqh528fFdbUek8UOky4sA.woff) format('woff');
+    src: local("Abel"), local("Abel-Regular"), url(/fonts/brdGGFwqYJxjg2CD1E9o7g.woff2) format("woff2"), url(/fonts/EAqh528fFdbUek8UOky4sA.woff) format("woff");
 }
 
 #confirmarEliminacion:hover {
@@ -325,7 +325,7 @@ td {
 
 h1.green,
 h1.red {
-    font-family: 'Abel', sans-serif !important;
+    font-family: "Abel", sans-serif !important;
     font-weight: bold;
 }
 
@@ -349,7 +349,7 @@ h1.red {
 
 .navbar-qdb {
     border-color: #398439;
-    font-family: 'Abel', sans-serif !important;
+    font-family: "Abel", sans-serif !important;
 }
 
 .qdb-green {
@@ -363,7 +363,7 @@ h1.red {
 }
 
 .qdb-red {
-    color: #EE2D28 !important;
+    color: #ee2d28 !important;
     font-size: 18px !important;
 }
 
@@ -394,7 +394,7 @@ h1.red {
 
 .fondoRojo,
 .badge-rojo {
-    background-color: #D32D28;
+    background-color: #d32d28;
 }
 
 .fondoNaranja,
@@ -430,7 +430,7 @@ label {
 }
 
 .letra-roja {
-    color: #E32D28;
+    color: #e32d28;
 }
 
 .letra-azul {
@@ -467,13 +467,13 @@ label {
     font-size: 18px !important;
     padding-left: 0;
     text-indent: 1.5em;
-    font-family: 'Abel', sans-serif !important;
+    font-family: "Abel", sans-serif !important;
     text-align: justify;
     text-justify: inter-word;
 }
 
 .main-card-content {
-    font-family: 'Abel', sans-serif !important;
+    font-family: "Abel", sans-serif !important;
 }
 
 .espacio-letras span {
@@ -533,7 +533,7 @@ code {
 .footer {
     padding-bottom: 15px;
     background-color: #398439 !important;
-    font-family: 'Abel', sans-serif !important;
+    font-family: "Abel", sans-serif !important;
     color: white;
     width: 100%;
     height: auto;
@@ -549,16 +549,6 @@ code {
 
 h1.page-header {
     margin-bottom: 5px;
-}
-
-#logueate:hover {
-    color: #398439;
-    text-decoration: none;
-}
-
-#logueate {
-    font-family: 'Abel', sans-serif;
-    font-size: 26px !important;
 }
 
 .main-card-name span {
@@ -622,7 +612,7 @@ th.badge-pleno {
         height: 12px;
     }
     ::-webkit-scrollbar-thumb {
-        background-color: rgba(0, 0, 0, .5);
+        background-color: rgba(0, 0, 0, 0.5);
         border-radius: 10px;
         border: 2px solid #ffffff;
     }
@@ -690,7 +680,7 @@ th.badge-pleno {
         height: 12px;
     }
     ::-webkit-scrollbar-thumb {
-        background-color: rgba(0, 0, 0, .5);
+        background-color: rgba(0, 0, 0, 0.5);
         border-radius: 10px;
         border: 2px solid #ffffff;
     }
@@ -758,7 +748,7 @@ th.badge-pleno {
         height: 12px;
     }
     ::-webkit-scrollbar-thumb {
-        background-color: rgba(0, 0, 0, .5);
+        background-color: rgba(0, 0, 0, 0.5);
         border-radius: 10px;
         border: 2px solid #ffffff;
     }

@@ -7,10 +7,10 @@ block head
     link(rel="stylesheet", href="/css/backgroundImage.css")
 
 block content
-    div#wrap(ng-app="qdb")
+    div#wrap(data-ng-app="qdb")
 
-        div.container(ng-controller="LoguedUserController", style="margin-left: 0px; padding: 0 0 0 0;")
-            div(ng-controller="TicketsController")
+        div.container(data-ng-controller="LoguedUserController", style="margin-left: 0px; padding: 0 0 0 0;")
+            div(data-ng-controller="TicketsController")
 
                 include partials/navbar
 
@@ -33,19 +33,19 @@ block content
                             div.col-md-3
                                 div.alert.alert-gordo
                                     div.text-center
-                                        i(aria-hidden="true", ng-hide="years").fa.fa-refresh.fa-spin
+                                        i(aria-hidden="true", data-ng-hide="years").fa.fa-refresh.fa-spin
                                     ui-select(data-ng-model="selected.year", on-select="mostrarTickets(selected.year.value)"
-                                    , search-enabled="false", ng-show="years", ng-cloak)
+                                    , search-enabled="false", data-ng-show="years", data-ng-cloak)
                                         ui-select-match(placeholder="Selecciona un año")
                                             | {{$select.selected.value}}
                                         ui-select-choices(repeat="year in years | orderBy:'-value'")
                                             div {{year.value}}
 
-                            div.col-md-7.col-md-offset-1(ng-show="tickets.length > 0", ng-cloak, style="background-color: white; margin-bottom: 20px; border: 2px solid #E32D28 !important; border-radius: 4px")
+                            div.col-md-7.col-md-offset-1(data-ng-show="tickets.length > 0", data-ng-cloak, style="background-color: white; margin-bottom: 20px; border: 2px solid #E32D28 !important; border-radius: 4px")
                                 div.col-md-12(style="padding-top: 20px")
                                     label.col-md-4.col-sm-4.col-xs-6(style="clear:both; padding-top:5px") Tickets por página:
                                     div.col-md-2.col-sm-2.col-xs-6
-                                        input(type="number", min="1", ng-model="ticketsPerPage").form-control
+                                        input(type="number", min="1", data-ng-model="ticketsPerPage").form-control
 
                                 table.table.tabla-gordos
                                     thead
@@ -53,21 +53,21 @@ block content
                                             th Sorteo
                                             th Día de la semana
                                             th Fecha
-                                            th(ng-show="usuarioEstaLogueado && tickets[0].precio != null", ng-cloak) Apostado
+                                            th(data-ng-show="usuarioEstaLogueado && tickets[0].precio != null", data-ng-cloak) Apostado
                                     tbody
-                                        tr(ng-repeat="ticket in tickets")
-                                            td(ng-click="verTicket(ticket)", ng-bind-template="{{ticket.sorteo}}").pointer
-                                            td(ng-click="verTicket(ticket)", ng-bind-template="{{traducirDia(ticket.fecha)}}").pointer
-                                            td(ng-click="verTicket(ticket)", ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}").pointer
-                                            td(ng-show="usuarioEstaLogueado && ticket.precio != null && apuestaRealizada(ticket)", ng-cloak)
+                                        tr(data-ng-repeat="ticket in tickets")
+                                            td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.sorteo}}").pointer
+                                            td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{traducirDia(ticket.fecha)}}").pointer
+                                            td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}").pointer
+                                            td(data-ng-show="usuarioEstaLogueado && ticket.precio != null && apuestaRealizada(ticket)", data-ng-cloak)
                                                 span
                                                     i.fa.fa-check.fa-2x(style="color: green")
-                                            td(ng-show="usuarioEstaLogueado && ticket.precio != null && !apuestaRealizada(ticket)", ng-cloak)
+                                            td(data-ng-show="usuarioEstaLogueado && ticket.precio != null && !apuestaRealizada(ticket)", data-ng-cloak)
                                                 span
                                                     i.fa.fa-close.fa-2x(style="color: red")
 
-                                uib-pagination(ng-show="numOfPages > 1",
-                                ng-cloak,
+                                uib-pagination(data-ng-show="numOfPages > 1",
+                                data-ng-cloak,
                                 items-per-page="ticketsPerPage",
                                 boundary-link-numbers="true",
                                 boundary-links="true",
@@ -75,8 +75,8 @@ block content
                                 rotate="true",
                                 max-size="maxSize",
                                 force-ellipses="true",
-                                ng-model="currentPage",
-                                ng-change="consultarTickets()",
+                                data-ng-model="currentPage",
+                                data-ng-change="consultarTickets()",
                                 previous-text="<",
                                 next-text=">",
                                 first-text="Inicio",

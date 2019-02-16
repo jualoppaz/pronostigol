@@ -1,4 +1,4 @@
-div.modal.fade#modal-editar-comentario(data-backdrop="static", data-keyboard="false", tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+div.modal.fade#modal-editar-comentario(data-backdrop="static", data-keyboard="false", tabindex="-1", role="dialog", aria-hidden="true")
     div.modal-dialog
         div.modal-content
             div.modal-header
@@ -7,6 +7,6 @@ div.modal.fade#modal-editar-comentario(data-backdrop="static", data-keyboard="fa
             div.modal-body
                 form
                     div.alert.alert-info Edite su comentario.
-                    textarea.form-control(row="3", ng-model="comentarioNuevo.texto")#comentario-modal
+                    textarea.form-control(row="3", data-ng-model="comentarioNuevo.texto")#comentario-modal
             div.modal-footer
-                button(type="button", data-dismiss="modal", ng-click="editarComentarioDefinitivamente()").btn.btn-primary#confirmarEliminacion Aceptar
+                button(type="button", data-dismiss="modal", data-ng-click="editarComentarioDefinitivamente()").btn.btn-primary Aceptar

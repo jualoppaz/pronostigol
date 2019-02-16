@@ -1,17 +1,17 @@
-div.table-responsive(style="margin-top: 15px", ng-if="mostrar.tablaAparicionesPorEstrella", ng-cloak)
+div.table-responsive(style="margin-top: 15px", data-ng-if="mostrar.tablaAparicionesPorEstrella", data-ng-cloak)
     table.table.table-bordered.col-md-12.col-sm-12.col-xs-12
         thead
             tr
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorEstrellaSegun('star'); consultarEstandar()", ng-bind-template="Estrellas", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorEstrella == 'star' && !ordenAparicionesPorEstrella").fa.fa-caret-up
-                    span(ng-if="criterioOrdenacionAparicionesPorEstrella == 'star' && ordenAparicionesPorEstrella").fa.fa-caret-down
+                    a.columnaOrdenable(data-ng-click="ordenarAparicionesPorEstrellaSegun('star'); consultarEstandar()", data-ng-bind-template="Estrellas", style="padding-right: 15px")
+                    span(data-ng-if="criterioOrdenacionAparicionesPorEstrella == 'star' && !ordenAparicionesPorEstrella").fa.fa-caret-up
+                    span(data-ng-if="criterioOrdenacionAparicionesPorEstrella == 'star' && ordenAparicionesPorEstrella").fa.fa-caret-down
                 th
-                    a.columnaOrdenable(ng-click="ordenarAparicionesPorEstrellaSegun('occurrences'); consultarEstandar()", ng-bind-template="Apariciones", style="padding-right: 15px")
-                    span(ng-if="criterioOrdenacionAparicionesPorEstrella == 'occurrences' && ordenAparicionesPorEstrella").fa.fa-caret-down
-                    span(ng-if="criterioOrdenacionAparicionesPorEstrella == 'occurrences' && !ordenAparicionesPorEstrella").fa.fa-caret-up
+                    a.columnaOrdenable(data-ng-click="ordenarAparicionesPorEstrellaSegun('occurrences'); consultarEstandar()", data-ng-bind-template="Apariciones", style="padding-right: 15px")
+                    span(data-ng-if="criterioOrdenacionAparicionesPorEstrella == 'occurrences' && ordenAparicionesPorEstrella").fa.fa-caret-down
+                    span(data-ng-if="criterioOrdenacionAparicionesPorEstrella == 'occurrences' && !ordenAparicionesPorEstrella").fa.fa-caret-up
         tbody
-            tr(ng-repeat="item in aparicionesPorEstrella")
+            tr(data-ng-repeat="item in aparicionesPorEstrella")
                 td
-                    span.badge.badge-azul(ng-bind-template="{{printNumber(item.estrella)}}")
-                td(ng-bind-template="{{item.apariciones}}")
+                    span.badge.badge-azul(data-ng-bind-template="{{printNumber(item.estrella)}}")
+                td(data-ng-bind-template="{{item.apariciones}}")
