@@ -4,7 +4,7 @@ block head
     title Primitiva
 
 block content
-    div(ng-app="dashboard")
+    div(data-ng-app="dashboard")
         div
             include partials/navbar
         div.container-fluid
@@ -12,7 +12,7 @@ block content
                 include partials/sidebar
                 div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.col-xs-12.main
                     h1.page-header(style="padding-top: 5px") Primitiva
-                    div.col-md-12.col-sm-12(ng-controller="PrimitivaController")
+                    div.col-md-12.col-sm-12(data-ng-controller="PrimitivaController")
                         div.col-md-12(style="padding-bottom: 15px")
                             div.pull-left
                                 i.fa.fa-plus-circle(style="color: green; font-size: 22px")
@@ -22,9 +22,9 @@ block content
                         div.col-md-12
                             label.col-md-4.col-sm-4.col-xs-6(style="clear:both; padding-top:5px") Tickets por página:
                             div.col-md-2.col-sm-2.col-xs-6
-                                input(type="number", min="1", ng-model="ticketsPerPage").form-control
+                                input(type="number", min="1", data-ng-model="ticketsPerPage").form-control
 
-                        table.table(ng-show="tickets.length > 0", ng-cloak)
+                        table.table(data-ng-show="tickets.length > 0", data-ng-cloak)
                             thead
                                 tr
                                     th Eliminar
@@ -32,20 +32,20 @@ block content
                                     th Fecha
                                     th Sorteo
                             tbody
-                                tr(ng-repeat="ticket in tickets | orderBy:['-fecha']").verEmail
+                                tr(data-ng-repeat="ticket in tickets | orderBy:['-fecha']").verEmail
                                     td(style="font-weight: bold")
-                                        span(ng-click="eliminarTicket(ticket._id)")
+                                        span(data-ng-click="eliminarTicket(ticket._id)")
                                             i.fa.fa-trash-o
-                                    td(ng-click="verTicket(ticket._id)", ng-bind-template="{{ticket.anyo}}")
-                                    td(ng-click="verTicket(ticket._id)", ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}")
-                                    td(ng-click="verTicket(ticket._id)", ng-bind-template="{{ticket.sorteo}}")
+                                    td(data-ng-click="verTicket(ticket._id)", data-ng-bind-template="{{ticket.anyo}}")
+                                    td(data-ng-click="verTicket(ticket._id)", data-ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}")
+                                    td(data-ng-click="verTicket(ticket._id)", data-ng-bind-template="{{ticket.sorteo}}")
 
                             include ../modals/eliminarRegistro
 
 
-                        uib-pagination(ng-show="numOfPages > 1",
-                        ng-change="consultarTickets()",
-                        ng-cloak,
+                        uib-pagination(data-ng-show="numOfPages > 1",
+                        data-ng-change="consultarTickets()",
+                        data-ng-cloak,
                         items-per-page="ticketsPerPage",
                         boundary-link-numbers="true",
                         boundary-links="true",
@@ -53,7 +53,7 @@ block content
                         rotate="true",
                         max-size="maxSize",
                         force-ellipses="true",
-                        ng-model="currentPage",
+                        data-ng-model="currentPage",
                         previous-text="<",
                         next-text=">",
                         first-text="Inicio",

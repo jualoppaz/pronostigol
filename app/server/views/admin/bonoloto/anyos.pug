@@ -4,7 +4,7 @@ block head
     title Años
 
 block content
-    div(ng-app="dashboard")
+    div(data-ng-app="dashboard")
         div
             include ../partials/navbar
         div.container-fluid
@@ -12,24 +12,24 @@ block content
                 include ../partials/sidebar
                 div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.col-xs-12.main
                     h1.page-header(style="padding-top: 0px") Años
-                    div.col-md-12.col-sm-12(ng-controller="AnyosController")
+                    div.col-md-12.col-sm-12(data-ng-controller="AnyosController")
                         div.col-md-12(style="padding-bottom: 15px")
                             div.pull-left
                                 i.fa.fa-plus-circle(style="color: green; font-size: 22px")
                             div.pull-left(style="padding-left: 5px")
                                 a(href="/admin/bonoloto/anadirAnyo").mlp-anadirNoticia Añadir año
 
-                        table.table(ng-cloak)
+                        table.table(data-ng-cloak)
                             thead
                                 tr
                                     th Eliminar
                                     th Nombre
-                            tbody(ng-repeat="registro in anyos | orderBy: 'name'")
-                                tr(ng-cloak).verEmail
+                            tbody(data-ng-repeat="registro in anyos | orderBy: 'name'")
+                                tr(data-ng-cloak).verEmail
                                     td
-                                        span(ng-click="eliminarRegistro(registro._id)")
+                                        span(data-ng-click="eliminarRegistro(registro._id)")
                                             i.fa.fa-trash-o
-                                    td(ng-click="verRegistro(registro._id)", ng-bind-template="{{registro.name}}")
+                                    td(data-ng-click="verRegistro(registro._id)", data-ng-bind-template="{{registro.name}}")
 
 
 

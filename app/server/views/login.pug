@@ -7,9 +7,9 @@ block head
 
 
 block content
-    div#container.fondoCaramelos(ng-app="qdb")
-        div(ng-controller="LoguedUserController")
-            div(ng-controller="LoginController")
+    div#container.fondoCaramelos(data-ng-app="qdb")
+        div(data-ng-controller="LoguedUserController")
+            div(data-ng-controller="LoginController")
 
                 include partials/navbar
 
@@ -23,28 +23,28 @@ block content
                                             p.recipe-title(style="text-align:center; padding-left: 0px")
                                                 span.title-qdb-blue Acceder
 
-                                        form(ng-submit="loguearse()").formulario
+                                        form(data-ng-submit="loguearse()").formulario
                                             div.col-md-12.col-sm-12
                                                 div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
-                                                    input(type="text", name="user", placeholder="Usuario", ng-model="form.user").form-control
-                                            div.col-md-12.col-sm-12(ng-show="usuarioInexistente", style="margin-top: 15px", ng-cloak)
+                                                    input(type="text", name="user", placeholder="Usuario", data-ng-model="form.user").form-control
+                                            div.col-md-12.col-sm-12(data-ng-show="usuarioInexistente", style="margin-top: 15px", data-ng-cloak)
                                                 div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
-                                                    div.alert.alert-danger(ng-bind-template="{{errores.usuarioInexistente}}")
-                                            div.col-md-12.col-sm-12(ng-show="usuarioVacio", style="margin-top: 15px", ng-cloak)
+                                                    div.alert.alert-danger(data-ng-bind-template="{{errores.usuarioInexistente}}")
+                                            div.col-md-12.col-sm-12(data-ng-show="usuarioVacio", style="margin-top: 15px", data-ng-cloak)
                                                 div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
-                                                    div.alert.alert-danger(ng-bind-template="{{errores.usuarioVacio}}")
+                                                    div.alert.alert-danger(data-ng-bind-template="{{errores.usuarioVacio}}")
                                             div.col-md-12.col-sm-12(style="margin-top:15px")
                                                 div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
-                                                    input(type="password", name="pass", placeholder="Contraseña", ng-model="form.pass").form-control
-                                            div.col-md-12.col-sm-12(ng-show="passErroneo", style="margin-top: 15px", ng-cloak)
+                                                    input(type="password", name="pass", placeholder="Contraseña", data-ng-model="form.pass").form-control
+                                            div.col-md-12.col-sm-12(data-ng-show="passErroneo", style="margin-top: 15px", data-ng-cloak)
                                                 div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
-                                                    div.alert.alert-danger(ng-bind-template="{{errores.passErroneo}}")
-                                            div.col-md-12.col-sm-12(ng-show="passVacio", style="margin-top: 15px", ng-cloak)
+                                                    div.alert.alert-danger(data-ng-bind-template="{{errores.passErroneo}}")
+                                            div.col-md-12.col-sm-12(data-ng-show="passVacio", style="margin-top: 15px", data-ng-cloak)
                                                 div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
-                                                    div.alert.alert-danger(ng-bind-template="{{errores.passVacio}}")
-                                            div.col-md-12.col-sm-12(ng-show="usuarioNoActivo", style="margin-top: 15px", ng-cloak)
+                                                    div.alert.alert-danger(data-ng-bind-template="{{errores.passVacio}}")
+                                            div.col-md-12.col-sm-12(data-ng-show="usuarioNoActivo", style="margin-top: 15px", data-ng-cloak)
                                                 div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
-                                                    div.alert.alert-danger(ng-bind-template="{{errores.usuarioNoActivo}}")
+                                                    div.alert.alert-danger(data-ng-bind-template="{{errores.usuarioNoActivo}}")
                                             div.col-md-12.col-sm-12(style="margin-top:15px")
                                                 div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
                                                     div.col-md-4.col-md-offset-8.col-sm-4.col-sm-offset-8.col-xs-6.col-xs-offset-6.text-right(style="padding-left:0px; padding-right: 0px")

@@ -7,9 +7,9 @@ block head
 
 
 block content
-    div#wrap(ng-app="qdb")
-        div.container(ng-controller="LoguedUserController")
-            div(ng-controller="ContactoController")
+    div#wrap(data-ng-app="qdb")
+        div.container(data-ng-controller="LoguedUserController")
+            div(data-ng-controller="ContactoController")
 
                 include partials/navbar
 
@@ -21,21 +21,21 @@ block content
                                     p.recipe-title(style="text-align:center !important; padding-left: 0px")
                                         span.caramelo.qdb-red(style="text-align: center; float:none") Contactar
 
-                                form(novalidate, ng-submit="enviarCorreo()", style="padding: 0 0 0 0").formulario
+                                form(novalidate, data-ng-submit="enviarCorreo()", style="padding: 0 0 0 0").formulario
                                     div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
-                                        input(type="text", name="nombre", placeholder="Nombre", ng-model="form.nombre").form-control
-                                    div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1(ng-show="nombreVacio", style="margin-top: 15px", ng-cloak)
-                                        div.alert.alert-danger(ng-bind-template="{{errores.nombreVacio}}")
+                                        input(type="text", name="nombre", placeholder="Nombre", data-ng-model="form.nombre").form-control
+                                    div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1(data-ng-show="nombreVacio", style="margin-top: 15px", data-ng-cloak)
+                                        div.alert.alert-danger(data-ng-bind-template="{{errores.nombreVacio}}")
                                     div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1(style="margin-top:15px")
-                                        input(type="email", placeholder="Introduce un email de contacto", ng-non-bindable)#email.form-control
-                                    div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1(ng-show="emailVacio", style="margin-top: 15px", ng-cloak)
-                                        div.alert.alert-danger(ng-bind-template="{{errores.emailVacio}}")
-                                    div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1(ng-show="emailInvalido && !emailVacio", style="margin-top: 15px", ng-cloak)
-                                        div.alert.alert-danger(ng-bind-template="{{errores.emailInvalido}}")
+                                        input(type="email", placeholder="Introduce un email de contacto", data-ng-non-bindable)#email.form-control
+                                    div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1(data-ng-show="emailVacio", style="margin-top: 15px", data-ng-cloak)
+                                        div.alert.alert-danger(data-ng-bind-template="{{errores.emailVacio}}")
+                                    div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1(data-ng-show="emailInvalido && !emailVacio", style="margin-top: 15px", data-ng-cloak)
+                                        div.alert.alert-danger(data-ng-bind-template="{{errores.emailInvalido}}")
                                     div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1(style="margin-top:15px")
-                                        textarea(placeholder="Introduce tu mensaje", ng-model="form.mensaje").form-control
-                                    div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1(ng-show="mensajeVacio", style="margin-top: 15px", ng-cloak)
-                                        div.alert.alert-danger(ng-bind-template="{{errores.mensajeVacio}}")
+                                        textarea(placeholder="Introduce tu mensaje", data-ng-model="form.mensaje").form-control
+                                    div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1(data-ng-show="mensajeVacio", style="margin-top: 15px", data-ng-cloak)
+                                        div.alert.alert-danger(data-ng-bind-template="{{errores.mensajeVacio}}")
 
                                     div.col-md-10.col-md-offset-1(style="margin-top: 15px")
                                         div.text-center O si lo prefieres contacta con nosotros directamente en nuestra dirección de correo electrónico:

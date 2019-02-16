@@ -1,56 +1,56 @@
 extends partials/layout
 
 block content
-    div(ng-app="dashboard")
+    div(data-ng-app="dashboard")
         div
             include partials/navbar
         div.container-fluid
             div.row
                 include partials/sidebar
-                div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.col-xs-12.main(ng-controller="ComentarioController")
+                div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.col-xs-12.main(data-ng-controller="ComentarioController")
                     h1.page-header(style="padding-top: 5px; margin-bottom: 10px") Comentario
 
                     form.form-horizontal
                         div.form-group
                             label.col-sm-2.control-label Usuario:
                             div.col-sm-4
-                                input(ng-model="comentario.user").form-control
+                                input(data-ng-model="comentario.user").form-control
                         div.form-group
                             label.col-sm-2.control-label Texto:
                             div.col-sm-4
-                                textarea(ng-model="comentario.texto").form-control
+                                textarea(data-ng-model="comentario.texto").form-control
                         div.form-group
                             label.col-sm-2.control-label Fecha:
                             div.col-sm-4
-                                input(ng-model="comentario.fecha").form-control
+                                input(data-ng-model="comentario.fecha").form-control
                         div.form-group
                             label.col-sm-2.control-label Validado:
                             div.col-sm-4
-                                select.form-control(ng-model="comentario.validado", ng-options="opcion.value as opcion.name for opcion in opcionesValidacion",
-                                ng-init="comentario.validado = comentario.validado || opcionesValidacion[0]")
+                                select.form-control(data-ng-model="comentario.validado", data-ng-options="opcion.value as opcion.name for opcion in opcionesValidacion",
+                                data-ng-init="comentario.validado = comentario.validado || opcionesValidacion[0]")
 
                         div.col-md-4.col-md-offset-8
-                            a.pull-right(href="", ng-click="anadirRespuesta()").pointer Añadir respuesta
+                            a.pull-right(href="", data-ng-click="anadirRespuesta()").pointer Añadir respuesta
                         div.col-md-4.col-md-offset-8
-                            a.pull-right(href="", ng-click="eliminarRespuesta()").pointer Eliminar respuesta
+                            a.pull-right(href="", data-ng-click="eliminarRespuesta()").pointer Eliminar respuesta
 
 
-                        h1.page-header(ng-show="comentario.respuestas.length > 0") Respuestas
+                        h1.page-header(data-ng-show="comentario.respuestas.length > 0") Respuestas
 
-                        div.form-group(ng-repeat="respuesta in comentario.respuestas")
+                        div.form-group(data-ng-repeat="respuesta in comentario.respuestas")
                             label.col-sm-2.control-label Respuesta {{$index+1}}
                             div.col-sm-4
-                                input(ng-model="respuesta.user", placeholder="Autor del comentario").form-control
-                                input(ng-model="respuesta.fecha", placeholder="Fecha").form-control
-                                select.form-control(ng-model="respuesta.validado", ng-options="opcion.value as opcion.name for opcion in opcionesValidacion",
-                                ng-init="respuesta.validado = respuesta.validado || opcionesValidacion[0].value")
-                                textarea(ng-model="respuesta.texto", placeholder="Comentario").form-control
+                                input(data-ng-model="respuesta.user", placeholder="Autor del comentario").form-control
+                                input(data-ng-model="respuesta.fecha", placeholder="Fecha").form-control
+                                select.form-control(data-ng-model="respuesta.validado", data-ng-options="opcion.value as opcion.name for opcion in opcionesValidacion",
+                                data-ng-init="respuesta.validado = respuesta.validado || opcionesValidacion[0].value")
+                                textarea(data-ng-model="respuesta.texto", placeholder="Comentario").form-control
 
                         div.form-group
                             div.col-sm-2.col-sm-offset-2
-                                a.btn.btn-default(href="#", role="button", ng-click="redirigirTrasCancelar()")#cancel Cancelar
+                                a.btn.btn-default(href="#", role="button", data-ng-click="redirigirTrasCancelar()")#cancel Cancelar
                             div.col-sm-2(style="text-align:right")
-                                a.btn.btn-default.btn-primary(href="#", role="button", ng-click="guardar()")#confirmarEliminacion Aceptar
+                                a.btn.btn-default.btn-primary(href="#", role="button", data-ng-click="guardar()")#confirmarEliminacion Aceptar
 
 
 

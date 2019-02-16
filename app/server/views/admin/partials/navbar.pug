@@ -1,4 +1,4 @@
-header(ng-controller="NavbarController")
+header(data-ng-controller="NavbarController")
     div.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
         div.container-fluid
             div.navbar-header
@@ -7,9 +7,9 @@ header(ng-controller="NavbarController")
                     span.icon-bar
                     span.icon-bar
                     span.icon-bar
-                a.abel(href="/", ng-bind-template="Panel de administración").navbar-brand.white
-                a.abel(href="#", ng-show="seccion != ''", ng-cloak, ng-bind-template=">", style="margin-left:0px").navbar-brand.white.navbar-brand-nothing-hover
-                a.abel(href="/admin/{{loteria}}", ng-show="seccion != ''", ng-cloak, ng-bind-template="{{seccion}}", style="margin-left:0px").navbar-brand.white
+                a.abel(href="/", data-ng-bind-template="Panel de administración").navbar-brand.white
+                a.abel(href="#", data-ng-show="seccion != ''", data-ng-cloak, data-ng-bind-template=">", style="margin-left:0px").navbar-brand.white.navbar-brand-nothing-hover
+                a.abel(href="/admin/{{loteria}}", data-ng-show="seccion != ''", data-ng-cloak, data-ng-bind-template="{{seccion}}", style="margin-left:0px").navbar-brand.white
 
 
             div.navbar-collapse.collapse(style="height: 1px;")
@@ -21,6 +21,6 @@ header(ng-controller="NavbarController")
                     //li
                         a(href="http://getbootstrap.com/examples/dashboard/#").white Profile
                     li
-                        a.abel.btn.btn-default.btn-lagloria-admin(href="#", ng-click="cerrarSesion()")#entrar Cerrar sesión
+                        a.abel.btn.btn-default.btn-lagloria-admin(href="#", data-ng-click="cerrarSesion()")#entrar Cerrar sesión
 
     include ../../modals/logout

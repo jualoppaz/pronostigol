@@ -2,14 +2,14 @@ extends ../layout
 
 block head
     title Quiniela | Histórico de sorteos de la Quiniela
-    meta(name="description", content="Quiniela. Histórico de sorteos de la Quiniela")  
+    meta(name="description", content="Quiniela. Histórico de sorteos de la Quiniela")
     link(rel="stylesheet", href="/css/quiniela.css")
     link(rel="stylesheet", href="/css/backgroundImage.css")
 
 block content
-    div#wrap(ng-app="qdb")
-        div.container(ng-controller="LoguedUserController", style="margin-left: 0px; padding: 0 0 0 0;")
-            div(ng-controller="QuinielasController")
+    div#wrap(data-ng-app="qdb")
+        div.container(data-ng-controller="LoguedUserController", style="margin-left: 0px; padding: 0 0 0 0;")
+            div(data-ng-controller="QuinielasController")
 
                 include partials/navbar
 
@@ -32,19 +32,19 @@ block content
                             div.col-md-3
                                 div.alert.alert-quiniela
                                     div.text-center
-                                        i(aria-hidden="true", ng-hide="seasons").fa.fa-refresh.fa-spin
+                                        i(aria-hidden="true", data-ng-hide="seasons").fa.fa-refresh.fa-spin
                                     ui-select(data-ng-model="selected.season", on-select="mostrarTickets(selected.season.value)"
-                                    , search-enabled="false", ng-show="seasons", ng-cloak)
+                                    , search-enabled="false", data-ng-show="seasons", data-ng-cloak)
                                         ui-select-match(placeholder="Selecciona una temporada")
                                             | {{$select.selected.value}}
                                         ui-select-choices(repeat="season in seasons | orderBy:'-value'")
                                             div {{season.value}}
 
-                            div.col-md-7.col-md-offset-1(ng-show="tickets.length > 0", ng-cloak, style="background-color: white; margin-bottom: 20px; border: 2px solid #0480be !important; border-radius: 4px")
+                            div.col-md-7.col-md-offset-1(data-ng-show="tickets.length > 0", data-ng-cloak, style="background-color: white; margin-bottom: 20px; border: 2px solid #0480be !important; border-radius: 4px")
                                 div.col-md-12(style="padding-top: 20px")
                                     label.col-md-4.col-sm-4.col-xs-6(style="clear:both; padding-top:5px") Quinielas por página:
                                     div.col-md-2.col-sm-2.col-xs-6
-                                        input(type="number", min="1", ng-model="ticketsPerPage").form-control
+                                        input(type="number", min="1", data-ng-model="ticketsPerPage").form-control
 
                                 table.table.tabla-quinielas
                                     thead
@@ -53,23 +53,23 @@ block content
                                             th Modalidad
                                             th Fecha
                                     tbody
-                                        tr(ng-repeat="ticket in tickets")
-                                            td(ng-click="verTicket(ticket)", ng-bind-template="{{ticket.jornada}}").pointer
-                                            td(ng-click="verTicket(ticket)", ng-bind-template="{{ticket.modalidad}}").pointer
-                                            td(ng-click="verTicket(ticket)", ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}").pointer
+                                        tr(data-ng-repeat="ticket in tickets")
+                                            td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.jornada}}").pointer
+                                            td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.modalidad}}").pointer
+                                            td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}").pointer
 
                                 uib-pagination(
-                                    items-per-page="ticketsPerPage", 
-                                    boundary-links="true", 
-                                    boundary-link-numbers="true", 
-                                    max-size="maxSize", 
-                                    force-ellipses="true", 
-                                    total-items="totalItems", 
-                                    ng-model="currentPage",
-                                    ng-change="consultarTickets()", 
-                                    previous-text="<", 
-                                    next-text=">", 
-                                    first-text="Inicio", 
+                                    items-per-page="ticketsPerPage",
+                                    boundary-links="true",
+                                    boundary-link-numbers="true",
+                                    max-size="maxSize",
+                                    force-ellipses="true",
+                                    total-items="totalItems",
+                                    data-ng-model="currentPage",
+                                    data-ng-change="consultarTickets()",
+                                    previous-text="<",
+                                    next-text=">",
+                                    first-text="Inicio",
                                     last-text="Fin").pagination-sm.abel
 
     include ../partials/footer

@@ -1,4 +1,4 @@
-header(ng-controller="NavbarController")
+header(data-ng-controller="NavbarController")
     nav.navbar.navbar-fixed-top.navbar-default.navbar-qdb.navbar-euromillones.fondoMorado(role="navigation")
         div.navbar-inner
             div.container-fluid
@@ -11,13 +11,13 @@ header(ng-controller="NavbarController")
                     a(href="/").navbar-brand.white.middle.euromillones Inicio
                     ul.nav.navbar-nav.navbar-right.hidden-lg.hidden-md.hidden-sm
                         li(style="float: right; padding-right: 15px")
-                            a.euromillones(href="https://github.com/jualoppaz/pronostigol", target="_blank", ng-cloak)
+                            a.euromillones(href="https://github.com/jualoppaz/pronostigol", target="_blank", data-ng-cloak)
                                 i.fa.fa-github
                         li(style="float: right")
-                            a.euromillones(href="https://twitter.com/pronostigolesp", target="_blank", ng-cloak)
+                            a.euromillones(href="https://twitter.com/pronostigolesp", target="_blank", data-ng-cloak)
                                 i.fa.fa-twitter
                         li(style="float: right")
-                            a.euromillones(href="https://www.facebook.com/pronostigol.es", target="_blank", ng-cloak)
+                            a.euromillones(href="https://www.facebook.com/pronostigol.es", target="_blank", data-ng-cloak)
                                 i.fa.fa-facebook
                 div.collapse.navbar-collapse.fondoMorado(role="navigation")
                     ul.nav.navbar-nav
@@ -29,26 +29,26 @@ header(ng-controller="NavbarController")
                             a.euromillones(href="/euromillones/consultas") Consultas
                         li
                             a.euromillones(href="/contacto", target="_blank") Contacto
-                        li.hidden-lg.hidden-md.hidden-sm(ng-show="usuarioEstaLogueado == false")
+                        li.hidden-lg.hidden-md.hidden-sm(data-ng-show="usuarioEstaLogueado == false")
                             a.euromillones(href="/login") Entrar
-                        li.hidden-lg.hidden-md.hidden-sm(ng-show="usuarioEstaLogueado")
-                            a.euromillones(href="#", ng-click="cerrarSesion()") Cerrar sesión
-                        li.hidden-lg.hidden-md.hidden-sm(ng-show="usuarioEstaLogueado == false")
+                        li.hidden-lg.hidden-md.hidden-sm(data-ng-show="usuarioEstaLogueado")
+                            a.euromillones(href="#", data-ng-click="cerrarSesion()") Cerrar sesión
+                        li.hidden-lg.hidden-md.hidden-sm(data-ng-show="usuarioEstaLogueado == false")
                             a.euromillones(href="/signup") Registrarse
 
                     ul.nav.navbar-nav.navbar-right.hidden-xs
                         li
-                            a.euromillones(href="https://www.facebook.com/pronostigol.es", target="_blank", ng-cloak)
+                            a.euromillones(href="https://www.facebook.com/pronostigol.es", target="_blank", data-ng-cloak)
                                 i.fa.fa-facebook
                         li
-                            a.euromillones(href="https://twitter.com/pronostigolesp", target="_blank", ng-cloak)
+                            a.euromillones(href="https://twitter.com/pronostigolesp", target="_blank", data-ng-cloak)
                                 i.fa.fa-twitter
                         li
-                            a.euromillones(href="https://github.com/jualoppaz/pronostigol", target="_blank", ng-cloak)
+                            a.euromillones(href="https://github.com/jualoppaz/pronostigol", target="_blank", data-ng-cloak)
                                 i.fa.fa-github
-                        li(ng-show="usuarioEstaLogueado", style="margin-left:15px", ng-cloak)
-                            a.btn.btn-euromillones(href="#", role="button", ng-click="cerrarSesion()")#entrar Cerrar sesión
-                        li(ng-show="!usuarioEstaLogueado", style="margin-left:15px", ng-cloak)
+                        li(data-ng-show="usuarioEstaLogueado", style="margin-left:15px", data-ng-cloak)
+                            a.btn.btn-euromillones(href="#", role="button", data-ng-click="cerrarSesion()")#entrar Cerrar sesión
+                        li(data-ng-show="!usuarioEstaLogueado", style="margin-left:15px", data-ng-cloak)
                             a.btn.btn-euromillones(href="/login", role="button")#entrar Entrar
 
     include ../../modals/login

@@ -6,15 +6,15 @@ block head
     link(rel="stylesheet", href="/css/pronostigol.css")
 
 block content
-    div#container.fondoCaramelos(ng-app="qdb")
+    div#container.fondoCaramelos(data-ng-app="qdb")
 
-        div(ng-controller="LoguedUserController")
+        div(data-ng-controller="LoguedUserController")
 
             include partials/navbar
 
             main
                 div.container
-                    div.row(ng-controller="SignupController")
+                    div.row(data-ng-controller="SignupController")
                         div.col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2.col-xs-12(style="clear:both; margin-top: 150px")
                             div.panel.panel-body.main-card.border-qdb(style="height: auto")
                                 div(style="word-wrap: break-word;")
@@ -23,28 +23,28 @@ block content
                                             span.title-qdb-blue.abel Registrarse
                                     div.col-md-12.col-sm-12
                                         div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
-                                            input(type="text", ng-model="form.user", placeholder="Introduzca su usuario").form-control
-                                    div.col-md-12(ng-show="usuarioInvalido == true", style="margin-top: 15px", ng-cloak)
+                                            input(type="text", data-ng-model="form.user", placeholder="Introduzca su usuario").form-control
+                                    div.col-md-12(data-ng-show="usuarioInvalido == true", style="margin-top: 15px", data-ng-cloak)
                                         div.col-md-10.col-md-offset-1
-                                            div.alert.alert-danger(ng-bind-template="{{errores.usuarioInvalido}}")
-                                    div.col-md-12(ng-show="usuarioVacio == true", style="margin-top: 15px", ng-cloak)
+                                            div.alert.alert-danger(data-ng-bind-template="{{errores.usuarioInvalido}}")
+                                    div.col-md-12(data-ng-show="usuarioVacio == true", style="margin-top: 15px", data-ng-cloak)
                                         div.col-md-10.col-md-offset-1
-                                            div.alert.alert-danger(ng-bind-template="{{errores.usuarioVacio}}")
-                                    div.col-md-12(ng-show="usuarioEnUso == true", style="margin-top: 15px;", ng-cloak)
+                                            div.alert.alert-danger(data-ng-bind-template="{{errores.usuarioVacio}}")
+                                    div.col-md-12(data-ng-show="usuarioEnUso == true", style="margin-top: 15px;", data-ng-cloak)
                                         div.col-md-10.col-md-offset-1
-                                            div.alert.alert-danger(ng-bind-template="{{usuarioOcupado}}")
+                                            div.alert.alert-danger(data-ng-bind-template="{{usuarioOcupado}}")
                                     div.col-md-12.col-sm-12(style="margin-top:15px")
                                         div.col-md-10.col-md-offset-1.col-sm-10.col-sm-offset-1
-                                            input(type="password", ng-model="form.pass", placeholder="Introduzca su contraseña").form-control
-                                    div.col-md-12(ng-show="passVacio == true", style="margin-top: 15px", ng-cloak)
+                                            input(type="password", data-ng-model="form.pass", placeholder="Introduzca su contraseña").form-control
+                                    div.col-md-12(data-ng-show="passVacio == true", style="margin-top: 15px", data-ng-cloak)
                                         div.col-md-10.col-md-offset-1
-                                            div.alert.alert-danger(ng-bind-template="{{errores.passVacio}}")
-                                    div.col-md-12(ng-show="registroConExito == true", style="margin-top: 15px;", ng-cloak)
+                                            div.alert.alert-danger(data-ng-bind-template="{{errores.passVacio}}")
+                                    div.col-md-12(data-ng-show="registroConExito == true", style="margin-top: 15px;", data-ng-cloak)
                                         div.col-md-10.col-md-offset-1
-                                            div.alert.alert-success(ng-bind-template="{{registroOk}}")
+                                            div.alert.alert-success(data-ng-bind-template="{{registroOk}}")
 
                                     div.col-md-6.col-md-offset-3(style="text-align:center; margin-top:15px")
-                                        a.abel.btn.btn-default.btn-qdb(href="#", role="button", ng-click="registrarse()")#buscar Enviar
+                                        a.abel.btn.btn-default.btn-qdb(href="#", role="button", data-ng-click="registrarse()")#buscar Enviar
 
 
 

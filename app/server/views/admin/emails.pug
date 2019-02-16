@@ -4,7 +4,7 @@ block head
     title Emails
 
 block content
-    div(ng-app="dashboard")
+    div(data-ng-app="dashboard")
         div
             include partials/navbar
         div.container-fluid
@@ -12,7 +12,7 @@ block content
                 include partials/sidebar
                 div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.col-xs-12.main
                     h1.page-header(style="padding-top: 0px") Correos electrónicos
-                    div.col-md-12.col-sm-12(ng-controller="EmailsController")
+                    div.col-md-12.col-sm-12(data-ng-controller="EmailsController")
                         table.table
                             thead
                                 tr
@@ -20,21 +20,21 @@ block content
                                     th Remitente
                                     th Fecha
                                     th Mensaje
-                            tbody(ng-repeat="email in emails")
-                                tr(ng-show="email.leido == false", ng-cloak).verEmail
+                            tbody(data-ng-repeat="email in emails")
+                                tr(data-ng-show="email.leido == false", data-ng-cloak).verEmail
                                     td(style="font-weight: bold")
-                                        span(ng-click="eliminarEmail(email._id)")
+                                        span(data-ng-click="eliminarEmail(email._id)")
                                             i.fa.fa-trash-o
-                                    td(style="font-weight: bold", ng-click="verEmail(email._id)", ng-bind-template="{{email.nombre}} ({{email.direccion}})")
-                                    td(style="font-weight: bold", ng-click="verEmail(email._id)", ng-bind-template="{{email.fecha | date:'dd/MM/yyyy'}}")
-                                    td(style="font-weight: bold; text-overflow: hidden !important", ng-click="verEmail(email._id)", ng-bind-template="{{email.mensaje}}").mensajeEmail
-                                tr(ng-show="email.leido == true", ng-cloak).verEmail
+                                    td(style="font-weight: bold", data-ng-click="verEmail(email._id)", data-ng-bind-template="{{email.nombre}} ({{email.direccion}})")
+                                    td(style="font-weight: bold", data-ng-click="verEmail(email._id)", data-ng-bind-template="{{email.fecha | date:'dd/MM/yyyy'}}")
+                                    td(style="font-weight: bold; text-overflow: hidden !important", data-ng-click="verEmail(email._id)", data-ng-bind-template="{{email.mensaje}}").mensajeEmail
+                                tr(data-ng-show="email.leido == true", data-ng-cloak).verEmail
                                     td
-                                        span(ng-click="eliminarEmail(email._id)")
+                                        span(data-ng-click="eliminarEmail(email._id)")
                                             i.fa.fa-trash-o
-                                    td(ng-click="verEmail(email._id)", ng-bind-template="{{email.nombre}} ({{email.direccion}})")
-                                    td(ng-click="verEmail(email._id)", ng-bind-template="{{email.fecha | date:'dd/MM/yyyy'}}")
-                                    td.mensajeEmail(ng-click="verEmail(email._id)", ng-bind-template="{{email.mensaje}}")
+                                    td(data-ng-click="verEmail(email._id)", data-ng-bind-template="{{email.nombre}} ({{email.direccion}})")
+                                    td(data-ng-click="verEmail(email._id)", data-ng-bind-template="{{email.fecha | date:'dd/MM/yyyy'}}")
+                                    td.mensajeEmail(data-ng-click="verEmail(email._id)", data-ng-bind-template="{{email.mensaje}}")
 
                         include ../modals/eliminarRegistro
 

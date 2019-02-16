@@ -18,10 +18,10 @@ block head
     link(rel="stylesheet", href="/css/pronostigol.css")
 
 block content
-    div#wrap(ng-app="qdb")
+    div#wrap(data-ng-app="qdb")
 
-        div.container(ng-controller="LoguedUserController")
-            div(ng-controller="IndexController")
+        div.container(data-ng-controller="LoguedUserController")
+            div(data-ng-controller="IndexController")
 
                 include partials/navbar
 
@@ -34,19 +34,19 @@ block content
 
                         div.col-md-12.text-center
                             div.col-md-2.col-md-offset-1.col-sm-6.col-xs-12
-                                a#link-quiniela(ng-href="/quiniela")
+                                a#link-quiniela(data-ng-href="/quiniela")
                                     span.logo.logo-quiniela(title="Quiniela") Q
                             div.col-md-2.col-sm-6.col-xs-12
-                                a#link-bonoloto(ng-href="/bonoloto")
+                                a#link-bonoloto(data-ng-href="/bonoloto")
                                     span.logo.logo-bonoloto(title="Bonoloto") B
                             div.col-md-2.col-sm-6.col-xs-12
-                                a#link-primitiva(ng-href="/primitiva")
+                                a#link-primitiva(data-ng-href="/primitiva")
                                     span.logo.logo-primitiva(title="Primitiva") P
                             div.col-md-2.col-sm-6.col-xs-12
-                                a#link-gordo(ng-href="/gordo")
+                                a#link-gordo(data-ng-href="/gordo")
                                     span.logo.logo-gordo(title="El Gordo de la Primitiva") G
                             div.col-md-2.col-md-offset-0.col-sm-6.col-sm-offset-3.col-xs-12(style="")
-                                a#link-euromillones(ng-href="/euromillones")
+                                a#link-euromillones(data-ng-href="/euromillones")
                                     span.logo.logo-euromillones(title="Euromillones") E
 
                         div.col-md-10.col-md-offset-1.col-sm-12.col-xs-12(style="margin-top: 20px; padding-left: 0px; padding-right: 0px")
@@ -63,96 +63,96 @@ block content
                                             Podr&aacute;s consultar todo tipo de estad&iacute;sticas que te facilitar&aacute;n la tarea de hacer
                                             tus apuestas y con mayores garant&iacute;as de &eacute;xito.
 
-                            div.col-md-12.col-sm-12.col-xs-12.panel.panel-body.main-card.border-qdb(ng-show="comments != null", ng-cloak)#bienvenido
+                            div.col-md-12.col-sm-12.col-xs-12.panel.panel-body.main-card.border-qdb(data-ng-show="comments != null", data-ng-cloak)#bienvenido
 
-                                div.col-md-12.col-sm-12.col-xs-12.text-center(ng-show="comments.length > 0", ng-cloak)
+                                div.col-md-12.col-sm-12.col-xs-12.text-center(data-ng-show="comments.length > 0", data-ng-cloak)
                                     h1.green.abel(style="font-size: 42px; font-weight: normal") Comentarios
 
                                 div.col-md-12.col-sm-12.col-xs-12
                                     ul.media-list
-                                        li.media(ng-repeat="comment in comments")
+                                        li.media(data-ng-repeat="comment in comments")
                                             div.media-left
                                                 //span.badge.badge-verde P
                                                 i.fa.fa-3x.fa-comment.letra-verde
                                             div.media-body
-                                                h4.media-heading(ng-bind-template="{{comment.user}} - {{comment.fecha | date:'dd/MM/yyyy HH:mm'}} h")
+                                                h4.media-heading(data-ng-bind-template="{{comment.user}} - {{comment.fecha | date:'dd/MM/yyyy HH:mm'}} h")
                                                 p.sin-padding-izquierdo {{comment.texto}}
-                                                div.media(ng-repeat="respuesta in comment.respuestas", ng-show="respuesta.validado")
+                                                div.media(data-ng-repeat="respuesta in comment.respuestas", data-ng-show="respuesta.validado")
                                                     div.media-left
-                                                        i.fa.fa-3x.fa-comment.letra-azul(ng-show="respuesta.user == 'admin'")
-                                                        i.fa.fa-3x.fa-comment.letra-verde(ng-show="respuesta.user != 'admin'")
+                                                        i.fa.fa-3x.fa-comment.letra-azul(data-ng-show="respuesta.user == 'admin'")
+                                                        i.fa.fa-3x.fa-comment.letra-verde(data-ng-show="respuesta.user != 'admin'")
                                                     div.media-body
-                                                        h4.media-heading(ng-bind-template="{{respuesta.user}} - {{respuesta.fecha | date:'dd/MM/yyyy HH:mm'}} h")
+                                                        h4.media-heading(data-ng-bind-template="{{respuesta.user}} - {{respuesta.fecha | date:'dd/MM/yyyy HH:mm'}} h")
                                                         p.sin-padding-izquierdo {{respuesta.texto}}
 
-                                                form(style="margin-top: 25px", ng-show="usuarioEstaLogueado", ng-cloak)
-                                                    textarea(placeholder="Escribe una respuesta", ng-model="nuevaRespuesta.texto").form-control.nuevo-comentario#comentario
+                                                form(style="margin-top: 25px", data-ng-show="usuarioEstaLogueado", data-ng-cloak)
+                                                    textarea(placeholder="Escribe una respuesta", data-ng-model="nuevaRespuesta.texto").form-control.nuevo-comentario#comentario
                                                     div.text-center(style="margin-top:25px; margin-left: -5%")
-                                                        a.btn.btn-default.btn-qdb(ng-click="responderComentario(comment)").btn.btn-danger.btn-large#entrar Responder
+                                                        a.btn.btn-default.btn-qdb(data-ng-click="responderComentario(comment)").btn.btn-danger.btn-large#entrar Responder
 
 
                                 div.col-md-12.col-sm-12.col-xs-12.text-center
-                                    uib-pagination(ng-show="comments.length > commentsPerPage", ng-cloak, items-per-page="commentsPerPage", boundary-links="true", total-items="totalItems", ng-model="currentPage", previous-text="<", next-text=">", first-text="Inicio", last-text="Fin").pagination-sm.abel
+                                    uib-pagination(data-ng-show="comments.length > commentsPerPage", data-ng-cloak, items-per-page="commentsPerPage", boundary-links="true", total-items="totalItems", data-ng-model="currentPage", previous-text="<", next-text=">", first-text="Inicio", last-text="Fin").pagination-sm.abel
 
                                 div.col-md-12.col-sm-12.col-xs-12.main-card#bienvenido
 
-                                    div.main-card-content(ng-show="comments != null && comments.length == 0", ng-cloak, style="margin-bottom: 10px")
+                                    div.main-card-content(data-ng-show="comments != null && comments.length == 0", data-ng-cloak, style="margin-bottom: 10px")
                                         div.main-card-name(style="padding-left: 0px;")
                                             a.recipe-title
                                                 span.caramelo.qdb-red No hay comentarios. Sé el primero en comentar.
 
-                                    h3.text-center(style="margin-top: 0px; padding-top: 5px", ng-show="usuarioEsAnonimo && comments.length == 0", ng-cloak)
-                                        a.green(href="/login", ng-bind-template="¡Haz login primero!")#logueate
+                                    h3.text-center(style="margin-top: 0px; padding-top: 5px", data-ng-show="usuarioEsAnonimo && comments.length == 0", data-ng-cloak)
+                                        a.green(href="/login", data-ng-bind-template="¡Haz login primero!")#logueate
 
-                                    h3.text-center(style="margin-top: 0px; padding-top: 5px", ng-show="usuarioEsAnonimo && comments.length > 0", ng-cloak)
-                                        a.green(href="/login", ng-bind-template="¡Debes hacer login para comentar!")#logueate
+                                    h3.text-center(style="margin-top: 0px; padding-top: 5px", data-ng-show="usuarioEsAnonimo && comments.length > 0", data-ng-cloak)
+                                        a.green(href="/login", data-ng-bind-template="¡Debes hacer login para comentar!")#logueate
 
-                                    div.col-md-12.col-sm-12.col-xs-12.alert.alert-danger.alert-dismissible(role="alert", ng-show="comentarioPalabrasLargas", ng-cloak)
+                                    div.col-md-12.col-sm-12.col-xs-12.alert.alert-danger.alert-dismissible(role="alert", data-ng-show="comentarioPalabrasLargas", data-ng-cloak)
                                         button.close(type="button", data-dismiss="alert", aria-label="Close")
                                             span(aria-hidden="true") &times;
                                         div El comentario contiene palabras no registradas en el diccionario.
-                                    div.col-md-12.col-sm-12.col-xs-12.alert.alert-danger.alert-dismissible(role="alert", ng-show="comentarioVacio", ng-cloak)
+                                    div.col-md-12.col-sm-12.col-xs-12.alert.alert-danger.alert-dismissible(role="alert", data-ng-show="comentarioVacio", data-ng-cloak)
                                         button.close(type="button", data-dismiss="alert", aria-label="Close")
                                             span(aria-hidden="true") &times;
                                         div El comentario no puede estar vacío.
-                                    div.col-md-12.col-sm-12.col-xs-12.alert.alert-info.alert-dismissible(role="alert", ng-show="comentarioEliminadoCorrectamente", ng-cloak)
+                                    div.col-md-12.col-sm-12.col-xs-12.alert.alert-info.alert-dismissible(role="alert", data-ng-show="comentarioEliminadoCorrectamente", data-ng-cloak)
                                         button.close(type="button", data-dismiss="alert", aria-label="Close")
                                             span(aria-hidden="true") &times;
                                         div El comentario ha sido eliminado con &eacute;xito.
-                                    div.col-md-12.col-sm-12.col-xs-12.alert.alert-info.alert-dismissible(role="alert", ng-show="comentarioEnviadoCorrectamente", ng-cloak)
+                                    div.col-md-12.col-sm-12.col-xs-12.alert.alert-info.alert-dismissible(role="alert", data-ng-show="comentarioEnviadoCorrectamente", data-ng-cloak)
                                         button.close(type="button", data-dismiss="alert", aria-label="Close")
                                             span(aria-hidden="true") &times;
                                         div El comentario ha sido enviado. Se mostrar&aacute; cuando sea validado por el administrador.
-                                    form(style="margin-top:25px", ng-show="usuarioEstaLogueado", ng-cloak)
-                                        textarea(placeholder="Escribe un comentario", ng-model="comentario.texto").form-control.nuevo-comentario#comentario
+                                    form(style="margin-top:25px", data-ng-show="usuarioEstaLogueado", data-ng-cloak)
+                                        textarea(placeholder="Escribe un comentario", data-ng-model="comentario.texto").form-control.nuevo-comentario#comentario
                                         div.text-center(style="margin-top:25px")
-                                            a.btn.btn-default.btn-qdb(ng-click="comentar()").btn.btn-danger.btn-large#entrar Enviar
+                                            a.btn.btn-default.btn-qdb(data-ng-click="comentar()").btn.btn-danger.btn-large#entrar Enviar
 
-                            div.col-md-12.col-sm-12.col-xs-12.panel.panel-body.main-card.border-qdb(ng-show="tweets.length > 0", ng-cloak)#bienvenido
+                            div.col-md-12.col-sm-12.col-xs-12.panel.panel-body.main-card.border-qdb(data-ng-show="tweets.length > 0", data-ng-cloak)#bienvenido
 
-                                div.col-md-12.col-sm-12.col-xs-12.text-center(ng-show="tweets.length > 0", ng-cloak)
+                                div.col-md-12.col-sm-12.col-xs-12.text-center(data-ng-show="tweets.length > 0", data-ng-cloak)
                                     h1.green.abel(style="font-size: 42px; font-weight: normal") Noticias
 
-                                div.col-md-6.col-sm-6.col-xs-12(ng-repeat="tweet in tweets", ng-cloak)
+                                div.col-md-6.col-sm-6.col-xs-12(data-ng-repeat="tweet in tweets", data-ng-cloak)
                                     div.panel.panel-primary.qdb-tweet
                                         div.panel-heading(style="overflow: auto")
                                             div.panel-title.pull-left
-                                                span(ng-bind-template="{{tweet.name}}")
+                                                span(data-ng-bind-template="{{tweet.name}}")
                                             div.panel-title(style="clear:both").text-center
                                                 div(style="float:left")
-                                                    span.badge(ng-bind-template="{{$index+1}}")
-                                                div(style="float:right", ng-bind-template="{{tweet.created_at | date:'dd/MM/yyyy HH:mm'}} h")
+                                                    span.badge(data-ng-bind-template="{{$index+1}}")
+                                                div(style="float:right", data-ng-bind-template="{{tweet.created_at | date:'dd/MM/yyyy HH:mm'}} h")
 
 
-                                        div.panel-body(ng-bind-html="tweet.text")
+                                        div.panel-body(data-ng-bind-html="tweet.text")
 
                             div.col-md-6.col-md-offset-3.col-sm-12.col-xs-12.panel.panel-body.border-qdb(style="margin-top:60px;")
-                                div.col-md-12.col-sm-12.col-xs-12(ng-show="fecha == 'empty'", style="display:block; padding-left: 0px")
+                                div.col-md-12.col-sm-12.col-xs-12(data-ng-show="fecha == 'empty'", style="display:block; padding-left: 0px")
                                     div(style="float:left") Última actualización:
                                     i(style="float:left; margin-left: 15px; margin-top: 3px").fa.fa-refresh.fa-spin
-                                div.col-md-12.col-sm-12.col-xs-12(ng-show="fecha != 'empty'", style="padding-left: 0px", ng-bind-template="Última actualización: {{fecha | date:('dd/MM/yyyy')}}")
+                                div.col-md-12.col-sm-12.col-xs-12(data-ng-show="fecha != 'empty'", style="padding-left: 0px", data-ng-bind-template="Última actualización: {{fecha | date:('dd/MM/yyyy')}}")
 
-                                div.col-md-12.col-sm-12.col-xs-12(ng-show="visitorInfo == 'empty'", style="display:block; padding-left: 0px")
+                                div.col-md-12.col-sm-12.col-xs-12(data-ng-show="visitorInfo == 'empty'", style="display:block; padding-left: 0px")
                                     div(style="float:left") Visitantes hoy:
                                     i(style="float:left; margin-left: 15px; margin-top: 3px").fa.fa-refresh.fa-spin
                                     br
@@ -162,10 +162,10 @@ block content
                                     div(style="float:left") Visitas totales:
                                     i(style="float:left; margin-left: 15px; margin-top: 3px").fa.fa-refresh.fa-spin
 
-                                div.col-md-12.col-sm-12.col-xs-12(ng-show="visitorInfo != 'empty'", style="padding-left: 0px")
-                                    div(ng-bind-template="Visitantes hoy: {{visitorInfo.visitantesHoy}}")
-                                    div(ng-bind-template="Visitantes únicos: {{visitorInfo.visitantesUnicos}}")
-                                    div(ng-bind-template="Visitas totales: {{visitorInfo.visitasTotales}}")
+                                div.col-md-12.col-sm-12.col-xs-12(data-ng-show="visitorInfo != 'empty'", style="padding-left: 0px")
+                                    div(data-ng-bind-template="Visitantes hoy: {{visitorInfo.visitantesHoy}}")
+                                    div(data-ng-bind-template="Visitantes únicos: {{visitorInfo.visitantesUnicos}}")
+                                    div(data-ng-bind-template="Visitas totales: {{visitorInfo.visitasTotales}}")
 
                 include partials/cookiesNotification
 

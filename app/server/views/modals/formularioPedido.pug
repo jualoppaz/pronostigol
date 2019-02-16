@@ -11,14 +11,14 @@ div.modal.fade#modal-realizarPedido(data-backdrop="static", data-keyboard="false
                     div.form-group
                         label(for="direccion").col-sm-2.control-label Dirección
                         div.col-sm-10
-                            input(type="text", placeholder="", ng-model="direccion").form-control#direccion
+                            input(type="text", placeholder="", data-ng-model="direccion").form-control#direccion
 
                     div.form-group
                         label(for="telefono").col-sm-2.control-label Teléfono
                         div.col-sm-10
-                            input(type="text", placeholder="", ng-model="telefono").form-control#telefono
+                            input(type="text", placeholder="", data-ng-model="telefono").form-control#telefono
 
 
             div.modal-footer
                 div(style="text-align:center").alert.alert-danger Si confirma el pedido se le cobrará el importe del mismo en el momento de la entrega.
-                button(type="button", data-dismiss="modal", ng-click="confirmacionDePedido()").btn.btn-eathub#comprar Confirmar
+                button(type="button", data-dismiss="modal", data-ng-click="confirmacionDePedido()").btn.btn-eathub#comprar Confirmar
