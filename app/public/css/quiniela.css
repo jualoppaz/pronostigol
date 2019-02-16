@@ -101,7 +101,7 @@ li>a:hover,
     background-color: #eeeeee !important;
 }
 
-#entrar:hover,
+.btn-login:hover,
 #buscar:hover {
     color: #0480be !important;
     background-color: #ffffff !important;
@@ -116,8 +116,8 @@ li>a:hover,
     border-color: #cc3e27 !important;
 }
 
-#entrar,
-#entrar:focus {
+.btn-login,
+.btn-login:focus {
     margin-top: 5px;
     margin-right: 10px;
     padding-top: 8px;
@@ -548,16 +548,6 @@ code {
 
 h1.page-header {
     margin-bottom: 5px;
-}
-
-#logueate:hover {
-    color: #398439;
-    text-decoration: none;
-}
-
-#logueate {
-    font-family: "Abel", sans-serif;
-    font-size: 26px !important;
 }
 
 .main-card-name span {
