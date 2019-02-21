@@ -373,6 +373,17 @@ module.exports = function(app) {
         });
     };
 
+    /**
+     * @api {get} /gordo/years Obtención de todos los años de El Gordo de la Primitiva
+     * @apiName GetGordoYears
+     * @apiGroup GordoYears
+     *
+     * @apiDescription Recurso para la consulta de años de El Gordo de la Primitiva registrados en el sistema.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/gordo/years
+     */
     var gordo_api_years = function(req, res) {
         GOR_DBM.getAllYears(function(err, result) {
             if (err) {
