@@ -81,7 +81,7 @@ block content
                                         td
                                             input.form-control(data-ng-model="partido.resultado" quiniela-sign).text-center
                                         td(data-ng-show="partido.fila == 15")
-                                            input.form-control(data-ng-model="partido.resultadoConGoles" quiniela-sign goals-required="true" limit-goals="true").text-center
+                                            input.form-control(data-ng-model="partido.resultadoConGoles" quiniela-sign goals-required="true" limited-goals="true").text-center
                                         td.align-middle(data-ng-show="partido.fila < 15")
                                             | N/A
                                         td(style="min-width: 60px", data-ng-repeat="pronostico in partido.pronosticos", data-ng-show="partido.fila < 15")
