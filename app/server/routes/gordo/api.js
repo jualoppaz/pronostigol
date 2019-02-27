@@ -394,6 +394,19 @@ module.exports = function(app) {
         });
     };
 
+    /**
+     * @api {get} /gordo/years/:id Obtención de un año de El Gordo de la Primitiva según su id
+     * @apiName GetGordoYear
+     * @apiGroup GordoYears
+     *
+     * @apiDescription Recurso para la consulta de un año de El Gordo de la Primitiva registrado en el sistema.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/gordo/years/:id
+     *
+     * @apiParam {String} id Identificador del año de El Gordo de la Primitiva
+     */
     var gordo_api_year = function(req, res) {
         var id = req.params.id;
 
