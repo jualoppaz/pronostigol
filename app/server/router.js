@@ -1,7 +1,9 @@
 var DBM = require('./modules/init-data-base-manager');
 
-DBM.setup(function(err, res){
-    if(err){
+const { HTTP } = require("./constants");
+
+DBM.setup(function(err, res) {
+    if (err) {
         console.log("Error al abrir la conexión con la BBDD.");
         return;
     }
@@ -57,8 +59,8 @@ module.exports = function(app){
         return res.status(400).send('API Method Not Found');
     });
 
-    app.get('*', function(req, res) {
-        res.status(404).render('404');
+    app.get("*", function(req, res) {
+        res.status(HTTP.NOT_FOUND).render("404");
     });
 
 };

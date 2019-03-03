@@ -6,8 +6,8 @@ module.exports = function(app){
     var express = require("express");
     var general = express.Router();
 
-    var middlewares = require('../../middlewares');
-    var {ROLES} = require('../../constants');
+    var middlewares = require("../../middlewares");
+    var { ROLES, HTTP } = require("../../constants");
 
     var GEN_DBM = require('../../modules/general-data-base-manager');
 
@@ -16,9 +16,9 @@ module.exports = function(app){
         var usuario = body.user;
         var pass = body.pass;
 
-        GEN_DBM.manualLogin(usuario, pass, function(e, o){
-            if (!o){
-                return res.status(400).send(e);
+        GEN_DBM.manualLogin(usuario, pass, function(e, o) {
+            if (!o) {
+                return res.status(HTTP.NOT_FOUND).send(e);
             }
 
             if(o.estaActivo){
@@ -26,9 +26,9 @@ module.exports = function(app){
                 if(o.role === ROLES.ADMIN){
                     req.session.ultimaPagina = "/admin";
                 }
-                res.status(200).send(o);
-            }else{
-                return res.status(400).send('user-not-active');
+                res.status(HTTP.OK).send(o);
+            } else {
+                return res.status(HTTP.FORBIDDEN).send("user-not-active");
             }
         });
     };
@@ -39,7 +39,7 @@ module.exports = function(app){
 
         delete req.session.user;
 
-        res.status(200).send('ok');
+        res.status(HTTP.OK).send("ok");
     };
 
     var general_api_registroUsuario = function(req, res){
@@ -78,23 +78,26 @@ module.exports = function(app){
             }
         }
 
-        if(hayErrores){
-            return res.status(400).send(errores);
+        if (hayErrores) {
+            return res.status(HTTP.UNPROCESSABLE_ENTITY).send(errores);
         }
 
-        GEN_DBM.addNewAccount({
-            user 	    : usuario,
-            pass	    : pass,
-            estaActivo  : true,
-            role        : ROLES.BASIC,
-            estaBaneado : false
-        }, function(e){
-            if (e){
-                return res.status(400).send(e);
-            }
+        GEN_DBM.addNewAccount(
+            {
+                user: usuario,
+                pass: pass,
+                estaActivo: true,
+                role: ROLES.BASIC,
+                estaBaneado: false
+            },
+            function(e) {
+                if (e) {
+                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(e);
+                }
 
-            return res.status(200).send('ok');
-        });
+                return res.status(HTTP.CREATED).send("ok");
+            }
+        );
     };
 
     var general_api_usuarioLogueado = function(req, res) {
@@ -103,55 +106,57 @@ module.exports = function(app){
             //name : req.session.user.name,
             role : req.session.user.role
         };
-        res.status(200).send(JSON.stringify(data));
+        res.status(HTTP.OK).send(JSON.stringify(data));
     };
 
-    var general_api_usuarios = function(req, res){
-        GEN_DBM.getAllRecords(function(err, users){
-            if(err){
-                return res.status(400).send(err);
+    var general_api_usuarios = function(req, res) {
+        GEN_DBM.getAllRecords(function(err, users) {
+            if (err) {
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(200).send(users);
+            res.status(HTTP.OK).send(users);
         });
     };
 
-    var general_api_usuarios_usuario = function(req, res){
-        GEN_DBM.findUserById(req.params.id, function(err, user){
-            if(err){
-                return res.status(400).send(err);
+    var general_api_usuarios_usuario = function(req, res) {
+        GEN_DBM.findUserById(req.params.id, function(err, user) {
+            if (err) {
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(200).send(user);
+            res.status(HTTP.OK).send(user);
         });
     };
 
-    var general_api_comentarios = function(req, res){
-        GEN_DBM.getAllComments(function(err, result){
-            if(err){
-                return res.status(400).send(err);
+    var general_api_comentarios = function(req, res) {
+        GEN_DBM.getAllComments(function(err, result) {
+            if (err) {
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(200).send(result);
+            res.status(HTTP.OK).send(result);
         });
     };
 
     var general_api_comentarios_comentario = function(req, res){
         var id = req.params.id;
-        GEN_DBM.getCommentById(id, function(err, result){
-            if(err){
-                return res.status(400).send(err);
-            }else if(result == null){
-                return res.status(400).send('comment-not-found');
+        GEN_DBM.getCommentById(id, function(err, result) {
+            if (err) {
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+            } else if (result == null) {
+                return res.status(HTTP.NOT_FOUND).send("comment-not-found");
             }
 
-            if(req.session.user.role === ROLES.ADMIN){
-                res.status(200).send(result);
-            }else{
+            if (req.session.user.role === ROLES.ADMIN) {
+                res.status(HTTP.OK).send(result);
+            } else {
                 var json = result;
 
-                if(!json.validado){
-                    return res.status(400).send('comment-vot-validated');
+                if (!json.validado) {
+                    return res
+                        .status(HTTP.FORBIDDEN)
+                        .send("comment-vot-validated");
                 }
 
                 if(json.respuestas != null){
@@ -161,57 +166,65 @@ module.exports = function(app){
                         }
                     }
                 }
-                res.status(200).send(json);
+                res.status(HTTP.OK).send(json);
             }
         });
     };
 
-    var general_api_comentariosVerificados = function(req, res){
-        GEN_DBM.getAllVerifiedComments(function(err, result){
-            if(err){
-                return res.status(400).send(err);
+    var general_api_comentariosVerificados = function(req, res) {
+        GEN_DBM.getAllVerifiedComments(function(err, result) {
+            if (err) {
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(200).send(result);
+            res.status(HTTP.OK).send(result);
         });
     };
 
     var general_api_borrarComentario = function(req, res){
         var id = req.params.id;
-        GEN_DBM.getCommentById(id, function(err, result){
-            if(err){
-                return res.status(400).send(err);
-            }else if(result == null){
-                return res.status(400).send('comment-not-exist');
+        GEN_DBM.getCommentById(id, function(err, result) {
+            if (err) {
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+            } else if (result == null) {
+                return res.status(HTTP.NOT_FOUND).send("comment-not-exist");
             }
 
-            if((result.user == req.session.user.user) || req.session.user.role === ROLES.ADMIN){
-
-                GEN_DBM.deleteCommentById(id, function(err, result){
-                    if(err){
-                        return res.status(400).send(err);
+            if (
+                result.user == req.session.user.user ||
+                req.session.user.role === ROLES.ADMIN
+            ) {
+                GEN_DBM.deleteCommentById(id, function(err, result) {
+                    if (err) {
+                        return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
                     }
 
-                    if(req.session.user.role === ROLES.ADMIN){
-                        GEN_DBM.getAllComments(function(err, result){
-                            if(err){
-                                return res.status(400).send(err);
+                    if (req.session.user.role === ROLES.ADMIN) {
+                        GEN_DBM.getAllComments(function(err, result) {
+                            if (err) {
+                                return res
+                                    .status(HTTP.INTERNAL_SERVER_ERROR)
+                                    .send(err);
                             }
 
-                            res.status(200).send(result);
+                            res.status(HTTP.OK).send(result);
                         });
-                    }else{
-                        GEN_DBM.getAllVerifiedComments(function(err, result){
-                            if(err){
-                                return res.status(400).send(err);
+                    } else {
+                        GEN_DBM.getAllVerifiedComments(function(err, result) {
+                            if (err) {
+                                return res
+                                    .status(HTTP.INTERNAL_SERVER_ERROR)
+                                    .send(err);
                             }
 
-                            res.status(200).send(result);
+                            res.status(HTTP.OK).send(result);
                         });
                     }
                 });
-            }else{
-                return res.status(400).send('not-authorized-operation');
+            } else {
+                return res
+                    .status(HTTP.FORBIDDEN)
+                    .send("not-authorized-operation");
             }
         });
     };
@@ -232,21 +245,23 @@ module.exports = function(app){
             }
         }
 
-        if(comentarioIncorrecto){
-            return res.status(400).send('comentario-incorrecto');
+        if (comentarioIncorrecto) {
+            return res
+                .status(HTTP.UNPROCESSABLE_ENTITY)
+                .send("comentario-incorrecto");
         }
 
-        GEN_DBM.addNewComment(user, texto, function(err, result){
-            if(err){
-                return res.status(400).send(err);
+        GEN_DBM.addNewComment(user, texto, function(err, result) {
+            if (err) {
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            GEN_DBM.getAllVerifiedComments(function(err, result){
-                if(err){
-                    return res.status(400).send(err);
+            GEN_DBM.getAllVerifiedComments(function(err, result) {
+                if (err) {
+                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
                 }
 
-                res.status(200).send(result);
+                res.status(HTTP.CREATED).send(result);
             });
         });
     };
@@ -269,21 +284,23 @@ module.exports = function(app){
             }
         }
 
-        if(comentarioIncorrecto){
-            return res.status(400).send('comentario-incorrecto');
+        if (comentarioIncorrecto) {
+            return res
+                .status(HTTP.UNPROCESSABLE_ENTITY)
+                .send("comentario-incorrecto");
         }
 
-        GEN_DBM.addNewCommentAnswer(id, user, texto, function(err, result){
-            if(err){
-                return res.status(400).send(err);
+        GEN_DBM.addNewCommentAnswer(id, user, texto, function(err, result) {
+            if (err) {
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            GEN_DBM.getAllVerifiedComments(function(err, result){
-                if(err){
-                    return res.status(400).send(err);
+            GEN_DBM.getAllVerifiedComments(function(err, result) {
+                if (err) {
+                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
                 }
 
-                res.status(200).send(result);
+                res.status(HTTP.CREATED).send(result);
             });
         });
     };
@@ -329,31 +346,38 @@ module.exports = function(app){
             if(comentarioVacio){
                 errores["comentario-vacio"] = true;
             }
-            return res.status(400).send(errores);
+            return res.status(HTTP.UNPROCESSABLE_ENTITY).send(errores);
         }
 
         // Comprobamos que el autor del comentario es el que está logado
-        GEN_DBM.getCommentById(id, function(err, result){
-            if(err){
-                return res.status(400).send(err);
-            }else if(result == null){
-                return res.status(400).send('comment-not-exists');
-            }else if(result.user == req.session.user.user || req.session.user.role === ROLES.ADMIN){
-                GEN_DBM.editComment(id, texto, function(err, result){
-                    if(err){
-                        return res.status(400).send(err);
+        GEN_DBM.getCommentById(id, function(err, result) {
+            if (err) {
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+            } else if (result == null) {
+                return res.status(HTTP.NOT_FOUND).send("comment-not-exists");
+            } else if (
+                result.user == req.session.user.user ||
+                req.session.user.role === ROLES.ADMIN
+            ) {
+                GEN_DBM.editComment(id, texto, function(err, result) {
+                    if (err) {
+                        return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
                     }
 
-                    GEN_DBM.getAllVerifiedComments(function(err, result){
-                        if(err){
-                            return res.status(400).send(err);
+                    GEN_DBM.getAllVerifiedComments(function(err, result) {
+                        if (err) {
+                            return res
+                                .status(HTTP.INTERNAL_SERVER_ERROR)
+                                .send(err);
                         }
 
-                        res.status(200).send(result);
+                        res.status(HTTP.OK).send(result);
                     });
                 });
-            }else{
-                return res.status(400).send('not-authorized-operation');
+            } else {
+                return res
+                    .status(HTTP.FORBIDDEN)
+                    .send("not-authorized-operation");
             }
         });
     };
@@ -477,7 +501,7 @@ module.exports = function(app){
             if(fechaRespuestaInvalida){
                 errores["fecha-respuesta-invalida"] = true;
             }
-            return res.status(400).send(errores);
+            return res.status(HTTP.UNPROCESSABLE_ENTITY).send(errores);
         }
 
         var comentario_dia = Number(fecha.split(" ")[0].split("/")[0]);
@@ -521,28 +545,45 @@ module.exports = function(app){
 
         respuestas = respuestasAux;
 
-        GEN_DBM.getCommentById(id, function(err, result){
-            if(err){
-                return res.status(400).send(err);
-            }else if(result == null){
-                return res.status(400).send('comment-not-exists');
-            }else{
-                if(req.session.user.role === ROLES.ADMIN){
-                    GEN_DBM.editCommentAsAdmin(id, texto, user, fecha, validado, respuestas, function(err, result){
-                        if(err){
-                            return res.status(400).send(err);
-                        }
-
-                        GEN_DBM.getAllVerifiedComments(function(err, result){
-                            if(err){
-                                return res.status(400).send(err);
+        GEN_DBM.getCommentById(id, function(err, result) {
+            if (err) {
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+            } else if (result == null) {
+                return res.status(HTTP.NOT_FOUND).send("comment-not-exists");
+            } else {
+                if (req.session.user.role === ROLES.ADMIN) {
+                    GEN_DBM.editCommentAsAdmin(
+                        id,
+                        texto,
+                        user,
+                        fecha,
+                        validado,
+                        respuestas,
+                        function(err, result) {
+                            if (err) {
+                                return res
+                                    .status(HTTP.INTERNAL_SERVER_ERROR)
+                                    .send(err);
                             }
 
-                            res.status(200).send(result);
-                        });
-                    });
-                }else{
-                    return res.status(400).send('not-authorized-operation');
+                            GEN_DBM.getAllVerifiedComments(function(
+                                err,
+                                result
+                            ) {
+                                if (err) {
+                                    return res
+                                        .status(HTTP.INTERNAL_SERVER_ERROR)
+                                        .send(err);
+                                }
+
+                                res.status(HTTP.OK).send(result);
+                            });
+                        }
+                    );
+                } else {
+                    return res
+                        .status(HTTP.FORBIDDEN)
+                        .send("not-authorized-operation");
                 }
             }
         });

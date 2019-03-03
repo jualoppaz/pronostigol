@@ -1,3 +1,5 @@
+const { HTTP } = require("./constants");
+
 module.exports = {
     // Vistas
     isLogged_view: isLogged_view,
@@ -112,9 +114,10 @@ function isAuthorized_api(allowedRoles){
             }
         }
 
-        if(!authorized){
-            return res.status(403).send({
-                message: 'No puede acceder a este recurso porque no está autorizado.'
+        if (!authorized) {
+            return res.status(HTTP.FORBIDDEN).send({
+                message:
+                    "No puede acceder a este recurso porque no está autorizado."
             });
         }
 

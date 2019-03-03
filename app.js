@@ -10,6 +10,8 @@ var path = require("path");
 var port = process.env.PORT || 8888;
 const forceDomain = require("forcedomain");
 
+const { HTTP } = require("./app/server/constants");
+
 app.use("/css", express.static(__dirname + "/app/public/css"));
 app.use("/docs", express.static(__dirname + "/app/public/docs"));
 app.use("/js", express.static(__dirname + "/app/public/js"));
@@ -37,7 +39,7 @@ app.use(bodyParser.json());
 var ev = require("express-validation");
 
 ev.options({
-    status: 422,
+    status: HTTP.UNPROCESSABLE_ENTITY,
     statusText: "Unprocessable Entity"
 });
 
@@ -54,11 +56,13 @@ function clientErrorHandler(err, req, res, next) {
     console.log("Entramos en clientErrorHandler");
 
     if (err instanceof ev.ValidationError) {
-        return res.status(422).json(err);
+        return res.status(HTTP.UNPROCESSABLE_ENTITY).json(err);
     }
 
     if (req.url.indexOf("/api") > -1) {
-        return res.status(500).send(JSON.stringify(err, null, 4));
+        return res
+            .status(HTTP.INTERNAL_SERVER_ERROR)
+            .send(JSON.stringify(err, null, 4));
     }
 
     next(err);
@@ -66,7 +70,7 @@ function clientErrorHandler(err, req, res, next) {
 
 function errorHandler(err, req, res, next) {
     console.log("Entramos en errorHandler");
-    res.status(500).render("error", { message: err });
+    res.status(HTTP.INTERNAL_SERVER_ERROR).render("error", { message: err });
 }
 
 app.use(clientErrorHandler);
