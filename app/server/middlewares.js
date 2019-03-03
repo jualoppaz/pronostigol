@@ -18,12 +18,12 @@ module.exports = {
  * @param res
  * @param next
  */
-function isLogged_view(req, res, next){
-    if(req.session.user == null){
-        res.render('error',{
-            message : 'No puede acceder a esta pantalla porque no está logado.'
+function isLogged_view(req, res, next) {
+    if (req.session.user == null) {
+        res.render("error", {
+            message: "No puede acceder a esta pantalla porque no está logado."
         });
-    }else{
+    } else {
         next();
     }
 }
@@ -35,33 +35,33 @@ function isLogged_view(req, res, next){
  *
  * @param allowedRoles
  */
-function isAuthorized_view(allowedRoles){
+function isAuthorized_view(allowedRoles) {
     return function(req, res, next) {
-
         var user = req.session.user;
 
         // Para el caso en que no esté logado: GUEST
         var actualRole = null;
 
         // Para cualquier otro caso: BASIC, PRIVILEGED Y ADMIN
-        if(user !== undefined) {
+        if (user !== undefined) {
             actualRole = req.session.user.role;
         }
 
         var authorized = false;
 
-        for(var i=0; i<allowedRoles.length; i++){
-            if(actualRole === allowedRoles[i]){
+        for (var i = 0; i < allowedRoles.length; i++) {
+            if (actualRole === allowedRoles[i]) {
                 authorized = true;
                 break;
             }
         }
 
-        if(authorized){
+        if (authorized) {
             next();
-        }else{
-            res.render('error', {
-                message: 'No puede acceder a esta pantalla porque no está autorizado.'
+        } else {
+            res.render("error", {
+                message:
+                    "No puede acceder a esta pantalla porque no está autorizado."
             });
         }
     };
@@ -75,10 +75,10 @@ function isAuthorized_view(allowedRoles){
  * @param res
  * @param next
  */
-function isLogged_api(req, res, next){
-    if(req.session.user == null){
-        return res.status(401).send({
-            message : 'No puede acceder a este recurso porque no está logado.'
+function isLogged_api(req, res, next) {
+    if (req.session.user == null) {
+        return res.status(HTTP.UNAUTHORIZED).send({
+            message: "No puede acceder a este recurso porque no está logado."
         });
     }
 
@@ -92,23 +92,22 @@ function isLogged_api(req, res, next){
  *
  * @param allowedRoles
  */
-function isAuthorized_api(allowedRoles){
+function isAuthorized_api(allowedRoles) {
     return function(req, res, next) {
-
         var user = req.session.user;
 
         // Para el caso en que no esté logado: GUEST
         var actualRole = null;
 
         // Para cualquier otro caso: BASIC, PRIVILEGED Y ADMIN
-        if(user !== undefined) {
+        if (user !== undefined) {
             actualRole = req.session.user.role;
         }
 
         var authorized = false;
 
-        for(var i=0; i<allowedRoles.length; i++){
-            if(actualRole === allowedRoles[i]){
+        for (var i = 0; i < allowedRoles.length; i++) {
+            if (actualRole === allowedRoles[i]) {
                 authorized = true;
                 break;
             }

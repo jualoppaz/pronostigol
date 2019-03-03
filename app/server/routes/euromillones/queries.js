@@ -1,9 +1,9 @@
-module.exports = function(app){
+module.exports = function(app) {
+    var EUR_DBM = require("../../modules/euromillones-data-base-manager");
 
-    var EUR_DBM = require('../../modules/euromillones-data-base-manager');
     var { HTTP } = require("../../constants");
 
-    var euromillones_queries_mayorSorteoPorAnyo = function (req, res){
+    var euromillones_queries_mayorSorteoPorAnyo = function(req, res) {
         var anyo = req.params.year;
 
         EUR_DBM.getHigherDayByYear(anyo, function(err, result) {
@@ -41,7 +41,16 @@ module.exports = function(app){
         });
     };
 
-    app.get('/query/euromillones/higherDayByYear/:year', euromillones_queries_mayorSorteoPorAnyo);
-    app.get('/query/euromillones/newestDay', euromillones_queries_sorteoMasReciente);
-    app.get('/query/euromillones/oldestDay', euromillones_queries_sorteoMasAntiguo);
+    app.get(
+        "/query/euromillones/higherDayByYear/:year",
+        euromillones_queries_mayorSorteoPorAnyo
+    );
+    app.get(
+        "/query/euromillones/newestDay",
+        euromillones_queries_sorteoMasReciente
+    );
+    app.get(
+        "/query/euromillones/oldestDay",
+        euromillones_queries_sorteoMasAntiguo
+    );
 };
