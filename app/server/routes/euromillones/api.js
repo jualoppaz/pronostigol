@@ -1,6 +1,6 @@
 module.exports = function(app) {
     var middlewares = require("../../middlewares");
-    var { ROLES } = require("../../constants");
+    var { ROLES, HTTP } = require("../../constants");
 
     var express = require("express");
     var euromillones = express.Router();
@@ -93,7 +93,7 @@ module.exports = function(app) {
 
         EUR_DBM.getAllTickets(filtros, function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
             var filteredData = [];
@@ -117,7 +117,7 @@ module.exports = function(app) {
 
             result.data = filteredData;
 
-            res.status(200).send(JSON.stringify(result, null, 4));
+            res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -143,10 +143,10 @@ module.exports = function(app) {
 
         EUR_DBM.addNewTicket(ticket, function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(200).send(result);
+            res.status(HTTP.OK).send(result);
         });
     };
 
@@ -155,16 +155,16 @@ module.exports = function(app) {
 
         EUR_DBM.getTicketById(ticket._id, function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
-                return res.status(400).send("not-found");
+                return res.status(HTTP.NOT_FOUND).send("not-found");
             }
 
             EUR_DBM.editTicket(ticket, function(err, result) {
                 if (err) {
-                    return res.status(400).send(err);
+                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
                 }
-                res.status(200).send(JSON.stringify(result, null, 4));
+                res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
             });
         });
     };
@@ -174,22 +174,24 @@ module.exports = function(app) {
 
         EUR_DBM.getTicketById(id, function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
-                return res.status(400).send("not-found");
+                return res.status(HTTP.NOT_FOUND).send("not-found");
             }
 
             EUR_DBM.deleteTicketById(id, function(err2) {
                 if (err2) {
-                    return res.status(400).send(err2);
+                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err2);
                 }
 
                 EUR_DBM.getAllTickets(function(err3, result3) {
                     if (err3) {
-                        return res.status(400).send(err3);
+                        return res
+                            .status(HTTP.INTERNAL_SERVER_ERROR)
+                            .send(err3);
                     }
 
-                    res.status(200).send(result3);
+                    res.status(HTTP.OK).send(result3);
                 });
             });
         });
@@ -229,10 +231,10 @@ module.exports = function(app) {
 
         EUR_DBM.getOccurrencesByNumber(filtros, function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(200).send(JSON.stringify(result, null, 4));
+            res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -269,10 +271,10 @@ module.exports = function(app) {
 
         EUR_DBM.getOccurrencesByStar(filtros, function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(200).send(JSON.stringify(result, null, 4));
+            res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -309,10 +311,10 @@ module.exports = function(app) {
 
         EUR_DBM.getOccurrencesByStarsPair(filtros, function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(200).send(JSON.stringify(result, null, 4));
+            res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -353,10 +355,10 @@ module.exports = function(app) {
             result
         ) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(200).send(JSON.stringify(result, null, 4));
+            res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -393,10 +395,10 @@ module.exports = function(app) {
 
         EUR_DBM.getOccurrencesByResultWithStars(filtros, function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(200).send(JSON.stringify(result, null, 4));
+            res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -414,10 +416,10 @@ module.exports = function(app) {
     var euromillones_api_years = function(req, res) {
         EUR_DBM.getAllYears(function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(200).send(result);
+            res.status(HTTP.OK).send(result);
         });
     };
 
@@ -439,10 +441,10 @@ module.exports = function(app) {
 
         EUR_DBM.getYearById(id, function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(200).send(result);
+            res.status(HTTP.OK).send(result);
         });
     };
 
@@ -451,15 +453,15 @@ module.exports = function(app) {
 
         EUR_DBM.deleteYearById(id, function(err) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
             EUR_DBM.getAllYears(function(err2, result2) {
                 if (err2) {
-                    return res.status(400).send(err2);
+                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err2);
                 }
 
-                res.status(200).send(result2);
+                res.status(HTTP.OK).send(result2);
             });
         });
     };
@@ -473,19 +475,19 @@ module.exports = function(app) {
 
         EUR_DBM.getYearByName(name, function(err, result) {
             if (err) {
-                return res.status(400).send(name);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(name);
             } else if (JSON.stringify(result) === "{}") {
                 // No existe aun
                 EUR_DBM.addNewYear(year, function(err, result) {
                     if (err) {
-                        return res.status(400).send(err);
+                        return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
                     }
 
-                    res.status(200).send(result);
+                    res.status(HTTP.CREATED).send(result);
                 });
             } else {
                 // Ya hay uno con ese nombre
-                return res.status(400).send("year-already-exists");
+                return res.status(HTTP.CONFLICT).send("year-already-exists");
             }
         });
     };
@@ -501,17 +503,17 @@ module.exports = function(app) {
 
         EUR_DBM.getYearById(id, function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
-                return res.status(400).send("not-found");
+                return res.status(HTTP.NOT_FOUND).send("not-found");
             }
 
             EUR_DBM.editYear(year, function(err, result) {
                 if (err) {
-                    return res.status(400).send(err);
+                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
                 }
 
-                res.status(200).send(result);
+                res.status(HTTP.OK).send(result);
             });
         });
     };
@@ -521,7 +523,7 @@ module.exports = function(app) {
 
         EUR_DBM.getTicketById(id, function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
             var json;
@@ -538,7 +540,7 @@ module.exports = function(app) {
                     json = filtrarInformacion(result);
                 }
             }
-            res.status(200).send(JSON.stringify(json, null, 4));
+            res.status(HTTP.OK).send(JSON.stringify(json, null, 4));
         });
     };
 

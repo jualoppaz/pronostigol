@@ -1,6 +1,6 @@
 module.exports = function(app) {
     var middlewares = require("../../middlewares");
-    var { ROLES } = require("../../constants");
+    var { ROLES, HTTP } = require("../../constants");
 
     var express = require("express");
     var bonoloto = express.Router();
@@ -93,7 +93,7 @@ module.exports = function(app) {
 
         BON_DBM.getAllTickets(filtros, function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
             var filteredData = [];
@@ -117,7 +117,7 @@ module.exports = function(app) {
 
             result.data = filteredData;
 
-            res.status(200).send(JSON.stringify(result, null, 4));
+            res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -126,7 +126,7 @@ module.exports = function(app) {
 
         BON_DBM.getTicketById(id, function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
             var json;
@@ -143,7 +143,7 @@ module.exports = function(app) {
                     json = filtrarInformacion(result);
                 }
             }
-            res.status(200).send(JSON.stringify(json, null, 4));
+            res.status(HTTP.OK).send(JSON.stringify(json, null, 4));
         });
     };
 
@@ -171,10 +171,12 @@ module.exports = function(app) {
 
         BON_DBM.addNewTicket(ticket, function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(200).send(JSON.stringify(result.ops[0], null, 4));
+            res.status(HTTP.CREATED).send(
+                JSON.stringify(result.ops[0], null, 4)
+            );
         });
     };
 
@@ -183,17 +185,17 @@ module.exports = function(app) {
 
         BON_DBM.getTicketById(ticket._id, function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
-                return res.status(400).send("not-found");
+                return res.status(HTTP.NOT_FOUND).send("not-found");
             }
 
             BON_DBM.editTicket(ticket, function(err, result) {
                 if (err) {
-                    return res.status(400).send(err);
+                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
                 }
 
-                res.status(200).send(JSON.stringify(result, null, 4));
+                res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
             });
         });
     };
@@ -203,17 +205,17 @@ module.exports = function(app) {
 
         BON_DBM.getTicketById(id, function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
-                return res.status(400).send("not-found");
+                return res.status(HTTP.NOT_FOUND).send("not-found");
             }
 
             BON_DBM.deleteTicketById(id, function(err2) {
                 if (err) {
-                    return res.status(400).send(err2);
+                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err2);
                 }
 
-                res.status(200).send({});
+                res.status(HTTP.OK).send({});
             });
         });
     };
@@ -252,10 +254,10 @@ module.exports = function(app) {
 
         BON_DBM.getOccurrencesByNumber(filtros, function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(200).send(JSON.stringify(result, null, 4));
+            res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -292,10 +294,10 @@ module.exports = function(app) {
 
         BON_DBM.getOccurrencesByReimbursement(filtros, function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(200).send(JSON.stringify(result, null, 4));
+            res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -335,10 +337,10 @@ module.exports = function(app) {
             result
         ) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(200).send(JSON.stringify(result, null, 4));
+            res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -378,10 +380,10 @@ module.exports = function(app) {
             result
         ) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(200).send(JSON.stringify(result, null, 4));
+            res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -399,10 +401,10 @@ module.exports = function(app) {
     var bonoloto_api_years = function(req, res) {
         BON_DBM.getAllYears(function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(200).send(JSON.stringify(result, null, 4));
+            res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -424,10 +426,10 @@ module.exports = function(app) {
 
         BON_DBM.getYearById(id, function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(200).send(JSON.stringify(result, null, 4));
+            res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -436,15 +438,15 @@ module.exports = function(app) {
 
         BON_DBM.deleteYearById(id, function(err) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
             BON_DBM.getAllYears(function(err2, result2) {
                 if (err2) {
-                    return res.status(400).send(err2);
+                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err2);
                 }
 
-                res.status(200).send(JSON.stringify(result2, null, 4));
+                res.status(HTTP.OK).send(JSON.stringify(result2, null, 4));
             });
         });
     };
@@ -457,21 +459,23 @@ module.exports = function(app) {
 
         BON_DBM.getYearByName(name, function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
             if (JSON.stringify(result) === "{}") {
                 // No existe aun
                 BON_DBM.addNewYear(year, function(err, result) {
                     if (err) {
-                        return res.status(400).send(err);
+                        return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
                     }
 
-                    res.status(200).send(JSON.stringify(result, null, 4));
+                    res.status(HTTP.CREATED).send(
+                        JSON.stringify(result, null, 4)
+                    );
                 });
             } else {
                 // Ya hay uno con ese nombre
-                return res.status(400).send("year-already-exists");
+                return res.status(HTTP.CONFLICT).send("year-already-exists");
             }
         });
     };
@@ -485,17 +489,17 @@ module.exports = function(app) {
 
         BON_DBM.getYearById(id, function(err, result) {
             if (err) {
-                return res.status(400).send(err);
+                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
-                return res.status(400).send("not-found");
+                return res.status(HTTP.NOT_FOUND).send("not-found");
             }
 
             BON_DBM.editYear(year, function(err, result) {
                 if (err) {
-                    return res.status(400).send(err);
+                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
                 }
 
-                res.status(200).send(JSON.stringify(result, null, 4));
+                res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
             });
         });
     };
