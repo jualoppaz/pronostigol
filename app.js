@@ -80,6 +80,10 @@ var http = require("http");
 
 var httpServer = http.createServer(app);
 
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+}
+
 httpServer.listen(port, function(err, res) {
     console.log("Servidor HTTP corriendo en puerto: " + port);
 });
