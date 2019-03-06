@@ -813,12 +813,10 @@ module.exports = function(app) {
 
     var general_api_pronostigolTweets = function(req, res) {
         var client = new Twitter({
-            consumer_key: "sph28xlG9UW8FV3K1vNIZjn5X",
-            consumer_secret:
-                "ABz5JFR5QRgUsLLfo6qH68CGWjbeaMvpZj1weBZH6g2t7bGRVl",
-            access_token_key:
-                "2933713217-oaFHn96YGcEwX04FRh04xHkwGZTyBrbild7yoYo",
-            access_token_secret: "xewxvHBgwNBrzo0zmU5lwE1uCdv4HarNBXNIsbXRUrQ2H"
+            consumer_key: process.env.TWITTER_CONSUMER_KEY,
+            consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+            access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+            access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
         });
 
         var params = { screen_name: "pronostigolesp" };
