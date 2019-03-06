@@ -46,5 +46,8 @@
         "twitter": "^1.2.5",
         "ua-parser-js": "^0.7.0",
         "ui-select": "^0.19.8"
+    },
+    "devDependencies": {
+        "dotenv": "^6.2.0"
     }
 }
