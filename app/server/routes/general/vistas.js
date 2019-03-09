@@ -73,6 +73,12 @@ module.exports = function(app) {
         });
     };
 
+    var general_vistas_robots_txt = function(req, res) {
+        res.sendFile("./robots.txt", {
+            root: path.join(__dirname, "../../../../")
+        });
+    };
+
     var general_vistas_admin = function(req, res, next) {
         res.render("admin/dashboard");
     };
@@ -125,6 +131,7 @@ module.exports = function(app) {
     app.get("/contacto", general_vistas_contacto);
     app.get("/google1e2e247e7cbf40b6.html", general_vistas_verificacion_google);
     app.get("/sitemap.xml", general_vistas_sitemap);
+    app.get("/robots.txt", general_vistas_robots_txt);
 
     app.get(
         "/admin",
