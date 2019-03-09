@@ -69,7 +69,7 @@ module.exports = function(app) {
 
     var general_vistas_sitemap = function(req, res) {
         res.sendFile("./sitemap.xml", {
-            root: path.join("../../../../")
+            root: path.join(__dirname, "../../../../")
         });
     };
 
