@@ -666,10 +666,10 @@ code {
 
 @media screen and (min-width: 992px) {
     .footer {
-        height: 338px;
+        height: 360px;
     }
     body {
-        margin-bottom: 338px;
+        margin-bottom: 360px;
     }
 }
 
