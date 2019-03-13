@@ -1,20 +1,21 @@
 extends layout
 
 block head
-    title 📊 Pronostigol | Histórico de sorteos y consulta de estadísticas y resultados de Quiniela, Bonoloto, Primitiva, Gordo de la Primitiva y Euromillones
+    title 📊 Pronostigol | Estadísticas de Loterías y Apuestas del Estado
     meta(name="description", content="Pronostigol. Histórico de sorteos y consulta de estadísticas y resultados de Quiniela, Bonoloto, Primitiva, Gordo de la Primitiva y Euromillones")
     meta(name="keywords", content="estadísticas quiniela, estadísticas bonoloto, estadísticas primitiva, estadísticas gordo primitiva, estadísticas euromillones, histórico quiniela, histórico bonoloto, histórico primitiva, histórico gordo primitiva, histórico euromillones, resultados quiniela, resultados bonoloto, resultados primitiva, resultados gordo primitiva, resultados euromillones, euromillions, spanish lottery, lotto systems")
     meta(property="og:locale", content="es_ES")
     meta(property="og:type", content="website")
-    meta(property="og:title", content="📊 Pronostigol")
+    meta(property="og:title", content="📊 Pronostigol | Estadísticas de Loterías y Apuestas del Estado")
     meta(property="og:description", content="Aplicación web en la que puedes encontrar el histórico de sorteos, así como estadísticas y resultados de Quiniela, Bonoloto, Primitiva, Gordo de la Primitiva y Euromillones")
     meta(property="og:url", content="http://www.pronostigol.es")
     meta(property="og:site_name", content="Pronostigol")
     meta(property="og:image", content="http://www.pronostigol.es/img/favicon.png")
     meta(name="twitter:card", content="summary")
     meta(name="twitter:description", content="Aplicación web en la que puedes encontrar el histórico de sorteos, así como estadísticas y resultados de Quiniela, Bonoloto, Primitiva, Gordo de la Primitiva y Euromillones")
-    meta(name="twitter:title", content="📊 Pronostigol")
+    meta(name="twitter:title", content="📊 Pronostigol | Estadísticas de Loterías y Apuestas del Estado")
     meta(name="twitter:image", content="http://www.pronostigol.es/img/favicon.png")
+    meta(name="twitter:site", content="@pronostigolesp")
     link(rel="stylesheet", href="/css/pronostigol.css")
 
 block content
@@ -30,7 +31,7 @@ block content
                     main
                         div.col-md-12.text-center
                             span.col-md-8.col-md-offset-2.col-sm-8.col-sm-offset-2.col-xs-12.logo-pronostigol
-                                span.titulo-logo-pronostigol Pronostigol
+                                h1.titulo-logo-pronostigol Pronostigol
 
                         div.col-md-12.text-center
                             div.col-md-2.col-md-offset-1.col-sm-6.col-xs-12
@@ -66,7 +67,7 @@ block content
                             div.col-md-12.col-sm-12.col-xs-12.panel.panel-body.border-qdb(data-ng-show="comments != null", data-ng-cloak)
 
                                 div.col-md-12.col-sm-12.col-xs-12.text-center(data-ng-show="comments.length > 0", data-ng-cloak)
-                                    h1.green.abel(style="font-size: 42px; font-weight: normal") Comentarios
+                                    span.green.abel(style="font-size: 42px; font-weight: normal") Comentarios
 
                                 div.col-md-12.col-sm-12.col-xs-12
                                     ul.media-list
@@ -128,7 +129,7 @@ block content
                             div.col-md-12.col-sm-12.col-xs-12.panel.panel-body.border-qdb(data-ng-show="tweets.length > 0", data-ng-cloak)
 
                                 div.col-md-12.col-sm-12.col-xs-12.text-center(data-ng-show="tweets.length > 0", data-ng-cloak)
-                                    h1.green.abel(style="font-size: 42px; font-weight: normal") Noticias
+                                    span.green.abel(style="font-size: 42px; font-weight: normal") Noticias
 
                                 div.col-md-6.col-sm-6.col-xs-12(data-ng-repeat="tweet in tweets", data-ng-cloak)
                                     div.panel.panel-primary.qdb-tweet

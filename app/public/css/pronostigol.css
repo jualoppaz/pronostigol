@@ -666,10 +666,10 @@ code {
 
 @media screen and (min-width: 992px) {
     .footer {
-        height: 338px;
+        height: 360px;
     }
     body {
-        margin-bottom: 338px;
+        margin-bottom: 360px;
     }
 }
 
@@ -1025,15 +1025,14 @@ body {
 }
 
 @media screen and (min-width: 768px) {
-    span.logo-pronostigol,
-    span.logo-juego {
+    .logo-pronostigol .logo-juego {
         font-size: 70px !important;
         height: 144px;
     }
 }
 
 @media screen and (min-width: 992px) {
-    span.logo-pronostigol {
+    .logo-pronostigol .titulo-logo-pronostigol {
         font-size: 100px !important;
         height: 144px;
     }
