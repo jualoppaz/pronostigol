@@ -13,13 +13,15 @@ const forceDomain = require("forcedomain");
 
 const { HTTP } = require("./app/server/constants");
 
-app.use("/css", express.static(__dirname + "/app/public/css"));
-app.use("/docs", express.static(__dirname + "/app/public/docs"));
-app.use("/js", express.static(__dirname + "/app/public/js"));
-app.use("/img", express.static(__dirname + "/app/public/img"));
-app.use("/fonts", express.static(__dirname + "/app/public/fonts"));
+app.use(
+    compression({
+        threshold: 0
+    })
+);
 
 app.use(favicon(__dirname + "/app/public/img/favicon.png"));
+
+app.use(express.static(__dirname + "/app/public"));
 
 app.set("port", port);
 
@@ -50,8 +52,6 @@ app.use(
         excludeRule: /[a-zA-Z0-9][a-zA-Z0-9-]+\.herokuapp\.com/i
     })
 );
-
-app.use(compression());
 
 require("./app/server/router")(app);
 
