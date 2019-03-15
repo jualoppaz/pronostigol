@@ -4,6 +4,7 @@ block head
     title 📊 Pronostigol | Estadísticas de Loterías y Apuestas del Estado
     meta(name="description", content="Pronostigol. Histórico de sorteos y consulta de estadísticas y resultados de Quiniela, Bonoloto, Primitiva, Gordo de la Primitiva y Euromillones")
     meta(name="keywords", content="estadísticas quiniela, estadísticas bonoloto, estadísticas primitiva, estadísticas gordo primitiva, estadísticas euromillones, histórico quiniela, histórico bonoloto, histórico primitiva, histórico gordo primitiva, histórico euromillones, resultados quiniela, resultados bonoloto, resultados primitiva, resultados gordo primitiva, resultados euromillones, euromillions, spanish lottery, lotto systems")
+    meta(name="google-site-verification", content="Q-aSMrFeUMd7hnC5fkyAP90u5oXjO5BCEy9KU_8OF1Q")
     meta(property="og:locale", content="es_ES")
     meta(property="og:type", content="website")
     meta(property="og:title", content="📊 Pronostigol | Estadísticas de Loterías y Apuestas del Estado")
@@ -17,6 +18,14 @@ block head
     meta(name="twitter:image", content="http://www.pronostigol.es/img/favicon.png")
     meta(name="twitter:site", content="@pronostigolesp")
     link(rel="stylesheet", href="/css/pronostigol.css")
+
+    // Global site tag (gtag.js) - Google Analytics
+    script(async='', src='https://www.googletagmanager.com/gtag/js?id=UA-57106519-1')
+    script.
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-57106519-1');
 
 block content
     div#wrap(data-ng-app="qdb")
