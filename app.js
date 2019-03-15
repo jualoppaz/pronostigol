@@ -1,6 +1,7 @@
 var express = require("express");
 var session = require("express-session");
 var bodyParser = require("body-parser");
+var compression = require("compression");
 
 var favicon = require("serve-favicon");
 
@@ -49,6 +50,8 @@ app.use(
         excludeRule: /[a-zA-Z0-9][a-zA-Z0-9-]+\.herokuapp\.com/i
     })
 );
+
+app.use(compression());
 
 require("./app/server/router")(app);
 
