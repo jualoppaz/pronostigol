@@ -525,14 +525,13 @@ code {
 }
 
 .footer {
-    padding-bottom: 15px;
     background-color: #0480be !important;
     font-family: "Abel", sans-serif !important;
     color: white;
     width: 100%;
     position: absolute;
     bottom: 0;
-    height: 502px;
+    height: 515px;
 }
 
 @media screen and (min-width: 992px) {
@@ -833,4 +832,14 @@ body {
 
 #footer #copyright:after {
     content: " ";
+}
+
+ul#social-links li>a:hover {
+    background-color: transparent !important;
+    color: white !important;
+}
+
+#footer ul#sections-in-footer li h3 a:focus {
+    text-decoration: none;
+    outline: 0;
 }
