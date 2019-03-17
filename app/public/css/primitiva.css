@@ -831,3 +831,13 @@ body {
     background-color: #398439 !important;
     border: 1px solid #398439 !important;
 }
+
+ul#social-links li>a:hover {
+    background-color: transparent !important;
+    color: white !important;
+}
+
+#footer ul#sections-in-footer li h3 a:focus {
+    text-decoration: none;
+    outline: 0;
+}
