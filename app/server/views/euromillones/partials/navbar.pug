@@ -8,13 +8,13 @@ header(data-ng-controller="NavbarController")
                         span.icon-bar
                         span.icon-bar
                         span.icon-bar
-                    a(href="/").navbar-brand.white.middle.euromillones Inicio
+                    a(href="/", title="Inicio").navbar-brand.white.middle.euromillones Inicio
                     ul.nav.navbar-nav.navbar-right.hidden-lg.hidden-md.hidden-sm
                         li(style="float: right; padding-right: 15px")
-                            a.euromillones(href="https://github.com/jualoppaz/pronostigol", target="_blank", data-ng-cloak)
+                            a.euromillones(href="https://github.com/jualoppaz/pronostigol", title="Repositorio en GitHub", target="_blank", data-ng-cloak)
                                 i.fa.fa-github
                         li(style="float: right")
-                            a.euromillones(href="https://twitter.com/pronostigolesp", target="_blank", data-ng-cloak)
+                            a.euromillones(href="https://twitter.com/pronostigolesp", title="Cuenta de Twitter", target="_blank", data-ng-cloak)
                                 i.fa.fa-twitter
                         li(style="float: right")
                             a.euromillones(href="https://www.facebook.com/pronostigol.es", target="_blank", data-ng-cloak)
@@ -22,31 +22,31 @@ header(data-ng-controller="NavbarController")
                 div.collapse.navbar-collapse.fondoMorado(role="navigation")
                     ul.nav.navbar-nav
                         li
-                            a.euromillones(href="/euromillones") Euromillones
+                            a.euromillones(href="/euromillones", title="Euromillones") Euromillones
                         li
                             a.euromillones(href="/euromillones/tickets") Tickets
                         li
                             a.euromillones(href="/euromillones/consultas") Consultas
                         li
-                            a.euromillones(href="/contacto", target="_blank") Contacto
+                            a.euromillones(href="/contacto", title="Contacto", target="_blank") Contacto
                         li.hidden-lg.hidden-md.hidden-sm(data-ng-show="usuarioEstaLogueado == false")
-                            a.euromillones.btn-login(href="/login") Entrar
+                            a.euromillones.btn-login(href="/login", title="Entrar") Entrar
                         li.hidden-lg.hidden-md.hidden-sm(data-ng-show="usuarioEstaLogueado")
-                            a.euromillones(href="#", data-ng-click="cerrarSesion()") Cerrar sesión
+                            a.euromillones(href="#", title="Cerrar sesión", data-ng-click="cerrarSesion()") Cerrar sesión
                         li.hidden-lg.hidden-md.hidden-sm(data-ng-show="usuarioEstaLogueado == false")
-                            a.euromillones(href="/signup") Registrarse
+                            a.euromillones(href="/signup", title="Registrarse") Registrarse
 
                     ul.nav.navbar-nav.navbar-right.hidden-xs
                         li
-                            a.euromillones(href="https://www.facebook.com/pronostigol.es", target="_blank", data-ng-cloak)
+                            a.euromillones(href="https://www.facebook.com/pronostigol.es", title="Página de Facebook", target="_blank", data-ng-cloak)
                                 i.fa.fa-facebook
                         li
-                            a.euromillones(href="https://twitter.com/pronostigolesp", target="_blank", data-ng-cloak)
+                            a.euromillones(href="https://twitter.com/pronostigolesp", title="Cuenta de Twitter", target="_blank", data-ng-cloak)
                                 i.fa.fa-twitter
                         li
-                            a.euromillones(href="https://github.com/jualoppaz/pronostigol", target="_blank", data-ng-cloak)
+                            a.euromillones(href="https://github.com/jualoppaz/pronostigol", title="Repositorio en GitHub", target="_blank", data-ng-cloak)
                                 i.fa.fa-github
                         li(data-ng-show="usuarioEstaLogueado", style="margin-left:15px", data-ng-cloak)
-                            a.btn.btn-euromillones.btn-login(href="#", role="button", data-ng-click="cerrarSesion()") Cerrar sesión
+                            a.btn.btn-euromillones.btn-login(href="#", title="Cerrar sesión", role="button", data-ng-click="cerrarSesion()") Cerrar sesión
                         li(data-ng-show="!usuarioEstaLogueado", style="margin-left:15px", data-ng-cloak)
-                            a.btn.btn-euromillones.btn-login(href="/login", role="button") Entrar
+                            a.btn.btn-euromillones.btn-login(href="/login", title="Entrar", role="button") Entrar
