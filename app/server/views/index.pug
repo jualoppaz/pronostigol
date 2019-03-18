@@ -47,19 +47,19 @@ block content
 
                         ul.list-inline.col-md-12.text-center
                             li.col-md-2.col-md-offset-1.col-sm-6.col-xs-12
-                                a#link-quiniela(href="/quiniela")
+                                a#link-quiniela(href="/quiniela", title="Quiniela")
                                     span.logo.logo-quiniela(title="Quiniela") Q
                             li.col-md-2.col-sm-6.col-xs-12
-                                a#link-bonoloto(href="/bonoloto")
+                                a#link-bonoloto(href="/bonoloto", title="Bonoloto")
                                     span.logo.logo-bonoloto(title="Bonoloto") B
                             li.col-md-2.col-sm-6.col-xs-12
-                                a#link-primitiva(href="/primitiva")
+                                a#link-primitiva(href="/primitiva", title="La Primitiva")
                                     span.logo.logo-primitiva(title="Primitiva") P
                             li.col-md-2.col-sm-6.col-xs-12
-                                a#link-gordo(href="/gordo")
+                                a#link-gordo(href="/gordo", title="El Gordo de la Primitiva")
                                     span.logo.logo-gordo(title="El Gordo de la Primitiva") G
                             li.col-md-2.col-md-offset-0.col-sm-6.col-sm-offset-3.col-xs-12(style="")
-                                a#link-euromillones(href="/euromillones")
+                                a#link-euromillones(href="/euromillones", title="Euromillones")
                                     span.logo.logo-euromillones(title="Euromillones") E
 
                         div.col-md-10.col-md-offset-1.col-sm-12.col-xs-12(style="margin-top: 20px; padding-left: 0px; padding-right: 0px")
@@ -115,7 +115,7 @@ block content
                                                 span.caramelo.qdb-red No hay comentarios. Sé el primero en comentar.
 
                                     h3.text-center(style="margin-top: 0px; padding-top: 5px", data-ng-show="usuarioEsAnonimo", data-ng-cloak)
-                                        a.green(href="/login", data-ng-bind-template="{{ comments.length > 0 ? '¡Debes hacer login para comentar!' : '¡Haz login primero!'}}")#logueate
+                                        a.green(href="/login", title="Entrar", data-ng-bind-template="{{ comments.length > 0 ? '¡Debes hacer login para comentar!' : '¡Haz login primero!'}}")#logueate
 
                                     div.col-md-12.col-sm-12.col-xs-12.alert.alert-danger.alert-dismissible(role="alert", data-ng-show="comentarioPalabrasLargas", data-ng-cloak)
                                         button.close(type="button", data-dismiss="alert", aria-label="Close")
