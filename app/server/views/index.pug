@@ -38,11 +38,11 @@ block content
 
                 include partials/navbar
 
-                div.col-md-12-col-sm-12.col-xs-12(style="padding: 0 0 0 0")
+                div.col-xs-12(style="padding: 0 0 0 0")
 
                     main
                         div.col-md-12.text-center
-                            span.col-md-8.col-md-offset-2.col-sm-8.col-sm-offset-2.col-xs-12.logo-pronostigol
+                            span.col-sm-8.col-sm-offset-2.col-xs-12.logo-pronostigol
                                 h1.titulo-logo-pronostigol Pronostigol
 
                         ul.list-inline.col-md-12.text-center
@@ -62,8 +62,8 @@ block content
                                 a#link-euromillones(href="/euromillones", title="Euromillones")
                                     span.logo.logo-euromillones(title="Euromillones") E
 
-                        div.col-md-10.col-md-offset-1.col-sm-12.col-xs-12(style="margin-top: 20px; padding-left: 0px; padding-right: 0px")
-                            div.col-md-12.col-sm-12.col-xs-12.panel.panel-body.border-qdb
+                        div.col-md-10.col-md-offset-1.col-xs-12(style="margin-top: 20px; padding-left: 0px; padding-right: 0px")
+                            div.col-xs-12.panel.panel-body.border-qdb
                                 div.main-card-content(style="word-wrap: break-word;")
                                     div.main-card-name
                                         a.recipe-title
@@ -76,16 +76,15 @@ block content
                                             Podr&aacute;s consultar todo tipo de estad&iacute;sticas que te facilitar&aacute;n la tarea de hacer
                                             tus apuestas y con mayores garant&iacute;as de &eacute;xito.
 
-                            div.col-md-12.col-sm-12.col-xs-12.panel.panel-body.border-qdb(data-ng-show="comments != null", data-ng-cloak)
+                            div.col-xs-12.panel.panel-body.border-qdb(data-ng-show="comments != null", data-ng-cloak)
 
-                                div.col-md-12.col-sm-12.col-xs-12.text-center(data-ng-show="comments.length > 0", data-ng-cloak)
+                                div.col-xs-12.text-center(data-ng-show="comments.length > 0", data-ng-cloak)
                                     span.green.abel(style="font-size: 42px; font-weight: normal") Comentarios
 
-                                div.col-md-12.col-sm-12.col-xs-12
+                                div.col-xs-12
                                     ul.media-list
                                         li.media(data-ng-repeat="comment in comments")
                                             div.media-left
-                                                //span.badge.badge-verde P
                                                 i.fa.fa-3x.fa-comment.letra-verde
                                             div.media-body
                                                 h4.media-heading(data-ng-bind-template="{{comment.user}} - {{comment.fecha | date:'dd/MM/yyyy HH:mm'}} h")
@@ -104,10 +103,10 @@ block content
                                                         a.btn.btn-default.btn-qdb.btn-login(data-ng-click="responderComentario(comment)").btn.btn-danger.btn-large Responder
 
 
-                                div.col-md-12.col-sm-12.col-xs-12.text-center
+                                div.col-xs-12.text-center
                                     uib-pagination(data-ng-show="comments.length > commentsPerPage", data-ng-cloak, items-per-page="commentsPerPage", boundary-links="true", total-items="totalItems", data-ng-model="currentPage", previous-text="<", next-text=">", first-text="Inicio", last-text="Fin").pagination-sm.abel
 
-                                div.col-md-12.col-sm-12.col-xs-12
+                                div.col-xs-12
 
                                     div.main-card-content(data-ng-show="comments != null && comments.length == 0", data-ng-cloak, style="margin-bottom: 10px")
                                         div.main-card-name(style="padding-left: 0px;")
@@ -117,19 +116,19 @@ block content
                                     h3.text-center(style="margin-top: 0px; padding-top: 5px", data-ng-show="usuarioEsAnonimo", data-ng-cloak)
                                         a.green(href="/login", title="Entrar", data-ng-bind-template="{{ comments.length > 0 ? '¡Debes hacer login para comentar!' : '¡Haz login primero!'}}")#logueate
 
-                                    div.col-md-12.col-sm-12.col-xs-12.alert.alert-danger.alert-dismissible(role="alert", data-ng-show="comentarioPalabrasLargas", data-ng-cloak)
+                                    div.col-xs-12.alert.alert-danger.alert-dismissible(role="alert", data-ng-show="comentarioPalabrasLargas", data-ng-cloak)
                                         button.close(type="button", data-dismiss="alert", aria-label="Close")
                                             span(aria-hidden="true") &times;
                                         div El comentario contiene palabras no registradas en el diccionario.
-                                    div.col-md-12.col-sm-12.col-xs-12.alert.alert-danger.alert-dismissible(role="alert", data-ng-show="comentarioVacio", data-ng-cloak)
+                                    div.col-xs-12.alert.alert-danger.alert-dismissible(role="alert", data-ng-show="comentarioVacio", data-ng-cloak)
                                         button.close(type="button", data-dismiss="alert", aria-label="Close")
                                             span(aria-hidden="true") &times;
                                         div El comentario no puede estar vacío.
-                                    div.col-md-12.col-sm-12.col-xs-12.alert.alert-info.alert-dismissible(role="alert", data-ng-show="comentarioEliminadoCorrectamente", data-ng-cloak)
+                                    div.col-xs-12.alert.alert-info.alert-dismissible(role="alert", data-ng-show="comentarioEliminadoCorrectamente", data-ng-cloak)
                                         button.close(type="button", data-dismiss="alert", aria-label="Close")
                                             span(aria-hidden="true") &times;
                                         div El comentario ha sido eliminado con &eacute;xito.
-                                    div.col-md-12.col-sm-12.col-xs-12.alert.alert-info.alert-dismissible(role="alert", data-ng-show="comentarioEnviadoCorrectamente", data-ng-cloak)
+                                    div.col-xs-12.alert.alert-info.alert-dismissible(role="alert", data-ng-show="comentarioEnviadoCorrectamente", data-ng-cloak)
                                         button.close(type="button", data-dismiss="alert", aria-label="Close")
                                             span(aria-hidden="true") &times;
                                         div El comentario ha sido enviado. Se mostrar&aacute; cuando sea validado por el administrador.
@@ -138,12 +137,12 @@ block content
                                         div.text-center(style="margin-top:25px")
                                             a.btn.btn-default.btn-qdb.btn-login(data-ng-click="comentar()").btn.btn-danger.btn-large Enviar
 
-                            div.col-md-12.col-sm-12.col-xs-12.panel.panel-body.border-qdb(data-ng-show="tweets.length > 0", data-ng-cloak)
+                            div.col-xs-12.panel.panel-body.border-qdb(data-ng-show="tweets.length > 0", data-ng-cloak)
 
-                                div.col-md-12.col-sm-12.col-xs-12.text-center(data-ng-show="tweets.length > 0", data-ng-cloak)
+                                div.col-xs-12.text-center(data-ng-show="tweets.length > 0", data-ng-cloak)
                                     span.green.abel(style="font-size: 42px; font-weight: normal") Noticias
 
-                                div.col-md-6.col-sm-6.col-xs-12(data-ng-repeat="tweet in tweets", data-ng-cloak)
+                                div.col-sm-6.col-xs-12(data-ng-repeat="tweet in tweets", data-ng-cloak)
                                     div.panel.panel-primary.qdb-tweet
                                         div.panel-heading(style="overflow: auto")
                                             div.panel-title.pull-left
@@ -156,13 +155,13 @@ block content
 
                                         div.panel-body(data-ng-bind-html="tweet.text")
 
-                            div.col-md-6.col-md-offset-3.col-sm-12.col-xs-12.panel.panel-body.border-qdb(style="margin-top:60px;")
-                                div.col-md-12.col-sm-12.col-xs-12(data-ng-show="fecha == 'empty'", style="display:block; padding-left: 0px")
+                            div.col-md-6.col-md-offset-3.col-xs-12.panel.panel-body.border-qdb(style="margin-top:60px;")
+                                div.col-xs-12(data-ng-show="fecha == 'empty'", style="display:block; padding-left: 0px")
                                     div(style="float:left") Última actualización:
                                     i(style="float:left; margin-left: 15px; margin-top: 3px").fa.fa-refresh.fa-spin
-                                div.col-md-12.col-sm-12.col-xs-12(data-ng-show="fecha != 'empty'", style="padding-left: 0px", data-ng-bind-template="Última actualización: {{fecha | date:('dd/MM/yyyy')}}")
+                                div.col-xs-12(data-ng-show="fecha != 'empty'", style="padding-left: 0px", data-ng-bind-template="Última actualización: {{fecha | date:('dd/MM/yyyy')}}")
 
-                                div.col-md-12.col-sm-12.col-xs-12(data-ng-show="visitorInfo == 'empty'", style="display:block; padding-left: 0px")
+                                div.col-xs-12(data-ng-show="visitorInfo == 'empty'", style="display:block; padding-left: 0px")
                                     div(style="float:left") Visitantes hoy:
                                     i(style="float:left; margin-left: 15px; margin-top: 3px").fa.fa-refresh.fa-spin
                                     br
@@ -172,7 +171,7 @@ block content
                                     div(style="float:left") Visitas totales:
                                     i(style="float:left; margin-left: 15px; margin-top: 3px").fa.fa-refresh.fa-spin
 
-                                div.col-md-12.col-sm-12.col-xs-12(data-ng-show="visitorInfo != 'empty'", style="padding-left: 0px")
+                                div.col-xs-12(data-ng-show="visitorInfo != 'empty'", style="padding-left: 0px")
                                     div(data-ng-bind-template="Visitantes hoy: {{visitorInfo.visitantesHoy}}")
                                     div(data-ng-bind-template="Visitantes únicos: {{visitorInfo.visitantesUnicos}}")
                                     div(data-ng-bind-template="Visitas totales: {{visitorInfo.visitasTotales}}")
