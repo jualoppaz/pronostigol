@@ -20,43 +20,43 @@ block content
 
                         h1(style="margin-left: 15px; margin-right: 15px; padding-left: 15px").page-header Ticket
 
-                        div.col-md-12.col-sm-12.col-xs-12(data-ng-show="ticketEstaVacio() && consultaRealizada", data-ng-cloak)
-                            div.col-md-12.col-sm-12.col-xs-12.alert.alert-info.
+                        div.col-xs-12(data-ng-show="ticketEstaVacio() && consultaRealizada", data-ng-cloak)
+                            div.col-xs-12.alert.alert-info.
                                 No ha sido posible obtener la informaci&oacute;n de este ticket. Si el error persiste
                                 contacte con el administrador de la p&aacute;gina web.
 
-                        div.col-md-12.col-sm-12.col-xs-12(style="padding-left: 15px")
-                            div.col-md-12.col-sm-12.col-xs-12(data-ng-show="ticket.anyo", data-ng-cloak, style="padding-left: 15px")
+                        div.col-xs-12(style="padding-left: 15px")
+                            div.col-xs-12(data-ng-show="ticket.anyo", data-ng-cloak, style="padding-left: 15px")
                                 div.col-md-1.col-sm-2.col-xs-4(style="padding-left: 0px")
                                     label Año:
                                 div.col-md-11.col-sm-10.col-xs-8(data-ng-bind-template="{{ticket.anyo}}")
-                            div.col-md-12.col-sm-12.col-xs-12(data-ng-show="ticket.fecha", data-ng-cloak, style="padding-left: 15px")
+                            div.col-xs-12(data-ng-show="ticket.fecha", data-ng-cloak, style="padding-left: 15px")
                                 div.col-md-1.col-sm-2.col-xs-4(style="padding-left: 0px")
                                     label Fecha:
                                 div.col-md-11.col-sm-10.col-xs-8(data-ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}")
-                            div.col-md-12.col-sm-12.col-xs-12(data-ng-show="ticket.sorteo", data-ng-cloak, style="padding-left: 15px")
+                            div.col-xs-12(data-ng-show="ticket.sorteo", data-ng-cloak, style="padding-left: 15px")
                                 div.col-md-1.col-sm-2.col-xs-4(style="padding-left: 0px")
                                     label Sorteo:
                                 div.col-md-11.col-sm-10.col-xs-8(data-ng-bind-template="{{ticket.sorteo}}")
 
-                            div.col-md-12.col-sm-12.col-xs-12(data-ng-show="ticket.jornada", data-ng-cloak, style="padding-left: 15px")
+                            div.col-xs-12(data-ng-show="ticket.jornada", data-ng-cloak, style="padding-left: 15px")
                                 div.col-md-1.col-sm-2.col-xs-4(style="padding-left: 0px")
                                     label Jornada:
                                 div.col-md-11.col-sm-10.col-xs-8(data-ng-bind-template="{{ticket.jornada}}")
 
-                            div.col-md-12.col-sm-12.col-xs-12(style="padding-left: 15px", data-ng-show="ticket.precio >= 0", data-ng-cloak)
+                            div.col-xs-12(style="padding-left: 15px", data-ng-show="ticket.precio >= 0", data-ng-cloak)
                                 div.col-md-1.col-sm-2.col-xs-4(style="padding-left: 0px")
                                     label Precio:
                                 div.col-md-11.col-sm-10.col-xs-8(data-ng-bind-template="{{ticket.precio}} €")
-                            div.col-md-12.col-sm-12.col-xs-12(style="padding-left: 15px", data-ng-show="ticket.premio >= 0", data-ng-cloak)
+                            div.col-xs-12(style="padding-left: 15px", data-ng-show="ticket.premio >= 0", data-ng-cloak)
                                 div.col-md-1.col-sm-2.col-xs-4(style="padding-left: 0px")
                                     label Premio:
                                 div.col-md-11.col-sm-10.col-xs-8(data-ng-bind-template="{{ticket.premio}} €")
 
 
-                        div.col-md-12.col-sm-12.col-xs-12(data-ng-show="ticket.apuestas.combinaciones.length > 0", data-ng-cloak)
+                        div.col-xs-12(data-ng-show="ticket.apuestas.combinaciones.length > 0", data-ng-cloak)
                             div.table-responsive(style="margin-top: 50px")
-                                table.table.table-bordered.col-md-12.col-sm-12.col-xs-12
+                                table.table.table-bordered.col-xs-12
                                     thead
                                         tr
                                             th Apuesta
@@ -86,11 +86,11 @@ block content
                                             td(data-ng-bind-template="{{determinarCategoriaPremio(combinacion)}}")
 
 
-                        h2.col-md-12.col-sm-12.col-xs-12(data-ng-hide="ticketEstaVacio()", data-ng-cloak, style="margin-top: 30px; margin-left: 15px; margin-right: 15px; padding-left: 15px").page-header Resultado
+                        h2.col-xs-12(data-ng-hide="ticketEstaVacio()", data-ng-cloak, style="margin-top: 30px; margin-left: 15px; margin-right: 15px; padding-left: 15px").page-header Resultado
 
-                        div.col-md-12.col-sm-12.col-xs-12(data-ng-show="!ticketEstaVacio()", data-ng-cloak)
+                        div.col-xs-12(data-ng-show="!ticketEstaVacio()", data-ng-cloak)
                             div.table-responsive
-                                table.table.table-bordered.col-md-12.col-sm-12.col-xs-12(data-ng-show="ticket.resultado.bolas != null", data-ng-cloak)
+                                table.table.table-bordered.col-xs-12(data-ng-show="ticket.resultado.bolas != null", data-ng-cloak)
                                     thead
                                         tr
                                             th Bola 1
