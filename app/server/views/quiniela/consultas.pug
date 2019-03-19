@@ -14,9 +14,9 @@ block content
 
                 include partials/navbar
 
-                div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0")
+                div.col-xs-12(style="padding: 0 0 0 0")
 
-                    div.col-md-12.col-sm-12.col-xs-12(data-ng-if="temporadas.length > 0", data-ng-cloak, style="margin-top:15px; padding-left: 0px; padding-right: 0px")
+                    div.col-xs-12(data-ng-if="temporadas.length > 0", data-ng-cloak, style="margin-top:15px; padding-left: 0px; padding-right: 0px")
                         div.alert.alert-info.alert-quiniela.
                             Ésta es, casi con total seguridad, la funcionalidad más importante de esta
                             aplicación web. Aquí podrá realizar una gran variedad de consultas para saber
@@ -26,10 +26,10 @@ block content
 
                     div.col-md-12.col-md-offset-0.col-sm-12.col-xs-12(data-ng-if="temporadas.length > 0 && competiciones.length > 0 && equipos.length > 0", style="margin-top:20px; padding: 0 0 0 0; background-color: white; border: 2px solid #0480be; border-radius: 4px", data-ng-cloak)
 
-                        uib-tabset.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0;", data-ng-cloak)
+                        uib-tabset.col-xs-12(style="padding: 0 0 0 0;", data-ng-cloak)
                             uib-tab.col-md-6.col-sm-6.col-xs-6(style="padding: 0 0 0 0", heading="Personalizadas", active="primeraPestana", data-ng-click="activarPestana(1)")
-                                div.col-md-12.col-sm-12.col-xs-12(style="border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; border-left: 1px solid #ddd;")
-                                    div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0; margin-top: 15px").form-group
+                                div.col-xs-12(style="border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; border-left: 1px solid #ddd;")
+                                    div.col-xs-12(style="padding: 0 0 0 0; margin-top: 15px").form-group
                                         label.col-md-2.col-md-offset-1.col-sm-2.col-sm-offset-1.col-xs-12.control-label Temporada:
                                         div.col-md-4.col-md-offset-0.col-sm-4.col-sm-offset-0.col-xs-12
                                             // Este select era el original.
@@ -43,7 +43,7 @@ block content
                                             button(uib-popover="{{ayudaTemporada}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                 | Ayuda
 
-                                    div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0").form-group
+                                    div.col-xs-12(style="padding: 0 0 0 0").form-group
                                         label.col-md-2.col-md-offset-1.col-sm-2.col-sm-offset-1.col-xs-12.control-label Competición:
                                         div.col-md-4.col-md-offset-0.col-sm-4.col-sm-offset-0.col-xs-12
                                             // Este select era el original.
@@ -57,7 +57,7 @@ block content
                                             button(uib-popover="{{ayudaCompeticion}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                 | Ayuda
 
-                                    div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0").form-group
+                                    div.col-xs-12(style="padding: 0 0 0 0").form-group
                                         label.col-md-2.col-md-offset-1.col-sm-2.col-sm-offset-1.col-xs-12.control-label Buscar por:
                                         div.col-md-3.col-md-offset-1.col-sm-3.col-sm-offset-1.col-xs-9.col-xs-offset-3
                                             label.col-xs-12
@@ -76,13 +76,13 @@ block content
                                             button(uib-popover="{{ayudaBusqueda}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                 | Ayuda
 
-                                    div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0", data-ng-if="form.opcionBusqueda == 'equipo'", data-ng-cloak).form-group
+                                    div.col-xs-12(style="padding: 0 0 0 0", data-ng-if="form.opcionBusqueda == 'equipo'", data-ng-cloak).form-group
                                         label.col-md-2.col-md-offset-1.col-sm-2.col-sm-offset-1.col-xs-12.control-label Equipo:
                                         div.col-md-4.col-md-offset-0.col-sm-6.col-xs-12
                                             //input.form-control(data-ng-model="equipoSeleccionado", placeholder="Equipo")
                                             input#equipoSeleccionado.form-control(data-ng-model="form.equipoSeleccionado", placeholder="Equipo", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
 
-                                    div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0", data-ng-if="form.opcionBusqueda == 'partido'", data-ng-cloak).form-group
+                                    div.col-xs-12(style="padding: 0 0 0 0", data-ng-if="form.opcionBusqueda == 'partido'", data-ng-cloak).form-group
                                         label.col-md-2.col-md-offset-1.col-sm-2.col-sm-offset-1.col-xs-12.control-label Partido:
 
                                         div.col-md-4.col-md-offset-0.col-sm-4.col-sm-offset-0.hidden-xs
@@ -100,11 +100,11 @@ block content
                                             input.form-control(data-ng-model="form.equipoVisitanteSeleccionado", placeholder="Equipo visitante", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
 
 
-                                    div.col-md-12.col-sm-12.col-xs-12.form-group
+                                    div.col-xs-12.form-group
                                         div.col-sm-2.col-sm-offset-5.col-xs-12(style="text-align:center")
                                             button.btn.btn-default.btn-qdb.abel(href="#", title="Consultar", role="button", data-ng-click="consultar()", data-ng-disabled="consultando") Consultar
 
-                                    div.col-md-12.col-sm-12.col-xs-12#paneles
+                                    div.col-xs-12#paneles
 
                                         include partials/tablaPorFilas
 
@@ -116,8 +116,8 @@ block content
 
                             uib-tab.col-md-6.col-sm-6.col-xs-6(style="padding: 0 0 0 0", heading="Estándar", active="segundaPestana", data-ng-click="activarPestana(2)")
 
-                                div.col-md-12.col-sm-12.col-xs-12(style="border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; border-left: 1px solid #ddd;")
-                                    div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0; margin-top: 15px").form-group
+                                div.col-xs-12(style="border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; border-left: 1px solid #ddd;")
+                                    div.col-xs-12(style="padding: 0 0 0 0; margin-top: 15px").form-group
                                         div.col-md-12
                                             label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
                                                 input(type="radio", name="optionsRadiosEstandar", value="combinacionesSucedidas", data-ng-checked="true", data-ng-model="form.opcionBusquedaEstandar")#radio1Estandar
@@ -130,14 +130,14 @@ block content
                                                 button(uib-popover="{{ayudaCombinacionesOcurrencia}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                     | Ayuda
 
-                                    div.col-md-12.col-sm-12.col-xs-12.form-group
+                                    div.col-xs-12.form-group
                                         div.col-sm-2.col-sm-offset-5.col-xs-12(style="text-align:center")
                                             button.btn.btn-default.btn-qdb.abel(href="#", title="Consultar", role="button", data-ng-click="consultarEstandar()", data-ng-disabled="consultando") Consultar
 
-                                    div.col-md-12.col-sm-12.col-xs-12#panelesEstandar
+                                    div.col-xs-12#panelesEstandar
                                         include partials/tablaCombinacionesSucedidas
 
-                    div.col-md-12.col-sm-12.col-xs-12(style="margin-top:50px; margin-bottom: 15px")
+                    div.col-xs-12(style="margin-top:50px; margin-bottom: 15px")
                         script(async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
                         ins.adsbygoogle(style="display:block", data-ad-client="ca-pub-2309187828170787",
                         data-ad-slot="9496209954", data-ad-format="auto")
