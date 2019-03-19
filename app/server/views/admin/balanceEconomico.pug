@@ -15,14 +15,13 @@ block content
                 div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.col-xs-12.main(data-ng-controller="BalanceEconomicoController")
                     h1.page-header(style="padding-top: 0px") Balance económico
 
-                    div.col-md-12.col-sm-12.col-xs-12(style="margin-bottom: 15px")
+                    div.col-xs-12(style="margin-bottom: 15px")
                         div.col-md-3.col-xs-12.mlp-columna-criterio-filtro
                             h3(style="margin-top: 0px", data-ng-show="filteredBalances != null", data-ng-cloak, data-ng-bind-template="Sorteos")
                             div(data-ng-repeat="sorteo in sorteosGroup | orderBy:'toString()'", data-ng-show="balances != null", data-ng-cloak)
                                 input(type="checkbox", data-ng-model="useSorteos[sorteo]", value="{{sorteo}}", data-ng-change="seleccionarSiEsElUnico(this, useSorteos, sorteo)")
                                 span(style="padding-left: 10px", data-ng-bind-template="{{sorteo}}")
-                                //pre {{sorteosGroup}}
-                    div.col-md-12.col-sm-12.table-responsive(data-ng-show="filteredBalances.length > 0", data-ng-cloak)
+                    div.col-sm-12.table-responsive(data-ng-show="filteredBalances.length > 0", data-ng-cloak)
                         table.table
                             thead
                                 tr

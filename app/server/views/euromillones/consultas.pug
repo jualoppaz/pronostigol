@@ -14,9 +14,9 @@ block content
 
                 include partials/navbar
 
-                div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0")
+                div.col-xs-12(style="padding: 0 0 0 0")
 
-                    div.col-md-12.col-sm-12.col-xs-12(data-ng-cloak, style="margin-top:15px; padding-left: 0px; padding-right: 0px")
+                    div.col-xs-12(data-ng-cloak, style="margin-top:15px; padding-left: 0px; padding-right: 0px")
                         div.alert.alert-euromillones.
                             Aqu&iacute; podr&aacute;s realizar todo tipo de consultas, de modo que
                             podr&aacute;s saber cu&aacute;les son los n&uacute;meros o los reintegros que
@@ -24,13 +24,13 @@ block content
                             tus apuestas con mayor criterio.
 
 
-                    div.col-md-12.col-md-offset-0.col-sm-12.col-xs-12(style="margin-top:20px; padding: 0 0 0 0; background-color: white; border: 2px solid #440044; border-radius: 4px", data-ng-cloak)
+                    div.col-xs-12(style="margin-top:20px; padding: 0 0 0 0; background-color: white; border: 2px solid #440044; border-radius: 4px", data-ng-cloak)
 
-                        tabset.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0;", data-ng-cloak)
-                            tab.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0", heading="Estándar", active="segundaPestana", data-ng-click="activarPestana(2)")
+                        tabset.col-xs-12(style="padding: 0 0 0 0;", data-ng-cloak)
+                            tab.col-xs-12(style="padding: 0 0 0 0", heading="Estándar", active="segundaPestana", data-ng-click="activarPestana(2)")
 
-                                div.col-md-12.col-sm-12.col-xs-12(style="border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; border-left: 1px solid #ddd;")
-                                    div.col-md-12.col-sm-12.col-xs-12(style="padding: 0 0 0 0; margin-top: 15px").form-group
+                                div.col-xs-12(style="border-right: 1px solid #ddd; border-bottom: 1px solid #ddd; border-left: 1px solid #ddd;")
+                                    div.col-xs-12(style="padding: 0 0 0 0; margin-top: 15px").form-group
                                         div.col-md-12.form-group
 
 
@@ -90,13 +90,13 @@ block content
 
 
 
-                                    div.col-md-12.col-sm-12.col-xs-12.form-group
+                                    div.col-xs-12.form-group
                                         div.col-sm-2.col-sm-offset-5.col-xs-12(style="text-align:center")
                                             button.btn.btn-default.btn-qdb.abel(href="#", title="Consultar", role="button", data-ng-click="currentPage = 1; consultarEstandar()", data-ng-disabled="consultando") Consultar
 
 
 
-                                    div.col-md-12.col-sm-12.col-xs-12#panelesEstandar
+                                    div.col-xs-12#panelesEstandar
 
                                         div.text-center
                                             uib-pagination(data-ng-show="tickets.length",
@@ -139,7 +139,7 @@ block content
 
                                         include partials/tablaAparicionesPorParejaDeEstrellas
 
-                    div.col-md-12.col-sm-12.col-xs-12(style="margin-top:50px; margin-bottom: 10px")
+                    div.col-xs-12(style="margin-top:50px; margin-bottom: 10px")
                         script(async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
                         ins.adsbygoogle(style="display:block", data-ad-client="ca-pub-2309187828170787",
                         data-ad-slot="9496209954", data-ad-format="auto")
