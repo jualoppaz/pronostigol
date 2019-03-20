@@ -840,3 +840,11 @@ ul#social-links li>a:hover {
     text-decoration: none;
     outline: 0;
 }
+
+td.combinacion-quiniela span {
+    width: 25px;
+}
+
+td.combinacion-quiniela span:last-of-type {
+    width: 40px;
+}
