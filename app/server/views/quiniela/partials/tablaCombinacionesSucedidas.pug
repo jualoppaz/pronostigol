@@ -9,6 +9,6 @@ div.table-responsive(style="margin-top: 15px", data-ng-if="mostrarCombinacionesS
         tbody
             tr(data-ng-repeat="combinacion in resultadosSucedidos | orderBy:'value'")
                 td(data-ng-bind-template="{{$index+1}}")
-                td
+                td.combinacion-quiniela
                     span.badge.badge-azul(data-ng-repeat="resultado in combinacion.resultados", data-ng-bind-template="{{resultado.resultado}}")
                 td(data-ng-bind-template="{{combinacion.apariciones}}")
