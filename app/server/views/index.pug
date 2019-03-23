@@ -68,8 +68,7 @@ block content
                             div.col-xs-12.panel.panel-body.border-qdb
                                 div.main-card-content(style="word-wrap: break-word;")
                                     div.main-card-name
-                                        a.recipe-title
-                                            span.caramelo.qdb-red Bienvenido
+                                        span.caramelo.qdb-red Bienvenido
                                     div.main-card-description
                                         p.qdb-blue.
                                             En esta aplicaci&oacute;n web encontrar&aacute;s multitud de estad&iacute;sticas asociadas a diferentes
@@ -102,7 +101,7 @@ block content
                                                 form(style="margin-top: 25px", data-ng-show="usuarioEstaLogueado", data-ng-cloak)
                                                     textarea(placeholder="Escribe una respuesta", data-ng-model="nuevaRespuesta.texto").form-control.nuevo-comentario
                                                     div.text-center(style="margin-top:25px; margin-left: -5%")
-                                                        a.btn.btn-default.btn-qdb.btn-login(data-ng-click="responderComentario(comment)").btn.btn-danger.btn-large Responder
+                                                        button.btn.btn-default.btn-qdb.btn-login(data-ng-click="responderComentario(comment)").btn.btn-danger.btn-large Responder
 
 
                                 div.col-xs-12.text-center
@@ -112,8 +111,7 @@ block content
 
                                     div.main-card-content(data-ng-show="comments != null && comments.length == 0", data-ng-cloak, style="margin-bottom: 10px")
                                         div.main-card-name(style="padding-left: 0px;")
-                                            a.recipe-title
-                                                span.caramelo.qdb-red No hay comentarios. Sé el primero en comentar.
+                                            span.caramelo.qdb-red No hay comentarios. Sé el primero en comentar.
 
                                     h3.text-center(style="margin-top: 0px; padding-top: 5px", data-ng-show="usuarioEsAnonimo", data-ng-cloak)
                                         a.green(href="/login", title="Entrar", data-ng-bind-template="{{ comments.length > 0 ? '¡Debes hacer login para comentar!' : '¡Haz login primero!'}}")#logueate
@@ -137,7 +135,7 @@ block content
                                     form(style="margin-top:25px", data-ng-show="usuarioEstaLogueado", data-ng-cloak)
                                         textarea(placeholder="Escribe un comentario", data-ng-model="comentario.texto").form-control.nuevo-comentario
                                         div.text-center(style="margin-top:25px")
-                                            a.btn.btn-default.btn-qdb.btn-login(data-ng-click="comentar()").btn.btn-danger.btn-large Enviar
+                                            button.btn.btn-default.btn-qdb.btn-login(data-ng-click="comentar()").btn.btn-danger.btn-large Enviar
 
                             div.col-xs-12.panel.panel-body.border-qdb(data-ng-show="tweets.length > 0", data-ng-cloak)
 
