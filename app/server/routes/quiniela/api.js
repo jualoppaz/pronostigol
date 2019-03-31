@@ -7,6 +7,11 @@ module.exports = function(app) {
 
     var QUI_DBM = require("../../modules/quiniela-data-base-manager");
 
+    // Validations
+    var validate = require("express-validation");
+    var validations = require("./validations.js");
+    var getHistoricalAppearedResults = validations.getHistoricalAppearedResults;
+
     var filtrarInformacion = function(result) {
         borrarPronosticos(result);
         borrarPrecio(result);
@@ -1145,11 +1150,39 @@ module.exports = function(app) {
         );
     };
 
-    var quiniela_api_historicoPartidosPorCombinaciones = function(req, res) {
-        var resultados = [];
-        var resultadosPorRepeticiones = {};
+    /**
+     * @api {get} /quiniela/historical/combinations Obtención de todas las combinaciones de Quiniela
+     * @apiName GetQuinielaHistoricalCombinations
+     * @apiGroup QuinielaHistoricalCombinations
+     *
+     * @apiDescription Recurso para la consulta de combinaciones que han aparecido en sorteos de Quiniela registrados en el sistema.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "result"
+     * y "occurrences". Por defecto se ordenan por "occurrences".
+     * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
+     * Por defecto se ordenan descendentemente.
+     * @apiSampleRequest /api/quiniela/historical/combinations
+     */
+    var quiniela_api_historicalAppearedResults = function(req, res) {
+        var query = req.query;
 
-        QUI_DBM.getAllAppearedResults(function(err, result) {
+        var page = query.page || 1;
+        var perPage = query.per_page || 10;
+        var type = query.sort_type || "desc";
+        var sort = query.sort_property || "occurrences";
+
+        var filtros = {
+            page: Number(page),
+            perPage: Number(perPage),
+            sort: sort,
+            type: type
+        };
+
+        QUI_DBM.getAllAppearedResults(filtros, function(err, result) {
             if (err) {
                 return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -1627,8 +1660,9 @@ module.exports = function(app) {
 
     /* Historico (Consultas Estandar/Fijas) */
     quiniela.get(
-        "/historical/combinaciones",
-        quiniela_api_historicoPartidosPorCombinaciones
+        "/historical/combinations",
+        validate(getHistoricalAppearedResults),
+        quiniela_api_historicalAppearedResults
     );
 
     quiniela.get("/getAllStoredTeams", general_api_storedTeams);
