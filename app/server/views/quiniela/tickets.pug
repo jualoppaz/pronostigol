@@ -59,19 +59,20 @@ block content
                                             td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.modalidad}}").pointer
                                             td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}").pointer
 
-                                uib-pagination(
-                                    items-per-page="ticketsPerPage",
-                                    boundary-links="true",
-                                    boundary-link-numbers="true",
-                                    max-size="maxSize",
-                                    force-ellipses="true",
-                                    total-items="totalItems",
-                                    data-ng-model="currentPage",
-                                    data-ng-change="consultarTickets()",
-                                    previous-text="<",
-                                    next-text=">",
-                                    first-text="Inicio",
-                                    last-text="Fin").pagination-sm.abel
+                                div.text-center
+                                    uib-pagination(
+                                        items-per-page="ticketsPerPage",
+                                        boundary-links="true",
+                                        boundary-link-numbers="true",
+                                        max-size="maxSize",
+                                        force-ellipses="true",
+                                        total-items="totalItems",
+                                        data-ng-model="currentPage",
+                                        data-ng-change="consultarTickets()",
+                                        previous-text="<",
+                                        next-text=">",
+                                        first-text="Inicio",
+                                        last-text="Fin").pagination-sm.abel
 
     include ../partials/footer
 

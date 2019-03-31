@@ -3,11 +3,11 @@ div.table-responsive(style="margin-top: 15px", data-ng-if="mostrar.tablaAparicio
         thead
             tr
                 th
-                    a.columnaOrdenable(data-ng-click="ordenarAparicionesPorReintegroSegun('reimbursement'); consultarEstandar()", data-ng-bind-template="Reintegro", style="padding-right: 15px")
+                    a.columnaOrdenable(data-ng-click="ordenarAparicionesPorReintegroSegun('reimbursement'); consultarEstandar()", data-ng-bind-template="Reintegro")
                     span(data-ng-if="criterioOrdenacionAparicionesPorReintegro == 'reimbursement' && !ordenAparicionesPorReintegro").fa.fa-caret-up
                     span(data-ng-if="criterioOrdenacionAparicionesPorReintegro == 'reimbursement' && ordenAparicionesPorReintegro").fa.fa-caret-down
                 th
-                    a.columnaOrdenable(data-ng-click="ordenarAparicionesPorReintegroSegun('occurrences'); consultarEstandar()", data-ng-bind-template="Apariciones", style="padding-right: 15px")
+                    a.columnaOrdenable(data-ng-click="ordenarAparicionesPorReintegroSegun('occurrences'); consultarEstandar()", data-ng-bind-template="Apariciones")
                     span(data-ng-if="criterioOrdenacionAparicionesPorReintegro == 'occurrences' && ordenAparicionesPorReintegro").fa.fa-caret-down
                     span(data-ng-if="criterioOrdenacionAparicionesPorReintegro == 'occurrences' && !ordenAparicionesPorReintegro").fa.fa-caret-up
 

@@ -138,6 +138,21 @@ block content
                                     div.col-xs-12#panelesEstandar
                                         include partials/tablaCombinacionesSucedidas
 
+                                        div.text-center(data-ng-if="mostrarCombinacionesSucedidas")
+                                            uib-pagination(
+                                                items-per-page="pagination.itemsPerPage",
+                                                boundary-links="true",
+                                                boundary-link-numbers="true",
+                                                max-size="pagination.maxSize",
+                                                force-ellipses="true",
+                                                total-items="pagination.totalItems",
+                                                data-ng-model="pagination.currentPage",
+                                                data-ng-change="consultarEstandar()",
+                                                previous-text="<",
+                                                next-text=">",
+                                                first-text="Inicio",
+                                                last-text="Fin").pagination-sm.abel
+
                     div.col-xs-12(style="margin-top:50px; margin-bottom: 15px")
                         script(async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
                         ins.adsbygoogle(style="display:block", data-ad-client="ca-pub-2309187828170787",

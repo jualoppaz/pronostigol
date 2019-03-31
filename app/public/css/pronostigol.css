@@ -1163,6 +1163,7 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    padding-right: 15px;
 }
 
 .columnaOrdenable:hover {
