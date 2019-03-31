@@ -851,3 +851,18 @@ td.combinacion-quiniela span {
 td.combinacion-quiniela span:last-of-type {
     width: 40px;
 }
+
+.columnaOrdenable {
+    text-decoration: none !important;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding-right: 15px;
+}
+
+.columnaOrdenable:hover {
+    cursor: pointer;
+}
