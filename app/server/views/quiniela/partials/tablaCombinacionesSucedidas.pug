@@ -3,12 +3,14 @@ div.table-responsive(style="margin-top: 15px", data-ng-if="mostrarCombinacionesS
         thead
             tr
                 th
-                th(data-ng-bind-template="Resultado")
-                th(data-ng-bind-template="Apariciones")
+                    a.columnaOrdenable(data-ng-click="sortColumn('result'); consultarEstandar()") Resultado
+                    span(data-ng-if="pagination.sortProperty === 'result'", data-ng-class="{'fa-caret-up': pagination.sortType, 'fa-caret-down': !pagination.sortType}").fa
+                th
+                    a.columnaOrdenable(data-ng-click="sortColumn('occurrences'); consultarEstandar()") Apariciones
+                    span(data-ng-if="pagination.sortProperty === 'occurrences'", data-ng-class="{'fa-caret-up': pagination.sortType, 'fa-caret-down': !pagination.sortType}").fa
 
         tbody
             tr(data-ng-repeat="combinacion in resultadosSucedidos | orderBy:'value'")
-                td(data-ng-bind-template="{{$index+1}}")
                 td.combinacion-quiniela
-                    span.badge.badge-azul(data-ng-repeat="resultado in combinacion.resultados", data-ng-bind-template="{{resultado.resultado}}")
-                td(data-ng-bind-template="{{combinacion.apariciones}}")
+                    span.badge.badge-azul(data-ng-repeat="result in combinacion.results track by $index", data-ng-bind-template="{{result}}")
+                td(data-ng-bind-template="{{combinacion.occurrences}}")

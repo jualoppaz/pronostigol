@@ -55,16 +55,28 @@ function Controller ($scope, $http, $filter, quiniela) {
         '2-0', '2-1', '2-2', '2-M', 'M-0', 'M-1', 'M-2', 'M-M'
     ];
 
-    $scope.ayudaTemporada = "Para buscar datos sobre todas " +
+    $scope.pagination = {
+        currentPage: 1,
+        itemsPerPage: 20,
+        sortProperty: "occurrences",
+        sortType: false,
+        maxSize: 5
+    };
+
+    $scope.ayudaTemporada =
+        "Para buscar datos sobre todas " +
         "las temporadas o sobre una única temporada.";
 
-    $scope.ayudaCompeticion = "Para buscar datos sobre todas " +
+    $scope.ayudaCompeticion =
+        "Para buscar datos sobre todas " +
         "las competiciones o sobre una concreta.";
 
-    $scope.ayudaBusqueda = "Para añadir un criterio adicional de búsqueda. " +
+    $scope.ayudaBusqueda =
+        "Para añadir un criterio adicional de búsqueda. " +
         "Se pueden buscar resultados en general, los datos de un equipo o sólo los de un partido.";
 
-    $scope.ayudaCombinacionesOcurrencia = "Para consultar las combinaciones que se han dado en la historia y " +
+    $scope.ayudaCombinacionesOcurrencia =
+        "Para consultar las combinaciones que se han dado en la historia y " +
         "el número de veces que se han repetido.";
 
     $scope.plenosRenovados = {};
@@ -73,80 +85,80 @@ function Controller ($scope, $http, $filter, quiniela) {
 
     $scope.plenosRenovadosVisitante = {};
 
-    $scope.sumaDeVictoriasLocales = function(){
+    $scope.sumaDeVictoriasLocales = function() {
         var suma = 0;
-        for(var i=0; i<$scope.filas.length; i++){
+        for (var i = 0; i < $scope.filas.length; i++) {
             suma = suma + $scope.filas[i].victoriasLocales || 0;
         }
         return suma;
     };
 
-    $scope.sumaDeEmpates = function(){
+    $scope.sumaDeEmpates = function() {
         var suma = 0;
-        for(var i=0; i<$scope.filas.length; i++){
+        for (var i = 0; i < $scope.filas.length; i++) {
             suma = suma + $scope.filas[i].empates || 0;
         }
         return suma;
     };
 
-    $scope.sumaDeVictoriasVisitantes = function(){
+    $scope.sumaDeVictoriasVisitantes = function() {
         var suma = 0;
-        for(var i=0; i<$scope.filas.length; i++){
+        for (var i = 0; i < $scope.filas.length; i++) {
             suma = suma + $scope.filas[i].victoriasVisitantes || 0;
         }
         return suma;
     };
 
-    $scope.sumaDeVictoriasLocalesComoLocal = function(){
+    $scope.sumaDeVictoriasLocalesComoLocal = function() {
         var suma = 0;
-        for(var i=0; i<$scope.filasLocal.length; i++){
+        for (var i = 0; i < $scope.filasLocal.length; i++) {
             suma = suma + $scope.filasLocal[i].victoriasLocales || 0;
         }
         return suma;
     };
 
-    $scope.sumaDeEmpatesComoLocal = function(){
+    $scope.sumaDeEmpatesComoLocal = function() {
         var suma = 0;
-        for(var i=0; i<$scope.filasLocal.length; i++){
+        for (var i = 0; i < $scope.filasLocal.length; i++) {
             suma = suma + $scope.filasLocal[i].empates || 0;
         }
         return suma;
     };
 
-    $scope.sumaDeVictoriasVisitantesComoLocal = function(){
+    $scope.sumaDeVictoriasVisitantesComoLocal = function() {
         var suma = 0;
-        for(var i=0; i<$scope.filasLocal.length; i++){
+        for (var i = 0; i < $scope.filasLocal.length; i++) {
             suma = suma + $scope.filasLocal[i].victoriasVisitantes || 0;
         }
         return suma;
     };
 
-    $scope.sumaDeVictoriasLocalesComoVisitante = function(){
+    $scope.sumaDeVictoriasLocalesComoVisitante = function() {
         var suma = 0;
-        for(var i=0; i<$scope.filasVisitante.length; i++){
+        for (var i = 0; i < $scope.filasVisitante.length; i++) {
             suma = suma + $scope.filasVisitante[i].victoriasLocales || 0;
         }
         return suma;
     };
 
-    $scope.sumaDeEmpatesComoVisitante = function(){
+    $scope.sumaDeEmpatesComoVisitante = function() {
         var suma = 0;
-        for(var i=0; i<$scope.filasVisitante.length; i++){
+        for (var i = 0; i < $scope.filasVisitante.length; i++) {
             suma = suma + $scope.filasVisitante[i].empates || 0;
         }
         return suma;
     };
 
-    $scope.sumaDeVictoriasVisitantesComoVisitante = function(){
+    $scope.sumaDeVictoriasVisitantesComoVisitante = function() {
         var suma = 0;
-        for(var i=0; i<$scope.filasVisitante.length; i++){
+        for (var i = 0; i < $scope.filasVisitante.length; i++) {
             suma = suma + $scope.filasVisitante[i].victoriasVisitantes || 0;
         }
         return suma;
     };
 
-    $scope.limpiarTablas = function(){
-        $scope.filas = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+    $scope.limpiarTablas = function() {
+        $scope.filas = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
         $scope.victoriasLocales = [];
         $scope.victoriasVisitantes = [];
@@ -177,78 +189,66 @@ function Controller ($scope, $http, $filter, quiniela) {
         $scope.consultando = true;
     };
 
-
-    $scope.situacionDelPrimero = function(primero, segundo, tercero){
-
+    $scope.situacionDelPrimero = function(primero, segundo, tercero) {
         var res = "";
 
-        if(primero > segundo && primero > tercero){
+        if (primero > segundo && primero > tercero) {
             // Caso 1: El primero es el mayor en solitario
 
             res = "mayorEnSolitario";
-        }else if(primero == segundo && primero > tercero){
-
+        } else if (primero == segundo && primero > tercero) {
             // Caso 2.1: El primero es el mayor empatado con alguno
             res = "mayorCompartido";
-        }else if(primero > segundo && primero == tercero){
-
+        } else if (primero > segundo && primero == tercero) {
             // Caso 2.2: El primero es el mayor empatado con alguno
             res = "mayorCompartido";
-        }else if(primero < segundo && primero < tercero){
+        } else if (primero < segundo && primero < tercero) {
             // Caso 3: El primero es el menor en solitario
 
             res = "menorEnSolitario";
-        }else if(primero == segundo && primero < tercero){
-
+        } else if (primero == segundo && primero < tercero) {
             // Caso 4.1: El primero es el menor empatado con alguno
             res = "menorCompartido";
-        }else if(primero < segundo && primero == tercero){
-
+        } else if (primero < segundo && primero == tercero) {
             // Caso 4.2: El primero es el menor empatado con alguno
             res = "menorCompartido";
-        }else if(primero < segundo && primero > tercero){
-
+        } else if (primero < segundo && primero > tercero) {
             //Caso 5.1: Está en medio
 
             res = "intermedio";
-        }else if(primero > segundo && primero < tercero){
-
+        } else if (primero > segundo && primero < tercero) {
             //Caso 5.2: Está en medio
 
             res = "intermedio";
-        }else if(primero == segundo && segundo == tercero){
-
+        } else if (primero == segundo && segundo == tercero) {
             //Caso 5: Todos suman lo mismo
 
             res = "igualados";
         }
 
         return res;
-
     };
 
-
-    $scope.cargarTabla = function(data){
+    $scope.cargarTabla = function(data) {
         $scope.limpiarTablas();
         $scope.data = data;
         $scope.plenosRenovados = data.plenosRenovados;
         $scope.filas = data.filas;
 
-        if($scope.filas.length < 15){
+        if ($scope.filas.length < 15) {
             $scope.filasAux = $scope.filas;
 
-            for(var i=1; i<=15; i++){
+            for (var i = 1; i <= 15; i++) {
                 var hayDatos = false;
 
-                for(var f=0; f<$scope.filasAux.length; f++){
-
-                    if($scope.filasAux[f].fila == i){
+                for (var f = 0; f < $scope.filasAux.length; f++) {
+                    if ($scope.filasAux[f].fila == i) {
                         hayDatos = true;
                         break;
                     }
                 }
 
-                if(!hayDatos){
+                if (!hayDatos) {
                     var json = {
                         fila: i,
                         victoriasLocales: 0,
@@ -261,10 +261,10 @@ function Controller ($scope, $http, $filter, quiniela) {
             }
         }
 
-        if(data.plenosRenovados){
-            for(i=0; i<$scope.resultadosPlenoRenovado.length; i++){
+        if (data.plenosRenovados) {
+            for (i = 0; i < $scope.resultadosPlenoRenovado.length; i++) {
                 var key = $scope.resultadosPlenoRenovado[i];
-                if($scope.plenosRenovados[key] == null){
+                if ($scope.plenosRenovados[key] == null) {
                     $scope.plenosRenovados[key] = 0;
                 }
             }
@@ -273,24 +273,24 @@ function Controller ($scope, $http, $filter, quiniela) {
         }
     };
 
-    $scope.cargarTablaLocal = function(data){
+    $scope.cargarTablaLocal = function(data) {
         $scope.plenosRenovadosLocal = data.plenosRenovados;
         $scope.filasLocal = data.filas;
 
-        if($scope.filasLocal.length < 15){
+        if ($scope.filasLocal.length < 15) {
             $scope.filasAux = $scope.filasLocal;
 
-            for(var i=1; i<=15; i++){
+            for (var i = 1; i <= 15; i++) {
                 var hayDatos = false;
 
-                for(var f=0; f<$scope.filasAux.length; f++){
-                    if($scope.filasAux[f].fila == i){
+                for (var f = 0; f < $scope.filasAux.length; f++) {
+                    if ($scope.filasAux[f].fila == i) {
                         hayDatos = true;
                         break;
                     }
                 }
 
-                if(!hayDatos){
+                if (!hayDatos) {
                     var json = {
                         fila: i,
                         victoriasLocales: 0,
@@ -308,12 +308,12 @@ function Controller ($scope, $http, $filter, quiniela) {
             falta hacer esto
         */
 
-        $scope.filasLocal = $filter('orderBy')($scope.filasLocal, 'fila');
+        $scope.filasLocal = $filter("orderBy")($scope.filasLocal, "fila");
 
-        if(data.plenosRenovados){
-            for(i=0; i<$scope.resultadosPlenoRenovado.length; i++){
+        if (data.plenosRenovados) {
+            for (i = 0; i < $scope.resultadosPlenoRenovado.length; i++) {
                 var key = $scope.resultadosPlenoRenovado[i];
-                if($scope.plenosRenovadosLocal[key] == null){
+                if ($scope.plenosRenovadosLocal[key] == null) {
                     $scope.plenosRenovadosLocal[key] = 0;
                 }
             }
@@ -322,24 +322,23 @@ function Controller ($scope, $http, $filter, quiniela) {
         }
     };
 
-    $scope.cargarTablaVisitante = function(data){
+    $scope.cargarTablaVisitante = function(data) {
         $scope.plenosRenovadosVisitante = data.plenosRenovados;
         $scope.filasVisitante = data.filas;
-        if($scope.filasVisitante.length < 15){
+        if ($scope.filasVisitante.length < 15) {
             $scope.filasAux = $scope.filasVisitante;
 
-            for(var i=1; i<=15; i++){
-
+            for (var i = 1; i <= 15; i++) {
                 var hayDatos = false;
 
-                for(var f=0; f<$scope.filasAux.length; f++){
-                    if($scope.filasAux[f].fila == i){
+                for (var f = 0; f < $scope.filasAux.length; f++) {
+                    if ($scope.filasAux[f].fila == i) {
                         hayDatos = true;
                         break;
                     }
                 }
 
-                if(!hayDatos){
+                if (!hayDatos) {
                     var json = {
                         fila: i,
                         victoriasLocales: 0,
@@ -352,12 +351,15 @@ function Controller ($scope, $http, $filter, quiniela) {
             }
         }
 
-        $scope.filasVisitante = $filter('orderBy')($scope.filasVisitante, 'fila');
+        $scope.filasVisitante = $filter("orderBy")(
+            $scope.filasVisitante,
+            "fila"
+        );
 
-        if(data.plenosRenovados){
-            for(i=0; i<$scope.resultadosPlenoRenovado.length; i++){
+        if (data.plenosRenovados) {
+            for (i = 0; i < $scope.resultadosPlenoRenovado.length; i++) {
                 var key = $scope.resultadosPlenoRenovado[i];
-                if($scope.plenosRenovadosVisitante[key] == null){
+                if ($scope.plenosRenovadosVisitante[key] == null) {
                     $scope.plenosRenovadosVisitante[key] = 0;
                 }
             }
@@ -366,8 +368,7 @@ function Controller ($scope, $http, $filter, quiniela) {
         }
     };
 
-    $scope.consultar = function(){
-
+    $scope.consultar = function() {
         $scope.limpiarTablas();
 
         var temporada = $scope.form.temporadaSeleccionada;
@@ -383,80 +384,90 @@ function Controller ($scope, $http, $filter, quiniela) {
 
         console.log("Opcion busqueda: " + opcionBusqueda);
 
-        if(temporada == 'Histórico' || temporada == null || temporada == ""){
-
-            if(competicion == 'Todas' || competicion == null || competicion == ""){
-                if(opcionBusqueda == "general"){
-                    quiniela.getHistorical()
-                        .then(function(data){
+        if (temporada == "Histórico" || temporada == null || temporada == "") {
+            if (
+                competicion == "Todas" ||
+                competicion == null ||
+                competicion == ""
+            ) {
+                if (opcionBusqueda == "general") {
+                    quiniela
+                        .getHistorical()
+                        .then(function(data) {
                             $scope.cargarTabla(data);
 
                             $scope.mostrar = true;
 
                             $scope.consultando = false;
                         })
-                        .catch(function(err){
+                        .catch(function(err) {
                             console.log(err);
                             $scope.mostrar = false;
 
                             $scope.consultando = false;
                         });
-                }else if(opcionBusqueda == "equipo"){
-                    if(equipo == "" || equipo == null){
+                } else if (opcionBusqueda == "equipo") {
+                    if (equipo == "" || equipo == null) {
                         alert("Debe introducir un equipo.");
                         $scope.consultando = false;
-                    }else{ // Se ha introducido un equipo
+                    } else {
+                        // Se ha introducido un equipo
 
-                        quiniela.getHistoricalByLocalTeam(equipo)
-                            .then(function(data){
+                        quiniela
+                            .getHistoricalByLocalTeam(equipo)
+                            .then(function(data) {
                                 $scope.cargarTablaLocal(data);
 
                                 $scope.mostrarLocalYVisitante = true;
 
                                 $scope.consultando = false;
                             })
-                            .catch(function(err){
+                            .catch(function(err) {
                                 console.log(err);
                                 $scope.mostrarLocalYVisitante = false;
                                 $scope.consultando = false;
                             });
 
-                        quiniela.getHistoricalByVisitorTeam(equipo)
-                            .then(function(data){
+                        quiniela
+                            .getHistoricalByVisitorTeam(equipo)
+                            .then(function(data) {
                                 $scope.cargarTablaVisitante(data);
 
                                 $scope.mostrarLocalYVisitante = true;
                                 $scope.consultando = false;
                             })
-                            .catch(function(err){
+                            .catch(function(err) {
                                 console.log(err);
                                 $scope.mostrarLocalYVisitante = false;
                                 $scope.consultando = false;
                             });
                     }
-                }else if(opcionBusqueda == "partido"){
-
-                    if(equipoLocal == null || equipoLocal == ""){
-                        if(equipoVisitante == null || equipoVisitante == ""){
+                } else if (opcionBusqueda == "partido") {
+                    if (equipoLocal == null || equipoLocal == "") {
+                        if (equipoVisitante == null || equipoVisitante == "") {
                             alert("Debe introducir 2 equipos");
                             $scope.consultando = false;
-                        }else{
+                        } else {
                             alert("Debe introducir el equipo local.");
                             $scope.consultando = false;
                         }
-                    }else{
-                        if(equipoVisitante == null || equipoVisitante == ""){
+                    } else {
+                        if (equipoVisitante == null || equipoVisitante == "") {
                             alert("Debe introducir el equipo visitante.");
                             $scope.consultando = false;
-                        }else{
-                            quiniela.getHistoricalByLocalAndVisitorTeam(equipoLocal, equipoVisitante)
-                                .then(function(data){
+                        } else {
+                            quiniela
+                                .getHistoricalByLocalAndVisitorTeam(
+                                    equipoLocal,
+                                    equipoVisitante
+                                )
+                                .then(function(data) {
                                     $scope.cargarTabla(data);
 
                                     $scope.mostrar = true;
                                     $scope.consultando = false;
                                 })
-                                .catch(function(err){
+                                .catch(function(err) {
                                     console.log(err);
                                     $scope.mostrar = false;
                                     $scope.consultando = false;
@@ -464,61 +475,74 @@ function Controller ($scope, $http, $filter, quiniela) {
                         }
                     }
                 }
-
-            }else{
-                if(opcionBusqueda == "general"){
-                    quiniela.getHistoricalByCompetition(competicion)
-                        .then(function(data){
+            } else {
+                if (opcionBusqueda == "general") {
+                    quiniela
+                        .getHistoricalByCompetition(competicion)
+                        .then(function(data) {
                             $scope.cargarTabla(data);
 
                             $scope.mostrar = true;
                             $scope.consultando = false;
                         })
-                        .catch(function(err){
+                        .catch(function(err) {
                             console.log(err);
                             $scope.mostrar = false;
                             $scope.consultando = false;
                         });
-                }else if(opcionBusqueda == "equipo"){
-                    if(equipo == ""){
+                } else if (opcionBusqueda == "equipo") {
+                    if (equipo == "") {
                         alert("Debe introducir un equipo.");
                         $scope.consultando = false;
-                    }else{
-                        quiniela.getHistoricalByCompetitionAndLocalTeam(competicion, equipo)
-                            .then(function(data){
+                    } else {
+                        quiniela
+                            .getHistoricalByCompetitionAndLocalTeam(
+                                competicion,
+                                equipo
+                            )
+                            .then(function(data) {
                                 $scope.cargarTablaLocal(data);
 
                                 $scope.mostrarLocalYVisitante = true;
 
                                 $scope.consultando = false;
                             })
-                            .catch(function(err){
+                            .catch(function(err) {
                                 console.log(err);
                                 $scope.mostrarLocalYVisitante = false;
                                 $scope.consultando = false;
                             });
 
-                        quiniela.getHistoricalByCompetitionAndVisitorTeam(competicion, equipo)
-                            .then(function(data){
+                        quiniela
+                            .getHistoricalByCompetitionAndVisitorTeam(
+                                competicion,
+                                equipo
+                            )
+                            .then(function(data) {
                                 $scope.cargarTablaVisitante(data);
                                 $scope.mostrarLocalYVisitante = true;
                                 $scope.consultando = false;
                             })
-                            .catch(function(err){
+                            .catch(function(err) {
                                 console.log(err);
                                 $scope.mostrarLocalYVisitante = false;
                                 $scope.consultando = false;
                             });
                     }
-                }else if(opcionBusqueda == "partido"){
-                    if(equipoLocal != null && equipoVisitante != null){
-                        quiniela.getHistoricalByCompetitionAndLocalAndVisitorTeam(competicion, equipoLocal, equipoVisitante)
-                            .then(function(data){
+                } else if (opcionBusqueda == "partido") {
+                    if (equipoLocal != null && equipoVisitante != null) {
+                        quiniela
+                            .getHistoricalByCompetitionAndLocalAndVisitorTeam(
+                                competicion,
+                                equipoLocal,
+                                equipoVisitante
+                            )
+                            .then(function(data) {
                                 $scope.cargarTabla(data);
                                 $scope.mostrar = true;
                                 $scope.consultando = false;
                             })
-                            .catch(function(err){
+                            .catch(function(err) {
                                 console.log(err);
                                 $scope.mostrar = false;
                                 $scope.consultando = false;
@@ -526,64 +550,82 @@ function Controller ($scope, $http, $filter, quiniela) {
                     }
                 }
             }
-        }else{
-            if(competicion == 'Todas' || competicion == null || competicion == ""){
-                if(opcionBusqueda == "general"){
-                    quiniela.getHistoricalBySeason(temporada)
-                        .then(function(data){
+        } else {
+            if (
+                competicion == "Todas" ||
+                competicion == null ||
+                competicion == ""
+            ) {
+                if (opcionBusqueda == "general") {
+                    quiniela
+                        .getHistoricalBySeason(temporada)
+                        .then(function(data) {
                             $scope.cargarTabla(data);
                             $scope.mostrar = true;
 
                             $scope.consultando = false;
                         })
-                        .catch(function(err){
+                        .catch(function(err) {
                             console.log(err);
                             $scope.mostrar = false;
 
                             $scope.consultando = false;
                         });
-                }else if(opcionBusqueda == "equipo"){
-                    if(equipo == ""){
+                } else if (opcionBusqueda == "equipo") {
+                    if (equipo == "") {
                         alert("Debe introducir un equipo.");
-                    }else{
-                        quiniela.getHistoricalBySeasonAndLocalTeam(temporada, equipo)
-                            .then(function(data){
+                    } else {
+                        quiniela
+                            .getHistoricalBySeasonAndLocalTeam(
+                                temporada,
+                                equipo
+                            )
+                            .then(function(data) {
                                 $scope.cargarTablaLocal(data);
                                 $scope.mostrarLocalYVisitante = true;
 
                                 $scope.consultando = false;
                             })
-                            .catch(function(err){
+                            .catch(function(err) {
                                 console.log(data);
                                 $scope.mostrarLocalYVisitante = false;
 
                                 $scope.consultando = false;
                             });
 
-                        quiniela.getHistoricalBySeasonAndVisitorTeam(temporada, equipo)
-                            .then(function(data){
+                        quiniela
+                            .getHistoricalBySeasonAndVisitorTeam(
+                                temporada,
+                                equipo
+                            )
+                            .then(function(data) {
                                 $scope.cargarTablaVisitante(data);
                                 $scope.mostrarLocalYVisitante = true;
 
                                 $scope.consultando = false;
                             })
-                            .catch(function(err){
+                            .catch(function(err) {
                                 console.log(err);
                                 $scope.mostrarLocalYVisitante = false;
 
                                 $scope.consultando = false;
                             });
                     }
-                }else if(opcionBusqueda == "partido"){
-                    if(equipoLocal != null && equipoVisitante != null){
-                        quiniela.getHistoricalBySeasonAndLocalAndVisitorTeam(temporada, equipoLocal, equipoVisitante)
-                            .then(function(data){
+                } else if (opcionBusqueda == "partido") {
+                    if (equipoLocal != null && equipoVisitante != null) {
+                        quiniela
+                            .getHistoricalBySeasonAndLocalAndVisitorTeam(
+                                temporada,
+                                equipoLocal,
+                                equipoVisitante
+                            )
+                            .then(function(data) {
                                 $scope.cargarTabla(data);
                                 $scope.mostrar = true;
 
                                 $scope.consultando = false;
                             })
-                            .catch(function(err){
+                            .catch(function(err) {
                                 console.log(err);
                                 $scope.mostrar = false;
 
@@ -591,65 +633,85 @@ function Controller ($scope, $http, $filter, quiniela) {
                             });
                     }
                 }
-            }else{ // Se ha seleccionado una competicion
-                if(opcionBusqueda == "general"){
-                    quiniela.getHistoricalBySeasonAndCompetition(temporada, competicion)
-                        .then(function(data){
+            } else {
+                // Se ha seleccionado una competicion
+                if (opcionBusqueda == "general") {
+                    quiniela
+                        .getHistoricalBySeasonAndCompetition(
+                            temporada,
+                            competicion
+                        )
+                        .then(function(data) {
                             $scope.cargarTabla(data);
                             $scope.mostrar = true;
 
                             $scope.consultando = false;
                         })
-                        .catch(function(err){
+                        .catch(function(err) {
                             console.log(err);
                             $scope.mostrar = false;
 
                             $scope.consultando = false;
                         });
-                }else if(opcionBusqueda == "equipo"){
-                    if(equipo == ""){
+                } else if (opcionBusqueda == "equipo") {
+                    if (equipo == "") {
                         alert("Debe introducir un equipo.");
-                    }else{ // Se ha introducido un equipo
-                        quiniela.getHistoricalBySeasonCompetitionAndLocalTeam(temporada, competicion, equipo)
-                            .then(function(data){
+                    } else {
+                        // Se ha introducido un equipo
+                        quiniela
+                            .getHistoricalBySeasonCompetitionAndLocalTeam(
+                                temporada,
+                                competicion,
+                                equipo
+                            )
+                            .then(function(data) {
                                 $scope.cargarTablaLocal(data);
                                 $scope.mostrarLocalYVisitante = true;
 
                                 $scope.consultando = false;
                             })
-                            .catch(function(err){
+                            .catch(function(err) {
                                 console.log(err);
                                 $scope.mostrarLocalYVisitante = false;
 
                                 $scope.consultando = false;
                             });
 
-                        quiniela.getHistoricalBySeasonCompetitionAndVisitorTeam(temporada, competicion, equipo)
-                            .then(function(data){
+                        quiniela
+                            .getHistoricalBySeasonCompetitionAndVisitorTeam(
+                                temporada,
+                                competicion,
+                                equipo
+                            )
+                            .then(function(data) {
                                 $scope.cargarTablaVisitante(data);
                                 $scope.mostrarLocalYVisitante = true;
 
                                 $scope.consultando = false;
                             })
-                            .catch(function(err){
+                            .catch(function(err) {
                                 console.log(err);
                                 $scope.mostrarLocalYVisitante = false;
 
                                 $scope.consultando = false;
                             });
                     }
-                }else if(opcionBusqueda == "partido"){
-                    if(equipoLocal != null && equipoVisitante != null){
-
-                        quiniela.getHistoricalBySeasonCompetitionAndLocalAndVisitorTeam(temporada, competicion,
-                            equipoLocal, equipoVisitante)
-                            .then(function(data){
+                } else if (opcionBusqueda == "partido") {
+                    if (equipoLocal != null && equipoVisitante != null) {
+                        quiniela
+                            .getHistoricalBySeasonCompetitionAndLocalAndVisitorTeam(
+                                temporada,
+                                competicion,
+                                equipoLocal,
+                                equipoVisitante
+                            )
+                            .then(function(data) {
                                 $scope.cargarTabla(data);
                                 $scope.mostrar = true;
 
                                 $scope.consultando = false;
                             })
-                            .catch(function(err){
+                            .catch(function(err) {
                                 console.log(err);
                                 $scope.mostrar = false;
 
@@ -659,21 +721,24 @@ function Controller ($scope, $http, $filter, quiniela) {
                 }
             }
         }
-
     };
 
-    $scope.resultadoPlenoMasFrecuenteEnSolitario = function(partidos, resultado, cantidad){
+    $scope.resultadoPlenoMasFrecuenteEnSolitario = function(
+        partidos,
+        resultado,
+        cantidad
+    ) {
         cantidad = cantidad || 0;
 
-        if(typeof(resultado) != 'undefined' && typeof(cantidad) != 'undefined'){
-            for(var i=0; i<$scope.resultadosPlenoRenovado.length; i++){
+        if (typeof resultado != "undefined" && typeof cantidad != "undefined") {
+            for (var i = 0; i < $scope.resultadosPlenoRenovado.length; i++) {
                 var res = true;
                 var resultadoAux = $scope.resultadosPlenoRenovado[i];
 
-                if(resultadoAux != resultado){
+                if (resultadoAux != resultado) {
                     var cantidadAux = partidos[resultadoAux] || 0;
 
-                    if(Number(cantidadAux) >= Number(cantidad)){
+                    if (Number(cantidadAux) >= Number(cantidad)) {
                         res = false;
                         break;
                     }
@@ -684,60 +749,79 @@ function Controller ($scope, $http, $filter, quiniela) {
         return res;
     };
 
-
-    $scope.resultadoPlenoMasFrecuenteEmpatado = function(partidos, resultado, cantidad){
+    $scope.resultadoPlenoMasFrecuenteEmpatado = function(
+        partidos,
+        resultado,
+        cantidad
+    ) {
         var res = true;
         var repetidos = 0;
 
         cantidad = cantidad || 0;
 
-        if(typeof(resultado) != 'undefined' && typeof(cantidad) != 'undefined'){
-
-            for(var i=0; i<$scope.resultadosPlenoRenovado.length; i++){
+        if (typeof resultado != "undefined" && typeof cantidad != "undefined") {
+            for (var i = 0; i < $scope.resultadosPlenoRenovado.length; i++) {
                 var resultadoAux = $scope.resultadosPlenoRenovado[i];
 
-                if(resultadoAux != resultado){
+                if (resultadoAux != resultado) {
                     var cantidadAux = partidos[resultadoAux] || 0;
 
-                    if(Number(cantidadAux) > Number(cantidad)){
+                    if (Number(cantidadAux) > Number(cantidad)) {
                         res = false;
                         break;
-                    }else if(Number(cantidadAux) == Number(cantidad)){
+                    } else if (Number(cantidadAux) == Number(cantidad)) {
                         repetidos++;
                     }
                 }
             }
         }
 
-        if(repetidos == 0){
+        if (repetidos == 0) {
             res = false;
         }
 
         return res;
     };
 
-    $scope.resultadoPlenoMenosFrecuente = function(partidos, resultado, cantidad){
+    $scope.resultadoPlenoMenosFrecuente = function(
+        partidos,
+        resultado,
+        cantidad
+    ) {
         var res = false;
 
         cantidad = cantidad || 0;
 
-        if(typeof(resultado) != 'undefined' && typeof(cantidad) != 'undefined'){
-
-            res = !$scope.resultadoPlenoMasFrecuenteEnSolitario(partidos, resultado, cantidad) &&
-                  !$scope.resultadoPlenoMasFrecuenteEmpatado(partidos, resultado, cantidad);
+        if (typeof resultado != "undefined" && typeof cantidad != "undefined") {
+            res =
+                !$scope.resultadoPlenoMasFrecuenteEnSolitario(
+                    partidos,
+                    resultado,
+                    cantidad
+                ) &&
+                !$scope.resultadoPlenoMasFrecuenteEmpatado(
+                    partidos,
+                    resultado,
+                    cantidad
+                );
         }
 
         return res;
     };
 
-    $scope.sumaDePlenosRenovados = function(){
+    $scope.sumaDePlenosRenovados = function() {
         var res = 0;
 
-        if(!$scope.jsonVacio($scope.plenosRenovados)){
+        if (!$scope.jsonVacio($scope.plenosRenovados)) {
             // Se ha puesto este resultado por poner uno. Sólo hace falta saber si tiene datos.
 
-            for(var i=0; i<$scope.resultadosPlenoRenovado.length; i++){
-                var cantidad = Number($scope.plenosRenovados[$scope.resultadosPlenoRenovado[i]]) || 0;
+            for (var i = 0; i < $scope.resultadosPlenoRenovado.length; i++) {
+                var cantidad =
+                    Number(
+                        $scope.plenosRenovados[
+                            $scope.resultadosPlenoRenovado[i]
+                        ]
+                    ) || 0;
                 res = res + cantidad;
             }
         }
@@ -745,14 +829,19 @@ function Controller ($scope, $http, $filter, quiniela) {
         return res;
     };
 
-    $scope.sumaDePlenosRenovadosComoLocal = function(){
+    $scope.sumaDePlenosRenovadosComoLocal = function() {
         var res = 0;
 
-        if(!$scope.jsonVacio($scope.plenosRenovadosLocal)){
+        if (!$scope.jsonVacio($scope.plenosRenovadosLocal)) {
             // Se ha puesto este resultado por poner uno. Sólo hace falta saber si tiene datos.
 
-            for(var i=0; i<$scope.resultadosPlenoRenovado.length; i++){
-                var cantidad = Number($scope.plenosRenovadosLocal[$scope.resultadosPlenoRenovado[i]]) || 0;
+            for (var i = 0; i < $scope.resultadosPlenoRenovado.length; i++) {
+                var cantidad =
+                    Number(
+                        $scope.plenosRenovadosLocal[
+                            $scope.resultadosPlenoRenovado[i]
+                        ]
+                    ) || 0;
                 res = res + cantidad;
             }
         }
@@ -760,28 +849,31 @@ function Controller ($scope, $http, $filter, quiniela) {
         return res;
     };
 
-    $scope.sumaDePlenosRenovadosComoVisitante = function(){
+    $scope.sumaDePlenosRenovadosComoVisitante = function() {
         var res = 0;
 
-        if(!$scope.jsonVacio($scope.plenosRenovadosVisitante)){
+        if (!$scope.jsonVacio($scope.plenosRenovadosVisitante)) {
             // Se ha puesto este resultado por poner uno. Sólo hace falta saber si tiene datos.
 
-            for(var i=0; i<$scope.resultadosPlenoRenovado.length; i++){
-
-                var cantidad = Number($scope.plenosRenovadosVisitante[$scope.resultadosPlenoRenovado[i]]) || 0;
+            for (var i = 0; i < $scope.resultadosPlenoRenovado.length; i++) {
+                var cantidad =
+                    Number(
+                        $scope.plenosRenovadosVisitante[
+                            $scope.resultadosPlenoRenovado[i]
+                        ]
+                    ) || 0;
                 res = res + cantidad;
             }
         }
 
         return res;
-
     };
 
-    $scope.jsonVacio = function(json){
+    $scope.jsonVacio = function(json) {
         var res = true;
 
-        for(var prop in json) {
-            if(json.hasOwnProperty(prop)){
+        for (var prop in json) {
+            if (json.hasOwnProperty(prop)) {
                 res = false;
                 break;
             }
@@ -790,64 +882,108 @@ function Controller ($scope, $http, $filter, quiniela) {
         return res;
     };
 
-
-    $scope.activarPestana = function(numero){
-        if(numero == 1){
+    $scope.activarPestana = function(numero) {
+        if (numero == 1) {
             $scope.primeraPestana = true;
             $scope.segundaPestana = false;
-        }else{
+        } else {
             $scope.primeraPestana = false;
             $scope.segundaPestana = true;
-
         }
     };
 
-    $scope.consultarEstandar = function(){
-        $scope.limpiarTablasEstandar();
+    $scope.consultarEstandar = function() {
         $scope.consultando = true;
 
-        quiniela.getHistoricalCombinations()
-            .then(function(data){
+        queryParameters = {
+            page: $scope.pagination.currentPage,
+            per_page: $scope.pagination.itemsPerPage,
+            sort_property: $scope.pagination.sortProperty,
+            sort_type: $scope.pagination.sortType ? "asc" : "desc"
+        };
+
+        quiniela
+            .getHistoricalCombinations(queryParameters)
+            .then(function(data) {
                 $scope.cargarTablaCombinaciones(data);
 
                 $scope.mostrarCombinacionesSucedidas = true;
 
                 $scope.consultando = false;
             })
-            .catch(function(err){
+            .catch(function(err) {
                 console.log(err);
             });
     };
 
-    $scope.cargarTablaCombinaciones = function(datos){
-        $scope.resultadosSucedidos = datos;
+    $scope.cargarTablaCombinaciones = function(data) {
+        $scope.resultadosSucedidos = data.data;
+
+        $scope.actualizarPaginacion(data.data, data.total, data.perPage);
     };
 
-    $scope.limpiarTablasEstandar = function(){
+    $scope.limpiarTablasEstandar = function() {
         $scope.mostrarCombinacionesSucedidas = false;
     };
 
-    quiniela.getAllTeams()
-        .then(function(data){
+    $scope.actualizarPaginacion = function(items, totalItems, ticketsPerPage) {
+        // Uso de esta variable para reutilizar el mismo paginador para todas las consultas
+        $scope.items = items;
+
+        $scope.pagination.itemsPerPage = ticketsPerPage;
+
+        $scope.pagination.totalItems = totalItems;
+
+        $scope.pagination.numOfPages =
+            $scope.pagination.totalItems / $scope.pagination.itemsPerPage;
+
+        var floor = Math.floor(
+            $scope.items.length / $scope.pagination.itemsPerPage
+        );
+
+        if ($scope.pagination.numOfPages > floor) {
+            $scope.pagination.numOfPages =
+                Math.floor(
+                    $scope.pagination.totalItems /
+                        $scope.pagination.itemsPerPage
+                ) + 1;
+        }
+    };
+
+    $scope.sortColumn = function(sortProperty) {
+        if ($scope.pagination.sortProperty === sortProperty) {
+            $scope.pagination.sortType = !$scope.pagination.sortType;
+        } else {
+            $scope.pagination.currentPage = 1;
+            $scope.pagination.sortProperty = sortProperty;
+            $scope.pagination.sortType = false;
+        }
+    };
+
+    quiniela
+        .getAllTeams()
+        .then(function(data) {
             $scope.equipos = data;
         })
-        .catch(function(err){
+        .catch(function(err) {
             console.log(err);
         });
 
-    quiniela.getAllCompetitions()
-        .then(function(data){
+    quiniela
+        .getAllCompetitions()
+        .then(function(data) {
             $scope.competiciones = data;
         })
-        .catch(function(err){
+        .catch(function(err) {
             console.log(err);
         });
 
-    quiniela.getAllSeasons()
-        .then(function(data){
+    quiniela
+        .getAllSeasons()
+        .then(function(data) {
             $scope.temporadas = data;
         })
-        .catch(function(err){
+        .catch(function(err) {
             console.log(err);
         });
 }

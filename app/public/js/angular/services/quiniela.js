@@ -1,14 +1,11 @@
-(function(){
+(function() {
+    "use strict";
 
-    'use strict';
+    angular.module("quiniela", []).factory("quiniela", service);
 
-    angular.module('quiniela', [])
-        .factory('quiniela', service);
+    service.$inject = ["$http", "$q"];
 
-    service.$inject = ['$http', '$q'];
-
-    function service($http, $q){
-
+    function service($http, $q) {
         var apiPrefix = "/api/quiniela";
 
         var service = {
@@ -57,552 +54,679 @@
 
         return service;
 
-        function getAllTickets(queryParameters){
+        function getAllTickets(queryParameters) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/tickets', {
-                params: queryParameters
-            })
-                .then(function(data){
+            $http
+                .get(apiPrefix + "/tickets", {
+                    params: queryParameters
+                })
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err.data);
                 });
 
             return promise;
         }
 
-        function getTicketBySeasonAndDay(season, day){
+        function getTicketBySeasonAndDay(season, day) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/tickets/season/' + season + '/day/' + day)
-                .then(function(data){
+            $http
+                .get("/api/quiniela/tickets/season/" + season + "/day/" + day)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function createTicket(ticket){
+        function createTicket(ticket) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/api/quiniela/tickets', ticket)
-                .then(function(data){
+            $http
+                .post("/api/quiniela/tickets", ticket)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function editTicket(ticket){
+        function editTicket(ticket) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.put('/api/quiniela/tickets', ticket)
-                .then(function(data){
+            $http
+                .put("/api/quiniela/tickets", ticket)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getAllSeasons(){
+        function getAllSeasons() {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/temporadas')
-                .then(function(data){
+            $http
+                .get("/api/quiniela/temporadas")
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getSeasonById(id){
+        function getSeasonById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/temporadas/' + id)
-                .then(function(data){
+            $http
+                .get("/api/quiniela/temporadas/" + id)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function createSeason(season){
+        function createSeason(season) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/api/quiniela/temporadas', season)
-                .then(function(data){
+            $http
+                .post("/api/quiniela/temporadas", season)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function editSeason(season){
+        function editSeason(season) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.put('/api/quiniela/temporadas', season)
-                .then(function(data){
+            $http
+                .put("/api/quiniela/temporadas", season)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function deleteSeasonById(id){
+        function deleteSeasonById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.delete('/api/quiniela/temporadas/' + id)
-                .then(function(data){
+            $http
+                .delete("/api/quiniela/temporadas/" + id)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getAllCompetitions(){
+        function getAllCompetitions() {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/competiciones')
-                .then(function(data){
+            $http
+                .get("/api/quiniela/competiciones")
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getCompetitionById(id){
+        function getCompetitionById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/competiciones/' + id)
-                .then(function(data){
+            $http
+                .get("/api/quiniela/competiciones/" + id)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function createCompetition(competition){
+        function createCompetition(competition) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/api/quiniela/competiciones', competition)
-                .then(function(data){
+            $http
+                .post("/api/quiniela/competiciones", competition)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function editCompetition(competition){
+        function editCompetition(competition) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.put('/api/quiniela/competiciones', competition)
-                .then(function(data){
+            $http
+                .put("/api/quiniela/competiciones", competition)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function deleteCompetitionById(id){
+        function deleteCompetitionById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.delete('/api/quiniela/competiciones/' + id)
-                .then(function(data){
+            $http
+                .delete("/api/quiniela/competiciones/" + id)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getAllTeams(){
+        function getAllTeams() {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/equipos')
-                .then(function(data){
+            $http
+                .get("/api/quiniela/equipos")
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getTeamById(id){
+        function getTeamById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/equipos/' + id)
-                .then(function(data){
+            $http
+                .get("/api/quiniela/equipos/" + id)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function createTeam(team){
+        function createTeam(team) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post('/api/quiniela/equipos', team)
-                .then(function(data){
+            $http
+                .post("/api/quiniela/equipos", team)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function editTeam(team){
+        function editTeam(team) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.put('/api/quiniela/equipos', team)
-                .then(function(data){
+            $http
+                .put("/api/quiniela/equipos", team)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function deleteTeamById(id){
+        function deleteTeamById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.delete('/api/quiniela/equipos/' + id)
-                .then(function(data){
+            $http
+                .delete("/api/quiniela/equipos/" + id)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getHistorical(){
+        function getHistorical() {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/historical')
-                .then(function(data){
+            $http
+                .get("/api/quiniela/historical")
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getHistoricalByLocalTeam(team){
+        function getHistoricalByLocalTeam(team) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/historical/localTeam/' + team)
-                .then(function(data){
+            $http
+                .get("/api/quiniela/historical/localTeam/" + team)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getHistoricalByVisitorTeam(team){
+        function getHistoricalByVisitorTeam(team) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/historical/visitorTeam/' + team)
-                .then(function(data){
+            $http
+                .get("/api/quiniela/historical/visitorTeam/" + team)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getHistoricalByLocalAndVisitorTeam(localTeam, visitorTeam){
+        function getHistoricalByLocalAndVisitorTeam(localTeam, visitorTeam) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get("/api/quiniela/historical/footballMatch/localTeam/" + localTeam + "/visitorTeam/" + visitorTeam)
-                .then(function(data){
+            $http
+                .get(
+                    "/api/quiniela/historical/footballMatch/localTeam/" +
+                        localTeam +
+                        "/visitorTeam/" +
+                        visitorTeam
+                )
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getHistoricalByCompetition(competition){
+        function getHistoricalByCompetition(competition) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/historical/competition/' + competition)
-                .then(function(data){
+            $http
+                .get("/api/quiniela/historical/competition/" + competition)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getHistoricalByCompetitionAndLocalTeam(competition, localTeam){
+        function getHistoricalByCompetitionAndLocalTeam(
+            competition,
+            localTeam
+        ) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/historical/competition/' + competition + "/localTeam/" + localTeam)
-                .then(function(data){
+            $http
+                .get(
+                    "/api/quiniela/historical/competition/" +
+                        competition +
+                        "/localTeam/" +
+                        localTeam
+                )
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getHistoricalByCompetitionAndVisitorTeam(competition, visitorTeam){
+        function getHistoricalByCompetitionAndVisitorTeam(
+            competition,
+            visitorTeam
+        ) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/historical/competition/' + competition + "/visitorTeam/" + visitorTeam)
-                .then(function(data){
+            $http
+                .get(
+                    "/api/quiniela/historical/competition/" +
+                        competition +
+                        "/visitorTeam/" +
+                        visitorTeam
+                )
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getHistoricalByCompetitionAndLocalAndVisitorTeam(competition, localTeam, visitorTeam){
+        function getHistoricalByCompetitionAndLocalAndVisitorTeam(
+            competition,
+            localTeam,
+            visitorTeam
+        ) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/historical/competition/' + competition + "/footballMatch/localTeam/" + localTeam
-                + "/visitorTeam/" + visitorTeam)
-                .then(function(data){
+            $http
+                .get(
+                    "/api/quiniela/historical/competition/" +
+                        competition +
+                        "/footballMatch/localTeam/" +
+                        localTeam +
+                        "/visitorTeam/" +
+                        visitorTeam
+                )
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getHistoricalBySeason(season){
+        function getHistoricalBySeason(season) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/historical/season/' + season)
-                .then(function(data){
+            $http
+                .get("/api/quiniela/historical/season/" + season)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getHistoricalBySeasonAndLocalTeam(season, localTeam){
+        function getHistoricalBySeasonAndLocalTeam(season, localTeam) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/historical/season/' + season + "/localTeam/" + localTeam)
-                .then(function(data){
+            $http
+                .get(
+                    "/api/quiniela/historical/season/" +
+                        season +
+                        "/localTeam/" +
+                        localTeam
+                )
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getHistoricalBySeasonAndVisitorTeam(season, visitorTeam){
+        function getHistoricalBySeasonAndVisitorTeam(season, visitorTeam) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/historical/season/' + season + "/visitorTeam/" + visitorTeam)
-                .then(function(data){
+            $http
+                .get(
+                    "/api/quiniela/historical/season/" +
+                        season +
+                        "/visitorTeam/" +
+                        visitorTeam
+                )
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getHistoricalBySeasonAndLocalAndVisitorTeam(season, localTeam, visitorTeam){
+        function getHistoricalBySeasonAndLocalAndVisitorTeam(
+            season,
+            localTeam,
+            visitorTeam
+        ) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/historical/season/' + season + "/footballMatch/localTeam/" + localTeam +
-                "/visitorTeam/" + visitorTeam)
-                .then(function(data){
+            $http
+                .get(
+                    "/api/quiniela/historical/season/" +
+                        season +
+                        "/footballMatch/localTeam/" +
+                        localTeam +
+                        "/visitorTeam/" +
+                        visitorTeam
+                )
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getHistoricalBySeasonAndCompetition(season, competition){
+        function getHistoricalBySeasonAndCompetition(season, competition) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/historical/season/' + season + "/competition/" + competition)
-                .then(function(data){
+            $http
+                .get(
+                    "/api/quiniela/historical/season/" +
+                        season +
+                        "/competition/" +
+                        competition
+                )
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getHistoricalBySeasonCompetitionAndLocalTeam(season, competition, localTeam){
+        function getHistoricalBySeasonCompetitionAndLocalTeam(
+            season,
+            competition,
+            localTeam
+        ) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/historical/season/' + season + "/competition/" + competition + "/localTeam/" +
-                localTeam)
-                .then(function(data){
+            $http
+                .get(
+                    "/api/quiniela/historical/season/" +
+                        season +
+                        "/competition/" +
+                        competition +
+                        "/localTeam/" +
+                        localTeam
+                )
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getHistoricalBySeasonCompetitionAndVisitorTeam(season, competition, visitorTeam){
+        function getHistoricalBySeasonCompetitionAndVisitorTeam(
+            season,
+            competition,
+            visitorTeam
+        ) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/historical/season/' + season + "/competition/" + competition + "/visitorTeam/" +
-                visitorTeam)
-                .then(function(data){
+            $http
+                .get(
+                    "/api/quiniela/historical/season/" +
+                        season +
+                        "/competition/" +
+                        competition +
+                        "/visitorTeam/" +
+                        visitorTeam
+                )
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getHistoricalBySeasonCompetitionAndLocalAndVisitorTeam(season, competition, localTeam, visitorTeam){
+        function getHistoricalBySeasonCompetitionAndLocalAndVisitorTeam(
+            season,
+            competition,
+            localTeam,
+            visitorTeam
+        ) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get("/api/quiniela/historical/season/" + season + "/competition/" + competition + "/footballMatch/" +
-                "localTeam/" + localTeam + "/visitorTeam/" + visitorTeam)
-                .then(function(data){
+            $http
+                .get(
+                    "/api/quiniela/historical/season/" +
+                        season +
+                        "/competition/" +
+                        competition +
+                        "/footballMatch/" +
+                        "localTeam/" +
+                        localTeam +
+                        "/visitorTeam/" +
+                        visitorTeam
+                )
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getHistoricalCombinations(){
+        function getHistoricalCombinations(queryParameters) {
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get('/api/quiniela/historical/combinaciones')
-                .then(function(data){
+            $http
+                .get("/api/quiniela/historical/combinations", {
+                    params: queryParameters
+                })
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err){
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
-
     }
 })();
