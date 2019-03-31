@@ -3,11 +3,11 @@ div.table-responsive(style="margin-top: 15px", data-ng-if="mostrar.tablaAparicio
         thead
             tr
                 th
-                    a.columnaOrdenable(data-ng-click="ordenarAparicionesPorNumeroSegun('number'); consultarEstandar()", data-ng-bind-template="Número", style="padding-right: 15px")
+                    a.columnaOrdenable(data-ng-click="ordenarAparicionesPorNumeroSegun('number'); consultarEstandar()", data-ng-bind-template="Número")
                     span(data-ng-if="criterioOrdenacionAparicionesPorNumero === 'number' && !ordenAparicionesPorNumero").fa.fa-caret-up
                     span(data-ng-if="criterioOrdenacionAparicionesPorNumero === 'number' && ordenAparicionesPorNumero").fa.fa-caret-down
                 th
-                    a.columnaOrdenable(data-ng-click="ordenarAparicionesPorNumeroSegun('occurrences'); consultarEstandar()", data-ng-bind-template="Apariciones", style="padding-right: 15px")
+                    a.columnaOrdenable(data-ng-click="ordenarAparicionesPorNumeroSegun('occurrences'); consultarEstandar()", data-ng-bind-template="Apariciones")
                     span(data-ng-if="criterioOrdenacionAparicionesPorNumero === 'occurrences' && ordenAparicionesPorNumero").fa.fa-caret-down
                     span(data-ng-if="criterioOrdenacionAparicionesPorNumero === 'occurrences' && !ordenAparicionesPorNumero").fa.fa-caret-up
 

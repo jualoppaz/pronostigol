@@ -3,11 +3,11 @@ div.table-responsive(style="margin-top: 15px", data-ng-if="mostrar.tablaAparicio
         thead
             tr
                 th
-                    a.columnaOrdenable(data-ng-click="ordenarAparicionesPorParejaDeEstrellasSegun('starsPair'); consultarEstandar()", data-ng-bind-template="Estrellas", style="padding-right: 15px")
+                    a.columnaOrdenable(data-ng-click="ordenarAparicionesPorParejaDeEstrellasSegun('starsPair'); consultarEstandar()", data-ng-bind-template="Estrellas")
                     span(data-ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == 'starsPair' && !ordenAparicionesPorParejaDeEstrellas").fa.fa-caret-up
                     span(data-ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == 'starsPair' && ordenAparicionesPorParejaDeEstrellas").fa.fa-caret-down
                 th
-                    a.columnaOrdenable(data-ng-click="ordenarAparicionesPorParejaDeEstrellasSegun('occurrences'); consultarEstandar()", data-ng-bind-template="Apariciones", style="padding-right: 15px")
+                    a.columnaOrdenable(data-ng-click="ordenarAparicionesPorParejaDeEstrellasSegun('occurrences'); consultarEstandar()", data-ng-bind-template="Apariciones")
                     span(data-ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == 'occurrences' && ordenAparicionesPorParejaDeEstrellas").fa.fa-caret-down
                     span(data-ng-if="criterioOrdenacionAparicionesPorParejaDeEstrellas == 'occurrences' && !ordenAparicionesPorParejaDeEstrellas").fa.fa-caret-up
 
