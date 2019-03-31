@@ -67,7 +67,7 @@ function Controller($scope, $http, $window, $filter, VariosService, gordo) {
 
     $scope.verTicket = function(ticket) {
         $window.location.href =
-            "/gordo/tickets/" + ticket.anyo + "/" + ticket.sorteo;
+            "/gordo/sorteos/" + ticket.anyo + "/" + ticket.sorteo;
     };
 
     $scope.traducirDia = function(fecha) {

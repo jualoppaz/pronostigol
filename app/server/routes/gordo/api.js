@@ -8,6 +8,17 @@ module.exports = function(app) {
 
     var GOR_DBM = require("../../modules/gordo-data-base-manager");
 
+    // Validations
+    var validate = require("express-validation");
+    var validations = require("./validations.js");
+    var getTicketsValidations = validations.getTickets;
+    var getOccurrencesByNumberValidations = validations.getOccurrencesByNumber;
+    var getOccurrencesBySpecialNumberValidations =
+        validations.getOccurrencesBySpecialNumber;
+    var getOccurrencesByResultWithSpecialNumberValidations =
+        validations.getOccurrencesByResultWithSpecialNumber;
+    var getOccurrencesByResultValidations = validations.getOccurrencesByResult;
+
     var filtrarInformacion = function(result) {
         var json = JSON.parse(JSON.stringify(result));
         json = borrarPronosticos(json);
@@ -517,7 +528,7 @@ module.exports = function(app) {
     /* Tickets de El Gordo */
     gordo
         .route("/tickets")
-        .get(gordo_api_tickets)
+        .get(validate(getTicketsValidations), gordo_api_tickets)
         .post(
             middlewares.isLogged_api,
             middlewares.isAuthorized_api([ROLES.ADMIN]),
@@ -561,14 +572,24 @@ module.exports = function(app) {
         );
 
     /* Consultas: Estandar */
-    historical.get("/occurrencesByResult", gordo_api_occurrencesByResult);
+    historical.get(
+        "/occurrencesByResult",
+        validate(getOccurrencesByResultValidations),
+        gordo_api_occurrencesByResult
+    );
     historical.get(
         "/occurrencesByResultWithSpecialNumber",
+        validate(getOccurrencesByResultWithSpecialNumberValidations),
         gordo_api_occurrencesByResultWithSpecialNumber
     );
-    historical.get("/occurrencesByNumber", gordo_api_occurrencesByNumber);
+    historical.get(
+        "/occurrencesByNumber",
+        validate(getOccurrencesByNumberValidations),
+        gordo_api_occurrencesByNumber
+    );
     historical.get(
         "/occurrencesBySpecialNumber",
+        validate(getOccurrencesBySpecialNumberValidations),
         gordo_api_occurrencesBySpecialNumber
     );
 
