@@ -1858,7 +1858,22 @@ exports.getAllAppearedResults = function(filtros, callback) {
                 temporada: "$temporada"
             },
             results: {
-                $push: "$partidos.resultado"
+                $push: {
+                    $cond: {
+                        if: {
+                            $and: [
+                                {
+                                    $eq: ["$partidos.fila", "15"]
+                                },
+                                {
+                                    $gte: ["$partidos.temporada", "2014-2015"]
+                                }
+                            ]
+                        },
+                        then: "$partidos.resultadoConGoles",
+                        else: "$partidos.resultado"
+                    }
+                }
             },
             resultAsString: {
                 $first: "$resultAsString"
