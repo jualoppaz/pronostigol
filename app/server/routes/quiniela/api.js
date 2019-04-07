@@ -4,6 +4,7 @@ module.exports = function(app) {
 
     var express = require("express");
     var quiniela = express.Router();
+    var historical = express.Router();
 
     var QUI_DBM = require("../../modules/quiniela-data-base-manager");
 
@@ -1596,76 +1597,78 @@ module.exports = function(app) {
     );
 
     /* Historico (Consultas Personalizadas) */
-    quiniela.get("/historical", quiniela_api_historicoPartidos);
-    quiniela.get(
-        "/historical/competition/:competition",
+    historical.get("", quiniela_api_historicoPartidos);
+    historical.get(
+        "/competition/:competition",
         quiniela_api_historicoPartidosPorCompeticion
     );
-    quiniela.get(
-        "/historical/competition/:competition/localTeam/:team",
+    historical.get(
+        "/competition/:competition/localTeam/:team",
         quiniela_api_historicoPartidosPorCompeticionYEquipoLocal
     );
-    quiniela.get(
-        "/historical/competition/:competition/visitorTeam/:team",
+    historical.get(
+        "/competition/:competition/visitorTeam/:team",
         quiniela_api_historicoPartidosPorCompeticionYEquipoVisitante
     );
-    quiniela.get(
-        "/historical/competition/:competition/footballMatch/localTeam/:localTeam/visitorTeam/:visitorTeam",
+    historical.get(
+        "/competition/:competition/footballMatch/localTeam/:localTeam/visitorTeam/:visitorTeam",
         quiniela_api_historicoPartidosPorCompeticionYPartido
     );
-    quiniela.get(
-        "/historical/season/:season",
+    historical.get(
+        "/season/:season",
         quiniela_api_historicoPartidosPorTemporada
     );
-    quiniela.get(
-        "/historical/season/:season/competition/:competition",
+    historical.get(
+        "/season/:season/competition/:competition",
         quiniela_api_historicoPartidosPorTemporadaYCompeticion
     );
-    quiniela.get(
-        "/historical/season/:season/localTeam/:team",
+    historical.get(
+        "/season/:season/localTeam/:team",
         quiniela_api_historicoPartidosPorTemporadaYEquipoLocal
     );
-    quiniela.get(
-        "/historical/season/:season/visitorTeam/:team",
+    historical.get(
+        "/season/:season/visitorTeam/:team",
         quiniela_api_historicoPartidosPorTemporadaYEquipoVisitante
     );
-    quiniela.get(
-        "/historical/season/:season/competition/:competition/localTeam/:team",
+    historical.get(
+        "/season/:season/competition/:competition/localTeam/:team",
         quiniela_api_historicoPartidosPorTemporadaCompeticionYEquipoLocal
     );
-    quiniela.get(
-        "/historical/season/:season/competition/:competition/visitorTeam/:team",
+    historical.get(
+        "/season/:season/competition/:competition/visitorTeam/:team",
         quiniela_api_historicoPartidosPorTemporadaCompeticionYEquipoVisitante
     );
-    quiniela.get(
-        "/historical/season/:season/footballMatch/localTeam/:localTeam/visitorTeam/:visitorTeam",
+    historical.get(
+        "/season/:season/footballMatch/localTeam/:localTeam/visitorTeam/:visitorTeam",
         quiniela_api_historicoPartidosPorTemporadaYPartido
     );
-    quiniela.get(
-        "/historical/season/:season/competition/:competition/footballMatch/localTeam/:localTeam/visitorTeam/:visitorTeam",
+    historical.get(
+        "/season/:season/competition/:competition/footballMatch/localTeam/:localTeam/visitorTeam/:visitorTeam",
         quiniela_api_historicoPartidosPorTemporadaCompeticionYPartido
     );
-    quiniela.get(
-        "/historical/localTeam/:team",
+    historical.get(
+        "/localTeam/:team",
         quiniela_api_historicoPartidosPorEquipoLocal
     );
-    quiniela.get(
-        "/historical/visitorTeam/:team",
+    historical.get(
+        "/visitorTeam/:team",
         quiniela_api_historicoPartidosPorEquipoVisitante
     );
-    quiniela.get(
-        "/historical/footballMatch/localTeam/:localTeam/visitorTeam/:visitorTeam",
+    historical.get(
+        "/footballMatch/localTeam/:localTeam/visitorTeam/:visitorTeam",
         quiniela_api_historicoPartidosPorPartido
     );
 
     /* Historico (Consultas Estandar/Fijas) */
-    quiniela.get(
-        "/historical/combinations",
+    historical.get(
+        "/combinations",
         validate(getHistoricalAppearedResults),
         quiniela_api_historicalAppearedResults
     );
 
     quiniela.get("/getAllStoredTeams", general_api_storedTeams);
+
+    quiniela.use("/historical", historical);
 
     app.use("/api/quiniela", quiniela);
 };
