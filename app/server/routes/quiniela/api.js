@@ -324,6 +324,17 @@ module.exports = function(app) {
         });
     };
 
+    /**
+     * @api {get} /quiniela/historical Obtención del histórico de victorias locales, empates y victorias visitantes de la Quiniela agrupados por fila
+     * @apiName GetQuinielaHistorical
+     * @apiGroup QuinielaHistorical
+     *
+     * @apiDescription Recurso para la consulta de victorias locales, empates y victorias visitantes agrupados por fila.
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {String} [competition] Nombre de la competición sobre la que se quieren consultar los resultados.
+     * @apiSampleRequest /api/quiniela/historical
+     */
     var quiniela_api_historicoPartidos = function(req, res) {
         var competition = req.query.competition;
 
