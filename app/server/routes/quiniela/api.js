@@ -325,98 +325,39 @@ module.exports = function(app) {
     };
 
     var quiniela_api_historicoPartidos = function(req, res) {
-        var filas = [];
+        var competition = req.query.competition;
+
+        var filtros = {
+            competition: competition
+        };
 
         var respuesta = {};
 
-        QUI_DBM.getTicketsGroupedByRow(function(err, result) {
+        QUI_DBM.getTicketsGroupedByRow(filtros, function(err, result) {
             if (err) {
                 return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            for (var i = 0; i < result.length; i++) {
-                var json = result[i];
-
-                json.fila = Number(json._id);
-
-                delete json._id;
-
-                filas.push(json);
-            }
-
-            QUI_DBM.getTicketsGroupedByRes(function(err, result) {
+            QUI_DBM.getTicketsGroupedByRes(filtros, function(err, result2) {
                 if (err) {
                     return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
                 }
 
                 var jsonPlenoModerno = {};
-                jsonPlenoModerno.fila = "15";
 
-                for (var i = 0; i < result.length; i++) {
-                    var resultadoConGoles = result[i]._id;
-                    var total = result[i].total;
+                for (var i = 0; i < result2.length; i++) {
+                    var resultadoConGoles = result2[i]._id;
+                    var total = result2[i].total;
 
                     jsonPlenoModerno[resultadoConGoles] = total;
                 }
 
-                respuesta.filas = filas;
+                respuesta.filas = result;
                 respuesta.plenosRenovados = jsonPlenoModerno;
 
-                res.status(HTTP.OK).send(respuesta);
+                res.status(HTTP.OK).send(JSON.stringify(respuesta, null, 4));
             });
         });
-    };
-
-    var quiniela_api_historicoPartidosPorCompeticion = function(req, res) {
-        var filas = [];
-
-        var respuesta = {};
-
-        QUI_DBM.getTicketsByCompetitionGroupedByRow(
-            req.params.competition,
-            function(err, result) {
-                if (err) {
-                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
-                }
-
-                for (var i = 0; i < result.length; i++) {
-                    var json = {
-                        fila: Number(result[i]._id),
-                        victoriasLocales: result[i].victoriasLocales,
-                        empates: result[i].empates,
-                        victoriasVisitantes: result[i].victoriasVisitantes
-                    };
-
-                    filas.push(json);
-                }
-
-                QUI_DBM.getTicketsByCompetitionGroupedByRes(
-                    req.params.competition,
-                    function(err, result) {
-                        if (err) {
-                            return res
-                                .status(HTTP.INTERNAL_SERVER_ERROR)
-                                .send(err);
-                        }
-
-                        var jsonPlenoModerno = {};
-                        jsonPlenoModerno.fila = "15";
-
-                        for (var i = 0; i < result.length; i++) {
-                            var resultadoConGoles = result[i]._id;
-                            var total = result[i].total;
-
-                            jsonPlenoModerno[resultadoConGoles] = total;
-                        }
-
-                        respuesta.filas = filas;
-                        respuesta.plenosRenovados = jsonPlenoModerno;
-
-                        res.status(HTTP.OK).send(respuesta);
-                    }
-                );
-            }
-        );
     };
 
     var quiniela_api_historicoPartidosPorCompeticionYEquipoLocal = function(
@@ -1598,10 +1539,6 @@ module.exports = function(app) {
 
     /* Historico (Consultas Personalizadas) */
     historical.get("", quiniela_api_historicoPartidos);
-    historical.get(
-        "/competition/:competition",
-        quiniela_api_historicoPartidosPorCompeticion
-    );
     historical.get(
         "/competition/:competition/localTeam/:team",
         quiniela_api_historicoPartidosPorCompeticionYEquipoLocal

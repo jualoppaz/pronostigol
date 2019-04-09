@@ -763,35 +763,44 @@ exports.getTicketsBySeasonCompetitionAndVisitorTeamGroupedByRes = function(
 
 // API REST: /api/historical
 
-exports.getTicketsGroupedByRes = function(callback) {
-    tickets.aggregate(
-        {
-            $unwind: "$partidos"
-        },
-        {
-            $match: {
-                "partidos.fila": "15",
-                "partidos.resultadoConGoles": {
-                    $ne: null
-                }
-            }
-        },
-        {
-            $group: {
-                _id: "$partidos.resultadoConGoles",
-                total: {
-                    $sum: 1
-                }
-            }
-        },
-        function(e, res) {
-            if (e) {
-                callback(e);
-            } else {
-                callback(null, res);
+exports.getTicketsGroupedByRes = function(filtros, callback) {
+    var filters = {
+        "partidos.fila": "15",
+        "partidos.resultadoConGoles": {
+            $ne: null
+        }
+    };
+
+    if (filtros.competition) {
+        filters["partidos.competicion"] = filtros.competition;
+    }
+
+    var query = [];
+
+    query.push({
+        $unwind: "$partidos"
+    });
+
+    query.push({
+        $match: filters
+    });
+
+    query.push({
+        $group: {
+            _id: "$partidos.resultadoConGoles",
+            total: {
+                $sum: 1
             }
         }
-    );
+    });
+
+    tickets.aggregate(query, function(e, res) {
+        if (e) {
+            callback(e);
+        } else {
+            callback(null, res);
+        }
+    });
 };
 
 // API REST: /api/historical/season/:season/competition/:competition/footballMatch/localTeam/:localTeam/visitorTeam/visitorTeam
@@ -2314,60 +2323,85 @@ exports.getEconomicBalanceBySeason = function(callback) {
     );
 };
 
-exports.getTicketsGroupedByRow = function(callback) {
-    tickets.aggregate(
-        {
-            $unwind: "$partidos"
-        },
-        {
-            $group: {
-                _id: "$partidos.fila",
-                victoriasLocales: {
-                    $sum: {
-                        $cond: [
-                            {
-                                $eq: ["$partidos.resultado", "1"]
-                            },
-                            1,
-                            0
-                        ]
-                    }
-                },
-                empates: {
-                    $sum: {
-                        $cond: [
-                            {
-                                $eq: ["$partidos.resultado", "X"]
-                            },
-                            1,
-                            0
-                        ]
-                    }
-                },
-                victoriasVisitantes: {
-                    $sum: {
-                        $cond: [
-                            {
-                                $eq: ["$partidos.resultado", "2"]
-                            },
-                            1,
-                            0
-                        ]
-                    }
+exports.getTicketsGroupedByRow = function(filtros, callback) {
+    var filters = {};
+
+    if (filtros.competition) {
+        filters["partidos.competicion"] = filtros.competition;
+    }
+
+    var query = [];
+
+    query.push({
+        $unwind: "$partidos"
+    });
+
+    query.push({
+        $match: filters
+    });
+
+    query.push({
+        $group: {
+            _id: "$partidos.fila",
+            victoriasLocales: {
+                $sum: {
+                    $cond: [
+                        {
+                            $eq: ["$partidos.resultado", "1"]
+                        },
+                        1,
+                        0
+                    ]
+                }
+            },
+            empates: {
+                $sum: {
+                    $cond: [
+                        {
+                            $eq: ["$partidos.resultado", "X"]
+                        },
+                        1,
+                        0
+                    ]
+                }
+            },
+            victoriasVisitantes: {
+                $sum: {
+                    $cond: [
+                        {
+                            $eq: ["$partidos.resultado", "2"]
+                        },
+                        1,
+                        0
+                    ]
                 }
             }
-        },
-        {
-            $sort: {
-                _id: 1
-            }
-        },
-        function(err, res) {
-            if (err) {
-                callback(err);
-            } else {
-                callback(null, res);
-            }
         }
-    );
+    });
+
+    query.push({
+        $project: {
+            _id: 0,
+            fila: "$_id",
+            victoriasLocales: 1,
+            empates: 1,
+            victoriasVisitantes: 1
+        }
+    });
+
+    query.push({
+        $sort: {
+            fila: 1
+        }
+    });
+
+    console.log(JSON.stringify(query));
+
+    tickets.aggregate(query, function(err, res) {
+        if (err) {
+            callback(err);
+        } else {
+            callback(null, res);
+        }
+    });
 };
