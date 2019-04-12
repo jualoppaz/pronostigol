@@ -1,11 +1,10 @@
-var app = angular.module('qdb');
+var app = angular.module("qdb");
 
-app.controller('ConsultasController', Controller);
+app.controller("ConsultasController", Controller);
 
-Controller.$inject = ['$scope', '$http', '$filter', 'quiniela'];
+Controller.$inject = ["$scope", "$http", "$filter", "quiniela"];
 
-function Controller ($scope, $http, $filter, quiniela) {
-
+function Controller($scope, $http, $filter, quiniela) {
     $scope.mostrar = null;
 
     $scope.form = {};
@@ -51,8 +50,22 @@ function Controller ($scope, $http, $filter, quiniela) {
     $scope.filasVisitante = [];
 
     $scope.resultadosPlenoRenovado = [
-        '0-0', '0-1', '0-2', '0-M', '1-0', '1-1', '1-2', '1-M',
-        '2-0', '2-1', '2-2', '2-M', 'M-0', 'M-1', 'M-2', 'M-M'
+        "0-0",
+        "0-1",
+        "0-2",
+        "0-M",
+        "1-0",
+        "1-1",
+        "1-2",
+        "1-M",
+        "2-0",
+        "2-1",
+        "2-2",
+        "2-M",
+        "M-0",
+        "M-1",
+        "M-2",
+        "M-M"
     ];
 
     $scope.pagination = {
@@ -378,11 +391,90 @@ function Controller ($scope, $http, $filter, quiniela) {
         var equipoLocal = $scope.form.equipoLocalSeleccionado;
         var equipoVisitante = $scope.form.equipoVisitanteSeleccionado;
 
-        console.log("Competicion: " + competicion);
+        var validationResult = $scope.validateForm($scope.form);
 
-        console.log("Temporada: " + temporada);
+        if (validationResult) {
+            alert(validationResult);
+            $scope.consultando = false;
+        } else {
+            var queryParameters = {};
 
-        console.log("Opcion busqueda: " + opcionBusqueda);
+            if (temporada) {
+                queryParameters.season = temporada;
+            }
+
+            if (competicion) {
+                queryParameters.competition = competicion;
+            }
+
+            if (equipoLocal) {
+                queryParameters.local_team = equipoLocal;
+            }
+
+            if (equipoVisitante) {
+                queryParameters.visitor_team = equipoVisitante;
+            }
+
+            if (opcionBusqueda === "equipo") {
+                var queryParametersLocal = angular.copy(queryParameters);
+                queryParametersLocal.local_team = equipo;
+
+                quiniela
+                    .getHistorical(queryParametersLocal)
+                    .then(function(data) {
+                        $scope.cargarTablaLocal(data);
+                        $scope.mostrarLocalYVisitante = true;
+                    })
+                    .catch(function(err) {
+                        console.log(err);
+                        $scope.mostrarLocalYVisitante = false;
+                    })
+                    .finally(function() {
+                        $scope.consultando = false;
+                    });
+
+                var queryParametersVisitor = angular.copy(queryParameters);
+                queryParametersVisitor.visitor_team = equipo;
+
+                quiniela
+                    .getHistorical(queryParametersVisitor)
+                    .then(function(data) {
+                        $scope.cargarTablaVisitante(data);
+                        $scope.mostrarLocalYVisitante = true;
+                    })
+                    .catch(function(err) {
+                        console.log(err);
+                        $scope.mostrarLocalYVisitante = false;
+                    })
+                    .finally(function() {
+                        $scope.consultando = false;
+                    });
+            } else {
+                quiniela
+                    .getHistorical(queryParameters)
+                    .then(function(data) {
+                        $scope.cargarTabla(data);
+                        $scope.mostrar = true;
+                    })
+                    .catch(function(err) {
+                        console.log(err);
+                        $scope.mostrar = false;
+                    })
+                    .finally(function() {
+                        $scope.consultando = false;
+                    });
+            }
+        }
+    };
+
+    $scope.validateForm = function(form) {
+        var res = "";
+        var temporada = form.temporadaSeleccionada;
+        var competicion = form.competicionSeleccionada;
+        var opcionBusqueda = form.opcionBusqueda;
+        var equipo = form.equipoSeleccionado;
+        var equipoLocal = form.equipoLocalSeleccionado;
+        var equipoVisitante = form.equipoVisitanteSeleccionado;
 
         if (temporada == "Histórico" || temporada == null || temporada == "") {
             if (
@@ -390,163 +482,27 @@ function Controller ($scope, $http, $filter, quiniela) {
                 competicion == null ||
                 competicion == ""
             ) {
-                if (opcionBusqueda == "general") {
-                    quiniela
-                        .getHistorical()
-                        .then(function(data) {
-                            $scope.cargarTabla(data);
-
-                            $scope.mostrar = true;
-
-                            $scope.consultando = false;
-                        })
-                        .catch(function(err) {
-                            console.log(err);
-                            $scope.mostrar = false;
-
-                            $scope.consultando = false;
-                        });
-                } else if (opcionBusqueda == "equipo") {
+                if (opcionBusqueda == "equipo") {
                     if (equipo == "" || equipo == null) {
-                        alert("Debe introducir un equipo.");
-                        $scope.consultando = false;
-                    } else {
-                        // Se ha introducido un equipo
-
-                        quiniela
-                            .getHistoricalByLocalTeam(equipo)
-                            .then(function(data) {
-                                $scope.cargarTablaLocal(data);
-
-                                $scope.mostrarLocalYVisitante = true;
-
-                                $scope.consultando = false;
-                            })
-                            .catch(function(err) {
-                                console.log(err);
-                                $scope.mostrarLocalYVisitante = false;
-                                $scope.consultando = false;
-                            });
-
-                        quiniela
-                            .getHistoricalByVisitorTeam(equipo)
-                            .then(function(data) {
-                                $scope.cargarTablaVisitante(data);
-
-                                $scope.mostrarLocalYVisitante = true;
-                                $scope.consultando = false;
-                            })
-                            .catch(function(err) {
-                                console.log(err);
-                                $scope.mostrarLocalYVisitante = false;
-                                $scope.consultando = false;
-                            });
+                        res = "Debe introducir un equipo.";
                     }
                 } else if (opcionBusqueda == "partido") {
                     if (equipoLocal == null || equipoLocal == "") {
                         if (equipoVisitante == null || equipoVisitante == "") {
-                            alert("Debe introducir 2 equipos");
-                            $scope.consultando = false;
+                            res = "Debe introducir 2 equipos";
                         } else {
-                            alert("Debe introducir el equipo local.");
-                            $scope.consultando = false;
+                            res = "Debe introducir el equipo local.";
                         }
                     } else {
                         if (equipoVisitante == null || equipoVisitante == "") {
-                            alert("Debe introducir el equipo visitante.");
-                            $scope.consultando = false;
-                        } else {
-                            quiniela
-                                .getHistoricalByLocalAndVisitorTeam(
-                                    equipoLocal,
-                                    equipoVisitante
-                                )
-                                .then(function(data) {
-                                    $scope.cargarTabla(data);
-
-                                    $scope.mostrar = true;
-                                    $scope.consultando = false;
-                                })
-                                .catch(function(err) {
-                                    console.log(err);
-                                    $scope.mostrar = false;
-                                    $scope.consultando = false;
-                                });
+                            res = "Debe introducir el equipo visitante.";
                         }
                     }
                 }
             } else {
-                if (opcionBusqueda == "general") {
-                    quiniela
-                        .getHistoricalByCompetition(competicion)
-                        .then(function(data) {
-                            $scope.cargarTabla(data);
-
-                            $scope.mostrar = true;
-                            $scope.consultando = false;
-                        })
-                        .catch(function(err) {
-                            console.log(err);
-                            $scope.mostrar = false;
-                            $scope.consultando = false;
-                        });
-                } else if (opcionBusqueda == "equipo") {
+                if (opcionBusqueda == "equipo") {
                     if (equipo == "") {
-                        alert("Debe introducir un equipo.");
-                        $scope.consultando = false;
-                    } else {
-                        quiniela
-                            .getHistoricalByCompetitionAndLocalTeam(
-                                competicion,
-                                equipo
-                            )
-                            .then(function(data) {
-                                $scope.cargarTablaLocal(data);
-
-                                $scope.mostrarLocalYVisitante = true;
-
-                                $scope.consultando = false;
-                            })
-                            .catch(function(err) {
-                                console.log(err);
-                                $scope.mostrarLocalYVisitante = false;
-                                $scope.consultando = false;
-                            });
-
-                        quiniela
-                            .getHistoricalByCompetitionAndVisitorTeam(
-                                competicion,
-                                equipo
-                            )
-                            .then(function(data) {
-                                $scope.cargarTablaVisitante(data);
-                                $scope.mostrarLocalYVisitante = true;
-                                $scope.consultando = false;
-                            })
-                            .catch(function(err) {
-                                console.log(err);
-                                $scope.mostrarLocalYVisitante = false;
-                                $scope.consultando = false;
-                            });
-                    }
-                } else if (opcionBusqueda == "partido") {
-                    if (equipoLocal != null && equipoVisitante != null) {
-                        quiniela
-                            .getHistoricalByCompetitionAndLocalAndVisitorTeam(
-                                competicion,
-                                equipoLocal,
-                                equipoVisitante
-                            )
-                            .then(function(data) {
-                                $scope.cargarTabla(data);
-                                $scope.mostrar = true;
-                                $scope.consultando = false;
-                            })
-                            .catch(function(err) {
-                                console.log(err);
-                                $scope.mostrar = false;
-                                $scope.consultando = false;
-                            });
+                        res = "Debe introducir un equipo.";
                     }
                 }
             }
@@ -556,171 +512,22 @@ function Controller ($scope, $http, $filter, quiniela) {
                 competicion == null ||
                 competicion == ""
             ) {
-                if (opcionBusqueda == "general") {
-                    quiniela
-                        .getHistoricalBySeason(temporada)
-                        .then(function(data) {
-                            $scope.cargarTabla(data);
-                            $scope.mostrar = true;
-
-                            $scope.consultando = false;
-                        })
-                        .catch(function(err) {
-                            console.log(err);
-                            $scope.mostrar = false;
-
-                            $scope.consultando = false;
-                        });
-                } else if (opcionBusqueda == "equipo") {
+                if (opcionBusqueda == "equipo") {
                     if (equipo == "") {
-                        alert("Debe introducir un equipo.");
-                    } else {
-                        quiniela
-                            .getHistoricalBySeasonAndLocalTeam(
-                                temporada,
-                                equipo
-                            )
-                            .then(function(data) {
-                                $scope.cargarTablaLocal(data);
-                                $scope.mostrarLocalYVisitante = true;
-
-                                $scope.consultando = false;
-                            })
-                            .catch(function(err) {
-                                console.log(data);
-                                $scope.mostrarLocalYVisitante = false;
-
-                                $scope.consultando = false;
-                            });
-
-                        quiniela
-                            .getHistoricalBySeasonAndVisitorTeam(
-                                temporada,
-                                equipo
-                            )
-                            .then(function(data) {
-                                $scope.cargarTablaVisitante(data);
-                                $scope.mostrarLocalYVisitante = true;
-
-                                $scope.consultando = false;
-                            })
-                            .catch(function(err) {
-                                console.log(err);
-                                $scope.mostrarLocalYVisitante = false;
-
-                                $scope.consultando = false;
-                            });
-                    }
-                } else if (opcionBusqueda == "partido") {
-                    if (equipoLocal != null && equipoVisitante != null) {
-                        quiniela
-                            .getHistoricalBySeasonAndLocalAndVisitorTeam(
-                                temporada,
-                                equipoLocal,
-                                equipoVisitante
-                            )
-                            .then(function(data) {
-                                $scope.cargarTabla(data);
-                                $scope.mostrar = true;
-
-                                $scope.consultando = false;
-                            })
-                            .catch(function(err) {
-                                console.log(err);
-                                $scope.mostrar = false;
-
-                                $scope.consultando = false;
-                            });
+                        res = "Debe introducir un equipo.";
                     }
                 }
             } else {
                 // Se ha seleccionado una competicion
-                if (opcionBusqueda == "general") {
-                    quiniela
-                        .getHistoricalBySeasonAndCompetition(
-                            temporada,
-                            competicion
-                        )
-                        .then(function(data) {
-                            $scope.cargarTabla(data);
-                            $scope.mostrar = true;
-
-                            $scope.consultando = false;
-                        })
-                        .catch(function(err) {
-                            console.log(err);
-                            $scope.mostrar = false;
-
-                            $scope.consultando = false;
-                        });
-                } else if (opcionBusqueda == "equipo") {
+                if (opcionBusqueda == "equipo") {
                     if (equipo == "") {
-                        alert("Debe introducir un equipo.");
-                    } else {
-                        // Se ha introducido un equipo
-                        quiniela
-                            .getHistoricalBySeasonCompetitionAndLocalTeam(
-                                temporada,
-                                competicion,
-                                equipo
-                            )
-                            .then(function(data) {
-                                $scope.cargarTablaLocal(data);
-                                $scope.mostrarLocalYVisitante = true;
-
-                                $scope.consultando = false;
-                            })
-                            .catch(function(err) {
-                                console.log(err);
-                                $scope.mostrarLocalYVisitante = false;
-
-                                $scope.consultando = false;
-                            });
-
-                        quiniela
-                            .getHistoricalBySeasonCompetitionAndVisitorTeam(
-                                temporada,
-                                competicion,
-                                equipo
-                            )
-                            .then(function(data) {
-                                $scope.cargarTablaVisitante(data);
-                                $scope.mostrarLocalYVisitante = true;
-
-                                $scope.consultando = false;
-                            })
-                            .catch(function(err) {
-                                console.log(err);
-                                $scope.mostrarLocalYVisitante = false;
-
-                                $scope.consultando = false;
-                            });
-                    }
-                } else if (opcionBusqueda == "partido") {
-                    if (equipoLocal != null && equipoVisitante != null) {
-                        quiniela
-                            .getHistoricalBySeasonCompetitionAndLocalAndVisitorTeam(
-                                temporada,
-                                competicion,
-                                equipoLocal,
-                                equipoVisitante
-                            )
-                            .then(function(data) {
-                                $scope.cargarTabla(data);
-                                $scope.mostrar = true;
-
-                                $scope.consultando = false;
-                            })
-                            .catch(function(err) {
-                                console.log(err);
-                                $scope.mostrar = false;
-
-                                $scope.consultando = false;
-                            });
+                        res = "Debe introducir un equipo.";
                     }
                 }
             }
         }
+
+        return res;
     };
 
     $scope.resultadoPlenoMasFrecuenteEnSolitario = function(
