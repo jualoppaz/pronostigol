@@ -407,14 +407,6 @@ function Controller($scope, $http, $filter, quiniela) {
                 queryParameters.competition = competicion;
             }
 
-            if (equipoLocal) {
-                queryParameters.local_team = equipoLocal;
-            }
-
-            if (equipoVisitante) {
-                queryParameters.visitor_team = equipoVisitante;
-            }
-
             if (opcionBusqueda === "equipo") {
                 var queryParametersLocal = angular.copy(queryParameters);
                 queryParametersLocal.local_team = equipo;
@@ -450,6 +442,11 @@ function Controller($scope, $http, $filter, quiniela) {
                         $scope.consultando = false;
                     });
             } else {
+                if (opcionBusqueda === "partido") {
+                    queryParameters.local_team = equipoLocal;
+                    queryParameters.visitor_team = equipoVisitante;
+                }
+
                 quiniela
                     .getHistorical(queryParameters)
                     .then(function(data) {
