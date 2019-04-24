@@ -5,28 +5,14 @@ app.controller('IndexController', Controller);
 Controller.$inject = ['$scope', '$http', '$window', '$filter'];
 
 function Controller($scope, $http, $window, $filter) {
-
-    $scope.mensajeInformativoEliminacion = "Si acepta, el comentario será eliminado de forma definitiva.";
-
     $scope.currentPage = 1;
-    $scope.commentsPerPage = 3;
 
     $scope.fecha = "empty";
     $scope.visitorInfo = "empty";
 
-    $scope.comentarioPalabrasLargas = false;
-
-    $scope.comments = null;
-
     $scope.tweets = [];
 
     $scope.usuarioEsAnonimo = null;
-
-    $scope.comentario = {};
-
-    $scope.comentarioEnviadoCorrectamente = false;
-
-    $scope.comentarioEliminadoCorrectamente = false;
 
     $scope.nuevaRespuesta = {};
 
@@ -94,162 +80,7 @@ function Controller($scope, $http, $window, $filter) {
             console.log(data);
         });
 
-    $http.get('/api/verifiedComments')
-        .success(function(data){
-            for(var i=0; i<data.length; i++){
-
-                var timezoneComentario = "+0" + String(data[i].fechaOffset/-60) + "00";
-                data[i].fecha = $filter('date')(data[i].fecha, 'dd/MM/yyyy HH:mm', timezoneComentario);
-
-                for(var j=0; j<data[i].respuestas.length; j++){
-                    var timezoneRespuesta = "+0" + String(data[i].respuestas[j].fechaOffset/-60) + "00";
-                    data[i].respuestas[j].fecha = $filter('date')(data[i].respuestas[j].fecha, 'dd/MM/yyyy HH:mm', timezoneRespuesta);
-                }
-            }
-
-            $scope.comments = data;
-
-            $scope.totalItems = data.length;
-
-            $scope.numOfPages = data.length / $scope.commentsPerPage;
-
-            //console.log("Numero de paginas: " + $scope.numOfPages);
-
-            var floor = Math.floor(data.length / $scope.commentsPerPage);
-
-            if($scope.numOfPages > floor){
-                $scope.numOfPages = Math.floor(data.length / $scope.commentsPerPage) + 1;
-            }
-        })
-        .error(function(data){
-            console.log(data);
-        });
-
-    $scope.validarComentario = function(comentario){
-        var hayErrores = false;
-        var palabras = "";
-
-        console.log(comentario);
-
-        if(comentario == null){
-            console.log("Comentario es nulo");
-            $scope.comentarioVacio = true;
-            hayErrores = true;
-        }else{
-            if(comentario.texto == null || comentario.texto === "" || comentario.texto.trim() === ""){
-                $scope.comentarioVacio = true;
-                hayErrores = true;
-            }else{
-                palabras = comentario.texto.split(" ");
-            }
-        }
-
-        for(var i=0; i<palabras.length; i++){
-            if(palabras[i].length >27){
-                console.log("El comentario no es válido. Tiene palabras demasiado largas.");
-                $scope.comentarioPalabrasLargas = true;
-                hayErrores = true;
-                break;
-            }
-        }
-
-        return hayErrores;
-    };
-
-    $scope.comentar = function(){
-
-        var hayErrores = $scope.validarComentario($scope.comentario);
-
-        if(!hayErrores){
-            $http.post('/api/comments', $scope.comentario)
-                .success(function(data){
-                    $scope.comentarioEnviadoCorrectamente = true;
-                    $scope.comentario = {};
-                })
-                .error(function(data){
-                    console.log(data);
-                });
-        }
-    };
-
-    $scope.limpiarErrores = function(){
-        $scope.comentarioPalabrasLargas = false;
-        $scope.comentarioVacio = false;
-    };
-
-    $scope.editarComentario = function(comentario){
-        $scope.limpiarErrores();
-        $scope.comentarioNuevo = angular.copy(comentario);
-        angular.element("#modal-editar-comentario").modal('show');
-    };
-
-    $scope.editarComentarioDefinitivamente = function(){
-        $scope.limpiarErrores();
-        $http.put('/api/comments/' + $scope.comentarioNuevo._id, $scope.comentarioNuevo)
-            .success(function(data){
-                $scope.comentarioEditadoCorrectamente = true;
-                $scope.comments = data;
-            })
-            .error(function(data){
-                console.log(data);
-            });
-    };
-
-    $scope.eliminarComentario = function(comentario){
-        $scope.limpiarErrores();
-        $scope.comentarioAEliminar = angular.copy(comentario);
-
-        angular.element("#modal-eliminar-registro").modal('show');
-    };
-
-    $scope.eliminarComentarioDefinitivamente = function(){
-        $scope.limpiarErrores();
-        $http.delete('/api/comments/' + $scope.comentarioAEliminar._id)
-            .success(function(data){
-                $scope.comentarioEliminadoCorrectamente = true;
-                $scope.comments = data;
-            })
-            .error(function(data){
-                console.log(data);
-            });
-    };
-
-
-    $scope.getCSScolor = function(index){
-        return 'primary';
-    };
-
-    $scope.responderComentario = function(comentarioRaiz){
-
-        var hayErrores = $scope.validarComentario($scope.nuevaRespuesta);
-
-        if(!hayErrores){
-
-            console.log("Vamos a responder el comentario");
-            var json = comentarioRaiz;
-            json.respuesta = $scope.nuevaRespuesta.texto;
-            console.log('/api/comments/' + comentarioRaiz._id + "/answers");
-            $http.post('/api/comments/' + comentarioRaiz._id + "/answers", json)
-                .success(function(data){
-                    $scope.comentarioEnviadoCorrectamente = true;
-
-                    for(var i=0; i<data.length; i++){
-                        var timezoneComentario = "+0" + String(data[i].fechaOffset/-60) + "00";
-                        data[i].fecha = $filter('date')(data[i].fecha, 'dd/MM/yyyy HH:mm', timezoneComentario);
-
-                        for(var j=0; j<data[i].respuestas.length; j++){
-                            var timezoneRespuesta = "+0" + String(data[i].respuestas[j].fechaOffset/-60) + "00";
-                            data[i].respuestas[j].fecha = $filter('date')(data[i].respuestas[j].fecha, 'dd/MM/yyyy HH:mm', timezoneRespuesta);
-                        }
-                    }
-
-                    $scope.comments = data;
-                })
-                .error(function(data){
-                    console.log(data);
-                    alert(data);
-                });
-        }
-
+    $scope.getCSScolor = function(index) {
+        return "primary";
     };
 }
