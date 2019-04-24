@@ -91,14 +91,6 @@ module.exports = function(app) {
         res.render("admin/email");
     };
 
-    var general_vistas_admin_comentarios = function(req, res) {
-        res.render("admin/comentarios");
-    };
-
-    var general_vistas_admin_comentarios_comentario = function(req, res) {
-        res.render("admin/comentario");
-    };
-
     var general_vistas_admin_balanceEconomico = function(req, res) {
         res.render("admin/balanceEconomico");
     };
@@ -150,18 +142,6 @@ module.exports = function(app) {
         middlewares.isLogged_view,
         middlewares.isAuthorized_view([ROLES.ADMIN]),
         general_vistas_admin_emails_email
-    );
-    app.get(
-        "/admin/comentarios",
-        middlewares.isLogged_view,
-        middlewares.isAuthorized_view([ROLES.ADMIN]),
-        general_vistas_admin_comentarios
-    );
-    app.get(
-        "/admin/comentarios/:id",
-        middlewares.isLogged_view,
-        middlewares.isAuthorized_view([ROLES.ADMIN]),
-        general_vistas_admin_comentarios_comentario
     );
     app.get(
         "/admin/balanceEconomico",
