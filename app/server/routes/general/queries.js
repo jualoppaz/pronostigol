@@ -45,16 +45,6 @@ module.exports = function(app) {
         });
     };
 
-    var pronostigol_queries_comentariosNoVerificados = function(req, res) {
-        GEN_DBM.getNotVerifiedComments(function(err, result) {
-            if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
-            }
-
-            res.status(HTTP.OK).send(result);
-        });
-    };
-
     var pronostigol_queries_balanceEconomico = function(req, res) {
         var respuesta = [];
 
@@ -190,12 +180,6 @@ module.exports = function(app) {
         middlewares.isLogged_api,
         middlewares.isAuthorized_api([ROLES.ADMIN]),
         pronostigol_queries_usuariosNuevos
-    );
-    app.get(
-        "/query/notVerifiedComments",
-        middlewares.isLogged_api,
-        middlewares.isAuthorized_api([ROLES.ADMIN]),
-        pronostigol_queries_comentariosNoVerificados
     );
     app.get(
         "/query/balanceEconomico",
