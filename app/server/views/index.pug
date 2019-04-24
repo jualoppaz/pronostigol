@@ -77,66 +77,6 @@ block content
                                             Podr&aacute;s consultar todo tipo de estad&iacute;sticas que te facilitar&aacute;n la tarea de hacer
                                             tus apuestas y con mayores garant&iacute;as de &eacute;xito.
 
-                            div.col-xs-12.panel.panel-body.border-qdb(data-ng-show="comments != null", data-ng-cloak)
-
-                                div.col-xs-12.text-center(data-ng-show="comments.length > 0", data-ng-cloak)
-                                    span.green.abel(style="font-size: 42px; font-weight: normal") Comentarios
-
-                                div.col-xs-12
-                                    ul.media-list
-                                        li.media(data-ng-repeat="comment in comments")
-                                            div.media-left
-                                                i.fa.fa-3x.fa-comment.letra-verde
-                                            div.media-body
-                                                h4.media-heading(data-ng-bind-template="{{comment.user}} - {{comment.fecha | date:'dd/MM/yyyy HH:mm'}} h")
-                                                p.sin-padding-izquierdo {{comment.texto}}
-                                                div.media(data-ng-repeat="respuesta in comment.respuestas", data-ng-show="respuesta.validado")
-                                                    div.media-left
-                                                        i.fa.fa-3x.fa-comment.letra-azul(data-ng-show="respuesta.user == 'admin'")
-                                                        i.fa.fa-3x.fa-comment.letra-verde(data-ng-show="respuesta.user != 'admin'")
-                                                    div.media-body
-                                                        h4.media-heading(data-ng-bind-template="{{respuesta.user}} - {{respuesta.fecha | date:'dd/MM/yyyy HH:mm'}} h")
-                                                        p.sin-padding-izquierdo {{respuesta.texto}}
-
-                                                form(style="margin-top: 25px", data-ng-show="usuarioEstaLogueado", data-ng-cloak)
-                                                    textarea(placeholder="Escribe una respuesta", data-ng-model="nuevaRespuesta.texto").form-control.nuevo-comentario
-                                                    div.text-center(style="margin-top:25px; margin-left: -5%")
-                                                        button.btn.btn-default.btn-qdb.btn-login(data-ng-click="responderComentario(comment)").btn.btn-danger.btn-large Responder
-
-
-                                div.col-xs-12.text-center
-                                    uib-pagination(data-ng-show="comments.length > commentsPerPage", data-ng-cloak, items-per-page="commentsPerPage", boundary-links="true", total-items="totalItems", data-ng-model="currentPage", previous-text="<", next-text=">", first-text="Inicio", last-text="Fin").pagination-sm.abel
-
-                                div.col-xs-12
-
-                                    div.main-card-content(data-ng-show="comments != null && comments.length == 0", data-ng-cloak, style="margin-bottom: 10px")
-                                        div.main-card-name(style="padding-left: 0px;")
-                                            span.caramelo.qdb-red No hay comentarios. Sé el primero en comentar.
-
-                                    h3.text-center(style="margin-top: 0px; padding-top: 5px", data-ng-show="usuarioEsAnonimo", data-ng-cloak)
-                                        a.green(href="/login", title="Entrar", data-ng-bind-template="{{ comments.length > 0 ? '¡Debes hacer login para comentar!' : '¡Haz login primero!'}}")#logueate
-
-                                    div.col-xs-12.alert.alert-danger.alert-dismissible(role="alert", data-ng-show="comentarioPalabrasLargas", data-ng-cloak)
-                                        button.close(type="button", data-dismiss="alert", aria-label="Close")
-                                            span(aria-hidden="true") &times;
-                                        div El comentario contiene palabras no registradas en el diccionario.
-                                    div.col-xs-12.alert.alert-danger.alert-dismissible(role="alert", data-ng-show="comentarioVacio", data-ng-cloak)
-                                        button.close(type="button", data-dismiss="alert", aria-label="Close")
-                                            span(aria-hidden="true") &times;
-                                        div El comentario no puede estar vacío.
-                                    div.col-xs-12.alert.alert-info.alert-dismissible(role="alert", data-ng-show="comentarioEliminadoCorrectamente", data-ng-cloak)
-                                        button.close(type="button", data-dismiss="alert", aria-label="Close")
-                                            span(aria-hidden="true") &times;
-                                        div El comentario ha sido eliminado con &eacute;xito.
-                                    div.col-xs-12.alert.alert-info.alert-dismissible(role="alert", data-ng-show="comentarioEnviadoCorrectamente", data-ng-cloak)
-                                        button.close(type="button", data-dismiss="alert", aria-label="Close")
-                                            span(aria-hidden="true") &times;
-                                        div El comentario ha sido enviado. Se mostrar&aacute; cuando sea validado por el administrador.
-                                    form(style="margin-top:25px", data-ng-show="usuarioEstaLogueado", data-ng-cloak)
-                                        textarea(placeholder="Escribe un comentario", data-ng-model="comentario.texto").form-control.nuevo-comentario
-                                        div.text-center(style="margin-top:25px")
-                                            button.btn.btn-default.btn-qdb.btn-login(data-ng-click="comentar()").btn.btn-danger.btn-large Enviar
-
                             div.col-xs-12.panel.panel-body.border-qdb(data-ng-show="tweets.length > 0", data-ng-cloak)
 
                                 div.col-xs-12.text-center(data-ng-show="tweets.length > 0", data-ng-cloak)

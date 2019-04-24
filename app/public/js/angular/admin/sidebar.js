@@ -1,11 +1,10 @@
-var app = angular.module('dashboard');
+var app = angular.module("dashboard");
 
-app.controller('SidebarController', Controller);
+app.controller("SidebarController", Controller);
 
-Controller.$inject = ['$scope', '$http', '$window'];
+Controller.$inject = ["$scope", "$http", "$window"];
 
 function Controller($scope, $http, $window) {
-
     $scope.loteria = "";
 
     var url = $window.location.href;
@@ -28,8 +27,6 @@ function Controller($scope, $http, $window) {
 
     $scope.usuariosNuevos = 0;
 
-    $scope.comentariosNuevosOEditados = 0;
-
     $http.get('/query/notReadedEmailsNumber')
         .success(function (data) {
             $scope.correosNoLeidos = data.emails;
@@ -46,11 +43,7 @@ function Controller($scope, $http, $window) {
             console.log(data);
         });
 
-    $http.get('/query/notVerifiedComments')
-        .success(function (data) {
-            $scope.comentariosNuevosOEditados = data.length;
-        })
-        .error(function (data) {
+        .error(function(data) {
             console.log(data);
         });
 }
