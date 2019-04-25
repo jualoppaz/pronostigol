@@ -574,9 +574,11 @@ th.badge-pleno {
         -ms-overflow-style: scrollbar;
         border: 1px solid #ddd;
     }
+
     .table-responsive>.table {
         margin-bottom: 0;
     }
+
     .table-responsive>.table>thead>tr>th,
     .table-responsive>.table>tbody>tr>th,
     .table-responsive>.table>tfoot>tr>th,
@@ -585,9 +587,11 @@ th.badge-pleno {
     .table-responsive>.table>tfoot>tr>td {
         white-space: nowrap;
     }
+
     .table-responsive>.table-bordered {
         border: 0;
     }
+
     .table-responsive>.table-bordered>thead>tr>th:first-child,
     .table-responsive>.table-bordered>tbody>tr>th:first-child,
     .table-responsive>.table-bordered>tfoot>tr>th:first-child,
@@ -596,6 +600,7 @@ th.badge-pleno {
     .table-responsive>.table-bordered>tfoot>tr>td:first-child {
         border-left: 0;
     }
+
     .table-responsive>.table-bordered>thead>tr>th:last-child,
     .table-responsive>.table-bordered>tbody>tr>th:last-child,
     .table-responsive>.table-bordered>tfoot>tr>th:last-child,
@@ -604,26 +609,32 @@ th.badge-pleno {
     .table-responsive>.table-bordered>tfoot>tr>td:last-child {
         border-right: 0;
     }
+
     .table-responsive>.table-bordered>tbody>tr:last-child>th,
     .table-responsive>.table-bordered>tfoot>tr:last-child>th,
     .table-responsive>.table-bordered>tbody>tr:last-child>td,
     .table-responsive>.table-bordered>tfoot>tr:last-child>td {
         border-bottom: 0;
     }
+
     ::-webkit-scrollbar {
         -webkit-appearance: none;
     }
+
     ::-webkit-scrollbar:vertical {
         width: 12px;
     }
+
     ::-webkit-scrollbar:horizontal {
         height: 12px;
     }
+
     ::-webkit-scrollbar-thumb {
         background-color: rgba(0, 0, 0, 0.5);
         border-radius: 10px;
         border: 2px solid #ffffff;
     }
+
     ::-webkit-scrollbar-track {
         border-radius: 10px;
         background-color: #ffffff;
@@ -642,9 +653,11 @@ th.badge-pleno {
         -ms-overflow-style: scrollbar;
         border: 1px solid #ddd;
     }
+
     .table-responsive>.table {
         margin-bottom: 0;
     }
+
     .table-responsive>.table>thead>tr>th,
     .table-responsive>.table>tbody>tr>th,
     .table-responsive>.table>tfoot>tr>th,
@@ -653,9 +666,11 @@ th.badge-pleno {
     .table-responsive>.table>tfoot>tr>td {
         white-space: nowrap;
     }
+
     .table-responsive>.table-bordered {
         border: 0;
     }
+
     .table-responsive>.table-bordered>thead>tr>th:first-child,
     .table-responsive>.table-bordered>tbody>tr>th:first-child,
     .table-responsive>.table-bordered>tfoot>tr>th:first-child,
@@ -664,6 +679,7 @@ th.badge-pleno {
     .table-responsive>.table-bordered>tfoot>tr>td:first-child {
         border-left: 0;
     }
+
     .table-responsive>.table-bordered>thead>tr>th:last-child,
     .table-responsive>.table-bordered>tbody>tr>th:last-child,
     .table-responsive>.table-bordered>tfoot>tr>th:last-child,
@@ -672,26 +688,32 @@ th.badge-pleno {
     .table-responsive>.table-bordered>tfoot>tr>td:last-child {
         border-right: 0;
     }
+
     .table-responsive>.table-bordered>tbody>tr:last-child>th,
     .table-responsive>.table-bordered>tfoot>tr:last-child>th,
     .table-responsive>.table-bordered>tbody>tr:last-child>td,
     .table-responsive>.table-bordered>tfoot>tr:last-child>td {
         border-bottom: 0;
     }
+
     ::-webkit-scrollbar {
         -webkit-appearance: none;
     }
+
     ::-webkit-scrollbar:vertical {
         width: 12px;
     }
+
     ::-webkit-scrollbar:horizontal {
         height: 12px;
     }
+
     ::-webkit-scrollbar-thumb {
         background-color: rgba(0, 0, 0, 0.5);
         border-radius: 10px;
         border: 2px solid #ffffff;
     }
+
     ::-webkit-scrollbar-track {
         border-radius: 10px;
         background-color: #ffffff;
@@ -709,9 +731,11 @@ th.badge-pleno {
         -webkit-overflow-scrolling: auto;
         -ms-overflow-style: scrollbar;
     }
+
     .table-responsive>.table {
         margin-bottom: 0;
     }
+
     .table-responsive>.table>thead>tr>th,
     .table-responsive>.table>tbody>tr>th,
     .table-responsive>.table>tfoot>tr>th,
@@ -720,7 +744,9 @@ th.badge-pleno {
     .table-responsive>.table>tfoot>tr>td {
         white-space: nowrap;
     }
+
     .table-responsive>.table-bordered {}
+
     .table-responsive>.table-bordered>thead>tr>th:first-child,
     .table-responsive>.table-bordered>tbody>tr>th:first-child,
     .table-responsive>.table-bordered>tfoot>tr>th:first-child,
@@ -729,6 +755,7 @@ th.badge-pleno {
     .table-responsive>.table-bordered>tfoot>tr>td:first-child {
         border-left: 0;
     }
+
     .table-responsive>.table-bordered>thead>tr>th:last-child,
     .table-responsive>.table-bordered>tbody>tr>th:last-child,
     .table-responsive>.table-bordered>tfoot>tr>th:last-child,
@@ -737,26 +764,32 @@ th.badge-pleno {
     .table-responsive>.table-bordered>tfoot>tr>td:last-child {
         border-right: 0;
     }
+
     .table-responsive>.table-bordered>tbody>tr:last-child>th,
     .table-responsive>.table-bordered>tfoot>tr:last-child>th,
     .table-responsive>.table-bordered>tbody>tr:last-child>td,
     .table-responsive>.table-bordered>tfoot>tr:last-child>td {
         border-bottom: 0;
     }
+
     ::-webkit-scrollbar {
         -webkit-appearance: none;
     }
+
     ::-webkit-scrollbar:vertical {
         width: 12px;
     }
+
     ::-webkit-scrollbar:horizontal {
         height: 12px;
     }
+
     ::-webkit-scrollbar-thumb {
         background-color: rgba(0, 0, 0, 0.5);
         border-radius: 10px;
         border: 2px solid #ffffff;
     }
+
     ::-webkit-scrollbar-track {
         border-radius: 10px;
         background-color: #ffffff;
@@ -860,4 +893,10 @@ ul#social-links li>a:hover {
 #footer ul#sections-in-footer li h3 a:focus {
     text-decoration: none;
     outline: 0;
+}
+
+@media (min-width: 768px) {
+    header>nav>div.navbar-inner>div.container-fluid>div.collapse.navbar-collapse>ul.nav.navbar-nav.navbar-right {
+        margin-right: 0;
+    }
 }

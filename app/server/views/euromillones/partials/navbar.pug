@@ -29,12 +29,8 @@ header(data-ng-controller="NavbarController")
                             a.euromillones(href="/euromillones/estadisticas") Estadísticas
                         li
                             a.euromillones(href="/contacto", title="Contacto", target="_blank") Contacto
-                        li.hidden-lg.hidden-md.hidden-sm(data-ng-show="usuarioEstaLogueado == false")
-                            a.euromillones.btn-login(href="/login", title="Entrar") Entrar
                         li.hidden-lg.hidden-md.hidden-sm(data-ng-show="usuarioEstaLogueado")
                             a.euromillones(href="#", title="Cerrar sesión", data-ng-click="cerrarSesion()") Cerrar sesión
-                        li.hidden-lg.hidden-md.hidden-sm(data-ng-show="usuarioEstaLogueado == false")
-                            a.euromillones(href="/signup", title="Registrarse") Registrarse
 
                     ul.nav.navbar-nav.navbar-right.hidden-xs
                         li
@@ -48,5 +44,3 @@ header(data-ng-controller="NavbarController")
                                 i.fa.fa-github
                         li(data-ng-show="usuarioEstaLogueado", style="margin-left:15px", data-ng-cloak)
                             a.btn.btn-euromillones.btn-login(href="#", title="Cerrar sesión", role="button", data-ng-click="cerrarSesion()") Cerrar sesión
-                        li(data-ng-show="!usuarioEstaLogueado", style="margin-left:15px", data-ng-cloak)
-                            a.btn.btn-euromillones.btn-login(href="/login", title="Entrar", role="button") Entrar
