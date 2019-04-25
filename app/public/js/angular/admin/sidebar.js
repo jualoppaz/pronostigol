@@ -39,10 +39,6 @@ function Controller($scope, $http, $window) {
         .success(function (data) {
             $scope.usuariosNuevos = data.newUsers;
         })
-        .error(function (data) {
-            console.log(data);
-        });
-
         .error(function(data) {
             console.log(data);
         });
