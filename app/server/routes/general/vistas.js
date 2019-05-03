@@ -47,6 +47,10 @@ module.exports = function(app) {
         res.render("politicaDeCookies");
     };
 
+    var general_vistas_acercaDe = function(req, res) {
+        res.render("about");
+    };
+
     var general_vistas_preguntasFrecuentes = function(req, res) {
         res.render("preguntasFrecuentes");
     };
@@ -113,6 +117,7 @@ module.exports = function(app) {
         general_vistas_inicio
     );
     app.get("/politicaDeCookies", general_vistas_politicaDeCookies);
+    app.get("/acerca-de", general_vistas_acercaDe);
     app.get("/preguntasFrecuentes", general_vistas_preguntasFrecuentes);
     app.get(
         "/login",
