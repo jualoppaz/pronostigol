@@ -1,0 +1,106 @@
+extends layout
+
+block head
+    title Acerca de
+    link(rel="canonical", href="http://www.pronostigol.es/acerca-de")
+    link(rel="stylesheet", href="/css/backgroundImage.css")
+    link(rel="stylesheet", href="/css/pronostigol.css")
+
+
+block content
+    div#wrap(data-ng-app="qdb")
+
+        div.container(data-ng-controller="LoguedUserController", style="background-color: white")
+            div(data-ng-controller="IndexController")
+
+                include partials/navbar
+
+                div
+
+                    main#about
+                        div.container(style="background-color: white")
+                            div(style="margin-top: 0px; margin-bottom: 10px")
+
+                                h1.page-header Finalidad
+                                p.cookies-parrafo.
+                                    Pronostigol es una aplicación web de acceso libre desarrollada por Juan Manuel López Pazos, cuyo único fin es
+                                    poner en manos de sus visitantes una amplia gama de herramientas para consultar estadísticas, relacionadas con
+                                    distintos juegos de Loterías y Apuestas del Estado. En la actualidad, los juegos contemplados son:&nbsp;
+                                    <a href="/quiniela" id="link-quiniela" class="color-quiniela">Quiniela</a>, <a href="/bonoloto" id="link-bonoloto"
+                                    class="color-bonoloto">Bonoloto</a>, <a href="/primitiva" id="link-primitiva" class="color-primitiva">Primitiva</a>,
+                                    <a href="/gordo" id="link-gordo" class="color-gordo">Gordo de la Primitiva</a> y <a href="/euromillones"
+                                    id="link-euromillones" class="color-euromillones">Euromillones</a>.
+
+                                h1.page-header Motivación
+                                p.cookies-parrafo
+                                    i.fa.fa-quote-left
+                                    dfn.
+                                        Dada mi pasión por el fútbol y alto interés en la Quiniela, decidí desarrollar una aplicación web
+                                        que permitiera realizar todo tipo de consultas en base a equipos, competiciones y temporadas, facilitando
+                                        así la realización de apuestas con un criterio más objetivo. Las tecnologías iniciales de la aplicación web
+                                        fueron Java y Spring Framework para el Servidor, JSP y Bootstrap para las vistas y MySQL como Base de Datos.
+                                    i.fa.fa-quote-right
+                                img.img-responsive.img-thumbnail(src="/img/pronostigol-versionInicial.png")
+                                p.cookies-parrafo(style="margin-top: 15px")
+                                    i.fa.fa-quote-left
+                                    dfn.
+                                        Sin embargo aprendí un nuevo stack tecnológico durante mi último curso del Grado de Ingeniería Informática -
+                                        Ingeniería del Software, el cual se caracterizaba por un enfoque mucho más actual. Dado que el desarrollo
+                                        que llevaba realizado era escaso decidí reiniciar el proyecto con este nuevo stack tecnológico, el cual estaba
+                                        formado por MongoDB como Base de Datos, NodeJS para el Servidor y AngularJS para el Front, el cual se conoce
+                                        hoy en día como Stack <a href="http://mean.io" target="_blank">MEAN</a>.
+                                    i.fa.fa-quote-right
+                                img.img-responsive.img-thumbnail(src="/img/pronostigol-versionQuiniela.png", style="margin-top: 15px")
+                                p.cookies-parrafo(style="margin-top: 15px")
+                                    i.fa.fa-quote-left
+                                    dfn.
+                                        Una vez echó a rodar Pronostigol, fueron muchas las peticiones para que diera soporte a otros juegos de
+                                        <a href="https://www.loteriasyapuestas.es" target="_blank">Loterías y Apuestas</a> como la Primitiva o Euromillones.
+                                        Dicho y hecho: en apenas unos meses diseñé y desarrollé el resto de módulos dándoles cabida dentro de Pronostigol.
+                                    i.fa.fa-quote-right
+                                img.img-responsive.img-thumbnail(src="/img/pronostigol-versionCompleta.png", style="margin-top: 15px")
+                                p.cookies-parrafo(style="margin-top: 15px")
+                                    i.fa.fa-quote-left
+                                    dfn.
+                                        Pero aún faltaba algo que le diera a Pronostigol su sello particular, algo que lo hiciera marcar la diferencia.
+                                        Me fijé en que <a href="https://www.loteriasyapuestas.es" target="_blank">Loterías y Apuestas</a> sólo proporciona
+                                        2 formas para obtener los resultados: mediante el buscador o mediante la exportación de datos a Excel. Pensé que
+                                        lo ideal sería poder consultar una API REST de resultados, y como no encontré ninguna oficial ni de terceros
+                                        decidí desarrollar y documentar la mía propia para abrirla al público: ya es una realidad y se puede consultar
+                                        <a href="/docs" target="_blank">aquí</a>.
+                                    i.fa.fa-quote-right
+
+                                blockquote.blockquote-reverse
+                                    footer
+                                        cite Juan Manuel López Pazos
+
+                                h1.page-header Funcionamiento
+                                p.cookies-parrafo.
+                                    Las estadísticas que se muestran en esta web son calculadas de forma instantánea a partir de la información almacenada
+                                    en la Base de Datos propia de Pronostigol: en ningún momento se hace uso de datos de terceros, ya que los datos de
+                                    los distintos sorteos son insertados en nuestra propia Base de Datos.
+                                h1.page-header Responsabilidad
+                                p.cookies-parrafo.
+                                    Pronostigol nació como un proyecto académico, por lo que carece de cualquier tipo de oficialidad. Así pues, no nos
+                                    hacemos responsables de cualquier dato erróneo que se pueda visualizar en esta aplicación, ya sea por error propio
+                                    o por error de algún tercero como pueda ser la web oficial de <a href="https://www.loteriasyapuestas.es" target="_blank">
+                                    Loterías y Apuestas</a>.
+                                h1.page-header Financiación
+                                p.cookies-parrafo.
+                                    Dado que Pronostigol es una aplicación web totalmente gratuita, pero conlleva una serie de costes como el hosting
+                                    y el dominio, hacemos uso de Google AdSense, herramienta con la que obtenemos una pequeña cantidad de ingresos
+                                    relacionada con la publicidad mostrada en diversas páginas de la web. Es por ello por lo que no admitimos el uso
+                                    de ningún tipo de plugin o herramienta que bloquee dichos anuncios: en ese caso la web no estará operativa.
+
+
+    include partials/footer
+
+block scripts
+    script(src='/js/jquery.js')
+    script(src='/js/bootstrap.js')
+    script(src='/js/angular.js')
+    script(src='/js/angular/services.js')
+    script(src='/js/angular/loguedUser.js')
+    script(src='/js/angular/index.js')
+    script(src='/js/angular/navbar.js')
+    script(src='/js/angular/ui-bootstrap-tpls-1.3.3.js')
