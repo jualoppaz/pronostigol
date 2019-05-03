@@ -601,6 +601,10 @@ label {
     text-justify: inter-word;
 }
 
+.cookies-parrafo .fa-quote-right {
+    text-indent: 0;
+}
+
 .main-card-content {
     font-family: "Abel", sans-serif !important;
 }
@@ -1281,5 +1285,65 @@ ul#social-links li>a:hover {
 @media (min-width: 768px) {
     header>nav>div.navbar-inner>div.container-fluid>div.collapse.navbar-collapse>ul.nav.navbar-nav.navbar-right {
         margin-right: 0;
+    }
+}
+
+.color-quiniela,
+.color-quiniela:hover {
+    color: #0480be;
+}
+
+.color-bonoloto,
+.color-bonoloto:hover {
+    color: #2b2b2b;
+}
+
+.color-primitiva,
+.color-primitiva:hover {
+    color: #398439;
+}
+
+.color-gordo,
+.color-gordo:hover {
+    color: #e32d28;
+}
+
+.color-euromillones,
+.color-euromillones:hover {
+    color: #440044;
+}
+
+.cookies-parrafo #link-quiniela:hover,
+.cookies-parrafo #link-bonoloto:hover,
+.cookies-parrafo #link-primitiva:hover,
+.cookies-parrafo #link-gordo:hover,
+.cookies-parrafo #link-euromillones:hover {
+    text-decoration: underline;
+}
+
+.cookies-parrafo dfn {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+main#about .container {
+    margin: auto;
+}
+
+@media (min-width: 768px) {
+    main#about .container {
+        width: 750px;
+    }
+}
+
+@media (min-width: 992px) {
+    main#about .container {
+        width: 970px;
+    }
+}
+
+@media (min-width: 1200px) {
+    main#about .container {
+        width: 1170px;
     }
 }
