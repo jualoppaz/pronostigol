@@ -9,14 +9,14 @@ block head
 block content
     div#wrap(data-ng-app="qdb", style="background-color: white")
 
-        div.container(data-ng-controller="LoguedUserController")
+        div(data-ng-controller="LoguedUserController")
             div(data-ng-controller="TicketController")
 
                 include partials/navbar
 
                 div
 
-                    main
+                    main.container-fluid
 
                         h1(style="margin-left: 15px; margin-right: 15px; padding-left: 15px").page-header Ticket
 

@@ -501,18 +501,8 @@ body {
     padding-top: 0;
 }
 
-.container {
-    margin: 0 0;
-}
-
 code {
     font-size: 80%;
-}
-
-.container {
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
 }
 
 .footer h3,

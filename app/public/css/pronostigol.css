@@ -638,18 +638,8 @@ body {
     padding-top: 0;
 }
 
-.container {
-    margin: 0 0;
-}
-
 code {
     font-size: 80%;
-}
-
-.container {
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
 }
 
 .footer h3,
@@ -1324,26 +1314,4 @@ ul#social-links li>a:hover {
 .cookies-parrafo dfn {
     padding-left: 5px;
     padding-right: 5px;
-}
-
-main#about .container {
-    margin: auto;
-}
-
-@media (min-width: 768px) {
-    main#about .container {
-        width: 750px;
-    }
-}
-
-@media (min-width: 992px) {
-    main#about .container {
-        width: 970px;
-    }
-}
-
-@media (min-width: 1200px) {
-    main#about .container {
-        width: 1170px;
-    }
 }

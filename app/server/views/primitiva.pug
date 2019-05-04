@@ -12,14 +12,14 @@ block head
 block content
     div#wrap(data-ng-app="qdb")
 
-        div.container(data-ng-controller="LoguedUserController")
+        div(data-ng-controller="LoguedUserController")
             div(data-ng-controller="IndexController")
 
                 include primitiva/partials/navbar
 
-                div.col-md-12-col-sm-12.col-xs-12(style="padding: 0 0 0 0")
+                div(style="padding: 0 0 0 0")
 
-                    main
+                    main.container-fluid
 
                         div.col-md-12.text-center
                             span.col-md-8.col-md-offset-2.col-sm-8.col-sm-offset-2.col-xs-12.logo-juego.logo-primitiva-con-texto-invertido

@@ -12,23 +12,17 @@ block head
 block content
     div#wrap(data-ng-app="qdb")
 
-        div.container(data-ng-controller="LoguedUserController")
+        div(data-ng-controller="LoguedUserController")
             div(data-ng-controller="IndexController")
 
                 include gordo/partials/navbar
 
-                div.col-md-12-col-sm-12.col-xs-12(style="padding: 0 0 0 0")
+                div(style="padding: 0 0 0 0")
 
-                    main
-                        //div.container
-                            div.row
-
+                    main.container-fluid
                         div.col-md-12.text-center
-                            //span.logo-pronostigol P
                             span.col-md-8.col-md-offset-2.col-sm-8.col-sm-offset-2.col-xs-12.logo-juego.logo-gordo-con-texto-invertido
                                 span.titulo-logo-juego El Gordo
-
-
 
                         div.col-md-2.col-sm-12.col-xs-12(style="padding-bottom: 15px; padding-top: 30px")
                             script(async, src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
