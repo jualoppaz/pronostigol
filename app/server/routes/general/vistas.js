@@ -43,8 +43,8 @@ module.exports = function(app) {
         });
     };
 
-    var general_vistas_politicaDeCookies = function(req, res) {
-        res.render("politicaDeCookies");
+    var general_vistas_privacidad = function(req, res) {
+        res.render("privacy");
     };
 
     var general_vistas_acercaDe = function(req, res) {
@@ -116,7 +116,7 @@ module.exports = function(app) {
         ]),
         general_vistas_inicio
     );
-    app.get("/politicaDeCookies", general_vistas_politicaDeCookies);
+    app.get("/privacidad", general_vistas_privacidad);
     app.get("/acerca-de", general_vistas_acercaDe);
     app.get("/preguntasFrecuentes", general_vistas_preguntasFrecuentes);
     app.get(
