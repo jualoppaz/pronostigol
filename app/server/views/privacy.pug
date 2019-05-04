@@ -1,0 +1,157 @@
+extends layout
+
+block head
+    title Privacidad y Cookies
+    link(rel="canonical", href="http://www.pronostigol.es/privacidad")
+    link(rel="stylesheet", href="/css/backgroundImage.css")
+    link(rel="stylesheet", href="/css/pronostigol.css")
+
+
+block content
+    div#wrap(data-ng-app="qdb")
+
+        div(data-ng-controller="LoguedUserController", style="background-color: white")
+            div(data-ng-controller="IndexController")
+
+                include partials/navbar
+
+                div
+
+                    main.container(style="background-color: white")
+
+                        h1.page-header ¿Qué son las cookies?
+                        p.cookies-parrafo.
+                            Tal y como se puede leer en <a href="https://es.wikipedia.org/wiki/Cookie_(inform%C3%A1tica)" target="_blank">Wikipedia</a>,
+                            <cite style="font-weight: bold">una cookie ... es una pequeña información enviada por un sitio web y almacenada en el
+                            navegador del usuario, de manera que el sitio web puede consultar la actividad previa del navegador.</cite>
+                            Para el correcto funcionamiento de Pronostigol se hace uso de una serie de cookies, tanto propias
+                            como de terceros.
+
+                        h1.page-header Cookies de Pronostigol
+                        p.cookies-parrafo.
+                            A continuación se detallan todas y cada unas de las cookies utilizadas en Pronostigol:
+                        table.table.table-bordered
+                            thead
+                                tr
+                                    th Dominio
+                                    th Cookies
+                                    th Descripción
+                            tbody
+                                tr
+                                    td doubleclick.net
+                                    td
+                                        ul.list-unstyled
+                                            li DSID
+                                            li IDE
+                                    td.
+                                        Cookies utilizadas para gestionar las impresiones y clicks de los anuncios mostrados en
+                                        Pronostigol
+                                tr
+                                    td facebook.com
+                                    td
+                                        ul.list-unstyled
+                                            li c_user
+                                            li datr
+                                            li dpr
+                                            li fr
+                                            li presence
+                                            li sb
+                                            li spin
+                                            li wd
+                                            li xs
+                                    td.
+                                        Cookies utilizadas para la comunicación con Facebook y poder indicar rápidamente que te gusta
+                                        la página de Pronostigol
+                                tr
+                                    td google.com
+                                    td
+                                        ul.list-unstyled
+                                            li 1P_JAR
+                                            li AID
+                                            li APISID
+                                            li CONSENT
+                                            li HSID
+                                            li NID
+                                            li SAPISID
+                                            li SID
+                                            li SIDCC
+                                            li SSID
+                                    td(rowspan="4").
+                                        Cookies utilizadas por Google Analytics y Google AdSense para gestionar el tráfico y mostrar anuncios
+                                        acorde a la navegación previa de cada usuario.
+                                tr
+                                    td www.google.com
+                                    td
+                                        ul.list-unstyled
+                                            li UULE
+                                            li _ga
+                                tr
+                                    td google.es
+                                    td
+                                        ul.list-unstyled
+                                            li 1P_JAR
+                                            li li APISID
+                                            li CONSENT
+                                            li HSID
+                                            li NID
+                                            li SAPISID
+                                            li SID
+                                            li SSID
+                                tr
+                                    td pronostigol.es
+                                    td
+                                        ul.list-unstyled
+                                            li _ga
+                                            li _gat
+                                            li _gat_gtag_UA_57106519_1
+                                            li _gid
+                                tr
+                                    td www.pronostigol.es
+                                    td
+                                        ul.list-unstyled
+                                            li connect.sid
+                                    td Cookie utilizada por Pronostigol para gestionar la sesión de los usuarios en la aplicación web.
+                                tr
+                                    td twitter.com
+                                    td
+                                        ul.list-unstyled
+                                            li _utma
+                                            li _utmz
+                                            li _ga
+                                            li _gid
+                                            li _twitter_sess
+                                            li ads_prefs
+                                            li auth_token
+                                            li csrf_same_site_set
+                                            li ct0
+                                            li dnt
+                                            li eu_cn
+                                            li guest_id
+                                            li kdt
+                                            li mbox
+                                            li personalization_id
+                                            li remember_checked_on
+                                            li syndication_guest_id
+                                            li tfw_exp
+                                            li twid
+                                            li twtr_pixel_opt_in
+                                    td(rowspan="2").
+                                        Cookies utilizadas para la comunicación con Twitter y poder twittear rápidamente desde Pronostigol.
+                                tr
+                                    td syndication.twitter.com
+                                    td
+                                        ul.list-unstyled
+                                            li lang
+
+
+    include partials/footer
+
+block scripts
+    script(src='/js/jquery.js')
+    script(src='/js/bootstrap.js')
+    script(src='/js/angular.js')
+    script(src='/js/angular/services.js')
+    script(src='/js/angular/loguedUser.js')
+    script(src='/js/angular/index.js')
+    script(src='/js/angular/navbar.js')
+    script(src='/js/angular/ui-bootstrap-tpls-1.3.3.js')
