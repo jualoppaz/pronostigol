@@ -9,14 +9,14 @@ block head
 block content
     div#wrap(data-ng-app="qdb", style="background-color: white")
 
-        div.container(data-ng-controller="LoguedUserController")
+        div(data-ng-controller="LoguedUserController")
             div(data-ng-controller="TicketController")
 
                 include partials/navbar
 
                 div
 
-                    main
+                    main.container-fluid
 
                         h1(style="margin-left: 15px; margin-right: 15px; padding-left: 15px").page-header Ticket
 
@@ -97,7 +97,7 @@ block content
                                             td(data-ng-bind-template="{{determinarCategoriaPremio(combinacion)}}")
 
 
-                        h2(data-ng-hide="ticketEstaVacio()", data-ng-cloak, style="margin-top: 30px; margin-left: 15px; margin-right: 15px; padding-left: 15px").page-header Resultado
+                        h2(data-ng-hide="ticketEstaVacio()", data-ng-cloak, style="margin-top: 30px; margin-left: 15px; margin-right: 15px; padding-left: 15px").col-xs-12.page-header Resultado
 
                         div.col-xs-12(data-ng-show="!ticketEstaVacio()", data-ng-cloak)
                             div.table-responsive

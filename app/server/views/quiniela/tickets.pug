@@ -9,13 +9,13 @@ block head
 
 block content
     div#wrap(data-ng-app="qdb")
-        div.container(data-ng-controller="LoguedUserController", style="margin-left: 0px; padding: 0 0 0 0;")
+        div(data-ng-controller="LoguedUserController", style="margin-left: 0px; padding: 0 0 0 0;")
             div(data-ng-controller="QuinielasController")
 
                 include partials/navbar
 
-                div.col-xs-12(style="padding: 0 0 0 0")
-                    div
+                div(style="padding: 0 0 0 0")
+                    div.container-fluid
                         div.col-xs-12(style="padding-top: 20px")
                             script(async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
                             ins.adsbygoogle(style="display:block", data-ad-client="ca-pub-2309187828170787",
