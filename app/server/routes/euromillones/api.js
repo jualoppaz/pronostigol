@@ -8,6 +8,8 @@ module.exports = function(app) {
 
     var EUR_DBM = require("../../modules/euromillones-data-base-manager");
 
+    const isObjectId = require("validate-objectid");
+
     // Validations
     var validate = require("express-validation");
     var validations = require("./validations.js");
@@ -171,6 +173,10 @@ module.exports = function(app) {
 
     var euromillones_api_borrarTicket = function(req, res) {
         var id = req.params.id;
+
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
 
         EUR_DBM.getTicketById(id, function(err, result) {
             if (err) {
@@ -439,6 +445,10 @@ module.exports = function(app) {
     var euromillones_api_year = function(req, res) {
         var id = req.params.id;
 
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
+
         EUR_DBM.getYearById(id, function(err, result) {
             if (err) {
                 return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
@@ -450,6 +460,10 @@ module.exports = function(app) {
 
     var euromillones_api_deleteYear = function(req, res) {
         var id = req.params.id;
+
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
 
         EUR_DBM.deleteYearById(id, function(err) {
             if (err) {
@@ -520,6 +534,10 @@ module.exports = function(app) {
 
     var euromillones_api_ticketPorId = function(req, res) {
         var id = req.params.id;
+
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
 
         EUR_DBM.getTicketById(id, function(err, result) {
             if (err) {

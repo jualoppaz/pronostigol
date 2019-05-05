@@ -8,6 +8,8 @@ module.exports = function(app) {
 
     var BON_DBM = require("../../modules/bonoloto-data-base-manager");
 
+    const isObjectId = require("validate-objectid");
+
     // Validations
     var validate = require("express-validation");
     var validations = require("./validations.js");
@@ -124,6 +126,10 @@ module.exports = function(app) {
     var bonoloto_api_ticketById = function(req, res) {
         var id = req.params.id;
 
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
+
         BON_DBM.getTicketById(id, function(err, result) {
             if (err) {
                 return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
@@ -202,6 +208,10 @@ module.exports = function(app) {
 
     var bonoloto_api_deleteTicket = function(req, res) {
         var id = req.params.id;
+
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
 
         BON_DBM.getTicketById(id, function(err, result) {
             if (err) {
@@ -424,6 +434,10 @@ module.exports = function(app) {
     var bonoloto_api_yearById = function(req, res) {
         var id = req.params.id;
 
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
+
         BON_DBM.getYearById(id, function(err, result) {
             if (err) {
                 return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
@@ -435,6 +449,10 @@ module.exports = function(app) {
 
     var bonoloto_api_deleteYear = function(req, res) {
         var id = req.params.id;
+
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
 
         BON_DBM.deleteYearById(id, function(err) {
             if (err) {
