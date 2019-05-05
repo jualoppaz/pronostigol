@@ -13,14 +13,6 @@ module.exports = function(app) {
     // Validations
     var validate = require("express-validation");
     var validations = require("./validations.js");
-    var getTicketsValidations = validations.getTickets;
-    var getOccurrencesByNumberValidations = validations.getOccurrencesByNumber;
-    var getOccurrencesByStarValidations = validations.getOccurrencesByStar;
-    var getOccurrencesByStarsPairValidations =
-        validations.getOccurrencesByStarsPair;
-    var getOccurrencesByResultWithStarsValidations =
-        validations.getOccurrencesByResultWithStars;
-    var getOccurrencesByResultValidations = validations.getOccurrencesByResult;
 
     var filtrarInformacion = function(result) {
         var json = JSON.parse(JSON.stringify(result));
@@ -565,7 +557,7 @@ module.exports = function(app) {
     /* Tickets del Euromillones */
     euromillones
         .route("/tickets")
-        .get(validate(getTicketsValidations), euromillones_api_tickets)
+        .get(validate(validations.getTickets), euromillones_api_tickets)
         .post(
             middlewares.isLogged_api,
             middlewares.isAuthorized_api([ROLES.ADMIN]),
@@ -611,27 +603,27 @@ module.exports = function(app) {
     /* Consultas: Estandar */
     historical.get(
         "/occurrencesByResult",
-        validate(getOccurrencesByResultValidations),
+        validate(validations.getOccurrencesByResult),
         euromillones_api_occurrencesByResult
     );
     historical.get(
         "/occurrencesByResultWithStars",
-        validate(getOccurrencesByResultWithStarsValidations),
+        validate(validations.getOccurrencesByResultWithStars),
         euromillones_api_occurrencesByResultWithStars
     );
     historical.get(
         "/occurrencesByNumber",
-        validate(getOccurrencesByNumberValidations),
+        validate(validations.getOccurrencesByNumber),
         euromillones_api_occurrencesByNumber
     );
     historical.get(
         "/occurrencesByStar",
-        validate(getOccurrencesByStarValidations),
+        validate(validations.getOccurrencesByStar),
         euromillones_api_occurrencesByStar
     );
     historical.get(
         "/occurrencesByStarsPair",
-        validate(getOccurrencesByStarsPairValidations),
+        validate(validations.getOccurrencesByStarsPair),
         euromillones_api_occurrencesByStarsPair
     );
 

@@ -13,7 +13,6 @@ module.exports = function(app) {
     // Validations
     var validate = require("express-validation");
     var validations = require("./validations.js");
-    var getHistoricalAppearedResults = validations.getHistoricalAppearedResults;
 
     var filtrarInformacion = function(result) {
         borrarPronosticos(result);
@@ -877,7 +876,7 @@ module.exports = function(app) {
     /* Historico (Consultas Estandar/Fijas) */
     historical.get(
         "/combinations",
-        validate(getHistoricalAppearedResults),
+        validate(validations.getHistoricalAppearedResults),
         quiniela_api_historicalAppearedResults
     );
 

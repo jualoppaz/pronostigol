@@ -13,13 +13,6 @@ module.exports = function(app) {
     // Validations
     var validate = require("express-validation");
     var validations = require("./validations.js");
-    var getTicketsValidations = validations.getTickets;
-    var getOccurrencesByNumberValidations = validations.getOccurrencesByNumber;
-    var getOccurrencesBySpecialNumberValidations =
-        validations.getOccurrencesBySpecialNumber;
-    var getOccurrencesByResultWithSpecialNumberValidations =
-        validations.getOccurrencesByResultWithSpecialNumber;
-    var getOccurrencesByResultValidations = validations.getOccurrencesByResult;
 
     var filtrarInformacion = function(result) {
         var json = JSON.parse(JSON.stringify(result));
@@ -546,7 +539,7 @@ module.exports = function(app) {
     /* Tickets de El Gordo */
     gordo
         .route("/tickets")
-        .get(validate(getTicketsValidations), gordo_api_tickets)
+        .get(validate(validations.getTickets), gordo_api_tickets)
         .post(
             middlewares.isLogged_api,
             middlewares.isAuthorized_api([ROLES.ADMIN]),
@@ -592,22 +585,22 @@ module.exports = function(app) {
     /* Consultas: Estandar */
     historical.get(
         "/occurrencesByResult",
-        validate(getOccurrencesByResultValidations),
+        validate(validations.getOccurrencesByResult),
         gordo_api_occurrencesByResult
     );
     historical.get(
         "/occurrencesByResultWithSpecialNumber",
-        validate(getOccurrencesByResultWithSpecialNumberValidations),
+        validate(validations.getOccurrencesByResultWithSpecialNumber),
         gordo_api_occurrencesByResultWithSpecialNumber
     );
     historical.get(
         "/occurrencesByNumber",
-        validate(getOccurrencesByNumberValidations),
+        validate(validations.getOccurrencesByNumber),
         gordo_api_occurrencesByNumber
     );
     historical.get(
         "/occurrencesBySpecialNumber",
-        validate(getOccurrencesBySpecialNumberValidations),
+        validate(validations.getOccurrencesBySpecialNumber),
         gordo_api_occurrencesBySpecialNumber
     );
 

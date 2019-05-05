@@ -13,13 +13,6 @@ module.exports = function(app) {
     // Validations
     var validate = require("express-validation");
     var validations = require("./validations.js");
-    var getTicketsValidations = validations.getTickets;
-    var getOccurrencesByNumberValidations = validations.getOccurrencesByNumber;
-    var getOccurrencesByReimbursementValidations =
-        validations.getOccurrencesByReimbursement;
-    var getOccurrencesByResultWithReimbursementValidations =
-        validations.getOccurrencesByResultWithReimbursement;
-    var getOccurrencesByResultValidations = validations.getOccurrencesByResult;
 
     var filtrarInformacion = function(result) {
         var json = JSON.parse(JSON.stringify(result));
@@ -525,7 +518,7 @@ module.exports = function(app) {
     /* Tickets de Bonoloto */
     bonoloto
         .route("/tickets")
-        .get(validate(getTicketsValidations), bonoloto_api_tickets)
+        .get(validate(validations.getTickets), bonoloto_api_tickets)
         .post(
             middlewares.isLogged_api,
             middlewares.isAuthorized_api([ROLES.ADMIN]),
@@ -571,22 +564,22 @@ module.exports = function(app) {
     /* Consultas: Estandar */
     historical.get(
         "/occurrencesByResult",
-        validate(getOccurrencesByResultValidations),
+        validate(validations.getOccurrencesByResult),
         bonoloto_api_occurrencesByResult
     );
     historical.get(
         "/occurrencesByResultWithReimbursement",
-        validate(getOccurrencesByResultWithReimbursementValidations),
+        validate(validations.getOccurrencesByResultWithReimbursement),
         bonoloto_api_occurrencesByResultWithReimbursement
     );
     historical.get(
         "/occurrencesByNumber",
-        validate(getOccurrencesByNumberValidations),
+        validate(validations.getOccurrencesByNumber),
         bonoloto_api_occurrencesByNumber
     );
     historical.get(
         "/occurrencesByReimbursement",
-        validate(getOccurrencesByReimbursementValidations),
+        validate(validations.getOccurrencesByReimbursement),
         bonoloto_api_occurrencesByReimbursement
     );
 
