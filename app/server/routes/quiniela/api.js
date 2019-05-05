@@ -8,10 +8,11 @@ module.exports = function(app) {
 
     var QUI_DBM = require("../../modules/quiniela-data-base-manager");
 
+    const isObjectId = require("validate-objectid");
+
     // Validations
     var validate = require("express-validation");
     var validations = require("./validations.js");
-    var getHistoricalAppearedResults = validations.getHistoricalAppearedResults;
 
     var filtrarInformacion = function(result) {
         borrarPronosticos(result);
@@ -475,6 +476,10 @@ module.exports = function(app) {
     var quiniela_api_borrarEquipo = function(req, res) {
         var id = req.params.id;
 
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
+
         QUI_DBM.getTeamById(id, function(err, result) {
             if (err) {
                 return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
@@ -523,6 +528,10 @@ module.exports = function(app) {
     var quiniela_api_equipo = function(req, res) {
         var id = req.params.id;
 
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
+
         QUI_DBM.getTeamById(id, function(err, result) {
             if (err) {
                 return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
@@ -570,6 +579,10 @@ module.exports = function(app) {
     var quiniela_api_borrarCompeticion = function(req, res) {
         var id = req.params.id;
 
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
+
         QUI_DBM.getCompetitionById(id, function(err, result) {
             if (err) {
                 return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
@@ -597,6 +610,10 @@ module.exports = function(app) {
 
     var quiniela_api_competicion = function(req, res) {
         var id = req.params.id;
+
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
 
         QUI_DBM.getCompetitionById(id, function(err, result) {
             if (err) {
@@ -647,6 +664,10 @@ module.exports = function(app) {
 
     var quiniela_api_temporada = function(req, res) {
         var id = req.params.id;
+
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
 
         QUI_DBM.getSeasonById(id, function(err, result) {
             if (err) {
@@ -703,6 +724,11 @@ module.exports = function(app) {
 
     var quiniela_api_borrarTemporada = function(req, res) {
         var id = req.params.id;
+
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
+
         QUI_DBM.getSeasonById(id, function(err, result) {
             if (err) {
                 return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
@@ -850,7 +876,7 @@ module.exports = function(app) {
     /* Historico (Consultas Estandar/Fijas) */
     historical.get(
         "/combinations",
-        validate(getHistoricalAppearedResults),
+        validate(validations.getHistoricalAppearedResults),
         quiniela_api_historicalAppearedResults
     );
 
