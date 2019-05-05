@@ -8,16 +8,11 @@ module.exports = function(app) {
 
     var GOR_DBM = require("../../modules/gordo-data-base-manager");
 
+    const isObjectId = require("validate-objectid");
+
     // Validations
     var validate = require("express-validation");
     var validations = require("./validations.js");
-    var getTicketsValidations = validations.getTickets;
-    var getOccurrencesByNumberValidations = validations.getOccurrencesByNumber;
-    var getOccurrencesBySpecialNumberValidations =
-        validations.getOccurrencesBySpecialNumber;
-    var getOccurrencesByResultWithSpecialNumberValidations =
-        validations.getOccurrencesByResultWithSpecialNumber;
-    var getOccurrencesByResultValidations = validations.getOccurrencesByResult;
 
     var filtrarInformacion = function(result) {
         var json = JSON.parse(JSON.stringify(result));
@@ -172,6 +167,10 @@ module.exports = function(app) {
 
     var gordo_api_deleteTicket = function(req, res) {
         var id = req.params.id;
+
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
 
         GOR_DBM.getTicketById(id, function(err, result) {
             if (err) {
@@ -423,6 +422,10 @@ module.exports = function(app) {
     var gordo_api_year = function(req, res) {
         var id = req.params.id;
 
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
+
         GOR_DBM.getYearById(id, function(err, result) {
             if (err) {
                 return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
@@ -434,6 +437,10 @@ module.exports = function(app) {
 
     var gordo_api_deleteYear = function(req, res) {
         var id = req.params.id;
+
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
 
         GOR_DBM.deleteYearById(id, function(err, result) {
             if (err) {
@@ -503,6 +510,10 @@ module.exports = function(app) {
     var gordo_api_ticketPorId = function(req, res) {
         var id = req.params.id;
 
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
+
         GOR_DBM.getTicketById(id, function(err, result) {
             if (err) {
                 return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
@@ -528,7 +539,7 @@ module.exports = function(app) {
     /* Tickets de El Gordo */
     gordo
         .route("/tickets")
-        .get(validate(getTicketsValidations), gordo_api_tickets)
+        .get(validate(validations.getTickets), gordo_api_tickets)
         .post(
             middlewares.isLogged_api,
             middlewares.isAuthorized_api([ROLES.ADMIN]),
@@ -574,22 +585,22 @@ module.exports = function(app) {
     /* Consultas: Estandar */
     historical.get(
         "/occurrencesByResult",
-        validate(getOccurrencesByResultValidations),
+        validate(validations.getOccurrencesByResult),
         gordo_api_occurrencesByResult
     );
     historical.get(
         "/occurrencesByResultWithSpecialNumber",
-        validate(getOccurrencesByResultWithSpecialNumberValidations),
+        validate(validations.getOccurrencesByResultWithSpecialNumber),
         gordo_api_occurrencesByResultWithSpecialNumber
     );
     historical.get(
         "/occurrencesByNumber",
-        validate(getOccurrencesByNumberValidations),
+        validate(validations.getOccurrencesByNumber),
         gordo_api_occurrencesByNumber
     );
     historical.get(
         "/occurrencesBySpecialNumber",
-        validate(getOccurrencesBySpecialNumberValidations),
+        validate(validations.getOccurrencesBySpecialNumber),
         gordo_api_occurrencesBySpecialNumber
     );
 

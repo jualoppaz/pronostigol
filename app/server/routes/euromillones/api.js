@@ -8,17 +8,11 @@ module.exports = function(app) {
 
     var EUR_DBM = require("../../modules/euromillones-data-base-manager");
 
+    const isObjectId = require("validate-objectid");
+
     // Validations
     var validate = require("express-validation");
     var validations = require("./validations.js");
-    var getTicketsValidations = validations.getTickets;
-    var getOccurrencesByNumberValidations = validations.getOccurrencesByNumber;
-    var getOccurrencesByStarValidations = validations.getOccurrencesByStar;
-    var getOccurrencesByStarsPairValidations =
-        validations.getOccurrencesByStarsPair;
-    var getOccurrencesByResultWithStarsValidations =
-        validations.getOccurrencesByResultWithStars;
-    var getOccurrencesByResultValidations = validations.getOccurrencesByResult;
 
     var filtrarInformacion = function(result) {
         var json = JSON.parse(JSON.stringify(result));
@@ -171,6 +165,10 @@ module.exports = function(app) {
 
     var euromillones_api_borrarTicket = function(req, res) {
         var id = req.params.id;
+
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
 
         EUR_DBM.getTicketById(id, function(err, result) {
             if (err) {
@@ -439,6 +437,10 @@ module.exports = function(app) {
     var euromillones_api_year = function(req, res) {
         var id = req.params.id;
 
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
+
         EUR_DBM.getYearById(id, function(err, result) {
             if (err) {
                 return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
@@ -450,6 +452,10 @@ module.exports = function(app) {
 
     var euromillones_api_deleteYear = function(req, res) {
         var id = req.params.id;
+
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
 
         EUR_DBM.deleteYearById(id, function(err) {
             if (err) {
@@ -521,6 +527,10 @@ module.exports = function(app) {
     var euromillones_api_ticketPorId = function(req, res) {
         var id = req.params.id;
 
+        if (!isObjectId(id)) {
+            return res.status(HTTP.NOT_FOUND).send("not-found");
+        }
+
         EUR_DBM.getTicketById(id, function(err, result) {
             if (err) {
                 return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
@@ -547,7 +557,7 @@ module.exports = function(app) {
     /* Tickets del Euromillones */
     euromillones
         .route("/tickets")
-        .get(validate(getTicketsValidations), euromillones_api_tickets)
+        .get(validate(validations.getTickets), euromillones_api_tickets)
         .post(
             middlewares.isLogged_api,
             middlewares.isAuthorized_api([ROLES.ADMIN]),
@@ -593,27 +603,27 @@ module.exports = function(app) {
     /* Consultas: Estandar */
     historical.get(
         "/occurrencesByResult",
-        validate(getOccurrencesByResultValidations),
+        validate(validations.getOccurrencesByResult),
         euromillones_api_occurrencesByResult
     );
     historical.get(
         "/occurrencesByResultWithStars",
-        validate(getOccurrencesByResultWithStarsValidations),
+        validate(validations.getOccurrencesByResultWithStars),
         euromillones_api_occurrencesByResultWithStars
     );
     historical.get(
         "/occurrencesByNumber",
-        validate(getOccurrencesByNumberValidations),
+        validate(validations.getOccurrencesByNumber),
         euromillones_api_occurrencesByNumber
     );
     historical.get(
         "/occurrencesByStar",
-        validate(getOccurrencesByStarValidations),
+        validate(validations.getOccurrencesByStar),
         euromillones_api_occurrencesByStar
     );
     historical.get(
         "/occurrencesByStarsPair",
-        validate(getOccurrencesByStarsPairValidations),
+        validate(validations.getOccurrencesByStarsPair),
         euromillones_api_occurrencesByStarsPair
     );
 
