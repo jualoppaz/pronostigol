@@ -83,30 +83,6 @@ exports.getTicketsByAnyo = function(anyo, callback) {
         });
 };
 
-exports.getTicketsByAnyoAndRaffle = function(anyo, sorteo, callback) {
-    euromillones_tickets.findOne(
-        {
-            anyo: anyo,
-            $or: [
-                {
-                    sorteo: Number(sorteo)
-                },
-                {
-                    sorteo: sorteo.toString()
-                }
-            ]
-        },
-        function(err, res) {
-            if (err) {
-                callback(err);
-            } else {
-                res = res || {};
-                callback(null, res);
-            }
-        }
-    );
-};
-
 exports.addNewTicket = function(ticket, callback) {
     var trozos = ticket.fecha.split("/");
 
