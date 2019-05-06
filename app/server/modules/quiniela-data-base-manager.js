@@ -125,7 +125,6 @@ exports.getTicketsBySeasonAndDay = function(season, day, callback) {
                 console.log(e);
                 callback(e);
             } else {
-                res = res || {};
                 callback(null, res);
             }
         }
@@ -388,34 +387,61 @@ exports.getAllAppearedResults = function(filtros, callback) {
     });
 };
 
-exports.getAllTeams = function(callback) {
-    teams.find({}).toArray(function(err, res) {
-        if (err) {
-            callback(err);
-        } else {
-            callback(null, res);
-        }
-    });
+exports.getAllTeams = function(filtros, callback) {
+    var type = filtros.type;
+
+    var sort_type = type === "asc" ? 1 : -1;
+
+    teams
+        .find({})
+        .sort({
+            name: sort_type
+        })
+        .toArray(function(err, res) {
+            if (err) {
+                callback(err);
+            } else {
+                callback(null, res);
+            }
+        });
 };
 
-exports.getAllCompetitions = function(callback) {
-    competitions.find({}).toArray(function(err, res) {
-        if (err) {
-            callback(err);
-        } else {
-            callback(null, res);
-        }
-    });
+exports.getAllCompetitions = function(filtros, callback) {
+    var type = filtros.type;
+
+    var sort_type = type === "asc" ? 1 : -1;
+
+    competitions
+        .find({})
+        .sort({
+            name: sort_type
+        })
+        .toArray(function(err, res) {
+            if (err) {
+                callback(err);
+            } else {
+                callback(null, res);
+            }
+        });
 };
 
-exports.getAllSeasons = function(callback) {
-    seasons.find({}).toArray(function(err, res) {
-        if (err) {
-            callback(err);
-        } else {
-            callback(null, res);
-        }
-    });
+exports.getAllSeasons = function(filtros, callback) {
+    var type = filtros.type;
+
+    var sort_type = type === "asc" ? 1 : -1;
+
+    seasons
+        .find({})
+        .sort({
+            name: sort_type
+        })
+        .toArray(function(err, res) {
+            if (err) {
+                callback(err);
+            } else {
+                callback(null, res);
+            }
+        });
 };
 
 exports.addNewTeam = function(name, callback) {

@@ -62,7 +62,7 @@
             var promise = defered.promise;
 
             $http
-                .get("/api/quiniela/tickets/season/" + season + "/day/" + day)
+                .get(apiPrefix + "/tickets/season/" + season + "/day/" + day)
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -78,7 +78,7 @@
             var promise = defered.promise;
 
             $http
-                .post("/api/quiniela/tickets", ticket)
+                .post(apiPrefix + "/tickets", ticket)
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -94,7 +94,7 @@
             var promise = defered.promise;
 
             $http
-                .put("/api/quiniela/tickets", ticket)
+                .put(apiPrefix + "/tickets", ticket)
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -110,7 +110,7 @@
             var promise = defered.promise;
 
             $http
-                .get("/api/quiniela/temporadas")
+                .get(apiPrefix + "/seasons")
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -126,7 +126,7 @@
             var promise = defered.promise;
 
             $http
-                .get("/api/quiniela/temporadas/" + id)
+                .get(apiPrefix + "/seasons/" + id)
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -142,7 +142,7 @@
             var promise = defered.promise;
 
             $http
-                .post("/api/quiniela/temporadas", season)
+                .post(apiPrefix + "/seasons", season)
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -158,7 +158,7 @@
             var promise = defered.promise;
 
             $http
-                .put("/api/quiniela/temporadas", season)
+                .put(apiPrefix + "/seasons", season)
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -174,7 +174,7 @@
             var promise = defered.promise;
 
             $http
-                .delete("/api/quiniela/temporadas/" + id)
+                .delete(apiPrefix + "/seasons/" + id)
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -190,7 +190,7 @@
             var promise = defered.promise;
 
             $http
-                .get("/api/quiniela/competiciones")
+                .get(apiPrefix + "/competitions")
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -206,7 +206,7 @@
             var promise = defered.promise;
 
             $http
-                .get("/api/quiniela/competiciones/" + id)
+                .get(apiPrefix + "/competitions/" + id)
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -222,7 +222,7 @@
             var promise = defered.promise;
 
             $http
-                .post("/api/quiniela/competiciones", competition)
+                .post(apiPrefix + "/competitions", competition)
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -238,7 +238,7 @@
             var promise = defered.promise;
 
             $http
-                .put("/api/quiniela/competiciones", competition)
+                .put(apiPrefix + "/competitions", competition)
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -254,7 +254,7 @@
             var promise = defered.promise;
 
             $http
-                .delete("/api/quiniela/competiciones/" + id)
+                .delete(apiPrefix + "/competitions/" + id)
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -270,7 +270,7 @@
             var promise = defered.promise;
 
             $http
-                .get("/api/quiniela/equipos")
+                .get(apiPrefix + "/teams")
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -286,7 +286,7 @@
             var promise = defered.promise;
 
             $http
-                .get("/api/quiniela/equipos/" + id)
+                .get(apiPrefix + "/teams/" + id)
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -302,7 +302,7 @@
             var promise = defered.promise;
 
             $http
-                .post("/api/quiniela/equipos", team)
+                .post(apiPrefix + "/teams", team)
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -318,7 +318,7 @@
             var promise = defered.promise;
 
             $http
-                .put("/api/quiniela/equipos", team)
+                .put(apiPrefix + "/teams", team)
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -334,7 +334,7 @@
             var promise = defered.promise;
 
             $http
-                .delete("/api/quiniela/equipos/" + id)
+                .delete(apiPrefix + "/teams/" + id)
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -350,7 +350,7 @@
             var promise = defered.promise;
 
             $http
-                .get("/api/quiniela/historical", {
+                .get(apiPrefix + "/historical", {
                     params: queryParameters
                 })
                 .then(function(data) {
@@ -368,7 +368,7 @@
             var promise = defered.promise;
 
             $http
-                .get("/api/quiniela/historical/combinations", {
+                .get(apiPrefix + "/historical/combinations", {
                     params: queryParameters
                 })
                 .then(function(data) {
