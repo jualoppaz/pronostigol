@@ -46,6 +46,21 @@ module.exports = function(app) {
         return json;
     };
 
+    /**
+     * @api {get} /quiniela/tickets Obtención de todos los tickets de Quiniela
+     * @apiName GetQuinielaTickets
+     * @apiGroup QuinielaTickets
+     *
+     * @apiDescription Recurso para la consulta de tickets de Quiniela registrados en el sistema.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {Number} [season] Temporada asociada a los sorteos consultados
+     * @apiParam {Number} [page] Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} [per_page] Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Por defecto se ordenan por fecha descendentemente.
+     * @apiSampleRequest /api/quiniela/tickets
+     */
     var quiniela_api_tickets = function(req, res) {
         var query = req.query;
 
@@ -71,7 +86,20 @@ module.exports = function(app) {
         });
     };
 
-    var quiniela_api_ticketsQuinielaPorTemporadaYJornada = function(req, res) {
+    /**
+     * @api {get} /quiniela/tickets/season/:season/day/:day Obtención de un ticket de Quiniela por temporada y jornada
+     * @apiName GetQuinielaTicketBySeasonAndDay
+     * @apiGroup QuinielaTickets
+     *
+     * @apiDescription Recurso para la obtención de un ticket de Quiniela por temporada y jornada registrado en el sistema.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {String} season Temporada asociada al sorteo consultado
+     * @apiParam {String} day Jornada asociada al sorteo consultado
+     * @apiSampleRequest /api/quiniela/tickets/season/:season/day/:day
+     */
+    var quiniela_api_ticketsBySeasonAndDay = function(req, res) {
         var json = {};
         var errores = {};
         var jornada = req.params.day;
@@ -87,32 +115,34 @@ module.exports = function(app) {
             return res.status(HTTP.UNPROCESSABLE_ENTITY).send(errores);
         }
 
-        QUI_DBM.getTicketsBySeasonAndDay(req.params.season, jornada, function(
+        QUI_DBM.getTicketsBySeasonAndDay(temporada, jornada, function(
             err,
             result
         ) {
             if (err) {
                 return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
-            }
+            } else if (result != null) {
+                json = result;
 
-            json = result;
-
-            if (req.session.user == null) {
-                filtrarInformacion(json);
-            } else {
-                if (
-                    req.session.user.role !== ROLES.PRIVILEGED &&
-                    req.session.user.role !== ROLES.ADMIN
-                ) {
+                if (req.session.user == null) {
                     filtrarInformacion(json);
+                } else {
+                    if (
+                        req.session.user.role !== ROLES.PRIVILEGED &&
+                        req.session.user.role !== ROLES.ADMIN
+                    ) {
+                        filtrarInformacion(json);
+                    }
                 }
-            }
 
-            res.status(HTTP.OK).send(json);
+                res.status(HTTP.OK).send(json);
+            } else {
+                return res.status(HTTP.NOT_FOUND).send("not-found");
+            }
         });
     };
 
-    var quiniela_api_anadirTicketQuiniela = function(req, res) {
+    var quiniela_api_createTicket = function(req, res) {
         var body = req.body;
 
         var temporada = body.temporada;
@@ -218,7 +248,7 @@ module.exports = function(app) {
         });
     };
 
-    var quiniela_api_editarTicketQuiniela = function(req, res) {
+    var quiniela_api_editTicket = function(req, res) {
         var body = req.body;
 
         var temporada = body.temporada;
@@ -339,7 +369,7 @@ module.exports = function(app) {
      * @apiParam {String} [visitor_team] Nombre del equipo que actúa de visitante en los partidos sobre los que se quieren consultar los resultados.
      * @apiSampleRequest /api/quiniela/historical
      */
-    var quiniela_api_historicoPartidos = function(req, res) {
+    var quiniela_api_historical = function(req, res) {
         var competition = req.query.competition;
         var season = req.query.season;
         var localTeam = req.query.local_team;
@@ -441,8 +471,29 @@ module.exports = function(app) {
         });
     };
 
-    var quiniela_api_equipos = function(req, res) {
-        QUI_DBM.getAllTeams(function(err, result) {
+    /**
+     * @api {get} /quiniela/teams Obtención de todos los equipos que han aparecido en la Quiniela
+     * @apiName GetQuinielaTeams
+     * @apiGroup QuinielaTeams
+     *
+     * @apiDescription Recurso para la consulta de equipos que han aparecido en la quiniela.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
+     *
+     * @apiSampleRequest /api/quiniela/teams
+     */
+    var quiniela_api_teams = function(req, res) {
+        var query = req.query;
+
+        var type = query.sort_type || "asc";
+
+        var filtros = {
+            type: type
+        };
+
+        QUI_DBM.getAllTeams(filtros, function(err, result) {
             if (err) {
                 return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -451,7 +502,7 @@ module.exports = function(app) {
         });
     };
 
-    var quiniela_api_anadirEquipo = function(req, res) {
+    var quiniela_api_createTeam = function(req, res) {
         var body = req.body;
 
         var team = body.name;
@@ -473,7 +524,7 @@ module.exports = function(app) {
         });
     };
 
-    var quiniela_api_borrarEquipo = function(req, res) {
+    var quiniela_api_deleteTeam = function(req, res) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
@@ -503,7 +554,7 @@ module.exports = function(app) {
         });
     };
 
-    var quiniela_api_editarEquipo = function(req, res) {
+    var quiniela_api_editTeam = function(req, res) {
         var body = req.body;
         var id = body._id;
         var equipo = body.name;
@@ -525,7 +576,20 @@ module.exports = function(app) {
         });
     };
 
-    var quiniela_api_equipo = function(req, res) {
+    /**
+     * @api {get} /quiniela/teams/:id Obtención de un equipo que ha aparecido en la Quiniela según su id
+     * @apiName GetQuinielaTeam
+     * @apiGroup QuinielaTeams
+     *
+     * @apiDescription Recurso para la consulta de un equipo que ha aparecido en la Quiniela según su id.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/quiniela/teams/:id
+     *
+     * @apiParam {String} id Identificador del equipo
+     */
+    var quiniela_api_team = function(req, res) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
@@ -543,8 +607,29 @@ module.exports = function(app) {
         });
     };
 
-    var quiniela_api_competiciones = function(req, res) {
-        QUI_DBM.getAllCompetitions(function(err, result) {
+    /**
+     * @api {get} /quiniela/competitions Obtención de todas las competiciones de la Quiniela
+     * @apiName GetQuinielaCompetitions
+     * @apiGroup QuinielaCompetitions
+     *
+     * @apiDescription Recurso para la consulta de competiciones de la quiniela registradas en el sistema.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
+     *
+     * @apiSampleRequest /api/quiniela/competitions
+     */
+    var quiniela_api_competitions = function(req, res) {
+        var query = req.query;
+
+        var type = query.sort_type || "asc";
+
+        var filtros = {
+            type: type
+        };
+
+        QUI_DBM.getAllCompetitions(filtros, function(err, result) {
             if (err) {
                 return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -553,7 +638,7 @@ module.exports = function(app) {
         });
     };
 
-    var quiniela_api_anadirCompeticion = function(req, res) {
+    var quiniela_api_createCompetition = function(req, res) {
         var body = req.body;
         var competition = body.name;
 
@@ -576,7 +661,7 @@ module.exports = function(app) {
         });
     };
 
-    var quiniela_api_borrarCompeticion = function(req, res) {
+    var quiniela_api_deleteCompetition = function(req, res) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
@@ -608,7 +693,20 @@ module.exports = function(app) {
         });
     };
 
-    var quiniela_api_competicion = function(req, res) {
+    /**
+     * @api {get} /quiniela/competitions/:id Obtención de una competición de Quiniela según su id
+     * @apiName GetQuinielaCompetition
+     * @apiGroup QuinielaCompetitions
+     *
+     * @apiDescription Recurso para la consulta de una competición de Quiniela registrada en el sistema.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/quiniela/competitions/:id
+     *
+     * @apiParam {String} id Identificador de la competición de Quiniela
+     */
+    var quiniela_api_competition = function(req, res) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
@@ -628,7 +726,7 @@ module.exports = function(app) {
         });
     };
 
-    var quiniela_api_editarCompeticion = function(req, res) {
+    var quiniela_api_editCompetition = function(req, res) {
         var body = req.body;
         var id = body._id;
         var competicion = body.name;
@@ -652,8 +750,29 @@ module.exports = function(app) {
         });
     };
 
-    var quiniela_api_temporadas = function(req, res) {
-        QUI_DBM.getAllSeasons(function(err, result) {
+    /**
+     * @api {get} /quiniela/seasons Obtención de todas las temporadas de la Quiniela
+     * @apiName GetQuinielaSeasons
+     * @apiGroup QuinielaSeasons
+     *
+     * @apiDescription Recurso para la consulta de temporadas de la quiniela registradas en el sistema.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
+     *
+     * @apiSampleRequest /api/quiniela/seasons
+     */
+    var quiniela_api_seasons = function(req, res) {
+        var query = req.query;
+
+        var type = query.sort_type || "asc";
+
+        var filtros = {
+            type: type
+        };
+
+        QUI_DBM.getAllSeasons(filtros, function(err, result) {
             if (err) {
                 return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -662,7 +781,20 @@ module.exports = function(app) {
         });
     };
 
-    var quiniela_api_temporada = function(req, res) {
+    /**
+     * @api {get} /quiniela/seasons/:id Obtención de una temporada de Quiniela según su id
+     * @apiName GetQuinielaSeason
+     * @apiGroup QuinielaSeasons
+     *
+     * @apiDescription Recurso para la consulta de una temporada de Quiniela registrada en el sistema.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiSampleRequest /api/quiniela/seasons/:id
+     *
+     * @apiParam {String} id Identificador de la temporada de Quiniela
+     */
+    var quiniela_api_season = function(req, res) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
@@ -680,7 +812,7 @@ module.exports = function(app) {
         });
     };
 
-    var quiniela_api_anadirTemporada = function(req, res) {
+    var quiniela_api_createSeason = function(req, res) {
         var body = req.body;
         var season = body.name;
 
@@ -701,7 +833,7 @@ module.exports = function(app) {
         });
     };
 
-    var quiniela_api_editarTemporada = function(req, res) {
+    var quiniela_api_editSeason = function(req, res) {
         var body = req.body;
         var id = body._id;
         var temporada = body.name;
@@ -722,7 +854,7 @@ module.exports = function(app) {
         });
     };
 
-    var quiniela_api_borrarTemporada = function(req, res) {
+    var quiniela_api_deleteSeason = function(req, res) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
@@ -783,95 +915,95 @@ module.exports = function(app) {
 
     /* Equipos */
     quiniela
-        .route("/equipos")
-        .get(quiniela_api_equipos)
+        .route("/teams")
+        .get(validate(validations.getTeams), quiniela_api_teams)
         .post(
             middlewares.isLogged_api,
             middlewares.isAuthorized_api([ROLES.ADMIN]),
-            quiniela_api_anadirEquipo
+            quiniela_api_createTeam
         )
         .put(
             middlewares.isLogged_api,
             middlewares.isAuthorized_api([ROLES.ADMIN]),
-            quiniela_api_editarEquipo
+            quiniela_api_editTeam
         );
     quiniela
-        .route("/equipos/:id")
-        .get(quiniela_api_equipo)
+        .route("/teams/:id")
+        .get(quiniela_api_team)
         .delete(
             middlewares.isLogged_api,
             middlewares.isAuthorized_api([ROLES.ADMIN]),
-            quiniela_api_borrarEquipo
+            quiniela_api_deleteTeam
         );
 
     /* Competiciones */
     quiniela
-        .route("/competiciones")
-        .get(quiniela_api_competiciones)
+        .route("/competitions")
+        .get(validate(validations.getCompetitions), quiniela_api_competitions)
         .post(
             middlewares.isLogged_api,
             middlewares.isAuthorized_api([ROLES.ADMIN]),
-            quiniela_api_anadirCompeticion
+            quiniela_api_createCompetition
         )
         .put(
             middlewares.isLogged_api,
             middlewares.isAuthorized_api([ROLES.ADMIN]),
-            quiniela_api_editarCompeticion
+            quiniela_api_editCompetition
         );
     quiniela
-        .route("/competiciones/:id")
-        .get(quiniela_api_competicion)
+        .route("/competitions/:id")
+        .get(quiniela_api_competition)
         .delete(
             middlewares.isLogged_api,
             middlewares.isAuthorized_api([ROLES.ADMIN]),
-            quiniela_api_borrarCompeticion
+            quiniela_api_deleteCompetition
         );
 
     /* Temporadas */
     quiniela
-        .route("/temporadas")
-        .get(quiniela_api_temporadas)
+        .route("/seasons")
+        .get(validate(validations.getSeasons), quiniela_api_seasons)
         .post(
             middlewares.isLogged_api,
             middlewares.isAuthorized_api([ROLES.ADMIN]),
-            quiniela_api_anadirTemporada
+            quiniela_api_createSeason
         )
         .put(
             middlewares.isLogged_api,
             middlewares.isAuthorized_api([ROLES.ADMIN]),
-            quiniela_api_editarTemporada
+            quiniela_api_editSeason
         );
     quiniela
-        .route("/temporadas/:id")
-        .get(quiniela_api_temporada)
+        .route("/seasons/:id")
+        .get(quiniela_api_season)
         .delete(
             middlewares.isLogged_api,
             middlewares.isAuthorized_api([ROLES.ADMIN]),
-            quiniela_api_borrarTemporada
+            quiniela_api_deleteSeason
         );
 
     /* Tickets de quinielas*/
     quiniela
         .route("/tickets")
-        .get(quiniela_api_tickets)
+        .get(validate(validations.getTickets), quiniela_api_tickets)
         .post(
             middlewares.isLogged_api,
             middlewares.isAuthorized_api([ROLES.ADMIN]),
-            quiniela_api_anadirTicketQuiniela
+            quiniela_api_createTicket
         )
         .put(
             middlewares.isLogged_api,
             middlewares.isAuthorized_api([ROLES.ADMIN]),
-            quiniela_api_editarTicketQuiniela
+            quiniela_api_editTicket
         );
 
     quiniela.get(
         "/tickets/season/:season/day/:day",
-        quiniela_api_ticketsQuinielaPorTemporadaYJornada
+        quiniela_api_ticketsBySeasonAndDay
     );
 
     /* Historico (Consultas Personalizadas) */
-    historical.get("", quiniela_api_historicoPartidos);
+    historical.get("", quiniela_api_historical);
 
     /* Historico (Consultas Estandar/Fijas) */
     historical.get(
