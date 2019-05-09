@@ -19,6 +19,10 @@ block head
     meta(name="twitter:title", content="📊 Pronostigol | Estadísticas de Loterías y Apuestas del Estado")
     meta(name="twitter:image", content="http://www.pronostigol.es/img/favicon.png")
     meta(name="twitter:site", content="@pronostigolesp")
+
+    //- Version
+    meta(name="version", content=version)
+
     //- Stylesheets
     link(rel="stylesheet", href="/css/pronostigol.css")
 
@@ -101,6 +105,7 @@ block content
                                     div(style="float:left") Última actualización:
                                     i(style="float:left; margin-left: 15px; margin-top: 3px").fa.fa-refresh.fa-spin
                                 div.col-xs-12(data-ng-show="fecha != 'empty'", style="padding-left: 0px", data-ng-bind-template="Última actualización: {{fecha | date:('dd/MM/yyyy')}}")
+                                div.col-xs-12(data-ng-show="fecha != 'empty'", style="padding-left: 0px") Versión actual: #{version}
 
                                 div.col-xs-12(data-ng-show="visitorInfo == 'empty'", style="display:block; padding-left: 0px")
                                     div(style="float:left") Visitantes hoy:
