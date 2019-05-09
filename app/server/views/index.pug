@@ -101,11 +101,14 @@ block content
                                             div.panel-body(data-ng-bind-html="tweet.text")
 
                             div.col-md-4.col-md-offset-4.col-sm-6.col-sm-offset-3.col-xs-12.panel.panel-body.border-qdb(style="margin-top:60px;")
-                                div(data-ng-show="fecha == 'empty'", style="display:block; padding-left: 0px")
-                                    div(style="float:left") Última actualización:
-                                    i(style="float:left; margin-left: 15px; margin-top: 3px").fa.fa-refresh.fa-spin
-                                div(data-ng-show="fecha != 'empty'", style="padding-left: 0px", data-ng-bind-template="Última actualización: {{fecha | date:('dd/MM/yyyy')}}")
-                                div(data-ng-show="fecha != 'empty'", style="padding-left: 0px") Versión actual: #{version}
+                                div.row(data-ng-show="fecha == 'empty'")
+                                    div.col-xs-12
+                                        div(style="float:left") Última actualización:
+                                        i(style="float:left; margin-left: 15px; margin-top: 3px").fa.fa-refresh.fa-spin
+                                div.row(data-ng-show="fecha != 'empty'")
+                                    div.col-xs-12(data-ng-bind-template="Última actualización: {{fecha | date:('dd/MM/yyyy')}}")
+                                div.row(data-ng-show="fecha != 'empty'")
+                                    div.col-xs-12 Versión actual: #{version}
 
                 include partials/cookiesNotification
 
