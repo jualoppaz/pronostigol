@@ -2,6 +2,7 @@ var middlewares = require("../../middlewares");
 var fs = require("fs");
 var path = require("path");
 var { ROLES } = require("../../constants");
+var pjson = require("../../../../package.json");
 
 module.exports = function(app) {
     var actualizarUltimaPagina = function(req) {
@@ -27,6 +28,8 @@ module.exports = function(app) {
 
         const structured_data_path = "./app/server/views/structuredData/";
 
+        const appVersion = pjson.version;
+
         res.render("index", {
             structuredData_webApplication: JSON.parse(
                 fs.readFileSync(
@@ -39,7 +42,8 @@ module.exports = function(app) {
                     structured_data_path + "organization.json",
                     "utf8"
                 )
-            )
+            ),
+            version: appVersion
         });
     };
 
