@@ -44,7 +44,7 @@ block content
 
                 include partials/navbar
 
-                div(style="padding: 0 0 0 0")
+                div(style="padding: 0 15px 0")
 
                     main.container-fluid
                         div.row.text-center
@@ -100,27 +100,12 @@ block content
 
                                             div.panel-body(data-ng-bind-html="tweet.text")
 
-                            div.col-md-6.col-md-offset-3.col-xs-12.panel.panel-body.border-qdb(style="margin-top:60px;")
-                                div.col-xs-12(data-ng-show="fecha == 'empty'", style="display:block; padding-left: 0px")
+                            div.col-md-4.col-md-offset-4.col-sm-6.col-sm-offset-3.col-xs-12.panel.panel-body.border-qdb(style="margin-top:60px;")
+                                div(data-ng-show="fecha == 'empty'", style="display:block; padding-left: 0px")
                                     div(style="float:left") Última actualización:
                                     i(style="float:left; margin-left: 15px; margin-top: 3px").fa.fa-refresh.fa-spin
-                                div.col-xs-12(data-ng-show="fecha != 'empty'", style="padding-left: 0px", data-ng-bind-template="Última actualización: {{fecha | date:('dd/MM/yyyy')}}")
-                                div.col-xs-12(data-ng-show="fecha != 'empty'", style="padding-left: 0px") Versión actual: #{version}
-
-                                div.col-xs-12(data-ng-show="visitorInfo == 'empty'", style="display:block; padding-left: 0px")
-                                    div(style="float:left") Visitantes hoy:
-                                    i(style="float:left; margin-left: 15px; margin-top: 3px").fa.fa-refresh.fa-spin
-                                    br
-                                    div(style="float:left") Visitantes &uacute;nicos:
-                                    i(style="float:left; margin-left: 15px; margin-top: 3px").fa.fa-refresh.fa-spin
-                                    br
-                                    div(style="float:left") Visitas totales:
-                                    i(style="float:left; margin-left: 15px; margin-top: 3px").fa.fa-refresh.fa-spin
-
-                                div.col-xs-12(data-ng-show="visitorInfo != 'empty'", style="padding-left: 0px")
-                                    div(data-ng-bind-template="Visitantes hoy: {{visitorInfo.visitantesHoy}}")
-                                    div(data-ng-bind-template="Visitantes únicos: {{visitorInfo.visitantesUnicos}}")
-                                    div(data-ng-bind-template="Visitas totales: {{visitorInfo.visitasTotales}}")
+                                div(data-ng-show="fecha != 'empty'", style="padding-left: 0px", data-ng-bind-template="Última actualización: {{fecha | date:('dd/MM/yyyy')}}")
+                                div(data-ng-show="fecha != 'empty'", style="padding-left: 0px") Versión actual: #{version}
 
                 include partials/cookiesNotification
 
