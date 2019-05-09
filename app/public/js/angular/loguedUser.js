@@ -23,6 +23,7 @@ app.config(function(uiSelectConfig, adblockProvider) {
     adblockProvider.cancelText = "Cancelar";
     adblockProvider.refresh = true; // I have Dısable Adblock button in alert
     adblockProvider.refreshText = "He desactivado Adblock";
+    adblockProvider.imagePath = "./js/angularjs-adblock/dist/adblock.jpg";
 });
 
 app.controller("LoguedUserController", Controller);
