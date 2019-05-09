@@ -2,7 +2,7 @@
 
 Aplicación web realizada con NodeJS, AngularJS, MongoDB, PUG y Bootstrap para la gestión y consultas de estadísticas de distintos sorteos de [Loterías y Apuestas del Estado](https://www.loteriasyapuestas.es/es).
 
-En esta aplicación se da soporte a los siguientes juegos: Quiniela, Bonoloto, Primitiva, Gordo de la Primitiva y Euromillones. A continuación se detalle toda la información de cada una de las secciones.
+En esta aplicación se da soporte a los siguientes juegos: Quiniela, Bonoloto, Primitiva, Gordo de la Primitiva y Euromillones. A continuación se detalla toda la información de cada una de las secciones.
 
 ## Quiniela
 
