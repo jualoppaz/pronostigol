@@ -10,8 +10,6 @@ function Controller($scope, $http, $window) {
     /*fin paginacion*/
 
     $scope.fecha = "empty";
-    $scope.visitorInfo = "empty";
-
     $scope.tweets = [];
 
     $scope.usuarioEsAnonimo = null;
