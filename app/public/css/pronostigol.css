@@ -629,7 +629,7 @@ html {
 }
 
 body {
-    margin-bottom: 502px;
+    margin-bottom: 575px;
 }
 
 /* Set the fixed height of the footer here */
@@ -1314,4 +1314,8 @@ ul#social-links li>a:hover {
 .cookies-parrafo dfn {
     padding-left: 5px;
     padding-right: 5px;
+}
+
+.page-header.black {
+    border-bottom-color: #2b2b2b;
 }

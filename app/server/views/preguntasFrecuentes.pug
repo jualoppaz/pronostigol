@@ -8,16 +8,16 @@ block head
 block content
     div#wrap(data-ng-app="qdb")
 
-        div.container(data-ng-controller="LoguedUserController")
+        div(data-ng-controller="LoguedUserController", style="background-color: white")
             div(data-ng-controller="IndexController")
 
                 include partials/navbar
 
                 div
 
-                    main
+                    main.container
 
-                        div.container.col-xs-12
+                        div
                             div.col-xs-12(style="margin-top: 0px;")
 
                                 h1.page-header ¿Es necesario registrarse en la aplicación web para usarla?
@@ -28,16 +28,15 @@ block content
                                 h1.page-header.section-header.quiniela Quiniela
 
                             div.col-xs-12
-                                h1.page-header ¿Para qué sirve el apartado "Tickets"?
+                                h1.page-header ¿Para qué sirve el apartado "Sorteos"?
                                 p.cookies-parrafo.
                                     Este apartado sirve para consultar las quinielas que se han jugado desde la temporada 2013-2014. En un futuro estar&aacute;n disponibles los datos
                                     de temporadas anteriores.
 
                             div.col-xs-12
-                                h1.page-header ¿Para qué sirve el apartado "Consultas"?
+                                h1.page-header ¿Para qué sirve el apartado "Estadísticas"?
                                 p.cookies-parrafo.
-                                    Este apartado sirve para consultar las estadísticas asociadas a las quinielas que se han jugado desde
-                                    la temporada 2013-2014. Se pueden consultar estadísticas en base a un equipo, una competición, una temporada,
+                                    Este apartado sirve para consultar las estadísticas asociadas a la Quiniela. Se pueden consultar estadísticas en base a un equipo, una competición, una temporada,
                                     un partido o una combinación de dichos criterios de búsqueda. De esta forma se puede observar con qué
                                     frecuencia suele ganar el equipo local, el equipo visitante o empatan segun la fila en la que aparece el partido
                                     en cuestión.
@@ -50,13 +49,13 @@ block content
                                 h1.page-header.section-header.bonoloto Bonoloto
 
                             div.col-xs-12
-                                h1.page-header ¿Para qué sirve el apartado "Tickets"?
+                                h1.page-header ¿Para qué sirve el apartado "Sorteos"?
                                 p.cookies-parrafo.
                                     Este apartado sirve para consultar los sorteos de Bonoloto que se han jugado desde el año 2015. En un futuro estar&aacute;n disponibles los datos
                                     de años anteriores.
 
                             div.col-xs-12
-                                h1.page-header ¿Para qué sirve el apartado "Consultas"?
+                                h1.page-header ¿Para qué sirve el apartado "Estadísticas"?
                                 p.cookies-parrafo.
                                     Este apartado sirve para consultar las estad&iacute;sticas asociadas a los sorteos de Bonoloto que se han jugado desde
                                     el año 2015. Se pueden consultar estad&iacute;sticas por n&uacute;meros, reintegros, combinaciones completas y muchas m&aacute;s.
@@ -65,13 +64,13 @@ block content
                                 h1.page-header.section-header.primitiva Primitiva
 
                             div.col-xs-12
-                                h1.page-header ¿Para qué sirve el apartado "Tickets"?
+                                h1.page-header ¿Para qué sirve el apartado "Sorteos"?
                                 p.cookies-parrafo.
                                     Este apartado sirve para consultar los sorteos de Primitiva que se han jugado desde el año 2015. Actualmente nos encontramos introduciendo datos
                                     de años anteriores de esta secci&oacute;n.
 
                             div.col-xs-12
-                                h1.page-header ¿Para qué sirve el apartado "Consultas"?
+                                h1.page-header ¿Para qué sirve el apartado "Estadísticas"?
                                 p.cookies-parrafo.
                                     Este apartado sirve para consultar las estad&iacute;sticas asociadas a los sorteos de Primitiva que se han jugado desde
                                     el año 2015. Se pueden consultar estad&iacute;sticas por n&uacute;meros, reintegros, combinaciones completas y muchas m&aacute;s.
@@ -80,12 +79,12 @@ block content
                                 h1.page-header.section-header.gordo El Gordo
 
                             div.col-xs-12
-                                h1.page-header ¿Para qué sirve el apartado "Tickets"?
+                                h1.page-header ¿Para qué sirve el apartado "Sorteos"?
                                 p.cookies-parrafo.
                                     Este apartado sirve para consultar los sorteos de El Gordo de la Primitiva que se han jugado desde el año 2005 en el nuevo formato.
 
                             div.col-xs-12
-                                h1.page-header ¿Para qué sirve el apartado "Consultas"?
+                                h1.page-header ¿Para qué sirve el apartado "Estadísticas"?
                                 p.cookies-parrafo.
                                     Este apartado sirve para consultar las estad&iacute;sticas asociadas a los sorteos de El Gordo de la Primitiva que se han jugado desde
                                     el año 2005. Se pueden consultar estad&iacute;sticas por n&uacute;meros, reintegros, combinaciones completas y
@@ -95,12 +94,12 @@ block content
                                 h1.page-header.section-header.euromillones Euromillones
 
                             div.col-xs-12
-                                h1.page-header ¿Para qué sirve el apartado "Tickets"?
+                                h1.page-header ¿Para qué sirve el apartado "Sorteos"?
                                 p.cookies-parrafo.
                                     Este apartado sirve para consultar los sorteos del Euromillones que se han jugado desde su creación en el año 2004.
 
                             div.col-xs-12
-                                h1.page-header ¿Para qué sirve el apartado "Consultas"?
+                                h1.page-header ¿Para qué sirve el apartado "Estadísticas"?
                                 p.cookies-parrafo.
                                     Este apartado sirve para consultar las estad&iacute;sticas asociadas a los sorteos del Euromillones que se han jugado desde
                                     el año 2004. Se pueden consultar estad&iacute;sticas por n&uacute;meros, estrellas, combinaciones completas y

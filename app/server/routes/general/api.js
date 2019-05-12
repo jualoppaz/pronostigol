@@ -1,6 +1,5 @@
 module.exports = function(app) {
     var Twitter = require("twitter");
-    var UAParser = require("ua-parser-js");
 
     var express = require("express");
     var general = express.Router();
@@ -395,67 +394,6 @@ module.exports = function(app) {
         }
     };
 
-    var general_api_visitorInfo = function(req, res) {
-        var respuesta = {};
-
-        respuesta.ip =
-            req.headers["x-forwarded-for"] || req.connection.remoteAddress;
-
-        var uastring = req.headers["user-agent"];
-
-        var parser = new UAParser();
-
-        parser.setUA(uastring);
-
-        var result = parser.getResult();
-
-        var navegador =
-            result.browser.name + " (" + result.browser.version + ")";
-
-        var so = result.os.name + " (" + result.os.version + ")";
-
-        var ipRouter = respuesta.ip.toString();
-
-        //var ipLocal = ip.address();
-
-        GEN_DBM.actualizarVisitas(ipRouter, navegador, so, function(
-            err,
-            result
-        ) {
-            if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
-            }
-
-            GEN_DBM.getVisitantesUnicosHoy(function(err, result) {
-                if (err) {
-                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
-                }
-
-                respuesta.visitantesHoy = result.length;
-
-                GEN_DBM.getVisitantesUnicos(function(err, result) {
-                    if (err) {
-                        return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
-                    }
-
-                    respuesta.visitantesUnicos = result.length;
-
-                    GEN_DBM.getVisitasTotales(function(err, result) {
-                        if (err) {
-                            return res
-                                .status(HTTP.INTERNAL_SERVER_ERROR)
-                                .send(err);
-                        }
-
-                        respuesta.visitasTotales = result;
-
-                        res.status(HTTP.OK).send(respuesta);
-                    });
-                });
-            });
-        });
-    };
-
     /* Login en la aplicacion */
     general.post(
         "/login",
@@ -527,7 +465,6 @@ module.exports = function(app) {
     general.get("/twitter/pronostigolTweets", general_api_pronostigolTweets);
     general.get("/lastURL", general_api_lastURL);
     app.get("/lastModified", general_api_lastModified);
-    app.get("/getVisitorInfo", general_api_visitorInfo);
 
     app.use("/api", general);
 };
