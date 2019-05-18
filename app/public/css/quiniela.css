@@ -66,7 +66,7 @@
 }
 
 a {
-    font-size: 18px !important;
+    font-size: 16px !important;
 }
 
 span.caramelo {
@@ -159,10 +159,8 @@ nav.navbar-inner {
 
 .main-card-description>p {
     padding-left: 15px;
-    font-size: 16px;
+    font-size: 14px;
     text-align: justify;
-    margin-left: 3px;
-    margin-right: 3px;
     height: auto;
 }
 
@@ -355,7 +353,6 @@ h1.red {
 
 .qdb-blue {
     color: #0480be !important;
-    font-size: 18px !important;
 }
 
 .title-qdb-blue {
@@ -463,10 +460,6 @@ label {
     font-family: "Abel", sans-serif !important;
     text-align: justify;
     text-justify: inter-word;
-}
-
-.main-card-content {
-    font-family: "Abel", sans-serif !important;
 }
 
 .espacio-letras span {
@@ -817,10 +810,6 @@ ul.nav.nav-tabs li a {
     color: #0480be;
 }
 
-body {
-    background-color: #ddd !important;
-}
-
 .alert-quiniela {
     background-color: white;
     border: 2px solid #0480be;
@@ -891,4 +880,36 @@ td.combinacion-quiniela span:last-of-type {
     header>nav>div.navbar-inner>div.container-fluid>div.collapse.navbar-collapse>ul.nav.navbar-nav.navbar-right {
         margin-right: 0;
     }
+}
+
+.fraction {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0.2em 0.4ex;
+    text-align: center;
+}
+
+.fraction>span {
+    display: block;
+    padding: 0.15em 0.5em 0;
+}
+
+.fraction span.fdn {
+    border-top: thin solid black;
+}
+
+.align-middle {
+    vertical-align: middle !important;
+}
+
+#probabilities .table-section {
+    padding: 0 15px 0;
+}
+
+ul.list-unstyled ul {
+    padding-left: 20px;
+}
+
+.index-title {
+    padding-left: 15px;
 }
