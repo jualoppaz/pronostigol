@@ -66,7 +66,7 @@
 }
 
 a {
-    font-size: 18px !important;
+    font-size: 16px !important;
 }
 
 span.caramelo {
@@ -159,10 +159,8 @@ nav.navbar-inner {
 
 .main-card-description>p {
     padding-left: 15px;
-    font-size: 16px;
+    font-size: 14px;
     text-align: justify;
-    margin-left: 3px;
-    margin-right: 3px;
     height: auto;
 }
 
@@ -355,7 +353,6 @@ h1.red {
 
 .qdb-blue {
     color: #0480be !important;
-    font-size: 18px !important;
 }
 
 .title-qdb-blue {
@@ -463,10 +460,6 @@ label {
     font-family: "Abel", sans-serif !important;
     text-align: justify;
     text-justify: inter-word;
-}
-
-.main-card-content {
-    font-family: "Abel", sans-serif !important;
 }
 
 .espacio-letras span {
@@ -815,10 +808,6 @@ ul.nav.nav-tabs li a {
     border: 3px solid #0480be;
     background-color: white;
     color: #0480be;
-}
-
-body {
-    background-color: #ddd !important;
 }
 
 .alert-quiniela {
