@@ -892,3 +892,35 @@ td.combinacion-quiniela span:last-of-type {
         margin-right: 0;
     }
 }
+
+.fraction {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0.2em 0.4ex;
+    text-align: center;
+}
+
+.fraction>span {
+    display: block;
+    padding: 0.15em 0.5em 0;
+}
+
+.fraction span.fdn {
+    border-top: thin solid black;
+}
+
+.align-middle {
+    vertical-align: middle !important;
+}
+
+#probabilities .table-section {
+    padding: 0 15px 0;
+}
+
+ul.list-unstyled ul {
+    padding-left: 20px;
+}
+
+.index-title {
+    padding-left: 15px;
+}

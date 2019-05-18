@@ -1319,3 +1319,27 @@ ul#social-links li>a:hover {
 .page-header.black {
     border-bottom-color: #2b2b2b;
 }
+
+.fraction {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0.2em 0.4ex;
+    text-align: center;
+}
+
+.fraction>span {
+    display: block;
+    padding: 0.15em 0.5em 0;
+}
+
+.fraction span.fdn {
+    border-top: thin solid black;
+}
+
+.align-middle {
+    vertical-align: middle;
+}
+
+.index-title {
+    padding-left: 15px;
+}
