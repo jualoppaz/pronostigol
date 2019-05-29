@@ -1393,3 +1393,8 @@ span.equal {
     margin: 0 0.5em 0;
     vertical-align: middle;
 }
+
+.v-margin {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
