@@ -19,6 +19,9 @@ module.exports = function(app) {
         }
     };
 
+    var express = require("express");
+    var admin = express.Router();
+
     var funcionesComunes = function(req, res, next) {
         actualizarUltimaPagina(req);
     };
@@ -141,40 +144,42 @@ module.exports = function(app) {
     app.get("/robots.txt", general_vistas_robots_txt);
     app.get("/ads.txt", general_vistas_ads_txt);
 
-    app.get(
-        "/admin",
+    admin.get(
+        "",
         middlewares.isLogged_view,
         middlewares.isAuthorized_view([ROLES.ADMIN]),
         general_vistas_admin
     );
-    app.get(
-        "/admin/emails",
+    admin.get(
+        "/emails",
         middlewares.isLogged_view,
         middlewares.isAuthorized_view([ROLES.ADMIN]),
         general_vistas_admin_emails
     );
-    app.get(
-        "/admin/emails/:id",
+    admin.get(
+        "/emails/:id",
         middlewares.isLogged_view,
         middlewares.isAuthorized_view([ROLES.ADMIN]),
         general_vistas_admin_emails_email
     );
-    app.get(
-        "/admin/balanceEconomico",
+    admin.get(
+        "/balanceEconomico",
         middlewares.isLogged_view,
         middlewares.isAuthorized_view([ROLES.ADMIN]),
         general_vistas_admin_balanceEconomico
     );
-    app.get(
-        "/admin/usuarios",
+    admin.get(
+        "/usuarios",
         middlewares.isLogged_view,
         middlewares.isAuthorized_view([ROLES.ADMIN]),
         general_vistas_admin_usuarios
     );
-    app.get(
-        "/admin/usuarios/:id",
+    admin.get(
+        "/usuarios/:id",
         middlewares.isLogged_view,
         middlewares.isAuthorized_view([ROLES.ADMIN]),
         general_vistas_admin_usuarios_usuario
     );
+
+    app.use("/admin", admin);
 };
