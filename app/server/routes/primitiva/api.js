@@ -1,6 +1,6 @@
 module.exports = function(app) {
     var middlewares = require("../../middlewares");
-    var { ROLES, HTTP } = require("../../constants");
+    var { ROLES, HTTP_CODES } = require("../../constants");
 
     var express = require("express");
     var primitiva = express.Router();
@@ -88,7 +88,7 @@ module.exports = function(app) {
 
         PRI_DBM.getAllTickets(filtros, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
             var filteredData = [];
             var tickets = result.data;
@@ -111,7 +111,7 @@ module.exports = function(app) {
 
             result.data = filteredData;
 
-            res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
+            res.status(HTTP_CODES.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -138,10 +138,10 @@ module.exports = function(app) {
 
         PRI_DBM.addNewTicket(ticket, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(HTTP.CREATED).send(result);
+            res.status(HTTP_CODES.CREATED).send(result);
         });
     };
 
@@ -150,18 +150,20 @@ module.exports = function(app) {
 
         PRI_DBM.getTicketById(ticket._id, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else {
                 if (result == null) {
-                    return res.status(HTTP.NOT_FOUND).send("not-found");
+                    return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
                 }
 
                 PRI_DBM.editTicket(ticket, function(err, result) {
                     if (err) {
-                        return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                        return res
+                            .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                            .send(err);
                     }
 
-                    res.status(HTTP.OK).send(result);
+                    res.status(HTTP_CODES.OK).send(result);
                 });
             }
         });
@@ -171,22 +173,24 @@ module.exports = function(app) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
-            return res.status(HTTP.NOT_FOUND).send("not-found");
+            return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
         PRI_DBM.getTicketById(id, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
-                return res.status(HTTP.NOT_FOUND).send("not-found");
+                return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
             }
 
             PRI_DBM.deleteTicketById(id, function(err2) {
                 if (err) {
-                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err2);
+                    return res
+                        .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                        .send(err2);
                 }
 
-                res.status(HTTP.OK).send({});
+                res.status(HTTP_CODES.OK).send({});
             });
         });
     };
@@ -225,10 +229,10 @@ module.exports = function(app) {
 
         PRI_DBM.getOccurrencesByNumber(filtros, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
+            res.status(HTTP_CODES.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -265,10 +269,10 @@ module.exports = function(app) {
 
         PRI_DBM.getOccurrencesByReimbursement(filtros, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
+            res.status(HTTP_CODES.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -308,10 +312,10 @@ module.exports = function(app) {
             result
         ) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
+            res.status(HTTP_CODES.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -354,10 +358,10 @@ module.exports = function(app) {
             result
         ) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
+            res.status(HTTP_CODES.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -375,10 +379,10 @@ module.exports = function(app) {
     var primitiva_api_years = function(req, res) {
         PRI_DBM.getAllYears(function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(HTTP.OK).send(result);
+            res.status(HTTP_CODES.OK).send(result);
         });
     };
 
@@ -399,15 +403,15 @@ module.exports = function(app) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
-            return res.status(HTTP.NOT_FOUND).send("not-found");
+            return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
         PRI_DBM.getYearById(id, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(HTTP.OK).send(result);
+            res.status(HTTP_CODES.OK).send(result);
         });
     };
 
@@ -415,20 +419,22 @@ module.exports = function(app) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
-            return res.status(HTTP.NOT_FOUND).send("not-found");
+            return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
         PRI_DBM.deleteYearById(id, function(err) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
             PRI_DBM.getAllYears(function(err2, result2) {
                 if (err) {
-                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err2);
+                    return res
+                        .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                        .send(err2);
                 }
 
-                res.status(HTTP.OK).send(result2);
+                res.status(HTTP_CODES.OK).send(result2);
             });
         });
     };
@@ -441,19 +447,23 @@ module.exports = function(app) {
 
         PRI_DBM.getYearByName(name, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(name);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(name);
             } else if (JSON.stringify(result) === "{}") {
                 // No existe aun
                 PRI_DBM.addNewYear(year, function(err, result) {
                     if (err) {
-                        return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                        return res
+                            .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                            .send(err);
                     }
 
-                    res.status(HTTP.OK).send(result);
+                    res.status(HTTP_CODES.OK).send(result);
                 });
             } else {
                 // Ya hay uno con ese nombre
-                return res.status(HTTP.CONFLICT).send("year-already-exists");
+                return res
+                    .status(HTTP_CODES.CONFLICT)
+                    .send("year-already-exists");
             }
         });
     };
@@ -466,17 +476,19 @@ module.exports = function(app) {
 
         PRI_DBM.getYearById(id, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
-                return res.status(HTTP.NOT_FOUND).send("not-found");
+                return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
             }
 
             PRI_DBM.editYear(year, function(err, result) {
                 if (err) {
-                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                    return res
+                        .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                        .send(err);
                 }
 
-                res.status(HTTP.OK).send(result);
+                res.status(HTTP_CODES.OK).send(result);
             });
         });
     };
@@ -485,12 +497,12 @@ module.exports = function(app) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
-            return res.status(HTTP.NOT_FOUND).send("not-found");
+            return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
         PRI_DBM.getTicketById(id, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
             if (req.session.user == null) {
@@ -505,7 +517,7 @@ module.exports = function(app) {
                     var json = filtrarInformacion(result);
                 }
             }
-            res.status(HTTP.OK).send(json);
+            res.status(HTTP_CODES.OK).send(json);
         });
     };
 

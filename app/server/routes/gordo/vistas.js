@@ -1,5 +1,5 @@
 var middlewares = require("../../middlewares");
-var { ROLES } = require("../../constants");
+var { ROLES, HTTP_CODES } = require("../../constants");
 
 module.exports = function(app) {
     var actualizarUltimaPagina = function(req) {
@@ -15,6 +15,10 @@ module.exports = function(app) {
             req.session.ultimaPagina = req.path;
         }
     };
+
+    var express = require("express");
+    var gordo = express.Router();
+    var admin = express.Router();
 
     var funcionesComunes = function(req) {
         actualizarUltimaPagina(req);
@@ -66,8 +70,8 @@ module.exports = function(app) {
 
     // Parte Publica
 
-    app.get(
-        "/gordo",
+    gordo.get(
+        "",
         middlewares.isAuthorized_view([
             ROLES.GUEST,
             ROLES.BASIC,
@@ -75,8 +79,8 @@ module.exports = function(app) {
         ]),
         gordo_vistas_index
     );
-    app.get(
-        "/gordo/sorteos",
+    gordo.get(
+        "/sorteos",
         middlewares.isAuthorized_view([
             ROLES.GUEST,
             ROLES.BASIC,
@@ -84,8 +88,8 @@ module.exports = function(app) {
         ]),
         gordo_vistas_tickets
     );
-    app.get(
-        "/gordo/sorteos/:temporada/:jornada",
+    gordo.get(
+        "/sorteos/:temporada/:jornada",
         middlewares.isAuthorized_view([
             ROLES.GUEST,
             ROLES.BASIC,
@@ -93,8 +97,8 @@ module.exports = function(app) {
         ]),
         gordo_vistas_ticket
     );
-    app.get(
-        "/gordo/estadisticas",
+    gordo.get(
+        "/estadisticas",
         middlewares.isAuthorized_view([
             ROLES.GUEST,
             ROLES.BASIC,
@@ -105,41 +109,57 @@ module.exports = function(app) {
 
     // Administracion
 
-    app.get(
-        "/admin/gordo",
+    admin.get(
+        "",
         middlewares.isLogged_view,
         middlewares.isAuthorized_view([ROLES.ADMIN]),
         gordo_vistas_admin_gordo
     );
-    app.get(
-        "/admin/gordo/anadirTicket",
+    admin.get(
+        "/anadirTicket",
         middlewares.isLogged_view,
         middlewares.isAuthorized_view([ROLES.ADMIN]),
         gordo_vistas_admin_anadirTicket
     );
-    app.get(
-        "/admin/gordo/tickets/:id",
+    admin.get(
+        "/tickets/:id",
         middlewares.isLogged_view,
         middlewares.isAuthorized_view([ROLES.ADMIN]),
         gordo_vistas_admin_editarTicket
     );
 
-    app.get(
-        "/admin/gordo/anyos",
+    admin.get(
+        "/anyos",
         middlewares.isLogged_view,
         middlewares.isAuthorized_view([ROLES.ADMIN]),
         gordo_vistas_admin_anyos
     );
-    app.get(
-        "/admin/gordo/anadirAnyo",
+    admin.get(
+        "/anadirAnyo",
         middlewares.isLogged_view,
         middlewares.isAuthorized_view([ROLES.ADMIN]),
         gordo_vistas_admin_anadirAnyo
     );
-    app.get(
-        "/admin/gordo/anyos/:id",
+    admin.get(
+        "/anyos/:id",
         middlewares.isLogged_view,
         middlewares.isAuthorized_view([ROLES.ADMIN]),
         gordo_vistas_admin_editarAnyo
     );
+
+    // Redirecciones de URL antiguas
+
+    gordo.get("/tickets", function(req, res) {
+        return res.redirect(HTTP_CODES.MOVED_PERMANENTLY, "/gordo/sorteos");
+    });
+
+    gordo.get("/consultas", function(req, res) {
+        return res.redirect(
+            HTTP_CODES.MOVED_PERMANENTLY,
+            "/gordo/estadisticas"
+        );
+    });
+
+    app.use("/gordo", gordo);
+    app.use("/admin/gordo", admin);
 };

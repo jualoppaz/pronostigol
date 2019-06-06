@@ -5,7 +5,7 @@ module.exports = function(app) {
     var general = express.Router();
 
     var middlewares = require("../../middlewares");
-    var { ROLES, HTTP } = require("../../constants");
+    var { ROLES, HTTP_CODES } = require("../../constants");
 
     var GEN_DBM = require("../../modules/general-data-base-manager");
 
@@ -16,7 +16,7 @@ module.exports = function(app) {
 
         GEN_DBM.manualLogin(usuario, pass, function(e, o) {
             if (!o) {
-                return res.status(HTTP.NOT_FOUND).send(e);
+                return res.status(HTTP_CODES.NOT_FOUND).send(e);
             }
 
             if (o.estaActivo) {
@@ -24,9 +24,9 @@ module.exports = function(app) {
                 if (o.role === ROLES.ADMIN) {
                     req.session.ultimaPagina = "/admin";
                 }
-                res.status(HTTP.OK).send(o);
+                res.status(HTTP_CODES.OK).send(o);
             } else {
-                return res.status(HTTP.FORBIDDEN).send("user-not-active");
+                return res.status(HTTP_CODES.FORBIDDEN).send("user-not-active");
             }
         });
     };
@@ -37,7 +37,7 @@ module.exports = function(app) {
 
         delete req.session.user;
 
-        res.status(HTTP.OK).send("ok");
+        res.status(HTTP_CODES.OK).send("ok");
     };
 
     var general_api_registroUsuario = function(req, res) {
@@ -76,7 +76,7 @@ module.exports = function(app) {
         }
 
         if (hayErrores) {
-            return res.status(HTTP.UNPROCESSABLE_ENTITY).send(errores);
+            return res.status(HTTP_CODES.UNPROCESSABLE_ENTITY).send(errores);
         }
 
         GEN_DBM.addNewAccount(
@@ -89,10 +89,10 @@ module.exports = function(app) {
             },
             function(e) {
                 if (e) {
-                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(e);
+                    return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(e);
                 }
 
-                return res.status(HTTP.CREATED).send("ok");
+                return res.status(HTTP_CODES.CREATED).send("ok");
             }
         );
     };
@@ -103,26 +103,26 @@ module.exports = function(app) {
             //name : req.session.user.name,
             role: req.session.user.role
         };
-        res.status(HTTP.OK).send(JSON.stringify(data));
+        res.status(HTTP_CODES.OK).send(JSON.stringify(data));
     };
 
     var general_api_usuarios = function(req, res) {
         GEN_DBM.getAllRecords(function(err, users) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(HTTP.OK).send(users);
+            res.status(HTTP_CODES.OK).send(users);
         });
     };
 
     var general_api_usuarios_usuario = function(req, res) {
         GEN_DBM.findUserById(req.params.id, function(err, user) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(HTTP.OK).send(user);
+            res.status(HTTP_CODES.OK).send(user);
         });
     };
 
@@ -209,29 +209,33 @@ module.exports = function(app) {
                 },
                 function(e) {
                     if (e) {
-                        return res.status(HTTP.INTERNAL_SERVER_ERROR).send(e);
+                        return res
+                            .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                            .send(e);
                     }
 
-                    res.status(HTTP.OK).send("ok");
+                    res.status(HTTP_CODES.OK).send("ok");
                 }
             );
         }
 
-        return res.status(HTTP.UNPROCESSABLE_ENTITY).send(errores);
+        return res.status(HTTP_CODES.UNPROCESSABLE_ENTITY).send(errores);
     };
 
     var general_api_borrarUsuario = function(req, res) {
         GEN_DBM.deleteUser(req.params.id, function(err, user) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
             GEN_DBM.getAllRecords(function(err2, users) {
                 if (err2) {
-                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err2);
+                    return res
+                        .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                        .send(err2);
                 }
 
-                res.status(HTTP.OK).send(users);
+                res.status(HTTP_CODES.OK).send(users);
             });
         });
     };
@@ -239,31 +243,31 @@ module.exports = function(app) {
     var general_api_emails = function(req, res) {
         GEN_DBM.getAllEmails(function(err, mails) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(HTTP.OK).send(mails);
+            res.status(HTTP_CODES.OK).send(mails);
         });
     };
 
     var general_api_email = function(req, res) {
         GEN_DBM.getEmailById(req.params.id, function(err, mail) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
             if (mail.leido == false) {
                 GEN_DBM.setEmailReaded(req.params.id, function(err2, mail2) {
                     if (err2) {
                         return res
-                            .status(HTTP.INTERNAL_SERVER_ERROR)
+                            .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
                             .send(err2);
                     }
 
-                    res.status(HTTP.OK).send(mail2);
+                    res.status(HTTP_CODES.OK).send(mail2);
                 });
             } else {
-                res.status(HTTP.OK).send(mail);
+                res.status(HTTP_CODES.OK).send(mail);
             }
         });
     };
@@ -289,10 +293,12 @@ module.exports = function(app) {
                 },
                 function(e) {
                     if (e) {
-                        return res.status(HTTP.INTERNAL_SERVER_ERROR).send(e);
+                        return res
+                            .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                            .send(e);
                     }
 
-                    res.status(HTTP.OK).send("ok");
+                    res.status(HTTP_CODES.OK).send("ok");
                 }
             );
         }
@@ -301,15 +307,17 @@ module.exports = function(app) {
     var general_api_borrarEmail = function(req, res) {
         GEN_DBM.deleteEmail(req.params.id, function(err, mail) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
             GEN_DBM.getAllEmails(function(err2, mails) {
                 if (err2) {
-                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err2);
+                    return res
+                        .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                        .send(err2);
                 }
 
-                res.status(HTTP.OK).send(mails);
+                res.status(HTTP_CODES.OK).send(mails);
             });
         });
     };
@@ -338,7 +346,7 @@ module.exports = function(app) {
 
     var general_api_lastURL = function(req, res) {
         console.log("Ultima pagina: " + req.session.ultimaPagina);
-        res.status(HTTP.OK).send(req.session.ultimaPagina);
+        res.status(HTTP_CODES.OK).send(req.session.ultimaPagina);
     };
 
     var general_api_lastModified = function(req, res) {
@@ -372,24 +380,24 @@ module.exports = function(app) {
                         repo.commit(sha, function(error, commit) {
                             if (error) {
                                 return res
-                                    .status(HTTP.INTERNAL_SERVER_ERROR)
+                                    .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
                                     .send(error);
                             }
 
-                            res.status(HTTP.OK).send({
+                            res.status(HTTP_CODES.OK).send({
                                 fecha: commit.commit.committer.date
                             });
                         });
                     } catch (Exception) {
                         return res
-                            .status(HTTP.INTERNAL_SERVER_ERROR)
+                            .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
                             .send("not-avaible");
                     }
                 }
             );
         } else {
             return res
-                .status(HTTP.INTERNAL_SERVER_ERROR)
+                .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
                 .send("local-environment");
         }
     };
