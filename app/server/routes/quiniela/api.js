@@ -1,6 +1,6 @@
 module.exports = function(app) {
     var middlewares = require("../../middlewares");
-    var { ROLES, HTTP } = require("../../constants");
+    var { ROLES, HTTP_CODES } = require("../../constants");
 
     var express = require("express");
     var quiniela = express.Router();
@@ -79,10 +79,10 @@ module.exports = function(app) {
 
         QUI_DBM.getAllTickets(filters, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(HTTP.OK).send(result);
+            res.status(HTTP_CODES.OK).send(result);
         });
     };
 
@@ -112,7 +112,7 @@ module.exports = function(app) {
         }
 
         if (hayErrores) {
-            return res.status(HTTP.UNPROCESSABLE_ENTITY).send(errores);
+            return res.status(HTTP_CODES.UNPROCESSABLE_ENTITY).send(errores);
         }
 
         QUI_DBM.getTicketsBySeasonAndDay(temporada, jornada, function(
@@ -120,7 +120,7 @@ module.exports = function(app) {
             result
         ) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result != null) {
                 json = result;
 
@@ -135,9 +135,9 @@ module.exports = function(app) {
                     }
                 }
 
-                res.status(HTTP.OK).send(json);
+                res.status(HTTP_CODES.OK).send(json);
             } else {
-                return res.status(HTTP.NOT_FOUND).send("not-found");
+                return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
             }
         });
     };
@@ -156,7 +156,7 @@ module.exports = function(app) {
 
         QUI_DBM.getSeasonByName(temporada, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result != null) {
                 if (result.name == temporada) {
                     if (modalidad == null || modalidad == "") {
@@ -224,26 +224,30 @@ module.exports = function(app) {
 
                     if (hayErrores) {
                         return res
-                            .status(HTTP.UNPROCESSABLE_ENTITY)
+                            .status(HTTP_CODES.UNPROCESSABLE_ENTITY)
                             .send(errores);
                     }
 
                     QUI_DBM.addNewTicket(req.body, function(err, result) {
                         if (err) {
                             return res
-                                .status(HTTP.INTERNAL_SERVER_ERROR)
+                                .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
                                 .send(err);
                         }
 
                         console.log("Result: " + JSON.stringify(result));
 
-                        res.status(HTTP.CREATED).send(result);
+                        res.status(HTTP_CODES.CREATED).send(result);
                     });
                 } else {
-                    return res.status(HTTP.CONFLICT).send("wrong-season-found");
+                    return res
+                        .status(HTTP_CODES.CONFLICT)
+                        .send("wrong-season-found");
                 }
             } else {
-                return res.status(HTTP.NOT_FOUND).send("season-not-found");
+                return res
+                    .status(HTTP_CODES.NOT_FOUND)
+                    .send("season-not-found");
             }
         });
     };
@@ -262,7 +266,7 @@ module.exports = function(app) {
 
         QUI_DBM.getSeasonByName(temporada, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else {
                 if (JSON.stringify(result) != "{}") {
                     if (result.name == temporada) {
@@ -330,26 +334,28 @@ module.exports = function(app) {
 
                         if (hayErrores) {
                             return res
-                                .status(HTTP.INTERNAL_SERVER_ERROR)
+                                .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
                                 .send(errores);
                         }
 
                         QUI_DBM.editTicket(req.body, function(err, result) {
                             if (err) {
                                 return res
-                                    .status(HTTP.INTERNAL_SERVER_ERROR)
+                                    .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
                                     .send(err);
                             }
 
-                            res.status(HTTP.OK).send("ok");
+                            res.status(HTTP_CODES.OK).send("ok");
                         });
                     } else {
                         return res
-                            .status(HTTP.CONFLICT)
+                            .status(HTTP_CODES.CONFLICT)
                             .send("wrong-season-found");
                     }
                 } else {
-                    return res.status(HTTP.NOT_FOUND).send("season-not-found");
+                    return res
+                        .status(HTTP_CODES.NOT_FOUND)
+                        .send("season-not-found");
                 }
             }
         });
@@ -386,7 +392,7 @@ module.exports = function(app) {
 
         QUI_DBM.getTicketsGroupedByRow(filtros, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
             result.forEach(function(item) {
@@ -410,7 +416,9 @@ module.exports = function(app) {
 
             QUI_DBM.getTicketsGroupedByRes(filtros, function(err, result2) {
                 if (err) {
-                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                    return res
+                        .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                        .send(err);
                 }
 
                 var jsonPlenoModerno = {};
@@ -425,7 +433,9 @@ module.exports = function(app) {
                 respuesta.filas = result;
                 respuesta.plenosRenovados = jsonPlenoModerno;
 
-                res.status(HTTP.OK).send(JSON.stringify(respuesta, null, 4));
+                res.status(HTTP_CODES.OK).send(
+                    JSON.stringify(respuesta, null, 4)
+                );
             });
         });
     };
@@ -464,10 +474,10 @@ module.exports = function(app) {
 
         QUI_DBM.getAllAppearedResults(filtros, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
+            res.status(HTTP_CODES.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -495,10 +505,10 @@ module.exports = function(app) {
 
         QUI_DBM.getAllTeams(filtros, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(HTTP.OK).send(result);
+            res.status(HTTP_CODES.OK).send(result);
         });
     };
 
@@ -509,17 +519,21 @@ module.exports = function(app) {
 
         QUI_DBM.getTeamByName(team, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result != null) {
-                return res.status(HTTP.CONFLICT).send("team-already-exists");
+                return res
+                    .status(HTTP_CODES.CONFLICT)
+                    .send("team-already-exists");
             }
 
             QUI_DBM.addNewTeam(team, function(err) {
                 if (err) {
-                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                    return res
+                        .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                        .send(err);
                 }
 
-                res.status(HTTP.CREATED).send("ok");
+                res.status(HTTP_CODES.CREATED).send("ok");
             });
         });
     };
@@ -528,27 +542,31 @@ module.exports = function(app) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
-            return res.status(HTTP.NOT_FOUND).send("not-found");
+            return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
         QUI_DBM.getTeamById(id, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
-                return res.status(HTTP.NOT_FOUND).send("team-not-exists");
+                return res.status(HTTP_CODES.NOT_FOUND).send("team-not-exists");
             }
 
             QUI_DBM.deleteTeamById(id, function(err, result) {
                 if (err) {
-                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                    return res
+                        .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                        .send(err);
                 }
 
                 QUI_DBM.getAllTeams(function(err, result) {
                     if (err) {
-                        return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                        return res
+                            .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                            .send(err);
                     }
 
-                    res.status(HTTP.OK).send(result);
+                    res.status(HTTP_CODES.OK).send(result);
                 });
             });
         });
@@ -561,17 +579,19 @@ module.exports = function(app) {
 
         QUI_DBM.getTeamById(id, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
-                return res.status(HTTP.NOT_FOUND).send("team-not-exists");
+                return res.status(HTTP_CODES.NOT_FOUND).send("team-not-exists");
             }
 
             QUI_DBM.editTeamById(id, equipo, function(err, result) {
                 if (err) {
-                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                    return res
+                        .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                        .send(err);
                 }
 
-                res.status(HTTP.OK).send("ok");
+                res.status(HTTP_CODES.OK).send("ok");
             });
         });
     };
@@ -593,17 +613,17 @@ module.exports = function(app) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
-            return res.status(HTTP.NOT_FOUND).send("not-found");
+            return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
         QUI_DBM.getTeamById(id, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
-                return res.status(HTTP.NOT_FOUND).send("team-not-exists");
+                return res.status(HTTP_CODES.NOT_FOUND).send("team-not-exists");
             }
 
-            res.status(HTTP.OK).send(result);
+            res.status(HTTP_CODES.OK).send(result);
         });
     };
 
@@ -631,10 +651,10 @@ module.exports = function(app) {
 
         QUI_DBM.getAllCompetitions(filtros, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(HTTP.OK).send(result);
+            res.status(HTTP_CODES.OK).send(result);
         });
     };
 
@@ -644,19 +664,21 @@ module.exports = function(app) {
 
         QUI_DBM.getCompetitionByName(competition, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result != null) {
                 return res
-                    .status(HTTP.CONFLICT)
+                    .status(HTTP_CODES.CONFLICT)
                     .send("competition-already-exists");
             }
 
             QUI_DBM.addNewCompetition(competition, function(err, result) {
                 if (err) {
-                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                    return res
+                        .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                        .send(err);
                 }
 
-                res.status(HTTP.CREATED).send("ok");
+                res.status(HTTP_CODES.CREATED).send("ok");
             });
         });
     };
@@ -665,29 +687,33 @@ module.exports = function(app) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
-            return res.status(HTTP.NOT_FOUND).send("not-found");
+            return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
         QUI_DBM.getCompetitionById(id, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
                 return res
-                    .status(HTTP.NOT_FOUND)
+                    .status(HTTP_CODES.NOT_FOUND)
                     .send("competition-not-exists");
             }
 
             QUI_DBM.deleteCompetitionById(id, function(err, result) {
                 if (err) {
-                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                    return res
+                        .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                        .send(err);
                 }
 
                 QUI_DBM.getAllCompetitions(function(err, result) {
                     if (err) {
-                        return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                        return res
+                            .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                            .send(err);
                     }
 
-                    res.status(HTTP.OK).send(result);
+                    res.status(HTTP_CODES.OK).send(result);
                 });
             });
         });
@@ -710,19 +736,19 @@ module.exports = function(app) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
-            return res.status(HTTP.NOT_FOUND).send("not-found");
+            return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
         QUI_DBM.getCompetitionById(id, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
                 return res
-                    .status(HTTP.NOT_FOUND)
+                    .status(HTTP_CODES.NOT_FOUND)
                     .send("competition-not-exists");
             }
 
-            res.status(HTTP.OK).send(result);
+            res.status(HTTP_CODES.OK).send(result);
         });
     };
 
@@ -733,19 +759,21 @@ module.exports = function(app) {
 
         QUI_DBM.getCompetitionById(id, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
                 return res
-                    .status(HTTP.NOT_FOUND)
+                    .status(HTTP_CODES.NOT_FOUND)
                     .send("competition-not-exists");
             }
 
             QUI_DBM.editCompetitionById(id, competicion, function(err, result) {
                 if (err) {
-                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                    return res
+                        .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                        .send(err);
                 }
 
-                res.status(HTTP.OK).send("ok");
+                res.status(HTTP_CODES.OK).send("ok");
             });
         });
     };
@@ -774,10 +802,10 @@ module.exports = function(app) {
 
         QUI_DBM.getAllSeasons(filtros, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(HTTP.OK).send(JSON.stringify(result, null, 4));
+            res.status(HTTP_CODES.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -798,17 +826,19 @@ module.exports = function(app) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
-            return res.status(HTTP.NOT_FOUND).send("not-found");
+            return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
         QUI_DBM.getSeasonById(id, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (JSON.stringify(result) === "{}") {
-                return res.status(HTTP.NOT_FOUND).send("season-not-exists");
+                return res
+                    .status(HTTP_CODES.NOT_FOUND)
+                    .send("season-not-exists");
             }
 
-            res.status(HTTP.OK).send(result);
+            res.status(HTTP_CODES.OK).send(result);
         });
     };
 
@@ -818,17 +848,21 @@ module.exports = function(app) {
 
         QUI_DBM.getSeasonByName(season, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (JSON.stringify(result) !== "{}") {
-                return res.status(HTTP.NOT_FOUND).send("season-already-exists");
+                return res
+                    .status(HTTP_CODES.NOT_FOUND)
+                    .send("season-already-exists");
             }
 
             QUI_DBM.addNewSeason(season, function(err, result) {
                 if (err) {
-                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                    return res
+                        .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                        .send(err);
                 }
 
-                res.status(HTTP.CREATED).send("ok");
+                res.status(HTTP_CODES.CREATED).send("ok");
             });
         });
     };
@@ -839,17 +873,21 @@ module.exports = function(app) {
         var temporada = body.name;
         QUI_DBM.getSeasonById(id, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
-                return res.status(HTTP.NOT_FOUND).send("season-not-exists");
+                return res
+                    .status(HTTP_CODES.NOT_FOUND)
+                    .send("season-not-exists");
             }
 
             QUI_DBM.editSeasonById(id, temporada, function(err, result) {
                 if (err) {
-                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                    return res
+                        .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                        .send(err);
                 }
 
-                res.status(HTTP.OK).send("ok");
+                res.status(HTTP_CODES.OK).send("ok");
             });
         });
     };
@@ -858,27 +896,33 @@ module.exports = function(app) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
-            return res.status(HTTP.NOT_FOUND).send("not-found");
+            return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
         QUI_DBM.getSeasonById(id, function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
-                return res.status(HTTP.NOT_FOUND).send("season-not-exists");
+                return res
+                    .status(HTTP_CODES.NOT_FOUND)
+                    .send("season-not-exists");
             }
 
             QUI_DBM.deleteSeasonByName(result.name, function(err, result) {
                 if (err) {
-                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                    return res
+                        .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                        .send(err);
                 }
 
                 QUI_DBM.getAllSeasons(function(err, result) {
                     if (err) {
-                        return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                        return res
+                            .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                            .send(err);
                     }
 
-                    res.status(HTTP.OK).send(result);
+                    res.status(HTTP_CODES.OK).send(result);
                 });
             });
         });
@@ -889,7 +933,7 @@ module.exports = function(app) {
 
         QUI_DBM.getAllTickets(function(err, result) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
             for (var i = 0; i < result.length; i++) {
@@ -909,7 +953,7 @@ module.exports = function(app) {
                 }
             }
 
-            res.status(HTTP.OK).send(respuesta.sort());
+            res.status(HTTP_CODES.OK).send(respuesta.sort());
         });
     };
 
