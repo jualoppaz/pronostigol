@@ -1,6 +1,6 @@
 {
     "name": "pronostigol",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Aplicación web con estadísticas de distintos sorteos de SELAE.",
     "apidoc": {
         "title": "Documentación de la API Rest de Pronostigol",
