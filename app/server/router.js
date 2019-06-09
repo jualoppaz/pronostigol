@@ -1,6 +1,6 @@
 var DBM = require("./modules/init-data-base-manager");
 
-const { HTTP } = require("./constants");
+const { HTTP_CODES } = require("./constants");
 
 DBM.setup(function(err, res) {
     if (err) {
@@ -55,10 +55,10 @@ module.exports = function(app) {
     require("./routes/euromillones/queries")(app);
 
     app.get("/api/*", function(req, res) {
-        return res.status(HTTP.NOT_FOUND).send("API Method Not Found");
+        return res.status(HTTP_CODES.NOT_FOUND).send("API Method Not Found");
     });
 
     app.get("*", function(req, res) {
-        res.status(HTTP.NOT_FOUND).render("404");
+        res.status(HTTP_CODES.NOT_FOUND).render("404");
     });
 };

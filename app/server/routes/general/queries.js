@@ -1,6 +1,6 @@
 module.exports = function(app) {
     var middlewares = require("../../middlewares");
-    var { ROLES, HTTP } = require("../../constants");
+    var { ROLES, HTTP_CODES } = require("../../constants");
 
     var GEN_DBM = require("../../modules/general-data-base-manager");
     var QUI_DBM = require("../../modules/quiniela-data-base-manager");
@@ -14,20 +14,20 @@ module.exports = function(app) {
     var pronostigol_queries_emailsNoLeidos = function(req, res) {
         GEN_DBM.getNotReadedEmails(function(err, emails) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(HTTP.OK).send(emails);
+            res.status(HTTP_CODES.OK).send(emails);
         });
     };
 
     var pronostigol_queries_numeroEmailsNoLeidos = function(req, res) {
         GEN_DBM.getNotReadedEmails(function(err, emails) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(HTTP.OK).send({
+            res.status(HTTP_CODES.OK).send({
                 emails: emails.length
             });
         });
@@ -36,10 +36,10 @@ module.exports = function(app) {
     var pronostigol_queries_usuariosNuevos = function(req, res) {
         GEN_DBM.getNotActiveUsers(function(err, users) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            res.status(HTTP.OK).send({
+            res.status(HTTP_CODES.OK).send({
                 newUsers: users.length
             });
         });
@@ -50,7 +50,7 @@ module.exports = function(app) {
 
         QUI_DBM.getEconomicBalanceBySeason(function(err, resultQuiniela) {
             if (err) {
-                return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
             for (var i = 0; i < resultQuiniela.length; i++) {
@@ -68,7 +68,9 @@ module.exports = function(app) {
 
             BON_DBM.getEconomicBalanceByYear(function(err, resultBonoloto) {
                 if (err) {
-                    return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                    return res
+                        .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                        .send(err);
                 }
 
                 for (var j = 0; j < resultBonoloto.length; j++) {
@@ -89,7 +91,9 @@ module.exports = function(app) {
                     resultPrimitiva
                 ) {
                     if (err) {
-                        return res.status(HTTP.INTERNAL_SERVER_ERROR).send(err);
+                        return res
+                            .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
+                            .send(err);
                     }
 
                     for (var k = 0; k < resultPrimitiva.length; k++) {
@@ -111,7 +115,7 @@ module.exports = function(app) {
                     ) {
                         if (err) {
                             return res
-                                .status(HTTP.INTERNAL_SERVER_ERROR)
+                                .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
                                 .send(err);
                         }
 
@@ -134,7 +138,7 @@ module.exports = function(app) {
                         ) {
                             if (err) {
                                 return res
-                                    .status(HTTP.INTERNAL_SERVER_ERROR)
+                                    .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
                                     .send(err);
                             }
 
@@ -155,7 +159,7 @@ module.exports = function(app) {
                                     respuesta.push(json);
                                 }
                             }
-                            res.status(HTTP.OK).send(respuesta);
+                            res.status(HTTP_CODES.OK).send(respuesta);
                         });
                     });
                 });

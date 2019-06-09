@@ -1,5 +1,5 @@
 var middlewares = require("../../middlewares");
-var { ROLES } = require("../../constants");
+var { ROLES, HTTP_CODES } = require("../../constants");
 
 module.exports = function(app) {
     var actualizarUltimaPagina = function(req) {
@@ -15,6 +15,10 @@ module.exports = function(app) {
             req.session.ultimaPagina = req.path;
         }
     };
+
+    var express = require("express");
+    var bonoloto = express.Router();
+    var admin = express.Router();
 
     var funcionesComunes = function(req) {
         actualizarUltimaPagina(req);
@@ -66,8 +70,8 @@ module.exports = function(app) {
 
     // Parte Publica
 
-    app.get(
-        "/bonoloto",
+    bonoloto.get(
+        "",
         middlewares.isAuthorized_view([
             ROLES.GUEST,
             ROLES.BASIC,
@@ -75,8 +79,8 @@ module.exports = function(app) {
         ]),
         bonoloto_vistas_index
     );
-    app.get(
-        "/bonoloto/sorteos",
+    bonoloto.get(
+        "/sorteos",
         middlewares.isAuthorized_view([
             ROLES.GUEST,
             ROLES.BASIC,
@@ -84,8 +88,8 @@ module.exports = function(app) {
         ]),
         bonoloto_vistas_tickets
     );
-    app.get(
-        "/bonoloto/sorteos/:temporada/:jornada",
+    bonoloto.get(
+        "/sorteos/:temporada/:jornada",
         middlewares.isAuthorized_view([
             ROLES.GUEST,
             ROLES.BASIC,
@@ -93,8 +97,8 @@ module.exports = function(app) {
         ]),
         bonoloto_vistas_ticket
     );
-    app.get(
-        "/bonoloto/estadisticas",
+    bonoloto.get(
+        "/estadisticas",
         middlewares.isAuthorized_view([
             ROLES.GUEST,
             ROLES.BASIC,
@@ -105,41 +109,57 @@ module.exports = function(app) {
 
     // Administracion
 
-    app.get(
-        "/admin/bonoloto",
+    admin.get(
+        "",
         middlewares.isLogged_view,
         middlewares.isAuthorized_view([ROLES.ADMIN]),
         bonoloto_vistas_admin_bonoloto
     );
-    app.get(
-        "/admin/bonoloto/anadirTicket",
+    admin.get(
+        "/anadirTicket",
         middlewares.isLogged_view,
         middlewares.isAuthorized_view([ROLES.ADMIN]),
         bonoloto_vistas_admin_anadirTicket
     );
-    app.get(
-        "/admin/bonoloto/tickets/:id",
+    admin.get(
+        "/tickets/:id",
         middlewares.isLogged_view,
         middlewares.isAuthorized_view([ROLES.ADMIN]),
         bonoloto_vistas_admin_editarTicket
     );
 
-    app.get(
-        "/admin/bonoloto/anyos",
+    admin.get(
+        "/anyos",
         middlewares.isLogged_view,
         middlewares.isAuthorized_view([ROLES.ADMIN]),
         bonoloto_vistas_admin_anyos
     );
-    app.get(
-        "/admin/bonoloto/anadirAnyo",
+    admin.get(
+        "/anadirAnyo",
         middlewares.isLogged_view,
         middlewares.isAuthorized_view([ROLES.ADMIN]),
         bonoloto_vistas_admin_anadirAnyo
     );
-    app.get(
-        "/admin/bonoloto/anyos/:id",
+    admin.get(
+        "/anyos/:id",
         middlewares.isLogged_view,
         middlewares.isAuthorized_view([ROLES.ADMIN]),
         bonoloto_vistas_admin_editarAnyo
     );
+
+    // Redirecciones de URL antiguas
+
+    bonoloto.get("/tickets", function(req, res) {
+        return res.redirect(HTTP_CODES.MOVED_PERMANENTLY, "/bonoloto/sorteos");
+    });
+
+    bonoloto.get("/consultas", function(req, res) {
+        return res.redirect(
+            HTTP_CODES.MOVED_PERMANENTLY,
+            "/bonoloto/estadisticas"
+        );
+    });
+
+    app.use("/bonoloto", bonoloto);
+    app.use("/admin/bonoloto", admin);
 };
