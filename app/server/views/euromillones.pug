@@ -40,25 +40,25 @@ block content
                                                 a.qdb-black(href="#probabilities") 2. Probabilidades
                                                 ul.list-unstyled
                                                     li
-                                                        a.qdb-black(href="#probability-one-number-and-two-stars") 2.1. Probabilidad de acertar 1 número y 2 estrellas en Euromillones
+                                                        a.qdb-black(href="#probability-one-number-and-two-stars") 2.1. Probabilidad de acertar 1 número y las 2 estrellas en Euromillones
                                                     li
                                                         a.qdb-black(href="#probability-two-numbers") 2.2. Probabilidad de acertar 2 números en Euromillones
                                                     li
                                                         a.qdb-black(href="#probability-two-numbers-and-one-star") 2.3. Probabilidad de acertar 2 números y 1 estrella en Euromillones
                                                     li
-                                                        a.qdb-black(href="#probability-two-numbers-and-two-stars") 2.4. Probabilidad de acertar 2 números y 2 estrellas en Euromillones
+                                                        a.qdb-black(href="#probability-two-numbers-and-two-stars") 2.4. Probabilidad de acertar 2 números y las 2 estrellas en Euromillones
                                                     li
                                                         a.qdb-black(href="#probability-three-numbers") 2.5. Probabilidad de acertar 3 números en Euromillones
                                                     li
                                                         a.qdb-black(href="#probability-three-numbers-and-one-star") 2.6. Probabilidad de acertar 3 números y 1 estrella en Euromillones
                                                     li
-                                                        a.qdb-black(href="#probability-three-numbers-and-two-stars") 2.7. Probabilidad de acertar 3 números y 2 estrellas en Euromillones
+                                                        a.qdb-black(href="#probability-three-numbers-and-two-stars") 2.7. Probabilidad de acertar 3 números y las 2 estrellas en Euromillones
                                                     li
                                                         a.qdb-black(href="#probability-four-numbers") 2.8. Probabilidad de acertar 4 números en Euromillones
                                                     li
                                                         a.qdb-black(href="#probability-four-numbers-and-one-star") 2.9. Probabilidad de acertar 4 números y 1 estrella en Euromillones
                                                     li
-                                                        a.qdb-black(href="#probability-four-numbers-and-two-stars") 2.10. Probabilidad de acertar 4 números y 2 estrellas en Euromillones
+                                                        a.qdb-black(href="#probability-four-numbers-and-two-stars") 2.10. Probabilidad de acertar 4 números y las 2 estrellas en Euromillones
                                                     li
                                                         a.qdb-black(href="#probability-five-numbers") 2.11. Probabilidad de acertar 5 números en Euromillones
                                                     li
@@ -78,13 +78,534 @@ block content
                                 div.main-card-content(style="word-wrap: break-word;")
                                     div.main-card-name
                                         a.recipe-title
-                                            span.caramelo.qdb-red Bienvenido
+                                            h2.caramelo.qdb-black 1. Introducción
                                     div.main-card-description
-                                        p.qdb-purple.
-                                            En esta secci&oacute;n encontrar&aacute;s multitud de estad&iacute;sticas asociadas al sorteo de Euromillones.
+                                        p.qdb-black.
+                                            En esta secci&oacute;n encontrar&aacute;s multitud de estad&iacute;sticas asociadas al sorteo de <b>Euromillones</b>.
                                             Podr&aacute;s conocer los resultados m&aacute;s repetidos, los reintegros que aparecen con m&aacute;s frecuencia y una amplia
                                             gama de consultas a realizar.
                                             De este modo te ser&aacute; mucho m&aacute;s sencillo realizar tus apuestas.
+
+                                div.main-card-content(style="word-wrap: break-word;")#probabilities
+                                    div.main-card-name
+                                        a.recipe-title
+                                            h2.caramelo.qdb-black 2. Probabilidades
+                                    div.main-card-description
+                                        p.
+                                            El formato de <b>Euromillones</b> es algo similar al de <a href="/gordo">El Gordo de la Primitiva</a>, con la diferencia de que
+                                            no existe número clave.
+                                        p.
+                                            En el caso de <b>Euromillones</b> destaca la existencia de las estrellas, las cuales intervienen hasta un máximo en 2
+                                            en un resultado, añadiendo por tanto muchas más categorías de premios. Sin embargo, acertar las estrellas no implica ningún
+                                            reintegro de las apuestas realizadas.
+                                        p.
+                                            Al igual que en el resto de sorteos haremos uso de la <b>Regla de Laplace</b> para determinar la probabilidad de
+                                            cada una de las categorías:
+                                        div.text-center.v-margin
+                                            span
+                                                b Probabilidad
+                                            span.equal
+                                                b =
+                                            div.fraction
+                                                span.fup
+                                                    b Casos favorables
+                                                span.fdn
+                                                    b Casos posibles
+                                        p.
+                                            Es posible consultar el detalle de las categorías de premios de <b>Euromillones</b> en el siguiente
+                                            <a href="https://www.loteriasyapuestas.es/es/euromillones/como-se-juega/como-jugar-a-euromillones" target="_blank">enlace</a>.
+                                        p.qdb-black.
+                                            Recurriremos nuevamente a la combinatoria. Como se explica en las páginas principales de cada sección de esta web,
+                                            la fórmula para saber cuántas combinaciones de <b>m</b> elementos tomados de <b>n</b> en <b>n</b> elementos es:
+                                        div.text-center.v-margin
+                                            div.combination
+                                                b C
+                                                span.combination-indexes
+                                                    sup
+                                                        b n
+                                                    sub
+                                                        b m
+                                            span.equal
+                                                b =
+                                            div.fraction
+                                                span.fup
+                                                    b m!
+                                                span.fdn
+                                                    b n! &#x00D7; (m - n)!
+                                        p.qdb-black.
+                                            Dado que en <b>Euromillones</b> hay 50 números y 12 estrellas posibles aunque el resultado estará conformado
+                                            por 5 números y 2 estrellas, el cálculo sería el siguiente:
+                                        div.text-center.v-margin
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 5
+                                                    sub 50
+                                            span.multiplication &#x00D7;
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 2
+                                                    sub 12
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 50!
+                                                span.fdn 5! &#x00D7; (50 - 5)!
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 12!
+                                                span.fdn 2! &#x00D7; (12 - 2)!
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 50!
+                                                span.fdn 5! &#x00D7; 45!
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 12!
+                                                span.fdn 2! &#x00D7; 10!
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 50 &#x00D7; 49 &#x00D7; 48 &#x00D7; 47 &#x00D7; 46 &#x00D7; <del>45!</del>
+                                                span.fdn 5 &#x00D7; 4 &#x00D7; 3 &#x00D7; 2 &#x00D7; <del>45!</del>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 12 &#x00D7; 11 &#x00D7; <del>10!</del>
+                                                span.fdn 2 &#x00D7; <del>10!</del>
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 33561158400
+                                                span.fdn 240
+
+                                        p.
+                                            En <b>Euromillones</b> hay casi <b>140 millones</b> de combinaciones posibles de 50 números tomados en
+                                            grupos de 5 y 12 estrellas tomadas de 2 en 2.
+
+                                        h4#probability-one-number-and-two-stars.qdb-black.index-title 2.1. Probabilidad de acertar 1 número y las 2 estrellas en Euromillones
+
+                                        p.
+                                            Del mismo modo que hemos hecho en el resto de secciones, realizaremos un planteamiento inicial teniendo en cuenta
+                                            las restricciones vinculadas a este caso y, posteriormente, lo iremos modificando para calcular cada probabilidad.
+                                            Para este caso inicial, debemos imponer que sólo acertemos un número de los 5 que se extraerán, y que sólo acertemos
+                                            1 de las 2 estrellas.
+                                        div.text-center.v-margin
+                                            span Probabilidad (1 acierto y las 2 estrellas)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 5
+                                                span.fdn 50
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 45
+                                                span.fdn 49
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 44
+                                                span.fdn 48
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 43
+                                                span.fdn 47
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 42
+                                                span.fdn 46
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2
+                                                span.fdn 12
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 11
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 35758800
+                                                span.fdn 33561158400
+                                        p.
+                                            Como en el resto de juegos, hay que tener en mente que no sólo nos vale
+                                            una combinación, sino que nos vale cualquiera que contenga una de las combinaciones que tenga 1 de los
+                                            5 números. Y del mismo modo esto aplica también a las estrellas, aunque en este caso sólo nos valga acertar las 2.
+                                            Así pues, para obtener la probabilidad real habrá que multiplicar el resultado anterior por la combinación de
+                                            las 5 bolas que significan un acierto tomadas de 1 en 1, pero también hay que multiplicarlo por la combinación
+                                            de 2 estrellas tomadas de 2 en 2:
+                                        div.text-center.v-margin
+                                            span Probabilidad (1 acierto y las 2 estrellas)
+                                            span.equal =
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 1
+                                                    sub 5
+                                            span.multiplication &#x00D7;
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 2
+                                                    sub 2
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 35758800
+                                                span.fdn 33561158400
+                                            span.equal.
+                                                =
+                                            span 5
+                                            span.multiplication &#x00D7;
+                                            span 1
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 35758800
+                                                span.fdn 33561158400
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 178794000
+                                                span.fdn 33561158400
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup
+                                                    b 645
+                                                span.fdn
+                                                    b 121072
+
+                                        h4#probability-two-numbers.qdb-black.index-title 2.2. Probabilidad de acertar 2 números en Euromillones
+                                        p.
+                                            En este caso tenemos que imponer que sean 2 los aciertos de entre los 5 números, pero no debemos acertar
+                                            ninguna de las 2 estrellas.
+                                        div.text-center.v-margin
+                                            span Probabilidad (2 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 5
+                                                span.fdn 50
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 4
+                                                span.fdn 49
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 45
+                                                span.fdn 48
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 44
+                                                span.fdn 47
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 43
+                                                span.fdn 46
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 10
+                                                span.fdn 12
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 9
+                                                span.fdn 11
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 153252000
+                                                span.fdn 33561158400
+                                        p.
+                                            Nuevamente, puesto que no nos importa qué números sean los acertados dentro de nuestra apuesta, tenemos
+                                            que contemplar todas las posibles combinaciones de nuestros números. Lo mismo sucede con las estrellas,
+                                            pero como no debemos acertar ninguna veremos que el orden no afecta al resultado.
+                                        div.text-center.v-margin
+                                            span Probabilidad (2 aciertos)
+                                            span.equal =
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 2
+                                                    sub 5
+                                            span.multiplication &#x00D7;
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 0
+                                                    sub 2
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 153252000
+                                                span.fdn 33561158400
+                                            span.equal.
+                                                =
+                                            span 10
+                                            span.multiplication &#x00D7;
+                                            span 1
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 153252000
+                                                span.fdn 33561158400
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 1532520000
+                                                span.fdn 33561158400
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup
+                                                    b 9675
+                                                span.fdn
+                                                    b 211876
+
+                                        h4#probability-two-numbers-and-one-star.qdb-black.index-title 2.3. Probabilidad de acertar 2 números y 1 estrella en Euromillones
+                                        p.
+                                            Para calcular la probabilidad de acertar 2 números y una estrella sólo tenemos que tomar como referencia el caso anterior e
+                                            imponer el acierto de una de las 2 estrellas. Así pues los cálculos serían los que siguen:
+                                        div.text-center.v-margin
+                                            span Probabilidad (2 aciertos y 1 estrella)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 5
+                                                span.fdn 50
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 4
+                                                span.fdn 49
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 45
+                                                span.fdn 48
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 44
+                                                span.fdn 47
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 43
+                                                span.fdn 46
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2
+                                                span.fdn 12
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 10
+                                                span.fdn 11
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 34056000
+                                                span.fdn 33561158400
+                                        p.
+                                            Como ya nos podemos imaginar, no nos importa el orden en el que acertemos los números.
+                                            Por tanto, deberemos multiplicar las respectivas combinaciones de números y estrellas:
+                                        div.text-center.v-margin
+                                            span Probabilidad (2 aciertos y 1 estrella)
+                                            span.equal =
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 2
+                                                    sub 5
+                                            span.multiplication &#x00D7;
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 1
+                                                    sub 2
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 34056000
+                                                span.fdn 33561158400
+                                            span.equal.
+                                                =
+                                            span 10
+                                            span.multiplication &#x00D7;
+                                            span 2
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 34056000
+                                                span.fdn 33561158400
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 681120000
+                                                span.fdn 33561158400
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup
+                                                    b 1075
+                                                span.fdn
+                                                    b 52969
+
+                                        h4#probability-two-numbers-and-two-stars.qdb-black.index-title 2.4. Probabilidad de acertar 2 números y las 2 estrellas en Euromillones
+                                        p.
+                                            Para calcular la probabilidad de acertar 2 números y una estrella sólo tenemos que tomar como referencia el caso anterior e
+                                            imponer el acierto de una de las 2 estrellas. Así pues los cálculos serían los que siguen:
+                                        div.text-center.v-margin
+                                            span Probabilidad (2 aciertos y las 2 estrellas)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 5
+                                                span.fdn 50
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 4
+                                                span.fdn 49
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 45
+                                                span.fdn 48
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 44
+                                                span.fdn 47
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 43
+                                                span.fdn 46
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2
+                                                span.fdn 12
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 11
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 3405600
+                                                span.fdn 33561158400
+
+                                        p.
+                                            Nuevamente tenemos que multiplicar las respectivas combinaciones de números y estrellas, aunque
+                                            en este caso debamos acertar las 2 estrellas y sólo habrá una combinación posible de aciertos:
+                                        div.text-center.v-margin
+                                            span Probabilidad (2 aciertos y las 2 estrellas)
+                                            span.equal =
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 2
+                                                    sub 5
+                                            span.multiplication &#x00D7;
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 2
+                                                    sub 2
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 3405600
+                                                span.fdn 33561158400
+                                            span.equal.
+                                                =
+                                            span 10
+                                            span.multiplication &#x00D7;
+                                            span 1
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 3405600
+                                                span.fdn 33561158400
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 34056000
+                                                span.fdn 33561158400
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup
+                                                    b 215
+                                                span.fdn
+                                                    b 211876
+
+                                        h4#probability-three-numbers.qdb-black.index-title 2.3. Probabilidad de acertar 3 números en Euromillones
+                                        p.
+                                            Una vez más retrocedemos a un planteamiento anterior en el que no debamos acertar ninguna estrella, pero
+                                            en esta ocasión tendremos que acertar un número más.
+                                        div.text-center.v-margin
+                                            span Probabilidad (3 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 5
+                                                span.fdn 50
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 4
+                                                span.fdn 49
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 3
+                                                span.fdn 48
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 45
+                                                span.fdn 47
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 44
+                                                span.fdn 46
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 10
+                                                span.fdn 12
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 9
+                                                span.fdn 11
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 10692000
+                                                span.fdn 33561158400
+
+                                        p.
+                                            Como debemos contemplar cualquier combinación en la que varíe el orden de los aciertos, tenemos que
+                                            multiplicar las respectivas combinaciones de números y estrellas:
+                                        div.text-center.v-margin
+                                            span Probabilidad (3 aciertos)
+                                            span.equal =
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 3
+                                                    sub 5
+                                            span.multiplication &#x00D7;
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 0
+                                                    sub 2
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 10692000
+                                                span.fdn 33561158400
+                                            span.equal.
+                                                =
+                                            span 10
+                                            span.multiplication &#x00D7;
+                                            span 1
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 10692000
+                                                span.fdn 33561158400
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 106920000
+                                                span.fdn 33561158400
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup
+                                                    b 675
+                                                span.fdn
+                                                    b 211876
+
+
+
 
 
                         div.col-md-2.col-sm-12.col-xs-12(style="padding-bottom: 15px; padding-top: 30px")
