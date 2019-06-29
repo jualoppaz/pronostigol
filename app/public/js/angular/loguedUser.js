@@ -66,6 +66,30 @@ function Controller($scope, UserService, $http, $window) {
     $scope.redirigir = function() {
         $window.location.reload();
     };
+
+    $scope.slides = [
+        {
+            name: "¿Cuándo me va a tocar?",
+            img: "/img/recommended_web-cuando_me_va_a_tocar.png",
+            url: "https://www.cuandomevaatocar.com"
+        },
+        {
+            name: "Estadística para todos",
+            img: "/img/recommended_web-estadistica_para_todos.png",
+            url:
+                "http://www.estadisticaparatodos.es/taller/loterias/loterias.html"
+        },
+        {
+            name: "Combinación ganadora",
+            img: "/img/recommended_web-combinacion_ganadora.png",
+            url: "https://www.combinacionganadora.com/"
+        },
+        {
+            name: "LOTERIAS.COM",
+            img: "/img/recommended_web-loterias.com.ico",
+            url: "https://www.loterias.com"
+        }
+    ];
 }
 
 app.run([

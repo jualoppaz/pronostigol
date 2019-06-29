@@ -101,6 +101,27 @@ block content
 
                                             div.panel-body(data-ng-bind-html="tweet.text")
 
+                            div.col-xs-12#recommended-webs
+                                div.col-xs-12.col-sm-6.col-sm-offset-3
+                                    span.qdb-blue Páginas web recomendadas
+                                    p.
+                                        A continuación indicamos algunas webs que, desde Pronostigol, consideramos interesantes y relacionadas con la
+                                        temática que aquí se trata: las estadísticas de sorteos de SELAE.
+
+                                    ui-carousel(
+                                        slides="slides",
+                                        slides-to-show="3",
+                                        slides-to-scroll="1",
+                                        autoplay="true",
+                                        autoplay-speed="2000", dots="true"
+                                    )#slides
+                                        carousel-item
+                                            p {{ item.name }}
+                                            div.img-container
+                                                a(ng-href="{{item.url}}", target="_blank")
+                                                    img(ng-src="{{item.img}}").pointer
+
+
                             div.col-md-4.col-md-offset-4.col-sm-6.col-sm-offset-3.col-xs-12.panel.panel-body.border-qdb(style="margin-top:60px;")
                                 div.row(data-ng-show="fecha == 'empty'")
                                     div.col-xs-12
