@@ -1,0 +1,28 @@
+{
+  "name": "pronostigol",
+  "description": "Aplicación web con estadísticas de distintos sorteos de SELAE.",
+  "main": "app.js",
+  "authors": [
+    "Juan Manuel López Pazos"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "Quiniela",
+    "Bonoloto",
+    "Primitiva",
+    "Euromillones",
+    "España",
+    "Spain"
+  ],
+  "homepage": "https://github.com/jualoppaz/pronostigol",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-carousel": "^0.1.10"
+  }
+}

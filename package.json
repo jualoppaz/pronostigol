@@ -18,7 +18,7 @@
     "scripts": {
         "start": "node app",
         "apidoc": "node node_modules/apidoc/bin/apidoc -i app/server -o app/public/docs/",
-        "postinstall": "npm run apidoc",
+        "postinstall": "bower install && npm run apidoc",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "Juan Manuel López Pazos",

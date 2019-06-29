@@ -23,6 +23,8 @@ app.use(favicon(__dirname + "/app/public/img/favicon.png"));
 
 app.use(express.static(__dirname + "/app/public"));
 
+app.use("/bower_components", express.static(__dirname + "/bower_components"));
+
 app.set("port", port);
 
 app.set("views", path.join(__dirname + "/app/server/views"));
