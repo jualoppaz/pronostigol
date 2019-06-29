@@ -10,7 +10,30 @@ var app = angular.module("qdb", [
     "quiniela",
     "primitiva",
     "gordo",
-    "detectAdblock"
+    "detectAdblock",
+    "ui.carousel"
+]);
+
+app.run([
+    "Carousel",
+    Carousel => {
+        Carousel.setOptions({
+            arrows: true,
+            autoplay: false,
+            autoplaySpeed: 3000,
+            cssEase: "ease",
+            dots: false,
+
+            easing: "linear",
+            fade: false,
+            infinite: true,
+            initialSlide: 0,
+
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            speed: 500
+        });
+    }
 ]);
 
 app.config(function(uiSelectConfig, adblockProvider) {
