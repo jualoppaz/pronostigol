@@ -14,28 +14,6 @@ var app = angular.module("qdb", [
     "ui.carousel"
 ]);
 
-app.run([
-    "Carousel",
-    Carousel => {
-        Carousel.setOptions({
-            arrows: true,
-            autoplay: false,
-            autoplaySpeed: 3000,
-            cssEase: "ease",
-            dots: false,
-
-            easing: "linear",
-            fade: false,
-            infinite: true,
-            initialSlide: 0,
-
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            speed: 500
-        });
-    }
-]);
-
 app.config(function(uiSelectConfig, adblockProvider) {
     uiSelectConfig.theme = "bootstrap";
 
@@ -90,6 +68,27 @@ function Controller($scope, UserService, $http, $window) {
     };
 }
 
-app.run(function(adblock) {
-    adblock.detect();
-});
+app.run([
+    "Carousel",
+    "adblock",
+    function(Carousel, adblock) {
+        adblock.detect();
+
+        Carousel.setOptions({
+            arrows: true,
+            autoplay: false,
+            autoplaySpeed: 3000,
+            cssEase: "ease",
+            dots: false,
+
+            easing: "linear",
+            fade: false,
+            infinite: true,
+            initialSlide: 0,
+
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            speed: 500
+        });
+    }
+]);
