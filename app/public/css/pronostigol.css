@@ -394,7 +394,7 @@ td {
     color: #285e8e !important;
 }
 
-.pointer:hover {
+.pointer {
     cursor: pointer !important;
 }
 
