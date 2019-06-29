@@ -1398,3 +1398,40 @@ span.equal {
     margin-top: 15px;
     margin-bottom: 15px;
 }
+
+#slides div.carousel-item {
+    text-align: center;
+}
+
+#slides div.carousel-item p {
+    font-size: 14px;
+    word-break: break-all;
+}
+
+#slides div.carousel-item div.img-container {
+    line-height: 100px;
+}
+
+@media screen and (min-width: 768px) {
+    #slides div.carousel-item p {
+        font-size: 22px;
+    }
+
+    #slides div.carousel-item div.img-container {
+        line-height: 150px;
+    }
+}
+
+#slides div.carousel-item div.img-container img {
+    margin: 0 auto;
+    max-width: 80%;
+}
+
+#recommended-webs>div>span {
+    font-size: 26px;
+}
+
+ui-carousel .carousel-btn i {
+    color: #0480be;
+    cursor: pointer;
+}
