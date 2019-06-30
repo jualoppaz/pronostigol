@@ -1439,3 +1439,15 @@ ui-carousel .carousel-btn i {
 .bold {
     font-weight: bold;
 }
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.color-red {
+    color: red;
+}
+
+.color-green {
+    color: green;
+}
