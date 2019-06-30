@@ -118,4 +118,20 @@ function Controller($scope, $http, $window, $filter, VariosService, bonoloto) {
     $scope.reset = function() {
         $scope.tickets = [];
     };
+
+    $scope.getPrize = function(ticket) {
+        var res = $scope.apuestaRealizada(ticket)
+            ? $filter("currency")(0)
+            : "-";
+        var prize = bonoloto.getPrize(ticket);
+
+        if (prize > 0) {
+            res = $filter("currency")(prize);
+        }
+        return res;
+    };
+
+    $scope.ticketHasPrize = function(ticket) {
+        return $scope.apuestaRealizada(ticket) && bonoloto.getPrize(ticket) > 0;
+    };
 }

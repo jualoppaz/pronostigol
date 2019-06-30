@@ -123,4 +123,22 @@ function Controller(
     $scope.apuestaRealizada = function(ticket) {
         return VariosService.apuestaRealizada(ticket);
     };
+
+    $scope.getPrize = function(ticket) {
+        var res = $scope.apuestaRealizada(ticket)
+            ? $filter("currency")(0)
+            : "-";
+        var prize = euromillones.getPrize(ticket);
+
+        if (prize > 0) {
+            res = $filter("currency")(prize);
+        }
+        return res;
+    };
+
+    $scope.ticketHasPrize = function(ticket) {
+        return (
+            $scope.apuestaRealizada(ticket) && euromillones.getPrize(ticket) > 0
+        );
+    };
 }
