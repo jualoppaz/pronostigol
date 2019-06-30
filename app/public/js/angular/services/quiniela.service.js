@@ -14,6 +14,8 @@
             getTicketBySeasonAndDay: getTicketBySeasonAndDay,
             createTicket: createTicket,
             editTicket: editTicket,
+            ticketHasForecasts: ticketHasForecastsFn,
+            getPrize: getPrizeFn,
             // Seasons
             getAllSeasons: getAllSeasons,
             getSeasonById: getSeasonById,
@@ -379,6 +381,41 @@
                 });
 
             return promise;
+        }
+
+        /**
+         * Método que sirve para saber si en un ticket se ha realizado alguna apuesta
+         *
+         * @param {*} ticket
+         */
+        function ticketHasForecastsFn(ticket) {
+            var res = false;
+
+            if (
+                ticket != null &&
+                ticket.partidos != null &&
+                ticket.partidos[0] &&
+                ticket.partidos[0].pronosticos
+            ) {
+                res = ticket.partidos[0].pronosticos.length > 0;
+            }
+            return res;
+        }
+
+        /**
+         * Método que sirve para saber la cuantía del premio de un ticket.
+         *
+         * @param {*} ticket
+         *
+         * @author jualoppaz
+         */
+        function getPrizeFn(ticket) {
+            var res = 0;
+
+            if (ticket && ticket.premio != null) {
+                res = ticket.premio;
+            }
+            return res;
         }
     }
 })();
