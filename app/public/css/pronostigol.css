@@ -1435,3 +1435,7 @@ ui-carousel .carousel-btn i {
     color: #0480be;
     cursor: pointer;
 }
+
+.bold {
+    font-weight: bold;
+}

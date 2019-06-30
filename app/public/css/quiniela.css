@@ -917,3 +917,15 @@ ul.list-unstyled ul {
 .index-title {
     padding-left: 15px;
 }
+
+.color-red {
+    color: red;
+}
+
+.color-green {
+    color: green;
+}
+
+.bold {
+    font-weight: bold;
+}
