@@ -15,6 +15,8 @@
             createTicket: createTicket,
             editTicket: editTicket,
             deleteTicketById: deleteTicketById,
+            ticketHasForecasts: ticketHasForecastsFn,
+            getPrize: getPrizeFn,
             // Years
             getAllYears: getAllYears,
             getYearById: getYearById,
@@ -266,6 +268,36 @@
                 });
 
             return promise;
+        }
+
+        /**
+         * Método que sirve para saber si en un ticket se ha realizado alguna apuesta
+         *
+         * @param {*} ticket
+         */
+        function ticketHasForecastsFn(ticket) {
+            var res = false;
+
+            if (ticket && ticket.apuestas && ticket.apuestas.combinaciones) {
+                res = ticket.apuestas.combinaciones.length > 0;
+            }
+            return res;
+        }
+
+        /**
+         * Método que sirve para saber la cuantía del premio de un ticket.
+         *
+         * @param {*} ticket
+         *
+         * @author jualoppaz
+         */
+        function getPrizeFn(ticket) {
+            var res = 0;
+
+            if (ticket && ticket.premio != null) {
+                res = ticket.premio;
+            }
+            return res;
         }
     }
 })();

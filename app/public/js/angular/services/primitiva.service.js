@@ -1,14 +1,11 @@
-(function () {
+(function() {
+    "use strict";
 
-    'use strict';
+    angular.module("primitiva", []).factory("primitiva", service);
 
-    angular.module('primitiva', [])
-        .factory('primitiva', service);
-
-    service.$inject = ['$http', '$q'];
+    service.$inject = ["$http", "$q"];
 
     function service($http, $q) {
-
         var apiPrefix = "/api/primitiva";
 
         var service = {
@@ -18,6 +15,8 @@
             createTicket: createTicket,
             editTicket: editTicket,
             deleteTicketById: deleteTicketById,
+            ticketHasForecasts: ticketHasForecastsFn,
+            getPrize: getPrizeFn,
             // Years
             getAllYears: getAllYears,
             getYearById: getYearById,
@@ -37,13 +36,14 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/tickets', {
-                params: queryParameters
-            })
-                .then(function (data) {
+            $http
+                .get(apiPrefix + "/tickets", {
+                    params: queryParameters
+                })
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
@@ -54,11 +54,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/tickets/' + id)
-                .then(function (data) {
+            $http
+                .get(apiPrefix + "/tickets/" + id)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
@@ -69,11 +70,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post(apiPrefix + '/tickets', ticket)
-                .then(function (data) {
+            $http
+                .post(apiPrefix + "/tickets", ticket)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
@@ -84,11 +86,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.put(apiPrefix + '/tickets', ticket)
-                .then(function (data) {
+            $http
+                .put(apiPrefix + "/tickets", ticket)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
@@ -99,11 +102,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.delete(apiPrefix + '/tickets/' + id)
-                .then(function (data) {
+            $http
+                .delete(apiPrefix + "/tickets/" + id)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
@@ -114,11 +118,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/years')
-                .then(function (data) {
+            $http
+                .get(apiPrefix + "/years")
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
@@ -129,11 +134,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/years/' + id)
-                .then(function (data) {
+            $http
+                .get(apiPrefix + "/years/" + id)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
@@ -144,11 +150,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post(apiPrefix + '/years', year)
-                .then(function (data) {
+            $http
+                .post(apiPrefix + "/years", year)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
@@ -159,11 +166,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.put(apiPrefix + '/years', year)
-                .then(function (data) {
+            $http
+                .put(apiPrefix + "/years", year)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
@@ -174,11 +182,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.delete(apiPrefix + '/years/' + id)
-                .then(function (data) {
+            $http
+                .delete(apiPrefix + "/years/" + id)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
@@ -189,13 +198,14 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/historical/occurrencesByNumber', {
-                params: queryParameters
-            })
-                .then(function (data) {
+            $http
+                .get(apiPrefix + "/historical/occurrencesByNumber", {
+                    params: queryParameters
+                })
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
@@ -206,13 +216,14 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/historical/occurrencesByResult', {
-                params: queryParameters
-            })
-                .then(function (data) {
+            $http
+                .get(apiPrefix + "/historical/occurrencesByResult", {
+                    params: queryParameters
+                })
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
@@ -223,13 +234,18 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/historical/occurrencesByResultWithReimbursement', {
-                params: queryParameters
-            })
-                .then(function (data) {
+            $http
+                .get(
+                    apiPrefix +
+                        "/historical/occurrencesByResultWithReimbursement",
+                    {
+                        params: queryParameters
+                    }
+                )
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
@@ -240,18 +256,48 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/historical/occurrencesByReimbursement', {
-                params: queryParameters
-            })
-                .then(function (data) {
+            $http
+                .get(apiPrefix + "/historical/occurrencesByReimbursement", {
+                    params: queryParameters
+                })
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err);
                 });
 
             return promise;
         }
 
+        /**
+         * Método que sirve para saber si en un ticket se ha realizado alguna apuesta
+         *
+         * @param {*} ticket
+         */
+        function ticketHasForecastsFn(ticket) {
+            var res = false;
+
+            if (ticket && ticket.apuestas && ticket.apuestas.combinaciones) {
+                res = ticket.apuestas.combinaciones.length > 0;
+            }
+            return res;
+        }
+
+        /**
+         * Método que sirve para saber la cuantía del premio de un ticket.
+         *
+         * @param {*} ticket
+         *
+         * @author jualoppaz
+         */
+        function getPrizeFn(ticket) {
+            var res = 0;
+
+            if (ticket && ticket.premio != null) {
+                res = ticket.premio;
+            }
+            return res;
+        }
     }
 })();
