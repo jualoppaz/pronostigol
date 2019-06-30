@@ -39,11 +39,11 @@ block content
                             div.col-sm-8
                                 textarea(data-ng-model="ticket.observaciones", placeholder="Indica alguna observación a mostrar a los usuarios").form-control
 
-
-                        div.col-md-4.col-md-offset-8
-                            a.pull-right(href="", data-ng-click="anadirApuesta()").pointer Añadir apuesta
-                        div.col-md-4.col-md-offset-8
-                            a.pull-right(href="", data-ng-click="eliminarApuesta()").pointer Eliminar apuesta
+                        div.row
+                            div.col-xs-12
+                                a.pull-right(href="", data-ng-click="anadirApuesta()").pointer Añadir apuesta
+                            div.col-xs-12
+                                a.pull-right(href="", data-ng-click="eliminarApuesta()").pointer Eliminar apuesta
 
                         //pre {{ticket}}
 
