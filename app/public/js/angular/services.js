@@ -20,30 +20,6 @@ services.service("LoginService", [
 
 services.service("VariosService", [
     function() {
-        this.traducirDia = function(dia) {
-            var res = "";
-
-            if (dia == "Monday") {
-                res = "Lunes";
-            } else if (dia == "Tuesday") {
-                res = "Martes";
-            } else if (dia == "Wednesday") {
-                res = "Miércoles";
-            } else if (dia == "Thursday") {
-                res = "Jueves";
-            } else if (dia == "Friday") {
-                res = "Viernes";
-            } else if (dia == "Saturday") {
-                res = "Sábado";
-            } else if (dia == "Sunday") {
-                res = "Domingo";
-            } else {
-                res = "-";
-            }
-
-            return res;
-        };
-
         this.jsonVacio = function(json) {
             var res =
                 json === null ||
