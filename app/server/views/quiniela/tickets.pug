@@ -46,23 +46,24 @@ block content
                                     div.col-md-2.col-sm-2.col-xs-6
                                         input(type="number", min="1", data-ng-model="ticketsPerPage").form-control
 
-                                table.table.tabla-quinielas
-                                    thead
-                                        tr
-                                            th Jornada
-                                            th Modalidad
-                                            th Fecha
-                                            th(data-ng-show="usuarioEstaLogueado && tickets[0].precio != null", data-ng-cloak) Apostado
-                                            th(data-ng-show="usuarioEstaLogueado && tickets[0].precio != null", data-ng-cloak) Premio
-                                    tbody
-                                        tr(data-ng-repeat="ticket in tickets")
-                                            td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.jornada}}").pointer.align-middle
-                                            td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.modalidad}}").pointer.align-middle
-                                            td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}").pointer.align-middle
-                                            td(data-ng-show="usuarioEstaLogueado && ticket.precio != null", data-ng-cloak).align-middle
-                                                span
-                                                    i.fa.fa-2x(ng-class="{'fa-check color-green': apuestaRealizada(ticket),'fa-close color-red': !apuestaRealizada(ticket)}")
-                                            td(data-ng-show="usuarioEstaLogueado && ticket.precio != null", data-ng-cloak, data-ng-bind="getPrize(ticket)", ng-class="{'color-green bold': ticketHasPrize(ticket)}").align-middle
+                                div.table-responsive
+                                    table.table.tabla-quinielas
+                                        thead
+                                            tr
+                                                th Jornada
+                                                th Modalidad
+                                                th Fecha
+                                                th(data-ng-show="usuarioEstaLogueado && tickets[0].precio != null", data-ng-cloak) Apostado
+                                                th(data-ng-show="usuarioEstaLogueado && tickets[0].precio != null", data-ng-cloak) Premio
+                                        tbody
+                                            tr(data-ng-repeat="ticket in tickets")
+                                                td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.jornada}}").pointer.align-middle
+                                                td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.modalidad}}").pointer.align-middle
+                                                td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}").pointer.align-middle
+                                                td(data-ng-show="usuarioEstaLogueado && ticket.precio != null", data-ng-cloak).align-middle
+                                                    span
+                                                        i.fa.fa-2x(ng-class="{'fa-check color-green': apuestaRealizada(ticket),'fa-close color-red': !apuestaRealizada(ticket)}")
+                                                td(data-ng-show="usuarioEstaLogueado && ticket.precio != null", data-ng-cloak, data-ng-bind="getPrize(ticket)", ng-class="{'color-green bold': ticketHasPrize(ticket)}").align-middle
 
                                 div.text-center
                                     uib-pagination(

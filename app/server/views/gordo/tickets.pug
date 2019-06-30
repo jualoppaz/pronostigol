@@ -47,24 +47,25 @@ block content
                                     div.col-md-2.col-sm-2.col-xs-6
                                         input(type="number", min="1", data-ng-model="ticketsPerPage").form-control
 
-                                table.table.tabla-gordos
-                                    thead
-                                        tr
-                                            th Sorteo
-                                            th Día de la semana
-                                            th Fecha
-                                            th(data-ng-show="usuarioEstaLogueado && tickets[0].precio != null", data-ng-cloak) Apostado
-                                    tbody
-                                        tr(data-ng-repeat="ticket in tickets")
-                                            td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.sorteo}}").pointer
-                                            td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{traducirDia(ticket.fecha)}}").pointer
-                                            td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}").pointer
-                                            td(data-ng-show="usuarioEstaLogueado && ticket.precio != null && apuestaRealizada(ticket)", data-ng-cloak)
-                                                span
-                                                    i.fa.fa-check.fa-2x(style="color: green")
-                                            td(data-ng-show="usuarioEstaLogueado && ticket.precio != null && !apuestaRealizada(ticket)", data-ng-cloak)
-                                                span
-                                                    i.fa.fa-close.fa-2x(style="color: red")
+                                div.table-responsive
+                                    table.table.tabla-gordos
+                                        thead
+                                            tr
+                                                th Sorteo
+                                                th Día de la semana
+                                                th Fecha
+                                                th(data-ng-show="usuarioEstaLogueado && tickets[0].precio != null", data-ng-cloak) Apostado
+                                                th(data-ng-show="usuarioEstaLogueado && tickets[0].precio != null", data-ng-cloak) Premio
+                                        tbody
+                                            tr(data-ng-repeat="ticket in tickets")
+                                                td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.sorteo}}").pointer.align-middle
+                                                td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{traducirDia(ticket.fecha)}}").pointer.align-middle.capitalize
+                                                td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}").pointer.align-middle
+                                                td(data-ng-show="usuarioEstaLogueado && ticket.precio != null", data-ng-cloak).align-middle
+                                                    span
+                                                        i.fa.fa-2x(ng-class="{'fa-check color-green': apuestaRealizada(ticket),'fa-close color-red': !apuestaRealizada(ticket)}")
+                                                td(data-ng-show="usuarioEstaLogueado && ticket.precio != null", data-ng-cloak, data-ng-bind="getPrize(ticket)", ng-class="{'color-green bold': ticketHasPrize(ticket)}").align-middle
+
 
                                 uib-pagination(data-ng-show="numOfPages > 1",
                                 data-ng-cloak,
