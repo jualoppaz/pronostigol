@@ -71,8 +71,7 @@ function Controller($scope, $http, $window, $filter, VariosService, gordo) {
     };
 
     $scope.traducirDia = function(fecha) {
-        var dia = $filter("date")(fecha, "EEEE");
-        return VariosService.traducirDia(dia);
+        return $filter("date")(fecha, "EEEE");
     };
 
     // Paginacion manual
