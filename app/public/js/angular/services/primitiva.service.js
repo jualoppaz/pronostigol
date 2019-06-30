@@ -1,12 +1,12 @@
 (function() {
     "use strict";
 
-    angular.module("gordo", []).factory("gordo", service);
+    angular.module("primitiva", []).factory("primitiva", service);
 
     service.$inject = ["$http", "$q"];
 
     function service($http, $q) {
-        var apiPrefix = "/api/gordo";
+        var apiPrefix = "/api/primitiva";
 
         var service = {
             // Tickets
@@ -15,6 +15,8 @@
             createTicket: createTicket,
             editTicket: editTicket,
             deleteTicketById: deleteTicketById,
+            ticketHasForecasts: ticketHasForecastsFn,
+            getPrize: getPrizeFn,
             // Years
             getAllYears: getAllYears,
             getYearById: getYearById,
@@ -24,8 +26,8 @@
             // Historical
             getOccurrencesByNumber: getOccurrencesByNumber,
             getOccurrencesByResult: getOccurrencesByResult,
-            getOccurrencesByResultWithSpecialNumber: getOccurrencesByResultWithSpecialNumber,
-            getOccurrencesBySpecialNumber: getOccurrencesBySpecialNumber
+            getOccurrencesByResultWithReimbursement: getOccurrencesByResultWithReimbursement,
+            getOccurrencesByReimbursement: getOccurrencesByReimbursement
         };
 
         return service;
@@ -228,14 +230,14 @@
             return promise;
         }
 
-        function getOccurrencesByResultWithSpecialNumber(queryParameters) {
+        function getOccurrencesByResultWithReimbursement(queryParameters) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http
                 .get(
                     apiPrefix +
-                        "/historical/occurrencesByResultWithSpecialNumber",
+                        "/historical/occurrencesByResultWithReimbursement",
                     {
                         params: queryParameters
                     }
@@ -250,12 +252,12 @@
             return promise;
         }
 
-        function getOccurrencesBySpecialNumber(queryParameters) {
+        function getOccurrencesByReimbursement(queryParameters) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http
-                .get(apiPrefix + "/historical/OccurrencesBySpecialNumber", {
+                .get(apiPrefix + "/historical/occurrencesByReimbursement", {
                     params: queryParameters
                 })
                 .then(function(data) {
@@ -266,6 +268,36 @@
                 });
 
             return promise;
+        }
+
+        /**
+         * Método que sirve para saber si en un ticket se ha realizado alguna apuesta
+         *
+         * @param {*} ticket
+         */
+        function ticketHasForecastsFn(ticket) {
+            var res = false;
+
+            if (ticket && ticket.apuestas && ticket.apuestas.combinaciones) {
+                res = ticket.apuestas.combinaciones.length > 0;
+            }
+            return res;
+        }
+
+        /**
+         * Método que sirve para saber la cuantía del premio de un ticket.
+         *
+         * @param {*} ticket
+         *
+         * @author jualoppaz
+         */
+        function getPrizeFn(ticket) {
+            var res = 0;
+
+            if (ticket && ticket.premio != null) {
+                res = ticket.premio;
+            }
+            return res;
         }
     }
 })();

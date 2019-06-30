@@ -2,9 +2,9 @@ var app = angular.module("qdb");
 
 app.controller("QuinielasController", Controller);
 
-Controller.$inject = ["$scope", "$http", "$window", "quiniela"];
+Controller.$inject = ["$scope", "$http", "$window", "quiniela", "$filter"];
 
-function Controller($scope, $http, $window, quiniela) {
+function Controller($scope, $http, $window, quiniela, $filter) {
     $scope.tickets = [];
 
     $scope.currentPage = 1;
@@ -71,8 +71,6 @@ function Controller($scope, $http, $window, quiniela) {
     $scope.consultarTickets = function() {
         $scope.tickets = [];
 
-        console.log("Season: ", $scope.selected.season);
-
         quiniela
             .getAllTickets({
                 season: $scope.selected.season,
@@ -115,6 +113,22 @@ function Controller($scope, $http, $window, quiniela) {
     $scope.propiedad = "fecha";
 
     $scope.apuestaRealizada = function(ticket) {
-        return VariosService.apuestaRealizada(ticket);
+        return quiniela.ticketHasForecasts(ticket);
+    };
+
+    $scope.getPrize = function(ticket) {
+        var res = $scope.apuestaRealizada(ticket)
+            ? $filter("currency")(0)
+            : "-";
+        var prize = quiniela.getPrize(ticket);
+
+        if (prize > 0) {
+            res = $filter("currency")(prize);
+        }
+        return res;
+    };
+
+    $scope.ticketHasPrize = function(ticket) {
+        return $scope.apuestaRealizada(ticket) && quiniela.getPrize(ticket) > 0;
     };
 }

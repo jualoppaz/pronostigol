@@ -1,45 +1,38 @@
 (function() {
     "use strict";
 
-    angular.module("quiniela", []).factory("quiniela", service);
+    angular.module("gordo", []).factory("gordo", service);
 
     service.$inject = ["$http", "$q"];
 
     function service($http, $q) {
-        var apiPrefix = "/api/quiniela";
+        var apiPrefix = "/api/gordo";
 
         var service = {
             // Tickets
-            getAllTickets: getAllTickets,
-            getTicketBySeasonAndDay: getTicketBySeasonAndDay,
+            getTickets: getTickets,
+            getTicketById: getTicketById,
             createTicket: createTicket,
             editTicket: editTicket,
-            // Seasons
-            getAllSeasons: getAllSeasons,
-            getSeasonById: getSeasonById,
-            createSeason: createSeason,
-            editSeason: editSeason,
-            deleteSeasonById: deleteSeasonById,
-            // Competitions
-            getAllCompetitions: getAllCompetitions,
-            getCompetitionById: getCompetitionById,
-            createCompetition: createCompetition,
-            editCompetition: editCompetition,
-            deleteCompetitionById: deleteCompetitionById,
-            // Teams
-            getAllTeams: getAllTeams,
-            getTeamById: getTeamById,
-            createTeam: createTeam,
-            editTeam: editTeam,
-            deleteTeamById: deleteTeamById,
+            deleteTicketById: deleteTicketById,
+            ticketHasForecasts: ticketHasForecastsFn,
+            getPrize: getPrizeFn,
+            // Years
+            getAllYears: getAllYears,
+            getYearById: getYearById,
+            createYear: createYear,
+            editYear: editYear,
+            deleteYearById: deleteYearById,
             // Historical
-            getHistorical: getHistorical,
-            getHistoricalCombinations: getHistoricalCombinations
+            getOccurrencesByNumber: getOccurrencesByNumber,
+            getOccurrencesByResult: getOccurrencesByResult,
+            getOccurrencesByResultWithSpecialNumber: getOccurrencesByResultWithSpecialNumber,
+            getOccurrencesBySpecialNumber: getOccurrencesBySpecialNumber
         };
 
         return service;
 
-        function getAllTickets(queryParameters) {
+        function getTickets(queryParameters) {
             var defered = $q.defer();
             var promise = defered.promise;
 
@@ -51,18 +44,18 @@
                     defered.resolve(data.data);
                 })
                 .catch(function(err) {
-                    defered.reject(err.data);
+                    defered.reject(err);
                 });
 
             return promise;
         }
 
-        function getTicketBySeasonAndDay(season, day) {
+        function getTicketById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http
-                .get(apiPrefix + "/tickets/season/" + season + "/day/" + day)
+                .get(apiPrefix + "/tickets/" + id)
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -105,12 +98,12 @@
             return promise;
         }
 
-        function getAllSeasons() {
+        function deleteTicketById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http
-                .get(apiPrefix + "/seasons")
+                .delete(apiPrefix + "/tickets/" + id)
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -121,12 +114,12 @@
             return promise;
         }
 
-        function getSeasonById(id) {
+        function getAllYears() {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http
-                .get(apiPrefix + "/seasons/" + id)
+                .get(apiPrefix + "/years")
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -137,12 +130,12 @@
             return promise;
         }
 
-        function createSeason(season) {
+        function getYearById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http
-                .post(apiPrefix + "/seasons", season)
+                .get(apiPrefix + "/years/" + id)
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -153,12 +146,12 @@
             return promise;
         }
 
-        function editSeason(season) {
+        function createYear(year) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http
-                .put(apiPrefix + "/seasons", season)
+                .post(apiPrefix + "/years", year)
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -169,12 +162,12 @@
             return promise;
         }
 
-        function deleteSeasonById(id) {
+        function editYear(year) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http
-                .delete(apiPrefix + "/seasons/" + id)
+                .put(apiPrefix + "/years", year)
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -185,12 +178,12 @@
             return promise;
         }
 
-        function getAllCompetitions() {
+        function deleteYearById(id) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http
-                .get(apiPrefix + "/competitions")
+                .delete(apiPrefix + "/years/" + id)
                 .then(function(data) {
                     defered.resolve(data.data);
                 })
@@ -201,156 +194,12 @@
             return promise;
         }
 
-        function getCompetitionById(id) {
+        function getOccurrencesByNumber(queryParameters) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http
-                .get(apiPrefix + "/competitions/" + id)
-                .then(function(data) {
-                    defered.resolve(data.data);
-                })
-                .catch(function(err) {
-                    defered.reject(err);
-                });
-
-            return promise;
-        }
-
-        function createCompetition(competition) {
-            var defered = $q.defer();
-            var promise = defered.promise;
-
-            $http
-                .post(apiPrefix + "/competitions", competition)
-                .then(function(data) {
-                    defered.resolve(data.data);
-                })
-                .catch(function(err) {
-                    defered.reject(err);
-                });
-
-            return promise;
-        }
-
-        function editCompetition(competition) {
-            var defered = $q.defer();
-            var promise = defered.promise;
-
-            $http
-                .put(apiPrefix + "/competitions", competition)
-                .then(function(data) {
-                    defered.resolve(data.data);
-                })
-                .catch(function(err) {
-                    defered.reject(err);
-                });
-
-            return promise;
-        }
-
-        function deleteCompetitionById(id) {
-            var defered = $q.defer();
-            var promise = defered.promise;
-
-            $http
-                .delete(apiPrefix + "/competitions/" + id)
-                .then(function(data) {
-                    defered.resolve(data.data);
-                })
-                .catch(function(err) {
-                    defered.reject(err);
-                });
-
-            return promise;
-        }
-
-        function getAllTeams() {
-            var defered = $q.defer();
-            var promise = defered.promise;
-
-            $http
-                .get(apiPrefix + "/teams")
-                .then(function(data) {
-                    defered.resolve(data.data);
-                })
-                .catch(function(err) {
-                    defered.reject(err);
-                });
-
-            return promise;
-        }
-
-        function getTeamById(id) {
-            var defered = $q.defer();
-            var promise = defered.promise;
-
-            $http
-                .get(apiPrefix + "/teams/" + id)
-                .then(function(data) {
-                    defered.resolve(data.data);
-                })
-                .catch(function(err) {
-                    defered.reject(err);
-                });
-
-            return promise;
-        }
-
-        function createTeam(team) {
-            var defered = $q.defer();
-            var promise = defered.promise;
-
-            $http
-                .post(apiPrefix + "/teams", team)
-                .then(function(data) {
-                    defered.resolve(data.data);
-                })
-                .catch(function(err) {
-                    defered.reject(err);
-                });
-
-            return promise;
-        }
-
-        function editTeam(team) {
-            var defered = $q.defer();
-            var promise = defered.promise;
-
-            $http
-                .put(apiPrefix + "/teams", team)
-                .then(function(data) {
-                    defered.resolve(data.data);
-                })
-                .catch(function(err) {
-                    defered.reject(err);
-                });
-
-            return promise;
-        }
-
-        function deleteTeamById(id) {
-            var defered = $q.defer();
-            var promise = defered.promise;
-
-            $http
-                .delete(apiPrefix + "/teams/" + id)
-                .then(function(data) {
-                    defered.resolve(data.data);
-                })
-                .catch(function(err) {
-                    defered.reject(err);
-                });
-
-            return promise;
-        }
-
-        function getHistorical(queryParameters) {
-            var defered = $q.defer();
-            var promise = defered.promise;
-
-            $http
-                .get(apiPrefix + "/historical", {
+                .get(apiPrefix + "/historical/occurrencesByNumber", {
                     params: queryParameters
                 })
                 .then(function(data) {
@@ -363,12 +212,12 @@
             return promise;
         }
 
-        function getHistoricalCombinations(queryParameters) {
+        function getOccurrencesByResult(queryParameters) {
             var defered = $q.defer();
             var promise = defered.promise;
 
             $http
-                .get(apiPrefix + "/historical/combinations", {
+                .get(apiPrefix + "/historical/occurrencesByResult", {
                     params: queryParameters
                 })
                 .then(function(data) {
@@ -379,6 +228,76 @@
                 });
 
             return promise;
+        }
+
+        function getOccurrencesByResultWithSpecialNumber(queryParameters) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http
+                .get(
+                    apiPrefix +
+                        "/historical/occurrencesByResultWithSpecialNumber",
+                    {
+                        params: queryParameters
+                    }
+                )
+                .then(function(data) {
+                    defered.resolve(data.data);
+                })
+                .catch(function(err) {
+                    defered.reject(err);
+                });
+
+            return promise;
+        }
+
+        function getOccurrencesBySpecialNumber(queryParameters) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http
+                .get(apiPrefix + "/historical/OccurrencesBySpecialNumber", {
+                    params: queryParameters
+                })
+                .then(function(data) {
+                    defered.resolve(data.data);
+                })
+                .catch(function(err) {
+                    defered.reject(err);
+                });
+
+            return promise;
+        }
+
+        /**
+         * Método que sirve para saber si en un ticket se ha realizado alguna apuesta
+         *
+         * @param {*} ticket
+         */
+        function ticketHasForecastsFn(ticket) {
+            var res = false;
+
+            if (ticket && ticket.apuestas && ticket.apuestas.combinaciones) {
+                res = ticket.apuestas.combinaciones.length > 0;
+            }
+            return res;
+        }
+
+        /**
+         * Método que sirve para saber la cuantía del premio de un ticket.
+         *
+         * @param {*} ticket
+         *
+         * @author jualoppaz
+         */
+        function getPrizeFn(ticket) {
+            var res = 0;
+
+            if (ticket && ticket.premio != null) {
+                res = ticket.premio;
+            }
+            return res;
         }
     }
 })();

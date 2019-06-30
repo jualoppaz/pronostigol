@@ -1,14 +1,11 @@
-(function () {
+(function() {
+    "use strict";
 
-    'use strict';
+    angular.module("bonoloto", []).factory("bonoloto", service);
 
-    angular.module('bonoloto', [])
-        .factory('bonoloto', service);
-
-    service.$inject = ['$http', '$q'];
+    service.$inject = ["$http", "$q"];
 
     function service($http, $q) {
-
         var apiPrefix = "/api/bonoloto";
 
         var service = {
@@ -23,6 +20,8 @@
             createTicket: createTicket,
             editTicket: editTicket,
             deleteTicketById: deleteTicketById,
+            ticketHasForecasts: ticketHasForecastsFn,
+            getPrize: getPrizeFn,
             // Years
             getYears: getYears,
             getYearById: getYearById,
@@ -47,12 +46,15 @@
             var reintegroAcertado = false;
             var complementarioAcertado = false;
 
-            if (reintegroApostado === resultado.reintegro) { // 0<=R<=9. Por tanto, podemos tener cualquier categoría.
+            if (reintegroApostado === resultado.reintegro) {
+                // 0<=R<=9. Por tanto, podemos tener cualquier categoría.
                 reintegroAcertado = true;
 
                 for (i = 0; i < combinacion.length; i++) {
                     for (j = 0; j < resultado.bolas.length; j++) {
-                        if (combinacion[i].numero === resultado.bolas[j].numero) {
+                        if (
+                            combinacion[i].numero === resultado.bolas[j].numero
+                        ) {
                             numeroAciertos += 1;
                         }
                     }
@@ -61,18 +63,23 @@
                 if (numeroAciertos === 5) {
                     for (i = 0; i < combinacion.length; i++) {
                         for (j = 0; j < resultado.bolas.length; j++) {
-                            if (combinacion[i].numero === resultado.complementario) {
+                            if (
+                                combinacion[i].numero ===
+                                resultado.complementario
+                            ) {
                                 complementarioAcertado = true;
                                 break;
                             }
                         }
                     }
                 }
-
-            } else { // Se puede acertar 6, 5, 4 o 3
+            } else {
+                // Se puede acertar 6, 5, 4 o 3
                 for (i = 0; i < combinacion.length; i++) {
                     for (j = 0; j < resultado.bolas.length; j++) {
-                        if (combinacion[i].numero === resultado.bolas[j].numero) {
+                        if (
+                            combinacion[i].numero === resultado.bolas[j].numero
+                        ) {
                             numeroAciertos += 1;
                         }
                     }
@@ -81,7 +88,10 @@
                 if (numeroAciertos === 5) {
                     for (var i = 0; i < combinacion.length; i++) {
                         for (var j = 0; j < resultado.bolas.length; j++) {
-                            if (combinacion[i].numero === resultado.complementario) {
+                            if (
+                                combinacion[i].numero ===
+                                resultado.complementario
+                            ) {
                                 complementarioAcertado = true;
                                 break;
                             }
@@ -91,7 +101,7 @@
             }
 
             if (numeroAciertos === 6) {
-                res = "6"
+                res = "6";
             } else if (numeroAciertos === 5) {
                 if (complementarioAcertado) {
                     res = "5 + C";
@@ -114,7 +124,11 @@
         /**
          * Metodo para determinar el número de aciertos en una apuesta
          */
-        function getSuccessfulNumbersAmount(resultado, combinacion, reintegroApostado) {
+        function getSuccessfulNumbersAmount(
+            resultado,
+            combinacion,
+            reintegroApostado
+        ) {
             var res = "";
 
             var numeroAciertos = 0;
@@ -123,7 +137,8 @@
 
             var complementarioAcertado = false;
 
-            if (reintegroApostado === resultado.reintegro) { // 0<=R<=9. Por tanto, podemos tener cualquier categoría.
+            if (reintegroApostado === resultado.reintegro) {
+                // 0<=R<=9. Por tanto, podemos tener cualquier categoría.
                 reintegroAcertado = true;
             }
 
@@ -202,13 +217,14 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/tickets', {
-                params: queryParameters
-            })
-                .then(function (data) {
+            $http
+                .get(apiPrefix + "/tickets", {
+                    params: queryParameters
+                })
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err.data);
                 });
 
@@ -219,11 +235,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/tickets/' + id)
-                .then(function (data) {
+            $http
+                .get(apiPrefix + "/tickets/" + id)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err.data);
                 });
 
@@ -234,11 +251,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post(apiPrefix + '/tickets', ticket)
-                .then(function (data) {
+            $http
+                .post(apiPrefix + "/tickets", ticket)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err.data);
                 });
 
@@ -249,11 +267,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.put(apiPrefix + '/tickets/' + ticket._id, ticket)
-                .then(function (data) {
+            $http
+                .put(apiPrefix + "/tickets/" + ticket._id, ticket)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err.data);
                 });
 
@@ -264,11 +283,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.delete(apiPrefix + '/tickets/' + id)
-                .then(function (data) {
+            $http
+                .delete(apiPrefix + "/tickets/" + id)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err.data);
                 });
 
@@ -279,11 +299,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/years')
-                .then(function (data) {
+            $http
+                .get(apiPrefix + "/years")
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err.data);
                 });
 
@@ -294,11 +315,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/years/' + id)
-                .then(function (data) {
+            $http
+                .get(apiPrefix + "/years/" + id)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err.data);
                 });
 
@@ -309,11 +331,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.post(apiPrefix + '/years', year)
-                .then(function (data) {
+            $http
+                .post(apiPrefix + "/years", year)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err.data);
                 });
 
@@ -324,11 +347,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.put(apiPrefix + '/years', year)
-                .then(function (data) {
+            $http
+                .put(apiPrefix + "/years", year)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err.data);
                 });
 
@@ -339,11 +363,12 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.delete(apiPrefix + '/years/' + id)
-                .then(function (data) {
+            $http
+                .delete(apiPrefix + "/years/" + id)
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err.data);
                 });
 
@@ -354,13 +379,14 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/historical/occurrencesByNumber', {
-                params: queryParameters
-            })
-                .then(function (data) {
+            $http
+                .get(apiPrefix + "/historical/occurrencesByNumber", {
+                    params: queryParameters
+                })
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err.data);
                 });
 
@@ -371,13 +397,14 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/historical/occurrencesByResult', {
-                params: queryParameters
-            })
-                .then(function (data) {
+            $http
+                .get(apiPrefix + "/historical/occurrencesByResult", {
+                    params: queryParameters
+                })
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err.data);
                 });
 
@@ -388,13 +415,18 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/historical/occurrencesByResultWithReimbursement', {
-                params: queryParameters
-            })
-                .then(function (data) {
+            $http
+                .get(
+                    apiPrefix +
+                        "/historical/occurrencesByResultWithReimbursement",
+                    {
+                        params: queryParameters
+                    }
+                )
+                .then(function(data) {
                     defered.resolve(data.data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err.data);
                 });
 
@@ -405,10 +437,11 @@
             var defered = $q.defer();
             var promise = defered.promise;
 
-            $http.get(apiPrefix + '/historical/occurrencesByReimbursement', {
-                params: queryParameters
-            })
-                .then(function (data) {
+            $http
+                .get(apiPrefix + "/historical/occurrencesByReimbursement", {
+                    params: queryParameters
+                })
+                .then(function(data) {
                     var data = data.data;
 
                     data.data.forEach(element => {
@@ -419,11 +452,41 @@
 
                     defered.resolve(data);
                 })
-                .catch(function (err) {
+                .catch(function(err) {
                     defered.reject(err.data);
                 });
 
             return promise;
+        }
+
+        /**
+         * Método que sirve para saber si en un ticket se ha realizado alguna apuesta
+         *
+         * @param {*} ticket
+         */
+        function ticketHasForecastsFn(ticket) {
+            var res = false;
+
+            if (ticket && ticket.apuestas && ticket.apuestas.combinaciones) {
+                res = ticket.apuestas.combinaciones.length > 0;
+            }
+            return res;
+        }
+
+        /**
+         * Método que sirve para saber la cuantía del premio de un ticket.
+         *
+         * @param {*} ticket
+         *
+         * @author jualoppaz
+         */
+        function getPrizeFn(ticket) {
+            var res = 0;
+
+            if (ticket && ticket.premio != null) {
+                res = ticket.premio;
+            }
+            return res;
         }
     }
 })();
