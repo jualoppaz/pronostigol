@@ -28,7 +28,7 @@ block content
                             script (adsbygoogle = window.adsbygoogle || []).push({});
 
                         div.col-md-8.col-sm-12.col-xs-12(style="margin-top: 30px")
-                            div.col-xs-6.col-xs-offset-3.panel.panel-body.border-qdb
+                            div.col-xs-12.col-sm-8.col-sm-offset-2.panel.panel-body.border-qdb
                                 div(style="word-wrap: break-word;")
                                     h2.text-center Índice
                                     div.main-card-description
@@ -39,9 +39,21 @@ block content
                                                 a(href="#probabilities") 2. Probabilidades
                                                 ul.list-unstyled
                                                     li
-                                                        a(href="#probabilities-award") 2.1. Probabilidades de obtener premio en la quiniela
+                                                        a(href="#probability-ten-results") 2.1. Probabilidad de acertar 10 partidos en la Quiniela
                                                     li
-                                                        a(href="#probabilities-award-max") 2.2. Probabilidad de acertar la quiniela
+                                                        a(href="#probability-eleven-results") 2.2. Probabilidad de acertar 11 partidos en la Quiniela
+                                                    li
+                                                        a(href="#probability-twelve-results") 2.3. Probabilidad de acertar 12 partidos en la Quiniela
+                                                    li
+                                                        a(href="#probability-thirteen-results") 2.4. Probabilidad de acertar 13 partidos en la Quiniela
+                                                    li
+                                                        a(href="#probability-fourteen-results") 2.5. Probabilidad de acertar 14 partidos en la Quiniela
+                                                    li
+                                                        a(href="#probability-special-result") 2.6. Probabilidad de acertar el pleno al quince de la Quiniela
+                                                    li
+                                                        a(href="#probability-fourteen-results-and-special-result") 2.7. Probabilidad de acertar la Quiniela
+                                                    li
+                                                        a(href="#probability-summary") 2.8. Resumen de probabilidades de la Quiniela por categoría
                                             li
                                                 a(href="#sources") 3. Fuentes
 
@@ -53,8 +65,8 @@ block content
                                             h2.caramelo.qdb-blue 1. Introducción
                                     div.main-card-description
                                         p.
-                                            En esta sección encontrarás multitud de estadísticas asociadas a la Quiniela de España.
-                                            Podrás conocer los resultados más repetidos, los equipos que ganan con más frecuencia y una amplia
+                                            En esta sección encontrarás multitud de estadísticas asociadas a la <b>Quiniela</b> de España.
+                                            Podrás conocer los resultados más repetidos, los equipos de fútbol que ganan con más frecuencia y una amplia
                                             gama de consultas a realizar.
                                             De este modo te será mucho más sencillo realizar tus quinielas.
 
@@ -64,211 +76,450 @@ block content
                                             h2.caramelo.qdb-blue 2. Probabilidades
                                     div.main-card-description#bienvenido-description
                                         p.
-                                            Por todos es sabido que la Quiniela consiste en acertar los 15 resultados de los partidos propuestos.
+                                            Por todos es sabido que la <b>Quiniela</b> consiste en acertar los 15 resultados de los partidos de fútbol propuestos.
                                             Para las 14 primeras filas hay que acertar el ganador del partido con los siguientes símbolos: <b>1</b>
                                             si el ganador es el equipo local, <b>X</b> si se produce un empate y <b>2</b> si la victoria es del
                                             equipo visitante.
                                         p.
                                             Para saber la probabilidad de acierto de cada partido usaremos la <b>Regla de Laplace</b>,
                                             que dice lo siguiente:
-                                        div.text-center
+                                        div.text-center.v-margin
                                             span
-                                                b Probabilidad =
+                                                b Probabilidad
+                                            span.equal
+                                                b =
                                             div.fraction
                                                 span.fup
                                                     b Casos favorables
                                                 span.fdn
                                                     b Casos posibles
-                                        h3#probabilities-award.qdb-blue.index-title 2.1. Probabilidades de obtener premio en la quiniela
                                         p.
-                                            Generalmente, en la Quiniela se obtiene premio cuando se aciertan, al menos, 10 resultados de los 15 pronosticables.
+                                            Generalmente, en la <b>Quiniela</b> se obtiene premio cuando se aciertan, al menos, 10 resultados de los 15 pronosticables.
                                             Para más info consultar el <b>Capítulo Cuarto. DISTRIBUCIÓN DE FONDOS PARA PREMIOS</b> en el siguiente
                                             <a href="https://www.loteriasyapuestas.es/f/loterias/documentos/normativa/normativa%20SELAE/NORMAS_DE_LA_QUINIELA%20_A%C3%91O_2017.pdf" target="_blank">link</a>.
+
+                                        h3#probability-ten-results.qdb-blue.index-title 2.1. Probabilidad de acertar 10 partidos en la Quiniela
+                                        p.
+                                            En esta primera categoría tenemos que acertar 10 partidos y fallas los otros 4. De momento no nos importa el pleno al 15,
+                                            puesto que éste sólo interviene cuando se aciertan los 14.
                                         p.
                                             Dado que en cualquiera de las 14 primeras filas hay 3 posibles resultados pero sólo 1 será el correcto,
-                                            la probabilidad de cada fila será <b>1/3</b>. Si concretamos este cálculo para el conjunto de las 14
-                                            primeras filas tendremos lo siguiente:
-                                        div.text-center
-                                            span Probabilidad (14 aciertos) =
+                                            la probabilidad de cada fila será <b>1/3</b>, mientras que la probabilidad de fallar una fila será <b>2/3</b>.
+                                            Si aplicamos este criterio para calcular la probabilidad de obtener 10 aciertos tenemos que:
+                                        div.text-center.v-margin
+                                            span Probabilidad (10 aciertos)
+                                            span.equal =
                                             div.fraction
                                                 span.fup 1
                                                 span.fdn 3
-                                            span &#x00D7;
+                                            span.multiplication &#x00D7;
                                             div.fraction
                                                 span.fup 1
                                                 span.fdn 3
-                                            span &#x00D7; ... &#x00D7;
+                                            span.multiplication &#x00D7;
                                             div.fraction
                                                 span.fup 1
                                                 span.fdn 3
-                                            span.
-                                                =
+                                            span.multiplication &#x00D7;
                                             div.fraction
                                                 span.fup 1
-                                                span.fdn 3 <sup>14</sup>
-                                        p.
-                                            Si pasamos a la probabilidad de acertar 13, este cálculo se vería ligeramente modificado puesto que
-                                            hay que añadir la restricción de fallar un resultado de los 14, quedando de la siguiente forma:
-                                        div.text-center
-                                            span Probabilidad (13 aciertos) =
+                                                span.fdn 3
+                                            span.multiplication &#x00D7;
                                             div.fraction
                                                 span.fup 1
-                                                span.fdn 3 <sup>13</sup>
-                                            span &#x00D7;
+                                                span.fdn 3
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 3
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 3
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 3
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 3
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 3
+                                            span.multiplication &#x00D7;
                                             div.fraction
                                                 span.fup 2
                                                 span.fdn 3
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2
+                                                span.fdn 3
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2
+                                                span.fdn 3
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2
+                                                span.fdn 3
+                                        div.text-center.v-margin
+                                            span Probabilidad (10 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 3 <sup>10</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2 <sup>4</sup>
+                                                span.fdn 3 <sup>4</sup>
+
                                         p.
-                                            Del mismo modo, si pasamos a la probabilidad de acertar 11 serían 2 los partidos de fallaríamos dentro de los 14.
-                                            Los calculos serían tal que así:
-                                        div.text-center
-                                            span Probabilidad (12 aciertos) =
+                                            Sin embargo, con este planteamiento estamos suponiendo que sólo nos vale 1 apuesta concreta, ya que el orden
+                                            de los resultados importa. Pero si no nos importa en qué orden obtengamos los N aciertos podemos ampliar el
+                                            resultado contemplando las combinaciones de dichos aciertos en el resultado:
+                                        div.text-center.v-margin
+                                            span Probabilidad (10 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 3 <sup>10</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2 <sup>4</sup>
+                                                span.fdn 3 <sup>4</sup>
+                                            span.multiplication &#x00D7;
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 10
+                                                    sub 14
+                                        p.
+                                            Podemos generalizar estos cálculos de modo que nos valgan para todas las categorías del siguiente modo:
+                                        div.text-center.v-margin
+                                            span Probabilidad (N aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 3 <sup>N</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2 <sup>14 - N</sup>
+                                                span.fdn 3 <sup>14 - N</sup>
+                                            span.multiplication &#x00D7;
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup N
+                                                    sub 14
+                                        p.
+                                            Llegados a esto punto podemos calcular la probabilidad de obtener 10 aciertos en la <b>Quiniela</b> sustituyendo en la fórmula anterior
+                                            la variable N por 10:
+                                        div.text-center.v-margin
+                                            span Probabilidad (10 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 3 <sup>10</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2 <sup>14 - 10</sup>
+                                                span.fdn 3 <sup>14 - 10</sup>
+                                            span.multiplication &#x00D7;
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 10
+                                                    sub 14
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 3 <sup>10</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2 <sup>4</sup>
+                                                span.fdn 3 <sup>4</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 14!
+                                                span.fdn 10! &#x00D7; 4!
+                                        div.text-center.v-margin
+                                            span Probabilidad (10 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 2 <sup>4</sup>
+                                                span.fdn 3 <sup>14</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 14 &#x00D7; 13 &#x00D7; <del>12</del> &#x00D7; 11 &#x00D7; <del>10!</del>
+                                                span.fdn <del>10!</del> &#x00D7; <del>4</del> &#x00D7; <del>3</del> &#x00D7; 2
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 2 <sup>4</sup>
+                                                span.fdn 3 <sup>14</sup>
+                                            span.multiplication &#x00D7;
+                                            span 7 &#x00D7; 13 &#x00D7; 11
+                                        div.text-center.v-margin
+                                            span
+                                                b Probabilidad (10 aciertos)
+                                            span.equal
+                                                b =
+                                            div.fraction
+                                                span.fup
+                                                    b 2 <sup>4</sup>
+                                                span.fdn
+                                                    b 3 <sup>14</sup>
+                                            span.multiplication &#x00D7;
+                                            span
+                                                b 1001
+
+                                        h3#probability-eleven-results.qdb-blue.index-title 2.2. Probabilidad de acertar 11 partidos en la Quiniela
+                                        p.
+                                            Para calcular la probabilidad de acertar 11 resultados en la <b>Quiniela</b> tenemos que sustituir la variable N de la fórmula
+                                            con el valor 11. Hecho esto tenemos:
+                                        div.text-center.v-margin
+                                            span Probabilidad (11 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 3 <sup>11</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2 <sup>14 - 11</sup>
+                                                span.fdn 3 <sup>14 - 11</sup>
+                                            span.multiplication &#x00D7;
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 11
+                                                    sub 14
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 3 <sup>11</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2 <sup>3</sup>
+                                                span.fdn 3 <sup>3</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 14!
+                                                span.fdn 11! &#x00D7; 3!
+                                        div.text-center.v-margin
+                                            span Probabilidad (11 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 2 <sup>3</sup>
+                                                span.fdn 3 <sup>14</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 14 &#x00D7; 13 &#x00D7; 12 &#x00D7; <del>11!</del>
+                                                span.fdn <del>11!</del> &#x00D7; 3 &#x00D7; 2
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 2 <sup>3</sup>
+                                                span.fdn 3 <sup>14</sup>
+                                            span.multiplication &#x00D7;
+                                            span 14 &#x00D7; 13 &#x00D7; 2
+                                        div.text-center.v-margin
+                                            span
+                                                b Probabilidad (11 aciertos)
+                                            span.equal
+                                                b =
+                                            div.fraction
+                                                span.fup
+                                                    b 2 <sup>3</sup>
+                                                span.fdn
+                                                    b 3 <sup>14</sup>
+                                            span.multiplication &#x00D7;
+                                            span
+                                                b 364
+
+                                        h3#probability-twelve-results.qdb-blue.index-title 2.3. Probabilidad de acertar 12 partidos en la Quiniela
+                                        p.
+                                            Si queremos calcular la probabilidad de acertar 12 resultados en la <b>Quiniela</b> tenemos que sustituir la variable N de la fórmula
+                                            con el valor 12. Hecho esto tenemos:
+                                        div.text-center.v-margin
+                                            span Probabilidad (12 aciertos)
+                                            span.equal =
                                             div.fraction
                                                 span.fup 1
                                                 span.fdn 3 <sup>12</sup>
-                                            span &#x00D7;
+                                            span.multiplication &#x00D7;
                                             div.fraction
-                                                span.fup 2
+                                                span.fup 2 <sup>14 - 12</sup>
+                                                span.fdn 3 <sup>14 - 12</sup>
+                                            span.multiplication &#x00D7;
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 12
+                                                    sub 14
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 3 <sup>12</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2 <sup>2</sup>
                                                 span.fdn 3 <sup>2</sup>
-                                        p.
-                                            Por tanto, podemos generalizar este cálculo en base al número de aciertos (<b>N</b>) y el número de fallos
-                                            (<b>14 - N</b>). La fórmula que obtendríamos sería la siguiente:
-                                        div.text-center
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 14!
+                                                span.fdn 12! &#x00D7; 2!
+                                        div.text-center.v-margin
+                                            span Probabilidad (12 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 2 <sup>2</sup>
+                                                span.fdn 3 <sup>14</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 14 &#x00D7; 13 &#x00D7; <del>12!</del>
+                                                span.fdn <del>12!</del> &#x00D7; 2
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 2 <sup>2</sup>
+                                                span.fdn 3 <sup>14</sup>
+                                            span.multiplication &#x00D7;
+                                            span 7 &#x00D7; 13
+                                        div.text-center.v-margin
                                             span
-                                                b Probabilidad (N aciertos) =
+                                                b Probabilidad (12 aciertos)
+                                            span.equal
+                                                b =
                                             div.fraction
                                                 span.fup
-                                                    b 1
+                                                    b 2 <sup>2</sup>
                                                 span.fdn
-                                                    b 3 <sup>N</sup>
+                                                    b 3 <sup>14</sup>
+                                            span.multiplication &#x00D7;
                                             span
-                                                b &#x00D7;
+                                                b 91
+
+                                        h3#probability-thirteen-results.qdb-blue.index-title 2.4. Probabilidad de acertar 13 partidos en la Quiniela
+                                        p.
+                                            A continuación vamos a calcular la probabilidad de acertar 13 resultados en la <b>Quiniela</b>. Para ello tenemos que
+                                            sustituir la variable N de la fórmula con el valor 13:
+                                        div.text-center.v-margin
+                                            span Probabilidad (13 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 3 <sup>13</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2 <sup>14 - 13</sup>
+                                                span.fdn 3 <sup>14 - 13</sup>
+                                            span.multiplication &#x00D7;
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 13
+                                                    sub 14
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 3 <sup>13</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2
+                                                span.fdn 3
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 14!
+                                                span.fdn 13! &#x00D7; 1
+                                        div.text-center.v-margin
+                                            span Probabilidad (13 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 2
+                                                span.fdn 3 <sup>14</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 14 &#x00D7; <del>13!</del>
+                                                span.fdn <del>13!</del>
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 2
+                                                span.fdn 3 <sup>14</sup>
+                                            span.multiplication &#x00D7;
+                                            span 14
+                                        div.text-center.v-margin
+                                            span
+                                                b Probabilidad (13 aciertos)
+                                            span.equal
+                                                b =
                                             div.fraction
                                                 span.fup
                                                     b 2
                                                 span.fdn
-                                                    b 3 <sup>14 - N</sup>
-
-                                        p.
-                                            Sin embargo, dada la amplia diferencia entre denominador y numerador, nos va a resultar más sencillo
-                                            hacer los cálculos si nos quedamos con la la probabilidad de N ó más aciertos, es decir: podremos
-                                            descartar la restricción de los fallos (segunda fración).
-                                            Por tanto, la fórmula aproximada quedaría del siguiente modo:
-                                        div.text-center
+                                                    b 3 <sup>14</sup>
+                                            span.multiplication &#x00D7;
                                             span
-                                                b Probabilidad (N ó más aciertos) =
+                                                b 14
+
+                                        h3#probability-fourteen-results.qdb-blue.index-title 2.5. Probabilidad de acertar 14 partidos en la Quiniela
+                                        p.
+                                            Para cerrar este círculo vamos a calcular la probabilidad de acertar 14 resultados en la <b>Quiniela</b>.
+                                            Una vez más, sólo tenemos que reemplazar la variable N de la fórmula con el valor 14. Cuando la hagamos
+                                            tendremos que:
+                                        div.text-center.v-margin
+                                            span Probabilidad (14 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 3 <sup>14</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2 <sup>14 - 14</sup>
+                                                span.fdn 3 <sup>14 - 14</sup>
+                                            span.multiplication &#x00D7;
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 14
+                                                    sub 14
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 3 <sup>14</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2 <sup>0</sup>
+                                                span.fdn 3 <sup>0</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup <del>14!</del>
+                                                span.fdn <del>14!</del>
+                                        div.text-center.v-margin
+                                            span Probabilidad (14 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 3 <sup>14</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 1
+                                            span.multiplication &#x00D7;
+                                            span 1
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 3 <sup>14</sup>
+                                        div.text-center.v-margin
+                                            span
+                                                b Probabilidad (14 aciertos)
+                                            span.equal
+                                                b =
                                             div.fraction
                                                 span.fup
                                                     b 1
                                                 span.fdn
-                                                    b 3 <sup>N</sup>
-                                        p.
-                                            Con esta fórmula podemos obtener las probabilidades de los distintos números de aciertos:
-                                        div.table-section
-                                            table.table.table-bordered
-                                                thead
-                                                    tr
-                                                        th Aciertos
-                                                        th Probabilidad
-                                                tbody
-                                                    tr
-                                                        td.align-middle 14
-                                                        td
-                                                            div.fraction
-                                                                span.fup
-                                                                    b 1
-                                                                span.fdn
-                                                                    b 3 <sup>14</sup>
-                                                            span
-                                                                b.
-                                                                    =
-                                                            div.fraction
-                                                                span.fup
-                                                                    b 1
-                                                                span.fdn
-                                                                    b 4782969
-                                                            span
-                                                                b.
-                                                                    &#x2248; 0,0000002
-                                                    tr
-                                                        td.align-middle 13 ó más aciertos
-                                                        td
-                                                            div.fraction
-                                                                span.fup
-                                                                    b 1
-                                                                span.fdn
-                                                                    b 3 <sup>13</sup>
-                                                            span
-                                                                b.
-                                                                    =
-                                                            div.fraction
-                                                                span.fup
-                                                                    b 1
-                                                                span.fdn
-                                                                    b 1594323
-                                                            span
-                                                                b.
-                                                                    &#x2248; 0,0000006
-                                                    tr
-                                                        td.align-middle 12 ó más aciertos
-                                                        td
-                                                            div.fraction
-                                                                span.fup
-                                                                    b 1
-                                                                span.fdn
-                                                                    b 3 <sup>12</sup>
-                                                            span
-                                                                b.
-                                                                    =
-                                                            div.fraction
-                                                                span.fup
-                                                                    b 1
-                                                                span.fdn
-                                                                    b 531441
-                                                            span
-                                                                b.
-                                                                    &#x2248; 0,0000019
-                                                    tr
-                                                        td.align-middle 11 ó más aciertos
-                                                        td
-                                                            div.fraction
-                                                                span.fup
-                                                                    b 1
-                                                                span.fdn
-                                                                    b 3 <sup>11</sup>
-                                                            span
-                                                                b.
-                                                                    =
-                                                            div.fraction
-                                                                span.fup
-                                                                    b 1
-                                                                span.fdn
-                                                                    b 177147
-                                                            span
-                                                                b.
-                                                                    &#x2248; 0,0000056
-                                                    tr
-                                                        td.align-middle 10 ó más aciertos
-                                                        td
-                                                            div.fraction
-                                                                span.fup
-                                                                    b 1
-                                                                span.fdn
-                                                                    b 3 <sup>10</sup>
-                                                            span
-                                                                b.
-                                                                    =
-                                                            div.fraction
-                                                                span.fup
-                                                                    b 1
-                                                                span.fdn
-                                                                    b 59049
-                                                            span
-                                                                b.
-                                                                    &#x2248; 0,000017
-
-
-                                        h3.qdb-blue.index-title#probabilities-award-max 2.2. Probabilidad de acertar la quiniela
+                                                    b 3 <sup>14</sup>
+                                        h3.qdb-blue.index-title#probability-special-result 2.6. Probabilidad de acertar el pleno al quince de la Quiniela
                                         p.
                                             Desde la temporada 2013-2014, el pleno al 15 vio modificado su formato adoptando el mismo que el del
                                             <a href="https://www.loteriasyapuestas.es/es/el-quinigol" target="_blank">Quinigol</a>. En este formato
@@ -297,60 +548,248 @@ block content
                                             span
                                                 b.
                                                     = 0,0625
+
+                                        h3#probability-fourteen-results-and-special-result.qdb-blue.index-title 2.7. Probabilidad de acertar la Quiniela
                                         p.
-                                            Con toda esta información ya tenemos suficientes datos para saber aproximadamente cuál es la probabilidad de
-                                            acertar los 15 resultados de la quiniela. Para ello hay que multiplicar a la Probabilidad (14 aciertos) la
-                                            Probabilidad (Pleno al 15). Así pues, tenemos:
+                                            Para calcular la probabilidad de acertar la <b>Quiniela</b> tenemos que, ahora sí, contemplar el resultado
+                                            del pleno al quince. Tenemos que partir de la fórmula inicial y multiplicar las probabilidades de acertar por
+                                            separado los 2 signos del pleno.
+                                        div.text-center.v-margin
+                                            span Probabilidad (15 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 3 <sup>14</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 4
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 4
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 3 <sup>14</sup>
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 4 <sup>2</sup>
+                                        div.text-center.v-margin
+                                            span
+                                                b Probabilidad (15 aciertos)
+                                            span.equal
+                                                b =
+                                            div.fraction
+                                                span.fup
+                                                    b 1
+                                                span.fdn
+                                                    b 3 <sup>14</sup>
+                                            span.multiplication
+                                                b &#x00D7;
+                                            div.fraction
+                                                span.fup
+                                                    b 1
+                                                span.fdn
+                                                    b 16
+
+                                        h3#probability-summary.qdb-blue.index-title 2.8. Resumen de probabilidades de la Quiniela por categoría
+
+                                        p.
+                                            Una vez que hemos realizado todos los planteamientos tan sólo tenemos que resolver de forma exacta las
+                                            fracciones para determinar la probabilidad de cada categoría:
                                         div.table-section
-                                            table.table.table-bordered
-                                                thead
-                                                    tr
-                                                        th Aciertos
-                                                        th Probabilidad
-                                                tbody
-                                                    tr
-                                                        td.align-middle 15
-                                                        td
-                                                            div.fraction
-                                                                span.fup
-                                                                    b 1
-                                                                span.fdn
-                                                                    b 3 <sup>14</sup>
-                                                            span
-                                                                b &#x00D7;
-                                                            div.fraction
-                                                                span.fup
-                                                                    b 1
-                                                                span.fdn
-                                                                    b 4<sup>2</sup>
-                                                            span
-                                                                b.
-                                                                    =
-                                                            div.fraction
-                                                                span.fup
-                                                                    b 1
-                                                                span.fdn
-                                                                    b 4782969
-                                                            span
-                                                                b &#x00D7;
-                                                            div.fraction
-                                                                span.fup
-                                                                    b 1
-                                                                span.fdn
-                                                                    b 16
-                                                            span
-                                                                b.
-                                                                    =
-                                                            div.fraction
-                                                                span.fup
-                                                                    b 1
-                                                                span.fdn
-                                                                    b 76527504
+                                            div.table-responsive
+                                                table.table.table-bordered
+                                                    thead
+                                                        tr
+                                                            th Categoría
+                                                            th Aciertos
+                                                            th Probabilidad
+                                                    tbody
+                                                        tr
+                                                            td.align-middle Especial
+                                                            td.align-middle 14 + Pleno al 15
+                                                            td
+                                                                div.fraction
+                                                                    span.fup
+                                                                        b 1
+                                                                    span.fdn
+                                                                        b 3 <sup>14</sup>
+                                                                span
+                                                                    b &#x00D7;
+                                                                div.fraction
+                                                                    span.fup
+                                                                        b 1
+                                                                    span.fdn
+                                                                        b 4<sup>2</sup>
+                                                                span
+                                                                    b.
+                                                                        =
+                                                                div.fraction
+                                                                    span.fup
+                                                                        b 1
+                                                                    span.fdn
+                                                                        b 4782969
+                                                                span
+                                                                    b &#x00D7;
+                                                                div.fraction
+                                                                    span.fup
+                                                                        b 1
+                                                                    span.fdn
+                                                                        b 16
+                                                                span
+                                                                    b.
+                                                                        =
+                                                                div.fraction
+                                                                    span.fup
+                                                                        b 1
+                                                                    span.fdn
+                                                                        b 76527504
+                                                                span.equal
+                                                                    b.
+                                                                        &#x2248;
+                                                                span
+                                                                    b 0.000000013
+                                                        tr
+                                                            td.align-middle 1ª Categoría
+                                                            td.align-middle 14
+                                                            td
+                                                                div.fraction
+                                                                    span.fup
+                                                                        b 1
+                                                                    span.fdn
+                                                                        b 3 <sup>14</sup>
+                                                                span
+                                                                    b.
+                                                                        =
+                                                                div.fraction
+                                                                    span.fup
+                                                                        b 1
+                                                                    span.fdn
+                                                                        b 4782969
+                                                                span.equal
+                                                                    b &#x2248;
+                                                                span
+                                                                    b 0,0000002
+                                                        tr
+                                                            td.align-middle 2ª Categoría
+                                                            td.align-middle 13
+                                                            td
+                                                                div.fraction
+                                                                    span.fup
+                                                                        b 2
+                                                                    span.fdn
+                                                                        b 3 <sup>14</sup>
+                                                                span.multiplication
+                                                                    b &#x00D7;
+                                                                span
+                                                                    b 14
+                                                                span.equal
+                                                                    b.
+                                                                        =
+                                                                div.fraction
+                                                                    span.fup
+                                                                        b 2
+                                                                    span.fdn
+                                                                        b 4782969
+                                                                span.multiplication
+                                                                    b &#x00D7;
+                                                                span
+                                                                    b 14
+                                                                span.equal
+                                                                    b &#x2248;
+                                                                span
+                                                                    b 0.0000059
+                                                        tr
+                                                            td.align-middle 3ª Categoría
+                                                            td.align-middle 12
+                                                            td
+                                                                div.fraction
+                                                                    span.fup
+                                                                        b 2 <sup>2</sup>
+                                                                    span.fdn
+                                                                        b 3 <sup>14</sup>
+                                                                span.multiplication
+                                                                    b &#x00D7;
+                                                                span
+                                                                    b 91
+                                                                span.equal
+                                                                    b.
+                                                                        =
+                                                                div.fraction
+                                                                    span.fup
+                                                                        b 4
+                                                                    span.fdn
+                                                                        b 4782969
+                                                                span.multiplication
+                                                                    b &#x00D7;
+                                                                span
+                                                                    b 91
+                                                                span.equal
+                                                                    b &#x2248;
+                                                                span
+                                                                    b 0.000076
+                                                        tr
+                                                            td.align-middle 4ª Categoría
+                                                            td.align-middle 11
+                                                            td
+                                                                div.fraction
+                                                                    span.fup
+                                                                        b 2 <sup>3</sup>
+                                                                    span.fdn
+                                                                        b 3 <sup>14</sup>
+                                                                span.multiplication
+                                                                    b &#x00D7;
+                                                                span
+                                                                    b 364
+                                                                span.equal
+                                                                    b.
+                                                                        =
+                                                                div.fraction
+                                                                    span.fup
+                                                                        b 8
+                                                                    span.fdn
+                                                                        b 4782969
+                                                                span.multiplication
+                                                                    b &#x00D7;
+                                                                span
+                                                                    b 364
+                                                                span.equal
+                                                                    b &#x2248;
+                                                                span
+                                                                    b 0.00061
+                                                        tr
+                                                            td.align-middle 5ª Categoría
+                                                            td.align-middle 10
+                                                            td
+                                                                div.fraction
+                                                                    span.fup
+                                                                        b 2 <sup>4</sup>
+                                                                    span.fdn
+                                                                        b 3 <sup>14</sup>
+                                                                span.multiplication
+                                                                    b &#x00D7;
+                                                                span
+                                                                    b 1001
+                                                                span.equal
+                                                                    b.
+                                                                        =
+                                                                div.fraction
+                                                                    span.fup
+                                                                        b 16
+                                                                    span.fdn
+                                                                        b 4782969
+                                                                span.multiplication
+                                                                    b &#x00D7;
+                                                                span
+                                                                    b 1001
+                                                                span.equal
+                                                                    b &#x2248;
+                                                                span
+                                                                    b 0.0033
 
-
-                                                            span
-                                                                b.
-                                                                    &#x2248; 0,000000013
 
                                     div.main-card-content(style="word-wrap: break-word;")#sources
                                         div.main-card-name(style="margin-top: 30px")

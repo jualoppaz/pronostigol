@@ -929,3 +929,50 @@ ul.list-unstyled ul {
 .bold {
     font-weight: bold;
 }
+
+div.combination {
+    font-size: 18px;
+    display: inline-block;
+}
+
+div.combination span.combination-indexes {
+    position: absolute;
+}
+
+div.combination span.combination-indexes>sup {
+    left: 2px;
+    top: 0;
+    display: block;
+    position: relative;
+    line-height: 15px;
+    font-size: 11px;
+}
+
+div.combination span.combination-indexes>sub {
+    left: 2px;
+    top: 0;
+    display: block;
+    position: relative;
+    line-height: 15px;
+    font-size: 11px;
+}
+
+div.combination+* {
+    margin-left: 15px;
+}
+
+div.combination+span.multiplication,
+div.combination+span.equal {
+    margin-left: 15px;
+}
+
+span.multiplication,
+span.equal {
+    margin: 0 0.5em 0;
+    vertical-align: middle;
+}
+
+.v-margin {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
