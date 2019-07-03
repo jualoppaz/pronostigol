@@ -89,7 +89,7 @@ block content
                                         p.
                                             Para saber la probabilidad de acierto de cada bola usaremos la <b>Regla de Laplace</b>,
                                             que dice lo siguiente:
-                                        div.text-center
+                                        div.text-center.v-margin
                                             span
                                                 b Probabilidad
                                             span.equal =
@@ -106,22 +106,26 @@ block content
                                         p.qdb-black.
                                             Para saber cuántas combinaciones posibles hay tiraremos de combinatoria. La fórmula para saber cuántas combinaciones
                                             de <b>m</b> elementos tomados de <b>n</b> en <b>n</b> elementos es:
-                                        div.text-center
+                                        div.text-center.v-margin
                                             div.combination
-                                                | C
+                                                b C
                                                 span.combination-indexes
-                                                    sup n
-                                                    sub m
-                                            span.equal.
-                                                =
+                                                    sup
+                                                        b n
+                                                    sub
+                                                        b m
+                                            span.equal
+                                                b =
                                             div.fraction
-                                                span.fup m!
-                                                span.fdn n! &#x00D7; (m - n)!
+                                                span.fup
+                                                    b m!
+                                                span.fdn
+                                                    b n! &#x00D7; (m - n)!
 
 
                                         p.qdb-black.
                                             En este caso, queremos saber cuántas combinaciones de 6 números hay sobre 49 posibles. El cálculo sería el siguiente:
-                                        div.text-center
+                                        div.text-center.v-margin
                                             div.combination
                                                 | C
                                                 span.combination-indexes
@@ -159,7 +163,7 @@ block content
                                             probabilidad de acertar un número, multiplicándola por la probabilidad del siguiente acierto, lo cual implica
                                             restar un acierto posible y una bola del total, y nuevamente por la probabilidad del tercer acierto.
                                             Por tanto, los cálculos serían los siguientes:
-                                        div.text-center
+                                        div.text-center.v-margin
                                             span Probabilidad (3 ó más aciertos)
                                             span.equal =
                                             div.fraction
@@ -177,7 +181,7 @@ block content
                                             Pero claro, estamos incluyendo las probabilidades de obtener más aciertos de los que buscamos, que son 3.
                                             Por tanto, si queremos precisar tenemos que añadir la restricción de fallar las 3 bolas restantes.
                                             De este modo tenemos:
-                                        div.text-center
+                                        div.text-center.v-margin
                                             span Probabilidad (3 aciertos)
                                             span.equal =
                                             div.fraction
@@ -214,7 +218,7 @@ block content
                                             que tiene nuestra apuesta nos valen todas aquellas combinaciones que tengan 3 de esas 6. Por tanto, para determinar la
                                             probabilidad real habrá que multiplicar el resultado anterior por la combinación de las 6 bolas que significan un acierto
                                             tomadas de 3 en 3, es decir.
-                                        div.text-center
+                                        div.text-center.v-margin
                                             span Probabilidad (3 aciertos)
                                             span.equal =
                                             div.combination
@@ -249,7 +253,7 @@ block content
                                         p.qdb-black.
                                             En el caso de la probabilidad exacta de obtener 4 aciertos podemos extender el cálculo anterior, imponiendo
                                             las restricciones de acertar 4 bolas pero fallando las 2 últimas. Así pues, los cálculos serían los que siguen:
-                                        div.text-center
+                                        div.text-center.v-margin
                                             span Probabilidad (4 aciertos)
                                             span.equal =
                                             div.fraction
@@ -283,7 +287,7 @@ block content
                                         p.qdb-black.
                                             Tal y como se comentó en el apartado anterior, debemos incluir aquellas combinaciones en las que las bolas acertadas varíen,
                                             ya que no nos importa qué combinación de las posibles sea la resultante. En este caso los cálculos serían los siguientes:
-                                        div.text-center
+                                        div.text-center.v-margin
                                             span Probabilidad (4 aciertos)
                                             span.equal =
                                             div.combination
@@ -317,7 +321,7 @@ block content
                                         p.qdb-black.
                                             Este caso es un poco peculiar en comparación con el resto. Siguiendo con el razonamiento previo uno puede pensar que el
                                             inicio de los cálculos sería el siguiente:
-                                        div.text-center
+                                        div.text-center.v-margin
                                             span Probabilidad (5 aciertos)
                                             span.equal =
                                             div.fraction
@@ -350,7 +354,7 @@ block content
                                             Pero en esta ocasión no es los mismo acertarlo que fallarlo. Por tanto, tenemos que imponer la condición de fallar el
                                             complementario para centrarnos en los 5 aciertos exactos. Dicho esto, tendríamos que realizar el siguiente ajuste:
 
-                                        div.text-center
+                                        div.text-center.v-margin
                                             span Probabilidad (5 aciertos)
                                             span.equal =
                                             div.fraction
@@ -390,7 +394,7 @@ block content
                                         p.qdb-black.
                                             Realizado este ajuste, ahora sí podemos aplicar la lógica anterior de las combinaciones de los números,
                                             puesto que nos da igual cuál sea la bola no acertada:
-                                        div.text-center
+                                        div.text-center.v-margin
                                             span Probabilidad (5 aciertos)
                                             span.equal =
                                             div.combination
@@ -424,7 +428,7 @@ block content
                                         p.qdb-black.
                                             Los cálculos para determinar la probabilidad de acertar 5 números y el complementario son similares al caso anterior, con la diferencia de que
                                             en éste sí tenemos que acertar el complementario: no nos vale fallar la séptima bola.
-                                        div.text-center
+                                        div.text-center.v-margin
                                             span Probabilidad (5 aciertos y el complementario)
                                             span.equal =
                                             div.fraction
@@ -466,7 +470,7 @@ block content
                                             Como es ya habitual, no nos importa cuál de las 6 bolas sea la no acertada. El resto de los cálculos coinciden con el caso anterior
                                             tal y como se puede comprobar:
 
-                                        div.text-center
+                                        div.text-center.v-margin
                                             span Probabilidad (5 aciertos y el complementario)
                                             span.equal =
                                             div.combination
@@ -496,7 +500,7 @@ block content
                                             Este caso es el más sencillo de calcular de todos, puesto que para acertar la <b>Bonoloto</b> es necesario que acertemos todas
                                             y cada una de las 6 bolas resultantes, sin oportunidad de fallo. Así pues, no hay que tener en cuenta ningún tipo de
                                             casuística de distinto orden de números, ni complementario, etc.
-                                        div.text-center
+                                        div.text-center.v-margin
                                             span Probabilidad (6 aciertos)
                                             span.equal =
                                             div.fraction
@@ -537,7 +541,7 @@ block content
                                         p.qdb-black.
                                             Como se ha comentado anteriormente, en el reintegro hay 10 bolas numeradas del 0 al 9.
                                             Como sólo nos vale acertar una de ellas, la probabilidad de acertar el reintegro es:
-                                        div.text-center
+                                        div.text-center.v-margin
                                             span Probabilidad (reintegro)
                                             span.equal =
                                             div.fraction
