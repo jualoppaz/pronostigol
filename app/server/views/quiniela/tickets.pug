@@ -5,7 +5,6 @@ block head
     meta(name="description", content="Quiniela. Histórico de sorteos de la Quiniela")
     link(rel="canonical", href="http://www.pronostigol.es/quiniela/sorteos")
     link(rel="stylesheet", href="/css/quiniela.css")
-    link(rel="stylesheet", href="/css/backgroundImage.css")
 
 block content
     div#wrap(data-ng-app="qdb")
@@ -47,17 +46,24 @@ block content
                                     div.col-md-2.col-sm-2.col-xs-6
                                         input(type="number", min="1", data-ng-model="ticketsPerPage").form-control
 
-                                table.table.tabla-quinielas
-                                    thead
-                                        tr
-                                            th Jornada
-                                            th Modalidad
-                                            th Fecha
-                                    tbody
-                                        tr(data-ng-repeat="ticket in tickets")
-                                            td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.jornada}}").pointer
-                                            td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.modalidad}}").pointer
-                                            td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}").pointer
+                                div.table-responsive
+                                    table.table.tabla-quinielas
+                                        thead
+                                            tr
+                                                th Jornada
+                                                th Modalidad
+                                                th Fecha
+                                                th(data-ng-show="usuarioEstaLogueado && tickets[0].precio != null", data-ng-cloak) Apostado
+                                                th(data-ng-show="usuarioEstaLogueado && tickets[0].precio != null", data-ng-cloak) Premio
+                                        tbody
+                                            tr(data-ng-repeat="ticket in tickets")
+                                                td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.jornada}}").pointer.align-middle
+                                                td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.modalidad}}").pointer.align-middle
+                                                td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}").pointer.align-middle
+                                                td(data-ng-show="usuarioEstaLogueado && ticket.precio != null", data-ng-cloak).align-middle
+                                                    span
+                                                        i.fa.fa-2x(ng-class="{'fa-check color-green': apuestaRealizada(ticket),'fa-close color-red': !apuestaRealizada(ticket)}")
+                                                td(data-ng-show="usuarioEstaLogueado && ticket.precio != null", data-ng-cloak, data-ng-bind="getPrize(ticket)", ng-class="{'color-green bold': ticketHasPrize(ticket)}").align-middle
 
                                 div.text-center
                                     uib-pagination(
@@ -80,8 +86,10 @@ block scripts
     script(src='/js/jquery.js')
     script(src='/js/bootstrap.js')
     script(src='/js/angular.js')
+    script(src='/js/angular/i18n/angular-locale_es-es.js')
     script(src='/js/angular/services.js')
     script(src='/js/angular/loguedUser.js')
     script(src='/js/angular/quiniela/tickets.js')
     script(src='/js/angular/navbar.js')
     script(src='/js/angular/ui-bootstrap-tpls-1.3.3.js')
+    script(src="/bower_components/angular-ui-carousel/dist/ui-carousel.js")

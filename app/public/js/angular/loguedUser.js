@@ -10,7 +10,8 @@ var app = angular.module("qdb", [
     "quiniela",
     "primitiva",
     "gordo",
-    "detectAdblock"
+    "detectAdblock",
+    "ui.carousel"
 ]);
 
 app.config(function(uiSelectConfig, adblockProvider) {
@@ -65,8 +66,53 @@ function Controller($scope, UserService, $http, $window) {
     $scope.redirigir = function() {
         $window.location.reload();
     };
+
+    $scope.slides = [
+        {
+            name: "¿Cuándo me va a tocar?",
+            img: "/img/recommended_web-cuando_me_va_a_tocar.png",
+            url: "https://www.cuandomevaatocar.com"
+        },
+        {
+            name: "Estadística para todos",
+            img: "/img/recommended_web-estadistica_para_todos.png",
+            url:
+                "http://www.estadisticaparatodos.es/taller/loterias/loterias.html"
+        },
+        {
+            name: "Combinación ganadora",
+            img: "/img/recommended_web-combinacion_ganadora.png",
+            url: "https://www.combinacionganadora.com/"
+        },
+        {
+            name: "LOTERIAS.COM",
+            img: "/img/recommended_web-loterias.com.ico",
+            url: "https://www.loterias.com"
+        }
+    ];
 }
 
-app.run(function(adblock) {
-    adblock.detect();
-});
+app.run([
+    "Carousel",
+    "adblock",
+    function(Carousel, adblock) {
+        adblock.detect();
+
+        Carousel.setOptions({
+            arrows: true,
+            autoplay: false,
+            autoplaySpeed: 3000,
+            cssEase: "ease",
+            dots: false,
+
+            easing: "linear",
+            fade: false,
+            infinite: true,
+            initialSlide: 0,
+
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            speed: 500
+        });
+    }
+]);

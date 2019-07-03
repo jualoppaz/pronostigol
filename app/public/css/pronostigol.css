@@ -118,7 +118,7 @@
 }
 
 a {
-    font-size: 18px !important;
+    font-size: 16px !important;
 }
 
 span.caramelo {
@@ -238,10 +238,8 @@ nav.navbar-inner {
 
 .main-card-description>p {
     padding-left: 15px;
-    font-size: 16px;
+    font-size: 14px;
     text-align: justify;
-    margin-left: 3px;
-    margin-right: 3px;
     height: auto;
 }
 
@@ -251,10 +249,6 @@ nav.navbar-inner {
 
 main {
     padding-bottom: 0 !important;
-}
-
-h3 {
-    font-size: 18px;
 }
 
 .separador-horizontal {
@@ -400,7 +394,7 @@ td {
     color: #285e8e !important;
 }
 
-.pointer:hover {
+.pointer {
     cursor: pointer !important;
 }
 
@@ -451,7 +445,6 @@ h1.red {
 
 .qdb-blue {
     color: #0480be !important;
-    font-size: 18px !important;
 }
 
 .title-qdb-blue {
@@ -474,9 +467,9 @@ h1.red {
     font-size: 18px !important;
 }
 
-.qdb-black {
+.qdb-black,
+.qdb-black:hover {
     color: #2b2b2b !important;
-    font-size: 18px !important;
 }
 
 .border-qdb {
@@ -603,10 +596,6 @@ label {
 
 .cookies-parrafo .fa-quote-right {
     text-indent: 0;
-}
-
-.main-card-content {
-    font-family: "Abel", sans-serif !important;
 }
 
 .espacio-letras span {
@@ -961,6 +950,10 @@ ul.nav.nav-tabs li a {
     color: #0480be;
 }
 
+.logo-juego .titulo-logo-juego {
+    font-size: 70px;
+}
+
 .titulo-logo-pronostigol,
 .titulo-logo-juego {
     display: table-cell;
@@ -977,6 +970,13 @@ ul.nav.nav-tabs li a {
     font-size: 100px;
     width: 144px;
     height: 144px;
+}
+
+@media screen and (min-width: 768px) {
+    span.logo-juego {
+        font-size: 70px !important;
+        height: 144px;
+    }
 }
 
 .logo:hover {
@@ -1041,10 +1041,6 @@ ul.nav.nav-tabs li a {
     border: 3px solid #440044;
     background-color: white;
     color: #440044;
-}
-
-body {
-    background-color: #ddd !important;
 }
 
 @media screen and (min-width: 768px) {
@@ -1318,4 +1314,140 @@ ul#social-links li>a:hover {
 
 .page-header.black {
     border-bottom-color: #2b2b2b;
+}
+
+.fraction {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.fraction>span {
+    display: block;
+    padding: 0.15em 0.5em 0;
+}
+
+.fraction span.fdn {
+    border-top: thin solid black;
+}
+
+.align-middle {
+    vertical-align: middle;
+}
+
+ul.list-unstyled ul {
+    padding-left: 20px;
+}
+
+.index-title {
+    margin-top: 25px;
+    padding-left: 15px;
+}
+
+div.combination {
+    font-size: 18px;
+    display: inline-block;
+}
+
+div.combination span.combination-indexes {
+    position: absolute;
+}
+
+div.combination span.combination-indexes>sup {
+    left: 2px;
+    top: 0;
+    display: block;
+    position: relative;
+    line-height: 15px;
+    font-size: 11px;
+}
+
+div.combination span.combination-indexes>sub {
+    left: 2px;
+    top: 0;
+    display: block;
+    position: relative;
+    line-height: 15px;
+    font-size: 11px;
+}
+
+div.combination+* {
+    margin-left: 15px;
+}
+
+div.combination+span.multiplication,
+div.combination+span.equal {
+    margin-left: 15px;
+}
+
+#probabilities .table-section {
+    padding: 0 15px 0;
+}
+
+.align-middle {
+    vertical-align: middle !important;
+}
+
+span.multiplication,
+span.equal {
+    margin: 0 0.5em 0;
+    vertical-align: middle;
+}
+
+.v-margin {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#slides div.carousel-item {
+    text-align: center;
+}
+
+#slides div.carousel-item p {
+    font-size: 14px;
+    word-break: break-all;
+}
+
+#slides div.carousel-item div.img-container {
+    line-height: 100px;
+}
+
+@media screen and (min-width: 768px) {
+    #slides div.carousel-item p {
+        font-size: 22px;
+    }
+
+    #slides div.carousel-item div.img-container {
+        line-height: 150px;
+    }
+}
+
+#slides div.carousel-item div.img-container img {
+    margin: 0 auto;
+    max-width: 80%;
+}
+
+#recommended-webs>div>span {
+    font-size: 26px;
+}
+
+ui-carousel .carousel-btn i {
+    color: #0480be;
+    cursor: pointer;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.color-red {
+    color: red;
+}
+
+.color-green {
+    color: green;
 }

@@ -3,3 +3,4 @@ node_modules
 .env
 .scannerwork
 /app/public/docs/
+bower_components

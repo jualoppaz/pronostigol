@@ -151,13 +151,13 @@ function Controller($scope, $http, $window, quiniela) {
     $scope.$watch(
         "quiniela.jornada",
         function(jornada) {
-            $scope.quiniela.jornada = "";
-
             var aux = "";
 
-            for (var i = 0; i < jornada.length && i < 2; i++) {
-                if ($scope.esNumero(jornada.charAt(i))) {
-                    aux += jornada.charAt(i);
+            if (jornada) {
+                for (var i = 0; i < jornada.length && i < 2; i++) {
+                    if ($scope.esNumero(jornada.charAt(i))) {
+                        aux += jornada.charAt(i);
+                    }
                 }
             }
 

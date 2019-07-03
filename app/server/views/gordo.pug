@@ -5,7 +5,6 @@ block head
     meta(name="description", content="Gordo de la Primitiva. Histórico de sorteos y consulta de estadísticas y resultados de el Gordo de Primitiva")
     meta(name="keywords", content="estadísticas gordo primitiva, histórico gordo primitiva, resultados gordo primitiva")
     link(rel="canonical", href="http://www.pronostigol.es/gordo")
-    link(rel="stylesheet", href="/css/backgroundImage.css")
     link(rel="stylesheet", href="/css/pronostigol.css")
 
 
@@ -30,17 +29,875 @@ block content
                             script (adsbygoogle = window.adsbygoogle || []).push({});
 
                         div.col-md-8.col-sm-12.col-xs-12(style="margin-top: 30px")
-                            div.col-xs-12.panel.panel-body.main-card.border-gordo#bienvenido
+                            div.col-xs-12.col-sm-8.col-sm-offset-2.panel.panel-.border-qdb.border-gordo
+                                div(style="word-wrap: break-word;")
+                                    h2.text-center Índice
+                                    div.main-card-description
+                                        ul.list-unstyled
+                                            li
+                                                a.qdb-black(href="#introduction") 1. Introducción
+                                            li
+                                                a.qdb-black(href="#probabilities") 2. Probabilidades
+                                                ul.list-unstyled
+                                                    li
+                                                        a.qdb-black(href="#probability-two-numbers") 2.1. Probabilidad de acertar 2 números en El Gordo de la Primitiva
+                                                    li
+                                                        a.qdb-black(href="#probability-two-numbers-and-reimbursement") 2.2. Probabilidad de acertar 2 números y el número clave en El Gordo de la Primitiva
+                                                    li
+                                                        a.qdb-black(href="#probability-three-numbers") 2.3. Probabilidad de acertar 3 números en El Gordo de la Primitiva
+                                                    li
+                                                        a.qdb-black(href="#probability-three-numbers-and-reimbursement") 2.4. Probabilidad de acertar 3 números y el número clave en El Gordo de la Primitiva
+                                                    li
+                                                        a.qdb-black(href="#probability-four-numbers") 2.5. Probabilidad de acertar 4 números en El Gordo de la Primitiva
+                                                    li
+                                                        a.qdb-black(href="#probability-four-numbers-and-reimbursement") 2.6. Probabilidad de acertar 4 números y el número clave en El Gordo de la Primitiva
+                                                    li
+                                                        a.qdb-black(href="#probability-five-numbers") 2.7. Probabilidad de acertar 5 números en El Gordo de la Primitiva
+                                                    li
+                                                        a.qdb-black(href="#probability-five-numbers-and-reimbursement") 2.8. Probabilidad de acertar El Gordo de la Primitiva
+                                                    li
+                                                        a.qdb-black(href="#probability-reimbursement") 2.9. Probabilidad de acertar el número clave en El Gordo de la Primitiva
+                                                    li
+                                                        a.qdb-black(href="#probability-summary") 2.10. Resumen de probabilidades de El Gordo de la Primitiva por categoría
+                                            li
+                                                a.qdb-black(href="#sources") 3. Fuentes
+                            div.col-xs-12.panel.panel-body.border-qdb.border-gordo#introduction
                                 div.main-card-content(style="word-wrap: break-word;")
                                     div.main-card-name
                                         a.recipe-title
-                                            span.caramelo.qdb-red Bienvenido
+                                            h2.caramelo.qdb-black 1. Introducción
                                     div.main-card-description
-                                        p.qdb-red.
-                                            En esta secci&oacute;n encontrar&aacute;s multitud de estad&iacute;sticas asociadas al sorteo de El Gordo de la Primitiva de España.
+                                        p.qdb-black.
+                                            En esta secci&oacute;n encontrar&aacute;s multitud de estad&iacute;sticas asociadas al sorteo de <b>El Gordo de la Primitiva</b> de España.
                                             Podr&aacute;s conocer los resultados m&aacute;s repetidos, los reintegros que aparecen con m&aacute;s frecuencia y una amplia
                                             gama de consultas a realizar.
                                             De este modo te ser&aacute; mucho m&aacute;s sencillo realizar tus apuestas.
+
+                                div.main-card-content(style="word-wrap: break-word;")#probabilities
+                                    div.main-card-name
+                                        a.recipe-title
+                                            h2.caramelo.qdb-black 2. Probabilidades
+                                    div.main-card-description
+                                        p.
+                                            El formato de <b>El Gordo de la Primitiva</b> es muy diferente al de la <a href="/bonoloto">Bonoloto</a> y la <a href="/primitiva">Primitiva</a>,
+                                            desde los números que entran en juego hasta las categorías de premios.
+                                        p.
+                                            En el caso de <b>El Gordo de la Primitiva</b> destaca la existencia de un reintegro especial, el cual se denomina número clave, que otorga el
+                                            reembolso de cada apuesta pero también genera categorías de premios adicionales habiendo acertado, al menos, 2 números.
+                                        p.
+                                            A diferencia de la <a href="/bonoloto">Bonoloto</a> y la <a href="/primitiva">Primitiva</a>, en este sorteo los números posibles van del 1 al 54,
+                                            y en lugar de extraerse 6 bolas se extraen 5.
+                                        p.
+                                            Una vez más haremos uso de la <b>Regla de Laplace</b> para determinar la probabilidad de cada una de las categorías:
+                                        div.text-center.v-margin
+                                            span
+                                                b Probabilidad
+                                            span.equal
+                                                b =
+                                            div.fraction
+                                                span.fup
+                                                    b Casos favorables
+                                                span.fdn
+                                                    b Casos posibles
+                                        p.
+                                            Es posible consultar el detalle de las categorías de premios de <b>El Gordo de la Primitiva</b> en el siguiente
+                                            <a href="https://www.loteriasyapuestas.es/es/gordo-primitiva/como-se-juega/como-jugar-a-el-gordo-de-la-primitiva" target="_blank">enlace</a>.
+                                        p.qdb-black.
+                                            Nuevamente haremos uso de la combinatoria. Como ya es sabido, la fórmula para saber cuántas combinaciones de <b>m</b>
+                                            elementos tomados de <b>n</b> en <b>n</b> elementos es:
+                                        div.text-center.v-margin
+                                            div.combination
+                                                b C
+                                                span.combination-indexes
+                                                    sup
+                                                        b n
+                                                    sub
+                                                        b m
+                                            span.equal
+                                                b =
+                                            div.fraction
+                                                span.fup
+                                                    b m!
+                                                span.fdn
+                                                    b n! &#x00D7; (m - n)!
+                                        p.qdb-black.
+                                            Dado que hay 54 números y el resultado estará conformado por 5 y por el número clave, el cálculo sería el siguiente:
+                                        div.text-center.v-margin
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 5
+                                                    sub 54
+                                            span.multiplication &#x00D7;
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 1
+                                                    sub 10
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 54!
+                                                span.fdn 5! &#x00D7; (54 - 5)!
+                                            span.multiplication &#x00D7;
+                                            span 10
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 54!
+                                                span.fdn 5! &#x00D7; 49!
+                                            span.multiplication &#x00D7;
+                                            span 10
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 54 &#x00D7; 53 &#x00D7; 52 &#x00D7; 51 &#x00D7; 50 &#x00D7; <del>49!</del>
+                                                span.fdn 5 &#x00D7; 4 &#x00D7; 3 &#x00D7; 2 &#x00D7; <del>49!</del>
+                                            span.multiplication &#x00D7;
+                                            span 10
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 3795012000
+                                                span.fdn 120
+
+                                        p.
+                                            En <b>El Gordo de la Primitiva</b> hay algo más de <b>31 millones</b> de combinaciones posibles de 54 números tomados en
+                                            grupos de 5 y de 10 números clave escogidos individualmente.
+
+                                        h3#probability-two-numbers.qdb-black.index-title 2.1. Probabilidad de acertar 2 números en El Gordo de la Primitiva
+
+                                        p.
+                                            Éste es el caso base para calcular el resto de probabilidades de <b>El Gordo de la Primitiva</b>. Al igual que
+                                            se ha hecho en apartados anteriores, para conocer la probabilidad de obtener 2 aciertos hay que calcular por separado
+                                            la probabilidad de acertar un número, multiplicándola por la probabilidad del
+                                            siguiente acierto, lo cual implica restar un acierto posible y una bola del total. Como siempre decimos, con un ejemplo
+                                            se entiende mejor:
+                                        div.text-center.v-margin
+                                            span Probabilidad (2 ó más aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 5
+                                                span.fdn 54
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 4
+                                                span.fdn 53
+                                        p.
+                                            Como se ha indicado en ocasiones anteriores, estamos incluyendo las probabilidades de obtener más aciertos de los que
+                                            buscamos, que son 2. Dicho esto, si queremos precisar tenemos que añadir la restricción de fallar las 3 bolas restantes.
+                                        p.
+                                            En este juego en particular, al tener un papel tan importante el número clave de cara a la determinación de los premios,
+                                            también debemos incluir la restricción de fallar el número clave, puesto que estaríamos incluyendo también combinaciones
+                                            de la categoría superior. De este modo, cálculos exactos serían:
+                                        div.text-center.v-margin
+                                            span Probabilidad (2 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 5
+                                                span.fdn 54
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 4
+                                                span.fdn 53
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 49
+                                                span.fdn 52
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 48
+                                                span.fdn 51
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 47
+                                                span.fdn 50
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 9
+                                                span.fdn 10
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 19897920
+                                                span.fdn 3795012000
+                                        p.
+                                            Como era de esperar, al igual que en los juegos anteriores hay que tener presente que no sólo nos vale
+                                            una combinación, sino que nos vale cualquiera que contenga una de las combinaciones que tengan 2 de esos
+                                            5 números. Por tanto, para obtener la probabilidad real
+                                            habrá que multiplicar el resultado anterior por la combinación de las 5 bolas que significan un acierto
+                                            tomadas de 2 en 2:
+                                        div.text-center.v-margin
+                                            span Probabilidad (2 aciertos)
+                                            span.equal =
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 2
+                                                    sub 5
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 19897920
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            span 10
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 19897920
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 198979200
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup
+                                                    b 1658160
+                                                span.fdn
+                                                    b 31625100
+
+                                        h3#probability-two-numbers-and-reimbursement.qdb-black.index-title 2.2. Probabilidad de acertar 2 números y el número clave en El Gordo de la Primitiva
+                                        p.
+                                            Este caso es idéntico al anterior, con la diferencia de que tenemos que acertar el número clave. Para ello sólo tenemos que modificar
+                                            la última restricción. Por tanto, para saber la probabilidad de acertar 2 números y el número clave tenemos:
+                                        div.text-center.v-margin
+                                            span Probabilidad (2 aciertos y número clave)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 5
+                                                span.fdn 54
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 4
+                                                span.fdn 53
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 49
+                                                span.fdn 52
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 48
+                                                span.fdn 51
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 47
+                                                span.fdn 50
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 10
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 2210880
+                                                span.fdn 3795012000
+                                        p.
+                                            Nuevamente, puesto que no nos importa qué números sean los acertados dentro de nuestra apuesta, tenemos
+                                            que contemplar todas las posibles combinaciones de nuestros números.
+                                        div.text-center.v-margin
+                                            span Probabilidad (2 aciertos y número clave)
+                                            span.equal =
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 2
+                                                    sub 5
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2210880
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            span 10
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2210880
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 22108800
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup
+                                                    b 184240
+                                                span.fdn
+                                                    b 31625100
+
+                                        h3#probability-three-numbers.qdb-black.index-title 2.3. Probabilidad de acertar 3 números en El Gordo de la Primitiva
+                                        p.
+                                            Volvemos a tomar como ejemplo el caso inical. El único cambio que tenemos que realizar es
+                                            el acierto de la tercera bola, eliminando uno de los 3 fallos. Realizando los ajustes comentados
+                                            nos queda lo siguiente:
+                                        div.text-center.v-margin
+                                            span Probabilidad (3 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 5
+                                                span.fdn 54
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 4
+                                                span.fdn 53
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 3
+                                                span.fdn 52
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 49
+                                                span.fdn 51
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 48
+                                                span.fdn 50
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 9
+                                                span.fdn 10
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 1270080
+                                                span.fdn 3795012000
+                                        p.
+                                            A continuación debemos multiplicar las combinaciones de números válidos entre los que
+                                            apostamos escogiendo sólo 3, los cuales implicarán obtener premio en esta categoría.
+                                            Casualmente, la combinación de 5 elementos tomados de 3 en 3 coincide con el número
+                                            que obtenemos al combinar esos mismos 5 números de 2 en 2.
+                                        div.text-center.v-margin
+                                            span Probabilidad (3 aciertos)
+                                            span.equal =
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 3
+                                                    sub 5
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1270080
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            span 10
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1270080
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 12700800
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup
+                                                    b 105840
+                                                span.fdn
+                                                    b 31625100
+
+
+                                        h3#probability-three-numbers-and-reimbursement.qdb-black.index-title 2.4. Probabilidad de acertar 3 números y el número clave en El Gordo de la Primitiva
+                                        p.
+                                            Como ya nos podemos imaginar, para determinar la probabilidad de obtener 3 aciertos y el número clave sólo tendremos
+                                            que tomar como referencia el caso anterior y modificar la restricción del número clave, de modo que impongamos que
+                                            sea acertado en lugar de permitir los 9 resultados posibles que implican fallarlo.
+                                        div.text-center.v-margin
+                                            span Probabilidad (3 aciertos y número clave)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 5
+                                                span.fdn 54
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 4
+                                                span.fdn 53
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 3
+                                                span.fdn 52
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 49
+                                                span.fdn 51
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 48
+                                                span.fdn 50
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 10
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 141120
+                                                span.fdn 3795012000
+                                        p.
+                                            Al igual que en el apartado anterior, debemos multiplicar las combinaciones de números válidos
+                                            entre los que apostamos escogiendo sólo 3.
+                                        div.text-center.v-margin
+                                            span Probabilidad (3 aciertos y número clave)
+                                            span.equal =
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 3
+                                                    sub 5
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 141120
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            span 10
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 141120
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 1411200
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup
+                                                    b 11760
+                                                span.fdn
+                                                    b 31625100
+
+                                        h3#probability-four-numbers.qdb-black.index-title 2.5. Probabilidad de acertar 4 números en El Gordo de la Primitiva
+
+                                        p.
+                                            Para calcular la probabilidad de acertar 4 números en <b>El Gordo de la Primitiva</b> sólo tenemos que extender
+                                            los planteamientos anteriores, con la particularidad de que sólo se puede fallar uno de los 5
+                                            números.
+                                        div.text-center.v-margin
+                                            span Probabilidad (4 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 5
+                                                span.fdn 54
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 4
+                                                span.fdn 53
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 3
+                                                span.fdn 52
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2
+                                                span.fdn 51
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 49
+                                                span.fdn 50
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 9
+                                                span.fdn 10
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 52920
+                                                span.fdn 3795012000
+                                        p.
+                                            Como se ha hecho en apartados anteriores, debemos multiplicar la combinación de los 5 posibles
+                                            números que suponen un acierto tomados de 4 en 4.
+                                        div.text-center.v-margin
+                                            span Probabilidad (4 aciertos)
+                                            span.equal =
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 4
+                                                    sub 5
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 52920
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            span 5
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 52920
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 264600
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup
+                                                    b 2205
+                                                span.fdn
+                                                    b 31625100
+
+                                        h3#probability-four-numbers-and-reimbursement.qdb-black.index-title 2.6. Probabilidad de acertar 4 números y el número clave en El Gordo de la Primitiva
+
+                                        p.
+                                            Una vez más, sólo tenemos que tomar como referencia el caso anterior y modificar la
+                                            restricción asociada al número clave, de modo que en lugar de contemplar los 9 posibles
+                                            números fallido añadamos el número que hemos apostado y que, por tanto, supone acertar el
+                                            número clave.
+                                        div.text-center.v-margin
+                                            span Probabilidad (4 aciertos y número clave)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 5
+                                                span.fdn 54
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 4
+                                                span.fdn 53
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 3
+                                                span.fdn 52
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2
+                                                span.fdn 51
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 49
+                                                span.fdn 50
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 10
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 5880
+                                                span.fdn 3795012000
+                                        p.
+                                            Al igual que hemos hecho en el apartado anterior, debemos contemplar las combinaciones
+                                            de los 5 posibles números que suponen un acierto tomados de 4 en 4.
+                                        div.text-center.v-margin
+                                            span Probabilidad (4 aciertos y número clave)
+                                            span.equal =
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 4
+                                                    sub 5
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 5880
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            span 5
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 5880
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 29400
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup
+                                                    b 245
+                                                span.fdn
+                                                    b 31625100
+
+                                        h3#probability-five-numbers.qdb-black.index-title 2.7. Probabilidad de acertar 5 números en El Gordo de la Primitiva
+
+                                        p.
+                                            Nos vamos acercando a la máxima categoría de este juego. Para calcular esta probabilidad tenemos que imponer el
+                                            acierto de los 5 números apostados pero fallando el número clave. Expresado de forma matemática tenemos:
+                                        div.text-center.v-margin
+                                            span Probabilidad (5 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 5
+                                                span.fdn 54
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 4
+                                                span.fdn 53
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 3
+                                                span.fdn 52
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2
+                                                span.fdn 51
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 50
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 9
+                                                span.fdn 10
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 1080
+                                                span.fdn 3795012000
+                                        p.
+                                            Como en ocasiones anteriores, debemos contemplar las combinaciones
+                                            de los 5 posibles números que suponen un acierto tomados de 5 en 5. Como es evidente,
+                                            sólo nos valdrá una posible combinación de los números, que será la ganadora.
+                                        div.text-center.v-margin
+                                            span Probabilidad (5 aciertos)
+                                            span.equal =
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 5
+                                                    sub 5
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1080
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            span 1
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1080
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 1080
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup
+                                                    b 9
+                                                span.fdn
+                                                    b 31625100
+
+                                        h3#probability-five-numbers-and-reimbursement.qdb-black.index-title 2.8. Probabilidad de acertar El Gordo de la Primitiva
+
+                                        p.
+                                            Ahora sí hemos llegado a lo que realmente nos interesa, y es saber la probabilidad de acertar El Gordo de la Primitiva.
+                                            Para calcularlo sólo tenemos que partir del cálculo del apartado anterior, y modificar la probabilidad del número clave de
+                                            modo que, en esta ocasión, sí lo acertemos.
+                                        div.text-center.v-margin
+                                            span Probabilidad (5 aciertos y número clave)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 5
+                                                span.fdn 54
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 4
+                                                span.fdn 53
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 3
+                                                span.fdn 52
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2
+                                                span.fdn 51
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 50
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 10
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 120
+                                                span.fdn 3795012000
+                                        p.
+                                            Al igual que en el apartado anterior debemos contemplar las combinaciones
+                                            de los 5 posibles números que suponen un acierto tomados de 5 en 5. Como se ha explicado anteriormente,
+                                            sabemos que el cálculo será 1 puesto que sólo la combinación de los 5 números ganadores será la
+                                            que nos valga para acertar El Gordo de la Primitiva.
+                                        div.text-center.v-margin
+                                            span Probabilidad (5 aciertos y número clave)
+                                            span.equal =
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 5
+                                                    sub 5
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 120
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            span 1
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 120
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 120
+                                                span.fdn 3795012000
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup
+                                                    b 1
+                                                span.fdn
+                                                    b 31625100
+
+                                        h3#probability-reimbursement.qdb-black.index-title 2.9. Probabilidad de acertar el número clave en El Gordo de la Primitiva
+
+                                        p.
+                                            También es interesante saber qué probabilidad tenemos de acertar el número clave en <b>El Gordo de la Primitiva</b>,
+                                            aunque el cálculo es muy sencillo.
+                                        div.text-center.v-margin
+                                            span Probabilidad (número clave)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup
+                                                    b 1
+                                                span.fdn
+                                                    b 10
+
+                                        h3#probability-summary.qdb-black.index-title 2.10. Resumen de probabilidades de El Gordo de la Primitiva por categoría
+                                        p.qdb-black.
+                                            Al igual que hemos hecho en otras secciones, una vez hechos todos los cálculos vamos a resumir los cálculos agrupados
+                                            por categoría de premio de <b>El Gordo de la Primitiva</b>.
+                                        div.table-section
+                                            table.table.table-bordered
+                                                thead
+                                                    tr
+                                                        th Categoría
+                                                        th Aciertos
+                                                        th Probabilidad
+                                                tbody
+                                                    tr
+                                                        td.align-middle 1ª Categoría
+                                                        td.align-middle 5 + Número Clave
+                                                        td
+                                                            div.fraction
+                                                                span.fup 1
+                                                                span.fdn 31625100
+                                                            span.equal &#x2248;
+                                                            span.result
+                                                                b 0.0000000316
+                                                    tr
+                                                        td.align-middle 2ª Categoría
+                                                        td.align-middle 5
+                                                        td
+                                                            div.fraction
+                                                                span.fup 9
+                                                                span.fdn 31625100
+                                                            span.equal &#x2248;
+                                                            span.result
+                                                                b 0.000000285
+                                                    tr
+                                                        td.align-middle 3ª Categoría
+                                                        td.align-middle 4 + Número Clave
+                                                        td
+                                                            div.fraction
+                                                                span.fup 245
+                                                                span.fdn 31625100
+                                                            span.equal &#x2248;
+                                                            span.result
+                                                                b 0.00000775
+                                                    tr
+                                                        td.align-middle 4ª Categoría
+                                                        td.align-middle 4
+                                                        td
+                                                            div.fraction
+                                                                span.fup 2205
+                                                                span.fdn 31625100
+                                                            span.equal &#x2248;
+                                                            span.result
+                                                                b 0.0000697
+                                                    tr
+                                                        td.align-middle 5ª Categoría
+                                                        td.align-middle 3 + Número Clave
+                                                        td
+                                                            div.fraction
+                                                                span.fup 11760
+                                                                span.fdn 31625100
+                                                            span.equal &#x2248;
+                                                            span.result
+                                                                b 0.000372
+                                                    tr
+                                                        td.align-middle 6ª Categoría
+                                                        td.align-middle 3
+                                                        td
+                                                            div.fraction
+                                                                span.fup 105840
+                                                                span.fdn 31625100
+                                                            span.equal &#x2248;
+                                                            span.result
+                                                                b 0.0033
+                                                    tr
+                                                        td.align-middle 7ª Categoría
+                                                        td.align-middle 2 + Número Clave
+                                                        td
+                                                            div.fraction
+                                                                span.fup 184240
+                                                                span.fdn 31625100
+                                                            span.equal &#x2248;
+                                                            span.result
+                                                                b 0.0058
+                                                    tr
+                                                        td.align-middle 8ª Categoría
+                                                        td.align-middle 2
+                                                        td
+                                                            div.fraction
+                                                                span.fup 1658160
+                                                                span.fdn 31625100
+                                                            span.equal &#x2248;
+                                                            span.result
+                                                                b 0.052
+                                                    tr
+                                                        td.align-middle Reintegro
+                                                        td.align-middle Número Clave
+                                                        td
+                                                            div.fraction
+                                                                span.fup 1
+                                                                span.fdn 10
+                                                            span.equal =
+                                                            span.result
+                                                                b 0.1
+                                div.main-card-content(style="word-wrap: break-word;")#sources
+                                    div.main-card-name
+                                        a.recipe-title
+                                            h2.qdb-black 3. Fuentes
+                                    div.main-card-description
+                                        p.
+                                            Para la redacción de esta página hemos utilizado información y datos de otras webs que nos han sido de gran utilidad.
+                                            Por orden de influencia destacamos:
+                                        div
+                                            ul
+                                                li
+                                                    a(href="http://www.estadisticaparatodos.es/taller/loterias/gordo.html", target="_blank") http://www.estadisticaparatodos.es/taller/loterias/gordo.html
+                                                li
+                                                    a(href="https://www.combinacionganadora.com/elgordo/probabilidades/", target="_blank") https://www.combinacionganadora.com/elgordo/probabilidades/
+
+
+
 
 
                         div.col-md-2.col-sm-12.col-xs-12(style="padding-bottom: 15px; padding-top: 30px")
@@ -57,11 +914,13 @@ block scripts
     script(src='/js/jquery.js')
     script(src='/js/bootstrap.js')
     script(src='/js/angular.js')
+    script(src='/js/angular/i18n/angular-locale_es-es.js')
     script(src='/js/angular/services.js')
     script(src='/js/angular/loguedUser.js')
     script(src='/js/angular/index.js')
     script(src='/js/angular/navbar.js')
     script(src='/js/angular/ui-bootstrap-tpls-1.3.3.js')
+    script(src="/bower_components/angular-ui-carousel/dist/ui-carousel.js")
 
     script.
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

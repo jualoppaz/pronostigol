@@ -2,10 +2,9 @@ extends layout
 
 block head
     title Bonoloto | Histórico de sorteos y consulta de estadísticas y resultados de la Bonoloto
-    meta(name="description", content="Bonoloto. Histórico de sorteos y consulta de estadísticas y resultados de lde Bonoloto")
+    meta(name="description", content="Bonoloto. Histórico de sorteos y consulta de estadísticas y resultados de la Bonoloto")
     meta(name="keywords", content="estadísticas bonoloto, histórico bonoloto, resultados bonoloto")
     link(rel="canonical", href="http://www.pronostigol.es/bonoloto")
-    link(rel="stylesheet", href="/css/backgroundImage.css")
     link(rel="stylesheet", href="/css/pronostigol.css")
 
 block content
@@ -29,17 +28,626 @@ block content
                             script (adsbygoogle = window.adsbygoogle || []).push({});
 
                         div.col-md-8.col-sm-12.col-xs-12(style="margin-top: 30px")
-                            div.col-xs-12.panel.panel-body.main-card.border-qdb.border-bonoloto#bienvenido
+
+                            div.col-xs-12.col-sm-8.col-sm-offset-2.panel.panel-body.border-bonoloto
+                                div(style="word-wrap: break-word;")
+                                    h2.text-center Índice
+                                    div.main-card-description
+                                        ul.list-unstyled
+                                            li
+                                                a.qdb-black(href="#introduction") 1. Introducción
+                                            li
+                                                a.qdb-black(href="#probabilities") 2. Probabilidades
+                                                ul.list-unstyled
+                                                    li
+                                                        a.qdb-black(href="#probability-three-numbers") 2.1. Probabilidad de acertar 3 números en la Bonoloto
+                                                    li
+                                                        a.qdb-black(href="#probability-four-numbers") 2.2. Probabilidad de acertar 4 números en la Bonoloto
+                                                    li
+                                                        a.qdb-black(href="#probability-five-numbers") 2.3. Probabilidad de acertar 5 números en la Bonoloto
+                                                    li
+                                                        a.qdb-black(href="#probability-five-numbers-and-complementary") 2.4. Probabilidad de acertar 5 números y el complementario en la Bonoloto
+                                                    li
+                                                        a.qdb-black(href="#probability-six-numbers") 2.5. Probabilidad de acertar la Bonoloto
+                                                    li
+                                                        a.qdb-black(href="#probability-reimbursement") 2.6. Probabilidad de acertar el reintegro de la Bonoloto
+                                                    li
+                                                        a.qdb-black(href="#probability-summary") 2.7. Resumen de probabilidades de la Bonoloto por categoría
+                                            li
+                                                a.qdb-black(href="#sources") 3. Fuentes
+
+                            div.col-xs-12.panel.panel-body.border-qdb.border-bonoloto#introduction
                                 div.main-card-content(style="word-wrap: break-word;")
                                     div.main-card-name
                                         a.recipe-title
-                                            span.caramelo.qdb-red Bienvenido
+                                            h2.caramelo.qdb-black 1. Introducción
                                     div.main-card-description
                                         p.qdb-black.
-                                            En esta secci&oacute;n encontrar&aacute;s multitud de estad&iacute;sticas asociadas al sorteo de la Bonoloto de España.
+                                            En esta secci&oacute;n encontrar&aacute;s multitud de estad&iacute;sticas asociadas al sorteo de la <b>Bonoloto</b> de España.
                                             Podr&aacute;s conocer los resultados m&aacute;s repetidos, los reintegros que aparecen con m&aacute;s frecuencia y una amplia
                                             gama de consultas a realizar.
                                             De este modo te ser&aacute; mucho m&aacute;s sencillo realizar tus apuestas.
+
+                                div.main-card-content(style="word-wrap: break-word;")#probabilities
+                                    div.main-card-name
+                                        a.recipe-title
+                                            h2.caramelo.qdb-black 2. Probabilidades
+                                    div.main-card-description
+                                        p.qdb-black.
+                                            En la <b>Bonoloto</b> se extraen 6 bolas de entre 49, numeradas del 1 al 49. Hay varias categorías de premios en función del
+                                            número de aciertos, las cuales pasan desde 3 aciertos a los 6.
+                                        p.qdb-black.
+                                            De forma adicional se extrae una séptima bola, la cual se denomina <b>complementario</b> y se utiliza para añadir una
+                                            categoría extra para aquellos que aciertan 5 bolas pero falla una, de modo que se les da una oportunidad para acertar la
+                                            séptima: no obtendrían el máximo premio posible pero sí un premio mayor a la categoría de 5 aciertos.
+                                        p.qdb-black.
+                                            También hay que destacar la existencia del <b>reintegro</b>. En cada sorteo, tras extraerse la bola que se corresponde con el
+                                            complementario, se extrae una bola de un bombo totalmente distinto. En dicho bombo hay 10 bolas, numeradas del 0 al 9.
+                                            El reintegro de cada apuesta es generado de forma aleatoria, por lo que no se puede escoger el número asociado. Si se
+                                            acierta dicho número en una apuesta obtendremos premio con el mismo valor que el importe de la apuesta, recuperando así nuestra
+                                            inversión.
+                                        p.
+                                            Para saber la probabilidad de acierto de cada bola usaremos la <b>Regla de Laplace</b>,
+                                            que dice lo siguiente:
+                                        div.text-center.v-margin
+                                            span
+                                                b Probabilidad
+                                            span.equal =
+                                            div.fraction
+                                                span.fup
+                                                    b Casos favorables
+                                                span.fdn
+                                                    b Casos posibles
+                                        p.
+                                            En la <b>Bonoloto</b> se obtiene premio cuando se aciertan, al menos, 3 de los 6 números resultantes en un sorteo, o bien
+                                            cuando se acierta el reintegro.
+                                            Para más info consultar el <b>Título V. Capítulo Segundo. Reparto de Premios</b> en el siguiente
+                                            <a href="https://www.loteriasyapuestas.es/f/loterias/documentos/normativa/normativa%20SELAE/BONOLOTO%20modif%2028%205%2015-3.pdf" target="_blank">enlace</a>.
+                                        p.qdb-black.
+                                            Para saber cuántas combinaciones posibles hay tiraremos de combinatoria. La fórmula para saber cuántas combinaciones
+                                            de <b>m</b> elementos tomados de <b>n</b> en <b>n</b> elementos es:
+                                        div.text-center.v-margin
+                                            div.combination
+                                                b C
+                                                span.combination-indexes
+                                                    sup
+                                                        b n
+                                                    sub
+                                                        b m
+                                            span.equal
+                                                b =
+                                            div.fraction
+                                                span.fup
+                                                    b m!
+                                                span.fdn
+                                                    b n! &#x00D7; (m - n)!
+
+
+                                        p.qdb-black.
+                                            En este caso, queremos saber cuántas combinaciones de 6 números hay sobre 49 posibles. El cálculo sería el siguiente:
+                                        div.text-center.v-margin
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 6
+                                                    sub 49
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 49!
+                                                span.fdn 6! &#x00D7; (49 - 6)!
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 49!
+                                                span.fdn 6! &#x00D7; 43!
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 49 &#x00D7; 48 &#x00D7; 47 &#x00D7; 46 &#x00D7; 45 &#x00D7; 44 &#x00D7; <del>43!</del>
+                                                span.fdn 6 &#x00D7; 5 &#x00D7; 4 &#x00D7; 3 &#x00D7; 2 &#x00D7; <del>43!</del>
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 10068347520
+                                                span.fdn 720
+
+                                        p.qdb-black.
+                                            Con estos cálculos podemos saber que hay casi <b>14 millones</b> de combinaciones posibles de 49 números tomados en
+                                            grupos de 6. Ahora ya podemos calcular las probabilidades de tener acierto en las distintas categorías de la <b>Bonoloto</b>.
+
+                                        h3#probability-three-numbers.qdb-black.index-title 2.1. Probabilidad de acertar 3 números en la Bonoloto
+
+                                        p.qdb-black.
+                                            Para saber la probabilidad exacta de obtener 3 aciertos calcularemos por separado la
+                                            probabilidad de acertar un número, multiplicándola por la probabilidad del siguiente acierto, lo cual implica
+                                            restar un acierto posible y una bola del total, y nuevamente por la probabilidad del tercer acierto.
+                                            Por tanto, los cálculos serían los siguientes:
+                                        div.text-center.v-margin
+                                            span Probabilidad (3 ó más aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 6
+                                                span.fdn 49
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 5
+                                                span.fdn 48
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 4
+                                                span.fdn 47
+                                        p.qdb-black.
+                                            Pero claro, estamos incluyendo las probabilidades de obtener más aciertos de los que buscamos, que son 3.
+                                            Por tanto, si queremos precisar tenemos que añadir la restricción de fallar las 3 bolas restantes.
+                                            De este modo tenemos:
+                                        div.text-center.v-margin
+                                            span Probabilidad (3 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 6
+                                                span.fdn 49
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 5
+                                                span.fdn 48
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 4
+                                                span.fdn 47
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 43
+                                                span.fdn 46
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 42
+                                                span.fdn 45
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 41
+                                                span.fdn 44
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 8885520
+                                                span.fdn 10068347520
+
+                                        p.qdb-black.
+                                            Sin embargo hemos pasado por alto un detalle importante, y es que no hay una sola combinación que nos sirva, ya que de 6 bolas
+                                            que tiene nuestra apuesta nos valen todas aquellas combinaciones que tengan 3 de esas 6. Por tanto, para determinar la
+                                            probabilidad real habrá que multiplicar el resultado anterior por la combinación de las 6 bolas que significan un acierto
+                                            tomadas de 3 en 3, es decir.
+                                        div.text-center.v-margin
+                                            span Probabilidad (3 aciertos)
+                                            span.equal =
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 3
+                                                    sub 6
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 8885520
+                                                span.fdn 10068347520
+                                            span.equal.
+                                                =
+                                            span 20
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 8885520
+                                                span.fdn 10068347520
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 177710400
+                                                span.fdn 10068347520
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 246820
+                                                span.fdn 13983816
+
+
+                                        h3#probability-four-numbers.qdb-black.index-title 2.2. Probabilidad de acertar 4 números en la Bonoloto
+                                        p.qdb-black.
+                                            En el caso de la probabilidad exacta de obtener 4 aciertos podemos extender el cálculo anterior, imponiendo
+                                            las restricciones de acertar 4 bolas pero fallando las 2 últimas. Así pues, los cálculos serían los que siguen:
+                                        div.text-center.v-margin
+                                            span Probabilidad (4 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 6
+                                                span.fdn 49
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 5
+                                                span.fdn 48
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 4
+                                                span.fdn 47
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 3
+                                                span.fdn 46
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 43
+                                                span.fdn 45
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 42
+                                                span.fdn 44
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 650160
+                                                span.fdn 10068347520
+                                        p.qdb-black.
+                                            Tal y como se comentó en el apartado anterior, debemos incluir aquellas combinaciones en las que las bolas acertadas varíen,
+                                            ya que no nos importa qué combinación de las posibles sea la resultante. En este caso los cálculos serían los siguientes:
+                                        div.text-center.v-margin
+                                            span Probabilidad (4 aciertos)
+                                            span.equal =
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 4
+                                                    sub 6
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 650160
+                                                span.fdn 10068347520
+                                            span.equal.
+                                                =
+                                            span 15
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 650160
+                                                span.fdn 10068347520
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 9752400
+                                                span.fdn 10068347520
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 13545
+                                                span.fdn 13983816
+
+                                        h3#probability-five-numbers.qdb-black.index-title 2.3. Probabilidad de acertar 5 números en la Bonoloto
+                                        p.qdb-black.
+                                            Este caso es un poco peculiar en comparación con el resto. Siguiendo con el razonamiento previo uno puede pensar que el
+                                            inicio de los cálculos sería el siguiente:
+                                        div.text-center.v-margin
+                                            span Probabilidad (5 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 6
+                                                span.fdn 49
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 5
+                                                span.fdn 48
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 4
+                                                span.fdn 47
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 3
+                                                span.fdn 46
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2
+                                                span.fdn 45
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 43
+                                                span.fdn 44
+
+                                        p.qdb-black.
+                                            No obstante, tenemos que ser conscientes de que hay una categoría de premios entre 5 aciertos y 6, en la cual interviene
+                                            el complementario. En las categorías previas nos daba igual incluirlo, puesto que no tenía relevancia de cara a los premios.
+                                            Pero en esta ocasión no es los mismo acertarlo que fallarlo. Por tanto, tenemos que imponer la condición de fallar el
+                                            complementario para centrarnos en los 5 aciertos exactos. Dicho esto, tendríamos que realizar el siguiente ajuste:
+
+                                        div.text-center.v-margin
+                                            span Probabilidad (5 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 6
+                                                span.fdn 49
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 5
+                                                span.fdn 48
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 4
+                                                span.fdn 47
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 3
+                                                span.fdn 46
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2
+                                                span.fdn 45
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup
+                                                    del 43
+                                                span.fdn 44
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 42
+                                                span.fdn
+                                                    del 43
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 30240
+                                                span.fdn 10068347520
+                                        p.qdb-black.
+                                            Realizado este ajuste, ahora sí podemos aplicar la lógica anterior de las combinaciones de los números,
+                                            puesto que nos da igual cuál sea la bola no acertada:
+                                        div.text-center.v-margin
+                                            span Probabilidad (5 aciertos)
+                                            span.equal =
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 5
+                                                    sub 6
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 30240
+                                                span.fdn 10068347520
+                                            span.equal.
+                                                =
+                                            span 6
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 30240
+                                                span.fdn 10068347520
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 181440
+                                                span.fdn 10068347520
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 252
+                                                span.fdn 13983816
+
+                                        h3#probability-five-numbers-and-complementary.qdb-black.index-title 2.4. Probabilidad de acertar 5 números y el complementario en la Bonoloto
+                                        p.qdb-black.
+                                            Los cálculos para determinar la probabilidad de acertar 5 números y el complementario son similares al caso anterior, con la diferencia de que
+                                            en éste sí tenemos que acertar el complementario: no nos vale fallar la séptima bola.
+                                        div.text-center.v-margin
+                                            span Probabilidad (5 aciertos y el complementario)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 6
+                                                span.fdn 49
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 5
+                                                span.fdn 48
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 4
+                                                span.fdn 47
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 3
+                                                span.fdn 46
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2
+                                                span.fdn 45
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup
+                                                    del 43
+                                                span.fdn 44
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn
+                                                    del 43
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 720
+                                                span.fdn 10068347520
+
+                                        p.qdb-black.
+                                            Como es ya habitual, no nos importa cuál de las 6 bolas sea la no acertada. El resto de los cálculos coinciden con el caso anterior
+                                            tal y como se puede comprobar:
+
+                                        div.text-center.v-margin
+                                            span Probabilidad (5 aciertos y el complementario)
+                                            span.equal =
+                                            div.combination
+                                                | C
+                                                span.combination-indexes
+                                                    sup 5
+                                                    sub 6
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 720
+                                                span.fdn 10068347520
+                                            span.equal.
+                                                =
+                                            span 6
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 720
+                                                span.fdn 10068347520
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 6
+                                                span.fdn 13983816
+
+                                        h3#probability-six-numbers.qdb-black.index-title 2.5. Probabilidad de acertar la Bonoloto
+                                        p.qdb-black.
+                                            Este caso es el más sencillo de calcular de todos, puesto que para acertar la <b>Bonoloto</b> es necesario que acertemos todas
+                                            y cada una de las 6 bolas resultantes, sin oportunidad de fallo. Así pues, no hay que tener en cuenta ningún tipo de
+                                            casuística de distinto orden de números, ni complementario, etc.
+                                        div.text-center.v-margin
+                                            span Probabilidad (6 aciertos)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 6
+                                                span.fdn 49
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 5
+                                                span.fdn 48
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 4
+                                                span.fdn 47
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 3
+                                                span.fdn 46
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 2
+                                                span.fdn 45
+                                            span.multiplication &#x00D7;
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 44
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 720
+                                                span.fdn 10068347520
+                                            span.equal.
+                                                =
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 13983816
+
+                                        h3#probability-reimbursement.qdb-black.index-title 2.6. Probabilidad de acertar el reintegro de la Bonoloto
+                                        p.qdb-black.
+                                            Como se ha comentado anteriormente, en el reintegro hay 10 bolas numeradas del 0 al 9.
+                                            Como sólo nos vale acertar una de ellas, la probabilidad de acertar el reintegro es:
+                                        div.text-center.v-margin
+                                            span Probabilidad (reintegro)
+                                            span.equal =
+                                            div.fraction
+                                                span.fup 1
+                                                span.fdn 10
+                                            span.equal.
+                                                =
+                                            span.result
+                                                b 0.1
+                                        h3#probability-summary.qdb-black.index-title 2.7. Resumen de probabilidades de la Bonoloto por categoría
+                                        p.qdb-black.
+                                            Una vez que se han realizado todos los cálculos, podemos finalizar esta sección con un resumen en el que
+                                            figuren todas y cada una de las categorías de premios de la <b>Bonoloto</b> junto con sus probabilidades.
+                                        div.table-section
+                                            table.table.table-bordered
+                                                thead
+                                                    tr
+                                                        th Categoría
+                                                        th Aciertos
+                                                        th Probabilidad
+                                                tbody
+                                                    tr
+                                                        td.align-middle 1ª Categoría
+                                                        td.align-middle 6
+                                                        td
+                                                            div.fraction
+                                                                span.fup 1
+                                                                span.fdn 13983816
+                                                            span.equal &#x2248;
+                                                            span.result
+                                                                b 0.00000007
+                                                    tr
+                                                        td.align-middle 2ª Categoría
+                                                        td.align-middle 5 + Complementario
+                                                        td
+                                                            div.fraction
+                                                                span.fup 6
+                                                                span.fdn 13983816
+                                                            span.equal &#x2248;
+                                                            span.result
+                                                                b 0.000000429
+                                                    tr
+                                                        td.align-middle 3ª Categoría
+                                                        td.align-middle 5
+                                                        td
+                                                            div.fraction
+                                                                span.fup 252
+                                                                span.fdn 13983816
+                                                            span.equal &#x2248;
+                                                            span.result
+                                                                b 0.000018
+                                                    tr
+                                                        td.align-middle 4ª Categoría
+                                                        td.align-middle 4
+                                                        td
+                                                            div.fraction
+                                                                span.fup 13545
+                                                                span.fdn 13983816
+                                                            span.equal &#x2248;
+                                                            span.result
+                                                                b 0.000969
+                                                    tr
+                                                        td.align-middle 5ª Categoría
+                                                        td.align-middle 3
+                                                        td
+                                                            div.fraction
+                                                                span.fup 246820
+                                                                span.fdn 13983816
+                                                            span.equal &#x2248;
+                                                            span.result
+                                                                b 0.017
+                                                    tr
+                                                        td.align-middle 6ª Categoría
+                                                        td.align-middle Reintegro
+                                                        td
+                                                            div.fraction
+                                                                span.fup 1
+                                                                span.fdn 10
+                                                            span.equal &#x2248;
+                                                            span.result
+                                                                b 0.1
+
+                                div.main-card-content(style="word-wrap: break-word;")#sources
+                                    div.main-card-name
+                                        a.recipe-title
+                                            h2.caramelo.qdb-black 3. Fuentes
+                                    div.main-card-description
+                                        p.
+                                            Para la redacción de esta página hemos utilizado información y datos de otras webs que nos han sido de gran utilidad.
+                                            Por orden de influencia destacamos:
+                                        div
+                                            ul
+                                                li
+                                                    a(href="http://www.estadisticaparatodos.es/taller/loterias/primitivas.html", target="_blank")  http://www.estadisticaparatodos.es/taller/loterias/primitivas.html
+                                                li
+                                                    a(href="https://www.combinacionganadora.com/primitiva/probabilidades/", target="_blank") https://www.combinacionganadora.com/primitiva/probabilidades/
+                                        p.
+                                            También hay que destacar la fuente de la que hemos tomado la implementación de las combinaciones matemáticas en HTML. Se trata de
+                                            la siguiente página:
+                                        div
+                                            ul
+                                                li
+                                                    a(href="https://stackoverflow.com/a/3743071", target="_blank")  https://stackoverflow.com/a/3743071
+
+
+
 
                         div.col-md-2.col-sm-12.col-xs-12(style="padding-bottom: 15px; padding-top: 30px")
                             script(async, src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
@@ -55,11 +663,13 @@ block scripts
     script(src='/js/jquery.js')
     script(src='/js/bootstrap.js')
     script(src='/js/angular.js')
+    script(src='/js/angular/i18n/angular-locale_es-es.js')
     script(src='/js/angular/services.js')
     script(src='/js/angular/loguedUser.js')
     script(src='/js/angular/index.js')
     script(src='/js/angular/navbar.js')
     script(src='/js/angular/ui-bootstrap-tpls-1.3.3.js')
+    script(src="/bower_components/angular-ui-carousel/dist/ui-carousel.js")
 
     script.
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
