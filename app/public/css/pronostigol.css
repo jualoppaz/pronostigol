@@ -951,7 +951,13 @@ ul.nav.nav-tabs li a {
 }
 
 .logo-juego .titulo-logo-juego {
-    font-size: 70px;
+    font-size: 40px;
+}
+
+@media screen and (min-width: 768px) {
+    .logo-juego .titulo-logo-juego {
+        font-size: 70px;
+    }
 }
 
 .titulo-logo-pronostigol,
