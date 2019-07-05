@@ -63,8 +63,8 @@ block content
                                                 td(data-ng-click="verTicket(ticket)", data-ng-bind-template="{{ticket.fecha | date:'dd/MM/yyyy'}}").pointer.align-middle
                                                 td(data-ng-show="usuarioEstaLogueado && ticket.precio != null", data-ng-cloak).align-middle
                                                     span
-                                                        i.fa.fa-2x(ng-class="{'fa-check color-green': apuestaRealizada(ticket),'fa-close color-red': !apuestaRealizada(ticket)}")
-                                                td(data-ng-show="usuarioEstaLogueado && ticket.precio != null", data-ng-cloak, data-ng-bind="getPrize(ticket)", ng-class="{'color-green bold': ticketHasPrize(ticket)}").align-middle
+                                                        i.fa.fa-2x(data-ng-class="{'fa-check color-green': apuestaRealizada(ticket),'fa-close color-red': !apuestaRealizada(ticket)}")
+                                                td(data-ng-show="usuarioEstaLogueado && ticket.precio != null", data-ng-cloak, data-ng-bind="getPrize(ticket)", data-ng-class="{'color-green bold': ticketHasPrize(ticket)}").align-middle
 
 
                                 uib-pagination(
