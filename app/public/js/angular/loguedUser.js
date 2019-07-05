@@ -71,23 +71,27 @@ function Controller($scope, UserService, $http, $window) {
         {
             name: "¿Cuándo me va a tocar?",
             img: "/img/recommended_web-cuando_me_va_a_tocar.png",
-            url: "https://www.cuandomevaatocar.com"
+            url: "https://www.cuandomevaatocar.com",
+            alt: 'Logo de "¿Cuándo me va a tocar?"'
         },
         {
             name: "Estadística para todos",
             img: "/img/recommended_web-estadistica_para_todos.png",
             url:
-                "http://www.estadisticaparatodos.es/taller/loterias/loterias.html"
+                "http://www.estadisticaparatodos.es/taller/loterias/loterias.html",
+            alt: 'Logo de "Estadística para todos"'
         },
         {
             name: "Combinación ganadora",
             img: "/img/recommended_web-combinacion_ganadora.png",
-            url: "https://www.combinacionganadora.com/"
+            url: "https://www.combinacionganadora.com/",
+            alt: 'Logo de "Combinación ganadora"'
         },
         {
             name: "LOTERIAS.COM",
             img: "/img/recommended_web-loterias.com.ico",
-            url: "https://www.loterias.com"
+            url: "https://www.loterias.com",
+            alt: 'Logo de "LOTERIAS.COM"'
         }
     ];
 }
