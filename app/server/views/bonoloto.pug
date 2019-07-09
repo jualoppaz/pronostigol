@@ -47,47 +47,45 @@ block content
 
                             div.col-xs-12.col-sm-8.col-sm-offset-2.panel.panel-body.border-bonoloto
                                 div(style="word-wrap: break-word;")
-                                    h2.text-center Índice
+                                    p#contents-index.text-center Índice de contenidos
                                     div.main-card-description
                                         ul.list-unstyled
                                             li
-                                                a.qdb-black(href="#introduction") 1. Introducción
+                                                a.qdb-black(href="#introduction", title="Introducción") 1. Introducción
                                             li
-                                                a.qdb-black(href="#probabilities") 2. Probabilidades
+                                                a.qdb-black(href="#probabilities", title="Probabilidades") 2. Probabilidades
                                                 ul.list-unstyled
                                                     li
-                                                        a.qdb-black(href="#probability-three-numbers") 2.1. Probabilidad de acertar 3 números en la Bonoloto
+                                                        a.qdb-black(href="#probability-three-numbers", title="Probabilidad de acertar 3 números en la Bonoloto") 2.1. Probabilidad de acertar 3 números en la Bonoloto
                                                     li
-                                                        a.qdb-black(href="#probability-four-numbers") 2.2. Probabilidad de acertar 4 números en la Bonoloto
+                                                        a.qdb-black(href="#probability-four-numbers", title="Probabilidad de acertar 4 números en la Bonoloto") 2.2. Probabilidad de acertar 4 números en la Bonoloto
                                                     li
-                                                        a.qdb-black(href="#probability-five-numbers") 2.3. Probabilidad de acertar 5 números en la Bonoloto
+                                                        a.qdb-black(href="#probability-five-numbers", title="Probabilidad de acertar 5 números en la Bonoloto") 2.3. Probabilidad de acertar 5 números en la Bonoloto
                                                     li
-                                                        a.qdb-black(href="#probability-five-numbers-and-complementary") 2.4. Probabilidad de acertar 5 números y el complementario en la Bonoloto
+                                                        a.qdb-black(href="#probability-five-numbers-and-complementary", title="Probabilidad de acertar 5 números y el complementario en la Bonoloto") 2.4. Probabilidad de acertar 5 números y el complementario en la Bonoloto
                                                     li
-                                                        a.qdb-black(href="#probability-six-numbers") 2.5. Probabilidad de acertar la Bonoloto
+                                                        a.qdb-black(href="#probability-six-numbers", title="Probabilidad de acertar la Bonoloto") 2.5. Probabilidad de acertar la Bonoloto
                                                     li
-                                                        a.qdb-black(href="#probability-reimbursement") 2.6. Probabilidad de acertar el reintegro de la Bonoloto
+                                                        a.qdb-black(href="#probability-reimbursement", title="Probabilidad de acertar el reintegro de la Bonoloto") 2.6. Probabilidad de acertar el reintegro de la Bonoloto
                                                     li
-                                                        a.qdb-black(href="#probability-summary") 2.7. Resumen de probabilidades de la Bonoloto por categoría
+                                                        a.qdb-black(href="#probability-summary", title="Resumen de probabilidades de la Bonoloto por categoría") 2.7. Resumen de probabilidades de la Bonoloto por categoría
                                             li
-                                                a.qdb-black(href="#sources") 3. Fuentes
+                                                a.qdb-black(href="#sources", title="Fuentes") 3. Fuentes
 
                             div.col-xs-12.panel.panel-body.border-qdb.border-bonoloto#introduction
                                 div.main-card-content(style="word-wrap: break-word;")
                                     div.main-card-name
-                                        a.recipe-title
-                                            h2.caramelo.qdb-black 1. Introducción
+                                        h2.caramelo.qdb-black 1. Introducción
                                     div.main-card-description
                                         p.qdb-black.
-                                            En esta secci&oacute;n encontrar&aacute;s multitud de estad&iacute;sticas asociadas al sorteo de la <b>Bonoloto</b> de España.
-                                            Podr&aacute;s conocer los resultados m&aacute;s repetidos, los reintegros que aparecen con m&aacute;s frecuencia y una amplia
+                                            En esta secci&oacute;n encontrar&aacute;s multitud de <a href="/bonoloto/estadisticas" title="Estadísticas">estad&iacute;sticas</a> asociadas al sorteo de la <b>Bonoloto</b> de España.
+                                            Podr&aacute;s conocer los resultados m&aacute;s repetidos, el histórico de <a href="/bonoloto/sorteos" title="Sorteos">sorteos</a>, los reintegros que aparecen con m&aacute;s frecuencia y una amplia
                                             gama de consultas a realizar.
                                             De este modo te ser&aacute; mucho m&aacute;s sencillo realizar tus apuestas.
 
                                 div.main-card-content(style="word-wrap: break-word;")#probabilities
                                     div.main-card-name
-                                        a.recipe-title
-                                            h2.caramelo.qdb-black 2. Probabilidades
+                                        h2.caramelo.qdb-black 2. Probabilidades
                                     div.main-card-description
                                         p.qdb-black.
                                             En la <b>Bonoloto</b> se extraen 6 bolas de entre 49, numeradas del 1 al 49. Hay varias categorías de premios en función del
@@ -118,7 +116,7 @@ block content
                                             En la <b>Bonoloto</b> se obtiene premio cuando se aciertan, al menos, 3 de los 6 números resultantes en un sorteo, o bien
                                             cuando se acierta el reintegro.
                                             Para más info consultar el <b>Título V. Capítulo Segundo. Reparto de Premios</b> en el siguiente
-                                            <a href="https://www.loteriasyapuestas.es/f/loterias/documentos/normativa/normativa%20SELAE/BONOLOTO%20modif%2028%205%2015-3.pdf" target="_blank">enlace</a>.
+                                            <a href="https://www.loteriasyapuestas.es/f/loterias/documentos/normativa/normativa%20SELAE/BONOLOTO%20modif%2028%205%2015-3.pdf" target="_blank" title="Normas de Bonoloto">enlace</a>.
                                         p.qdb-black.
                                             Para saber cuántas combinaciones posibles hay tiraremos de combinatoria. La fórmula para saber cuántas combinaciones
                                             de <b>m</b> elementos tomados de <b>n</b> en <b>n</b> elementos es:
@@ -643,8 +641,7 @@ block content
 
                                 div.main-card-content(style="word-wrap: break-word;")#sources
                                     div.main-card-name
-                                        a.recipe-title
-                                            h2.caramelo.qdb-black 3. Fuentes
+                                        h2.caramelo.qdb-black 3. Fuentes
                                     div.main-card-description
                                         p.
                                             Para la redacción de esta página hemos utilizado información y datos de otras webs que nos han sido de gran utilidad.
@@ -652,16 +649,16 @@ block content
                                         div
                                             ul
                                                 li
-                                                    a(href="http://www.estadisticaparatodos.es/taller/loterias/primitivas.html", target="_blank")  http://www.estadisticaparatodos.es/taller/loterias/primitivas.html
+                                                    a(href="http://www.estadisticaparatodos.es/taller/loterias/primitivas.html", target="_blank", title="Estadística para todos", rel="nofollow")  http://www.estadisticaparatodos.es/taller/loterias/primitivas.html
                                                 li
-                                                    a(href="https://www.combinacionganadora.com/primitiva/probabilidades/", target="_blank") https://www.combinacionganadora.com/primitiva/probabilidades/
+                                                    a(href="https://www.combinacionganadora.com/primitiva/probabilidades/", target="_blank", title="Combinación ganadora", rel="nofollow") https://www.combinacionganadora.com/primitiva/probabilidades/
                                         p.
                                             También hay que destacar la fuente de la que hemos tomado la implementación de las combinaciones matemáticas en HTML. Se trata de
                                             la siguiente página:
                                         div
                                             ul
                                                 li
-                                                    a(href="https://stackoverflow.com/a/3743071", target="_blank")  https://stackoverflow.com/a/3743071
+                                                    a(href="https://stackoverflow.com/a/3743071", target="_blank", title="Stack Overflow", rel="nofollow")  https://stackoverflow.com/a/3743071
 
 
 
