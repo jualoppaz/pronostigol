@@ -1461,3 +1461,7 @@ ui-carousel .carousel-btn i {
 #contents-index {
     font-size: 36px;
 }
+
+p a {
+    font-size: 14px !important;
+}
