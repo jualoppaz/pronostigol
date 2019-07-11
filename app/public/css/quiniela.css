@@ -787,7 +787,7 @@ ul.nav.nav-tabs li a {
 }
 
 @media screen and (min-width: 768px) {
-    span.logo {
+    .logo {
         font-size: 70px !important;
         height: 144px;
     }
@@ -796,6 +796,16 @@ ul.nav.nav-tabs li a {
 .titulo-logo-juego {
     display: table-cell;
     vertical-align: middle;
+
+    font-size: 40px;
+    height: 144px;
+}
+
+@media screen and (min-width: 768px) {
+    .titulo-logo-juego {
+        font-size: 70px !important;
+        height: 144px;
+    }
 }
 
 .logo-quiniela-con-texto {
@@ -971,4 +981,12 @@ span.equal {
 .v-margin {
     margin-top: 15px;
     margin-bottom: 15px;
+}
+
+#contents-index {
+    font-size: 36px;
+}
+
+p a {
+    font-size: 14px !important;
 }

@@ -1,10 +1,26 @@
 extends layout
 
 block head
-    title Primitiva | Histórico de sorteos y consulta de estadísticas y resultados de la Primitiva
-    meta(name="description", content="Primitiva. Histórico de sorteos y consulta de estadísticas y resultados de la Primitiva")
-    meta(name="keywords", content="estadísticas primitiva, histórico primitiva, resultados primitiva")
+    title 🤑 Primitiva | Probabilidades y premios de la primitiva
+    //- SEO
+    meta(name="description", content="Información sobre las categorías de premios de la primitiva. ☑️Se incluyen los cálculos de las probabilidades de acertar.")
+    meta(name="keywords", content="primitiva, probabilidades, cálculos, categorías, premios, reintegro")
     link(rel="canonical", href="http://www.pronostigol.es/primitiva")
+    //- OpenGraph
+    meta(property="og:locale", content="es_ES")
+    meta(property="og:type", content="website")
+    meta(property="og:title", content="🤑 Primitiva | Probabilidades y premios de la primitiva")
+    meta(property="og:description", content="Información sobre las categorías de premios de la primitiva. ☑️Se incluyen los cálculos de las probabilidades de acertar.")
+    meta(property="og:url", content="http://www.pronostigol.es/primitiva")
+    meta(property="og:site_name", content="Pronostigol")
+    meta(property="og:image", content="http://www.pronostigol.es/img/logo-primitiva.png")
+    //- Twitter
+    meta(name="twitter:card", content="summary")
+    meta(name="twitter:description", content="Información sobre las categorías de premios de la primitiva. ☑️Se incluyen los cálculos de las probabilidades de acertar.")
+    meta(name="twitter:title", content="🤑 Primitiva | Probabilidades y premios de la primitiva")
+    meta(name="twitter:image", content="http://www.pronostigol.es/img/logo-primitiva.png")
+    meta(name="twitter:site", content="@pronostigolesp")
+    //- Stylesheets
     link(rel="stylesheet", href="/css/pronostigol.css")
 
 block content
@@ -19,8 +35,8 @@ block content
 
                     main.container-fluid
                         div.col-md-12.text-center
-                            span.col-md-8.col-md-offset-2.col-sm-8.col-sm-offset-2.col-xs-12.logo-juego.logo-primitiva-con-texto-invertido
-                                span.titulo-logo-juego Primitiva
+                            div.col-md-8.col-md-offset-2.col-sm-8.col-sm-offset-2.col-xs-12.logo-juego.logo-primitiva-con-texto-invertido
+                                h1.titulo-logo-juego Primitiva
 
                         div.col-md-2.col-sm-12.col-xs-12(style="padding-bottom: 15px; padding-top: 30px")
                             script(async, src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
@@ -31,53 +47,52 @@ block content
 
                             div.col-xs-12.col-sm-8.col-sm-offset-2.panel.panel-body.border-primitiva
                                 div(style="word-wrap: break-word;")
-                                    h2.text-center Índice
+                                    p#contents-index.text-center Índice de contenidos
                                     div.main-card-description
                                         ul.list-unstyled
                                             li
-                                                a.qdb-black(href="#introduction") 1. Introducción
+                                                a.qdb-black(href="#introduction", title="Introducción") 🚀 Introducción
                                             li
-                                                a.qdb-black(href="#probabilities") 2. Probabilidades
+                                                a.qdb-black(href="#probabilities", title="Probabilidades") 🎲 Probabilidades
                                                 ul.list-unstyled
                                                     li
-                                                        a.qdb-black(href="#probability-three-numbers") 2.1. Probabilidad de acertar 3 números en la Primitiva
+                                                        a.qdb-black(href="#probability-three-numbers", title="Probabilidad de acertar 3 números en la Primitiva") 🔸 Probabilidad de acertar 3 números en la Primitiva
                                                     li
-                                                        a.qdb-black(href="#probability-four-numbers") 2.2. Probabilidad de acertar 4 números en la Primitiva
+                                                        a.qdb-black(href="#probability-four-numbers", title="Probabilidad de acertar 4 números en la Primitiva") 🔸 Probabilidad de acertar 4 números en la Primitiva
                                                     li
-                                                        a.qdb-black(href="#probability-five-numbers") 2.3. Probabilidad de acertar 5 números en la Primitiva
+                                                        a.qdb-black(href="#probability-five-numbers", title="Probabilidad de acertar 5 números en la Primitiva") 🔸 Probabilidad de acertar 5 números en la Primitiva
                                                     li
-                                                        a.qdb-black(href="#probability-five-numbers-and-complementary") 2.4. Probabilidad de acertar 5 números y el complementario en la Primitiva
+                                                        a.qdb-black(href="#probability-five-numbers-and-complementary", title="Probabilidad de acertar 5 números y el complementario en la Primitiva") 🔸 Probabilidad de acertar 5 números y el complementario en la Primitiva
                                                     li
-                                                        a.qdb-black(href="#probability-six-numbers") 2.5. Probabilidad de acertar la Primitiva
+                                                        a.qdb-black(href="#probability-six-numbers", title="Probabilidad de acertar la Primitiva") 🔸 Probabilidad de acertar la Primitiva
                                                     li
-                                                        a.qdb-black(href="#probability-reimbursement") 2.6. Probabilidad de acertar el reintegro de la Primitiva
+                                                        a.qdb-black(href="#probability-reimbursement", title="Probabilidad de acertar el reintegro de la Primitiva") 🔸 Probabilidad de acertar el reintegro de la Primitiva
                                                     li
-                                                        a.qdb-black(href="#probability-six-numbers-and-reimbursement") 2.7. Probabilidad de acertar la categoría especial de la Primitiva
+                                                        a.qdb-black(href="#probability-six-numbers-and-reimbursement", title="Probabilidad de acertar la categoría especial de la Primitiva") 🔸 Probabilidad de acertar la categoría especial de la Primitiva
                                                     li
-                                                        a.qdb-black(href="#probability-summary") 2.8. Resumen de probabilidades de la Primitiva por categoría
+                                                        a.qdb-black(href="#probability-summary", title="Resumen de probabilidades de la Primitiva por categoría") 🔸 Resumen de probabilidades de la Primitiva por categoría
                                             li
-                                                a.qdb-black(href="#sources") 3. Fuentes
+                                                a.qdb-black(href="#sources", title="Fuentes") 📚 Fuentes
 
                             div.col-xs-12.panel.panel-body.border-qdb.border-primitiva#introduction
                                 div.main-card-content(style="word-wrap: break-word;")
                                     div.main-card-name
-                                        a.recipe-title
-                                            h2.caramelo.qdb-black 1. Introducción
+                                        h2.caramelo.qdb-black 🚀 Introducción
                                     div.main-card-description
                                         p.qdb-black.
-                                            En esta secci&oacute;n encontrar&aacute;s multitud de estad&iacute;sticas asociadas al sorteo de la <b>Primitiva</b> de España.
-                                            Podr&aacute;s conocer los resultados m&aacute;s repetidos, los reintegros que aparecen con m&aacute;s frecuencia y una amplia
-                                            gama de consultas a realizar.
+                                            En esta secci&oacute;n encontrar&aacute;s multitud de <a href="/primitiva/estadisticas" title="Estadísticas">estad&iacute;sticas</a>
+                                            asociadas al sorteo de la <b>Primitiva</b> de España.
+                                            Podr&aacute;s conocer los resultados m&aacute;s repetidos, el histórico de <a href="/primitiva/sorteos" title="Sorteos">sorteos</a>,
+                                            los reintegros que aparecen con m&aacute;s frecuencia y una amplia gama de consultas a realizar.
                                             De este modo te ser&aacute; mucho m&aacute;s sencillo realizar tus apuestas.
 
                                 div.main-card-content(style="word-wrap: break-word;")#probabilities
                                     div.main-card-name
-                                        a.recipe-title
-                                            h2.caramelo.qdb-black 2. Probabilidades
+                                        h2.caramelo.qdb-black 🎲 Probabilidades
                                     div.main-card-description
                                         p.qdb-black.
-                                            Dado que el formato de la <b>Primitiva</b> es idéntico al de la <a href="/bonoloto">Bonoloto</a>, a excepción de las categorías de los premios y el
-                                            coste de las apuestas, veremos que las probabilidades son las mismas.
+                                            Dado que el formato de la <b>Primitiva</b> es idéntico al de la <a href="/bonoloto" title="Bonoloto">Bonoloto</a>,
+                                            a excepción de las categorías de los premios y el coste de las apuestas, veremos que las probabilidades son las mismas.
                                         p.qdb-black.
                                             En el caso de la <b>Primitiva</b> hay que destacar la existencia de una categoría especial, cuyo premio se obtiene acertando
                                             los 6 números del sorteo y, además, el reintegro.
@@ -96,7 +111,7 @@ block content
                                                     b Casos posibles
                                         p.
                                             Se puede consultar el detalle de las categorías de premios de la <b>Primitiva</b> en el siguiente
-                                            <a href="https://www.loteriasyapuestas.es/es/la-primitiva/como-se-juega/como-jugar-a-la-primitiva" target="_blank">enlace</a>.
+                                            <a href="https://www.loteriasyapuestas.es/es/la-primitiva/como-se-juega/como-jugar-a-la-primitiva" target="_blank" title="Normas de Primitiva" rel="nofollow">enlace</a>.
                                         p.qdb-black.
                                             También haremos uso de la combinatoria. La fórmula para saber cuántas combinaciones
                                             de <b>m</b> elementos tomados de <b>n</b> en <b>n</b> elementos es:
@@ -147,13 +162,13 @@ block content
                                                 span.fdn 720
 
                                         p.qdb-black.
-                                            Al igual que en la <a href="/bonoloto">Bonoloto</a> hay casi <b>14 millones</b> de combinaciones posibles de 49 números tomados en
-                                            grupos de 6.
+                                            Al igual que en la <a href="/bonoloto" title="Bonoloto">Bonoloto</a> hay casi <b>14 millones</b> de
+                                            combinaciones posibles de 49 números tomados en grupos de 6.
 
-                                        h3#probability-three-numbers.qdb-black.index-title 2.1. Probabilidad de acertar 3 números en la Primitiva
+                                        h3#probability-three-numbers.qdb-black.index-title 🔸 Probabilidad de acertar 3 números en la Primitiva
 
                                         p.qdb-black.
-                                            Como se explica en la sección de la <a href="/bonoloto">Bonoloto</a>, para conocer la probabilidad de obtener 3
+                                            Como se explica en la sección de la <a href="/bonoloto" title="Bonoloto">Bonoloto</a>, para conocer la probabilidad de obtener 3
                                             aciertos hay que calcular por separado la probabilidad de acertar un número, multiplicándola por la probabilidad del
                                             siguiente acierto, lo cual implica restar un acierto posible y una bola del total. Seguidamente, hacemos lo propio
                                             con el tercer acierto. Matemáticamente, sería como se indica a continuación:
@@ -245,7 +260,7 @@ block content
                                                     b 13983816
 
 
-                                        h3#probability-four-numbers.qdb-black.index-title 2.2. Probabilidad de acertar 4 números en la Primitiva
+                                        h3#probability-four-numbers.qdb-black.index-title 🔸 Probabilidad de acertar 4 números en la Primitiva
                                         p.qdb-black.
                                             El caso de la probabilidad exacta de obtener 4 aciertos es igual que el anterior, sólo que elevando en una unidad el
                                             número de aciertos y reduciéndolo en una el de los fallos. Los cálculos serían:
@@ -315,7 +330,7 @@ block content
                                                 span.fdn
                                                     b 13983816
 
-                                        h3#probability-five-numbers.qdb-black.index-title 2.3. Probabilidad de acertar 5 números en la Primitiva
+                                        h3#probability-five-numbers.qdb-black.index-title 🔸 Probabilidad de acertar 5 números en la Primitiva
                                         p.qdb-black.
                                             Este caso se complica si lo comparamos con el resto. Siguiendo con el razonamiento previo uno puede pensar que
                                             los cálculos serían:
@@ -425,7 +440,7 @@ block content
                                                 span.fdn
                                                     b 13983816
 
-                                        h3#probability-five-numbers-and-complementary.qdb-black.index-title 2.4. Probabilidad de acertar 5 números y el complementario en la Primitiva
+                                        h3#probability-five-numbers-and-complementary.qdb-black.index-title 🔸 Probabilidad de acertar 5 números y el complementario en la Primitiva
                                         p.qdb-black.
                                             Los cálculos para determinar la probabilidad de acertar 5 números y el complementario son similares al caso anterior, con la diferencia de que
                                             en éste sí tenemos que acertar el complementario: no nos vale fallar la séptima bola.
@@ -498,7 +513,7 @@ block content
                                                 span.fdn
                                                     b 13983816
 
-                                        h3#probability-six-numbers.qdb-black.index-title 2.5. Probabilidad de acertar la Primitiva
+                                        h3#probability-six-numbers.qdb-black.index-title 🔸 Probabilidad de acertar la Primitiva
                                         p.qdb-black.
                                             Este caso es el más sencillo de calcular de todos, puesto que para acertar la <b>Primitiva</b> es necesario que acertemos todas
                                             y cada una de las 6 bolas resultantes, sin fallos que valgan. Por tanto, no hay que contemplar ningún tipo de
@@ -542,7 +557,7 @@ block content
                                                 span.fdn
                                                     b 13983816
 
-                                        h3#probability-reimbursement.qdb-black.index-title 2.6. Probabilidad de acertar el reintegro
+                                        h3#probability-reimbursement.qdb-black.index-title 🔸 Probabilidad de acertar el reintegro
                                         p.qdb-black.
                                             Recordemos que en el reintegro hay 10 bolas numeradas del 0 al 9. Como sólo nos vale acertar una de las 10 bolas,
                                             la probabilidad de acertar el reintegro es:
@@ -553,7 +568,7 @@ block content
                                                 span.fup 1
                                                 span.fdn 10
 
-                                        h3#probability-six-numbers-and-reimbursement.qdb-black.index-title 2.7. Probabilidad de acertar la categoría especial de la Primitiva
+                                        h3#probability-six-numbers-and-reimbursement.qdb-black.index-title 🔸 Probabilidad de acertar la categoría especial de la Primitiva
                                         p.qdb-black.
                                             Este caso es igual que el caso de acertar los 6 números, sólo que tenemos que añadir la restricción de acertar de formar
                                             adicional el reintegro. Por tanto, basta con multiplicar ambas probabilidades:
@@ -574,93 +589,93 @@ block content
                                                     b 1
                                                 span.fdn
                                                     b 139838160
-                                        h3#probability-summary.qdb-black.index-title 2.8. Resumen de probabilidades de la Primitiva por categoría
+                                        h3#probability-summary.qdb-black.index-title 🔸 Resumen de probabilidades de la Primitiva por categoría
                                         p.qdb-black.
                                             Como hemos realizado todos los cálculos, podemos finalizar esta sección con un resumen en el que
                                             consten todas y cada una de las categorías de premios de la <b>Primitiva</b> junto con sus probabilidades.
                                         div.table-section
-                                            table.table.table-bordered
-                                                thead
-                                                    tr
-                                                        th Categoría
-                                                        th Aciertos
-                                                        th Probabilidad
-                                                tbody
-                                                    tr
-                                                        td.align-middle Categoría especial
-                                                        td.align-middle 6 + Reintegro
-                                                        td
-                                                            div.fraction
-                                                                span.fup 1
-                                                                span.fdn 139838160
-                                                            span.equal &#x2248;
-                                                            span.result
-                                                                b 0.000000007
-                                                    tr
-                                                        td.align-middle 1ª Categoría
-                                                        td.align-middle 6
-                                                        td
-                                                            div.fraction
-                                                                span.fup 1
-                                                                span.fdn 13983816
-                                                            span.equal &#x2248;
-                                                            span.result
-                                                                b 0.00000007
-                                                    tr
-                                                        td.align-middle 2ª Categoría
-                                                        td.align-middle 5 + Complementario
-                                                        td
-                                                            div.fraction
-                                                                span.fup 6
-                                                                span.fdn 13983816
-                                                            span.equal &#x2248;
-                                                            span.result
-                                                                b 0.000000429
-                                                    tr
-                                                        td.align-middle 3ª Categoría
-                                                        td.align-middle 5
-                                                        td
-                                                            div.fraction
-                                                                span.fup 252
-                                                                span.fdn 13983816
-                                                            span.equal &#x2248;
-                                                            span.result
-                                                                b 0.000018
-                                                    tr
-                                                        td.align-middle 4ª Categoría
-                                                        td.align-middle 4
-                                                        td
-                                                            div.fraction
-                                                                span.fup 13545
-                                                                span.fdn 13983816
-                                                            span.equal &#x2248;
-                                                            span.result
-                                                                b 0.000969
-                                                    tr
-                                                        td.align-middle 5ª Categoría
-                                                        td.align-middle 3
-                                                        td
-                                                            div.fraction
-                                                                span.fup 246820
-                                                                span.fdn 13983816
-                                                            span.equal &#x2248;
-                                                            span.result
-                                                                b 0.017
-                                                    tr
-                                                        td.align-middle 6ª Categoría
-                                                        td.align-middle Reintegro
-                                                        td
-                                                            div.fraction
-                                                                span.fup 1
-                                                                span.fdn 10
-                                                            span.equal &#x2248;
-                                                            span.result
-                                                                b 0.1
+                                            div.table-responsive
+                                                table.table.table-bordered
+                                                    thead
+                                                        tr
+                                                            th Categoría
+                                                            th Aciertos
+                                                            th Probabilidad
+                                                    tbody
+                                                        tr
+                                                            td.align-middle Categoría especial
+                                                            td.align-middle 6 + Reintegro
+                                                            td
+                                                                div.fraction
+                                                                    span.fup 1
+                                                                    span.fdn 139838160
+                                                                span.equal &#x2248;
+                                                                span.result
+                                                                    b 0.000000007
+                                                        tr
+                                                            td.align-middle 1ª Categoría
+                                                            td.align-middle 6
+                                                            td
+                                                                div.fraction
+                                                                    span.fup 1
+                                                                    span.fdn 13983816
+                                                                span.equal &#x2248;
+                                                                span.result
+                                                                    b 0.00000007
+                                                        tr
+                                                            td.align-middle 2ª Categoría
+                                                            td.align-middle 5 + Complementario
+                                                            td
+                                                                div.fraction
+                                                                    span.fup 6
+                                                                    span.fdn 13983816
+                                                                span.equal &#x2248;
+                                                                span.result
+                                                                    b 0.000000429
+                                                        tr
+                                                            td.align-middle 3ª Categoría
+                                                            td.align-middle 5
+                                                            td
+                                                                div.fraction
+                                                                    span.fup 252
+                                                                    span.fdn 13983816
+                                                                span.equal &#x2248;
+                                                                span.result
+                                                                    b 0.000018
+                                                        tr
+                                                            td.align-middle 4ª Categoría
+                                                            td.align-middle 4
+                                                            td
+                                                                div.fraction
+                                                                    span.fup 13545
+                                                                    span.fdn 13983816
+                                                                span.equal &#x2248;
+                                                                span.result
+                                                                    b 0.000969
+                                                        tr
+                                                            td.align-middle 5ª Categoría
+                                                            td.align-middle 3
+                                                            td
+                                                                div.fraction
+                                                                    span.fup 246820
+                                                                    span.fdn 13983816
+                                                                span.equal &#x2248;
+                                                                span.result
+                                                                    b 0.017
+                                                        tr
+                                                            td.align-middle 6ª Categoría
+                                                            td.align-middle Reintegro
+                                                            td
+                                                                div.fraction
+                                                                    span.fup 1
+                                                                    span.fdn 10
+                                                                span.equal &#x2248;
+                                                                span.result
+                                                                    b 0.1
 
                                 div.main-card-content(style="word-wrap: break-word;")#sources
                                     div.main-card-name
-                                        a.recipe-title
-                                            h2.caramelo.qdb-black 3. Fuentes
+                                        h2.caramelo.qdb-black 📚 Fuentes
                                     div.main-card-description
                                         p.
                                             Para la redacción de esta página hemos utilizado información y datos de otras webs que nos han sido de gran utilidad.
@@ -668,11 +683,11 @@ block content
                                         div
                                             ul
                                                 li
-                                                    a(href="http://www.estadisticaparatodos.es/taller/loterias/primitivas.html", target="_blank")  http://www.estadisticaparatodos.es/taller/loterias/primitivas.html
+                                                    a(href="http://www.estadisticaparatodos.es/taller/loterias/primitivas.html", target="_blank", title="Estadística para todos", rel="nofollow")  http://www.estadisticaparatodos.es/taller/loterias/primitivas.html
                                                 li
-                                                    a(href="https://www.combinacionganadora.com/primitiva/probabilidades/", target="_blank") https://www.combinacionganadora.com/primitiva/probabilidades/
+                                                    a(href="https://www.combinacionganadora.com/primitiva/probabilidades/", target="_blank", title="Combinación ganadora", rel="nofollow") https://www.combinacionganadora.com/primitiva/probabilidades/
                                                 li
-                                                    a(href="https://www.laprimitiva.info/bases-del-juego/probabilidades-la-primitiva.html", target="_blank") https://www.laprimitiva.info/bases-del-juego/probabilidades-la-primitiva.html
+                                                    a(href="https://www.laprimitiva.info/bases-del-juego/probabilidades-la-primitiva.html", target="_blank", title="LaPrimitiva.info", rel="nofollow") https://www.laprimitiva.info/bases-del-juego/probabilidades-la-primitiva.html
 
 
                         div.col-md-2.col-sm-12.col-xs-12(style="padding-bottom: 15px; padding-top: 30px")

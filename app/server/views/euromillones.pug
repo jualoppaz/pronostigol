@@ -1,10 +1,26 @@
 extends layout
 
 block head
-    title Euromillones | Histórico de sorteos y consulta de estadísticas y resultados de Euromillones
-    meta(name="description", content="Euromillones. Histórico de sorteos y consulta de estadísticas y resultados de Euromillones")
-    meta(name="keywords", content="estadísticas euromillones, histórico euromillones, resultados euromillones, euromillions")
+    title 🌟 Euromillones | Probabilidades y premios de euromillones
+    //- SEO
+    meta(name="description", content="Información sobre las categorías de premios de euromillones. ☑️Se incluyen los cálculos de las probabilidades de acertar.")
+    meta(name="keywords", content="euromillones, euromillions, probabilidades, cálculos, categorías, premios, estrellas")
     link(rel="canonical", href="http://www.pronostigol.es/euromillones")
+    //- OpenGraph
+    meta(property="og:locale", content="es_ES")
+    meta(property="og:type", content="website")
+    meta(property="og:title", content="🌟 Euromillones | Probabilidades y premios de euromillones")
+    meta(property="og:description", content="Información sobre las categorías de premios de euromillones. ☑️Se incluyen los cálculos de las probabilidades de acertar.")
+    meta(property="og:url", content="http://www.pronostigol.es/euromillones")
+    meta(property="og:site_name", content="Pronostigol")
+    meta(property="og:image", content="http://www.pronostigol.es/img/logo-euromillones.png")
+    //- Twitter
+    meta(name="twitter:card", content="summary")
+    meta(name="twitter:description", content="Información sobre las categorías de premios de euromillones. ☑️Se incluyen los cálculos de las probabilidades de acertar.")
+    meta(name="twitter:title", content="🌟 Euromillones | Probabilidades y premios de euromillones")
+    meta(name="twitter:image", content="http://www.pronostigol.es/img/logo-euromillones.png")
+    meta(name="twitter:site", content="@pronostigolesp")
+    //- Stylesheets
     link(rel="stylesheet", href="/css/pronostigol.css")
 
 
@@ -20,8 +36,8 @@ block content
 
                     main.container-fluid
                         div.col-md-12.text-center
-                            span.col-sm-8.col-sm-offset-2.col-xs-12.logo-juego.logo-euromillones-con-texto-invertido
-                                span.titulo-logo-juego Euromillones
+                            div.col-sm-8.col-sm-offset-2.col-xs-12.logo-juego.logo-euromillones-con-texto-invertido
+                                h1.titulo-logo-juego Euromillones
 
                         div.col-md-2.col-sm-12.col-xs-12(style="padding-bottom: 15px; padding-top: 30px")
                             script(async, src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
@@ -31,69 +47,67 @@ block content
                         div.col-md-8.col-sm-12.col-xs-12(style="margin-top: 30px")
                             div.col-xs-12.col-sm-8.col-sm-offset-2.panel.panel-body.border-qdb.border-euromillones
                                 div(style="word-wrap: break-word;")
-                                    h2.text-center Índice
+                                    p#contents-index.text-center Índice de contenidos
                                     div.main-card-description
                                         ul.list-unstyled
                                             li
-                                                a.qdb-black(href="#introduction") 1. Introducción
+                                                a.qdb-black(href="#introduction", title="Introducción") 🚀 Introducción
                                             li
-                                                a.qdb-black(href="#probabilities") 2. Probabilidades
+                                                a.qdb-black(href="#probabilities", title="Probabilidades") 🎲 Probabilidades
                                                 ul.list-unstyled
                                                     li
-                                                        a.qdb-black(href="#probability-one-number-and-two-stars") 2.1. Probabilidad de acertar 1 número y las 2 estrellas en Euromillones
+                                                        a.qdb-black(href="#probability-one-number-and-two-stars", title="Probabilidad de acertar 1 número y las 2 estrellas en Euromillones") 🔸 Probabilidad de acertar 1 número y las 2 estrellas en Euromillones
                                                     li
-                                                        a.qdb-black(href="#probability-two-numbers") 2.2. Probabilidad de acertar 2 números en Euromillones
+                                                        a.qdb-black(href="#probability-two-numbers", title="Probabilidad de acertar 2 números en Euromillones") 🔸 Probabilidad de acertar 2 números en Euromillones
                                                     li
-                                                        a.qdb-black(href="#probability-two-numbers-and-one-star") 2.3. Probabilidad de acertar 2 números y 1 estrella en Euromillones
+                                                        a.qdb-black(href="#probability-two-numbers-and-one-star", title="Probabilidad de acertar 2 números y 1 estrella en Euromillones") 🔸 Probabilidad de acertar 2 números y 1 estrella en Euromillones
                                                     li
-                                                        a.qdb-black(href="#probability-two-numbers-and-two-stars") 2.4. Probabilidad de acertar 2 números y las 2 estrellas en Euromillones
+                                                        a.qdb-black(href="#probability-two-numbers-and-two-stars", title="Probabilidad de acertar 2 números y las 2 estrellas en Euromillones") 🔸 Probabilidad de acertar 2 números y las 2 estrellas en Euromillones
                                                     li
-                                                        a.qdb-black(href="#probability-three-numbers") 2.5. Probabilidad de acertar 3 números en Euromillones
+                                                        a.qdb-black(href="#probability-three-numbers", title="Probabilidad de acertar 3 números en Euromillones") 🔸 Probabilidad de acertar 3 números en Euromillones
                                                     li
-                                                        a.qdb-black(href="#probability-three-numbers-and-one-star") 2.6. Probabilidad de acertar 3 números y 1 estrella en Euromillones
+                                                        a.qdb-black(href="#probability-three-numbers-and-one-star", title="Probabilidad de acertar 3 números y 1 estrella en Euromillones") 🔸 Probabilidad de acertar 3 números y 1 estrella en Euromillones
                                                     li
-                                                        a.qdb-black(href="#probability-three-numbers-and-two-stars") 2.7. Probabilidad de acertar 3 números y las 2 estrellas en Euromillones
+                                                        a.qdb-black(href="#probability-three-numbers-and-two-stars", title="Probabilidad de acertar 3 números y las 2 estrellas en Euromillones") 🔸 Probabilidad de acertar 3 números y las 2 estrellas en Euromillones
                                                     li
-                                                        a.qdb-black(href="#probability-four-numbers") 2.8. Probabilidad de acertar 4 números en Euromillones
+                                                        a.qdb-black(href="#probability-four-numbers", title="Probabilidad de acertar 4 números en Euromillones") 🔸 Probabilidad de acertar 4 números en Euromillones
                                                     li
-                                                        a.qdb-black(href="#probability-four-numbers-and-one-star") 2.9. Probabilidad de acertar 4 números y 1 estrella en Euromillones
+                                                        a.qdb-black(href="#probability-four-numbers-and-one-star", title="Probabilidad de acertar 4 números y 1 estrella en Euromillones") 🔸 Probabilidad de acertar 4 números y 1 estrella en Euromillones
                                                     li
-                                                        a.qdb-black(href="#probability-four-numbers-and-two-stars") 2.10. Probabilidad de acertar 4 números y las 2 estrellas en Euromillones
+                                                        a.qdb-black(href="#probability-four-numbers-and-two-stars", title="Probabilidad de acertar 4 números y las 2 estrellas en Euromillones") 🔸 Probabilidad de acertar 4 números y las 2 estrellas en Euromillones
                                                     li
-                                                        a.qdb-black(href="#probability-five-numbers") 2.11. Probabilidad de acertar 5 números en Euromillones
+                                                        a.qdb-black(href="#probability-five-numbers", title="Probabilidad de acertar 5 números en Euromillones") 🔸 Probabilidad de acertar 5 números en Euromillones
                                                     li
-                                                        a.qdb-black(href="#probability-five-numbers-and-one-star") 2.12. Probabilidad de acertar 5 números y 1 estrella en Euromillones
+                                                        a.qdb-black(href="#probability-five-numbers-and-one-star", title="Probabilidad de acertar 5 números y 1 estrella en Euromillones") 🔸 Probabilidad de acertar 5 números y 1 estrella en Euromillones
                                                     li
-                                                        a.qdb-black(href="#probability-five-numbers-and-two-stars") 2.13. Probabilidad de acertar en Euromillones
+                                                        a.qdb-black(href="#probability-five-numbers-and-two-stars", title="Probabilidad de acertar en Euromillones") 🔸 Probabilidad de acertar en Euromillones
                                                     li
-                                                        a.qdb-black(href="#probability-one-star") 2.14. Probabilidad de acertar 1 estrella en Euromillones
+                                                        a.qdb-black(href="#probability-one-star", title="Probabilidad de acertar 1 estrella en Euromillones") 🔸 Probabilidad de acertar 1 estrella en Euromillones
                                                     li
-                                                        a.qdb-black(href="#probability-two-stars") 2.15. Probabilidad de acertar las 2 estrellas en Euromillones
+                                                        a.qdb-black(href="#probability-two-stars", title="Probabilidad de acertar las 2 estrellas en Euromillones") 🔸 Probabilidad de acertar las 2 estrellas en Euromillones
                                                     li
-                                                        a.qdb-black(href="#probability-summary") 2.16. Resumen de probabilidades de Euromillones por categoría
+                                                        a.qdb-black(href="#probability-summary", title="Resumen de probabilidades de Euromillones por categoría") 🔸 Resumen de probabilidades de Euromillones por categoría
                                             li
-                                                a.qdb-black(href="#sources") 3. Fuentes
+                                                a.qdb-black(href="#sources", title="Fuentes") 📚 Fuentes
 
                             div.col-xs-12.panel.panel-body.border-qdb.border-euromillones#introduction
                                 div.main-card-content(style="word-wrap: break-word;")
                                     div.main-card-name
-                                        a.recipe-title
-                                            h2.caramelo.qdb-black 1. Introducción
+                                        h2.caramelo.qdb-black 🚀 Introducción
                                     div.main-card-description
                                         p.qdb-black.
-                                            En esta secci&oacute;n encontrar&aacute;s multitud de estad&iacute;sticas asociadas al sorteo de <b>Euromillones</b>.
-                                            Podr&aacute;s conocer los resultados m&aacute;s repetidos, los reintegros que aparecen con m&aacute;s frecuencia y una amplia
+                                            En esta secci&oacute;n encontrar&aacute;s multitud de <a href="/euromillones/estadisticas" title="Estadísticas">estad&iacute;sticas</a> asociadas al sorteo de <b>Euromillones</b>.
+                                            Podr&aacute;s conocer los resultados m&aacute;s repetidos, el histórico de <a href="/euromillones/sorteos" title="Sorteos">sorteos</a>, las estrellas que aparecen con m&aacute;s frecuencia y una amplia
                                             gama de consultas a realizar.
                                             De este modo te ser&aacute; mucho m&aacute;s sencillo realizar tus apuestas.
 
                                 div.main-card-content(style="word-wrap: break-word;")#probabilities
                                     div.main-card-name
-                                        a.recipe-title
-                                            h2.caramelo.qdb-black 2. Probabilidades
+                                        h2.caramelo.qdb-black 🎲 Probabilidades
                                     div.main-card-description
                                         p.
-                                            El formato de <b>Euromillones</b> es algo similar al de <a href="/gordo">El Gordo de la Primitiva</a>, con la diferencia de que
-                                            no existe número clave.
+                                            El formato de <b>Euromillones</b> es algo similar al de <a href="/gordo" title="El Gordo de la Primitiva">El Gordo de la Primitiva</a>,
+                                            con la diferencia de que no existe número clave.
                                         p.
                                             En el caso de <b>Euromillones</b> destaca la existencia de las estrellas, de las cuales aparecen 2 en cada resultado,
                                             añadiendo por tanto muchas más categorías de premios. Sin embargo, acertar las estrellas no implica ningún
@@ -113,7 +127,7 @@ block content
                                                     b Casos posibles
                                         p.
                                             Es posible consultar el detalle de las categorías de premios de <b>Euromillones</b> en el siguiente
-                                            <a href="https://www.loteriasyapuestas.es/es/euromillones/como-se-juega/como-jugar-a-euromillones" target="_blank">enlace</a>.
+                                            <a href="https://www.loteriasyapuestas.es/es/euromillones/como-se-juega/como-jugar-a-euromillones" target="_blank" title="Normas de Euromillones" rel="nofollow">enlace</a>.
                                         p.qdb-black.
                                             Recurriremos nuevamente a la combinatoria. Como se explica en las páginas principales de cada sección de esta web,
                                             la fórmula para saber cuántas combinaciones de <b>m</b> elementos tomados de <b>n</b> en <b>n</b> elementos es:
@@ -184,7 +198,7 @@ block content
                                             En <b>Euromillones</b> hay casi <b>140 millones</b> de combinaciones posibles de 50 números tomados en
                                             grupos de 5 y 12 estrellas tomadas de 2 en 2.
 
-                                        h3#probability-one-number-and-two-stars.qdb-black.index-title 2.1. Probabilidad de acertar 1 número y las 2 estrellas en Euromillones
+                                        h3#probability-one-number-and-two-stars.qdb-black.index-title 🔸 Probabilidad de acertar 1 número y las 2 estrellas en Euromillones
 
                                         p.
                                             Del mismo modo que hemos hecho en el resto de secciones, realizaremos un planteamiento inicial teniendo en cuenta
@@ -273,7 +287,7 @@ block content
                                                 span.fdn
                                                     b 139838160
 
-                                        h3#probability-two-numbers.qdb-black.index-title 2.2. Probabilidad de acertar 2 números en Euromillones
+                                        h3#probability-two-numbers.qdb-black.index-title 🔸 Probabilidad de acertar 2 números en Euromillones
                                         p.
                                             En este caso tenemos que imponer que sean 2 los aciertos de entre los 5 números, pero no debemos acertar
                                             ninguna de las 2 estrellas.
@@ -356,7 +370,7 @@ block content
                                                 span.fdn
                                                     b 139838160
 
-                                        h3#probability-two-numbers-and-one-star.qdb-black.index-title 2.3. Probabilidad de acertar 2 números y 1 estrella en Euromillones
+                                        h3#probability-two-numbers-and-one-star.qdb-black.index-title 🔸 Probabilidad de acertar 2 números y 1 estrella en Euromillones
                                         p.
                                             Para calcular la probabilidad de acertar 2 números y una estrella sólo tenemos que tomar como referencia el caso anterior e
                                             imponer el acierto de una de las 2 estrellas. Así pues los cálculos serían los que siguen:
@@ -438,7 +452,7 @@ block content
                                                 span.fdn
                                                     b 139838160
 
-                                        h3#probability-two-numbers-and-two-stars.qdb-black.index-title 2.4. Probabilidad de acertar 2 números y las 2 estrellas en Euromillones
+                                        h3#probability-two-numbers-and-two-stars.qdb-black.index-title 🔸 Probabilidad de acertar 2 números y las 2 estrellas en Euromillones
                                         p.
                                             Para calcular la probabilidad de acertar 2 números y una estrella sólo tenemos que tomar como referencia el caso anterior e
                                             imponer el acierto de una de las 2 estrellas. Así pues los cálculos serían los que siguen:
@@ -521,7 +535,7 @@ block content
                                                 span.fdn
                                                     b 139838160
 
-                                        h3#probability-three-numbers.qdb-black.index-title 2.5. Probabilidad de acertar 3 números en Euromillones
+                                        h3#probability-three-numbers.qdb-black.index-title 🔸 Probabilidad de acertar 3 números en Euromillones
                                         p.
                                             Una vez más retrocedemos a un planteamiento anterior en el que no debamos acertar ninguna estrella, pero
                                             en esta ocasión tendremos que acertar un número más.
@@ -604,7 +618,7 @@ block content
                                                 span.fdn
                                                     b 139838160
 
-                                        h3#probability-three-numbers-and-one-star.qdb-black.index-title 2.6. Probabilidad de acertar 3 números y 1 estrella en Euromillones
+                                        h3#probability-three-numbers-and-one-star.qdb-black.index-title 🔸 Probabilidad de acertar 3 números y 1 estrella en Euromillones
                                         p.
                                             Partiendo del caso anterior, tan sólo tenemos que modificar las restricciones de las estrellas, de modo que sea sólo 1 de las
                                             2 la que acertemos:
@@ -688,7 +702,7 @@ block content
                                                     b 139838160
 
 
-                                        h3#probability-three-numbers-and-two-stars.qdb-black.index-title 2.7. Probabilidad de acertar 3 números y las 2 estrellas en Euromillones
+                                        h3#probability-three-numbers-and-two-stars.qdb-black.index-title 🔸 Probabilidad de acertar 3 números y las 2 estrellas en Euromillones
                                         p.
                                             Extendiendo el caso anterior, veremos cómo se van reduciendo cada vez más nuestras posibilidades. Si calculamos la
                                             probabilidad de acertar 3 números y las 2 estrellas tenemos que:
@@ -771,7 +785,7 @@ block content
                                                 span.fdn
                                                     b 139838160
 
-                                        h3#probability-four-numbers.qdb-black.index-title 2.8. Probabilidad de acertar 4 números y en Euromillones
+                                        h3#probability-four-numbers.qdb-black.index-title 🔸 Probabilidad de acertar 4 números y en Euromillones
                                         p.
                                             Seguimos avanzando en las categorías de <b>Euromillones</b>. Vamos a calcular la probabilidad de acertar
                                             4 números de los 5 pero sin acertar ninguna de las 2 estrellas:
@@ -854,7 +868,7 @@ block content
                                                 span.fdn
                                                     b 139838160
 
-                                        h3#probability-four-numbers-and-one-star.qdb-black.index-title 2.9. Probabilidad de acertar 4 números y 1 estrella en Euromillones
+                                        h3#probability-four-numbers-and-one-star.qdb-black.index-title 🔸 Probabilidad de acertar 4 números y 1 estrella en Euromillones
                                         p.
                                             Como era de esperar, para determinar la probabilidad de esta categoría tan sólo tenemos que partir de la anterior y
                                             modificar las restricciones de
@@ -937,7 +951,7 @@ block content
                                                 span.fdn
                                                     b 139838160
 
-                                        h3#probability-four-numbers-and-two-stars.qdb-black.index-title 2.10. Probabilidad de acertar 4 números y las 2 estrellas en Euromillones
+                                        h3#probability-four-numbers-and-two-stars.qdb-black.index-title 🔸 Probabilidad de acertar 4 números y las 2 estrellas en Euromillones
                                         p.
                                             Para cerrar el grupo de categorías de 4 aciertos entre los números tenemos que calcular
                                             la probabilidad de acertar 4 números y, además, las 2 estrellas. Si partimos del caso anterior tan
@@ -1021,7 +1035,7 @@ block content
                                                 span.fdn
                                                     b 139838160
 
-                                        h3#probability-five-numbers.qdb-black.index-title 2.11. Probabilidad de acertar 5 números en Euromillones
+                                        h3#probability-five-numbers.qdb-black.index-title 🔸 Probabilidad de acertar 5 números en Euromillones
                                         p.
                                             Nos vamos acercando a la máxima categoría de aciertos en Euromillones. Entramos en el grupo de
                                             5 aciertos, empezando por la categoría en la que no debemos acertar ninguna estrella:
@@ -1104,7 +1118,7 @@ block content
                                                 span.fdn
                                                     b 139838160
 
-                                        h3#probability-five-numbers-and-one-star.qdb-black.index-title 2.12. Probabilidad de acertar 5 números y 1 estrella en Euromillones
+                                        h3#probability-five-numbers-and-one-star.qdb-black.index-title 🔸 Probabilidad de acertar 5 números y 1 estrella en Euromillones
                                         p.
                                             Ya casi estamos. Modificando las restricciones de acierto de las estrella tendremos el cálculo de la
                                             probabilidad de acertar 5 números y 1 estrella:
@@ -1187,7 +1201,7 @@ block content
                                                 span.fdn
                                                     b 139838160
 
-                                        h3#probability-five-numbers-and-two-stars.qdb-black.index-title 2.13. Probabilidad de acertar en Euromillones
+                                        h3#probability-five-numbers-and-two-stars.qdb-black.index-title 🔸 Probabilidad de acertar en Euromillones
                                         p.
                                             Por fin llegamos al ansiado cálculo de la probabilidad de acertar en <b>Euromillones</b>.
                                             Como en el resto de sorteos, en este caso no cabe posibilidad de fallo alguno, ni en los números ni en las
@@ -1272,7 +1286,7 @@ block content
                                                 span.fdn
                                                     b 139838160
 
-                                        h3#probability-one-stars.qdb-black.index-title 2.14. Probabilidad de acertar 1 estrella en Euromillones
+                                        h3#probability-one-stars.qdb-black.index-title 🔸 Probabilidad de acertar 1 estrella en Euromillones
                                         p.
                                             De forma adicional vamos a calcular la probabilidad de acertar las estrellas, por separado y conjuntamente.
                                             En el caso de que queramos acertar sólo 1 de las 2 estrellas tenemos:
@@ -1328,7 +1342,7 @@ block content
                                                 span.fdn
                                                     b 33
 
-                                        h3#probability-two-stars.qdb-black.index-title 2.15. Probabilidad de acertar las 2 estrellas en Euromillones
+                                        h3#probability-two-stars.qdb-black.index-title 🔸 Probabilidad de acertar las 2 estrellas en Euromillones
                                         p.
                                             A continuación calcularemos la probabilidad de acertar las 2 estrellas en un resultado de <b>Euromillones</b>:
                                         div.text-center.v-margin
@@ -1383,7 +1397,7 @@ block content
                                                 span.fdn
                                                     b 66
 
-                                        h3#probability-summary.qdb-black.index-title 2.16. Resumen de probabilidades de Euromillones por categoría
+                                        h3#probability-summary.qdb-black.index-title 🔸 Resumen de probabilidades de Euromillones por categoría
                                         p.qdb-black.
                                             Una vez planteados todos los cálculos, ya podemos precisar con más detalle para conocer las probabilidades
                                             exactas de cada categoría de premios de <b>Euromillones</b>.
@@ -1391,148 +1405,148 @@ block content
                                             este apartado: nada más lejos de la realidad. Como veremos a continuación, es más probable acertar 4 números
                                             que acertar 3 y las 2 estrellas.
                                         div.table-section
-                                            table.table.table-bordered
-                                                thead
-                                                    tr
-                                                        th Categoría
-                                                        th Aciertos
-                                                        th Probabilidad
-                                                tbody
-                                                    tr
-                                                        td.align-middle 1ª Categoría
-                                                        td.align-middle 5 números y las 2 estrellas
-                                                        td
-                                                            div.fraction
-                                                                span.fup 1
-                                                                span.fdn 139838160
-                                                            span.equal &#x2248;
-                                                            span.result
-                                                                b 0.00000000715
-                                                    tr
-                                                        td.align-middle 2ª Categoría
-                                                        td.align-middle 5 números y 1 estrella
-                                                        td
-                                                            div.fraction
-                                                                span.fup 20
-                                                                span.fdn 139838160
-                                                            span.equal &#x2248;
-                                                            span.result
-                                                                b 0.000000143
-                                                    tr
-                                                        td.align-middle 3ª Categoría
-                                                        td.align-middle 5 números
-                                                        td
-                                                            div.fraction
-                                                                span.fup 45
-                                                                span.fdn 139838160
-                                                            span.equal &#x2248;
-                                                            span.result
-                                                                b 0.000000322
-                                                    tr
-                                                        td.align-middle 4ª Categoría
-                                                        td.align-middle 4 números y las 2 estrellas
-                                                        td
-                                                            div.fraction
-                                                                span.fup 225
-                                                                span.fdn 139838160
-                                                            span.equal &#x2248;
-                                                            span.result
-                                                                b 0.00000161
-                                                    tr
-                                                        td.align-middle 5ª Categoría
-                                                        td.align-middle 4 números y 1 estrella
-                                                        td
-                                                            div.fraction
-                                                                span.fup 4500
-                                                                span.fdn 139838160
-                                                            span.equal &#x2248;
-                                                            span.result
-                                                                b 0.0000322
-                                                    tr
-                                                        td.align-middle 6ª Categoría
-                                                        td.align-middle 3 números y las 2 estrellas
-                                                        td
-                                                            div.fraction
-                                                                span.fup 9900‬
-                                                                span.fdn 139838160
-                                                            span.equal &#x2248;
-                                                            span.result
-                                                                b 0.0000708
-                                                    tr
-                                                        td.align-middle 7ª Categoría
-                                                        td.align-middle 4 números
-                                                        td
-                                                            div.fraction
-                                                                span.fup 10125
-                                                                span.fdn 139838160
-                                                            span.equal &#x2248;
-                                                            span.result
-                                                                b 0.0000724
-                                                    tr
-                                                        td.align-middle 8ª Categoría
-                                                        td.align-middle 2 números y las 2 estrellas
-                                                        td
-                                                            div.fraction
-                                                                span.fup 141900
-                                                                span.fdn 139838160
-                                                            span.equal &#x2248;
-                                                            span.result
-                                                                b 0.001
-                                                    tr
-                                                        td.align-middle 9ª Categoría
-                                                        td.align-middle 3 números y 1 estrella
-                                                        td
-                                                            div.fraction
-                                                                span.fup 198000
-                                                                span.fdn 139838160
-                                                            span.equal &#x2248;
-                                                            span.result
-                                                                b 0.0014
-                                                    tr
-                                                        td.align-middle 10ª Categoría
-                                                        td.align-middle 3 números
-                                                        td
-                                                            div.fraction
-                                                                span.fup 445500
-                                                                span.fdn 139838160
-                                                            span.equal &#x2248;
-                                                            span.result
-                                                                b 0.0032
-                                                    tr
-                                                        td.align-middle 11ª Categoría
-                                                        td.align-middle 1 número y las 2 estrellas
-                                                        td
-                                                            div.fraction
-                                                                span.fup 744975
-                                                                span.fdn 139838160
-                                                            span.equal &#x2248;
-                                                            span.result
-                                                                b 0.0053
-                                                    tr
-                                                        td.align-middle 12ª Categoría
-                                                        td.align-middle 2 números y 1 estrella
-                                                        td
-                                                            div.fraction
-                                                                span.fup 2838000
-                                                                span.fdn 139838160
-                                                            span.equal &#x2248;
-                                                            span.result
-                                                                b 0.02
-                                                    tr
-                                                        td.align-middle 13ª Categoría
-                                                        td.align-middle 2 números
-                                                        td
-                                                            div.fraction
-                                                                span.fup 6385500
-                                                                span.fdn 139838160
-                                                            span.equal &#x2248;
-                                                            span.result
-                                                                b 0.046
+                                            div.table-responsive
+                                                table.table.table-bordered
+                                                    thead
+                                                        tr
+                                                            th Categoría
+                                                            th Aciertos
+                                                            th Probabilidad
+                                                    tbody
+                                                        tr
+                                                            td.align-middle 1ª Categoría
+                                                            td.align-middle 5 números y las 2 estrellas
+                                                            td
+                                                                div.fraction
+                                                                    span.fup 1
+                                                                    span.fdn 139838160
+                                                                span.equal &#x2248;
+                                                                span.result
+                                                                    b 0.00000000715
+                                                        tr
+                                                            td.align-middle 2ª Categoría
+                                                            td.align-middle 5 números y 1 estrella
+                                                            td
+                                                                div.fraction
+                                                                    span.fup 20
+                                                                    span.fdn 139838160
+                                                                span.equal &#x2248;
+                                                                span.result
+                                                                    b 0.000000143
+                                                        tr
+                                                            td.align-middle 3ª Categoría
+                                                            td.align-middle 5 números
+                                                            td
+                                                                div.fraction
+                                                                    span.fup 45
+                                                                    span.fdn 139838160
+                                                                span.equal &#x2248;
+                                                                span.result
+                                                                    b 0.000000322
+                                                        tr
+                                                            td.align-middle 4ª Categoría
+                                                            td.align-middle 4 números y las 2 estrellas
+                                                            td
+                                                                div.fraction
+                                                                    span.fup 225
+                                                                    span.fdn 139838160
+                                                                span.equal &#x2248;
+                                                                span.result
+                                                                    b 0.00000161
+                                                        tr
+                                                            td.align-middle 5ª Categoría
+                                                            td.align-middle 4 números y 1 estrella
+                                                            td
+                                                                div.fraction
+                                                                    span.fup 4500
+                                                                    span.fdn 139838160
+                                                                span.equal &#x2248;
+                                                                span.result
+                                                                    b 0.0000322
+                                                        tr
+                                                            td.align-middle 6ª Categoría
+                                                            td.align-middle 3 números y las 2 estrellas
+                                                            td
+                                                                div.fraction
+                                                                    span.fup 9900‬
+                                                                    span.fdn 139838160
+                                                                span.equal &#x2248;
+                                                                span.result
+                                                                    b 0.0000708
+                                                        tr
+                                                            td.align-middle 7ª Categoría
+                                                            td.align-middle 4 números
+                                                            td
+                                                                div.fraction
+                                                                    span.fup 10125
+                                                                    span.fdn 139838160
+                                                                span.equal &#x2248;
+                                                                span.result
+                                                                    b 0.0000724
+                                                        tr
+                                                            td.align-middle 8ª Categoría
+                                                            td.align-middle 2 números y las 2 estrellas
+                                                            td
+                                                                div.fraction
+                                                                    span.fup 141900
+                                                                    span.fdn 139838160
+                                                                span.equal &#x2248;
+                                                                span.result
+                                                                    b 0.001
+                                                        tr
+                                                            td.align-middle 9ª Categoría
+                                                            td.align-middle 3 números y 1 estrella
+                                                            td
+                                                                div.fraction
+                                                                    span.fup 198000
+                                                                    span.fdn 139838160
+                                                                span.equal &#x2248;
+                                                                span.result
+                                                                    b 0.0014
+                                                        tr
+                                                            td.align-middle 10ª Categoría
+                                                            td.align-middle 3 números
+                                                            td
+                                                                div.fraction
+                                                                    span.fup 445500
+                                                                    span.fdn 139838160
+                                                                span.equal &#x2248;
+                                                                span.result
+                                                                    b 0.0032
+                                                        tr
+                                                            td.align-middle 11ª Categoría
+                                                            td.align-middle 1 número y las 2 estrellas
+                                                            td
+                                                                div.fraction
+                                                                    span.fup 744975
+                                                                    span.fdn 139838160
+                                                                span.equal &#x2248;
+                                                                span.result
+                                                                    b 0.0053
+                                                        tr
+                                                            td.align-middle 12ª Categoría
+                                                            td.align-middle 2 números y 1 estrella
+                                                            td
+                                                                div.fraction
+                                                                    span.fup 2838000
+                                                                    span.fdn 139838160
+                                                                span.equal &#x2248;
+                                                                span.result
+                                                                    b 0.02
+                                                        tr
+                                                            td.align-middle 13ª Categoría
+                                                            td.align-middle 2 números
+                                                            td
+                                                                div.fraction
+                                                                    span.fup 6385500
+                                                                    span.fdn 139838160
+                                                                span.equal &#x2248;
+                                                                span.result
+                                                                    b 0.046
 
                                 div.main-card-content(style="word-wrap: break-word;")#sources
                                     div.main-card-name
-                                        a.recipe-title
-                                            h2.caramelo.qdb-black 3. Fuentes
+                                        h2.caramelo.qdb-black 📚 Fuentes
                                     div.main-card-description
                                         p.
                                             Para la redacción de esta página se ha utilizado información y cálculos de otras webs que nos han sido de gran utilidad.
@@ -1540,11 +1554,11 @@ block content
                                         div
                                             ul
                                                 li
-                                                    a(href="http://www.estadisticaparatodos.es/taller/loterias/euromillon.html", target="_blank") http://www.estadisticaparatodos.es/taller/loterias/euromillon.html
+                                                    a(href="http://www.estadisticaparatodos.es/taller/loterias/euromillon.html", target="_blank", title="Estadística para todos", rel="nofollow") http://www.estadisticaparatodos.es/taller/loterias/euromillon.html
                                                 li
-                                                    a(href="https://www.euromillones.com.es/probabilidades.html", target="_blank") https://www.euromillones.com.es/probabilidades.html
+                                                    a(href="https://www.euromillones.com.es/probabilidades.html", target="_blank", title="Euromillones.com", rel="nofollow") https://www.euromillones.com.es/probabilidades.html
                                                 li
-                                                    a(href="https://www.combinacionganadora.com/euromillones/probabilidades/", target="_blank") https://www.combinacionganadora.com/euromillones/probabilidades/
+                                                    a(href="https://www.combinacionganadora.com/euromillones/probabilidades/", target="_blank", title="Combinación ganadora", rel="nofollow") https://www.combinacionganadora.com/euromillones/probabilidades/
 
 
 
