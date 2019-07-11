@@ -96,6 +96,10 @@ module.exports = function(app) {
         });
     };
 
+    var general_vistas_logos = function(req, res) {
+        res.render("logos");
+    };
+
     var general_vistas_admin = function(req, res, next) {
         res.render("admin/dashboard");
     };
@@ -143,6 +147,7 @@ module.exports = function(app) {
     app.get("/sitemap.xml", general_vistas_sitemap);
     app.get("/robots.txt", general_vistas_robots_txt);
     app.get("/ads.txt", general_vistas_ads_txt);
+    app.get("/logos", general_vistas_logos);
 
     admin.get(
         "",

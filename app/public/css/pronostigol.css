@@ -951,7 +951,13 @@ ul.nav.nav-tabs li a {
 }
 
 .logo-juego .titulo-logo-juego {
-    font-size: 70px;
+    font-size: 40px;
+}
+
+@media screen and (min-width: 768px) {
+    .logo-juego .titulo-logo-juego {
+        font-size: 70px;
+    }
 }
 
 .titulo-logo-pronostigol,
@@ -973,7 +979,7 @@ ul.nav.nav-tabs li a {
 }
 
 @media screen and (min-width: 768px) {
-    span.logo-juego {
+    .logo-juego {
         font-size: 70px !important;
         height: 144px;
     }
@@ -1450,4 +1456,12 @@ ui-carousel .carousel-btn i {
 
 .color-green {
     color: green;
+}
+
+#contents-index {
+    font-size: 36px;
+}
+
+p a {
+    font-size: 14px !important;
 }
