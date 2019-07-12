@@ -519,11 +519,11 @@ code {
 
 @media screen and (min-width: 992px) {
     .footer {
-        height: 360px;
+        height: 371px;
     }
 
     body {
-        margin-bottom: 360px;
+        margin-bottom: 371px;
     }
 }
 
@@ -989,4 +989,25 @@ span.equal {
 
 p a {
     font-size: 14px !important;
+}
+
+#footer .footer-column-title {
+    font-size: 30px;
+}
+
+#footer ul li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+#footer ul li>a {
+    font-size: 16px !important;
+}
+
+#footer ul li>a:hover {
+    background: none !important;
+    color: white !important;
+}
+
+#footer #copyright-line a {
+    font-size: 18px !important;
 }
