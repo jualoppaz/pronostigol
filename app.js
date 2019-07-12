@@ -55,6 +55,14 @@ app.use(
     })
 );
 
+app.use(function(req, res, next) {
+    if (process.env.NODE_ENV === "production" && !req.secure) {
+        res.redirect("https://" + req.headers.host + req.url);
+    } else {
+        next();
+    }
+});
+
 require("./app/server/router")(app);
 
 function clientErrorHandler(err, req, res, next) {
