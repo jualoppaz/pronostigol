@@ -32,17 +32,19 @@ block content
                 include partials/navbar
 
                 div(style="padding: 0 0 0 0")
-                    main.container-fluid
+                    main.container-fluid#quiniela-stats
 
-                        div.col-xs-12(data-ng-if="temporadas.length > 0", data-ng-cloak, style="margin-top:15px; padding-left: 0px; padding-right: 0px")
-                            div.alert.alert-info.alert-quiniela.
-                                Ésta es, casi con total seguridad, la funcionalidad más importante de esta
-                                aplicación web. Aquí podrá realizar una gran variedad de consultas para saber
-                                cuáles son las combinaciones más repetidas, los datos de un equipo como local o
-                                visitante, los resultados más repetidos según la fila y otras muchas cosas.
+                        div.col-xs-12.col-sm-8.col-sm-offset-2(data-ng-if="temporadas.length > 0", data-ng-cloak, style="margin-top:15px; padding-left: 0px; padding-right: 0px")
+                            div.alert.alert-info.alert-quiniela
+                                div.page-header
+                                    h1 Estadísticas de la Quiniela
+                                div.
+                                    Ésta es, casi con total seguridad, la funcionalidad más importante de esta
+                                    aplicación web. Aquí podrá realizar una gran variedad de consultas para saber
+                                    cuáles son las combinaciones más repetidas, los datos de un equipo como local o
+                                    visitante, los resultados más repetidos según la fila y otras muchas cosas.
 
-
-                        div.col-md-12.col-md-offset-0.col-sm-12.col-xs-12(data-ng-if="temporadas.length > 0 && competiciones.length > 0 && equipos.length > 0", style="margin-top:20px; padding: 0 0 0 0; background-color: white; border: 2px solid #0480be; border-radius: 4px", data-ng-cloak)
+                        div.col-xs-12(data-ng-if="temporadas.length > 0 && competiciones.length > 0 && equipos.length > 0", style="margin-top:20px; padding: 0 0 0 0; background-color: white; border: 2px solid #0480be; border-radius: 4px", data-ng-cloak)
 
                             uib-tabset.col-xs-12(style="padding: 0 0 0 0;", data-ng-cloak)
                                 uib-tab.col-md-6.col-sm-6.col-xs-6(style="padding: 0 0 0 0", heading="Personalizadas", active="primeraPestana", data-ng-click="activarPestana(1)")
