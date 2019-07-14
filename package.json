@@ -4,7 +4,7 @@
     "description": "Aplicación web con estadísticas de distintos sorteos de SELAE.",
     "apidoc": {
         "title": "Documentación de la API Rest de Pronostigol",
-        "url": "http://www.pronostigol.es/api"
+        "url": "https://www.pronostigol.es/api"
     },
     "keywords": [
         "Quiniela",
