@@ -1011,3 +1011,16 @@ p a {
 #footer #copyright-line a {
     font-size: 18px !important;
 }
+
+.border-bottom-black {
+    border-bottom: 1px solid #2b2b2b;
+}
+
+#quiniela-stats .page-header {
+    border-bottom: 1px solid #0480be;
+    color: #0480be;
+}
+
+#quiniela-stats .alert-info {
+    color: #333;
+}
