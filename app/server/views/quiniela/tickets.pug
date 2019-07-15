@@ -1,9 +1,26 @@
 extends ../layout
 
 block head
-    title Quiniela | Histórico de sorteos de la Quiniela
-    meta(name="description", content="Quiniela. Histórico de sorteos de la Quiniela")
+    title ⚽ Quiniela | Histórico de sorteos de la quiniela
+    //- SEO
+    meta(name="description", content="Apartado en el que poder consultar el histórico de sorteos de la quiniela. ⚡ Se pueden filtrar por temporada.")
+    meta(name="keywords", content="quiniela, histórico, historico, sorteos")
     link(rel="canonical", href="https://www.pronostigol.es/quiniela/sorteos")
+    //- OpenGraph
+    meta(property="og:locale", content="es_ES")
+    meta(property="og:type", content="website")
+    meta(property="og:title", content="⚽ Quiniela | Histórico de sorteos de la quiniela")
+    meta(property="og:description", content="Apartado en el que poder consultar el histórico de sorteos de la quiniela. ⚡ Se pueden filtrar por temporada.")
+    meta(property="og:url", content="https://www.pronostigol.es/quiniela/estadisticas")
+    meta(property="og:site_name", content="Pronostigol")
+    meta(property="og:image", content="https://www.pronostigol.es/img/logo-quiniela.png")
+    //- Twitter
+    meta(name="twitter:card", content="summary")
+    meta(name="twitter:description", content="Apartado en el que poder consultar el histórico de sorteos de la quiniela. ⚡ Se pueden filtrar por temporada.")
+    meta(name="twitter:title", content="⚽ Quiniela | Histórico de sorteos de la quiniela")
+    meta(name="twitter:image", content="https://www.pronostigol.es/img/logo-quiniela.png")
+    meta(name="twitter:site", content="@pronostigolesp")
+    //- Stylesheets
     link(rel="stylesheet", href="/css/quiniela.css")
 
 block content
