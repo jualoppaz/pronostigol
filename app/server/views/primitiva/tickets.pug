@@ -1,9 +1,26 @@
 extends ../layout
 
 block head
-    title Primitiva | Histórico de sorteos de la Primitiva
-    meta(name="description", content="Primitiva. Histórico de sorteos de la Primitiva")
+    title 🤑 Primitiva | Histórico de sorteos de la primitiva
+    //- SEO
+    meta(name="description", content="Apartado en el que poder consultar el histórico de sorteos de la primitiva. ⚡ Se pueden filtrar por año.")
+    meta(name="keywords", content="primitiva, histórico, historico, sorteos")
     link(rel="canonical", href="https://www.pronostigol.es/primitiva/sorteos")
+    //- OpenGraph
+    meta(property="og:locale", content="es_ES")
+    meta(property="og:type", content="website")
+    meta(property="og:title", content="🤑 Primitiva | Histórico de sorteos de la primitiva")
+    meta(property="og:description", content="Apartado en el que poder consultar el histórico de sorteos de la primitiva. ⚡ Se pueden filtrar por año.")
+    meta(property="og:url", content="https://www.pronostigol.es/primitiva/estadisticas")
+    meta(property="og:site_name", content="Pronostigol")
+    meta(property="og:image", content="https://www.pronostigol.es/img/logo-primitiva.png")
+    //- Twitter
+    meta(name="twitter:card", content="summary")
+    meta(name="twitter:description", content="Apartado en el que poder consultar el histórico de sorteos de la primitiva. ⚡ Se pueden filtrar por año.")
+    meta(name="twitter:title", content="🤑 Primitiva | Histórico de sorteos de la primitiva")
+    meta(name="twitter:image", content="https://www.pronostigol.es/img/logo-primitiva.png")
+    meta(name="twitter:site", content="@pronostigolesp")
+    //- Stylesheets
     link(rel="stylesheet", href="/css/pronostigol.css")
 
 block content
