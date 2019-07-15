@@ -1,9 +1,26 @@
 extends ../layout
 
 block head
-    title Bonoloto | Histórico de sorteos de la Bonoloto
+    title 🍀 Bonoloto | Histórico de sorteos de la bonoloto
+    //- SEO
     meta(name="description", content="Bonoloto. Histórico de sorteos de la Bonoloto")
+    meta(name="keywords", content="bonoloto, histórico, historico, sorteos")
     link(rel="canonical", href="https://www.pronostigol.es/bonoloto/sorteos")
+    //- OpenGraph
+    meta(property="og:locale", content="es_ES")
+    meta(property="og:type", content="website")
+    meta(property="og:title", content="🍀 Bonoloto | Histórico de sorteos de la bonoloto")
+    meta(property="og:description", content="Apartado en el que poder consultar el histórico de sorteos de la bonoloto. ⚡ Se pueden filtrar por año.")
+    meta(property="og:url", content="https://www.pronostigol.es/bonoloto/estadisticas")
+    meta(property="og:site_name", content="Pronostigol")
+    meta(property="og:image", content="https://www.pronostigol.es/img/logo-bonoloto.png")
+    //- Twitter
+    meta(name="twitter:card", content="summary")
+    meta(name="twitter:description", content="Apartado en el que poder consultar el histórico de sorteos de la bonoloto. ⚡ Se pueden filtrar por año.")
+    meta(name="twitter:title", content="🍀 Bonoloto | Histórico de sorteos de la bonoloto")
+    meta(name="twitter:image", content="https://www.pronostigol.es/img/logo-bonoloto.png")
+    meta(name="twitter:site", content="@pronostigolesp")
+    //- Stylesheets
     link(rel="stylesheet", href="/css/pronostigol.css")
 
 block content
