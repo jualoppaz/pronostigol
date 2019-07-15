@@ -1494,6 +1494,14 @@ p a {
 }
 
 #bonoloto-stats .alert-info,
-#bonoloto-tickets .alert-info {
+#bonoloto-tickets .alert-info,
+#primitiva-stats .alert-info,
+#primitiva-tickets .alert-info {
     color: #333;
+}
+
+#primitiva-stats .page-header,
+#primitiva-tickets .page-header {
+    border-bottom: 1px solid #398439;
+    color: #398439;
 }
