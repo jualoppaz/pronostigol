@@ -1486,3 +1486,14 @@ p a {
 #footer #copyright-line a {
     font-size: 18px !important;
 }
+
+#bonoloto-stats .page-header,
+#bonoloto-tickets .page-header {
+    border-bottom: 1px solid #2b2b2b;
+    color: #2b2b2b;
+}
+
+#bonoloto-stats .alert-info,
+#bonoloto-tickets .alert-info {
+    color: #333;
+}
