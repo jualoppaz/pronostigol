@@ -8,6 +8,10 @@ var favicon = require("serve-favicon");
 var app = express();
 var path = require("path");
 
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+}
+
 var port = process.env.PORT || 8888;
 const forceDomain = require("forcedomain");
 
@@ -48,12 +52,16 @@ ev.options({
     statusText: "Unprocessable Entity"
 });
 
-app.use(
-    forceDomain({
-        hostname: "www.pronostigol.es",
-        excludeRule: /[a-zA-Z0-9][a-zA-Z0-9-]+\.herokuapp\.com/i
-    })
-);
+var forceDomainOpts = {
+    hostname: "www.pronostigol.es",
+    excludeRule: /[a-zA-Z0-9][a-zA-Z0-9-]+\.herokuapp\.com/i
+};
+
+if (process.env.ACTIVATE_SSL) {
+    forceDomainOpts.protocol = "https";
+}
+
+app.use(forceDomain(forceDomainOpts));
 
 require("./app/server/router")(app);
 
@@ -86,10 +94,6 @@ app.use(errorHandler);
 var http = require("http");
 
 var httpServer = http.createServer(app);
-
-if (process.env.NODE_ENV !== "production") {
-    require("dotenv").config();
-}
 
 httpServer.listen(port, function(err, res) {
     console.log("Servidor HTTP corriendo en puerto: " + port);

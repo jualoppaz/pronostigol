@@ -2,33 +2,29 @@ div.footer.footerEuromillones#footer
     div.container-fluid(data-ng-controller="FooterController")
         div.row
             div.col-sm-6.col-xs-12.text-center(style="padding-top:10px")
-                h2 Pronostigol
-                h3
-                    a(href="/privacidad", title="Privacidad y cookies") Privacidad y cookies
-                h3
-                    a(href="/preguntasFrecuentes", title="Preguntas frecuentes") Preguntas frecuentes
-                h3
-                    a(href="/acerca-de", title="Acerca de") Acerca de
-                h3
-                    a(href="/docs", title="Documentación de API Rest", target="_blank") Documentación de API Rest
+                p.footer-column-title Pronostigol
+                ul#footer-miscellaneous.list-unstyled
+                    li
+                        a(href="/privacidad", title="Privacidad y cookies") Privacidad y cookies
+                    li
+                        a(href="/preguntasFrecuentes", title="Preguntas frecuentes") Preguntas frecuentes
+                    li
+                        a(href="/acerca-de", title="Acerca de") Acerca de
+                    li
+                        a(href="/docs", title="Documentación de API Rest", target="_blank") Documentación de API Rest
             div.col-sm-6.col-xs-12.text-center(style="padding-top:10px")
-                h2 Juegos
+                p.footer-column-title Juegos
                 ul#sections-in-footer.list-unstyled
                     li
-                        h3
-                            a(href="/quiniela", title="Quiniela") Quiniela
+                        a(href="/quiniela", title="Quiniela") Quiniela
                     li
-                        h3
-                            a(href="/bonoloto", title="Bonoloto") Bonoloto
+                        a(href="/bonoloto", title="Bonoloto") Bonoloto
                     li
-                        h3
-                            a(href="/primitiva", title="La Primitiva") La Primitiva
+                        a(href="/primitiva", title="La Primitiva") La Primitiva
                     li
-                        h3
-                            a(href="/gordo", title="El Gordo de la Primitiva") El Gordo de la Primitiva
+                        a(href="/gordo", title="El Gordo de la Primitiva") El Gordo de la Primitiva
                     li
-                        h3
-                            a(href="/euromillones", title="Euromillones") Euromillones
+                        a(href="/euromillones", title="Euromillones") Euromillones
         div.row
             div.col-xs-12.text-center(style="padding-top: 10px")
                 ul#social-links.list-inline
@@ -46,10 +42,10 @@ div.footer.footerEuromillones#footer
                     li(style="vertical-align: top")
                         div.fb-like(data-href="https://www.facebook.com/pronostigol.es", data-layout="button", data-action="like", data-size="small", data-show-faces="false", data-share="false")
                     li(style="vertical-align: top")
-                        a.twitter-share-button(href="https://twitter.com/share?ref_src=twsrc%5Etfw", data-show-count="false", data-text="📊 Pronostigol | Estadísticas de Loterías y Apuestas del Estado", data-url="http://www.pronostigol.es", data-via="pronostigolesp") Twittear
+                        a.twitter-share-button(href="https://twitter.com/share?ref_src=twsrc%5Etfw", data-show-count="false", data-text="📊 Pronostigol | Estadísticas de Loterías y Apuestas del Estado", data-url="https://www.pronostigol.es", data-via="pronostigolesp") Twittear
 
             div.col-xs-12.text-center(style="padding-top: 10px")
-                h3
+                span#copyright-line
                     i.fa.fa-copyright(aria-hidden="true")
                     span#copyright 2014-2019 Pronostigol, Desarrollado por
                     a(href="http://www.juanmanuellopezpazos.es", title="Juan Manuel López Pazos", target="_blank") Juan Manuel López Pazos

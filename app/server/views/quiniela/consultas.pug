@@ -1,9 +1,26 @@
 extends ../layout
 
 block head
-    title Quiniela | Consulta de estadísticas y resultados de la Quiniela
-    meta(name="description", content="Quiniela. Consulta de estadísticas y resultados de la Quiniela")
-    link(rel="canonical", href="http://www.pronostigol.es/quiniela/estadisticas")
+    title ⚽ Quiniela | Estadísticas de la quiniela
+    //- SEO
+    meta(name="description", content="📊 Estadísticas avanzadas sobre la quiniela. ⚡ Se incluyen multitud de filtros para personalizar las consultas.")
+    meta(name="keywords", content="quiniela, estadísticas, estadisticas, consultas")
+    link(rel="canonical", href="https://www.pronostigol.es/quiniela/estadisticas")
+    //- OpenGraph
+    meta(property="og:locale", content="es_ES")
+    meta(property="og:type", content="website")
+    meta(property="og:title", content="⚽ Quiniela | Estadísticas de la quiniela")
+    meta(property="og:description", content="📊 Estadísticas avanzadas sobre la quiniela. ⚡ Se incluyen multitud de filtros para personalizar las consultas.")
+    meta(property="og:url", content="https://www.pronostigol.es/quiniela/estadisticas")
+    meta(property="og:site_name", content="Pronostigol")
+    meta(property="og:image", content="https://www.pronostigol.es/img/logo-quiniela.png")
+    //- Twitter
+    meta(name="twitter:card", content="summary")
+    meta(name="twitter:description", content="📊 Estadísticas avanzadas sobre la quiniela. ⚡ Se incluyen multitud de filtros para personalizar las consultas.")
+    meta(name="twitter:title", content="⚽ Quiniela | Estadísticas de la quiniela")
+    meta(name="twitter:image", content="https://www.pronostigol.es/img/logo-quiniela.png")
+    meta(name="twitter:site", content="@pronostigolesp")
+    //- Stylesheets
     link(rel="stylesheet", href="/css/quiniela.css")
 
 block content
@@ -15,17 +32,19 @@ block content
                 include partials/navbar
 
                 div(style="padding: 0 0 0 0")
-                    main.container-fluid
+                    main.container-fluid#quiniela-stats
 
-                        div.col-xs-12(data-ng-if="temporadas.length > 0", data-ng-cloak, style="margin-top:15px; padding-left: 0px; padding-right: 0px")
-                            div.alert.alert-info.alert-quiniela.
-                                Ésta es, casi con total seguridad, la funcionalidad más importante de esta
-                                aplicación web. Aquí podrá realizar una gran variedad de consultas para saber
-                                cuáles son las combinaciones más repetidas, los datos de un equipo como local o
-                                visitante, los resultados más repetidos según la fila y otras muchas cosas.
+                        div.col-xs-12.col-sm-8.col-sm-offset-2(data-ng-if="temporadas.length > 0", data-ng-cloak, style="margin-top:15px; padding-left: 0px; padding-right: 0px")
+                            div.alert.alert-info.alert-quiniela
+                                div.page-header
+                                    h1 Estadísticas de la Quiniela
+                                div.
+                                    Ésta es, casi con total seguridad, la funcionalidad más importante de nuestra
+                                    sección de la <b>Quiniela</b>. Aquí podrás consultar una gran variedad de estadísticas
+                                    para saber cuáles son las combinaciones más repetidas, los datos de un equipo como local o
+                                    visitante, los resultados más repetidos según la fila y otras muchas cosas.
 
-
-                        div.col-md-12.col-md-offset-0.col-sm-12.col-xs-12(data-ng-if="temporadas.length > 0 && competiciones.length > 0 && equipos.length > 0", style="margin-top:20px; padding: 0 0 0 0; background-color: white; border: 2px solid #0480be; border-radius: 4px", data-ng-cloak)
+                        div.col-xs-12(data-ng-if="temporadas.length > 0 && competiciones.length > 0 && equipos.length > 0", style="margin-top:20px; padding: 0 0 0 0; background-color: white; border: 2px solid #0480be; border-radius: 4px", data-ng-cloak)
 
                             uib-tabset.col-xs-12(style="padding: 0 0 0 0;", data-ng-cloak)
                                 uib-tab.col-md-6.col-sm-6.col-xs-6(style="padding: 0 0 0 0", heading="Personalizadas", active="primeraPestana", data-ng-click="activarPestana(1)")
@@ -33,8 +52,6 @@ block content
                                         div.col-xs-12(style="padding: 0 0 0 0; margin-top: 15px").form-group
                                             label.col-md-2.col-md-offset-1.col-sm-2.col-sm-offset-1.col-xs-12.control-label Temporada:
                                             div.col-md-4.col-md-offset-0.col-sm-4.col-sm-offset-0.col-xs-12
-                                                // Este select era el original.
-                                                // select.form-control(data-ng-model="temporadaSeleccionada", data-ng-init="temporadaSeleccionada = temporadaSeleccionada || temporadas[0].name", data-ng-options="temporada.value as temporada.name for temporada in temporadas")
                                                 input#temporadaSeleccionada(data-ng-model="form.temporadaSeleccionada", placeholder="Histórico", uib-typeahead="temporada.value as temporada.name for temporada in temporadas | filter:{name:$viewValue}").form-control
                                             div.col-md-5.col-sm-5.hidden-xs
                                                 button(uib-popover="{{ayudaTemporada}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
@@ -46,8 +63,6 @@ block content
                                         div.col-xs-12(style="padding: 0 0 0 0").form-group
                                             label.col-md-2.col-md-offset-1.col-sm-2.col-sm-offset-1.col-xs-12.control-label Competición:
                                             div.col-md-4.col-md-offset-0.col-sm-4.col-sm-offset-0.col-xs-12
-                                                // Este select era el original.
-                                                // select.form-control(data-ng-model="competicionSeleccionada", data-ng-init="competicionSeleccionada = competicionSeleccionada || competiciones[0].name", data-ng-options="competicion.value as competicion.name for competicion in competiciones")
                                                 input#competicionSeleccionada(type="text", placeholder="Todas", data-ng-model="form.competicionSeleccionada", uib-typeahead="competicion.value as competicion.name for competicion in competiciones | filter:{name:$viewValue}").form-control
                                             div.col-md-5.col-sm-5.hidden-xs
                                                 button(uib-popover="{{ayudaCompeticion}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
@@ -85,17 +100,13 @@ block content
                                             label.col-md-2.col-md-offset-1.col-sm-2.col-sm-offset-1.col-xs-12.control-label Partido:
 
                                             div.col-md-4.col-md-offset-0.col-sm-4.col-sm-offset-0.hidden-xs
-                                                //input.form-control(data-ng-model="equipoLocalSeleccionado", placeholder="Equipo local")
                                                 input.form-control(data-ng-model="form.equipoLocalSeleccionado", placeholder="Equipo local", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
                                             div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-bottom: 15px")
-                                                //input.form-control(data-ng-model="equipoLocalSeleccionado", placeholder="Equipo local")
                                                 input.form-control(data-ng-model="form.equipoLocalSeleccionado", placeholder="Equipo local", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
 
                                             div.col-md-4.col-md-offset-0.col-sm-4.col-sm-offset-0.hidden-xs
-                                                //input.form-control(data-ng-model="equipoVisitanteSeleccionado", placeholder="Equipo visitante")
                                                 input.form-control(data-ng-model="form.equipoVisitanteSeleccionado", placeholder="Equipo visitante", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
                                             div.hidden-lg.hidden-md.hidden-sm.col-xs-12
-                                                //input.form-control(data-ng-model="equipoVisitanteSeleccionado", placeholder="Equipo visitante")
                                                 input.form-control(data-ng-model="form.equipoVisitanteSeleccionado", placeholder="Equipo visitante", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
 
 

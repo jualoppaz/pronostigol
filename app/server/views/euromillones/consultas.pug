@@ -1,9 +1,26 @@
 extends ../layout
 
 block head
-    title Euromillones | Consulta de estadísticas y resultados de Euromillones
-    meta(name="description", content="Euromillones. Consulta de estadísticas y resultados de Euromillones")
-    link(rel="canonical", href="http://www.pronostigol.es/euromillones/estadisticas")
+    title 🌟 Euromillones | Estadísticas de Euromillones
+    //- SEO
+    meta(name="description", content="📊 Estadísticas avanzadas sobre euromillones. ⚡ Se incluyen multitud de filtros para personalizar las consultas.")
+    meta(name="keywords", content="euromillones, euromillions, estadísticas, estadisticas, consultas")
+    link(rel="canonical", href="https://www.pronostigol.es/euromillones/estadisticas")
+    //- OpenGraph
+    meta(property="og:locale", content="es_ES")
+    meta(property="og:type", content="website")
+    meta(property="og:title", content="🌟 Euromillones | Estadísticas de Euromillones")
+    meta(property="og:description", content="📊 Estadísticas avanzadas sobre euromillones. ⚡ Se incluyen multitud de filtros para personalizar las consultas.")
+    meta(property="og:url", content="https://www.pronostigol.es/euromillones/estadisticas")
+    meta(property="og:site_name", content="Pronostigol")
+    meta(property="og:image", content="https://www.pronostigol.es/img/logo-euromillones.png")
+    //- Twitter
+    meta(name="twitter:card", content="summary")
+    meta(name="twitter:description", content="📊 Estadísticas avanzadas sobre euromillones. ⚡ Se incluyen multitud de filtros para personalizar las consultas.")
+    meta(name="twitter:title", content="🌟 Euromillones | Estadísticas de Euromillones")
+    meta(name="twitter:image", content="https://www.pronostigol.es/img/logo-euromillones.png")
+    meta(name="twitter:site", content="@pronostigolesp")
+    //- Stylesheets
     link(rel="stylesheet", href="/css/pronostigol.css")
 
 block content
@@ -15,14 +32,17 @@ block content
                 include partials/navbar
 
                 div(style="padding: 0 0 0 0")
-                    main.container-fluid
+                    main.container-fluid#euromillones-stats
 
-                        div.col-xs-12(data-ng-cloak, style="margin-top:15px; padding-left: 0px; padding-right: 0px")
-                            div.alert.alert-euromillones.
-                                Aqu&iacute; podr&aacute;s realizar todo tipo de consultas, de modo que
-                                podr&aacute;s saber cu&aacute;les son los n&uacute;meros o los reintegros que
-                                se han dado en m&aacute;s ocasiones. As&iacute; podr&aacute;s realizar
-                                tus apuestas con mayor criterio.
+                        div.col-xs-12.col-sm-8.col-sm-offset-2(data-ng-cloak, style="margin-top:15px; padding-left: 0px; padding-right: 0px")
+                            div.alert.alert-euromillones
+                                div.page-header
+                                    h1 Estadísticas de Euromillones
+                                div.
+                                    Aqu&iacute; podr&aacute;s consultar todo tipo de estadísticas sobre <b>Euromillones</b>,
+                                    de modo que podr&aacute;s saber cu&aacute;les son los n&uacute;meros o los estrellas que
+                                    se han dado en m&aacute;s ocasiones. As&iacute; podr&aacute;s realizar
+                                    tus apuestas con mayor criterio.
 
 
                         div.col-xs-12(style="margin-top:20px; padding: 0 0 0 0; background-color: white; border: 2px solid #440044; border-radius: 4px", data-ng-cloak)
@@ -36,8 +56,6 @@ block content
 
 
                                                 label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
-                                                    //input(type="radio", name="optionsRadiosEstandar", value="combinacionesSucedidas", data-ng-checked="true", data-ng-model="form.opcionBusquedaEstandar")#radio1Estandar
-                                                    //| &nbsp; Apariciones por n&uacute;mero
                                                     input(type="radio", value="aparicionesPorNumero", data-ng-model="form.opcionBusquedaEstandar.name")#radio1Estandar
                                                     | &nbsp; Apariciones por N&uacute;mero
                                                 div.col-md-5.col-sm-5.hidden-xs
@@ -115,20 +133,6 @@ block content
                                                 next-text=">",
                                                 first-text="Inicio",
                                                 last-text="Fin").pagination-sm.abel
-
-                                                //pre Tickets per page: {{ticketsPerPage}}
-
-                                                //pre Current page: {{currentPage}}
-
-                                                //pre Total items: {{totalItems}}
-
-                                                //pre Star: {{ticketsPerPage*currentPage - ticketsPerPage}}
-
-                                                //pre End: {{ticketsPerPage*currentPage - 1}}
-
-                                                //pre {{aparicionesPorResultado.slice(ticketsPerPage*currentPage - ticketsPerPage, ticketsPerPage*currentPage - 1)}}
-
-                                                //pre {{::aparicionesPorResultado}}
 
                                             include partials/tablaAparicionesPorNumero
 

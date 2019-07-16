@@ -1,24 +1,25 @@
 {
-	"@context": "http://schema.org",
-	"@type": "Organization",
+    "@context": "http://schema.org",
+    "@type": "Organization",
     "name": "Pronostigol",
-	"url": "http://www.pronostigol.es",
-	"sameAs": [
-		"https://www.facebook.com/pronostigol.es/",
-		"https://twitter.com/pronostigolesp"
-	],
-	"logo": "http://www.pronostigol.es/img/favicon.png",
-	"contactPoint": [
-		{
-			"@type": "ContactPoint",
-			"email": "www.pronostigol.es@gmail.com",
-            "url": "http://pronostigol.es/contacto",
-			"contactType": "customer support"
-		},{
-			"@type": "ContactPoint",
-			"email": "www.pronostigol.es@gmail.com",
-            "url": "http://pronostigol.es/contacto",
-			"contactType": "technical support"
-		}
-	]
+    "url": "https://www.pronostigol.es",
+    "sameAs": [
+        "https://www.facebook.com/pronostigol.es/",
+        "https://twitter.com/pronostigolesp"
+    ],
+    "logo": "https://www.pronostigol.es/img/favicon.png",
+    "contactPoint": [
+        {
+            "@type": "ContactPoint",
+            "email": "www.pronostigol.es@gmail.com",
+            "url": "https://www.pronostigol.es/contacto",
+            "contactType": "customer support"
+        },
+        {
+            "@type": "ContactPoint",
+            "email": "www.pronostigol.es@gmail.com",
+            "url": "https://www.pronostigol.es/contacto",
+            "contactType": "technical support"
+        }
+    ]
 }

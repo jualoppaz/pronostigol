@@ -1,9 +1,9 @@
-{ 
-    "@context": "http://schema.org", 
+{
+    "@context": "http://schema.org",
     "@type": "WebApplication",
-    "url": "http://www.pronostigol.es/", 
+    "url": "https://www.pronostigol.es/",
     "name": "Pronostigol",
-    "image": "http://www.pronostigol.es/img/favicon.png",
+    "image": "https://www.pronostigol.es/img/favicon.png",
     "description": "Consulta de histórico de sorteos y estadísticas de resultados de Quiniela, Bonoloto, Primitiva, Gordo de la Primitiva y Euromillones",
     "creator": {
         "@type": "Person",

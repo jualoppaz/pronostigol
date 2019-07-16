@@ -648,11 +648,11 @@ code {
 
 @media screen and (min-width: 992px) {
     .footer {
-        height: 360px;
+        height: 371px;
     }
 
     body {
-        margin-bottom: 360px;
+        margin-bottom: 371px;
     }
 }
 
@@ -1464,4 +1464,60 @@ ui-carousel .carousel-btn i {
 
 p a {
     font-size: 14px !important;
+}
+
+#footer .footer-column-title {
+    font-size: 30px;
+}
+
+#footer ul li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+#footer ul li>a {
+    font-size: 16px !important;
+}
+
+#footer ul li>a:hover {
+    background: none !important;
+    color: white !important;
+}
+
+#footer #copyright-line a {
+    font-size: 18px !important;
+}
+
+#bonoloto-stats .page-header,
+#bonoloto-tickets .page-header {
+    border-bottom: 1px solid #2b2b2b;
+    color: #2b2b2b;
+}
+
+#primitiva-stats .page-header,
+#primitiva-tickets .page-header {
+    border-bottom: 1px solid #398439;
+    color: #398439;
+}
+
+#gordo-stats .page-header,
+#gordo-tickets .page-header {
+    border-bottom: 1px solid #e32d28;
+    color: #e32d28;
+}
+
+#euromillones-stats .page-header,
+#euromillones-tickets .page-header {
+    border-bottom: 1px solid #440044;
+    color: #440044;
+}
+
+#bonoloto-stats .alert-info,
+#bonoloto-tickets .alert-info,
+#primitiva-stats .alert-info,
+#primitiva-tickets .alert-info,
+#gordo-stats .alert-info,
+#gordo-tickets .alert-info,
+#euromillones-stats .alert-info,
+#euromillones-tickets .alert-info {
+    color: #333;
 }
