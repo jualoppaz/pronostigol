@@ -1493,15 +1493,23 @@ p a {
     color: #2b2b2b;
 }
 
-#bonoloto-stats .alert-info,
-#bonoloto-tickets .alert-info,
-#primitiva-stats .alert-info,
-#primitiva-tickets .alert-info {
-    color: #333;
-}
-
 #primitiva-stats .page-header,
 #primitiva-tickets .page-header {
     border-bottom: 1px solid #398439;
     color: #398439;
+}
+
+#gordo-stats .page-header,
+#gordo-tickets .page-header {
+    border-bottom: 1px solid #e32d28;
+    color: #e32d28;
+}
+
+#bonoloto-stats .alert-info,
+#bonoloto-tickets .alert-info,
+#primitiva-stats .alert-info,
+#primitiva-tickets .alert-info,
+#gordo-stats .alert-info,
+#gordo-tickets .alert-info {
+    color: #333;
 }
