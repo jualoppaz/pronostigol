@@ -1505,11 +1505,19 @@ p a {
     color: #e32d28;
 }
 
+#euromillones-stats .page-header,
+#euromillones-tickets .page-header {
+    border-bottom: 1px solid #440044;
+    color: #440044;
+}
+
 #bonoloto-stats .alert-info,
 #bonoloto-tickets .alert-info,
 #primitiva-stats .alert-info,
 #primitiva-tickets .alert-info,
 #gordo-stats .alert-info,
-#gordo-tickets .alert-info {
+#gordo-tickets .alert-info,
+#euromillones-stats .alert-info,
+#euromillones-tickets .alert-info {
     color: #333;
 }
