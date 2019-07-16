@@ -4,3 +4,4 @@ node_modules
 .scannerwork
 /app/public/docs/
 bower_components
+.vscode/
