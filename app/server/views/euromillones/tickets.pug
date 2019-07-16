@@ -1,9 +1,26 @@
 extends ../layout
 
 block head
-    title Euromillones | Histórico de sorteos de Euromillones
-    meta(name="description", content="Euromillones. Histórico de sorteos de Euromillones")
+    title 🌟 Euromillones | Histórico de sorteos de Euromillones
+    //- SEO
+    meta(name="description", content="Apartado en el que poder consultar el histórico de sorteos de euromillones. ⚡ Se pueden filtrar por año.")
+    meta(name="keywords", content="euromillones, euromillions, histórico, historico, sorteos")
     link(rel="canonical", href="https://www.pronostigol.es/euromillones/sorteos")
+    //- OpenGraph
+    meta(property="og:locale", content="es_ES")
+    meta(property="og:type", content="website")
+    meta(property="og:title", content="🌟 Euromillones | Histórico de sorteos de Euromillones")
+    meta(property="og:description", content="Apartado en el que poder consultar el histórico de sorteos de euromillones. ⚡ Se pueden filtrar por año.")
+    meta(property="og:url", content="https://www.pronostigol.es/euromillones")
+    meta(property="og:site_name", content="Pronostigol")
+    meta(property="og:image", content="https://www.pronostigol.es/img/logo-euromillones.png")
+    //- Twitter
+    meta(name="twitter:card", content="summary")
+    meta(name="twitter:description", content="Apartado en el que poder consultar el histórico de sorteos de euromillones. ⚡ Se pueden filtrar por año.")
+    meta(name="twitter:title", content="🌟 Euromillones | Histórico de sorteos de Euromillones")
+    meta(name="twitter:image", content="https://www.pronostigol.es/img/logo-euromillones.png")
+    meta(name="twitter:site", content="@pronostigolesp")
+    //- Stylesheets
     link(rel="stylesheet", href="/css/pronostigol.css")
 
 
@@ -16,7 +33,7 @@ block content
                 include partials/navbar
 
                 div(style="padding: 0 0 0 0")
-                    main.container-fluid
+                    main.container-fluid#euromillones-tickets
                         div.col-xs-12(style="padding-top: 20px")
                             script(async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
                             ins.adsbygoogle(style="display:block", data-ad-client="ca-pub-2309187828170787",
@@ -25,9 +42,12 @@ block content
 
                         div.col-xs-12(style="padding-top: 15px")
 
-                            div.col-md-6.col-sm-6.col-xs-12
+                            div.col-xs-12
                                 div.alert.alert-euromillones
-                                    | Aqu&iacute; podr&aacute;s buscar los sorteos de Euromillones de los años que se indican a continuaci&oacute;n.
+                                    div.page-header
+                                        h1 Histórico de sorteos de Euromillones
+                                    div.
+                                        Aqu&iacute; encontrarás un amplio histórico en el que poder buscar los sorteos de <b>Euromillones</b> de los años que se indican a continuaci&oacute;n.
 
                         div.col-xs-12
                             div.col-md-3
