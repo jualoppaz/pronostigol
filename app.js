@@ -15,7 +15,7 @@ if (process.env.NODE_ENV !== "production") {
 var port = process.env.PORT || 8888;
 const forceDomain = require("forcedomain");
 
-const { HTTP_CODES } = require("./app/server/constants");
+const { HTTP_CODES } = require("./server/constants");
 
 app.use(
     compression({
@@ -31,7 +31,7 @@ app.use("/bower_components", express.static(__dirname + "/bower_components"));
 
 app.set("port", port);
 
-app.set("views", path.join(__dirname + "/app/server/views"));
+app.set("views", path.join(__dirname + "/server/views"));
 
 app.set("view engine", "pug");
 
@@ -63,7 +63,7 @@ if (process.env.ACTIVATE_SSL) {
 
 app.use(forceDomain(forceDomainOpts));
 
-require("./app/server/router")(app);
+require("./server/router")(app);
 
 function clientErrorHandler(err, req, res, next) {
     console.log("Entramos en clientErrorHandler");
