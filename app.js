@@ -23,11 +23,12 @@ app.use(
     })
 );
 
-app.use(favicon(__dirname + "/app/public/img/favicon.png"));
+app.use(favicon(__dirname + "/app_old/public/img/favicon.png"));
 
-app.use(express.static(__dirname + "/app/public"));
+app.use(express.static(__dirname + "/public"));
 
 app.use("/bower_components", express.static(__dirname + "/bower_components"));
+app.use("/build", express.static(__dirname + "/build"));
 
 app.set("port", port);
 
