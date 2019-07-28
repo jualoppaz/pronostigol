@@ -1,0 +1,25 @@
+{
+    "env": {
+        "es6": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2017,
+        "sourceType": "module"
+    },
+    "globals": {
+        "angular": true,
+        "$": true,
+        "jQuery": true
+    },
+    "rules": {
+        "linebreak-style": ["error", "windows"],
+        "no-console": "off",
+        "no-debugger": "warn",
+        "no-underscore-dangle": 0,
+        "no-use-before-define": 2,
+        "no-unused-expressions": 0,
+        "no-empty-class": 0,
+        "quotes": 2,
+        "semi": ["error", "always"]
+    }
+}
