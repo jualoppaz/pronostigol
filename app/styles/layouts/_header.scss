@@ -1,0 +1,82 @@
+header {
+    .rst-logoInicio {
+        padding-top: 15px !important;
+        margin-bottom: 10px;
+        div {
+            img {
+                border: solid #0043a0 2px !important;
+                width: 100%;
+                max-height: 250px;
+                margin: auto;
+                @media (min-width: 768px) {
+                    width: 60%;
+                }
+                @media (min-width: 992px) {
+                    width: 40%;
+                }
+                @media (min-width: 992px) {
+                    width: 40%;
+                }
+            }
+        }
+    }
+    .rst-navbar {
+        padding-top: 0px;
+        nav.navbar-default {
+            border: 2px solid #0043a0;
+            border-radius: 30px !important;
+            .navbar-header {
+                .navbar-toggle {
+                    border: solid #0043a0 2px !important;
+                    color: #ffffff !important;
+                    &:hover {
+                        background-color: #0043a0 !important;
+                        border: solid #ffffff 2px !important;
+                        color: #0043a0 !important;
+                        .icon-bar {
+                            background-color: #ffffff !important;
+                        }
+                    }
+                    &:focus {
+                        background-color: #ffffff !important;
+                        border: solid #0043a0 2px !important;
+                        .icon-bar {
+                            background-color: #0043a0 !important;
+                        }
+                    }
+                    .icon-bar {
+                        background-color: #0043a0 !important;
+                    }
+                }
+            }
+            .navbar-collapse {
+                .rst-navbar-secciones {
+                    width: 100% !important;
+                    font-size: 0;
+                    li {
+                        width: 20% !important;
+                        float: none;
+                        display: inline-block;
+                        vertical-align: middle;
+                        font-size: 14px;
+                        &.margenInlineBlock {
+                            a {
+                                @media (min-width: 768px) and (max-width: 991px) {
+                                    line-height: 40px !important;
+                                }
+                            }
+                        }
+                        a {
+                            color: #0043a0 !important;
+                            font-size: 18px !important;
+                            font-weight: bold;
+                            &:hover {
+                                background-color: #ddd !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

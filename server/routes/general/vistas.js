@@ -2,7 +2,7 @@ var middlewares = require("../../middlewares");
 var fs = require("fs");
 var path = require("path");
 var { ROLES } = require("../../constants");
-var pjson = require("../../../../package.json");
+var pjson = require("../../../package.json");
 
 module.exports = function(app) {
     var actualizarUltimaPagina = function(req) {
@@ -29,7 +29,7 @@ module.exports = function(app) {
     var general_vistas_inicio = function(req, res, next) {
         funcionesComunes(req, res, next);
 
-        const structured_data_path = "./app/server/views/structuredData/";
+        const structured_data_path = "./server/views/structuredData/";
 
         const appVersion = pjson.version;
 

@@ -1,0 +1,33 @@
+extends layout
+
+block head
+    title 🥇 PRONOSTIGOL | 📊Estadísticas de Loterías y Apuestas del Estado
+    //- SEO
+    meta(name="description", content="Histórico de sorteos, estadísticas y resultados de Quiniela, Bonoloto, Primitiva, Gordo de la Primitiva y Euromillones ✅ Disponible API REST documentada.")
+    meta(name="google-site-verification", content="Q-aSMrFeUMd7hnC5fkyAP90u5oXjO5BCEy9KU_8OF1Q")
+    //- OpenGraph
+    meta(property="og:locale", content="es_ES")
+    meta(property="og:type", content="website")
+    meta(property="og:title", content="📊 Pronostigol | Estadísticas de Loterías y Apuestas del Estado")
+    meta(property="og:description", content="Aplicación web en la que puedes encontrar el histórico de sorteos, así como estadísticas y resultados de Quiniela, Bonoloto, Primitiva, Gordo de la Primitiva y Euromillones")
+    meta(property="og:url", content="https://www.pronostigol.es")
+    meta(property="og:site_name", content="Pronostigol")
+    meta(property="og:image", content="https://www.pronostigol.es/img/favicon.png")
+    //- Twitter
+    meta(name="twitter:card", content="summary")
+    meta(name="twitter:description", content="Aplicación web en la que puedes encontrar el histórico de sorteos, así como estadísticas y resultados de Quiniela, Bonoloto, Primitiva, Gordo de la Primitiva y Euromillones")
+    meta(name="twitter:title", content="📊 Pronostigol | Estadísticas de Loterías y Apuestas del Estado")
+    meta(name="twitter:image", content="https://www.pronostigol.es/img/favicon.png")
+    meta(name="twitter:site", content="@pronostigolesp")
+
+    //- Version
+    meta(name="version", content=version)
+
+    link(rel="canonical", href="https://www.pronostigol.es")
+
+block content
+    header(data-ui-view='header')
+    loading(data-ng-if='loading')
+    main(data-ui-view='main', id='{{ currentState }}')
+    footer#footer(data-ui-view='footer')
+    script(src="/build/app.js")
