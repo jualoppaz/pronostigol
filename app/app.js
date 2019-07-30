@@ -12,6 +12,9 @@ import header from "./views/layouts/header/header.module";
 import footer from "./views/layouts/footer/footer.module";
 import home from "./views/home.module";
 
+// Styles
+import "./styles/style.scss";
+
 // Vendor modules
 console.log(toastr);
 console.log(ngAnimate);

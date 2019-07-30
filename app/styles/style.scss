@@ -1,0 +1,12 @@
+// Librerías
+@import "lib/variables";
+@import "lib/global";
+// Componentes
+@import "features/directives/loading/loading";
+// Layouts
+@import "layouts/footer";
+@import "layouts/header";
+// Vistas
+@import "views/home";
+// CSS necesario al final
+@import "lib/globalLasts";

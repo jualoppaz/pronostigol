@@ -1,0 +1,157 @@
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+    display: none !important;
+}
+
+html {
+    height: unset;
+    min-height: 100%;
+    position: relative;
+}
+
+body {
+    background: url(/images/toldo_fondo.jpg) no-repeat fixed center 20%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    margin-bottom: $footer-height;
+    >main {
+        overflow: hidden;
+    }
+    >footer#footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: $footer-height;
+    }
+}
+
+h1,
+h2,
+h3,
+a,
+p {
+    font-family: "Times New Roman", Times, serif;
+}
+
+.navbar-collapse.collapsing {
+    border-top: 0;
+}
+
+.background-white-transparent {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.background-black-transparent {
+    background-color: rgba(75, 75, 75, 0.5) !important;
+    color: white;
+}
+
+/* ------- FADE IN ---------- */
+
+$opacidad-inicial: 0;
+$opacidad-final: 1;
+$opacidad-transicion: fadeIn 0.6s infinite;
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: $opacidad-inicial;
+    }
+    100% {
+        opacity: $opacidad-final;
+    }
+}
+
+@-moz-keyframes fadeIn {
+    0% {
+        opacity: $opacidad-inicial;
+    }
+    100% {
+        opacity: $opacidad-final;
+    }
+}
+
+@-o-keyframes fadeIn {
+    0% {
+        opacity: $opacidad-inicial;
+    }
+    100% {
+        opacity: $opacidad-final;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: $opacidad-inicial;
+    }
+    100% {
+        opacity: $opacidad-final;
+    }
+}
+
+.fadeIn {
+    -webkit-animation: $opacidad-transicion;
+    -moz-animation: $opacidad-transicion;
+    -o-animation: $opacidad-transicion;
+    animation: $opacidad-transicion;
+    -webkit-animation-iteration-count: 1;
+    -moz-animation-iteration-count: 1;
+    -o-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+}
+
+label {
+    padding-top: 7px;
+}
+
+.alert-danger {
+    margin-bottom: 0px;
+}
+
+.bordeAzul {
+    border: 3px solid #0043a0 !important;
+    background-color: rgba(240, 240, 240, 1) !important;
+}
+
+.pointer-hover {
+    cursor: pointer !important;
+}
+
+.rst-noSubrayar {
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.btn-rst {
+    background-color: #0480be !important;
+    border-color: #eeeeee !important;
+    color: #eeeeee;
+    &:focus,
+    &:hover {
+        background-color: #0480be !important;
+        border-color: #eeeeee !important;
+        color: #eeeeee;
+    }
+}
+
+p {
+    &.text-indent {
+        text-indent: 2em;
+        font-size: 18px !important;
+        text-align: justify;
+        @media screen and (min-width: $min-width-tablet) {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+}
+
+.container {
+    margin: 0;
+    width: 100%;
+}
