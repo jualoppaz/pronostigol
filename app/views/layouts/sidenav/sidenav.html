@@ -1,0 +1,55 @@
+<md-sidenav
+    class="site-sidenav md-sidenav-left md-whiteframe-z2 hide-print md-closed ng-isolate-scope _md md-locked-open"
+    md-component-id="left"
+    hide-print
+    md-is-locked-open="$mdMedia('gt-sm')"
+    tabindex="-1"
+>
+    <header class="nav-header">
+        <a ng-href="/" class="docs-logo" href="/">
+            <span id="sidebar-logo">P</span>
+            <h1 class="docs-logotype md-heading ng-isolate-scope">
+                AngularJS Material
+            </h1>
+        </a>
+    </header>
+    <md-content flex role="navigation">
+        <ul class="navs-menu">
+            <li
+                ng-repeat="section in sidenav.sections"
+                class="parent-list-item {{ section.className || '' }}"
+            >
+                <h2
+                    class="menu-heading md-subhead"
+                    ng-if="section.type === 'heading'"
+                    id="heading_{{ section.name }}"
+                >
+                    {{ section.name }}
+                </h2>
+                <menu-link
+                    section="section"
+                    ng-if="section.type === 'link' && !section.hidden"
+                ></menu-link>
+
+                <menu-toggle
+                    section="section"
+                    ng-if="section.type === 'toggle' && !section.hidden"
+                ></menu-toggle>
+
+                <ul ng-if="section.children" class="menu-nested-list">
+                    <li ng-repeat="child in section.children">
+                        <menu-link
+                            section="child"
+                            ng-if="child.type === 'link'"
+                        ></menu-link>
+
+                        <menu-toggle
+                            section="child"
+                            ng-if="child.type === 'toggle'"
+                        ></menu-toggle>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </md-content>
+</md-sidenav>
