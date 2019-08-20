@@ -1,0 +1,14 @@
+// Librerías
+@import "styles/lib/variables";
+@import "styles/lib/global";
+// Componentes
+@import "views/features/directives/loading/loading";
+@import "views/features/directives/menu-toggle/menu-toggle";
+// Layouts
+@import "views/layouts/footer/footer";
+@import "views/layouts/header/header";
+@import "views/layouts/sidenav/sidenav";
+// Vistas
+@import "views/home";
+// CSS necesario al final
+@import "styles/lib/globalLasts";

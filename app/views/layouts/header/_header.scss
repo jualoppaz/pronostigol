@@ -1,0 +1,27 @@
+header {
+
+    md-sidenav {
+        &.site-sidenav {
+            background: #106CC8;
+
+            md-content {
+                background: none;
+            }
+        }
+
+        header {
+            a {
+                text-decoration: none;
+
+                #sidebar-logo {
+                    color: white;
+                    text-align: center;
+                    font-size: 200px;
+                    display: block;
+                    font-style: italic;
+                }
+            }
+        }
+    }
+
+}
