@@ -1,0 +1,16 @@
+menu-toggle {
+
+    .md-button-toggle {
+        .md-toggle-icon {
+            transform: rotate(180deg);
+            transition: transform 0.3s ease-in-out,
+                -webkit-transform 0.3s ease-in-out;
+
+            &.toggled {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+        }
+    }
+
+}
