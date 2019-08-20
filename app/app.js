@@ -3,22 +3,31 @@
 import angular from "angular";
 import toastr from "angular-toastr";
 import ngAnimate from "angular-animate";
-import ngTouch from "angular-touch";
+import ngMaterial from "angular-material";
+import ngMessages from "angular-messages";
 
 import configuration from "./app.config";
 
+import directives from "./views/features/directives/directives.module";
+import services from "./services/services.module";
+
 // App Modules
 import header from "./views/layouts/header/header.module";
+import sidenav from "./views/layouts/sidenav/sidenav.module";
 import footer from "./views/layouts/footer/footer.module";
 import home from "./views/home.module";
 
+// Vendor styles
+import "angular-material/angular-material.css";
+
 // Styles
-import "./styles/style.scss";
+import "./style.scss";
 
 // Vendor modules
 console.log(toastr);
 console.log(ngAnimate);
-console.log(ngTouch);
+console.log(ngMaterial);
+console.log(ngMessages);
 
 // App modules
 console.log(header);
@@ -26,7 +35,18 @@ console.log(footer);
 console.log(configuration);
 
 angular
-    .module("pronostigol", [header, footer, home, toastr, ngAnimate, ngTouch])
+    .module("pronostigol", [
+        directives,
+        services,
+        sidenav,
+        header,
+        footer,
+        home,
+        toastr,
+        ngAnimate,
+        ngMaterial,
+        ngMessages
+    ])
     .config(configuration)
     .run([
         "$rootScope",

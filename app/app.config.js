@@ -2,6 +2,7 @@
 
 // Layout
 import headerCtrl from "./views/layouts/header/header.controller";
+import sidenavCtrl from "./views/layouts/sidenav/sidenav.controller";
 import footerCtrl from "./views/layouts/footer/footer.controller";
 
 function configuration(
@@ -32,6 +33,11 @@ function configuration(
                 template: require("./views/layouts/header/header.html"),
                 controller: headerCtrl,
                 controllerAs: "header"
+            },
+            sidenav: {
+                template: require("./views/layouts/sidenav/sidenav.html"),
+                controller: sidenavCtrl,
+                controllerAs: "sidenav"
             },
             footer: {
                 template: require("./views/layouts/footer/footer.html"),
