@@ -55,6 +55,13 @@ module.exports = {
                 ]
             },
             {
+                test: /\.css$/,
+                use: [
+                    "style-loader", // creates style nodes from JS strings
+                    "css-loader" // translates CSS into CommonJS
+                ]
+            },
+            {
                 test: /\.pug$/,
                 use: ["html-loader", "pug-html-loader"]
             },
