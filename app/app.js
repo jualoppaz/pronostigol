@@ -60,6 +60,10 @@ angular
             }
 
             function onSuccess(transition) {
+                $transitions.onSuccess({}, function() {
+                    $rootScope.$broadcast("$stateChangeSuccess"); // For uiBreadcrumbs
+                });
+
                 document.body.scrollTop = document.documentElement.scrollTop = 0;
 
                 $rootScope.currentState = transition.to().name;
