@@ -30,9 +30,8 @@ block head
     link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
 
 block content
-    header(data-ui-view='header')
-    sidenav(data-ui-view='sidenav')
-    loading(data-ng-if='loading')
-    main(data-ui-view='main', id='{{ currentState }}')
-    footer#footer(data-ui-view='footer')
+    sidenav(data-ui-view="sidenav")
+    main(layout="column", flex, data-ui-view="main")
+    loading(data-ng-if="loading")
+    //footer#footer(data-ui-view="footer")
     script(src="/build/app.js")
