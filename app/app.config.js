@@ -1,7 +1,7 @@
 "use strict";
 
 // Layout
-import headerCtrl from "./views/layouts/header/header.controller";
+import mainCtrl from "./views/layouts/main/main.controller";
 import sidenavCtrl from "./views/layouts/sidenav/sidenav.controller";
 import footerCtrl from "./views/layouts/footer/footer.controller";
 
@@ -9,7 +9,8 @@ function configuration(
     $httpProvider,
     toastrConfig,
     $stateProvider,
-    $urlRouterProvider
+    $urlRouterProvider,
+    $mdThemingProvider
 ) {
     console.log("Entramos en el config");
     $httpProvider.defaults.withCredentials = true;
@@ -29,15 +30,15 @@ function configuration(
         url: "",
         abstract: true,
         views: {
-            header: {
-                template: require("./views/layouts/header/header.html"),
-                controller: headerCtrl,
-                controllerAs: "header"
-            },
             sidenav: {
                 template: require("./views/layouts/sidenav/sidenav.html"),
                 controller: sidenavCtrl,
                 controllerAs: "sidenav"
+            },
+            main: {
+                template: require("./views/layouts/main/main.html"),
+                controller: mainCtrl,
+                controllerAs: "main"
             },
             footer: {
                 template: require("./views/layouts/footer/footer.html"),
@@ -45,17 +46,25 @@ function configuration(
                 controllerAs: "footer"
             }
         },
-        resolve: {}
+        resolve: {},
+        data: {
+            breadcrumbProxy: "home"
+        }
     });
 
     $urlRouterProvider.otherwise("/");
+
+    $mdThemingProvider.theme("site-toolbar").primaryPalette("grey", {
+        default: "100"
+    });
 }
 
 configuration.$inject = [
     "$httpProvider",
     "toastrConfig",
     "$stateProvider",
-    "$urlRouterProvider"
+    "$urlRouterProvider",
+    "$mdThemingProvider"
 ];
 
 export default configuration;

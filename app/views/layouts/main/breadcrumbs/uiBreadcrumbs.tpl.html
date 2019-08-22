@@ -1,0 +1,7 @@
+<ol class="breadcrumb">
+    <li ng-repeat="crumb in breadcrumbs" ng-class="{ active: $last }">
+        <md-icon data-ng-show="!$first">keyboard_arrow_right</md-icon>
+        <a ui-sref="{{ crumb.route }}" ng-if="!$last">{{ crumb.displayName }}</a
+        ><span ng-show="$last">{{ crumb.displayName }}</span>
+    </li>
+</ol>

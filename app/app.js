@@ -5,14 +5,13 @@ import toastr from "angular-toastr";
 import ngAnimate from "angular-animate";
 import ngMaterial from "angular-material";
 import ngMessages from "angular-messages";
+import uiBreadcrumbs from "angular-utils-ui-breadcrumbs";
 
 import configuration from "./app.config";
-
+// App Modules
 import directives from "./views/features/directives/directives.module";
 import services from "./services/services.module";
-
-// App Modules
-import header from "./views/layouts/header/header.module";
+import main from "./views/layouts/main/main.module";
 import sidenav from "./views/layouts/sidenav/sidenav.module";
 import footer from "./views/layouts/footer/footer.module";
 import home from "./views/home.module";
@@ -28,9 +27,10 @@ console.log(toastr);
 console.log(ngAnimate);
 console.log(ngMaterial);
 console.log(ngMessages);
+console.log(uiBreadcrumbs);
 
 // App modules
-console.log(header);
+console.log(main);
 console.log(footer);
 console.log(configuration);
 
@@ -39,13 +39,14 @@ angular
         directives,
         services,
         sidenav,
-        header,
+        main,
         footer,
         home,
         toastr,
         ngAnimate,
         ngMaterial,
-        ngMessages
+        ngMessages,
+        uiBreadcrumbs
     ])
     .config(configuration)
     .run([
