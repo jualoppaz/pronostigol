@@ -1,4 +1,4 @@
-function menuLinkDirective(scrollCache) {
+function menuLinkDirective() {
     return {
         scope: {
             section: "="
@@ -9,14 +9,6 @@ function menuLinkDirective(scrollCache) {
 
             $scope.isSelected = function() {
                 return controller.isSelected($scope.section);
-            };
-
-            $scope.focusSection = function() {
-                // set flag to be used later when
-                // $locationChangeSuccess calls openPage()
-                controller.autoFocusContent = true;
-                // set flag to be used later when $routeChangeStart saves scroll position
-                scrollCache.linkClicked = true;
             };
         }
     };

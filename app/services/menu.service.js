@@ -129,7 +129,7 @@ function menuService($location, $rootScope) {
         });
     }
 
-    $rootScope.$on("$locationChangeSuccess", onLocationChange);
+    //$rootScope.$on("$locationChangeSuccess", onLocationChange);
 
     return {
         version: version,
