@@ -41,6 +41,7 @@
         "angular-messages": "^1.7.8",
         "angular-toastr": "^2.1.1",
         "angular-touch": "^1.7.8",
+        "angular-utils-ui-breadcrumbs": "^0.2.2-1",
         "angularjs-templates-brunch": "^1.0.0",
         "apidoc": "^0.17.7",
         "async": "^0.9.0",
