@@ -18,7 +18,6 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    margin-bottom: $footer-height;
 
     >main {
         overflow: hidden;
@@ -27,7 +26,6 @@ body {
     >footer#footer {
         bottom: 0;
         width: 100%;
-        height: $footer-height;
     }
 }
 
