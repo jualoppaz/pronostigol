@@ -8,14 +8,14 @@ function MainController(menuService, $templateCache, $mdSidenav) {
         require("./breadcrumbs/uiBreadcrumbs.tpl.html")
     );
 
-    function toggleMenuFn() {
-        $mdSidenav("left").toggle();
+    function openMenuFn() {
+        $mdSidenav("left").open();
     }
 
     vm.currentPage = menuService.currentPage;
     vm.currentSection = menuService.currentSection;
 
-    vm.toggleMenu = toggleMenuFn;
+    vm.openMenu = openMenuFn;
 }
 
 MainController.$inject = ["menuService", "$templateCache", "$mdSidenav"];
