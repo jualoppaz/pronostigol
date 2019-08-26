@@ -23,8 +23,7 @@
 <ul
     id="navs-menu-{{ section.name }}"
     class="menu-toggle-list"
-    aria-hidden="{{ !renderContent }}"
-    ng-style="{ visibility: renderContent ? 'visible' : 'hidden' }"
+    ng-show="isOpen()"
 >
     <li ng-repeat="page in section.pages">
         <menu-link section="page"></menu-link>

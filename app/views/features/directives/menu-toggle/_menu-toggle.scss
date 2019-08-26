@@ -13,4 +13,14 @@ menu-toggle {
         }
     }
 
+    ul {
+        &.menu-toggle-list {
+            transition: max-height 0.5s ease-in-out;
+            max-height: 100px;
+
+            &.ng-hide {
+                max-height: 0;
+            }
+        }
+    }
 }
