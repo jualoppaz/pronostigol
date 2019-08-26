@@ -11,9 +11,42 @@ sidenav {
         z-index: 1;
     }
 
-    md-sidenav {
+    >md-sidenav {
+        height: 100%;
+
+        &.site-sidenav,
+        &.site-sidenav.md-locked-open-add-active,
+        &.site-sidenav.md-locked-open {
+            width: 272px;
+            min-width: 272px;
+            max-width: 272px;
+        }
+
         &.site-sidenav {
             background: #106CC8;
+
+            >header {
+                background: linear-gradient(#185694, #106cc8);
+
+                a {
+
+                    text-decoration: none;
+
+                    #sidebar-logo {
+                        color: white;
+                        text-align: center;
+                        font-size: 200px;
+                        display: block;
+                        font-style: italic;
+                        font-family: "Times New Roman", Times, serif;
+                    }
+
+                    .md-heading {
+                        color: $color-ptg-white;
+                        font-weight: 400;
+                    }
+                }
+            }
 
             md-content {
                 background: transparent;
@@ -22,7 +55,7 @@ sidenav {
 
                     menu-toggle {
                         md-icon {
-                            color: white;
+                            color: $color-ptg-white;
                         }
                     }
 
@@ -74,7 +107,6 @@ sidenav {
         }
 
         header {
-            background: linear-gradient(#185694, #106cc8);
 
             a {
                 text-decoration: none;

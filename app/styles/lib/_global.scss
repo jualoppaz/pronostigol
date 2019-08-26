@@ -29,14 +29,6 @@ body {
     }
 }
 
-h1,
-h2,
-h3,
-a,
-p {
-    font-family: "Times New Roman", Times, serif;
-}
-
 .navbar-collapse.collapsing {
     border-top: 0;
 }
@@ -124,13 +116,13 @@ label {
     cursor: pointer !important;
 }
 
-.rst-noSubrayar {
+.ptg-noSubrayar {
     &:hover {
         text-decoration: none;
     }
 }
 
-.btn-rst {
+.btn-ptg {
     background-color: #0480be !important;
     border-color: #eeeeee !important;
     color: #eeeeee;
@@ -159,4 +151,8 @@ p {
 .container {
     margin: 0;
     width: 100%;
+}
+
+.text-center {
+    text-align: center !important;
 }

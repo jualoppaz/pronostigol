@@ -6,22 +6,27 @@ loading {
         height: 100%;
         background-color: rgba(255, 255, 255, 0.8);
         z-index: 9999;
+
         >div {
             position: relative;
             top: 30%;
+
             img {
                 display: block;
                 margin: 0 auto 15px;
                 width: 40%;
+
                 @media screen and (min-width: $min-width-tablet) {
                     width: 30%;
                 }
+
                 @media screen and (min-width: $min-width-desktop) {
                     width: 20%;
                 }
             }
+
             i.fa-fw {
-                color: $color-rst-dark;
+                color: $color-ptg-dark;
             }
         }
     }

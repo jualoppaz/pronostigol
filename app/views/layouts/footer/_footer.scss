@@ -2,47 +2,58 @@
     div#footer-container {
         padding-left: 0px;
         padding-right: 0px;
+
         .footer {
-            background-color: $color-rst-light !important;
+            background-color: $color-ptg-light !important;
+
             h1 {
                 margin-top: 0px;
                 font-size: 30px !important;
                 color: white !important;
             }
+
             h2 {
                 font-size: 16px !important;
                 color: white !important;
             }
+
             h3 {
                 font-size: 12px !important;
                 color: white !important;
+
                 a {
                     color: white !important;
                     font-size: 18px !important;
                 }
             }
+
             #footer-container-social-networks {
                 padding-top: 10px;
+
                 .list-inline {
                     line-height: 20px;
+
                     li {
                         a {
                             i {
-                                color: $color-rst-text-white;
+                                color: $color-ptg-white;
                             }
                         }
                     }
                 }
             }
+
             #developed-by {
                 padding-top: 10px;
+
                 div {
                     display: inline-block;
                     line-height: 20px;
-                    border-top: 1px solid $color-rst-text-white;
+                    border-top: 1px solid $color-ptg-white;
                     padding: 15px 0;
+
                     a {
-                        color: $color-rst-text-white;
+                        color: $color-ptg-white;
                         font-size: 18px;
                     }
                 }
