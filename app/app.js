@@ -56,7 +56,8 @@ angular
     .run([
         "$rootScope",
         "$transitions",
-        function($rootScope, $transitions) {
+        "$mdSidenav",
+        function($rootScope, $transitions, $mdSidenav) {
             $rootScope.$on("$stateChangeError", console.log.bind(console));
 
             function onStart() {
@@ -64,9 +65,7 @@ angular
             }
 
             function onSuccess(transition) {
-                $transitions.onSuccess({}, function() {
-                    $rootScope.$broadcast("$stateChangeSuccess"); // For uiBreadcrumbs
-                });
+                $rootScope.$broadcast("$stateChangeSuccess"); // For uiBreadcrumbs
 
                 document.body.scrollTop = document.documentElement.scrollTop = 0;
 
