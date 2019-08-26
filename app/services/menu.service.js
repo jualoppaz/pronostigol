@@ -1,20 +1,25 @@
 "use strict";
 
-function menuService($location, $rootScope) {
+function menuService($state, $transitions) {
     var version = {};
+
+    var self = {};
 
     var sections = [
         {
             name: "Quiniela",
+            state: "quiniela",
             type: "toggle",
             pages: [
                 {
                     name: "Sorteos",
+                    state: "quiniela.tickets",
                     url: "/sorteos",
                     type: "link"
                 },
                 {
                     name: "Estadísticas",
+                    state: "quiniela.stats",
                     url: "/estadisticas",
                     type: "link"
                 }
@@ -86,24 +91,46 @@ function menuService($location, $rootScope) {
         }
     ];
 
+    function selectSection(section) {
+        self.openedSection = section;
+    }
+
+    function toggleSelectSection(section) {
+        self.openedSection = self.openedSection === section ? null : section;
+    }
+
+    function isSectionSelected(section) {
+        return self.openedSection === section;
+    }
+
+    function selectPage(section, page) {
+        self.currentSection = section;
+        self.currentPage = page;
+    }
+
+    function isPageSelected(page) {
+        return self.currentPage === page;
+    }
+
     function onLocationChange() {
-        var path = $location.path();
+        var currentState = $state.current.name;
         var introLink = {
             name: "Introduction",
+            state: "home",
             url: "/",
             type: "link"
         };
 
-        if (path === "/") {
-            self.selectSection(introLink);
-            self.selectPage(introLink, introLink);
+        if (currentState === "home") {
+            selectSection(introLink);
+            selectPage(introLink, introLink);
             return;
         }
 
         var matchPage = function(section, page) {
-            if (path.indexOf(page.url) !== -1) {
-                self.selectSection(section);
-                self.selectPage(section, page);
+            if (currentState.indexOf(page.state) !== -1) {
+                selectSection(section);
+                selectPage(section, page);
             }
         };
 
@@ -129,32 +156,22 @@ function menuService($location, $rootScope) {
         });
     }
 
-    //$rootScope.$on("$locationChangeSuccess", onLocationChange);
+    onLocationChange();
+
+    $transitions.onSuccess({}, onLocationChange);
 
     return {
         version: version,
         sections: sections,
 
-        selectSection: function(section) {
-            self.openedSection = section;
-        },
-        toggleSelectSection: function(section) {
-            self.openedSection =
-                self.openedSection === section ? null : section;
-        },
-        isSectionSelected: function(section) {
-            return self.openedSection === section;
-        },
+        selectSection: selectSection,
+        toggleSelectSection: toggleSelectSection,
+        isSectionSelected: isSectionSelected,
 
-        selectPage: function(section, page) {
-            self.currentSection = section;
-            self.currentPage = page;
-        },
-        isPageSelected: function(page) {
-            return self.currentPage === page;
-        }
+        selectPage: selectPage,
+        isPageSelected: isPageSelected
     };
 }
 
-menuService.$inject = ["$location", "$rootScope"];
+menuService.$inject = ["$state", "$transitions"];
 export default menuService;

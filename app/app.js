@@ -6,6 +6,7 @@ import ngAnimate from "angular-animate";
 import ngMaterial from "angular-material";
 import ngMessages from "angular-messages";
 import uiBreadcrumbs from "angular-utils-ui-breadcrumbs";
+import uirouter from "@uirouter/angularjs";
 
 import configuration from "./app.config";
 // App Modules
@@ -14,7 +15,8 @@ import services from "./services/services.module";
 import main from "./views/layouts/main/main.module";
 import sidenav from "./views/layouts/sidenav/sidenav.module";
 import footer from "./views/layouts/footer/footer.module";
-import home from "./views/home.module";
+import home from "./views/home/home.module";
+import quiniela from "./views/quiniela/quiniela.module";
 
 // Vendor styles
 import "angular-material/angular-material.css";
@@ -36,12 +38,14 @@ console.log(configuration);
 
 angular
     .module("pronostigol", [
+        uirouter,
         directives,
         services,
         sidenav,
         main,
         footer,
         home,
+        quiniela,
         toastr,
         ngAnimate,
         ngMaterial,

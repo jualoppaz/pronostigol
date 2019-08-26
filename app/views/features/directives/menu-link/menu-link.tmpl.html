@@ -1,6 +1,6 @@
 <md-button
     ng-class="{'active' : isSelected()}"
-    ng-href="{{ section.url }}"
+    ui-sref="{{ section.state }}"
     ng-click="focusSection()"
 >
     {{ section.name }}

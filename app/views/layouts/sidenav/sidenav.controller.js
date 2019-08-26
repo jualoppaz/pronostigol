@@ -1,10 +1,14 @@
 "use strict";
 
-function SidenavController(menuService, $transitions) {
+function SidenavController(menuService, $transitions, $state) {
     var vm = this;
     vm.isMenuCollapsed = true;
 
     vm.sections = menuService.sections;
+
+    function toggleOpen(section) {
+        menuService.toggleSelectSection(section);
+    }
 
     function onSuccess() {
         vm.isMenuCollapsed = true;
@@ -16,10 +20,6 @@ function SidenavController(menuService, $transitions) {
 
     function isOpen(section) {
         return menuService.isSectionSelected(section);
-    }
-
-    function toggleOpen(section) {
-        menuService.toggleSelectSection(section);
     }
 
     function isSelected(page) {
@@ -34,5 +34,5 @@ function SidenavController(menuService, $transitions) {
     vm.isSelected = isSelected;
 }
 
-SidenavController.$inject = ["menuService", "$transitions"];
+SidenavController.$inject = ["menuService", "$transitions", "$state"];
 export default SidenavController;

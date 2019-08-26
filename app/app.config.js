@@ -47,9 +47,7 @@ function configuration(
             }
         },
         resolve: {},
-        data: {
-            breadcrumbProxy: "home"
-        }
+        data: {}
     });
 
     $urlRouterProvider.otherwise("/");
