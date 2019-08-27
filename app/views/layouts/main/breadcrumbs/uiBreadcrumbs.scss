@@ -1,0 +1,17 @@
+ui-breadcrumbs {
+    ol.breadcrumb {
+        list-style: none;
+
+        li {
+            display: inline-block;
+        }
+
+        a {
+            font-family: Roboto, "Helvetica Neue", sans-serif;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

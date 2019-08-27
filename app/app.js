@@ -3,35 +3,61 @@
 import angular from "angular";
 import toastr from "angular-toastr";
 import ngAnimate from "angular-animate";
-import ngTouch from "angular-touch";
+import ngMaterial from "angular-material";
+import ngMessages from "angular-messages";
+import uiBreadcrumbs from "angular-utils-ui-breadcrumbs";
+import uirouter from "@uirouter/angularjs";
 
 import configuration from "./app.config";
-
 // App Modules
-import header from "./views/layouts/header/header.module";
+import directives from "./views/features/directives/directives.module";
+import services from "./services/services.module";
+import main from "./views/layouts/main/main.module";
+import sidenav from "./views/layouts/sidenav/sidenav.module";
 import footer from "./views/layouts/footer/footer.module";
-import home from "./views/home.module";
+import home from "./views/home/home.module";
+import quiniela from "./views/quiniela/quiniela.module";
+
+// Vendor styles
+import "angular-material/angular-material.css";
 
 // Styles
-import "./styles/style.scss";
+import "./style.scss";
 
 // Vendor modules
 console.log(toastr);
 console.log(ngAnimate);
-console.log(ngTouch);
+console.log(ngMaterial);
+console.log(ngMessages);
+console.log(uiBreadcrumbs);
 
 // App modules
-console.log(header);
+console.log(main);
 console.log(footer);
 console.log(configuration);
 
 angular
-    .module("pronostigol", [header, footer, home, toastr, ngAnimate, ngTouch])
+    .module("pronostigol", [
+        uirouter,
+        directives,
+        services,
+        sidenav,
+        main,
+        footer,
+        home,
+        quiniela,
+        toastr,
+        ngAnimate,
+        ngMaterial,
+        ngMessages,
+        uiBreadcrumbs
+    ])
     .config(configuration)
     .run([
         "$rootScope",
         "$transitions",
-        function($rootScope, $transitions) {
+        "$mdSidenav",
+        function($rootScope, $transitions, $mdSidenav) {
             $rootScope.$on("$stateChangeError", console.log.bind(console));
 
             function onStart() {
@@ -39,6 +65,8 @@ angular
             }
 
             function onSuccess(transition) {
+                $rootScope.$broadcast("$stateChangeSuccess"); // For uiBreadcrumbs
+
                 document.body.scrollTop = document.documentElement.scrollTop = 0;
 
                 $rootScope.currentState = transition.to().name;

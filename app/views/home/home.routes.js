@@ -6,14 +6,17 @@ function routing($stateProvider) {
     $stateProvider.state("home", {
         url: "/",
         views: {
-            "main@": {
-                template: require("../views/home.html"),
+            "content@layout": {
+                template: require("./home.html"),
                 controller: homeCtrl,
                 controllerAs: "home"
             }
         },
         parent: "layout",
-        resolve: {}
+        resolve: {},
+        data: {
+            displayName: "Inicio"
+        }
     });
 }
 

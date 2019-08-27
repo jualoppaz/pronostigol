@@ -1,0 +1,130 @@
+<md-toolbar
+    class="md-whiteframe-glow-z1 site-content-toolbar"
+    md-theme="site-toolbar"
+>
+    <div class="md-toolbar-tools docs-toolbar-tools" tabIndex="-1">
+        <md-button
+            class="md-icon-button"
+            ng-click="main.openMenu()"
+            hide-gt-sm
+            aria-label="Toggle Menu"
+        >
+            <md-icon>menu</md-icon>
+        </md-button>
+        <div layout="row" flex class="fill-height">
+            <ui-breadcrumbs
+                displayname-property="data.displayName"
+                template-url="uiBreadcrumbs.html"
+                abstract-proxy-property="data.breadcrumbProxy">
+            </ui-breadcrumbs>
+
+            <span flex></span>
+            <!-- use up the empty space -->
+
+            <div class="md-toolbar-item docs-tools" layout="row">
+                <md-button
+                    class="md-icon-button"
+                    aria-label="Install with Bower"
+                    ng-if="!currentComponent.docs.length && !currentComponent.isService"
+                    target="_blank"
+                    ng-href="https://github.com/angular/bower-material"
+                >
+                    <md-tooltip md-autohide>Install with Bower</md-tooltip>
+                    <md-icon>bower</md-icon>
+                </md-button>
+                <md-button
+                    class="md-icon-button"
+                    aria-label="Install with NPM"
+                    ng-if="!currentComponent.docs.length && !currentComponent.isService"
+                    target="_blank"
+                    ng-href="https://www.npmjs.com/package/angular-material"
+                >
+                    <md-tooltip md-autohide>Install with NPM</md-tooltip>
+                    <md-icon
+                        style="transform: scale(1.3)"
+                    >npm</md-icon>
+                </md-button>
+                <md-button
+                    class="md-icon-button"
+                    aria-label="View Source on Github"
+                    ng-if="!currentComponent.docs.length && !currentComponent.isService"
+                    target="_blank"
+                    ng-href="{{ BUILDCONFIG.repository }}/{{
+                        menu.version.current.github
+                    }}"
+                >
+                    <md-tooltip md-autohide>View Source on Github</md-tooltip>
+                    <md-icon
+                        style="color: rgba(255,255,255,0.97);"
+                    >github</md-icon>
+                </md-button>
+
+                <md-select
+                    ng-if="currentComponent.docs.length"
+                    ng-class="{ hide: path().indexOf('demo') == -1 }"
+                    ng-model="relatedPage"
+                    placeholder="API Reference"
+                    class="md-body-1"
+                >
+                    <md-optgroup
+                        label="Directives"
+                        ng-if="(currentComponent.docs | filter: { type: 'directive' }).length"
+                    >
+                        <md-option
+                            ng-repeat="doc in currentComponent.docs | filter: { type: 'directive' }"
+                            ng-value="doc.url"
+                            ng-click="redirectToUrl(doc.url)"
+                            aria-label="{{ doc }}"
+                        >
+                            {{
+                                doc
+                                    | directiveBrackets: doc.restrict
+                            }}
+                        </md-option>
+                    </md-optgroup>
+                    <md-optgroup
+                        label="Services"
+                        ng-if="(currentComponent.docs | filter: { type: 'service' }).length"
+                    >
+                        <md-option
+                            ng-repeat="doc in currentComponent.docs | filter: { type: 'service' }"
+                            ng-value="doc.url"
+                            ng-click="redirectToUrl(doc.url)"
+                            aria-label="{{ doc }}"
+                        >
+                            {{ doc | directiveBrackets }}
+                        </md-option>
+                    </md-optgroup>
+                </md-select>
+
+                <md-button
+                    class="md-icon-button"
+                    aria-label="View Demo"
+                    ng-class="{hide: !currentDoc || !currentDoc.hasDemo}"
+                    ng-href="{{ currentComponent.demoUrl }}"
+                >
+                    <md-icon
+                        style="fill:green"
+                    >play</md-icon>
+                    <md-tooltip>View Demo</md-tooltip>
+                </md-button>
+
+                <md-button
+                    aria-label="View Source on Github"
+                    class="md-icon-button"
+                    ng-class="{hide: !currentDoc}"
+                    ng-href="{{ currentDoc.githubUrl }}"
+                    hide-sm
+                    hide-md
+                >
+                    <md-icon
+                        style="color: rgba(255,255,255,0.97);"
+                    >github</md-icon>
+                    <md-tooltip>View Source on Github</md-tooltip>
+                </md-button>
+            </div>
+        </div>
+    </div>
+</md-toolbar>
+
+<div data-ui-view="content"></ui-view>

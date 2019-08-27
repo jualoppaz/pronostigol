@@ -1,0 +1,26 @@
+menu-toggle {
+
+    .md-button-toggle {
+        .md-toggle-icon {
+            transform: rotate(180deg);
+            transition: transform 0.3s ease-in-out,
+                -webkit-transform 0.3s ease-in-out;
+
+            &.toggled {
+                -webkit-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+        }
+    }
+
+    ul {
+        &.menu-toggle-list {
+            transition: max-height 0.5s ease-in-out;
+            max-height: $sidenav-item-height * $sidenav-max-items;
+
+            &.ng-hide {
+                max-height: 0;
+            }
+        }
+    }
+}

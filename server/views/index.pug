@@ -25,9 +25,13 @@ block head
 
     link(rel="canonical", href="https://www.pronostigol.es")
 
+    //- Material
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic")
+    link(rel="stylesheet", href="https://fonts.googleapis.com/icon?family=Material+Icons")
+
 block content
-    header(data-ui-view='header')
-    loading(data-ng-if='loading')
-    main(data-ui-view='main', id='{{ currentState }}')
-    footer#footer(data-ui-view='footer')
+    sidenav(data-ui-view="sidenav")
+    main(layout="column", flex, data-ui-view="main")
+    loading(data-ng-if="loading")
+    //footer#footer(data-ui-view="footer")
     script(src="/build/app.js")
