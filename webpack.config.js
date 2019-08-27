@@ -18,7 +18,8 @@ module.exports = {
         contentBase: path.join(__dirname, "build"),
         host: "localhost",
         port: 8080,
-        inline: true
+        inline: true,
+        writeToDisk: true
     },
     module: {
         rules: [
