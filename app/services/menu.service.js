@@ -1,10 +1,6 @@
 "use strict";
 
 function menuService($state, $transitions) {
-    var version = {};
-
-    var self = {};
-
     var sections = [
         {
             name: "Quiniela",
@@ -91,28 +87,34 @@ function menuService($state, $transitions) {
         }
     ];
 
-    function selectSection(section) {
-        self.openedSection = section;
+    var openedSection, currentSection, currentPage;
+
+    function selectSectionFn(section) {
+        openedSection = section;
     }
 
-    function toggleSelectSection(section) {
-        self.openedSection = self.openedSection === section ? null : section;
+    function toggleSelectSectionFn(section) {
+        openedSection = openedSection === section ? null : section;
     }
 
-    function isSectionSelected(section) {
-        return self.openedSection === section;
+    function isSectionSelectedFn(section) {
+        return openedSection === section;
     }
 
-    function selectPage(section, page) {
-        self.currentSection = section;
-        self.currentPage = page;
+    function selectPageFn(section, page) {
+        currentSection = section;
+        currentPage = page;
     }
 
-    function isPageSelected(page) {
-        return self.currentPage === page;
+    function isPageSelectedFn(page) {
+        return currentPage === page;
     }
 
-    function onLocationChange() {
+    function getOpenedSectionFn() {
+        return openedSection;
+    }
+
+    function onLocationChangeFn() {
         var currentState = $state.current.name;
         var introLink = {
             name: "Introduction",
@@ -122,15 +124,15 @@ function menuService($state, $transitions) {
         };
 
         if (currentState === "home") {
-            selectSection(introLink);
-            selectPage(introLink, introLink);
+            selectSectionFn(introLink);
+            selectPageFn(introLink, introLink);
             return;
         }
 
         var matchPage = function(section, page) {
             if (currentState.indexOf(page.state) !== -1) {
-                selectSection(section);
-                selectPage(section, page);
+                selectSectionFn(section);
+                selectPageFn(section, page);
             }
         };
 
@@ -156,20 +158,20 @@ function menuService($state, $transitions) {
         });
     }
 
-    onLocationChange();
+    onLocationChangeFn();
 
-    $transitions.onSuccess({}, onLocationChange);
+    $transitions.onSuccess({}, onLocationChangeFn);
 
     return {
-        version: version,
+        // Data
         sections: sections,
-
-        selectSection: selectSection,
-        toggleSelectSection: toggleSelectSection,
-        isSectionSelected: isSectionSelected,
-
-        selectPage: selectPage,
-        isPageSelected: isPageSelected
+        // Methods
+        getOpenedSection: getOpenedSectionFn,
+        selectSection: selectSectionFn,
+        toggleSelectSection: toggleSelectSectionFn,
+        isSectionSelected: isSectionSelectedFn,
+        selectPage: selectPageFn,
+        isPageSelected: isPageSelectedFn
     };
 }
 
