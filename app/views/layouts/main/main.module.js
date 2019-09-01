@@ -4,4 +4,6 @@ import mainCtrl from "./main.controller";
 
 const MODULE_NAME = "pronostigol.main";
 
-export default angular.module(MODULE_NAME, []).controller(mainCtrl).name;
+export default angular
+    .module(MODULE_NAME, [])
+    .controller("MainController", mainCtrl).name;

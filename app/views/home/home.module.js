@@ -8,4 +8,4 @@ import home from "./home.controller";
 export default angular
     .module(MODULE_NAME, [])
     .config(routing)
-    .controller(home).name;
+    .controller("HomeController", home).name;
