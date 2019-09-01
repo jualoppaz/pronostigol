@@ -1,6 +1,6 @@
 "use strict";
 
-function SidenavController(menuService, $transitions, $state) {
+function SidenavController(menuService, $transitions) {
     var vm = this;
     vm.isMenuCollapsed = true;
 
@@ -34,5 +34,5 @@ function SidenavController(menuService, $transitions, $state) {
     vm.isSelected = isSelected;
 }
 
-SidenavController.$inject = ["menuService", "$transitions", "$state"];
+SidenavController.$inject = ["menuService", "$transitions"];
 export default SidenavController;
