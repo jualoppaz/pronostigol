@@ -24,18 +24,6 @@ import "angular-material/angular-material.css";
 // Styles
 import "./style.scss";
 
-// Vendor modules
-console.log(toastr);
-console.log(ngAnimate);
-console.log(ngMaterial);
-console.log(ngMessages);
-console.log(uiBreadcrumbs);
-
-// App modules
-console.log(main);
-console.log(footer);
-console.log(configuration);
-
 angular
     .module("pronostigol", [
         uirouter,
@@ -84,7 +72,6 @@ angular
     ]);
 
 angular.element(document).ready(function() {
-    console.log("Lanzamos la app");
     angular.bootstrap(document, ["pronostigol"]);
 });
 

@@ -12,7 +12,6 @@ function configuration(
     $urlRouterProvider,
     $mdThemingProvider
 ) {
-    console.log("Entramos en el config");
     $httpProvider.defaults.withCredentials = true;
 
     angular.extend(toastrConfig, {
