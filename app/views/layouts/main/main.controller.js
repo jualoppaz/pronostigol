@@ -20,6 +20,7 @@ function MainController(menuService, $templateCache, $mdSidenav, $transitions) {
     vm.currentSection = menuService.currentSection;
 
     vm.openMenu = openMenuFn;
+    vm.closeMenu = closeMenuFn;
 
     $transitions.onSuccess({}, closeMenuFn);
 }
