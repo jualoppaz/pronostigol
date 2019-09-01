@@ -1,8 +1,6 @@
 "use strict";
 
-function HomeController($rootScope) {
-    var vm = this;
-}
+function HomeController() {}
 
-HomeController.$inject = ["$rootScope"];
+HomeController.$inject = [];
 export default HomeController;
