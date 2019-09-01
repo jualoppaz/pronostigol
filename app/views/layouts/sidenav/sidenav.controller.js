@@ -4,7 +4,7 @@ function SidenavController(menuService, $transitions, $state) {
     var vm = this;
     vm.isMenuCollapsed = true;
 
-    vm.sections = menuService.sections;
+    vm.sections = menuService.getSections();
 
     function toggleOpen(section) {
         menuService.toggleSelectSection(section);

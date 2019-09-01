@@ -114,12 +114,23 @@ function menuService($state, $transitions) {
         return openedSection;
     }
 
+    function getCurrentSectionFn() {
+        return currentSection;
+    }
+
+    function getCurrentPageFn() {
+        return currentPage;
+    }
+
+    function getSectionsFn() {
+        return sections;
+    }
+
     function onLocationChangeFn() {
         var currentState = $state.current.name;
         var introLink = {
             name: "Introduction",
             state: "home",
-            url: "/",
             type: "link"
         };
 
@@ -163,15 +174,15 @@ function menuService($state, $transitions) {
     $transitions.onSuccess({}, onLocationChangeFn);
 
     return {
-        // Data
-        sections: sections,
-        // Methods
+        getCurrentPage: getCurrentPageFn,
+        getCurrentSection: getCurrentSectionFn,
         getOpenedSection: getOpenedSectionFn,
-        selectSection: selectSectionFn,
-        toggleSelectSection: toggleSelectSectionFn,
+        getSections: getSectionsFn,
+        isPageSelected: isPageSelectedFn,
         isSectionSelected: isSectionSelectedFn,
         selectPage: selectPageFn,
-        isPageSelected: isPageSelectedFn
+        selectSection: selectSectionFn,
+        toggleSelectSection: toggleSelectSectionFn
     };
 }
 
