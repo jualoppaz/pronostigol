@@ -19,7 +19,7 @@
         "start": "node app",
         "apidoc": "node node_modules/apidoc/bin/apidoc -i server -o public/docs/",
         "postinstall": "npm run apidoc && node -e \"try { require('fs').symlinkSync(require('path').resolve('node_modules/@bower_components'), 'bower_components', 'junction') } catch (e) { }\"",
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "karma start karma.conf.js",
         "build": "webpack --bail --progress --profile",
         "build:dev": "webpack --bail --progress --profile --config webpack-dev.config.js",
         "build:dev:proxy": "webpack --bail --progress --profile --config webpack-dev-proxy.config.js",
@@ -104,13 +104,17 @@
     "devDependencies": {
         "angular-mocks": "^1.7.8",
         "dotenv": "^6.2.0",
+        "istanbul-instrumenter-loader": "^3.0.1",
         "jasmine-core": "^3.4.0",
         "karma": "^4.3.0",
         "karma-chrome-launcher": "^3.1.0",
+        "karma-coverage": "^2.0.1",
+        "karma-coverage-istanbul-reporter": "^2.1.0",
         "karma-jasmine": "^2.0.1",
         "karma-phantomjs-launcher": "^1.0.4",
         "karma-spec-reporter": "0.0.32",
         "karma-webpack": "^4.0.2",
+        "puppeteer": "^1.19.0",
         "webpack-dev-server": "^3.7.2"
     }
 }
