@@ -1,4 +1,4 @@
-function MenuToggleDirective($mdUtil, $animateCss, $$rAF) {
+function MenuToggleDirective() {
     return {
         scope: {
             section: "="
@@ -27,5 +27,5 @@ function MenuToggleDirective($mdUtil, $animateCss, $$rAF) {
     };
 }
 
-MenuToggleDirective.$inject = ["$mdUtil", "$animateCss", "$$rAF"];
+MenuToggleDirective.$inject = [];
 export default MenuToggleDirective;
