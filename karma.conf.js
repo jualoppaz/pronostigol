@@ -117,22 +117,17 @@ module.exports = function(config) {
                 emitWarning: false, // set to `true` to not fail the test command when thresholds are not met
                 // thresholds for all files
                 global: {
-                    statements: 20,
-                    lines: 20,
-                    branches: 20,
-                    functions: 20
+                    statements: 50,
+                    lines: 50,
+                    branches: 50,
+                    functions: 50
                 },
                 // thresholds per file
                 each: {
-                    statements: 100,
-                    lines: 100,
-                    branches: 100,
-                    functions: 100,
-                    overrides: {
-                        "baz/component/**/*.js": {
-                            statements: 98
-                        }
-                    }
+                    statements: 50,
+                    lines: 50,
+                    branches: 50,
+                    functions: 50
                 }
             },
 
