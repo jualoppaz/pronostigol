@@ -1,20 +1,20 @@
-describe("Main Controller", function() {
+describe("Main Controller", () => {
     var $controller, ctrl, mdSidenav, menuService, $templateCache;
 
     beforeEach(
-        module("pronostigol", function($provide) {
+        module("pronostigol", $provide => {
             mdSidenav = {
-                open: function() {},
-                close: function() {}
+                open: () => {},
+                close: () => {}
             };
-            $provide.factory("$mdSidenav", function() {
-                return function(direction) {
+            $provide.factory("$mdSidenav", () => {
+                return direction => {
                     return mdSidenav;
                 };
             });
         })
     );
-    beforeEach(inject(function(_$controller_, _menuService_, _$templateCache_) {
+    beforeEach(inject((_$controller_, _menuService_, _$templateCache_) => {
         $controller = _$controller_;
         menuService = _menuService_;
         $templateCache = _$templateCache_;
@@ -25,13 +25,13 @@ describe("Main Controller", function() {
         });
     }));
 
-    it("#openMenu", function() {
+    it("#openMenu", () => {
         spyOn(mdSidenav, "open");
         ctrl.openMenu();
         expect(mdSidenav.open).toHaveBeenCalled();
     });
 
-    it("#closeMenu", function() {
+    it("#closeMenu", () => {
         spyOn(mdSidenav, "close");
         ctrl.closeMenu();
         expect(mdSidenav.close).toHaveBeenCalled();
