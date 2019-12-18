@@ -169,4 +169,17 @@ function Controller($scope, $http, $window, quiniela) {
     $scope.esNumero = function(caracter) {
         return !isNaN(caracter);
     };
+
+    $scope.toggleSpecialMatch = function() {
+        var matchesNumber = $scope.quiniela.partidos.length;
+
+        if (matchesNumber === 15) {
+            $scope.quiniela.partidos.splice(matchesNumber - 1, 1);
+        } else {
+            $scope.quiniela.partidos.push({
+                fila: "15",
+                pronosticos: [{ signo: "" }]
+            });
+        }
+    };
 }

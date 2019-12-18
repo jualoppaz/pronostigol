@@ -46,6 +46,9 @@ function Controller ($scope, $http, $window, $filter, quiniela){
             $scope.quiniela = data;
 
             $scope.consultando = false;
+
+            $scope.specialMatchExclusion =
+                $scope.quiniela.partidos.length === 15 ? false : true;
         })
         .catch(function(err){
             console.log(err);
@@ -98,3 +101,15 @@ function Controller ($scope, $http, $window, $filter, quiniela){
         $window.location.href = "/admin/quiniela";
     };
 }
+    $scope.toggleSpecialMatch = function() {
+        var matchesNumber = $scope.quiniela.partidos.length;
+
+        if (matchesNumber === 15) {
+            $scope.quiniela.partidos.splice(matchesNumber - 1, 1);
+        } else {
+            $scope.quiniela.partidos.push({
+                fila: "15",
+                pronosticos: [{ signo: "" }]
+            });
+        }
+    };
