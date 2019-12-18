@@ -91,6 +91,10 @@ block content
                                         td(style="min-width: 60px", data-ng-show="partido.fila == 15 && quiniela.partidos[0].pronosticos != null", colspan="{{quiniela.partidos[0].pronosticos.length}}")
                                             input.form-control(data-ng-show="quiniela.partidos[0].pronosticos.length > 0", data-ng-cloak, data-ng-model="partido.pronosticos[0].signo" quiniela-sign goals-required="true" limited-goals="true").text-center
 
+                        div#exclude-special-match.checkbox
+                            label
+                                input(type="checkbox", data-ng-model="specialMatchExclusion", data-ng-change="toggleSpecialMatch()")
+                                | Excluir pleno al 15 (quinielas antiguas)
 
                         div.form-group
                             div.col-sm-2.col-sm-offset-2

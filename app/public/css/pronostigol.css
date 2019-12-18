@@ -1521,3 +1521,7 @@ p a {
 #euromillones-tickets .alert-info {
     color: #333;
 }
+
+#exclude-special-match {
+    margin-bottom: 15px;
+}
