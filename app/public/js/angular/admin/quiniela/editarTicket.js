@@ -114,7 +114,7 @@ function Controller($scope, $http, $window, $filter, quiniela) {
             $scope.quiniela.partidos.splice(matchesNumber - 1, 1);
         } else {
             $scope.quiniela.partidos.push({
-                fila: "15",
+                fila: 15,
                 pronosticos: [{ signo: "" }]
             });
         }
