@@ -35,21 +35,21 @@ function Controller($scope, $http, $window, quiniela) {
     $scope.quiniela = {};
 
     $scope.quiniela.partidos = [
-        { fila: "1", pronosticos: [{ signo: "" }, { signo: "" }] },
-        { fila: "2", pronosticos: [{ signo: "" }, { signo: "" }] },
-        { fila: "3", pronosticos: [{ signo: "" }, { signo: "" }] },
-        { fila: "4", pronosticos: [{ signo: "" }, { signo: "" }] },
-        { fila: "5", pronosticos: [{ signo: "" }, { signo: "" }] },
-        { fila: "6", pronosticos: [{ signo: "" }, { signo: "" }] },
-        { fila: "7", pronosticos: [{ signo: "" }, { signo: "" }] },
-        { fila: "8", pronosticos: [{ signo: "" }, { signo: "" }] },
-        { fila: "9", pronosticos: [{ signo: "" }, { signo: "" }] },
-        { fila: "10", pronosticos: [{ signo: "" }, { signo: "" }] },
-        { fila: "11", pronosticos: [{ signo: "" }, { signo: "" }] },
-        { fila: "12", pronosticos: [{ signo: "" }, { signo: "" }] },
-        { fila: "13", pronosticos: [{ signo: "" }, { signo: "" }] },
-        { fila: "14", pronosticos: [{ signo: "" }, { signo: "" }] },
-        { fila: "15", pronosticos: [{ signo: "" }] }
+        { fila: 1, pronosticos: [{ signo: "" }, { signo: "" }] },
+        { fila: 2, pronosticos: [{ signo: "" }, { signo: "" }] },
+        { fila: 3, pronosticos: [{ signo: "" }, { signo: "" }] },
+        { fila: 4, pronosticos: [{ signo: "" }, { signo: "" }] },
+        { fila: 5, pronosticos: [{ signo: "" }, { signo: "" }] },
+        { fila: 6, pronosticos: [{ signo: "" }, { signo: "" }] },
+        { fila: 7, pronosticos: [{ signo: "" }, { signo: "" }] },
+        { fila: 8, pronosticos: [{ signo: "" }, { signo: "" }] },
+        { fila: 9, pronosticos: [{ signo: "" }, { signo: "" }] },
+        { fila: 10, pronosticos: [{ signo: "" }, { signo: "" }] },
+        { fila: 11, pronosticos: [{ signo: "" }, { signo: "" }] },
+        { fila: 12, pronosticos: [{ signo: "" }, { signo: "" }] },
+        { fila: 13, pronosticos: [{ signo: "" }, { signo: "" }] },
+        { fila: 14, pronosticos: [{ signo: "" }, { signo: "" }] },
+        { fila: 15, pronosticos: [{ signo: "" }] }
     ];
 
     $scope.anadirPronostico = function() {
@@ -168,5 +168,18 @@ function Controller($scope, $http, $window, quiniela) {
 
     $scope.esNumero = function(caracter) {
         return !isNaN(caracter);
+    };
+
+    $scope.toggleSpecialMatch = function() {
+        var matchesNumber = $scope.quiniela.partidos.length;
+
+        if (matchesNumber === 15) {
+            $scope.quiniela.partidos.splice(matchesNumber - 1, 1);
+        } else {
+            $scope.quiniela.partidos.push({
+                fila: 15,
+                pronosticos: [{ signo: "" }]
+            });
+        }
     };
 }

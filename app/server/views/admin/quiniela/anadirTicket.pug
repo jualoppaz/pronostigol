@@ -69,17 +69,17 @@ block content
                                     tr(data-ng-repeat="partido in quiniela.partidos")
                                         td.align-middle(data-ng-bind-template="{{partido.fila}}")
                                         td(style="min-width: 150px")
-                                            input#competicionSeleccionada(type="text", placeholder="Todas", data-ng-model="partido.competicion", uib-typeahead="competicion.value as competicion.name for competicion in competiciones | filter:{name:$viewValue}").form-control
+                                            input(type="text", placeholder="Todas", data-ng-model="partido.competicion", uib-typeahead="competicion.value as competicion.name for competicion in competiciones | filter:{name:$viewValue}").form-control
                                         td
                                             input.form-control(data-ng-model="partido.jornada").text-center
                                         td(style="min-width: 200px")
-                                            input#equipoSeleccionado.form-control(data-ng-model="partido.local", placeholder="Equipo", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
+                                            input.form-control(data-ng-model="partido.local", placeholder="Equipo", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
                                         td
                                             input.form-control(data-ng-model="partido.golesLocal").text-center
                                         td
                                             input.form-control(data-ng-model="partido.golesVisitante").text-center
                                         td(style="min-width: 200px")
-                                            input#equipoSeleccionado.form-control(data-ng-model="partido.visitante", placeholder="Equipo", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
+                                            input.form-control(data-ng-model="partido.visitante", placeholder="Equipo", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
                                         td
                                             input.form-control(data-ng-model="partido.resultado" quiniela-sign).text-center
                                         td(data-ng-show="partido.fila == 15")
@@ -91,6 +91,10 @@ block content
                                         td(style="min-width: 60px", data-ng-show="partido.fila == 15 && quiniela.partidos[0].pronosticos != null", colspan="{{quiniela.partidos[0].pronosticos.length}}")
                                             input.form-control(data-ng-show="quiniela.partidos[0].pronosticos.length > 0", data-ng-cloak, data-ng-model="partido.pronosticos[0].signo" quiniela-sign goals-required="true" limited-goals="true").text-center
 
+                        div#exclude-special-match.checkbox
+                            label
+                                input(type="checkbox", data-ng-model="specialMatchExclusion", data-ng-change="toggleSpecialMatch()")
+                                | Excluir pleno al 15 (quinielas antiguas)
 
                         div.form-group
                             div.col-sm-2.col-sm-offset-2
