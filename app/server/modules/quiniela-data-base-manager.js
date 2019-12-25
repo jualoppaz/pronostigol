@@ -135,7 +135,7 @@ exports.getTicketsBySeasonAndDay = function(season, day, callback) {
 
 exports.getTicketsGroupedByRes = function(filtros, callback) {
     var filters = {
-        "partidos.fila": "15",
+        "partidos.fila": 15,
         "partidos.resultadoConGoles": {
             $ne: null
         }
@@ -254,10 +254,7 @@ exports.getAllAppearedResults = function(filtros, callback) {
                                             if: {
                                                 $and: [
                                                     {
-                                                        $eq: [
-                                                            "$$this.fila",
-                                                            "15"
-                                                        ]
+                                                        $eq: ["$$this.fila", 15]
                                                     },
                                                     {
                                                         $gte: [
@@ -296,7 +293,7 @@ exports.getAllAppearedResults = function(filtros, callback) {
                         if: {
                             $and: [
                                 {
-                                    $eq: ["$partidos.fila", "15"]
+                                    $eq: ["$partidos.fila", 15]
                                 },
                                 {
                                     $gte: ["$partidos.temporada", "2014-2015"]
