@@ -741,3 +741,79 @@ exports.getEconomicBalanceByYear = function(callback) {
         }
     );
 };
+
+exports.getLastDateByNumber = (filtros, callback) => {
+    var limit = filtros.perPage;
+    var page = filtros.page;
+    var skip = (page - 1) * limit;
+    var sort = filtros.sort;
+    var type = filtros.type;
+
+    var sort_property = sort === "date" ? "fecha" : "numero";
+    var sort_type = type === "asc" ? 1 : -1;
+
+    var query = [];
+    query.push({
+        $unwind: "$resultado.bolas"
+    });
+
+    query.push({
+        $group: {
+            _id: "$resultado.bolas.numero",
+            ultimaAparicion: {
+                $max: "$fecha"
+            }
+        }
+    });
+
+    query.push({
+        $project: {
+            _id: 0,
+            numero: "$_id",
+            fecha: "$ultimaAparicion"
+        }
+    });
+
+    bonoloto_tickets.aggregate(query, function(e, res) {
+        if (e) {
+            callback(e);
+        } else {
+            var result = {
+                page: page,
+                perPage: limit,
+                total: res.length
+            };
+
+            var sortConfig = {};
+            sortConfig[sort_property] = sort_type;
+
+            // Añadimos ordenación alternativa
+            if (sort_property === "numero") {
+                sortConfig["fecha"] = sort_type;
+            } else if (sort_property === "fecha") {
+                sortConfig["numero"] = 1;
+            }
+
+            query.push({
+                $sort: sortConfig
+            });
+
+            query.push({
+                $skip: skip
+            });
+
+            query.push({
+                $limit: limit
+            });
+
+            bonoloto_tickets.aggregate(query, function(e, res) {
+                if (e) {
+                    callback(e);
+                } else {
+                    result.data = res;
+                    callback(null, result);
+                }
+            });
+        }
+    });
+};

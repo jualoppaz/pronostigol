@@ -32,7 +32,8 @@
             getOccurrencesByNumber: getOccurrencesByNumber,
             getOccurrencesByResult: getOccurrencesByResult,
             getOccurrencesByResultWithReimbursement: getOccurrencesByResultWithReimbursement,
-            getOccurrencesByReimbursement: getOccurrencesByReimbursement
+            getOccurrencesByReimbursement: getOccurrencesByReimbursement,
+            getLastDateByNumber: getLastDateByNumber
         };
 
         return service;
@@ -451,6 +452,24 @@
                     });
 
                     defered.resolve(data);
+                })
+                .catch(function(err) {
+                    defered.reject(err.data);
+                });
+
+            return promise;
+        }
+
+        function getLastDateByNumber(queryParameters) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http
+                .get(apiPrefix + "/historical/lastDateByNumber", {
+                    params: queryParameters
+                })
+                .then(function(data) {
+                    defered.resolve(data.data);
                 })
                 .catch(function(err) {
                     defered.reject(err.data);
