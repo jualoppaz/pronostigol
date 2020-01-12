@@ -128,7 +128,7 @@ module.exports = function(app) {
         var apuestas = body.apuestas;
         var resultado = body.resultado;
 
-        ticket.anyo = anyo;
+        ticket.anyo = Number(anyo);
         ticket.fecha = fecha;
         ticket.sorteo = sorteo;
         ticket.precio = precio;
@@ -181,22 +181,14 @@ module.exports = function(app) {
                 return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
             }
 
-            GOR_DBM.deleteTicketById(id, function(err2, result2) {
+            GOR_DBM.deleteTicketById(id, function(err2) {
                 if (err) {
                     return res
                         .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
                         .send(err2);
                 }
 
-                GOR_DBM.getAllTickets(function(err3, result3) {
-                    if (err) {
-                        return res
-                            .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
-                            .send(err3);
-                    }
-
-                    res.status(HTTP_CODES.OK).send(result3);
-                });
+                res.status(HTTP_CODES.OK).send({});
             });
         });
     };
