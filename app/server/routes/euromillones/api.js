@@ -127,7 +127,7 @@ module.exports = function(app) {
         var apuestas = body.apuestas;
         var resultado = body.resultado;
 
-        ticket.anyo = anyo;
+        ticket.anyo = Number(anyo);
         ticket.fecha = fecha;
         ticket.sorteo = sorteo;
         ticket.precio = precio;
@@ -165,7 +165,7 @@ module.exports = function(app) {
         });
     };
 
-    var euromillones_api_borrarTicket = function(req, res) {
+    var euromillones_api_deleteTicket = function(req, res) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
@@ -586,7 +586,7 @@ module.exports = function(app) {
         .delete(
             middlewares.isLogged_api,
             middlewares.isAuthorized_api([ROLES.ADMIN]),
-            euromillones_api_borrarTicket
+            euromillones_api_deleteTicket
         );
 
     /* Anyos */
