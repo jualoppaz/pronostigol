@@ -1,11 +1,10 @@
-var app = angular.module('dashboard');
+var app = angular.module("dashboard");
 
-app.controller('TicketController', Controller);
+app.controller("TicketController", Controller);
 
-Controller.$inject = ['$scope', '$http', '$window', '$filter', 'primitiva'];
+Controller.$inject = ["$scope", "$http", "$window", "$filter", "primitiva"];
 
-function Controller ($scope, $http, $window, $filter, primitiva){
-
+function Controller($scope, $http, $window, $filter, primitiva) {
     $scope.ticket = {};
 
     $scope.consultando = true;
@@ -14,40 +13,47 @@ function Controller ($scope, $http, $window, $filter, primitiva){
 
     var id = url.split("/tickets/")[1];
 
-    primitiva.getTicketById(id)
-        .then(function(data){
+    primitiva
+        .getTicketById(id)
+        .then(function(data) {
             $scope.ticket = data;
 
-            $scope.ticket.fecha = $filter('date')(data.fecha, 'dd/MM/yyyy');
+            $scope.ticket.fecha = $filter("date")(data.fecha, "dd/MM/yyyy");
 
             $scope.consultando = false;
         })
-        .catch(function(err){
+        .catch(function(err) {
             console.log(err);
         });
 
-    primitiva.getAllYears()
-        .then(function(data){
-            $scope.anyos = $filter('orderBy')(data, "name");
+    primitiva
+        .getAllYears()
+        .then(function(data) {
+            $scope.anyos = $filter("orderBy")(data, "name");
         })
-        .catch(function(err){
+        .catch(function(err) {
             console.log(err);
         });
 
     $scope.ticket.resultado = {
         bolas: [
             {
-                numero: ""
-            },{
-                numero: ""
-            },{
-                numero: ""
-            },{
-                numero: ""
-            },{
-                numero: ""
-            },{
-                numero: ""
+                numero: null
+            },
+            {
+                numero: null
+            },
+            {
+                numero: null
+            },
+            {
+                numero: null
+            },
+            {
+                numero: null
+            },
+            {
+                numero: null
             }
         ],
         reintegro: "",
@@ -59,118 +65,144 @@ function Controller ($scope, $http, $window, $filter, primitiva){
         combinaciones: [
             [
                 {
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                }
-            ], [
+                    numero: null
+                },
                 {
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
-                },{
-                    numero: ""
+                    numero: null
+                },
+                {
+                    numero: null
+                },
+                {
+                    numero: null
+                },
+                {
+                    numero: null
+                },
+                {
+                    numero: null
+                }
+            ],
+            [
+                {
+                    numero: null
+                },
+                {
+                    numero: null
+                },
+                {
+                    numero: null
+                },
+                {
+                    numero: null
+                },
+                {
+                    numero: null
+                },
+                {
+                    numero: null
                 }
             ]
         ]
     };
 
-    $scope.anadirApuesta = function(){
-        if($scope.ticket.apuestas.combinaciones == null){
-
+    $scope.anadirApuesta = function() {
+        if ($scope.ticket.apuestas.combinaciones == null) {
             $scope.ticket.apuestas.combinaciones = [
                 [
                     {
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
+                        numero: null
+                    },
+                    {
+                        numero: null
+                    },
+                    {
+                        numero: null
+                    },
+                    {
+                        numero: null
+                    },
+                    {
+                        numero: null
+                    },
+                    {
+                        numero: null
                     }
                 ]
             ];
-        }else if($scope.ticket.apuestas.combinaciones.length === 0){
+        } else if ($scope.ticket.apuestas.combinaciones.length === 0) {
             $scope.ticket.apuestas.combinaciones = [
                 [
                     {
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
-                    },{
-                        numero: ""
+                        numero: null
+                    },
+                    {
+                        numero: null
+                    },
+                    {
+                        numero: null
+                    },
+                    {
+                        numero: null
+                    },
+                    {
+                        numero: null
+                    },
+                    {
+                        numero: null
                     }
                 ]
             ];
         }
 
-        if($scope.ticket.apuestas.combinaciones.length < 8){
-            $scope.ticket.apuestas.combinaciones[$scope.ticket.apuestas.combinaciones.length] = [
+        if ($scope.ticket.apuestas.combinaciones.length < 8) {
+            $scope.ticket.apuestas.combinaciones[
+                $scope.ticket.apuestas.combinaciones.length
+            ] = [
                 {
-                    numero: ""
-                }, {
-                    numero: ""
-                }, {
-                    numero: ""
-                }, {
-                    numero: ""
-                }, {
-                    numero: ""
-                }, {
-                    numero: ""
+                    numero: null
+                },
+                {
+                    numero: null
+                },
+                {
+                    numero: null
+                },
+                {
+                    numero: null
+                },
+                {
+                    numero: null
+                },
+                {
+                    numero: null
                 }
             ];
         }
     };
 
-    $scope.eliminarApuesta = function(){
-        if($scope.ticket.apuestas.combinaciones.length !== 0){
-
+    $scope.eliminarApuesta = function() {
+        if ($scope.ticket.apuestas.combinaciones.length !== 0) {
             $scope.ticket.apuestas.combinaciones.pop();
 
-            if($scope.ticket.apuestas.combinaciones.length === 1){
+            if ($scope.ticket.apuestas.combinaciones.length === 1) {
                 $scope.ticket.apuestas.combinaciones = [];
             }
-
         }
     };
 
-    $scope.guardar = function(){
-        primitiva.editTicket($scope.ticket)
-            .then(function(){
+    $scope.guardar = function() {
+        primitiva
+            .editTicket($scope.ticket)
+            .then(function() {
                 $scope.redirigir();
             })
-            .catch(function(err){
+            .catch(function(err) {
                 console.log(err);
             });
     };
 
-    $scope.redirigir = function(){
+    $scope.redirigir = function() {
         $window.location.href = "/admin/primitiva";
     };
 }

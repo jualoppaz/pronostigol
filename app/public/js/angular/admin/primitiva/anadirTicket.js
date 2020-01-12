@@ -13,32 +13,32 @@ function Controller($scope, $http, $window, $filter, primitiva) {
 
     primitiva
         .getAllYears()
-        .then(function (data) {
+        .then(function(data) {
             $scope.anyos = $filter("orderBy")(data, "name");
         })
-        .catch(function (err) {
+        .catch(function(err) {
             console.log(err);
         });
 
     $scope.ticket.resultado = {
         bolas: [
             {
-                numero: ""
+                numero: null
             },
             {
-                numero: ""
+                numero: null
             },
             {
-                numero: ""
+                numero: null
             },
             {
-                numero: ""
+                numero: null
             },
             {
-                numero: ""
+                numero: null
             },
             {
-                numero: ""
+                numero: null
             }
         ],
         reintegro: "",
@@ -50,108 +50,108 @@ function Controller($scope, $http, $window, $filter, primitiva) {
         combinaciones: [
             [
                 {
-                    numero: "4"
+                    numero: 4
                 },
                 {
-                    numero: "8"
+                    numero: 8
                 },
                 {
-                    numero: "13"
+                    numero: 13
                 },
                 {
-                    numero: "19"
+                    numero: 19
                 },
                 {
-                    numero: "27"
+                    numero: 27
                 },
                 {
-                    numero: "38"
+                    numero: 38
                 }
             ],
             [
                 {
-                    numero: "1"
+                    numero: 1
                 },
                 {
-                    numero: "6"
+                    numero: 6
                 },
                 {
-                    numero: "10"
+                    numero: 10
                 },
                 {
-                    numero: "22"
+                    numero: 22
                 },
                 {
-                    numero: "37"
+                    numero: 37
                 },
                 {
-                    numero: "46"
+                    numero: 46
                 }
             ],
             [
                 {
-                    numero: "32"
+                    numero: 32
                 },
                 {
-                    numero: "36"
+                    numero: 36
                 },
                 {
-                    numero: "39"
+                    numero: 39
                 },
                 {
-                    numero: "42"
+                    numero: 42
                 },
                 {
-                    numero: "45"
+                    numero: 45
                 },
                 {
-                    numero: "47"
+                    numero: 47
                 }
             ],
             [
                 {
-                    numero: "40"
+                    numero: 40
                 },
                 {
-                    numero: "41"
+                    numero: 41
                 },
                 {
-                    numero: "43"
+                    numero: 43
                 },
                 {
-                    numero: "44"
+                    numero: 44
                 },
                 {
-                    numero: "48"
+                    numero: 48
                 },
                 {
-                    numero: "49"
+                    numero: 49
                 }
             ]
         ]
     };
 
-    $scope.anadirApuesta = function () {
+    $scope.anadirApuesta = function() {
         if ($scope.ticket.apuestas.combinaciones == null) {
             $scope.ticket.apuestas.combinaciones = [
                 [
                     {
-                        numero: ""
+                        numero: null
                     },
                     {
-                        numero: ""
+                        numero: null
                     },
                     {
-                        numero: ""
+                        numero: null
                     },
                     {
-                        numero: ""
+                        numero: null
                     },
                     {
-                        numero: ""
+                        numero: null
                     },
                     {
-                        numero: ""
+                        numero: null
                     }
                 ]
             ];
@@ -159,22 +159,22 @@ function Controller($scope, $http, $window, $filter, primitiva) {
             $scope.ticket.apuestas.combinaciones = [
                 [
                     {
-                        numero: ""
+                        numero: null
                     },
                     {
-                        numero: ""
+                        numero: null
                     },
                     {
-                        numero: ""
+                        numero: null
                     },
                     {
-                        numero: ""
+                        numero: null
                     },
                     {
-                        numero: ""
+                        numero: null
                     },
                     {
-                        numero: ""
+                        numero: null
                     }
                 ]
             ];
@@ -184,29 +184,29 @@ function Controller($scope, $http, $window, $filter, primitiva) {
             $scope.ticket.apuestas.combinaciones[
                 $scope.ticket.apuestas.combinaciones.length
             ] = [
-                    {
-                        numero: ""
-                    },
-                    {
-                        numero: ""
-                    },
-                    {
-                        numero: ""
-                    },
-                    {
-                        numero: ""
-                    },
-                    {
-                        numero: ""
-                    },
-                    {
-                        numero: ""
-                    }
-                ];
+                {
+                    numero: null
+                },
+                {
+                    numero: null
+                },
+                {
+                    numero: null
+                },
+                {
+                    numero: null
+                },
+                {
+                    numero: null
+                },
+                {
+                    numero: null
+                }
+            ];
         }
     };
 
-    $scope.eliminarApuesta = function () {
+    $scope.eliminarApuesta = function() {
         if ($scope.ticket.apuestas.combinaciones.length !== 0) {
             $scope.ticket.apuestas.combinaciones.pop();
 
@@ -216,18 +216,18 @@ function Controller($scope, $http, $window, $filter, primitiva) {
         }
     };
 
-    $scope.guardar = function () {
+    $scope.guardar = function() {
         primitiva
             .createTicket($scope.ticket)
-            .then(function () {
+            .then(function() {
                 $scope.redirigir();
             })
-            .catch(function (err) {
+            .catch(function(err) {
                 console.log(err);
             });
     };
 
-    $scope.redirigir = function () {
+    $scope.redirigir = function() {
         $window.location.href = "/admin/primitiva";
     };
 }
