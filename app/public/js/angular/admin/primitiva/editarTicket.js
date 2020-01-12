@@ -56,12 +56,12 @@ function Controller($scope, $http, $window, $filter, primitiva) {
                 numero: null
             }
         ],
-        reintegro: "",
+        reintegro: null,
         complementario: null
     };
 
     $scope.ticket.apuestas = {
-        reintegro: "",
+        reintegro: null,
         combinaciones: [
             [
                 {
