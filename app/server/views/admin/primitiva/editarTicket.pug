@@ -73,7 +73,7 @@ block content
                                         td
                                             input(type="number", placeholder="[1-49]", data-ng-model="combinacion[5].numero").form-control.text-center
                                         td(data-ng-show="{{$index == 0}}", rowspan="{{ticket.apuestas.combinaciones.length}}")
-                                            input(type="number", placeholder="[0-9]", data-ng-model="ticket.apuestas.reintegro").form-control.text-center
+                                            input(type="text", placeholder="[0-9]", data-ng-model="ticket.apuestas.reintegro").form-control.text-center
 
                         h2.page-header Resultado
 
@@ -99,7 +99,7 @@ block content
                                             td
                                                 input(type="number", placeholder="[1-49]", data-ng-model="ticket.resultado.complementario").form-control.text-center
                                             td
-                                                input(type="number", placeholder="[0-9]", data-ng-model="ticket.resultado.reintegro").form-control.text-center
+                                                input(type="text", placeholder="[0-9]", data-ng-model="ticket.resultado.reintegro").form-control.text-center
 
 
 
