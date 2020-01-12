@@ -57,7 +57,7 @@ function Controller($scope, $http, $window, $filter, gordo) {
     };
 
     $scope.ticket.apuestas = {
-        numeroClave: "",
+        numeroClave: null,
         combinaciones: [
             [
                 {
