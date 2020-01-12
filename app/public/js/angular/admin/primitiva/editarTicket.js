@@ -57,7 +57,7 @@ function Controller($scope, $http, $window, $filter, primitiva) {
             }
         ],
         reintegro: "",
-        complementario: ""
+        complementario: null
     };
 
     $scope.ticket.apuestas = {
