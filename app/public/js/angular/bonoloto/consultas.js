@@ -73,7 +73,7 @@ function Controller($scope, $http, $filter, bonoloto) {
     $scope.ayuda.ultimaAparicionPorNumero =
         "Para consultar la última fecha de aparición por número";
 
-    $scope.limpiarTablas = function() {
+    $scope.limpiarTablas = function () {
         $scope.mostrar = {};
 
         $scope.consultando = true;
@@ -85,7 +85,7 @@ function Controller($scope, $http, $filter, bonoloto) {
 
     $scope.aparicionesPorNumero = [];
 
-    $scope.consultarEstandar = function() {
+    $scope.consultarEstandar = function () {
         $scope.limpiarTablas();
 
         var queryParameters;
@@ -102,7 +102,7 @@ function Controller($scope, $http, $filter, bonoloto) {
 
             bonoloto
                 .getOccurrencesByNumber(queryParameters)
-                .then(function(data) {
+                .then(function (data) {
                     $scope.aparicionesPorNumero = data.data;
 
                     $scope.actualizarPaginacion(
@@ -113,8 +113,8 @@ function Controller($scope, $http, $filter, bonoloto) {
 
                     $scope.mostrar.tablaAparicionesPorNumero = true;
                 })
-                .catch(function(err) {})
-                .finally(function() {
+                .catch(function (err) { })
+                .finally(function () {
                     $scope.consultando = false;
                 });
         } else if (
@@ -130,7 +130,7 @@ function Controller($scope, $http, $filter, bonoloto) {
 
             bonoloto
                 .getOccurrencesByResult(queryParameters)
-                .then(function(data) {
+                .then(function (data) {
                     $scope.aparicionesPorResultado = data.data;
 
                     $scope.actualizarPaginacion(
@@ -141,8 +141,8 @@ function Controller($scope, $http, $filter, bonoloto) {
 
                     $scope.mostrar.tablaAparicionesPorResultado = true;
                 })
-                .catch(function(err) {})
-                .finally(function() {
+                .catch(function (err) { })
+                .finally(function () {
                     $scope.consultando = false;
                 });
         } else if (
@@ -161,7 +161,7 @@ function Controller($scope, $http, $filter, bonoloto) {
 
             bonoloto
                 .getOccurrencesByResultWithReimbursement(queryParameters)
-                .then(function(data) {
+                .then(function (data) {
                     $scope.aparicionesPorResultadoConReintegro = data.data;
 
                     $scope.actualizarPaginacion(
@@ -172,8 +172,8 @@ function Controller($scope, $http, $filter, bonoloto) {
 
                     $scope.mostrar.tablaAparicionesPorResultadoConReintegro = true;
                 })
-                .catch(function(err) {})
-                .finally(function() {
+                .catch(function (err) { })
+                .finally(function () {
                     $scope.consultando = false;
                 });
         } else if (
@@ -189,7 +189,7 @@ function Controller($scope, $http, $filter, bonoloto) {
 
             bonoloto
                 .getOccurrencesByReimbursement(queryParameters)
-                .then(function(data) {
+                .then(function (data) {
                     $scope.aparicionesPorReintegro = data.data;
 
                     $scope.actualizarPaginacion(
@@ -200,8 +200,8 @@ function Controller($scope, $http, $filter, bonoloto) {
 
                     $scope.mostrar.tablaAparicionesPorReintegro = true;
                 })
-                .catch(function(err) {})
-                .finally(function() {
+                .catch(function (err) { })
+                .finally(function () {
                     $scope.consultando = false;
                 });
         } else if (
@@ -218,7 +218,7 @@ function Controller($scope, $http, $filter, bonoloto) {
 
             bonoloto
                 .getLastDateByNumber(queryParameters)
-                .then(function(data) {
+                .then(function (data) {
                     $scope.ultimaAparicionPorNumero = data.data;
 
                     $scope.actualizarPaginacion(
@@ -229,14 +229,14 @@ function Controller($scope, $http, $filter, bonoloto) {
 
                     $scope.mostrar.tablaUltimaAparicionPorNumero = true;
                 })
-                .catch(function(err) {})
-                .finally(function() {
+                .catch(function (err) { })
+                .finally(function () {
                     $scope.consultando = false;
                 });
         }
     };
 
-    $scope.ordenarAparicionesPorNumeroSegun = function(criterio) {
+    $scope.ordenarAparicionesPorNumeroSegun = function (criterio) {
         if (criterio === "number") {
             if ($scope.criterioOrdenacionAparicionesPorNumero === criterio) {
                 //Sólo vamos a invertir el orden
@@ -266,7 +266,7 @@ function Controller($scope, $http, $filter, bonoloto) {
         }
     };
 
-    $scope.ordenarAparicionesPorResultadoSegun = function(criterio) {
+    $scope.ordenarAparicionesPorResultadoSegun = function (criterio) {
         if (criterio === "result") {
             if ($scope.criterioOrdenacionAparicionesPorResultado === criterio) {
                 //Sólo vamos a invertir el orden
@@ -298,7 +298,7 @@ function Controller($scope, $http, $filter, bonoloto) {
         }
     };
 
-    $scope.ordenarAparicionesPorResultadoConReintegroSegun = function(
+    $scope.ordenarAparicionesPorResultadoConReintegroSegun = function (
         criterio
     ) {
         if (criterio === "result") {
@@ -336,7 +336,7 @@ function Controller($scope, $http, $filter, bonoloto) {
         }
     };
 
-    $scope.ordenarAparicionesPorReintegroSegun = function(criterio) {
+    $scope.ordenarAparicionesPorReintegroSegun = function (criterio) {
         if (criterio === "reimbursement") {
             if ($scope.criterioOrdenacionAparicionesPorReintegro === criterio) {
                 //Sólo vamos a invertir el orden
@@ -366,8 +366,7 @@ function Controller($scope, $http, $filter, bonoloto) {
         }
     };
 
-    $scope.ordenarUltimaAparicionPorNumeroSegun = function(criterio) {
-        debugger;
+    $scope.ordenarUltimaAparicionPorNumeroSegun = function (criterio) {
         if (criterio === "number") {
             if (
                 $scope.criterioOrdenacionUltimaAparicionPorNumero === criterio
@@ -403,11 +402,11 @@ function Controller($scope, $http, $filter, bonoloto) {
 
     // Funciones para ordenacion
 
-    $scope.sortFunction_number = function(ticket) {
+    $scope.sortFunction_number = function (ticket) {
         return Number(ticket.numero);
     };
 
-    $scope.sortFunction_result = function(ticket) {
+    $scope.sortFunction_result = function (ticket) {
         var res = "";
 
         for (var i = 0; i < ticket.numeros.length; i++) {
@@ -423,7 +422,7 @@ function Controller($scope, $http, $filter, bonoloto) {
         return res;
     };
 
-    $scope.sortFunction_resultWithReimbursement = function(ticket) {
+    $scope.sortFunction_resultWithReimbursement = function (ticket) {
         var res = "";
 
         for (var i = 0; i < ticket.numeros.length; i++) {
@@ -441,11 +440,11 @@ function Controller($scope, $http, $filter, bonoloto) {
         return res;
     };
 
-    $scope.sortFunction_reimbursement = function(ticket) {
+    $scope.sortFunction_reimbursement = function (ticket) {
         return ticket.reintegro;
     };
 
-    $scope.printNumber = function(number) {
+    $scope.printNumber = function (number) {
         var res = "";
 
         if (number.toString().length === 1) {
@@ -457,7 +456,7 @@ function Controller($scope, $http, $filter, bonoloto) {
         return res;
     };
 
-    $scope.actualizarPaginacion = function(items, totalItems, ticketsPerPage) {
+    $scope.actualizarPaginacion = function (items, totalItems, ticketsPerPage) {
         // Uso de esta variable para reutilizar el mismo paginador para todas las consultas
         $scope.tickets = items;
 
