@@ -6,7 +6,7 @@ var DBM = require("./init-data-base-manager");
 
 var gordo_tickets, gordo_years;
 
-DBM.getDatabaseInstance(function(err, res) {
+DBM.getDatabaseInstance(function (err, res) {
     if (err) {
         console.log(err);
         return;
@@ -18,11 +18,11 @@ DBM.getDatabaseInstance(function(err, res) {
     gordo_years = db.collection("gordo_years");
 });
 
-var getObjectId = function(id) {
+var getObjectId = function (id) {
     return ObjectID(id);
 };
 
-exports.getAllTickets = function(filtros, callback) {
+exports.getAllTickets = function (filtros, callback) {
     var filters = {};
 
     if (filtros.year) {
@@ -45,11 +45,11 @@ exports.getAllTickets = function(filtros, callback) {
         skip: skip
     };
 
-    gordo_tickets.count(filters, function(err, total) {
+    gordo_tickets.count(filters, function (err, total) {
         if (err) {
             callback(err);
         } else {
-            gordo_tickets.find(filters, options).toArray(function(err, res) {
+            gordo_tickets.find(filters, options).toArray(function (err, res) {
                 if (err) {
                     callback(err);
                 } else {
@@ -67,12 +67,12 @@ exports.getAllTickets = function(filtros, callback) {
     });
 };
 
-exports.getTicketsByAnyo = function(anyo, callback) {
+exports.getTicketsByAnyo = function (anyo, callback) {
     gordo_tickets
         .find({
             anyo: anyo
         })
-        .toArray(function(err, res) {
+        .toArray(function (err, res) {
             if (err) {
                 callback(err);
             } else {
@@ -81,7 +81,7 @@ exports.getTicketsByAnyo = function(anyo, callback) {
         });
 };
 
-exports.addNewTicket = function(ticket, callback) {
+exports.addNewTicket = function (ticket, callback) {
     var trozos = ticket.fecha.split("/");
 
     var fecha = trozos[2] + "-" + trozos[1] + "-" + trozos[0];
@@ -99,7 +99,7 @@ exports.addNewTicket = function(ticket, callback) {
         {
             w: 1
         },
-        function(e, res) {
+        function (e, res) {
             if (e) {
                 callback(e);
             } else {
@@ -109,12 +109,12 @@ exports.addNewTicket = function(ticket, callback) {
     );
 };
 
-exports.getTicketById = function(id, callback) {
+exports.getTicketById = function (id, callback) {
     gordo_tickets.findOne(
         {
             _id: getObjectId(id)
         },
-        function(err, res) {
+        function (err, res) {
             if (err) {
                 callback(err);
             } else {
@@ -125,12 +125,12 @@ exports.getTicketById = function(id, callback) {
     );
 };
 
-exports.deleteTicketById = function(id, callback) {
+exports.deleteTicketById = function (id, callback) {
     gordo_tickets.remove(
         {
             _id: getObjectId(id)
         },
-        function(e, res) {
+        function (e, res) {
             if (e || !res) {
                 callback("ticket-not-deleted");
             } else {
@@ -140,7 +140,7 @@ exports.deleteTicketById = function(id, callback) {
     );
 };
 
-exports.editTicket = function(ticket, callback) {
+exports.editTicket = function (ticket, callback) {
     console.log("Id recibido: " + ticket._id);
 
     var trozos = ticket.fecha.split("/");
@@ -163,7 +163,7 @@ exports.editTicket = function(ticket, callback) {
             }
         },
 
-        function(err, number) {
+        function (err, number) {
             console.log("Numero: " + number);
 
             if (err || number == 0) {
@@ -175,7 +175,7 @@ exports.editTicket = function(ticket, callback) {
     );
 };
 
-exports.getOccurrencesByNumber = function(filtros, callback) {
+exports.getOccurrencesByNumber = function (filtros, callback) {
     var limit = filtros.perPage;
     var page = filtros.page;
     var skip = (page - 1) * limit;
@@ -207,7 +207,7 @@ exports.getOccurrencesByNumber = function(filtros, callback) {
         }
     });
 
-    gordo_tickets.aggregate(query, function(e, res) {
+    gordo_tickets.aggregate(query, function (e, res) {
         if (e) {
             callback(e);
         } else {
@@ -237,7 +237,7 @@ exports.getOccurrencesByNumber = function(filtros, callback) {
                 $limit: limit
             });
 
-            gordo_tickets.aggregate(query, function(e, res) {
+            gordo_tickets.aggregate(query, function (e, res) {
                 if (e) {
                     callback(e);
                 } else {
@@ -249,7 +249,7 @@ exports.getOccurrencesByNumber = function(filtros, callback) {
     });
 };
 
-exports.getOccurrencesByResultWithSpecialNumber = function(filtros, callback) {
+exports.getOccurrencesByResultWithSpecialNumber = function (filtros, callback) {
     var limit = filtros.perPage;
     var page = filtros.page;
     var skip = (page - 1) * limit;
@@ -287,7 +287,7 @@ exports.getOccurrencesByResultWithSpecialNumber = function(filtros, callback) {
         }
     });
 
-    gordo_tickets.aggregate(query, function(e, res) {
+    gordo_tickets.aggregate(query, function (e, res) {
         if (e) {
             callback(e);
         } else {
@@ -412,7 +412,7 @@ exports.getOccurrencesByResultWithSpecialNumber = function(filtros, callback) {
                 $limit: limit
             });
 
-            gordo_tickets.aggregate(query, function(e, res) {
+            gordo_tickets.aggregate(query, function (e, res) {
                 if (e) {
                     callback(e);
                 } else {
@@ -424,7 +424,7 @@ exports.getOccurrencesByResultWithSpecialNumber = function(filtros, callback) {
     });
 };
 
-exports.getOccurrencesByResultWithoutSpecialNumber = function(
+exports.getOccurrencesByResultWithoutSpecialNumber = function (
     filtros,
     callback
 ) {
@@ -455,7 +455,7 @@ exports.getOccurrencesByResultWithoutSpecialNumber = function(
         }
     });
 
-    gordo_tickets.aggregate(query, function(e, res) {
+    gordo_tickets.aggregate(query, function (e, res) {
         if (e) {
             callback(e);
         } else {
@@ -536,7 +536,7 @@ exports.getOccurrencesByResultWithoutSpecialNumber = function(
 
             console.log("Query:", query);
 
-            gordo_tickets.aggregate(query, function(e, res) {
+            gordo_tickets.aggregate(query, function (e, res) {
                 if (e) {
                     callback(e);
                 } else {
@@ -548,7 +548,7 @@ exports.getOccurrencesByResultWithoutSpecialNumber = function(
     });
 };
 
-exports.getOccurrencesBySpecialNumber = function(filtros, callback) {
+exports.getOccurrencesBySpecialNumber = function (filtros, callback) {
     var limit = filtros.perPage;
     var page = filtros.page;
     var skip = (page - 1) * limit;
@@ -577,7 +577,7 @@ exports.getOccurrencesBySpecialNumber = function(filtros, callback) {
         }
     });
 
-    gordo_tickets.aggregate(query, function(e, res) {
+    gordo_tickets.aggregate(query, function (e, res) {
         if (e) {
             callback(e);
         } else {
@@ -607,7 +607,7 @@ exports.getOccurrencesBySpecialNumber = function(filtros, callback) {
                 $limit: limit
             });
 
-            gordo_tickets.aggregate(query, function(e, res) {
+            gordo_tickets.aggregate(query, function (e, res) {
                 if (e) {
                     callback(e);
                 } else {
@@ -619,8 +619,8 @@ exports.getOccurrencesBySpecialNumber = function(filtros, callback) {
     });
 };
 
-exports.getAllYears = function(callback) {
-    gordo_years.find({}).toArray(function(err, res) {
+exports.getAllYears = function (callback) {
+    gordo_years.find({}).toArray(function (err, res) {
         if (err) {
             callback(err);
         } else {
@@ -629,12 +629,12 @@ exports.getAllYears = function(callback) {
     });
 };
 
-exports.getYearById = function(id, callback) {
+exports.getYearById = function (id, callback) {
     gordo_years.findOne(
         {
             _id: getObjectId(id)
         },
-        function(err, res) {
+        function (err, res) {
             if (err) {
                 callback(err);
             } else {
@@ -645,12 +645,12 @@ exports.getYearById = function(id, callback) {
     );
 };
 
-exports.getYearByName = function(name, callback) {
+exports.getYearByName = function (name, callback) {
     gordo_years.findOne(
         {
             name: name
         },
-        function(err, res) {
+        function (err, res) {
             if (err) {
                 callback(err);
             } else {
@@ -661,12 +661,12 @@ exports.getYearByName = function(name, callback) {
     );
 };
 
-exports.deleteYearById = function(id, callback) {
+exports.deleteYearById = function (id, callback) {
     gordo_years.remove(
         {
             _id: getObjectId(id)
         },
-        function(e, res) {
+        function (e, res) {
             if (e || !res) {
                 callback("year-not-deleted");
             } else {
@@ -676,7 +676,7 @@ exports.deleteYearById = function(id, callback) {
     );
 };
 
-exports.addNewYear = function(year, callback) {
+exports.addNewYear = function (year, callback) {
     gordo_years.insert(
         {
             name: year.name,
@@ -685,7 +685,7 @@ exports.addNewYear = function(year, callback) {
         {
             w: 1
         },
-        function(e, res) {
+        function (e, res) {
             if (e) {
                 callback(e);
             } else {
@@ -695,7 +695,7 @@ exports.addNewYear = function(year, callback) {
     );
 };
 
-exports.editYear = function(year, callback) {
+exports.editYear = function (year, callback) {
     gordo_years.update(
         {
             _id: getObjectId(year._id)
@@ -707,7 +707,7 @@ exports.editYear = function(year, callback) {
             }
         },
 
-        function(err, number) {
+        function (err, number) {
             console.log("Numero: " + number);
 
             if (err || number == 0) {
@@ -725,7 +725,7 @@ exports.editYear = function(year, callback) {
 
 /* $where: "return this.fecha.getFullYear() == 2014" */
 
-exports.getEconomicBalanceByYear = function(callback) {
+exports.getEconomicBalanceByYear = function (callback) {
     gordo_tickets.aggregate(
         {
             $group: {
@@ -738,7 +738,7 @@ exports.getEconomicBalanceByYear = function(callback) {
                 }
             }
         },
-        function(err, res) {
+        function (err, res) {
             if (err) {
                 callback(err);
             } else {
@@ -746,4 +746,80 @@ exports.getEconomicBalanceByYear = function(callback) {
             }
         }
     );
+};
+
+exports.getLastDateByNumber = (filtros, callback) => {
+    var limit = filtros.perPage;
+    var page = filtros.page;
+    var skip = (page - 1) * limit;
+    var sort = filtros.sort;
+    var type = filtros.type;
+
+    var sort_property = sort === "date" ? "fecha" : "numero";
+    var sort_type = type === "asc" ? 1 : -1;
+
+    var query = [];
+    query.push({
+        $unwind: "$resultado.bolas"
+    });
+
+    query.push({
+        $group: {
+            _id: "$resultado.bolas.numero",
+            ultimaAparicion: {
+                $max: "$fecha"
+            }
+        }
+    });
+
+    query.push({
+        $project: {
+            _id: 0,
+            numero: "$_id",
+            fecha: "$ultimaAparicion"
+        }
+    });
+
+    gordo_tickets.aggregate(query, function (e, res) {
+        if (e) {
+            callback(e);
+        } else {
+            var result = {
+                page: page,
+                perPage: limit,
+                total: res.length
+            };
+
+            var sortConfig = {};
+            sortConfig[sort_property] = sort_type;
+
+            // Añadimos ordenación alternativa
+            if (sort_property === "numero") {
+                sortConfig["fecha"] = sort_type;
+            } else if (sort_property === "fecha") {
+                sortConfig["numero"] = 1;
+            }
+
+            query.push({
+                $sort: sortConfig
+            });
+
+            query.push({
+                $skip: skip
+            });
+
+            query.push({
+                $limit: limit
+            });
+
+            gordo_tickets.aggregate(query, function (e, res) {
+                if (e) {
+                    callback(e);
+                } else {
+                    result.data = res;
+                    callback(null, result);
+                }
+            });
+        }
+    });
 };
