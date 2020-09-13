@@ -1,4 +1,4 @@
-module.exports = function(app) {
+module.exports = function (app) {
     var middlewares = require("../../middlewares");
     var { ROLES, HTTP_CODES } = require("../../constants");
 
@@ -14,7 +14,7 @@ module.exports = function(app) {
     var validate = require("express-validation");
     var validations = require("./validations.js");
 
-    var filtrarInformacion = function(result) {
+    var filtrarInformacion = function (result) {
         var json = JSON.parse(JSON.stringify(result));
         json = borrarPronosticos(json);
         json = borrarPrecio(json);
@@ -22,7 +22,7 @@ module.exports = function(app) {
         return json;
     };
 
-    var borrarPronosticos = function(aux) {
+    var borrarPronosticos = function (aux) {
         var json = aux;
 
         if (json["apuestas"] != null) {
@@ -32,7 +32,7 @@ module.exports = function(app) {
         return json;
     };
 
-    var borrarPrecio = function(aux) {
+    var borrarPrecio = function (aux) {
         var json = aux;
 
         if (json["precio"] != null) {
@@ -42,7 +42,7 @@ module.exports = function(app) {
         return json;
     };
 
-    var borrarPremio = function(aux) {
+    var borrarPremio = function (aux) {
         var json = aux;
 
         if (json["premio"] != null) {
@@ -68,7 +68,7 @@ module.exports = function(app) {
      * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Por defecto se ordenan por fecha descendentemente.
      * @apiSampleRequest /api/bonoloto/tickets
      */
-    var bonoloto_api_tickets = function(req, res) {
+    var bonoloto_api_tickets = function (req, res) {
         var query = req.query;
 
         var year = query.year;
@@ -86,7 +86,7 @@ module.exports = function(app) {
             type: type
         };
 
-        BON_DBM.getAllTickets(filtros, function(err, result) {
+        BON_DBM.getAllTickets(filtros, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -116,14 +116,14 @@ module.exports = function(app) {
         });
     };
 
-    var bonoloto_api_ticketById = function(req, res) {
+    var bonoloto_api_ticketById = function (req, res) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
             return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
-        BON_DBM.getTicketById(id, function(err, result) {
+        BON_DBM.getTicketById(id, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -146,7 +146,7 @@ module.exports = function(app) {
         });
     };
 
-    var bonoloto_api_newTicket = function(req, res) {
+    var bonoloto_api_newTicket = function (req, res) {
         var body = req.body;
         var ticket = {};
 
@@ -168,7 +168,7 @@ module.exports = function(app) {
         ticket.resultado = resultado;
         ticket.observaciones = observaciones;
 
-        BON_DBM.addNewTicket(ticket, function(err, result) {
+        BON_DBM.addNewTicket(ticket, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -179,17 +179,17 @@ module.exports = function(app) {
         });
     };
 
-    var bonoloto_api_editTicket = function(req, res) {
+    var bonoloto_api_editTicket = function (req, res) {
         var ticket = req.body;
 
-        BON_DBM.getTicketById(ticket._id, function(err, result) {
+        BON_DBM.getTicketById(ticket._id, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
                 return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
             }
 
-            BON_DBM.editTicket(ticket, function(err, result) {
+            BON_DBM.editTicket(ticket, function (err, result) {
                 if (err) {
                     return res
                         .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
@@ -201,21 +201,21 @@ module.exports = function(app) {
         });
     };
 
-    var bonoloto_api_deleteTicket = function(req, res) {
+    var bonoloto_api_deleteTicket = function (req, res) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
             return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
-        BON_DBM.getTicketById(id, function(err, result) {
+        BON_DBM.getTicketById(id, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
                 return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
             }
 
-            BON_DBM.deleteTicketById(id, function(err2) {
+            BON_DBM.deleteTicketById(id, function (err2) {
                 if (err) {
                     return res
                         .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
@@ -245,7 +245,7 @@ module.exports = function(app) {
      *
      * @apiSampleRequest /api/bonoloto/historical/occurrencesByNumber
      */
-    var bonoloto_api_occurrencesByNumber = function(req, res) {
+    var bonoloto_api_occurrencesByNumber = function (req, res) {
         var query = req.query;
         var page = query.page || 1;
         var perPage = query.per_page || 10;
@@ -259,7 +259,7 @@ module.exports = function(app) {
             type: type
         };
 
-        BON_DBM.getOccurrencesByNumber(filtros, function(err, result) {
+        BON_DBM.getOccurrencesByNumber(filtros, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -285,7 +285,7 @@ module.exports = function(app) {
      * Por defecto se ordenan descendentemente.
      * @apiSampleRequest /api/bonoloto/historical/occurrencesByReimbursement
      */
-    var bonoloto_api_occurrencesByReimbursement = function(req, res) {
+    var bonoloto_api_occurrencesByReimbursement = function (req, res) {
         var query = req.query;
         var page = query.page || 1;
         var perPage = query.per_page || 10;
@@ -299,7 +299,7 @@ module.exports = function(app) {
             type: type
         };
 
-        BON_DBM.getOccurrencesByReimbursement(filtros, function(err, result) {
+        BON_DBM.getOccurrencesByReimbursement(filtros, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -325,7 +325,7 @@ module.exports = function(app) {
      * Por defecto se ordenan descendentemente.
      * @apiSampleRequest /api/bonoloto/historical/occurrencesByResult
      */
-    var bonoloto_api_occurrencesByResult = function(req, res) {
+    var bonoloto_api_occurrencesByResult = function (req, res) {
         var query = req.query;
         var page = query.page || 1;
         var perPage = query.per_page || 10;
@@ -339,7 +339,7 @@ module.exports = function(app) {
             type: type
         };
 
-        BON_DBM.getOccurrencesByResultWithoutReimbursement(filtros, function(
+        BON_DBM.getOccurrencesByResultWithoutReimbursement(filtros, function (
             err,
             result
         ) {
@@ -368,7 +368,7 @@ module.exports = function(app) {
      * Por defecto se ordenan descendentemente.
      * @apiSampleRequest /api/bonoloto/historical/occurrencesByResultWithReimbursement
      */
-    var bonoloto_api_occurrencesByResultWithReimbursement = function(req, res) {
+    var bonoloto_api_occurrencesByResultWithReimbursement = function (req, res) {
         var query = req.query;
         var page = query.page || 1;
         var perPage = query.per_page || 10;
@@ -382,7 +382,7 @@ module.exports = function(app) {
             type: type
         };
 
-        BON_DBM.getOccurrencesByResultWithReimbursement(filtros, function(
+        BON_DBM.getOccurrencesByResultWithReimbursement(filtros, function (
             err,
             result
         ) {
@@ -405,8 +405,8 @@ module.exports = function(app) {
      *
      * @apiSampleRequest /api/bonoloto/years
      */
-    var bonoloto_api_years = function(req, res) {
-        BON_DBM.getAllYears(function(err, result) {
+    var bonoloto_api_years = function (req, res) {
+        BON_DBM.getAllYears(function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -428,14 +428,14 @@ module.exports = function(app) {
      *
      * @apiParam {String} id Identificador del año de Bonoloto
      */
-    var bonoloto_api_yearById = function(req, res) {
+    var bonoloto_api_yearById = function (req, res) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
             return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
-        BON_DBM.getYearById(id, function(err, result) {
+        BON_DBM.getYearById(id, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -444,19 +444,19 @@ module.exports = function(app) {
         });
     };
 
-    var bonoloto_api_deleteYear = function(req, res) {
+    var bonoloto_api_deleteYear = function (req, res) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
             return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
-        BON_DBM.deleteYearById(id, function(err) {
+        BON_DBM.deleteYearById(id, function (err) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            BON_DBM.getAllYears(function(err2, result2) {
+            BON_DBM.getAllYears(function (err2, result2) {
                 if (err2) {
                     return res
                         .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
@@ -470,20 +470,20 @@ module.exports = function(app) {
         });
     };
 
-    var bonoloto_api_newYear = function(req, res) {
+    var bonoloto_api_newYear = function (req, res) {
         var body = req.body;
         var year = {};
         var name = body.name;
         year.name = name;
 
-        BON_DBM.getYearByName(name, function(err, result) {
+        BON_DBM.getYearByName(name, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
             if (JSON.stringify(result) === "{}") {
                 // No existe aun
-                BON_DBM.addNewYear(year, function(err, result) {
+                BON_DBM.addNewYear(year, function (err, result) {
                     if (err) {
                         return res
                             .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
@@ -503,21 +503,21 @@ module.exports = function(app) {
         });
     };
 
-    var bonoloto_api_editYear = function(req, res) {
+    var bonoloto_api_editYear = function (req, res) {
         var body = req.body;
         var id = body._id;
         var year = {};
         year.name = body.name;
         year._id = id;
 
-        BON_DBM.getYearById(id, function(err, result) {
+        BON_DBM.getYearById(id, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
                 return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
             }
 
-            BON_DBM.editYear(year, function(err, result) {
+            BON_DBM.editYear(year, function (err, result) {
                 if (err) {
                     return res
                         .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
@@ -562,6 +562,47 @@ module.exports = function(app) {
         };
 
         BON_DBM.getLastDateByNumber(filtros, (err, result) => {
+            if (err) {
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
+            }
+
+            res.status(HTTP_CODES.OK).send(JSON.stringify(result, null, 4));
+        });
+    };
+
+    /**
+     * @api {get} /bonoloto/historical/lastDateByReimbursement Consulta de fecha de última aparición por reintegro en histórico de Bonoloto
+     * @apiName GetBonolotoLastDateByReimbursement
+     * @apiGroup BonolotoHistorical
+     *
+     * @apiDescription Recurso para la consulta de fecha de última aparición por reintegro en histórico de Bonoloto.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "number"
+     * y "date". Por defecto se ordenan por "date".
+     * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
+     * Por defecto se ordenan descendentemente.
+     *
+     * @apiSampleRequest /api/bonoloto/historical/lastDateByReimbursement
+     */
+    var bonoloto_api_lastDateByReimbursement = (req, res) => {
+        var query = req.query;
+        var page = query.page || 1;
+        var perPage = query.per_page || 10;
+        var sort = query.sort_property || "date";
+        var type = query.sort_type || "desc";
+
+        var filtros = {
+            page: Number(page),
+            perPage: Number(perPage),
+            sort: sort,
+            type: type
+        };
+
+        BON_DBM.getLastDateByReimbursement(filtros, (err, result) => {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -641,6 +682,11 @@ module.exports = function(app) {
         "/lastDateByNumber",
         validate(validations.getLastDateByNumber),
         bonoloto_api_lastDateByNumber
+    );
+    historical.get(
+        "/lastDateByReimbursement",
+        validate(validations.getLastDateByReimbursement),
+        bonoloto_api_lastDateByReimbursement
     );
 
     bonoloto.use("/historical", historical);
