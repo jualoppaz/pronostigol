@@ -29,6 +29,7 @@
             getOccurrencesByResultWithReimbursement: getOccurrencesByResultWithReimbursement,
             getOccurrencesByReimbursement: getOccurrencesByReimbursement,
             getLastDateByNumber: getLastDateByNumber,
+            getLastDateByReimbursement: getLastDateByReimbursement,
         };
 
         return service;
@@ -285,6 +286,24 @@
 
             $http
                 .get(apiPrefix + "/historical/lastDateByNumber", {
+                    params: queryParameters
+                })
+                .then(function (data) {
+                    defered.resolve(data.data);
+                })
+                .catch(function (err) {
+                    defered.reject(err.data);
+                });
+
+            return promise;
+        }
+
+        function getLastDateByReimbursement(queryParameters) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http
+                .get(apiPrefix + "/historical/lastDateByReimbursement", {
                     params: queryParameters
                 })
                 .then(function (data) {
