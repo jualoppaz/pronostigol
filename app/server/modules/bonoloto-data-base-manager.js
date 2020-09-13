@@ -6,7 +6,7 @@ var DBM = require("./init-data-base-manager");
 
 var bonoloto_tickets, bonoloto_years;
 
-DBM.getDatabaseInstance(function(err, res) {
+DBM.getDatabaseInstance(function (err, res) {
     if (err) {
         console.log(err);
     } else {
@@ -17,11 +17,11 @@ DBM.getDatabaseInstance(function(err, res) {
     }
 });
 
-var getObjectId = function(id) {
+var getObjectId = function (id) {
     return ObjectID(id);
 };
 
-exports.getAllTickets = function(filtros, callback) {
+exports.getAllTickets = function (filtros, callback) {
     var filters = {};
 
     if (filtros.year) {
@@ -44,11 +44,11 @@ exports.getAllTickets = function(filtros, callback) {
         skip: skip
     };
 
-    bonoloto_tickets.count(filters, function(err, total) {
+    bonoloto_tickets.count(filters, function (err, total) {
         if (err) {
             callback(err);
         } else {
-            bonoloto_tickets.find(filters, options).toArray(function(err, res) {
+            bonoloto_tickets.find(filters, options).toArray(function (err, res) {
                 if (err) {
                     callback(err);
                 } else {
@@ -66,12 +66,12 @@ exports.getAllTickets = function(filtros, callback) {
     });
 };
 
-exports.getTicketsByAnyo = function(anyo, callback) {
+exports.getTicketsByAnyo = function (anyo, callback) {
     bonoloto_tickets
         .find({
             anyo: anyo
         })
-        .toArray(function(err, res) {
+        .toArray(function (err, res) {
             if (err) {
                 callback(err);
             } else {
@@ -80,7 +80,7 @@ exports.getTicketsByAnyo = function(anyo, callback) {
         });
 };
 
-exports.addNewTicket = function(ticket, callback) {
+exports.addNewTicket = function (ticket, callback) {
     var trozos = ticket.fecha.split("/");
 
     var fecha = trozos[2] + "-" + trozos[1] + "-" + trozos[0];
@@ -99,7 +99,7 @@ exports.addNewTicket = function(ticket, callback) {
         {
             w: 1
         },
-        function(e, res) {
+        function (e, res) {
             if (e) {
                 callback(e);
             } else {
@@ -109,12 +109,12 @@ exports.addNewTicket = function(ticket, callback) {
     );
 };
 
-exports.getTicketById = function(id, callback) {
+exports.getTicketById = function (id, callback) {
     bonoloto_tickets.findOne(
         {
             _id: getObjectId(id)
         },
-        function(err, res) {
+        function (err, res) {
             if (err) {
                 callback(err);
             } else {
@@ -125,12 +125,12 @@ exports.getTicketById = function(id, callback) {
     );
 };
 
-exports.deleteTicketById = function(id, callback) {
+exports.deleteTicketById = function (id, callback) {
     bonoloto_tickets.remove(
         {
             _id: getObjectId(id)
         },
-        function(e, res) {
+        function (e, res) {
             if (e || !res) {
                 callback("ticket-not-deleted");
             } else {
@@ -140,7 +140,7 @@ exports.deleteTicketById = function(id, callback) {
     );
 };
 
-exports.editTicket = function(ticket, callback) {
+exports.editTicket = function (ticket, callback) {
     var trozos = ticket.fecha.split("/");
 
     var fecha = trozos[2] + "-" + trozos[1] + "-" + trozos[0];
@@ -162,7 +162,7 @@ exports.editTicket = function(ticket, callback) {
             }
         },
 
-        function(err, number) {
+        function (err, number) {
             console.log("Numero: " + number);
 
             if (err || number == 0) {
@@ -174,7 +174,7 @@ exports.editTicket = function(ticket, callback) {
     );
 };
 
-exports.getOccurrencesByResultWithReimbursement = function(filtros, callback) {
+exports.getOccurrencesByResultWithReimbursement = function (filtros, callback) {
     var limit = filtros.perPage;
     var page = filtros.page;
     var skip = (page - 1) * limit;
@@ -212,7 +212,7 @@ exports.getOccurrencesByResultWithReimbursement = function(filtros, callback) {
         }
     });
 
-    bonoloto_tickets.aggregate(query, function(e, res) {
+    bonoloto_tickets.aggregate(query, function (e, res) {
         if (e) {
             callback(e);
         } else {
@@ -337,7 +337,7 @@ exports.getOccurrencesByResultWithReimbursement = function(filtros, callback) {
                 $limit: limit
             });
 
-            bonoloto_tickets.aggregate(query, function(e, res) {
+            bonoloto_tickets.aggregate(query, function (e, res) {
                 if (e) {
                     callback(e);
                 } else {
@@ -349,7 +349,7 @@ exports.getOccurrencesByResultWithReimbursement = function(filtros, callback) {
     });
 };
 
-exports.getOccurrencesByResultWithoutReimbursement = function(
+exports.getOccurrencesByResultWithoutReimbursement = function (
     filtros,
     callback
 ) {
@@ -380,7 +380,7 @@ exports.getOccurrencesByResultWithoutReimbursement = function(
         }
     });
 
-    bonoloto_tickets.aggregate(query, function(e, res) {
+    bonoloto_tickets.aggregate(query, function (e, res) {
         if (e) {
             callback(e);
         } else {
@@ -461,7 +461,7 @@ exports.getOccurrencesByResultWithoutReimbursement = function(
 
             console.log("Query:", query);
 
-            bonoloto_tickets.aggregate(query, function(e, res) {
+            bonoloto_tickets.aggregate(query, function (e, res) {
                 if (e) {
                     callback(e);
                 } else {
@@ -473,7 +473,7 @@ exports.getOccurrencesByResultWithoutReimbursement = function(
     });
 };
 
-exports.getOccurrencesByNumber = function(filtros, callback) {
+exports.getOccurrencesByNumber = function (filtros, callback) {
     var limit = filtros.perPage;
     var page = filtros.page;
     var skip = (page - 1) * limit;
@@ -505,7 +505,7 @@ exports.getOccurrencesByNumber = function(filtros, callback) {
         }
     });
 
-    bonoloto_tickets.aggregate(query, function(e, res) {
+    bonoloto_tickets.aggregate(query, function (e, res) {
         if (e) {
             callback(e);
         } else {
@@ -535,7 +535,7 @@ exports.getOccurrencesByNumber = function(filtros, callback) {
                 $limit: limit
             });
 
-            bonoloto_tickets.aggregate(query, function(e, res) {
+            bonoloto_tickets.aggregate(query, function (e, res) {
                 if (e) {
                     callback(e);
                 } else {
@@ -547,7 +547,7 @@ exports.getOccurrencesByNumber = function(filtros, callback) {
     });
 };
 
-exports.getOccurrencesByReimbursement = function(filtros, callback) {
+exports.getOccurrencesByReimbursement = function (filtros, callback) {
     var limit = filtros.perPage;
     var page = filtros.page;
     var skip = (page - 1) * limit;
@@ -575,7 +575,7 @@ exports.getOccurrencesByReimbursement = function(filtros, callback) {
         }
     });
 
-    bonoloto_tickets.aggregate(query, function(e, res) {
+    bonoloto_tickets.aggregate(query, function (e, res) {
         if (e) {
             callback(e);
         } else {
@@ -605,7 +605,7 @@ exports.getOccurrencesByReimbursement = function(filtros, callback) {
                 $limit: limit
             });
 
-            bonoloto_tickets.aggregate(query, function(e, res) {
+            bonoloto_tickets.aggregate(query, function (e, res) {
                 if (e) {
                     callback(e);
                 } else {
@@ -617,8 +617,8 @@ exports.getOccurrencesByReimbursement = function(filtros, callback) {
     });
 };
 
-exports.getAllYears = function(callback) {
-    bonoloto_years.find({}).toArray(function(err, res) {
+exports.getAllYears = function (callback) {
+    bonoloto_years.find({}).toArray(function (err, res) {
         if (err) {
             callback(err);
         } else {
@@ -627,12 +627,12 @@ exports.getAllYears = function(callback) {
     });
 };
 
-exports.getYearById = function(id, callback) {
+exports.getYearById = function (id, callback) {
     bonoloto_years.findOne(
         {
             _id: getObjectId(id)
         },
-        function(err, res) {
+        function (err, res) {
             if (err) {
                 callback(err);
             } else {
@@ -643,12 +643,12 @@ exports.getYearById = function(id, callback) {
     );
 };
 
-exports.getYearByName = function(name, callback) {
+exports.getYearByName = function (name, callback) {
     bonoloto_years.findOne(
         {
             name: name
         },
-        function(err, res) {
+        function (err, res) {
             if (err) {
                 callback(err);
             } else {
@@ -659,12 +659,12 @@ exports.getYearByName = function(name, callback) {
     );
 };
 
-exports.deleteYearById = function(id, callback) {
+exports.deleteYearById = function (id, callback) {
     bonoloto_years.remove(
         {
             _id: getObjectId(id)
         },
-        function(e, res) {
+        function (e, res) {
             if (e || !res) {
                 callback("year-not-deleted");
             } else {
@@ -674,7 +674,7 @@ exports.deleteYearById = function(id, callback) {
     );
 };
 
-exports.addNewYear = function(year, callback) {
+exports.addNewYear = function (year, callback) {
     bonoloto_years.insert(
         {
             name: year.name,
@@ -683,7 +683,7 @@ exports.addNewYear = function(year, callback) {
         {
             w: 1
         },
-        function(e, res) {
+        function (e, res) {
             if (e) {
                 callback(e);
             } else {
@@ -693,7 +693,7 @@ exports.addNewYear = function(year, callback) {
     );
 };
 
-exports.editYear = function(year, callback) {
+exports.editYear = function (year, callback) {
     console.log("Id a buscar: " + year._id);
 
     bonoloto_years.update(
@@ -707,7 +707,7 @@ exports.editYear = function(year, callback) {
             }
         },
 
-        function(err, number) {
+        function (err, number) {
             console.log("Numero: " + number);
 
             if (err || number == 0) {
@@ -719,7 +719,7 @@ exports.editYear = function(year, callback) {
     );
 };
 
-exports.getEconomicBalanceByYear = function(callback) {
+exports.getEconomicBalanceByYear = function (callback) {
     bonoloto_tickets.aggregate(
         {
             $group: {
@@ -732,7 +732,7 @@ exports.getEconomicBalanceByYear = function(callback) {
                 }
             }
         },
-        function(err, res) {
+        function (err, res) {
             if (err) {
                 callback(err);
             } else {
@@ -774,7 +774,7 @@ exports.getLastDateByNumber = (filtros, callback) => {
         }
     });
 
-    bonoloto_tickets.aggregate(query, function(e, res) {
+    bonoloto_tickets.aggregate(query, function (e, res) {
         if (e) {
             callback(e);
         } else {
@@ -806,7 +806,80 @@ exports.getLastDateByNumber = (filtros, callback) => {
                 $limit: limit
             });
 
-            bonoloto_tickets.aggregate(query, function(e, res) {
+            bonoloto_tickets.aggregate(query, function (e, res) {
+                if (e) {
+                    callback(e);
+                } else {
+                    result.data = res;
+                    callback(null, result);
+                }
+            });
+        }
+    });
+};
+
+exports.getLastDateByReimbursement = (filtros, callback) => {
+    var limit = filtros.perPage;
+    var page = filtros.page;
+    var skip = (page - 1) * limit;
+    var sort = filtros.sort;
+    var type = filtros.type;
+
+    var sort_property = sort === "date" ? "fecha" : "reintegro";
+    var sort_type = type === "asc" ? 1 : -1;
+
+    var query = [];
+
+    query.push({
+        $group: {
+            _id: "$resultado.reintegro",
+            ultimaAparicion: {
+                $max: "$fecha"
+            }
+        }
+    });
+
+    query.push({
+        $project: {
+            _id: 0,
+            reintegro: "$_id",
+            fecha: "$ultimaAparicion"
+        }
+    });
+
+    bonoloto_tickets.aggregate(query, function (e, res) {
+        if (e) {
+            callback(e);
+        } else {
+            var result = {
+                page: page,
+                perPage: limit,
+                total: res.length
+            };
+
+            var sortConfig = {};
+            sortConfig[sort_property] = sort_type;
+
+            // Añadimos ordenación alternativa
+            if (sort_property === "reintegro") {
+                sortConfig["fecha"] = sort_type;
+            } else if (sort_property === "fecha") {
+                sortConfig["reintegro"] = 1;
+            }
+
+            query.push({
+                $sort: sortConfig
+            });
+
+            query.push({
+                $skip: skip
+            });
+
+            query.push({
+                $limit: limit
+            });
+
+            bonoloto_tickets.aggregate(query, function (e, res) {
                 if (e) {
                     callback(e);
                 } else {
