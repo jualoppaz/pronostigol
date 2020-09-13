@@ -24,6 +24,9 @@ function Controller($scope, $http, $filter, primitiva) {
     $scope.ordenUltimaAparicionPorNumero = false;
     $scope.criterioOrdenacionUltimaAparicionPorNumero = "date";
 
+    $scope.ordenUltimaAparicionPorReintegro = false;
+    $scope.criterioOrdenacionUltimaAparicionPorReintegro = "date";
+
     $scope.maxSize = 5;
 
     $scope.currentPage = 1;
@@ -70,7 +73,9 @@ function Controller($scope, $http, $filter, primitiva) {
     $scope.ayuda.aparicionesPorReintegro = "Para consultar los reintegros que se " +
         "han dado en más ocasiones.";
 
-    $scope.ayuda.ultimaAparicionPorNumero = "Para consultar la última fecha de aparición por número";
+    $scope.ayuda.ultimaAparicionPorNumero = "Para consultar la última fecha de aparición por número.";
+
+    $scope.ayuda.ultimaAparicionPorReintegro = "Para consultar la última fecha de aparición por reintegro.";
 
     $scope.aparicionesPorReintegro = [];
 
@@ -183,6 +188,35 @@ function Controller($scope, $http, $filter, primitiva) {
                     );
 
                     $scope.mostrar.tablaUltimaAparicionPorNumero = true;
+                })
+                .catch(function (err) { })
+                .finally(function () {
+                    $scope.consultando = false;
+                });
+        } else if (
+            $scope.form.opcionBusquedaEstandar.name ===
+            "ultimaAparicionPorReintegro"
+        ) {
+            queryParameters = {
+                page: $scope.currentPage,
+                per_page: $scope.ticketsPerPage,
+                sort_property:
+                    $scope.criterioOrdenacionUltimaAparicionPorReintegro,
+                sort_type: $scope.ordenUltimaAparicionPorReintegro ? "desc" : "asc"
+            };
+
+            primitiva
+                .getLastDateByReimbursement(queryParameters)
+                .then(function (data) {
+                    $scope.ultimaAparicionPorReintegro = data.data;
+
+                    $scope.actualizarPaginacion(
+                        $scope.ultimaAparicionPorReintegro,
+                        data.total,
+                        data.perPage
+                    );
+
+                    $scope.mostrar.tablaUltimaAparicionPorReintegro = true;
                 })
                 .catch(function (err) { })
                 .finally(function () {
@@ -404,6 +438,40 @@ function Controller($scope, $http, $filter, primitiva) {
                 // Cambiamos de criterio
                 $scope.criterioOrdenacionUltimaAparicionPorNumero = criterio;
                 $scope.ordenUltimaAparicionPorNumero = true;
+            }
+        }
+    };
+
+    $scope.ordenarUltimaAparicionPorReintegroSegun = function (criterio) {
+        if (criterio === "reimbursement") {
+            if (
+                $scope.criterioOrdenacionUltimaAparicionPorReintegro === criterio
+            ) {
+                //Sólo vamos a invertir el orden
+                if ($scope.ordenUltimaAparicionPorReintegro == null) {
+                    $scope.ordenUltimaAparicionPorReintegro = true;
+                } else {
+                    $scope.ordenUltimaAparicionPorReintegro = !$scope.ordenUltimaAparicionPorReintegro;
+                }
+            } else {
+                // Cambiamos de criterio
+                $scope.criterioOrdenacionUltimaAparicionPorReintegro = criterio;
+                $scope.ordenUltimaAparicionPorReintegro = false;
+            }
+        } else if (criterio === "date") {
+            if (
+                $scope.criterioOrdenacionUltimaAparicionPorReintegro === criterio
+            ) {
+                //Sólo vamos a invertir el orden
+                if ($scope.ordenUltimaAparicionPorReintegro == null) {
+                    $scope.ordenUltimaAparicionPorReintegro = true;
+                } else {
+                    $scope.ordenUltimaAparicionPorReintegro = !$scope.ordenUltimaAparicionPorReintegro;
+                }
+            } else {
+                // Cambiamos de criterio
+                $scope.criterioOrdenacionUltimaAparicionPorReintegro = criterio;
+                $scope.ordenUltimaAparicionPorReintegro = true;
             }
         }
     };
