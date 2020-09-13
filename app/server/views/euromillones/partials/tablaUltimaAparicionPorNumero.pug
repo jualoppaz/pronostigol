@@ -1,0 +1,18 @@
+div.table-responsive(style="margin-top: 15px", data-ng-if="mostrar.tablaUltimaAparicionPorNumero", data-ng-cloak)
+    table.table.table-bordered.col-xs-12
+        thead
+            tr
+                th
+                    a.columnaOrdenable(data-ng-click="ordenarUltimaAparicionPorNumeroSegun('number'); consultarEstandar()", data-ng-bind-template="Número")
+                    span(data-ng-if="criterioOrdenacionUltimaAparicionPorNumero == 'number' && !ordenUltimaAparicionPorNumero").fa.fa-caret-up
+                    span(data-ng-if="criterioOrdenacionUltimaAparicionPorNumero == 'number' && ordenUltimaAparicionPorNumero").fa.fa-caret-down
+                th
+                    a.columnaOrdenable(data-ng-click="ordenarUltimaAparicionPorNumeroSegun('date'); consultarEstandar()", data-ng-bind-template="Fecha")
+                    span(data-ng-if="criterioOrdenacionUltimaAparicionPorNumero == 'date' && ordenUltimaAparicionPorNumero").fa.fa-caret-down
+                    span(data-ng-if="criterioOrdenacionUltimaAparicionPorNumero == 'date' && !ordenUltimaAparicionPorNumero").fa.fa-caret-up
+
+        tbody
+            tr(data-ng-repeat="item in ultimaAparicionPorNumero")
+                td
+                    span.badge.badge-azul(data-ng-bind-template="{{item.numero}}")
+                td(data-ng-bind-template="{{item.fecha | date:'dd/MM/yyyy'}}")
