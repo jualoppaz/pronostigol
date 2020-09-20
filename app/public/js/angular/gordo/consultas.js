@@ -21,6 +21,12 @@ function Controller($scope, $http, $filter, gordo) {
     $scope.ordenAparicionesPorNumeroClave = true;
     $scope.criterioOrdenacionAparicionesPorNumeroClave = "occurrences";
 
+    $scope.ordenUltimaAparicionPorNumero = false;
+    $scope.criterioOrdenacionUltimaAparicionPorNumero = "date";
+
+    $scope.ordenUltimaAparicionPorNumeroClave = false;
+    $scope.criterioOrdenacionUltimaAparicionPorNumeroClave = "date";
+
     $scope.maxSize = 5;
 
     $scope.currentPage = 1;
@@ -72,7 +78,11 @@ function Controller($scope, $http, $filter, gordo) {
     $scope.ayuda.aparicionesPorNumeroClave =
         "Para consultar los numeroClaves que se han dado en más ocasiones.";
 
-    $scope.limpiarTablas = function() {
+    $scope.ayuda.ultimaAparicionPorNumero = "Para consultar la última fecha de aparición por número";
+
+    $scope.ayuda.ultimaAparicionPorNumeroClave = "Para consultar la última fecha de aparición por número clave.";
+
+    $scope.limpiarTablas = function () {
         $scope.mostrar = {};
 
         $scope.consultando = true;
@@ -84,7 +94,7 @@ function Controller($scope, $http, $filter, gordo) {
 
     $scope.aparicionesPorNumero = [];
 
-    $scope.consultarEstandar = function() {
+    $scope.consultarEstandar = function () {
         $scope.limpiarTablas();
 
         $scope.consultando = true;
@@ -99,7 +109,7 @@ function Controller($scope, $http, $filter, gordo) {
 
             gordo
                 .getOccurrencesByNumber(queryParameters)
-                .then(function(data) {
+                .then(function (data) {
                     $scope.aparicionesPorNumero = data.data;
 
                     $scope.actualizarPaginacion(
@@ -110,8 +120,8 @@ function Controller($scope, $http, $filter, gordo) {
 
                     $scope.mostrar.tablaAparicionesPorNumero = true;
                 })
-                .catch(function() {})
-                .finally(function() {
+                .catch(function () { })
+                .finally(function () {
                     $scope.consultando = false;
                 });
         } else if (
@@ -126,7 +136,7 @@ function Controller($scope, $http, $filter, gordo) {
 
             gordo
                 .getOccurrencesByResult(queryParameters)
-                .then(function(data) {
+                .then(function (data) {
                     $scope.aparicionesPorResultado = data.data;
 
                     $scope.actualizarPaginacion(
@@ -137,8 +147,8 @@ function Controller($scope, $http, $filter, gordo) {
 
                     $scope.mostrar.tablaAparicionesPorResultado = true;
                 })
-                .catch(function() {})
-                .finally(function() {
+                .catch(function () { })
+                .finally(function () {
                     $scope.consultando = false;
                 });
         } else if (
@@ -157,7 +167,7 @@ function Controller($scope, $http, $filter, gordo) {
 
             gordo
                 .getOccurrencesByResultWithSpecialNumber(queryParameters)
-                .then(function(data) {
+                .then(function (data) {
                     $scope.aparicionesPorResultadoConNumeroClave = data.data;
 
                     $scope.actualizarPaginacion(
@@ -168,8 +178,8 @@ function Controller($scope, $http, $filter, gordo) {
 
                     $scope.mostrar.tablaAparicionesPorResultadoConNumeroClave = true;
                 })
-                .catch(function() {})
-                .finally(function() {
+                .catch(function () { })
+                .finally(function () {
                     $scope.consultando = false;
                 });
         } else if (
@@ -188,7 +198,7 @@ function Controller($scope, $http, $filter, gordo) {
 
             gordo
                 .getOccurrencesBySpecialNumber(queryParameters)
-                .then(function(data) {
+                .then(function (data) {
                     $scope.aparicionesPorNumeroClave = data.data;
 
                     $scope.actualizarPaginacion(
@@ -199,14 +209,72 @@ function Controller($scope, $http, $filter, gordo) {
 
                     $scope.mostrar.tablaAparicionesPorNumeroClave = true;
                 })
-                .catch(function() {})
-                .finally(function() {
+                .catch(function () { })
+                .finally(function () {
+                    $scope.consultando = false;
+                });
+        } else if (
+            $scope.form.opcionBusquedaEstandar.name ===
+            "ultimaAparicionPorNumero"
+        ) {
+            queryParameters = {
+                page: $scope.currentPage,
+                per_page: $scope.ticketsPerPage,
+                sort_property:
+                    $scope.criterioOrdenacionUltimaAparicionPorNumero,
+                sort_type: $scope.ordenUltimaAparicionPorNumero ? "desc" : "asc"
+            };
+
+            gordo
+                .getLastDateByNumber(queryParameters)
+                .then(function (data) {
+                    $scope.ultimaAparicionPorNumero = data.data;
+
+                    $scope.actualizarPaginacion(
+                        $scope.ultimaAparicionPorNumero,
+                        data.total,
+                        data.perPage
+                    );
+
+                    $scope.mostrar.tablaUltimaAparicionPorNumero = true;
+                })
+                .catch(function (err) { })
+                .finally(function () {
+                    $scope.consultando = false;
+                });
+        } else if (
+            $scope.form.opcionBusquedaEstandar.name ===
+            "ultimaAparicionPorNumeroClave"
+        ) {
+            queryParameters = {
+                page: $scope.currentPage,
+                per_page: $scope.ticketsPerPage,
+                sort_property:
+                    $scope.criterioOrdenacionUltimaAparicionPorNumeroClave,
+                sort_type: $scope.ordenUltimaAparicionPorNumeroClave ? "desc" : "asc"
+            };
+
+            gordo
+                .getLastDateBySpecialNumber(queryParameters)
+                .then(function (data) {
+                    $scope.ultimaAparicionPorNumeroClave = data.data;
+
+                    $scope.actualizarPaginacion(
+                        $scope.ultimaAparicionPorNumeroClave,
+                        data.total,
+                        data.perPage
+                    );
+
+                    $scope.mostrar.tablaUltimaAparicionPorNumeroClave = true;
+                })
+                .catch(function (err) { })
+                .finally(function () {
                     $scope.consultando = false;
                 });
         }
     };
 
-    $scope.inicializarAparicionesPorNumero = function() {
+    $scope.inicializarAparicionesPorNumero = function () {
         var res = [];
 
         for (var i = 0; i < $scope.numerosBolas.length; i++) {
@@ -221,7 +289,7 @@ function Controller($scope, $http, $filter, gordo) {
         return res;
     };
 
-    $scope.inicializarAparicionesPorNumeroClave = function() {
+    $scope.inicializarAparicionesPorNumeroClave = function () {
         var res = [];
 
         for (var i = 0; i < $scope.numerosNumeroClaves.length; i++) {
@@ -236,7 +304,7 @@ function Controller($scope, $http, $filter, gordo) {
         return res;
     };
 
-    $scope.ordenarAparicionesPorNumeroSegun = function(criterio) {
+    $scope.ordenarAparicionesPorNumeroSegun = function (criterio) {
         if (criterio === "number") {
             if ($scope.criterioOrdenacionAparicionesPorNumero === criterio) {
                 //Sólo vamos a invertir el orden
@@ -266,7 +334,7 @@ function Controller($scope, $http, $filter, gordo) {
         }
     };
 
-    $scope.ordenarAparicionesPorResultadoSegun = function(criterio) {
+    $scope.ordenarAparicionesPorResultadoSegun = function (criterio) {
         if (criterio === "result") {
             if ($scope.criterioOrdenacionAparicionesPorResultado === criterio) {
                 //Sólo vamos a invertir el orden
@@ -298,7 +366,7 @@ function Controller($scope, $http, $filter, gordo) {
         }
     };
 
-    $scope.ordenarAparicionesPorResultadoConNumeroClaveSegun = function(
+    $scope.ordenarAparicionesPorResultadoConNumeroClaveSegun = function (
         criterio
     ) {
         if (criterio === "result") {
@@ -336,7 +404,7 @@ function Controller($scope, $http, $filter, gordo) {
         }
     };
 
-    $scope.ordenarAparicionesPorNumeroClaveSegun = function(criterio) {
+    $scope.ordenarAparicionesPorNumeroClaveSegun = function (criterio) {
         if (criterio === "specialNumber") {
             if (
                 $scope.criterioOrdenacionAparicionesPorNumeroClave === criterio
@@ -370,9 +438,77 @@ function Controller($scope, $http, $filter, gordo) {
         }
     };
 
+    $scope.ordenarUltimaAparicionPorNumeroSegun = function (criterio) {
+        if (criterio === "number") {
+            if (
+                $scope.criterioOrdenacionUltimaAparicionPorNumero === criterio
+            ) {
+                //Sólo vamos a invertir el orden
+                if ($scope.ordenUltimaAparicionPorNumero == null) {
+                    $scope.ordenUltimaAparicionPorNumero = true;
+                } else {
+                    $scope.ordenUltimaAparicionPorNumero = !$scope.ordenUltimaAparicionPorNumero;
+                }
+            } else {
+                // Cambiamos de criterio
+                $scope.criterioOrdenacionUltimaAparicionPorNumero = criterio;
+                $scope.ordenUltimaAparicionPorNumero = false;
+            }
+        } else if (criterio === "date") {
+            if (
+                $scope.criterioOrdenacionUltimaAparicionPorNumero === criterio
+            ) {
+                //Sólo vamos a invertir el orden
+                if ($scope.ordenUltimaAparicionPorNumero == null) {
+                    $scope.ordenUltimaAparicionPorNumero = true;
+                } else {
+                    $scope.ordenUltimaAparicionPorNumero = !$scope.ordenUltimaAparicionPorNumero;
+                }
+            } else {
+                // Cambiamos de criterio
+                $scope.criterioOrdenacionUltimaAparicionPorNumero = criterio;
+                $scope.ordenUltimaAparicionPorNumero = true;
+            }
+        }
+    };
+
+    $scope.ordenarUltimaAparicionPorNumeroClaveSegun = function (criterio) {
+        if (criterio === "specialNumber") {
+            if (
+                $scope.criterioOrdenacionUltimaAparicionPorNumeroClave === criterio
+            ) {
+                //Sólo vamos a invertir el orden
+                if ($scope.ordenUltimaAparicionPorNumeroClave == null) {
+                    $scope.ordenUltimaAparicionPorNumeroClave = true;
+                } else {
+                    $scope.ordenUltimaAparicionPorNumeroClave = !$scope.ordenUltimaAparicionPorNumeroClave;
+                }
+            } else {
+                // Cambiamos de criterio
+                $scope.criterioOrdenacionUltimaAparicionPorNumeroClave = criterio;
+                $scope.ordenUltimaAparicionPorNumeroClave = false;
+            }
+        } else if (criterio === "date") {
+            if (
+                $scope.criterioOrdenacionUltimaAparicionPorNumeroClave === criterio
+            ) {
+                //Sólo vamos a invertir el orden
+                if ($scope.ordenUltimaAparicionPorNumeroClave == null) {
+                    $scope.ordenUltimaAparicionPorNumeroClave = true;
+                } else {
+                    $scope.ordenUltimaAparicionPorNumeroClave = !$scope.ordenUltimaAparicionPorNumeroClave;
+                }
+            } else {
+                // Cambiamos de criterio
+                $scope.criterioOrdenacionUltimaAparicionPorNumeroClave = criterio;
+                $scope.ordenUltimaAparicionPorNumeroClave = true;
+            }
+        }
+    };
+
     // Funciones para ordenacion
 
-    $scope.sortFunction_number = function(ticket) {
+    $scope.sortFunction_number = function (ticket) {
         var res = "";
 
         res = Number(ticket.numero);
@@ -380,7 +516,7 @@ function Controller($scope, $http, $filter, gordo) {
         return res;
     };
 
-    $scope.sortFunction_result = function(ticket) {
+    $scope.sortFunction_result = function (ticket) {
         var res = "";
 
         for (var i = 0; i < ticket.numeros.length; i++) {
@@ -396,7 +532,7 @@ function Controller($scope, $http, $filter, gordo) {
         return res;
     };
 
-    $scope.sortFunction_resultWithKeyNumber = function(ticket) {
+    $scope.sortFunction_resultWithKeyNumber = function (ticket) {
         var res = "";
 
         for (var i = 0; i < ticket.numeros.length; i++) {
@@ -414,7 +550,7 @@ function Controller($scope, $http, $filter, gordo) {
         return res;
     };
 
-    $scope.sortFunction_keyNumber = function(ticket) {
+    $scope.sortFunction_keyNumber = function (ticket) {
         var res = "";
 
         res = Number(ticket.numeroClave);
@@ -422,7 +558,7 @@ function Controller($scope, $http, $filter, gordo) {
         return res;
     };
 
-    $scope.printNumber = function(number) {
+    $scope.printNumber = function (number) {
         var res = "";
 
         if (number.toString().length == 1) {
@@ -434,7 +570,7 @@ function Controller($scope, $http, $filter, gordo) {
         return res;
     };
 
-    $scope.actualizarPaginacion = function(items, itemsLength, ticketsPerPage) {
+    $scope.actualizarPaginacion = function (items, itemsLength, ticketsPerPage) {
         // Uso de esta variable para reutilizar el mismo paginador para todas las consultas
         $scope.tickets = items;
 

@@ -1,4 +1,4 @@
-module.exports = function(app) {
+module.exports = function (app) {
     var middlewares = require("../../middlewares");
     var { ROLES, HTTP_CODES } = require("../../constants");
 
@@ -14,7 +14,7 @@ module.exports = function(app) {
     var validate = require("express-validation");
     var validations = require("./validations.js");
 
-    var filtrarInformacion = function(result) {
+    var filtrarInformacion = function (result) {
         var json = JSON.parse(JSON.stringify(result));
         json = borrarPronosticos(json);
         json = borrarPrecio(json);
@@ -22,7 +22,7 @@ module.exports = function(app) {
         return json;
     };
 
-    var borrarPronosticos = function(aux) {
+    var borrarPronosticos = function (aux) {
         var json = aux;
 
         if (json["apuestas"] != null) {
@@ -32,7 +32,7 @@ module.exports = function(app) {
         return json;
     };
 
-    var borrarPrecio = function(aux) {
+    var borrarPrecio = function (aux) {
         var json = aux;
 
         if (json["precio"] != null) {
@@ -42,7 +42,7 @@ module.exports = function(app) {
         return json;
     };
 
-    var borrarPremio = function(aux) {
+    var borrarPremio = function (aux) {
         var json = aux;
 
         if (json["premio"] != null) {
@@ -68,7 +68,7 @@ module.exports = function(app) {
      * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Por defecto se ordenan por fecha descendentemente.
      * @apiSampleRequest /api/gordo/tickets
      */
-    var gordo_api_tickets = function(req, res) {
+    var gordo_api_tickets = function (req, res) {
         var query = req.query;
 
         var year = query.year;
@@ -86,7 +86,7 @@ module.exports = function(app) {
             type: type
         };
 
-        GOR_DBM.getAllTickets(filtros, function(err, result) {
+        GOR_DBM.getAllTickets(filtros, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -116,7 +116,7 @@ module.exports = function(app) {
         });
     };
 
-    var gordo_api_newTicket = function(req, res) {
+    var gordo_api_newTicket = function (req, res) {
         var body = req.body;
         var ticket = {};
 
@@ -136,7 +136,7 @@ module.exports = function(app) {
         ticket.apuestas = apuestas;
         ticket.resultado = resultado;
 
-        GOR_DBM.addNewTicket(ticket, function(err, result) {
+        GOR_DBM.addNewTicket(ticket, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -145,17 +145,17 @@ module.exports = function(app) {
         });
     };
 
-    var gordo_api_editTicket = function(req, res) {
+    var gordo_api_editTicket = function (req, res) {
         var ticket = req.body;
 
-        GOR_DBM.getTicketById(ticket._id, function(err, result) {
+        GOR_DBM.getTicketById(ticket._id, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
                 return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
             }
 
-            GOR_DBM.editTicket(ticket, function(err, result) {
+            GOR_DBM.editTicket(ticket, function (err, result) {
                 if (err) {
                     return res
                         .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
@@ -167,21 +167,21 @@ module.exports = function(app) {
         });
     };
 
-    var gordo_api_deleteTicket = function(req, res) {
+    var gordo_api_deleteTicket = function (req, res) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
             return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
-        GOR_DBM.getTicketById(id, function(err, result) {
+        GOR_DBM.getTicketById(id, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
                 return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
             }
 
-            GOR_DBM.deleteTicketById(id, function(err2) {
+            GOR_DBM.deleteTicketById(id, function (err2) {
                 if (err) {
                     return res
                         .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
@@ -211,7 +211,7 @@ module.exports = function(app) {
      *
      * @apiSampleRequest /api/gordo/historical/occurrencesByNumber
      */
-    var gordo_api_occurrencesByNumber = function(req, res) {
+    var gordo_api_occurrencesByNumber = function (req, res) {
         var query = req.query;
         var page = query.page || 1;
         var perPage = query.per_page || 10;
@@ -225,7 +225,7 @@ module.exports = function(app) {
             type: type
         };
 
-        GOR_DBM.getOccurrencesByNumber(filtros, function(err, result) {
+        GOR_DBM.getOccurrencesByNumber(filtros, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -251,7 +251,7 @@ module.exports = function(app) {
      * Por defecto se ordenan descendentemente.
      * @apiSampleRequest /api/gordo/historical/occurrencesBySpecialNumber
      */
-    var gordo_api_occurrencesBySpecialNumber = function(req, res) {
+    var gordo_api_occurrencesBySpecialNumber = function (req, res) {
         var query = req.query;
         var page = query.page || 1;
         var perPage = query.per_page || 10;
@@ -265,7 +265,7 @@ module.exports = function(app) {
             type: type
         };
 
-        GOR_DBM.getOccurrencesBySpecialNumber(filtros, function(err, result) {
+        GOR_DBM.getOccurrencesBySpecialNumber(filtros, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -291,7 +291,7 @@ module.exports = function(app) {
      * Por defecto se ordenan descendentemente.
      * @apiSampleRequest /api/gordo/historical/occurrencesByResult
      */
-    var gordo_api_occurrencesByResult = function(req, res) {
+    var gordo_api_occurrencesByResult = function (req, res) {
         var query = req.query;
         var page = query.page || 1;
         var perPage = query.per_page || 10;
@@ -305,7 +305,7 @@ module.exports = function(app) {
             type: type
         };
 
-        GOR_DBM.getOccurrencesByResultWithoutSpecialNumber(filtros, function(
+        GOR_DBM.getOccurrencesByResultWithoutSpecialNumber(filtros, function (
             err,
             result
         ) {
@@ -355,7 +355,7 @@ module.exports = function(app) {
      * Por defecto se ordenan descendentemente.
      * @apiSampleRequest /api/gordo/historical/occurrencesByResultWithSpecialNumber
      */
-    var gordo_api_occurrencesByResultWithSpecialNumber = function(req, res) {
+    var gordo_api_occurrencesByResultWithSpecialNumber = function (req, res) {
         var query = req.query;
         var page = query.page || 1;
         var perPage = query.per_page || 10;
@@ -369,7 +369,7 @@ module.exports = function(app) {
             type: type
         };
 
-        GOR_DBM.getOccurrencesByResultWithSpecialNumber(filtros, function(
+        GOR_DBM.getOccurrencesByResultWithSpecialNumber(filtros, function (
             err,
             result
         ) {
@@ -392,8 +392,8 @@ module.exports = function(app) {
      *
      * @apiSampleRequest /api/gordo/years
      */
-    var gordo_api_years = function(req, res) {
-        GOR_DBM.getAllYears(function(err, result) {
+    var gordo_api_years = function (req, res) {
+        GOR_DBM.getAllYears(function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -415,14 +415,14 @@ module.exports = function(app) {
      *
      * @apiParam {String} id Identificador del año de El Gordo de la Primitiva
      */
-    var gordo_api_year = function(req, res) {
+    var gordo_api_year = function (req, res) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
             return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
-        GOR_DBM.getYearById(id, function(err, result) {
+        GOR_DBM.getYearById(id, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -431,19 +431,19 @@ module.exports = function(app) {
         });
     };
 
-    var gordo_api_deleteYear = function(req, res) {
+    var gordo_api_deleteYear = function (req, res) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
             return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
-        GOR_DBM.deleteYearById(id, function(err, result) {
+        GOR_DBM.deleteYearById(id, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            GOR_DBM.getAllYears(function(err2, result2) {
+            GOR_DBM.getAllYears(function (err2, result2) {
                 if (err) {
                     return res
                         .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
@@ -455,7 +455,7 @@ module.exports = function(app) {
         });
     };
 
-    var gordo_api_addNewYear = function(req, res) {
+    var gordo_api_addNewYear = function (req, res) {
         var body = req.body;
         var year = {};
 
@@ -463,12 +463,12 @@ module.exports = function(app) {
 
         year.name = name;
 
-        GOR_DBM.getYearByName(name, function(err, result) {
+        GOR_DBM.getYearByName(name, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(name);
             } else if (JSON.stringify(result) === "{}") {
                 // No existe aun
-                GOR_DBM.addNewYear(year, function(err, result) {
+                GOR_DBM.addNewYear(year, function (err, result) {
                     if (err) {
                         return res
                             .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
@@ -486,20 +486,20 @@ module.exports = function(app) {
         });
     };
 
-    var gordo_api_editYear = function(req, res) {
+    var gordo_api_editYear = function (req, res) {
         var body = req.body;
         var id = body._id;
         var year = {};
         year.name = body.name;
 
-        GOR_DBM.getYearById(id, function(err, result) {
+        GOR_DBM.getYearById(id, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
                 return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
             }
 
-            GOR_DBM.editYear(year, function(err, result) {
+            GOR_DBM.editYear(year, function (err, result) {
                 if (err) {
                     return res
                         .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
@@ -511,14 +511,14 @@ module.exports = function(app) {
         });
     };
 
-    var gordo_api_ticketPorId = function(req, res) {
+    var gordo_api_ticketPorId = function (req, res) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
             return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
-        GOR_DBM.getTicketById(id, function(err, result) {
+        GOR_DBM.getTicketById(id, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -537,6 +537,88 @@ module.exports = function(app) {
                 }
             }
             res.status(HTTP_CODES.OK).send(json);
+        });
+    };
+
+    /**
+     * @api {get} /gordo/historical/lastDateByNumber Consulta de fecha de última aparición por número en histórico de El Gordo de la Primitiva
+     * @apiName GetGordoLastDateByNumber
+     * @apiGroup GordoHistorical
+     *
+     * @apiDescription Recurso para la consulta de fecha de última aparición por número en histórico de El Gordo de la Primitiva.
+     *
+     * @apiVersion 1.2.0
+     *
+     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "number"
+     * y "date". Por defecto se ordenan por "date".
+     * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
+     * Por defecto se ordenan descendentemente.
+     *
+     * @apiSampleRequest /api/gordo/historical/lastDateByNumber
+     */
+    var gordo_api_lastDateByNumber = (req, res) => {
+        var query = req.query;
+        var page = query.page || 1;
+        var perPage = query.per_page || 10;
+        var sort = query.sort_property || "date";
+        var type = query.sort_type || "desc";
+
+        var filtros = {
+            page: Number(page),
+            perPage: Number(perPage),
+            sort: sort,
+            type: type
+        };
+
+        GOR_DBM.getLastDateByNumber(filtros, (err, result) => {
+            if (err) {
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
+            }
+
+            res.status(HTTP_CODES.OK).send(JSON.stringify(result, null, 4));
+        });
+    };
+
+    /**
+     * @api {get} /gordo/historical/lastDateBySpecialNumber Consulta de fecha de última aparición por número clave en histórico de El Gordo de la Primitiva
+     * @apiName GetGordoLastDateBySpecialNumber
+     * @apiGroup GordoHistorical
+     *
+     * @apiDescription Recurso para la consulta de fecha de última aparición por número clave en histórico de El Gordo de la Primitiva.
+     *
+     * @apiVersion 1.2.0
+     *
+     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "number"
+     * y "date". Por defecto se ordenan por "date".
+     * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
+     * Por defecto se ordenan descendentemente.
+     *
+     * @apiSampleRequest /api/gordo/historical/lastDateBySpecialNumber
+     */
+    var gordo_api_lastDateBySpecialNumber = (req, res) => {
+        var query = req.query;
+        var page = query.page || 1;
+        var perPage = query.per_page || 10;
+        var sort = query.sort_property || "date";
+        var type = query.sort_type || "desc";
+
+        var filtros = {
+            page: Number(page),
+            perPage: Number(perPage),
+            sort: sort,
+            type: type
+        };
+
+        GOR_DBM.getLastDateBySpecialNumber(filtros, (err, result) => {
+            if (err) {
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
+            }
+
+            res.status(HTTP_CODES.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -606,6 +688,16 @@ module.exports = function(app) {
         "/occurrencesBySpecialNumber",
         validate(validations.getOccurrencesBySpecialNumber),
         gordo_api_occurrencesBySpecialNumber
+    );
+    historical.get(
+        "/lastDateByNumber",
+        validate(validations.getLastDateByNumber),
+        gordo_api_lastDateByNumber
+    );
+    historical.get(
+        "/lastDateBySpecialNumber",
+        validate(validations.getLastDateBySpecialNumber),
+        gordo_api_lastDateBySpecialNumber
     );
 
     gordo.use("/historical", historical);

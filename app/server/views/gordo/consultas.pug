@@ -78,7 +78,7 @@ block content
 
                                             div.col-md-12.form-group
                                                 label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
-                                                    input(type="radio", value="aparicionesPorResultadoConNumeroClave", data-ng-model="form.opcionBusquedaEstandar.name")#radio2Estandar
+                                                    input(type="radio", value="aparicionesPorResultadoConNumeroClave", data-ng-model="form.opcionBusquedaEstandar.name")#radio3Estandar
                                                     | &nbsp; Apariciones por Resultado (Con Número Clave)
                                                 div.col-md-5.col-sm-5.hidden-xs
                                                     button(uib-popover="{{ayuda.aparicionesPorResultadoConNumeroClave}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
@@ -89,13 +89,35 @@ block content
 
                                             div.col-md-12.form-group
                                                 label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
-                                                    input(type="radio", value="aparicionesPorNumeroClave", data-ng-model="form.opcionBusquedaEstandar.name")#radio3Estandar
+                                                    input(type="radio", value="aparicionesPorNumeroClave", data-ng-model="form.opcionBusquedaEstandar.name")#radio4Estandar
                                                     | &nbsp; Apariciones por Número Clave (Reintegro)
                                                 div.col-md-5.col-sm-5.hidden-xs
                                                     button(uib-popover="{{ayuda.aparicionesPorNumeroClave}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                         | Ayuda
                                                 div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 30px; padding-bottom: 10px")
                                                     button(uib-popover="{{ayuda.aparicionesPorNumeroClave}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                        | Ayuda
+
+                                            div.col-md-12.form-group
+                                                label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
+                                                    input(type="radio", value="ultimaAparicionPorNumero", data-ng-model="form.opcionBusquedaEstandar.name")#radio5Estandar
+                                                    | &nbsp; Última aparición por Número
+                                                div.col-md-5.col-sm-5.hidden-xs
+                                                    button(uib-popover="{{ayuda.ultimaAparicionPorNumero}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                        | Ayuda
+                                                div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 30px; padding-bottom: 10px")
+                                                    button(uib-popover="{{ayuda.ultimaAparicionPorNumero}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                        | Ayuda
+
+                                            div.col-md-12.form-group
+                                                label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
+                                                    input(type="radio", value="ultimaAparicionPorNumeroClave", data-ng-model="form.opcionBusquedaEstandar.name")#radio6Estandar
+                                                    | &nbsp; Última aparición por Número Clave
+                                                div.col-md-5.col-sm-5.hidden-xs
+                                                    button(uib-popover="{{ayuda.ultimaAparicionPorNumeroClave}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                        | Ayuda
+                                                div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 30px; padding-bottom: 10px")
+                                                    button(uib-popover="{{ayuda.ultimaAparicionPorNumeroClave}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                         | Ayuda
 
 
@@ -132,6 +154,10 @@ block content
                                             include partials/tablaAparicionesPorResultadoConNumeroClave
 
                                             include partials/tablaAparicionesPorNumeroClave
+
+                                            include partials/tablaUltimaAparicionPorNumero
+
+                                            include partials/tablaUltimaAparicionPorNumeroClave
 
 
                         div.col-xs-12(style="margin-top:50px; margin-bottom: 10px")

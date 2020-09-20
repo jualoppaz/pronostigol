@@ -1,0 +1,18 @@
+div.table-responsive(style="margin-top: 15px", data-ng-if="mostrar.tablaUltimaAparicionPorReintegro", data-ng-cloak)
+    table.table.table-bordered.col-xs-12
+        thead
+            tr
+                th
+                    a.columnaOrdenable(data-ng-click="ordenarUltimaAparicionPorReintegroSegun('reimbursement'); consultarEstandar()", data-ng-bind-template="Reintegro")
+                    span(data-ng-if="criterioOrdenacionUltimaAparicionPorReintegro == 'reimbursement' && !ordenUltimaAparicionPorReintegro").fa.fa-caret-up
+                    span(data-ng-if="criterioOrdenacionUltimaAparicionPorReintegro == 'reimbursement' && ordenUltimaAparicionPorReintegro").fa.fa-caret-down
+                th
+                    a.columnaOrdenable(data-ng-click="ordenarUltimaAparicionPorReintegroSegun('date'); consultarEstandar()", data-ng-bind-template="Fecha")
+                    span(data-ng-if="criterioOrdenacionUltimaAparicionPorReintegro == 'date' && ordenUltimaAparicionPorReintegro").fa.fa-caret-down
+                    span(data-ng-if="criterioOrdenacionUltimaAparicionPorReintegro == 'date' && !ordenUltimaAparicionPorReintegro").fa.fa-caret-up
+
+        tbody
+            tr(data-ng-repeat="item in ultimaAparicionPorReintegro" data-ng-if="item.reintegro !== null")
+                td
+                    span.badge.badge-azul(data-ng-bind-template="{{item.reintegro}}")
+                td(data-ng-bind-template="{{item.fecha | date:'dd/MM/yyyy'}}")

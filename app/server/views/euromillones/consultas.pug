@@ -76,7 +76,7 @@ block content
                                                         | Ayuda
                                             div.col-md-12.form-group
                                                 label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
-                                                    input(type="radio", value="aparicionesPorResultadoConEstrellas", data-ng-model="form.opcionBusquedaEstandar.name")#radio2Estandar
+                                                    input(type="radio", value="aparicionesPorResultadoConEstrellas", data-ng-model="form.opcionBusquedaEstandar.name")#radio3Estandar
                                                     | &nbsp; Apariciones por Resultado (Con Estrellas)
                                                 div.col-md-5.col-sm-5.hidden-xs
                                                     button(uib-popover="{{ayuda.aparicionesPorResultadoConEstrellas}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
@@ -87,7 +87,7 @@ block content
 
                                             div.col-md-12.form-group
                                                 label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
-                                                    input(type="radio", value="aparicionesPorEstrella", data-ng-model="form.opcionBusquedaEstandar.name")#radio3Estandar
+                                                    input(type="radio", value="aparicionesPorEstrella", data-ng-model="form.opcionBusquedaEstandar.name")#radio4Estandar
                                                     | &nbsp; Apariciones por Estrellas
                                                 div.col-md-5.col-sm-5.hidden-xs
                                                     button(uib-popover="{{ayuda.aparicionesPorEstrella}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
@@ -98,13 +98,35 @@ block content
 
                                             div.col-md-12.form-group
                                                 label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
-                                                    input(type="radio", value="aparicionesPorParejaDeEstrellas", data-ng-model="form.opcionBusquedaEstandar.name")#radio3Estandar
+                                                    input(type="radio", value="aparicionesPorParejaDeEstrellas", data-ng-model="form.opcionBusquedaEstandar.name")#radio5Estandar
                                                     | &nbsp; Apariciones por Parejas de Estrellas
                                                 div.col-md-5.col-sm-5.hidden-xs
                                                     button(uib-popover="{{ayuda.aparicionesPorParejaDeEstrellas}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                         | Ayuda
                                                 div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 30px; padding-bottom: 10px")
                                                     button(uib-popover="{{ayuda.aparicionesPorParejaDeEstrellas}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                        | Ayuda
+
+                                            div.col-md-12.form-group
+                                                label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
+                                                    input(type="radio", value="ultimaAparicionPorNumero", data-ng-model="form.opcionBusquedaEstandar.name")#radio6Estandar
+                                                    | &nbsp; Última aparición por Número
+                                                div.col-md-5.col-sm-5.hidden-xs
+                                                    button(uib-popover="{{ayuda.ultimaAparicionPorNumero}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                        | Ayuda
+                                                div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 30px; padding-bottom: 10px")
+                                                    button(uib-popover="{{ayuda.ultimaAparicionPorNumero}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                        | Ayuda
+
+                                            div.col-md-12.form-group
+                                                label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
+                                                    input(type="radio", value="ultimaAparicionPorEstrella", data-ng-model="form.opcionBusquedaEstandar.name")#radio7Estandar
+                                                    | &nbsp; Última aparición por Estrella
+                                                div.col-md-5.col-sm-5.hidden-xs
+                                                    button(uib-popover="{{ayuda.ultimaAparicionPorEstrella}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                        | Ayuda
+                                                div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 30px; padding-bottom: 10px")
+                                                    button(uib-popover="{{ayuda.ultimaAparicionPorEstrella}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                         | Ayuda
 
 
@@ -143,6 +165,10 @@ block content
                                             include partials/tablaAparicionesPorEstrella
 
                                             include partials/tablaAparicionesPorParejaDeEstrellas
+
+                                            include partials/tablaUltimaAparicionPorNumero
+
+                                            include partials/tablaUltimaAparicionPorEstrella
 
                         div.col-xs-12(style="margin-top:50px; margin-bottom: 10px")
                             script(async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")

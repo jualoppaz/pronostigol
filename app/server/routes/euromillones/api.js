@@ -1,4 +1,4 @@
-module.exports = function(app) {
+module.exports = function (app) {
     var middlewares = require("../../middlewares");
     var { ROLES, HTTP_CODES } = require("../../constants");
 
@@ -14,7 +14,7 @@ module.exports = function(app) {
     var validate = require("express-validation");
     var validations = require("./validations.js");
 
-    var filtrarInformacion = function(result) {
+    var filtrarInformacion = function (result) {
         var json = JSON.parse(JSON.stringify(result));
         json = borrarPronosticos(json);
         json = borrarPrecio(json);
@@ -22,7 +22,7 @@ module.exports = function(app) {
         return json;
     };
 
-    var borrarPronosticos = function(aux) {
+    var borrarPronosticos = function (aux) {
         var json = aux;
 
         if (json["apuestas"] != null) {
@@ -32,7 +32,7 @@ module.exports = function(app) {
         return json;
     };
 
-    var borrarPrecio = function(aux) {
+    var borrarPrecio = function (aux) {
         var json = aux;
 
         if (json["precio"] != null) {
@@ -42,7 +42,7 @@ module.exports = function(app) {
         return json;
     };
 
-    var borrarPremio = function(aux) {
+    var borrarPremio = function (aux) {
         var json = aux;
 
         if (json["premio"] != null) {
@@ -68,7 +68,7 @@ module.exports = function(app) {
      * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Por defecto se ordenan por fecha descendentemente.
      * @apiSampleRequest /api/euromillones/tickets
      */
-    var euromillones_api_tickets = function(req, res) {
+    var euromillones_api_tickets = function (req, res) {
         var query = req.query;
         var year = query.year;
         var raffle = query.raffle;
@@ -85,7 +85,7 @@ module.exports = function(app) {
             type: type
         };
 
-        EUR_DBM.getAllTickets(filtros, function(err, result) {
+        EUR_DBM.getAllTickets(filtros, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -115,7 +115,7 @@ module.exports = function(app) {
         });
     };
 
-    var euromillones_api_nuevoTicket = function(req, res) {
+    var euromillones_api_nuevoTicket = function (req, res) {
         var body = req.body;
 
         var ticket = {};
@@ -135,7 +135,7 @@ module.exports = function(app) {
         ticket.apuestas = apuestas;
         ticket.resultado = resultado;
 
-        EUR_DBM.addNewTicket(ticket, function(err, result) {
+        EUR_DBM.addNewTicket(ticket, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -144,17 +144,17 @@ module.exports = function(app) {
         });
     };
 
-    var euromillones_api_editarTicket = function(req, res) {
+    var euromillones_api_editarTicket = function (req, res) {
         var ticket = req.body;
 
-        EUR_DBM.getTicketById(ticket._id, function(err, result) {
+        EUR_DBM.getTicketById(ticket._id, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
                 return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
             }
 
-            EUR_DBM.editTicket(ticket, function(err, result) {
+            EUR_DBM.editTicket(ticket, function (err, result) {
                 if (err) {
                     return res
                         .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
@@ -165,28 +165,28 @@ module.exports = function(app) {
         });
     };
 
-    var euromillones_api_deleteTicket = function(req, res) {
+    var euromillones_api_deleteTicket = function (req, res) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
             return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
-        EUR_DBM.getTicketById(id, function(err, result) {
+        EUR_DBM.getTicketById(id, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
                 return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
             }
 
-            EUR_DBM.deleteTicketById(id, function(err2) {
+            EUR_DBM.deleteTicketById(id, function (err2) {
                 if (err2) {
                     return res
                         .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
                         .send(err2);
                 }
 
-                EUR_DBM.getAllTickets(function(err3, result3) {
+                EUR_DBM.getAllTickets(function (err3, result3) {
                     if (err3) {
                         return res
                             .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
@@ -217,7 +217,7 @@ module.exports = function(app) {
      *
      * @apiSampleRequest /api/euromillones/historical/occurrencesByNumber
      */
-    var euromillones_api_occurrencesByNumber = function(req, res) {
+    var euromillones_api_occurrencesByNumber = function (req, res) {
         var query = req.query;
         var page = query.page || 1;
         var perPage = query.per_page || 10;
@@ -231,7 +231,7 @@ module.exports = function(app) {
             type: type
         };
 
-        EUR_DBM.getOccurrencesByNumber(filtros, function(err, result) {
+        EUR_DBM.getOccurrencesByNumber(filtros, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -257,7 +257,7 @@ module.exports = function(app) {
      * Por defecto se ordenan descendentemente.
      * @apiSampleRequest /api/euromillones/historical/occurrencesByStar
      */
-    var euromillones_api_occurrencesByStar = function(req, res) {
+    var euromillones_api_occurrencesByStar = function (req, res) {
         var query = req.query;
         var page = query.page || 1;
         var perPage = query.per_page || 10;
@@ -271,7 +271,7 @@ module.exports = function(app) {
             type: type
         };
 
-        EUR_DBM.getOccurrencesByStar(filtros, function(err, result) {
+        EUR_DBM.getOccurrencesByStar(filtros, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -297,7 +297,7 @@ module.exports = function(app) {
      * Por defecto se ordenan descendentemente.
      * @apiSampleRequest /api/euromillones/historical/occurrencesByStarsPair
      */
-    var euromillones_api_occurrencesByStarsPair = function(req, res) {
+    var euromillones_api_occurrencesByStarsPair = function (req, res) {
         var query = req.query;
         var page = query.page || 1;
         var perPage = query.per_page || 10;
@@ -311,7 +311,7 @@ module.exports = function(app) {
             type: type
         };
 
-        EUR_DBM.getOccurrencesByStarsPair(filtros, function(err, result) {
+        EUR_DBM.getOccurrencesByStarsPair(filtros, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -338,7 +338,7 @@ module.exports = function(app) {
      *
      * @apiSampleRequest /api/euromillones/historical/occurrencesByResult
      */
-    var euromillones_api_occurrencesByResult = function(req, res) {
+    var euromillones_api_occurrencesByResult = function (req, res) {
         var query = req.query;
         var page = query.page || 1;
         var perPage = query.per_page || 10;
@@ -352,7 +352,7 @@ module.exports = function(app) {
             type: type
         };
 
-        EUR_DBM.getOccurrencesByResultWithoutStars(filtros, function(
+        EUR_DBM.getOccurrencesByResultWithoutStars(filtros, function (
             err,
             result
         ) {
@@ -381,7 +381,7 @@ module.exports = function(app) {
      * Por defecto se ordenan descendentemente.
      * @apiSampleRequest /api/euromillones/historical/occurrencesByResultWithStars
      */
-    var euromillones_api_occurrencesByResultWithStars = function(req, res) {
+    var euromillones_api_occurrencesByResultWithStars = function (req, res) {
         var query = req.query;
         var page = query.page || 1;
         var perPage = query.per_page || 10;
@@ -395,7 +395,7 @@ module.exports = function(app) {
             type: type
         };
 
-        EUR_DBM.getOccurrencesByResultWithStars(filtros, function(err, result) {
+        EUR_DBM.getOccurrencesByResultWithStars(filtros, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -415,8 +415,8 @@ module.exports = function(app) {
      *
      * @apiSampleRequest /api/euromillones/years
      */
-    var euromillones_api_years = function(req, res) {
-        EUR_DBM.getAllYears(function(err, result) {
+    var euromillones_api_years = function (req, res) {
+        EUR_DBM.getAllYears(function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -438,14 +438,14 @@ module.exports = function(app) {
      *
      * @apiParam {String} id Identificador del año de Euromillones
      */
-    var euromillones_api_year = function(req, res) {
+    var euromillones_api_year = function (req, res) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
             return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
-        EUR_DBM.getYearById(id, function(err, result) {
+        EUR_DBM.getYearById(id, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -454,19 +454,19 @@ module.exports = function(app) {
         });
     };
 
-    var euromillones_api_deleteYear = function(req, res) {
+    var euromillones_api_deleteYear = function (req, res) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
             return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
-        EUR_DBM.deleteYearById(id, function(err) {
+        EUR_DBM.deleteYearById(id, function (err) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
 
-            EUR_DBM.getAllYears(function(err2, result2) {
+            EUR_DBM.getAllYears(function (err2, result2) {
                 if (err2) {
                     return res
                         .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
@@ -478,19 +478,19 @@ module.exports = function(app) {
         });
     };
 
-    var euromillones_api_addNewYear = function(req, res) {
+    var euromillones_api_addNewYear = function (req, res) {
         var body = req.body;
 
         var year = {};
         var name = body.name;
         year.name = name;
 
-        EUR_DBM.getYearByName(name, function(err, result) {
+        EUR_DBM.getYearByName(name, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(name);
             } else if (JSON.stringify(result) === "{}") {
                 // No existe aun
-                EUR_DBM.addNewYear(year, function(err, result) {
+                EUR_DBM.addNewYear(year, function (err, result) {
                     if (err) {
                         return res
                             .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
@@ -508,7 +508,7 @@ module.exports = function(app) {
         });
     };
 
-    var euromillones_api_editYear = function(req, res) {
+    var euromillones_api_editYear = function (req, res) {
         var body = req.body;
         var id = body._id;
         var name = body.name;
@@ -517,14 +517,14 @@ module.exports = function(app) {
             name: name
         };
 
-        EUR_DBM.getYearById(id, function(err, result) {
+        EUR_DBM.getYearById(id, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             } else if (result == null) {
                 return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
             }
 
-            EUR_DBM.editYear(year, function(err, result) {
+            EUR_DBM.editYear(year, function (err, result) {
                 if (err) {
                     return res
                         .status(HTTP_CODES.INTERNAL_SERVER_ERROR)
@@ -536,14 +536,14 @@ module.exports = function(app) {
         });
     };
 
-    var euromillones_api_ticketPorId = function(req, res) {
+    var euromillones_api_ticketPorId = function (req, res) {
         var id = req.params.id;
 
         if (!isObjectId(id)) {
             return res.status(HTTP_CODES.NOT_FOUND).send("not-found");
         }
 
-        EUR_DBM.getTicketById(id, function(err, result) {
+        EUR_DBM.getTicketById(id, function (err, result) {
             if (err) {
                 return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
             }
@@ -563,6 +563,88 @@ module.exports = function(app) {
                 }
             }
             res.status(HTTP_CODES.OK).send(JSON.stringify(json, null, 4));
+        });
+    };
+
+    /**
+     * @api {get} /euromillones/historical/lastDateByNumber Consulta de fecha de última aparición por número en histórico de Euromillones
+     * @apiName GetEuromillonesLastDateByNumber
+     * @apiGroup EuromillonesHistorical
+     *
+     * @apiDescription Recurso para la consulta de fecha de última aparición por número en histórico de Euromillones.
+     *
+     * @apiVersion 1.2.0
+     *
+     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "number"
+     * y "date". Por defecto se ordenan por "date".
+     * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
+     * Por defecto se ordenan descendentemente.
+     *
+     * @apiSampleRequest /api/euromillones/historical/lastDateByNumber
+     */
+    var euromillones_api_lastDateByNumber = (req, res) => {
+        var query = req.query;
+        var page = query.page || 1;
+        var perPage = query.per_page || 10;
+        var sort = query.sort_property || "date";
+        var type = query.sort_type || "desc";
+
+        var filtros = {
+            page: Number(page),
+            perPage: Number(perPage),
+            sort: sort,
+            type: type
+        };
+
+        EUR_DBM.getLastDateByNumber(filtros, (err, result) => {
+            if (err) {
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
+            }
+
+            res.status(HTTP_CODES.OK).send(JSON.stringify(result, null, 4));
+        });
+    };
+
+    /**
+     * @api {get} /euromillones/historical/lastDateByStar Consulta de fecha de última aparición por estrella en histórico de Euromillones
+     * @apiName GetEuromillonesLastDateByStar
+     * @apiGroup EuromillonesHistorical
+     *
+     * @apiDescription Recurso para la consulta de fecha de última aparición por estrella en histórico de Euromillones.
+     *
+     * @apiVersion 1.2.0
+     *
+     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "number"
+     * y "date". Por defecto se ordenan por "date".
+     * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
+     * Por defecto se ordenan descendentemente.
+     *
+     * @apiSampleRequest /api/euromillones/historical/lastDateByStar
+     */
+    var euromillones_api_lastDateByStar = (req, res) => {
+        var query = req.query;
+        var page = query.page || 1;
+        var perPage = query.per_page || 10;
+        var sort = query.sort_property || "date";
+        var type = query.sort_type || "desc";
+
+        var filtros = {
+            page: Number(page),
+            perPage: Number(perPage),
+            sort: sort,
+            type: type
+        };
+
+        EUR_DBM.getLastDateByStar(filtros, (err, result) => {
+            if (err) {
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
+            }
+
+            res.status(HTTP_CODES.OK).send(JSON.stringify(result, null, 4));
         });
     };
 
@@ -637,6 +719,16 @@ module.exports = function(app) {
         "/occurrencesByStarsPair",
         validate(validations.getOccurrencesByStarsPair),
         euromillones_api_occurrencesByStarsPair
+    );
+    historical.get(
+        "/lastDateByNumber",
+        validate(validations.getLastDateByNumber),
+        euromillones_api_lastDateByNumber
+    );
+    historical.get(
+        "/lastDateByStar",
+        validate(validations.getLastDateByStar),
+        euromillones_api_lastDateByStar
     );
 
     euromillones.use("/historical", historical);

@@ -1,4 +1,4 @@
-(function() {
+(function () {
     "use strict";
 
     angular.module("gordo", []).factory("gordo", service);
@@ -27,7 +27,9 @@
             getOccurrencesByNumber: getOccurrencesByNumber,
             getOccurrencesByResult: getOccurrencesByResult,
             getOccurrencesByResultWithSpecialNumber: getOccurrencesByResultWithSpecialNumber,
-            getOccurrencesBySpecialNumber: getOccurrencesBySpecialNumber
+            getOccurrencesBySpecialNumber: getOccurrencesBySpecialNumber,
+            getLastDateByNumber: getLastDateByNumber,
+            getLastDateBySpecialNumber: getLastDateBySpecialNumber,
         };
 
         return service;
@@ -40,10 +42,10 @@
                 .get(apiPrefix + "/tickets", {
                     params: queryParameters
                 })
-                .then(function(data) {
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err) {
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
@@ -56,10 +58,10 @@
 
             $http
                 .get(apiPrefix + "/tickets/" + id)
-                .then(function(data) {
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err) {
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
@@ -72,10 +74,10 @@
 
             $http
                 .post(apiPrefix + "/tickets", ticket)
-                .then(function(data) {
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err) {
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
@@ -88,10 +90,10 @@
 
             $http
                 .put(apiPrefix + "/tickets", ticket)
-                .then(function(data) {
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err) {
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
@@ -104,10 +106,10 @@
 
             $http
                 .delete(apiPrefix + "/tickets/" + id)
-                .then(function(data) {
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err) {
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
@@ -120,10 +122,10 @@
 
             $http
                 .get(apiPrefix + "/years")
-                .then(function(data) {
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err) {
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
@@ -136,10 +138,10 @@
 
             $http
                 .get(apiPrefix + "/years/" + id)
-                .then(function(data) {
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err) {
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
@@ -152,10 +154,10 @@
 
             $http
                 .post(apiPrefix + "/years", year)
-                .then(function(data) {
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err) {
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
@@ -168,10 +170,10 @@
 
             $http
                 .put(apiPrefix + "/years", year)
-                .then(function(data) {
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err) {
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
@@ -184,10 +186,10 @@
 
             $http
                 .delete(apiPrefix + "/years/" + id)
-                .then(function(data) {
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err) {
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
@@ -202,10 +204,10 @@
                 .get(apiPrefix + "/historical/occurrencesByNumber", {
                     params: queryParameters
                 })
-                .then(function(data) {
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err) {
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
@@ -220,10 +222,10 @@
                 .get(apiPrefix + "/historical/occurrencesByResult", {
                     params: queryParameters
                 })
-                .then(function(data) {
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err) {
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
@@ -237,15 +239,15 @@
             $http
                 .get(
                     apiPrefix +
-                        "/historical/occurrencesByResultWithSpecialNumber",
+                    "/historical/occurrencesByResultWithSpecialNumber",
                     {
                         params: queryParameters
                     }
                 )
-                .then(function(data) {
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err) {
+                .catch(function (err) {
                     defered.reject(err);
                 });
 
@@ -260,11 +262,47 @@
                 .get(apiPrefix + "/historical/OccurrencesBySpecialNumber", {
                     params: queryParameters
                 })
-                .then(function(data) {
+                .then(function (data) {
                     defered.resolve(data.data);
                 })
-                .catch(function(err) {
+                .catch(function (err) {
                     defered.reject(err);
+                });
+
+            return promise;
+        }
+
+        function getLastDateByNumber(queryParameters) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http
+                .get(apiPrefix + "/historical/lastDateByNumber", {
+                    params: queryParameters
+                })
+                .then(function (data) {
+                    defered.resolve(data.data);
+                })
+                .catch(function (err) {
+                    defered.reject(err.data);
+                });
+
+            return promise;
+        }
+
+        function getLastDateBySpecialNumber(queryParameters) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http
+                .get(apiPrefix + "/historical/lastDateBySpecialNumber", {
+                    params: queryParameters
+                })
+                .then(function (data) {
+                    defered.resolve(data.data);
+                })
+                .catch(function (err) {
+                    defered.reject(err.data);
                 });
 
             return promise;
