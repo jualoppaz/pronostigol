@@ -607,6 +607,47 @@ module.exports = function (app) {
         });
     };
 
+    /**
+     * @api {get} /euromillones/historical/lastDateByStar Consulta de fecha de última aparición por estrella en histórico de Euromillones
+     * @apiName GetEuromillonesLastDateByStar
+     * @apiGroup EuromillonesHistorical
+     *
+     * @apiDescription Recurso para la consulta de fecha de última aparición por estrella en histórico de Euromillones.
+     *
+     * @apiVersion 1.0.0
+     *
+     * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
+     * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
+     * @apiParam {String} [sort_property] Propiedad por la que ordenar los registros. Los posibles valores son "number"
+     * y "date". Por defecto se ordenan por "date".
+     * @apiParam {String} [sort_type] Sentido de la ordenación de registros. Los posibles valores son "asc" y "desc".
+     * Por defecto se ordenan descendentemente.
+     *
+     * @apiSampleRequest /api/euromillones/historical/lastDateByStar
+     */
+    var euromillones_api_lastDateByStar = (req, res) => {
+        var query = req.query;
+        var page = query.page || 1;
+        var perPage = query.per_page || 10;
+        var sort = query.sort_property || "date";
+        var type = query.sort_type || "desc";
+
+        var filtros = {
+            page: Number(page),
+            perPage: Number(perPage),
+            sort: sort,
+            type: type
+        };
+
+        EUR_DBM.getLastDateByStar(filtros, (err, result) => {
+            if (err) {
+                return res.status(HTTP_CODES.INTERNAL_SERVER_ERROR).send(err);
+            }
+
+            res.status(HTTP_CODES.OK).send(JSON.stringify(result, null, 4));
+        });
+    };
+
     /* Tickets del Euromillones */
     euromillones
         .route("/tickets")
@@ -683,6 +724,11 @@ module.exports = function (app) {
         "/lastDateByNumber",
         validate(validations.getLastDateByNumber),
         euromillones_api_lastDateByNumber
+    );
+    historical.get(
+        "/lastDateByStar",
+        validate(validations.getLastDateByStar),
+        euromillones_api_lastDateByStar
     );
 
     euromillones.use("/historical", historical);

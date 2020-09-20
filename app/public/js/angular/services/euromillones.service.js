@@ -34,6 +34,7 @@
             getOccurrencesByStar: getOccurrencesByStar,
             getOccurrencesByStarsPair: getOccurrencesByStarsPair,
             getLastDateByNumber: getLastDateByNumber,
+            getLastDateByStar: getLastDateByStar,
         };
 
         return service;
@@ -474,6 +475,24 @@
 
             $http
                 .get(apiPrefix + "/historical/lastDateByNumber", {
+                    params: queryParameters
+                })
+                .then(function (data) {
+                    defered.resolve(data.data);
+                })
+                .catch(function (err) {
+                    defered.reject(err.data);
+                });
+
+            return promise;
+        }
+
+        function getLastDateByStar(queryParameters) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http
+                .get(apiPrefix + "/historical/lastDateByStar", {
                     params: queryParameters
                 })
                 .then(function (data) {
