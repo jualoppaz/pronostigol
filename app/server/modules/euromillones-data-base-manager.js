@@ -993,3 +993,80 @@ exports.getLastDateByNumber = (filtros, callback) => {
         }
     });
 };
+
+exports.getLastDateByStar = (filtros, callback) => {
+    var limit = filtros.perPage;
+    var page = filtros.page;
+    var skip = (page - 1) * limit;
+    var sort = filtros.sort;
+    var type = filtros.type;
+
+    var sort_property = sort === "date" ? "fecha" : "estrella";
+    var sort_type = type === "asc" ? 1 : -1;
+
+    var query = [];
+
+    query.push({
+        $unwind: "$resultado.estrellas",
+    });
+
+    query.push({
+        $group: {
+            _id: "$resultado.estrellas.numero",
+            ultimaAparicion: {
+                $max: "$fecha"
+            }
+        }
+    });
+
+    query.push({
+        $project: {
+            _id: 0,
+            estrella: "$_id",
+            fecha: "$ultimaAparicion"
+        }
+    });
+
+    euromillones_tickets.aggregate(query, function (e, res) {
+        if (e) {
+            callback(e);
+        } else {
+            var result = {
+                page: page,
+                perPage: limit,
+                total: res.length
+            };
+
+            var sortConfig = {};
+            sortConfig[sort_property] = sort_type;
+
+            // Añadimos ordenación alternativa
+            if (sort_property === "estrella") {
+                sortConfig["fecha"] = sort_type;
+            } else if (sort_property === "fecha") {
+                sortConfig["estrella"] = 1;
+            }
+
+            query.push({
+                $sort: sortConfig
+            });
+
+            query.push({
+                $skip: skip
+            });
+
+            query.push({
+                $limit: limit
+            });
+
+            euromillones_tickets.aggregate(query, function (e, res) {
+                if (e) {
+                    callback(e);
+                } else {
+                    result.data = res;
+                    callback(null, result);
+                }
+            });
+        }
+    });
+};
