@@ -547,7 +547,7 @@ module.exports = function (app) {
      *
      * @apiDescription Recurso para la consulta de fecha de última aparición por número en histórico de El Gordo de la Primitiva.
      *
-     * @apiVersion 1.0.0
+     * @apiVersion 1.2.0
      *
      * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
      * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
@@ -588,7 +588,7 @@ module.exports = function (app) {
      *
      * @apiDescription Recurso para la consulta de fecha de última aparición por número clave en histórico de El Gordo de la Primitiva.
      *
-     * @apiVersion 1.0.0
+     * @apiVersion 1.2.0
      *
      * @apiParam {Number} page Número de página a consultar. Por defecto se establece a 1.
      * @apiParam {Number} per_page Número de registros por página deseados. Por defecto se establece a 10.
