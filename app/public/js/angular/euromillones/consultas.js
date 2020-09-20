@@ -10,16 +10,24 @@ function Controller($scope, $http, $filter, euromillones) {
 
     $scope.ordenAparicionesPorNumero = true;
     $scope.criterioOrdenacionAparicionesPorNumero = "occurrences";
+
     $scope.ordenAparicionesPorResultado = true;
     $scope.criterioOrdenacionAparicionesPorResultado = "occurrences";
+
     $scope.ordenAparicionesPorResultadoConEstrellas = true;
     $scope.criterioOrdenacionAparicionesPorResultadoConEstrellas = "occurrences";
+
     $scope.ordenAparicionesPorEstrella = true;
     $scope.criterioOrdenacionAparicionesPorEstrella = "occurrences";
+
     $scope.ordenAparicionesPorParejaDeEstrellas = true;
     $scope.criterioOrdenacionAparicionesPorParejaDeEstrellas = "occurrences";
+
     $scope.ordenUltimaAparicionPorNumero = false;
     $scope.criterioOrdenacionUltimaAparicionPorNumero = "date";
+
+    $scope.ordenUltimaAparicionPorEstrella = false;
+    $scope.criterioOrdenacionUltimaAparicionPorEstrella = "date";
 
     $scope.maxSize = 5;
 
@@ -76,6 +84,8 @@ function Controller($scope, $http, $filter, euromillones) {
         "que se han dado en más ocasiones.";
 
     $scope.ayuda.ultimaAparicionPorNumero = "Para consultar la última fecha de aparición por número";
+
+    $scope.ayuda.ultimaAparicionPorEstrella = "Para consultar la última fecha de aparición por estrella.";
 
     $scope.aparicionesPorNumero = [];
 
@@ -268,6 +278,37 @@ function Controller($scope, $http, $filter, euromillones) {
                     );
 
                     $scope.mostrar.tablaUltimaAparicionPorNumero = true;
+                })
+                .catch(function (err) { })
+                .finally(function () {
+                    $scope.consultando = false;
+                });
+        } else if (
+            $scope.form.opcionBusquedaEstandar.name ===
+            "ultimaAparicionPorEstrella"
+        ) {
+            queryParameters = {
+                page: $scope.currentPage,
+                per_page: $scope.ticketsPerPage,
+                sort_property:
+                    $scope.criterioOrdenacionUltimaAparicionPorEstrella,
+                sort_type: $scope.ordenUltimaAparicionPorEstrella ? "desc" : "asc"
+            };
+
+            euromillones
+                .getLastDateByStar(queryParameters)
+                .then(function (data) {
+                    debugger;
+
+                    $scope.ultimaAparicionPorEstrella = data.data;
+
+                    $scope.actualizarPaginacion(
+                        $scope.ultimaAparicionPorEstrella,
+                        data.total,
+                        data.perPage
+                    );
+
+                    $scope.mostrar.tablaUltimaAparicionPorEstrella = true;
                 })
                 .catch(function (err) { })
                 .finally(function () {
@@ -471,6 +512,40 @@ function Controller($scope, $http, $filter, euromillones) {
                 // Cambiamos de criterio
                 $scope.criterioOrdenacionUltimaAparicionPorNumero = criterio;
                 $scope.ordenUltimaAparicionPorNumero = true;
+            }
+        }
+    };
+
+    $scope.ordenarUltimaAparicionPorEstrellaSegun = function (criterio) {
+        if (criterio === "star") {
+            if (
+                $scope.criterioOrdenacionUltimaAparicionPorEstrella === criterio
+            ) {
+                //Sólo vamos a invertir el orden
+                if ($scope.ordenUltimaAparicionPorEstrella == null) {
+                    $scope.ordenUltimaAparicionPorEstrella = true;
+                } else {
+                    $scope.ordenUltimaAparicionPorEstrella = !$scope.ordenUltimaAparicionPorEstrella;
+                }
+            } else {
+                // Cambiamos de criterio
+                $scope.criterioOrdenacionUltimaAparicionPorEstrella = criterio;
+                $scope.ordenUltimaAparicionPorEstrella = false;
+            }
+        } else if (criterio === "date") {
+            if (
+                $scope.criterioOrdenacionUltimaAparicionPorEstrella === criterio
+            ) {
+                //Sólo vamos a invertir el orden
+                if ($scope.ordenUltimaAparicionPorEstrella == null) {
+                    $scope.ordenUltimaAparicionPorEstrella = true;
+                } else {
+                    $scope.ordenUltimaAparicionPorEstrella = !$scope.ordenUltimaAparicionPorEstrella;
+                }
+            } else {
+                // Cambiamos de criterio
+                $scope.criterioOrdenacionUltimaAparicionPorEstrella = criterio;
+                $scope.ordenUltimaAparicionPorEstrella = true;
             }
         }
     };
