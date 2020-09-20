@@ -29,6 +29,7 @@
             getOccurrencesByResultWithSpecialNumber: getOccurrencesByResultWithSpecialNumber,
             getOccurrencesBySpecialNumber: getOccurrencesBySpecialNumber,
             getLastDateByNumber: getLastDateByNumber,
+            getLastDateBySpecialNumber: getLastDateBySpecialNumber,
         };
 
         return service;
@@ -277,6 +278,24 @@
 
             $http
                 .get(apiPrefix + "/historical/lastDateByNumber", {
+                    params: queryParameters
+                })
+                .then(function (data) {
+                    defered.resolve(data.data);
+                })
+                .catch(function (err) {
+                    defered.reject(err.data);
+                });
+
+            return promise;
+        }
+
+        function getLastDateBySpecialNumber(queryParameters) {
+            var defered = $q.defer();
+            var promise = defered.promise;
+
+            $http
+                .get(apiPrefix + "/historical/lastDateBySpecialNumber", {
                     params: queryParameters
                 })
                 .then(function (data) {
