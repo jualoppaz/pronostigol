@@ -24,6 +24,9 @@ function Controller($scope, $http, $filter, gordo) {
     $scope.ordenUltimaAparicionPorNumero = false;
     $scope.criterioOrdenacionUltimaAparicionPorNumero = "date";
 
+    $scope.ordenUltimaAparicionPorNumeroClave = false;
+    $scope.criterioOrdenacionUltimaAparicionPorNumeroClave = "date";
+
     $scope.maxSize = 5;
 
     $scope.currentPage = 1;
@@ -76,6 +79,8 @@ function Controller($scope, $http, $filter, gordo) {
         "Para consultar los numeroClaves que se han dado en más ocasiones.";
 
     $scope.ayuda.ultimaAparicionPorNumero = "Para consultar la última fecha de aparición por número";
+
+    $scope.ayuda.ultimaAparicionPorNumeroClave = "Para consultar la última fecha de aparición por número clave.";
 
     $scope.limpiarTablas = function () {
         $scope.mostrar = {};
@@ -232,6 +237,35 @@ function Controller($scope, $http, $filter, gordo) {
                     );
 
                     $scope.mostrar.tablaUltimaAparicionPorNumero = true;
+                })
+                .catch(function (err) { })
+                .finally(function () {
+                    $scope.consultando = false;
+                });
+        } else if (
+            $scope.form.opcionBusquedaEstandar.name ===
+            "ultimaAparicionPorNumeroClave"
+        ) {
+            queryParameters = {
+                page: $scope.currentPage,
+                per_page: $scope.ticketsPerPage,
+                sort_property:
+                    $scope.criterioOrdenacionUltimaAparicionPorNumeroClave,
+                sort_type: $scope.ordenUltimaAparicionPorNumeroClave ? "desc" : "asc"
+            };
+
+            gordo
+                .getLastDateBySpecialNumber(queryParameters)
+                .then(function (data) {
+                    $scope.ultimaAparicionPorNumeroClave = data.data;
+
+                    $scope.actualizarPaginacion(
+                        $scope.ultimaAparicionPorNumeroClave,
+                        data.total,
+                        data.perPage
+                    );
+
+                    $scope.mostrar.tablaUltimaAparicionPorNumeroClave = true;
                 })
                 .catch(function (err) { })
                 .finally(function () {
@@ -434,6 +468,40 @@ function Controller($scope, $http, $filter, gordo) {
                 // Cambiamos de criterio
                 $scope.criterioOrdenacionUltimaAparicionPorNumero = criterio;
                 $scope.ordenUltimaAparicionPorNumero = true;
+            }
+        }
+    };
+
+    $scope.ordenarUltimaAparicionPorNumeroClaveSegun = function (criterio) {
+        if (criterio === "specialNumber") {
+            if (
+                $scope.criterioOrdenacionUltimaAparicionPorNumeroClave === criterio
+            ) {
+                //Sólo vamos a invertir el orden
+                if ($scope.ordenUltimaAparicionPorNumeroClave == null) {
+                    $scope.ordenUltimaAparicionPorNumeroClave = true;
+                } else {
+                    $scope.ordenUltimaAparicionPorNumeroClave = !$scope.ordenUltimaAparicionPorNumeroClave;
+                }
+            } else {
+                // Cambiamos de criterio
+                $scope.criterioOrdenacionUltimaAparicionPorNumeroClave = criterio;
+                $scope.ordenUltimaAparicionPorNumeroClave = false;
+            }
+        } else if (criterio === "date") {
+            if (
+                $scope.criterioOrdenacionUltimaAparicionPorNumeroClave === criterio
+            ) {
+                //Sólo vamos a invertir el orden
+                if ($scope.ordenUltimaAparicionPorNumeroClave == null) {
+                    $scope.ordenUltimaAparicionPorNumeroClave = true;
+                } else {
+                    $scope.ordenUltimaAparicionPorNumeroClave = !$scope.ordenUltimaAparicionPorNumeroClave;
+                }
+            } else {
+                // Cambiamos de criterio
+                $scope.criterioOrdenacionUltimaAparicionPorNumeroClave = criterio;
+                $scope.ordenUltimaAparicionPorNumeroClave = true;
             }
         }
     };
