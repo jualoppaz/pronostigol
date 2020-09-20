@@ -109,6 +109,17 @@ block content
                                                     button(uib-popover="{{ayuda.ultimaAparicionPorNumero}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
                                                         | Ayuda
 
+                                            div.col-md-12.form-group
+                                                label.col-md-5.col-md-offset-2.col-sm-12.col-xs-12
+                                                    input(type="radio", value="ultimaAparicionPorNumeroClave", data-ng-model="form.opcionBusquedaEstandar.name")#radio6Estandar
+                                                    | &nbsp; Última aparición por Número Clave
+                                                div.col-md-5.col-sm-5.hidden-xs
+                                                    button(uib-popover="{{ayuda.ultimaAparicionPorNumeroClave}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                        | Ayuda
+                                                div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-top: 30px; padding-bottom: 10px")
+                                                    button(uib-popover="{{ayuda.ultimaAparicionPorNumeroClave}}", popover-trigger="mouseenter", popover-placement="right").btn.btn-default.btn-qdb
+                                                        | Ayuda
+
 
 
                                         div.col-xs-12.form-group
