@@ -2,7 +2,7 @@ var app = angular.module('dashboard');
 
 app.controller('EditarCompeticionController', Controller);
 
-Controller.$inject = ['$scope', '$http', 'window', 'quiniela'];
+Controller.$inject = ['$scope', '$http', '$window', 'quiniela'];
 
 function Controller ($scope, $http, $window, quiniela){
 
