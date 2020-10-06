@@ -1,8 +1,8 @@
 var middlewares = require("../../middlewares");
 var { ROLES, HTTP_CODES } = require("../../constants");
 
-module.exports = function(app) {
-    var actualizarUltimaPagina = function(req) {
+module.exports = function (app) {
+    var actualizarUltimaPagina = function (req) {
         // El if se podria omitir, pero lo dejamos para tener un mayor control
 
         //console.log("Ruta previa: " + req.path);
@@ -20,76 +20,80 @@ module.exports = function(app) {
     var quiniela = express.Router();
     var admin = express.Router();
 
-    var funcionesComunes = function(req) {
+    var funcionesComunes = function (req) {
         actualizarUltimaPagina(req);
     };
 
-    var quiniela_vistas_inicio = function(req, res) {
+    var quiniela_vistas_inicio = function (req, res) {
         funcionesComunes(req);
         res.render("quiniela");
     };
 
-    var quiniela_vistas_quinielas = function(req, res) {
+    var quiniela_vistas_quinielas = function (req, res) {
         funcionesComunes(req);
         res.render("quiniela/tickets");
     };
 
-    var quiniela_vistas_ticket = function(req, res) {
+    var quiniela_vistas_ticket = function (req, res) {
         funcionesComunes(req);
         res.render("quiniela/ticket");
     };
 
-    var quiniela_vistas_consultas = function(req, res) {
+    var quiniela_vistas_consultas = function (req, res) {
         funcionesComunes(req);
         res.render("quiniela/consultas");
     };
 
-    var quiniela_vistas_admin_quiniela = function(req, res) {
+    var quiniela_vistas_admin_quiniela = function (req, res) {
         res.render("admin/quiniela");
     };
 
-    var quiniela_vistas_admin_anadirTicket = function(req, res) {
+    var quiniela_vistas_admin_anadirTicket = function (req, res) {
         res.render("admin/quiniela/anadirTicket");
     };
 
-    var quiniela_vistas_admin_editarTicket = function(req, res) {
+    var quiniela_vistas_admin_editarTicket = function (req, res) {
         res.render("admin/quiniela/editarTicket");
     };
 
-    var quiniela_vistas_admin_equipos = function(req, res) {
+    var quiniela_vistas_admin_equipos = function (req, res) {
         res.render("admin/quiniela/equipos");
     };
 
-    var quiniela_vistas_admin_competiciones = function(req, res) {
+    var quiniela_vistas_admin_competiciones = function (req, res) {
         res.render("admin/quiniela/competiciones");
     };
 
-    var quiniela_vistas_admin_temporadas = function(req, res) {
+    var quiniela_vistas_admin_temporadas = function (req, res) {
         res.render("admin/quiniela/temporadas");
     };
 
-    var quiniela_vistas_admin_anadirEquipo = function(req, res) {
+    var quiniela_vistas_admin_anadirEquipo = function (req, res) {
         res.render("admin/quiniela/anadirEquipo");
     };
 
-    var quiniela_vistas_admin_anadirCompeticion = function(req, res) {
+    var quiniela_vistas_admin_anadirCompeticion = function (req, res) {
         res.render("admin/quiniela/anadirCompeticion");
     };
 
-    var quiniela_vistas_admin_anadirTemporada = function(req, res) {
+    var quiniela_vistas_admin_anadirTemporada = function (req, res) {
         res.render("admin/quiniela/anadirTemporada");
     };
 
-    var quiniela_vistas_admin_editarEquipo = function(req, res) {
+    var quiniela_vistas_admin_editarEquipo = function (req, res) {
         res.render("admin/quiniela/editarEquipo");
     };
 
-    var quiniela_vistas_admin_editarCompeticion = function(req, res) {
+    var quiniela_vistas_admin_editarCompeticion = function (req, res) {
         res.render("admin/quiniela/editarCompeticion");
     };
 
-    var quiniela_vistas_admin_editarTemporada = function(req, res) {
+    var quiniela_vistas_admin_editarTemporada = function (req, res) {
         res.render("admin/quiniela/editarTemporada");
+    };
+
+    var quiniela_vistas_admin_analizador = function (req, res) {
+        res.render("admin/quiniela/analizador");
     };
 
     // Parte Publica
@@ -205,13 +209,20 @@ module.exports = function(app) {
         quiniela_vistas_admin_anadirTemporada
     );
 
+    admin.get(
+        "/analizador",
+        middlewares.isLogged_view,
+        middlewares.isAuthorized_view([ROLES.ADMIN]),
+        quiniela_vistas_admin_analizador
+    );
+
     // Redirecciones de URL antiguas
 
-    quiniela.get("/tickets", function(req, res) {
+    quiniela.get("/tickets", function (req, res) {
         return res.redirect(HTTP_CODES.MOVED_PERMANENTLY, "/quiniela/sorteos");
     });
 
-    quiniela.get("/consultas", function(req, res) {
+    quiniela.get("/consultas", function (req, res) {
         return res.redirect(
             HTTP_CODES.MOVED_PERMANENTLY,
             "/quiniela/estadisticas"
