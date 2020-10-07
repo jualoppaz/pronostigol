@@ -491,7 +491,7 @@ function Controller($scope, $q, $window, quiniela, $sce) {
 
         message = quiniela.ANALYZER_MESSAGES.LOCAL.ROW.WINS_DRAWS_AND_LOSES.MORE_DRAWS.MORE_LOSES;
 
-        if (fila.empates > fila.victoriasLocales && fila.victoriasVisitantes > fila.victoriasLocales && fila.victoriasLocales > 0) {
+        if (fila.empates > fila.victoriasVisitantes && fila.victoriasVisitantes > fila.victoriasLocales && fila.victoriasLocales > 0) {
             message = $scope.getCustomMessage(message, {
                 "{localTeam}": $scope.form.equipoLocal,
                 '{row}': $scope.form.fila,
