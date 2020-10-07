@@ -488,6 +488,23 @@ function Controller($scope, $q, $window, quiniela, $sce) {
 
             $scope.localTeamMessages.push(message);
         }
+
+        message = quiniela.ANALYZER_MESSAGES.LOCAL.ROW.WINS_DRAWS_AND_LOSES.MORE_DRAWS.MORE_LOSES;
+
+        if (fila.empates > fila.victoriasLocales && fila.victoriasVisitantes > fila.victoriasLocales && fila.victoriasLocales > 0) {
+            message = $scope.getCustomMessage(message, {
+                "{localTeam}": $scope.form.equipoLocal,
+                '{row}': $scope.form.fila,
+                '{numWins}': sumaDeVictoriasLocalesComoLocalEnFila,
+                '{numDraws}': sumaDeEmpatesComoLocalEnFila,
+                '{numLoses}': sumaDeVictoriasVisitantesComoLocalEnFila,
+                '{perWins}': porcentajeDeVictoriasLocalesComoLocalEnFila,
+                '{perDraws}': porcentajeDeEmpatesComoLocalEnFila,
+                '{perLoses}': porcentajeDeVictoriasVisitantesComoLocalEnFila,
+            });
+
+            $scope.localTeamMessages.push(message);
+        }
     }
 
     $scope.getCustomMessage = function (message, translations) {
@@ -517,9 +534,9 @@ function Controller($scope, $q, $window, quiniela, $sce) {
 
         // TODO: ELIMINAR
         $scope.form = {
-            equipoLocal: 'Sevilla',
+            equipoLocal: 'Celta',
             equipoVisitante: 'Betis',
-            fila: 2,
+            fila: 6,
             competicion: 'Liga Española'
         };
 
