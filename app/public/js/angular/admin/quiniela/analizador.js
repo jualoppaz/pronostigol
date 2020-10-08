@@ -636,6 +636,40 @@ function Controller($scope, $q, $window, quiniela, $sce) {
         $scope.localTeamMessages.push(message);
     }
 
+    $scope.realizarAnalisisEquipoLocalCompeticionYFila = function () {
+        var message = quiniela.ANALYZER_MESSAGES.LOCAL.COMPETITION.ROW.NO_DATA;
+
+        var fila = $scope.filasLocalYCompeticion.find(function (row) {
+            return row.fila === parseInt($scope.form.fila);
+        }) || {};
+
+        var sumaDeVictoriasLocalesComoLocalEnCompeticionYFila = fila.victoriasLocales;
+        var sumaDeEmpatesComoLocalEnCompeticionYFila = fila.empates;
+        var sumaDeVictoriasVisitantesComoLocalEnCompeticionYFila = fila.victoriasVisitantes;
+
+        var totalPartidosComoLocalEnCompeticionYFila =
+            sumaDeVictoriasLocalesComoLocalEnCompeticionYFila + sumaDeEmpatesComoLocalEnCompeticionYFila +
+            sumaDeVictoriasVisitantesComoLocalEnCompeticionYFila;
+
+        var porcentajeDeVictoriasLocalesComoLocalEnCompeticionYFila = sumaDeVictoriasLocalesComoLocalEnCompeticionYFila * 100 / totalPartidosComoLocalEnCompeticionYFila;
+        var porcentajeDeEmpatesComoLocalEnCompeticionYFila = sumaDeEmpatesComoLocalEnCompeticionYFila * 100 / totalPartidosComoLocalEnCompeticionYFila;
+        var porcentajeDeVictoriasVisitantesComoLocalEnCompeticionYFila = sumaDeVictoriasVisitantesComoLocalEnCompeticionYFila * 100 / totalPartidosComoLocalEnCompeticionYFila;
+
+        porcentajeDeVictoriasLocalesComoLocalEnCompeticionYFila = Math.round(porcentajeDeVictoriasLocalesComoLocalEnCompeticionYFila * 100) / 100;
+        porcentajeDeEmpatesComoLocalEnCompeticionYFila = Math.round(porcentajeDeEmpatesComoLocalEnCompeticionYFila * 100) / 100;
+        porcentajeDeVictoriasVisitantesComoLocalEnCompeticionYFila = Math.round(porcentajeDeVictoriasVisitantesComoLocalEnCompeticionYFila * 100) / 100;
+
+        if (!fila.victoriasLocales && !fila.empates && !fila.victoriasVisitantes) {
+            message = $scope.getCustomMessage(message, {
+                "{localTeam}": $scope.form.equipoLocal,
+                "{competition}": $scope.form.competicion,
+                '{row}': $scope.form.fila,
+            });
+
+            $scope.localTeamMessages.push(message);
+        }
+    };
+
     $scope.getCustomMessage = function (message, translations) {
         var res = angular.copy(message);
 
