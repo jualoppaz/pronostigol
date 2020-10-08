@@ -48,6 +48,30 @@ function Controller($scope, $q, $window, quiniela, $sce) {
         return suma;
     };
 
+    $scope.sumaDeVictoriasLocalesComoLocalEnCompeticion = function () {
+        var suma = 0;
+        for (var i = 0; i < $scope.filasLocalYCompeticion.length; i++) {
+            suma = suma + $scope.filasLocalYCompeticion[i].victoriasLocales || 0;
+        }
+        return suma;
+    };
+
+    $scope.sumaDeEmpatesComoLocalEnCompeticion = function () {
+        var suma = 0;
+        for (var i = 0; i < $scope.filasLocalYCompeticion.length; i++) {
+            suma = suma + $scope.filasLocalYCompeticion[i].empates || 0;
+        }
+        return suma;
+    };
+
+    $scope.sumaDeVictoriasVisitantesComoLocalEnCompeticion = function () {
+        var suma = 0;
+        for (var i = 0; i < $scope.filasLocalYCompeticion.length; i++) {
+            suma = suma + $scope.filasLocalYCompeticion[i].victoriasVisitantes || 0;
+        }
+        return suma;
+    };
+
     $scope.sumaDeVictoriasLocalesComoVisitante = function () {
         var suma = 0;
         for (var i = 0; i < $scope.filasVisitante.length; i++) {
@@ -132,9 +156,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
         $scope.filasLocal = data[0].filas;
         $scope.filasLocalYCompeticion = data[1].filas;
 
+        // Equipo local
         $scope.realizarAnalisisEquipoLocal();
         $scope.realizarAnalisisEquipoLocalYFila();
+
         $scope.realizarAnalisisEquipoLocalYCompeticion();
+        $scope.realizarAnalisisEquipoLocalCompeticionYFila();
     };
 
     $scope.realizarAnalisisEquipoLocal = function () {
@@ -579,9 +606,9 @@ function Controller($scope, $q, $window, quiniela, $sce) {
     $scope.realizarAnalisisEquipoLocalYCompeticion = function () {
         var message = quiniela.ANALYZER_MESSAGES.LOCAL.COMPETITION.HISTORICAL;
 
-        var sumaDeVictoriasLocalesComoLocalEnCompeticion = $scope.sumaDeVictoriasLocalesComoLocal();
-        var sumaDeEmpatesComoLocalEnCompeticion = $scope.sumaDeEmpatesComoLocal();
-        var sumaDeVictoriasVisitantesComoLocalEnCompeticion = $scope.sumaDeVictoriasVisitantesComoLocal();
+        var sumaDeVictoriasLocalesComoLocalEnCompeticion = $scope.sumaDeVictoriasLocalesComoLocalEnCompeticion();
+        var sumaDeEmpatesComoLocalEnCompeticion = $scope.sumaDeEmpatesComoLocalEnCompeticion();
+        var sumaDeVictoriasVisitantesComoLocalEnCompeticion = $scope.sumaDeVictoriasVisitantesComoLocalEnCompeticion();
 
         var totalPartidosComoLocalEnCompeticion =
             sumaDeVictoriasLocalesComoLocalEnCompeticion + sumaDeEmpatesComoLocalEnCompeticion +
