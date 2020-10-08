@@ -63,6 +63,9 @@
                         },
                         SAME: 'En la fila <b>{row}</b> hay máxima igualdad puesto que el número de victorias locales, empates y victorias visitantes es idéntico: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).'
                     },
+                },
+                COMPETITION: {
+                    HISTORICAL: 'En la competición <b>{competition}</b> los números del equipo <b>{localTeam}</b> como local son los siguientes: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).'
                 }
             },
         };

@@ -134,6 +134,7 @@ function Controller($scope, $q, $window, quiniela, $sce) {
 
         $scope.realizarAnalisisEquipoLocal();
         $scope.realizarAnalisisEquipoLocalYFila();
+        $scope.realizarAnalisisEquipoLocalYCompeticion();
     };
 
     $scope.realizarAnalisisEquipoLocal = function () {
@@ -573,6 +574,39 @@ function Controller($scope, $q, $window, quiniela, $sce) {
 
             $scope.localTeamMessages.push(message);
         }
+    }
+
+    $scope.realizarAnalisisEquipoLocalYCompeticion = function () {
+        var message = quiniela.ANALYZER_MESSAGES.LOCAL.COMPETITION.HISTORICAL;
+
+        var sumaDeVictoriasLocalesComoLocalEnCompeticion = $scope.sumaDeVictoriasLocalesComoLocal();
+        var sumaDeEmpatesComoLocalEnCompeticion = $scope.sumaDeEmpatesComoLocal();
+        var sumaDeVictoriasVisitantesComoLocalEnCompeticion = $scope.sumaDeVictoriasVisitantesComoLocal();
+
+        var totalPartidosComoLocalEnCompeticion =
+            sumaDeVictoriasLocalesComoLocalEnCompeticion + sumaDeEmpatesComoLocalEnCompeticion +
+            sumaDeVictoriasVisitantesComoLocalEnCompeticion;
+
+        var porcentajeDeVictoriasLocalesComoLocalEnCompeticion = sumaDeVictoriasLocalesComoLocalEnCompeticion * 100 / totalPartidosComoLocalEnCompeticion;
+        var porcentajeDeEmpatesComoLocalEnCompeticion = sumaDeEmpatesComoLocalEnCompeticion * 100 / totalPartidosComoLocalEnCompeticion;
+        var porcentajeDeVictoriasVisitantesComoLocalEnCompeticion = sumaDeVictoriasVisitantesComoLocalEnCompeticion * 100 / totalPartidosComoLocalEnCompeticion;
+
+        porcentajeDeVictoriasLocalesComoLocalEnCompeticion = Math.round(porcentajeDeVictoriasLocalesComoLocalEnCompeticion * 100) / 100;
+        porcentajeDeEmpatesComoLocalEnCompeticion = Math.round(porcentajeDeEmpatesComoLocalEnCompeticion * 100) / 100;
+        porcentajeDeVictoriasVisitantesComoLocalEnCompeticion = Math.round(porcentajeDeVictoriasVisitantesComoLocalEnCompeticion * 100) / 100;
+
+        message = $scope.getCustomMessage(message, {
+            "{localTeam}": $scope.form.equipoLocal,
+            "{competition}": $scope.form.competicion,
+            '{numWins}': sumaDeVictoriasLocalesComoLocalEnCompeticion,
+            '{numDraws}': sumaDeEmpatesComoLocalEnCompeticion,
+            '{numLoses}': sumaDeVictoriasVisitantesComoLocalEnCompeticion,
+            '{perWins}': porcentajeDeVictoriasLocalesComoLocalEnCompeticion,
+            '{perDraws}': porcentajeDeEmpatesComoLocalEnCompeticion,
+            '{perLoses}': porcentajeDeVictoriasVisitantesComoLocalEnCompeticion,
+        });
+
+        $scope.localTeamMessages.push(message);
     }
 
     $scope.getCustomMessage = function (message, translations) {
