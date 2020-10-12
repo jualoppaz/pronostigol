@@ -10,40 +10,26 @@
 
         const ANALYZER_MESSAGES = {
             LOCAL: {
-                HISTORICAL: 'El histórico del equipo <b>{localTeam}</b> como local ' +
-                    'cuenta con los siguientes datos: <b>{numWins}</b>V (<b>{perWins}%</b>), ' +
-                    '<b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                HISTORICAL: 'El histórico del equipo <b>{localTeam}</b> como local cuenta con los siguientes datos: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
                 ROW: {
                     NO_DATA: 'No hay registros del equipo <b>{localTeam}</b> en la fila <b>{row}</b>.',
-                    ONLY_WINS: 'Todos los partidos que ha disputado el equipo <b>{localTeam}</b> en la fila <b>{row}</b> han terminado en victoria local: <b>{numWins}</b>V (<b>{perWins}%</b>), ' +
-                        '<b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
-                    ONLY_DRAWS: 'Todos los partidos que ha disputado el equipo <b>{localTeam}</b> en la fila <b>{row}</b> han terminado en empate: <b>{numWins}</b>V (<b>{perWins}%</b>), ' +
-                        '<b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
-                    ONLY_LOSES: 'Todos los partidos que ha disputado el equipo <b>{localTeam}</b> en la fila <b>{row}</b> han terminado en victoria visitante: <b>{numWins}</b>V (<b>{perWins}%</b>), ' +
-                        '<b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                    ONLY_WINS: 'Todos los partidos que ha disputado el equipo <b>{localTeam}</b> en la fila <b>{row}</b> han terminado en victoria local: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                    ONLY_DRAWS: 'Todos los partidos que ha disputado el equipo <b>{localTeam}</b> en la fila <b>{row}</b> han terminado en empate: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                    ONLY_LOSES: 'Todos los partidos que ha disputado el equipo <b>{localTeam}</b> en la fila <b>{row}</b> han terminado en victoria visitante: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
                     WINS_AND_DRAWS_BUT_NO_LOSES: {
-                        MORE_WINS_THAN_DRAWS: 'El equipo <b>{localTeam}</b> no ha perdido en la fila <b>{row}</b> como local y ha ganado más veces de las que ha empatado: <b>{numWins}</b>V (<b>{perWins}%</b>), ' +
-                            '<b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
-                        SAME: 'El equipo <b>{localTeam}</b> no ha perdido en la fila <b>{row}</b> como local y ha ganado las mismas veces que ha empatado: <b>{numWins}</b>V (<b>{perWins}%</b>), ' +
-                            '<b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
-                        MORE_DRAWS_THAN_WINS: 'El equipo <b>{localTeam}</b> no ha perdido en la fila <b>{row}</b> como local y ha empatado más veces de las que ha ganado: <b>{numWins}</b>V (<b>{perWins}%</b>), ' +
-                            '<b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                        MORE_WINS_THAN_DRAWS: 'El equipo <b>{localTeam}</b> no ha perdido en la fila <b>{row}</b> como local y ha ganado más veces de las que ha empatado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                        SAME: 'El equipo <b>{localTeam}</b> no ha perdido en la fila <b>{row}</b> como local y ha ganado las mismas veces que ha empatado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                        MORE_DRAWS_THAN_WINS: 'El equipo <b>{localTeam}</b> no ha perdido en la fila <b>{row}</b> como local y ha empatado más veces de las que ha ganado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
                     },
                     WINS_AND_LOSES_BUT_NO_DRAWS: {
-                        MORE_WINS_THAN_LOSES: 'El equipo <b>{localTeam}</b> no ha empatado en la fila <b>{row}</b> como local y ha ganado más veces de las que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), ' +
-                            '<b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
-                        SAME: 'El equipo <b>{localTeam}</b> no ha empatado en la fila <b>{row}</b> como local y ha ganado las mismas veces que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), ' +
-                            '<b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
-                        MORE_LOSES_THAN_WINS: 'El equipo <b>{localTeam}</b> no ha empatado en la fila <b>{row}</b> como local y ha perdido más veces de las que ha ganado: <b>{numWins}</b>V (<b>{perWins}%</b>), ' +
-                            '<b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                        MORE_WINS_THAN_LOSES: 'El equipo <b>{localTeam}</b> no ha empatado en la fila <b>{row}</b> como local y ha ganado más veces de las que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                        SAME: 'El equipo <b>{localTeam}</b> no ha empatado en la fila <b>{row}</b> como local y ha ganado las mismas veces que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                        MORE_LOSES_THAN_WINS: 'El equipo <b>{localTeam}</b> no ha empatado en la fila <b>{row}</b> como local y ha perdido más veces de las que ha ganado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
                     },
                     DRAWS_AND_LOSES_BUT_NO_WINS: {
-                        MORE_DRAWS_THAN_LOSES: 'El equipo <b>{localTeam}</b> no ha ganado en la fila <b>{row}</b> y ha empatado más veces de las que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), ' +
-                            '<b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
-                        SAME: 'El equipo <b>{localTeam}</b> no ha ganado en la fila <b>{row}</b> y ha empatado las mismas veces que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), ' +
-                            '<b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
-                        MORE_LOSES_THAN_DRAWS: 'El equipo <b>{localTeam}</b> no ha ganado en la fila <b>{row}</b> y ha perdido más veces de las que ha empatado: <b>{numWins}</b>V (<b>{perWins}%</b>), ' +
-                            '<b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                        MORE_DRAWS_THAN_LOSES: 'El equipo <b>{localTeam}</b> no ha ganado en la fila <b>{row}</b> y ha empatado más veces de las que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                        SAME: 'El equipo <b>{localTeam}</b> no ha ganado en la fila <b>{row}</b> y ha empatado las mismas veces que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                        MORE_LOSES_THAN_DRAWS: 'El equipo <b>{localTeam}</b> no ha ganado en la fila <b>{row}</b> y ha perdido más veces de las que ha empatado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
                     },
                     WINS_DRAWS_AND_LOSES: {
                         MORE_WINS: {
@@ -91,6 +77,11 @@
                                 MORE_DRAWS: 'En la fila <b>{row}</b> y en la competición <b>{competition}</b>, el equipo <b>{localTeam}</b> como local ha ganado más de lo que ha empatado y ha empatado más de lo que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
                                 SAME: 'En la fila <b>{row}</b> y en la competición <b>{competition}</b>, el equipo <b>{localTeam}</b> como local ha ganado más de lo que ha empatado y ha empatado lo mismo que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
                                 MORE_LOSES: 'En la fila <b>{row}</b> y en la competición <b>{competition}</b>, el equipo <b>{localTeam}</b> como local ha ganado más de lo que ha perdido y ha perdido más de lo que ha empatado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).'
+                            },
+                            MORE_DRAWS: {
+                                MORE_WINS: 'En la fila <b>{row}</b> y en la competición <b>{competition}</b>, el equipo <b>{localTeam}</b> como local ha empatado más de lo que ha ganado y ha ganado más de lo que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                                SAME: 'En la fila <b>{row}</b> y en la competición <b>{competition}</b>, el equipo <b>{localTeam}</b> como local ha empatado más de lo que ha ganado y ha ganado lo mismo que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                                MORE_LOSES: 'En la fila <b>{row}</b> y en la competición <b>{competition}</b>, el equipo <b>{localTeam}</b> como local ha empatado más de lo que ha perdido y ha perdido más de lo que ha ganado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).'
                             },
                         },
                     }
