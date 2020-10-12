@@ -46,6 +46,8 @@ block content
                             ul.list-group(style="margin-top: 15px")
                                 li.list-group-item(data-ng-repeat="message in localTeamMessages track by $index", ng-bind-html="message")
                         uib-tab(index="1", heading="Visitante")
+                            ul.list-group(style="margin-top: 15px")
+                                li.list-group-item(data-ng-repeat="message in visitorTeamMessages track by $index", ng-bind-html="message")
                         uib-tab(index="2", heading="Partido")
 
 block scripts

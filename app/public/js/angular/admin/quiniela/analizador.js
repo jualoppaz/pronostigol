@@ -138,7 +138,11 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 .getHistorical({
                     local_team: equipoLocal,
                     competition: competicion,
-                })
+                }),
+            quiniela
+                .getHistorical({
+                    visitor_team: equipoVisitante,
+                }),
         ])
             .then(function (data) {
                 $scope.realizarAnalisis(data);
@@ -156,12 +160,17 @@ function Controller($scope, $q, $window, quiniela, $sce) {
         $scope.filasLocal = data[0].filas;
         $scope.filasLocalYCompeticion = data[1].filas;
 
+        $scope.filasVisitante = data[0].filas;
+
         // Equipo local
         $scope.realizarAnalisisEquipoLocal();
         $scope.realizarAnalisisEquipoLocalYFila();
 
         $scope.realizarAnalisisEquipoLocalYCompeticion();
         $scope.realizarAnalisisEquipoLocalCompeticionYFila();
+
+        // Equipo visitante
+        $scope.realizarAnalisisEquipoVisitante();
     };
 
     $scope.realizarAnalisisEquipoLocal = function () {
@@ -1171,6 +1180,38 @@ function Controller($scope, $q, $window, quiniela, $sce) {
         }
     };
 
+    $scope.realizarAnalisisEquipoVisitante = function () {
+        var message = quiniela.ANALYZER_MESSAGES.VISITOR.HISTORICAL;
+
+        var sumaDeVictoriasLocalesComoVisitante = $scope.sumaDeVictoriasLocalesComoVisitante();
+        var sumaDeEmpatesComoVisitante = $scope.sumaDeEmpatesComoVisitante();
+        var sumaDeVictoriasVisitantesComoVisitante = $scope.sumaDeVictoriasVisitantesComoVisitante();
+
+        var totalPartidosComoVisitante =
+            sumaDeVictoriasLocalesComoVisitante + sumaDeEmpatesComoVisitante +
+            sumaDeVictoriasVisitantesComoVisitante;
+
+        var porcentajeDeVictoriasLocalesComoVisitante = sumaDeVictoriasLocalesComoVisitante * 100 / totalPartidosComoVisitante;
+        var porcentajeDeEmpatesComoVisitante = sumaDeEmpatesComoVisitante * 100 / totalPartidosComoVisitante;
+        var porcentajeDeVictoriasVisitantesComoVisitante = sumaDeVictoriasVisitantesComoVisitante * 100 / totalPartidosComoVisitante;
+
+        porcentajeDeVictoriasLocalesComoVisitante = Math.round(porcentajeDeVictoriasLocalesComoVisitante * 100) / 100;
+        porcentajeDeEmpatesComoVisitante = Math.round(porcentajeDeEmpatesComoVisitante * 100) / 100;
+        porcentajeDeVictoriasVisitantesComoVisitante = Math.round(porcentajeDeVictoriasVisitantesComoVisitante * 100) / 100;
+
+        message = $scope.getCustomMessage(message, {
+            "{visitorTeam}": $scope.form.equipoVisitante,
+            '{numWins}': sumaDeVictoriasVisitantesComoVisitante,
+            '{numDraws}': sumaDeEmpatesComoVisitante,
+            '{numLoses}': sumaDeVictoriasLocalesComoVisitante,
+            '{perWins}': porcentajeDeVictoriasVisitantesComoVisitante,
+            '{perDraws}': porcentajeDeEmpatesComoVisitante,
+            '{perLoses}': porcentajeDeVictoriasLocalesComoVisitante,
+        });
+
+        $scope.visitorTeamMessages.push(message);
+    }
+
     $scope.getCustomMessage = function (message, translations) {
         var res = angular.copy(message);
 
@@ -1187,6 +1228,7 @@ function Controller($scope, $q, $window, quiniela, $sce) {
 
     $scope.reset = function () {
         $scope.localTeamMessages = [];
+        $scope.visitorTeamMessages = [];
     };
 
     $scope.init = function () {
