@@ -71,6 +71,11 @@
                         ONLY_WINS: 'Todos los partidos que ha disputado el equipo <b>{localTeam}</b> en la competición <b>{competition}</b> y en la fila <b>{row}</b> han terminado en victoria local: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
                         ONLY_DRAWS: 'Todos los partidos que ha disputado el equipo <b>{localTeam}</b> en la competición <b>{competition}</b> y en la fila <b>{row}</b> han terminado en empate: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
                         ONLY_LOSES: 'Todos los partidos que ha disputado el equipo <b>{localTeam}</b> en la competición <b>{competition}</b> y en la fila <b>{row}</b> han terminado en victoria visitante: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                        WINS_AND_DRAWS_BUT_NO_LOSES: {
+                            MORE_WINS_THAN_DRAWS: 'El equipo <b>{localTeam}</b> no ha perdido en la competición <b>{competition}</b> en la fila <b>{row}</b> como local y ha ganado más veces de las que ha empatado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                            SAME: 'El equipo <b>{localTeam}</b> no ha perdido en la competición <b>{competition}</b> en la fila <b>{row}</b> como local y ha ganado las mismas veces que ha empatado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                            MORE_DRAWS_THAN_WINS: 'El equipo <b>{localTeam}</b> no ha perdido en la competición <b>{competition}</b> en la fila <b>{row}</b> como local y ha empatado más veces de las que ha ganado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                        },
                     }
                 }
             },
