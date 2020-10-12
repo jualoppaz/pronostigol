@@ -88,6 +88,7 @@
                                 SAME: 'En la fila <b>{row}</b> y en la competición <b>{competition}</b>, el equipo <b>{localTeam}</b> como local ha perdido más de lo que ha ganado y ha ganado lo mismo que ha empatado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
                                 MORE_DRAWS: 'En la fila <b>{row}</b> y en la competición <b>{competition}</b>, el equipo <b>{localTeam}</b> como local ha perdido más de lo que ha empatado y ha empatado más de lo que ha ganado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).'
                             },
+                            SAME: 'En la fila <b>{row}</b> y en la competición <b>{competition}</b> hay máxima igualdad puesto que el número de victorias locales, empates y victorias visitantes es idéntico: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).'
                         },
                     }
                 }
