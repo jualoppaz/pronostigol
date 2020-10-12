@@ -1264,22 +1264,22 @@ function Controller($scope, $q, $window, quiniela, $sce) {
 
         message = quiniela.ANALYZER_MESSAGES.VISITOR.ROW.ONLY_DRAWS;
 
-        /* if (fila.victoriasLocales === 0 && fila.empates > 0 && fila.victoriasVisitantes === 0) {
+        if (fila.victoriasVisitantes === 0 && fila.empates > 0 && fila.victoriasLocales === 0) {
             message = $scope.getCustomMessage(message, {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 '{row}': $scope.form.fila,
-                '{numWins}': sumaDeVictoriasLocalesComoVisitanteEnFila,
+                '{numWins}': sumaDeVictoriasVisitantesComoVisitanteEnFila,
                 '{numDraws}': sumaDeEmpatesComoVisitanteEnFila,
-                '{numLoses}': sumaDeVictoriasVisitantesComoVisitanteEnFila,
-                '{perWins}': porcentajeDeVictoriasLocalesComoVisitanteEnFila,
+                '{numLoses}': sumaDeVictoriasLocalesComoVisitanteEnFila,
+                '{perWins}': porcentajeDeVictoriasVisitantesComoVisitanteEnFila,
                 '{perDraws}': porcentajeDeEmpatesComoVisitanteEnFila,
-                '{perLoses}': porcentajeDeVictoriasVisitantesComoVisitanteEnFila,
+                '{perLoses}': porcentajeDeVictoriasLocalesComoVisitanteEnFila,
             });
 
             $scope.visitorTeamMessages.push(message);
         }
 
-        message = quiniela.ANALYZER_MESSAGES.VISITOR.ROW.ONLY_LOSES;
+        /* message = quiniela.ANALYZER_MESSAGES.VISITOR.ROW.ONLY_LOSES;
 
         if (fila.victoriasLocales === 0 && fila.empates === 0 && fila.victoriasVisitantes > 0) {
             message = $scope.getCustomMessage(message, {
