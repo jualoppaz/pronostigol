@@ -65,7 +65,13 @@
                     },
                 },
                 COMPETITION: {
-                    HISTORICAL: 'En la competición <b>{competition}</b> los números del equipo <b>{localTeam}</b> como local son los siguientes: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).'
+                    HISTORICAL: 'En la competición <b>{competition}</b> los números del equipo <b>{localTeam}</b> como local son los siguientes: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                    ROW: {
+                        NO_DATA: 'No hay registros del equipo <b>{localTeam}</b> en la competición <b>{competition}</b> y en la fila <b>{row}</b>.',
+                        ONLY_WINS: 'Todos los partidos que ha disputado el equipo <b>{localTeam}</b> en la competición <b>{competition}</b> y en la fila <b>{row}</b> han terminado en victoria local: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                        ONLY_DRAWS: 'Todos los partidos que ha disputado el equipo <b>{localTeam}</b> en la competición <b>{competition}</b> y en la fila <b>{row}</b> han terminado en empate: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                        ONLY_LOSES: 'Todos los partidos que ha disputado el equipo <b>{localTeam}</b> en la competición <b>{competition}</b> y en la fila <b>{row}</b> han terminado en victoria visitante: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                    }
                 }
             },
         };
