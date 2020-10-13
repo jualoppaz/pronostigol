@@ -1381,24 +1381,24 @@ function Controller($scope, $q, $window, quiniela, $sce) {
             $scope.visitorTeamMessages.push(message);
         }
 
-        /* message = quiniela.ANALYZER_MESSAGES.VISITOR.ROW.WINS_AND_LOSES_BUT_NO_DRAWS.MORE_LOSES_THAN_WINS;
+        message = quiniela.ANALYZER_MESSAGES.VISITOR.ROW.WINS_AND_LOSES_BUT_NO_DRAWS.MORE_LOSES_THAN_WINS;
 
-        if (fila.victoriasLocales < fila.victoriasVisitantes && fila.victoriasLocales > 0 && fila.empates === 0) {
+        if (fila.victoriasLocales > fila.victoriasVisitantes && fila.victoriasVisitantes > 0 && fila.empates === 0) {
             message = $scope.getCustomMessage(message, {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 '{row}': $scope.form.fila,
-                '{numWins}': sumaDeVictoriasLocalesComoVisitanteEnFila,
+                '{numWins}': sumaDeVictoriasVisitantesComoVisitanteEnFila,
                 '{numDraws}': sumaDeEmpatesComoVisitanteEnFila,
-                '{numLoses}': sumaDeVictoriasVisitantesComoVisitanteEnFila,
-                '{perWins}': porcentajeDeVictoriasLocalesComoVisitanteEnFila,
+                '{numLoses}': sumaDeVictoriasLocalesComoVisitanteEnFila,
+                '{perWins}': porcentajeDeVictoriasVisitantesComoVisitanteEnFila,
                 '{perDraws}': porcentajeDeEmpatesComoVisitanteEnFila,
-                '{perLoses}': porcentajeDeVictoriasVisitantesComoVisitanteEnFila,
+                '{perLoses}': porcentajeDeVictoriasLocalesComoVisitanteEnFila,
             });
 
             $scope.visitorTeamMessages.push(message);
         }
 
-        message = quiniela.ANALYZER_MESSAGES.VISITOR.ROW.DRAWS_AND_LOSES_BUT_NO_WINS.MORE_DRAWS_THAN_LOSES;
+        /* message = quiniela.ANALYZER_MESSAGES.VISITOR.ROW.DRAWS_AND_LOSES_BUT_NO_WINS.MORE_DRAWS_THAN_LOSES;
 
         if (fila.victoriasLocales === 0 && fila.empates > fila.victoriasVisitantes && fila.victoriasVisitantes > 0) {
             message = $scope.getCustomMessage(message, {
