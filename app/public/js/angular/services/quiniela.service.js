@@ -27,9 +27,9 @@
                         MORE_LOSES_THAN_WINS: 'El equipo <b>{localTeam}</b> no ha empatado en la fila <b>{row}</b> como local y ha perdido más veces de las que ha ganado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
                     },
                     DRAWS_AND_LOSES_BUT_NO_WINS: {
-                        MORE_DRAWS_THAN_LOSES: 'El equipo <b>{localTeam}</b> no ha ganado en la fila <b>{row}</b> y ha empatado más veces de las que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
-                        SAME: 'El equipo <b>{localTeam}</b> no ha ganado en la fila <b>{row}</b> y ha empatado las mismas veces que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
-                        MORE_LOSES_THAN_DRAWS: 'El equipo <b>{localTeam}</b> no ha ganado en la fila <b>{row}</b> y ha perdido más veces de las que ha empatado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                        MORE_DRAWS_THAN_LOSES: 'El equipo <b>{localTeam}</b> no ha ganado en la fila <b>{row}</b> como local y ha empatado más veces de las que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                        SAME: 'El equipo <b>{localTeam}</b> no ha ganado en la fila <b>{row}</b> como local y ha empatado las mismas veces que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                        MORE_LOSES_THAN_DRAWS: 'El equipo <b>{localTeam}</b> no ha ganado en la fila <b>{row}</b> como local y ha perdido más veces de las que ha empatado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
                     },
                     WINS_DRAWS_AND_LOSES: {
                         MORE_WINS: {
@@ -71,9 +71,9 @@
                             MORE_LOSES_THAN_WINS: 'El equipo <b>{localTeam}</b> no ha empatado en la competición <b>{competition}</b> en la fila <b>{row}</b> como local y ha perdido más veces de las que ha ganado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
                         },
                         DRAWS_AND_LOSES_BUT_NO_WINS: {
-                            MORE_DRAWS_THAN_LOSES: 'El equipo <b>{localTeam}</b> no ha ganado en la competición <b>{competition}</b> en la fila <b>{row}</b> y ha empatado más veces de las que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
-                            SAME: 'El equipo <b>{localTeam}</b> no ha ganado en la competición <b>{competition}</b> en la fila <b>{row}</b> y ha empatado las mismas veces que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
-                            MORE_LOSES_THAN_DRAWS: 'El equipo <b>{localTeam}</b> no ha ganado en la competición <b>{competition}</b> en la fila <b>{row}</b> y ha perdido más veces de las que ha empatado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                            MORE_DRAWS_THAN_LOSES: 'El equipo <b>{localTeam}</b> no ha ganado en la competición <b>{competition}</b> en la fila <b>{row}</b> como local y ha empatado más veces de las que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                            SAME: 'El equipo <b>{localTeam}</b> no ha ganado en la competición <b>{competition}</b> en la fila <b>{row}</b> como local y ha empatado las mismas veces que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                            MORE_LOSES_THAN_DRAWS: 'El equipo <b>{localTeam}</b> no ha ganado en la competición <b>{competition}</b> en la fila <b>{row}</b> como local y ha perdido más veces de las que ha empatado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
                         },
                         WINS_DRAWS_AND_LOSES: {
                             MORE_WINS: {
@@ -117,9 +117,9 @@
                         MORE_LOSES_THAN_WINS: 'El equipo <b>{visitorTeam}</b> no ha empatado en la fila <b>{row}</b> como visitante y ha perdido más veces de las que ha ganado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
                     },
                     DRAWS_AND_LOSES_BUT_NO_WINS: {
-                        MORE_DRAWS_THAN_LOSES: 'El equipo <b>{visitorTeam}</b> no ha ganado en la fila <b>{row}</b> y ha empatado más veces de las que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
-                        SAME: 'El equipo <b>{visitorTeam}</b> no ha ganado en la fila <b>{row}</b> y ha empatado las mismas veces que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
-                        MORE_LOSES_THAN_DRAWS: 'El equipo <b>{visitorTeam}</b> no ha ganado en la fila <b>{row}</b> y ha perdido más veces de las que ha empatado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                        MORE_DRAWS_THAN_LOSES: 'El equipo <b>{visitorTeam}</b> no ha ganado en la fila <b>{row}</b> como visitante y ha empatado más veces de las que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                        SAME: 'El equipo <b>{visitorTeam}</b> no ha ganado en la fila <b>{row}</b> como visitante y ha empatado las mismas veces que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                        MORE_LOSES_THAN_DRAWS: 'El equipo <b>{visitorTeam}</b> no ha ganado en la fila <b>{row}</b> como visitante y ha perdido más veces de las que ha empatado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
                     },
                     WINS_DRAWS_AND_LOSES: {
                         MORE_WINS: {
@@ -161,9 +161,9 @@
                             MORE_LOSES_THAN_WINS: 'El equipo <b>{visitorTeam}</b> no ha empatado en la competición <b>{competition}</b> en la fila <b>{row}</b> como visitante y ha perdido más veces de las que ha ganado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
                         },
                         DRAWS_AND_LOSES_BUT_NO_WINS: {
-                            MORE_DRAWS_THAN_LOSES: 'El equipo <b>{visitorTeam}</b> no ha ganado en la competición <b>{competition}</b> en la fila <b>{row}</b> y ha empatado más veces de las que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
-                            SAME: 'El equipo <b>{visitorTeam}</b> no ha ganado en la competición <b>{competition}</b> en la fila <b>{row}</b> y ha empatado las mismas veces que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
-                            MORE_LOSES_THAN_DRAWS: 'El equipo <b>{visitorTeam}</b> no ha ganado en la competición <b>{competition}</b> en la fila <b>{row}</b> y ha perdido más veces de las que ha empatado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                            MORE_DRAWS_THAN_LOSES: 'El equipo <b>{visitorTeam}</b> no ha ganado en la competición <b>{competition}</b> en la fila <b>{row}</b> como visitante y ha empatado más veces de las que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                            SAME: 'El equipo <b>{visitorTeam}</b> no ha ganado en la competición <b>{competition}</b> en la fila <b>{row}</b> como visitante y ha empatado las mismas veces que ha perdido: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                            MORE_LOSES_THAN_DRAWS: 'El equipo <b>{visitorTeam}</b> no ha ganado en la competición <b>{competition}</b> en la fila <b>{row}</b> como visitante y ha perdido más veces de las que ha empatado: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
                         },
                         WINS_DRAWS_AND_LOSES: {
                             MORE_WINS: {
