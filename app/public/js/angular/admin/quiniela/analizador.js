@@ -1986,9 +1986,9 @@ function Controller($scope, $q, $window, quiniela, $sce) {
             $scope.visitorTeamMessages.push(message);
         }
 
-        /* message = quiniela.ANALYZER_MESSAGES.VISITOR.COMPETITION.ROW.WINS_DRAWS_AND_LOSES.MORE_WINS.MORE_DRAWS;
+        message = quiniela.ANALYZER_MESSAGES.VISITOR.COMPETITION.ROW.WINS_DRAWS_AND_LOSES.MORE_WINS.MORE_DRAWS;
 
-        if (fila.victoriasLocales > fila.empates && fila.empates > fila.victoriasVisitantes && fila.victoriasVisitantes > 0) {
+        if (fila.victoriasVisitantes > fila.empates && fila.empates > fila.victoriasLocales && fila.victoriasLocales > 0) {
             message = $scope.getCustomMessage(message, {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
@@ -2004,7 +2004,7 @@ function Controller($scope, $q, $window, quiniela, $sce) {
             $scope.visitorTeamMessages.push(message);
         }
 
-        message = quiniela.ANALYZER_MESSAGES.VISITOR.COMPETITION.ROW.WINS_DRAWS_AND_LOSES.MORE_WINS.SAME;
+        /* message = quiniela.ANALYZER_MESSAGES.VISITOR.COMPETITION.ROW.WINS_DRAWS_AND_LOSES.MORE_WINS.SAME;
 
         if (fila.victoriasLocales > fila.empates && fila.empates === fila.victoriasVisitantes && fila.victoriasVisitantes > 0) {
             message = $scope.getCustomMessage(message, {
