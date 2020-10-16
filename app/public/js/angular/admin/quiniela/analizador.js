@@ -1788,9 +1788,9 @@ function Controller($scope, $q, $window, quiniela, $sce) {
             $scope.visitorTeamMessages.push(message);
         }
 
-        /* message = quiniela.ANALYZER_MESSAGES.VISITOR.COMPETITION.ROW.ONLY_DRAWS;
+        message = quiniela.ANALYZER_MESSAGES.VISITOR.COMPETITION.ROW.ONLY_DRAWS;
 
-        if (fila.victoriasLocales === 0 && fila.empates > 0 && fila.victoriasVisitantes === 0) {
+        if (fila.victoriasVisitantes === 0 && fila.empates > 0 && fila.victoriasLocales === 0) {
             message = $scope.getCustomMessage(message, {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
@@ -1806,7 +1806,7 @@ function Controller($scope, $q, $window, quiniela, $sce) {
             $scope.visitorTeamMessages.push(message);
         }
 
-        message = quiniela.ANALYZER_MESSAGES.VISITOR.COMPETITION.ROW.ONLY_LOSES;
+        /* message = quiniela.ANALYZER_MESSAGES.VISITOR.COMPETITION.ROW.ONLY_LOSES;
 
         if (fila.victoriasLocales === 0 && fila.empates === 0 && fila.victoriasVisitantes > 0) {
             message = $scope.getCustomMessage(message, {
