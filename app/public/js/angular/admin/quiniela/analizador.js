@@ -96,6 +96,30 @@ function Controller($scope, $q, $window, quiniela, $sce) {
         return suma;
     };
 
+    $scope.sumaDeVictoriasLocalesComoVisitanteEnCompeticion = function () {
+        var suma = 0;
+        for (var i = 0; i < $scope.filasVisitanteYCompeticion.length; i++) {
+            suma = suma + $scope.filasVisitanteYCompeticion[i].victoriasLocales || 0;
+        }
+        return suma;
+    };
+
+    $scope.sumaDeEmpatesComoVisitanteEnCompeticion = function () {
+        var suma = 0;
+        for (var i = 0; i < $scope.filasVisitanteYCompeticion.length; i++) {
+            suma = suma + $scope.filasVisitanteYCompeticion[i].empates || 0;
+        }
+        return suma;
+    };
+
+    $scope.sumaDeVictoriasVisitantesComoVisitanteEnCompeticion = function () {
+        var suma = 0;
+        for (var i = 0; i < $scope.filasVisitanteYCompeticion.length; i++) {
+            suma = suma + $scope.filasVisitanteYCompeticion[i].victoriasVisitantes || 0;
+        }
+        return suma;
+    };
+
     $scope.limpiarInformes = function () {
 
     };
@@ -143,6 +167,11 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 .getHistorical({
                     visitor_team: equipoVisitante,
                 }),
+            quiniela
+                .getHistorical({
+                    visitor_team: equipoVisitante,
+                    competition: competicion,
+                }),
         ])
             .then(function (data) {
                 $scope.realizarAnalisis(data);
@@ -161,6 +190,7 @@ function Controller($scope, $q, $window, quiniela, $sce) {
         $scope.filasLocalYCompeticion = data[1].filas;
 
         $scope.filasVisitante = data[2].filas;
+        $scope.filasVisitanteYCompeticion = data[3].filas;
 
         // Equipo local
         $scope.realizarAnalisisEquipoLocal();
@@ -172,6 +202,8 @@ function Controller($scope, $q, $window, quiniela, $sce) {
         // Equipo visitante
         $scope.realizarAnalisisEquipoVisitante();
         $scope.realizarAnalisisEquipoVisitanteYFila();
+
+        $scope.realizarAnalisisEquipoVisitanteYCompeticion();
     };
 
     $scope.realizarAnalisisEquipoLocal = function () {
@@ -1669,6 +1701,39 @@ function Controller($scope, $q, $window, quiniela, $sce) {
 
             $scope.visitorTeamMessages.push(message);
         }
+    }
+
+    $scope.realizarAnalisisEquipoVisitanteYCompeticion = function () {
+        var message = quiniela.ANALYZER_MESSAGES.VISITOR.COMPETITION.HISTORICAL;
+
+        var sumaDeVictoriasLocalesComoVisitanteEnCompeticion = $scope.sumaDeVictoriasLocalesComoVisitanteEnCompeticion();
+        var sumaDeEmpatesComoVisitanteEnCompeticion = $scope.sumaDeEmpatesComoVisitanteEnCompeticion();
+        var sumaDeVictoriasVisitantesComoVisitanteEnCompeticion = $scope.sumaDeVictoriasVisitantesComoVisitanteEnCompeticion();
+
+        var totalPartidosComoVisitanteEnCompeticion =
+            sumaDeVictoriasLocalesComoVisitanteEnCompeticion + sumaDeEmpatesComoVisitanteEnCompeticion +
+            sumaDeVictoriasVisitantesComoVisitanteEnCompeticion;
+
+        var porcentajeDeVictoriasLocalesComoVisitanteEnCompeticion = sumaDeVictoriasLocalesComoVisitanteEnCompeticion * 100 / totalPartidosComoVisitanteEnCompeticion;
+        var porcentajeDeEmpatesComoVisitanteEnCompeticion = sumaDeEmpatesComoVisitanteEnCompeticion * 100 / totalPartidosComoVisitanteEnCompeticion;
+        var porcentajeDeVictoriasVisitantesComoVisitanteEnCompeticion = sumaDeVictoriasVisitantesComoVisitanteEnCompeticion * 100 / totalPartidosComoVisitanteEnCompeticion;
+
+        porcentajeDeVictoriasLocalesComoVisitanteEnCompeticion = Math.round(porcentajeDeVictoriasLocalesComoVisitanteEnCompeticion * 100) / 100;
+        porcentajeDeEmpatesComoVisitanteEnCompeticion = Math.round(porcentajeDeEmpatesComoVisitanteEnCompeticion * 100) / 100;
+        porcentajeDeVictoriasVisitantesComoVisitanteEnCompeticion = Math.round(porcentajeDeVictoriasVisitantesComoVisitanteEnCompeticion * 100) / 100;
+
+        message = $scope.getCustomMessage(message, {
+            "{visitorTeam}": $scope.form.equipoVisitante,
+            "{competition}": $scope.form.competicion,
+            '{numWins}': sumaDeVictoriasVisitantesComoVisitanteEnCompeticion,
+            '{numDraws}': sumaDeEmpatesComoVisitanteEnCompeticion,
+            '{numLoses}': sumaDeVictoriasLocalesComoVisitanteEnCompeticion,
+            '{perWins}': porcentajeDeVictoriasVisitantesComoVisitanteEnCompeticion,
+            '{perDraws}': porcentajeDeEmpatesComoVisitanteEnCompeticion,
+            '{perLoses}': porcentajeDeVictoriasLocalesComoVisitanteEnCompeticion,
+        });
+
+        $scope.visitorTeamMessages.push(message);
     }
 
     $scope.getCustomMessage = function (message, translations) {
