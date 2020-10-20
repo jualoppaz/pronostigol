@@ -189,6 +189,9 @@
                     }
                 }
             },
+            MATCH: {
+                HISTORICAL: 'El histórico de partidos entre <b>{localTeam}</b> y <b>{visitorTeam}</b> cuenta con los siguientes datos: <b>{numWinsLocal}</b>V (<b>{perWinsLocal}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numWinsVisitor}</b>D (<b>{perWinsVisitor}%</b>).'
+            }
         };
 
         var service = {

@@ -120,6 +120,30 @@ function Controller($scope, $q, $window, quiniela, $sce) {
         return suma;
     };
 
+    $scope.sumaDeVictoriasLocalesEnPartido = function () {
+        var suma = 0;
+        for (var i = 0; i < $scope.filasPartido.length; i++) {
+            suma = suma + $scope.filasPartido[i].victoriasLocales || 0;
+        }
+        return suma;
+    };
+
+    $scope.sumaDeEmpatesEnPartido = function () {
+        var suma = 0;
+        for (var i = 0; i < $scope.filasPartido.length; i++) {
+            suma = suma + $scope.filasPartido[i].empates || 0;
+        }
+        return suma;
+    };
+
+    $scope.sumaDeVictoriasVisitantesEnPartido = function () {
+        var suma = 0;
+        for (var i = 0; i < $scope.filasPartido.length; i++) {
+            suma = suma + $scope.filasPartido[i].victoriasVisitantes || 0;
+        }
+        return suma;
+    };
+
     $scope.limpiarInformes = function () {
 
     };
@@ -172,6 +196,11 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                     visitor_team: equipoVisitante,
                     competition: competicion,
                 }),
+            quiniela
+                .getHistorical({
+                    local_team: equipoLocal,
+                    visitor_team: equipoVisitante,
+                }),
         ])
             .then(function (data) {
                 $scope.realizarAnalisis(data);
@@ -192,6 +221,8 @@ function Controller($scope, $q, $window, quiniela, $sce) {
         $scope.filasVisitante = data[2].filas;
         $scope.filasVisitanteYCompeticion = data[3].filas;
 
+        $scope.filasPartido = data[4].filas;
+
         // Equipo local
         $scope.realizarAnalisisEquipoLocal();
         $scope.realizarAnalisisEquipoLocalYFila();
@@ -205,6 +236,14 @@ function Controller($scope, $q, $window, quiniela, $sce) {
 
         $scope.realizarAnalisisEquipoVisitanteYCompeticion();
         $scope.realizarAnalisisEquipoVisitanteCompeticionYFila();
+
+        // Partido
+        $scope.realizarAnalisisPartido();
+        // TODO
+        // $scope.realizarAnalisisPartidoYFila();
+
+        // $scope.realizarAnalisisPartidoYCompeticion();
+        // $scope.realizarAnalisisPartidoCompeticionYFila();
     };
 
     $scope.realizarAnalisisEquipoLocal = function () {
@@ -2221,6 +2260,39 @@ function Controller($scope, $q, $window, quiniela, $sce) {
         }
     };
 
+    $scope.realizarAnalisisPartido = function () {
+        var message = quiniela.ANALYZER_MESSAGES.MATCH.HISTORICAL;
+
+        var sumaDeVictoriasLocalesEnPartido = $scope.sumaDeVictoriasLocalesEnPartido();
+        var sumaDeEmpatesEnPartido = $scope.sumaDeEmpatesEnPartido();
+        var sumaDeVictoriasVisitantesEnPartido = $scope.sumaDeVictoriasVisitantesEnPartido();
+
+        var totalPartidos =
+            sumaDeVictoriasLocalesEnPartido + sumaDeEmpatesEnPartido +
+            sumaDeVictoriasVisitantesEnPartido;
+
+        var porcentajeDeVictoriasLocalesEnPartido = sumaDeVictoriasLocalesEnPartido * 100 / totalPartidos;
+        var porcentajeDeEmpatesEnPartido = sumaDeEmpatesEnPartido * 100 / totalPartidos;
+        var porcentajeDeVictoriasVisitantesEnPartido = sumaDeVictoriasVisitantesEnPartido * 100 / totalPartidos;
+
+        porcentajeDeVictoriasLocalesEnPartido = Math.round(porcentajeDeVictoriasLocalesEnPartido * 100) / 100;
+        porcentajeDeEmpatesEnPartido = Math.round(porcentajeDeEmpatesEnPartido * 100) / 100;
+        porcentajeDeVictoriasVisitantesEnPartido = Math.round(porcentajeDeVictoriasVisitantesEnPartido * 100) / 100;
+
+        message = $scope.getCustomMessage(message, {
+            "{localTeam}": $scope.form.equipoLocal,
+            "{visitorTeam}": $scope.form.equipoVisitante,
+            '{numWinsLocal}': sumaDeVictoriasLocalesEnPartido,
+            '{numDraws}': sumaDeEmpatesEnPartido,
+            '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartido,
+            '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartido,
+            '{perDraws}': porcentajeDeEmpatesEnPartido,
+            '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartido,
+        });
+
+        $scope.matchMessages.push(message);
+    }
+
     $scope.getCustomMessage = function (message, translations) {
         var res = angular.copy(message);
 
@@ -2238,6 +2310,7 @@ function Controller($scope, $q, $window, quiniela, $sce) {
     $scope.reset = function () {
         $scope.localTeamMessages = [];
         $scope.visitorTeamMessages = [];
+        $scope.matchMessages = [];
     };
 
     $scope.init = function () {
