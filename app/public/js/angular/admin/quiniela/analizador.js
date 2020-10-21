@@ -2345,7 +2345,7 @@ function Controller($scope, $q, $window, quiniela, $sce) {
             $scope.matchMessages.push(message);
         }
 
-        /* message = quiniela.ANALYZER_MESSAGES.MATCH.ROW.ONLY_DRAWS;
+        message = quiniela.ANALYZER_MESSAGES.MATCH.ROW.ONLY_DRAWS;
 
         if (fila.victoriasLocales === 0 && fila.empates > 0 && fila.victoriasVisitantes === 0) {
             message = $scope.getCustomMessage(message, {
@@ -2363,7 +2363,7 @@ function Controller($scope, $q, $window, quiniela, $sce) {
             $scope.matchMessages.push(message);
         }
 
-        message = quiniela.ANALYZER_MESSAGES.MATCH.ROW.ONLY_LOSES;
+        /* message = quiniela.ANALYZER_MESSAGES.MATCH.ROW.ONLY_LOSES;
 
         if (fila.victoriasLocales === 0 && fila.empates === 0 && fila.victoriasVisitantes > 0) {
             message = $scope.getCustomMessage(message, {
@@ -2782,7 +2782,7 @@ function Controller($scope, $q, $window, quiniela, $sce) {
         var res = angular.copy(message);
 
         angular.forEach(translations, function (value, key) {
-            res = res.replace(key, value);
+            res = res.replace(new RegExp(key, "g"), value);
         });
 
         return res;
