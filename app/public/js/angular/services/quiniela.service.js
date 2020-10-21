@@ -195,6 +195,7 @@
                     NO_DATA: 'No hay registros de partidos entre <b>{localTeam}</b> y <b>{visitorTeam}</b> en la fila <b>{row}</b>.',
                     ONLY_LOCAL_WINS: 'Todos los partidos que se han disputado entre <b>{localTeam}</b> y <b>{visitorTeam}</b> en la fila <b>{row}</b> han terminado en victoria local: <b>{numWinsLocal}</b>V (<b>{perWinsLocal}%</b>) del equipo <b>{localTeam}</b>, <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numWinsVisitor}</b>V (<b>{perWinsVisitor}%</b>) del equipo <b>{visitorTeam}</b>.',
                     ONLY_DRAWS: 'Todos los partidos que se han disputado entre <b>{localTeam}</b> y <b>{visitorTeam}</b> en la fila <b>{row}</b> han terminado en empate: <b>{numWinsLocal}</b>V (<b>{perWinsLocal}%</b>) del equipo <b>{localTeam}</b>, <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numWinsVisitor}</b>V (<b>{perWinsVisitor}%</b>) del equipo <b>{visitorTeam}</b>.',
+                    ONLY_VISITOR_WINS: 'Todos los partidos que se han disputado entre <b>{localTeam}</b> y <b>{visitorTeam}</b> en la fila <b>{row}</b> han terminado en victoria visitante: <b>{numWinsLocal}</b>V (<b>{perWinsLocal}%</b>) del equipo <b>{localTeam}</b>, <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numWinsVisitor}</b>V (<b>{perWinsVisitor}%</b>) del equipo <b>{visitorTeam}</b>.',
                 }
             }
         };
