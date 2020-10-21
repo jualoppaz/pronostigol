@@ -192,7 +192,8 @@
             MATCH: {
                 HISTORICAL: 'El histórico de partidos entre <b>{localTeam}</b> y <b>{visitorTeam}</b> cuenta con los siguientes datos: <b>{numWinsLocal}</b>V (<b>{perWinsLocal}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numWinsVisitor}</b>D (<b>{perWinsVisitor}%</b>).',
                 ROW: {
-                    NO_DATA: 'No hay registros de partidos entre <b>{localTeam}</b> y <b>{visitorTeam}</b> en la fila <b>{row}</b>.'
+                    NO_DATA: 'No hay registros de partidos entre <b>{localTeam}</b> y <b>{visitorTeam}</b> en la fila <b>{row}</b>.',
+                    ONLY_LOCAL_WINS: 'Todos los partidos que se han disputado entre <b>{localTeam}</b> y <b>{visitorTeam}</b> en la fila <b>{row}</b> han terminado en victoria local: <b>{numWinsLocal}</b>V (<b>{perWinsLocal}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numWinsVisitor}</b>D (<b>{perWinsVisitor}%</b>).',
                 }
             }
         };
