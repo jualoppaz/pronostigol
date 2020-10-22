@@ -2561,7 +2561,7 @@ function Controller($scope, $q, $window, quiniela, $sce) {
             $scope.matchMessages.push(message);
         }
 
-        /* message = quiniela.ANALYZER_MESSAGES.MATCH.ROW.WINS_DRAWS_AND_LOSES.MORE_WINS.SAME;
+        message = quiniela.ANALYZER_MESSAGES.MATCH.ROW.LOCAL_WINS_DRAWS_AND_VISITOR_WINS.MORE_LOCAL_WINS.SAME;
 
         if (fila.victoriasLocales > fila.empates && fila.empates === fila.victoriasVisitantes && fila.victoriasVisitantes > 0) {
             message = $scope.getCustomMessage(message, {
@@ -2579,7 +2579,7 @@ function Controller($scope, $q, $window, quiniela, $sce) {
             $scope.matchMessages.push(message);
         }
 
-        message = quiniela.ANALYZER_MESSAGES.MATCH.ROW.WINS_DRAWS_AND_LOSES.MORE_WINS.MORE_LOSES;
+        /* message = quiniela.ANALYZER_MESSAGES.MATCH.ROW.WINS_DRAWS_AND_LOSES.MORE_WINS.MORE_LOSES;
 
         if (fila.victoriasLocales > fila.victoriasVisitantes && fila.victoriasVisitantes > fila.empates && fila.empates > 0) {
             message = $scope.getCustomMessage(message, {
