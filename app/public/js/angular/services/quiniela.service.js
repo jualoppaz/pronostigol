@@ -232,6 +232,9 @@
                         SAME_DRAWS_AND_VISITOR_WINS: 'En los enfrentamientos entre <b>{localTeam}</b> y <b>{visitorTeam}</b> en la fila <b>{row}</b> hay los mismos empates que victorias visitantes, siendo más que las victorias locales: <b>{numWinsLocal}</b>V (<b>{perWinsLocal}%</b>) del equipo <b>{localTeam}</b>, <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numWinsVisitor}</b>V (<b>{perWinsVisitor}%</b>) del equipo <b>{visitorTeam}</b>.',
                         SAME: 'En los enfrentamientos entre <b>{localTeam}</b> y <b>{visitorTeam}</b> en la fila <b>{row}</b> hay máxima igualdad puesto que el número de victorias locales, empates y victorias visitantes es idéntico: <b>{numWinsLocal}</b>V (<b>{perWinsLocal}%</b>) del equipo <b>{localTeam}</b>, <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numWinsVisitor}</b>V (<b>{perWinsVisitor}%</b>) del equipo <b>{visitorTeam}</b>.'
                     }
+                },
+                COMPETITION: {
+                    HISTORICAL: 'El histórico de partidos entre <b>{localTeam}</b> y <b>{visitorTeam}</b> en la competición <b>{competition}</b> cuenta con los siguientes datos: <b>{numWinsLocal}</b>V (<b>{perWinsLocal}%</b>) del equipo <b>{localTeam}</b>, <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numWinsVisitor}</b>V (<b>{perWinsVisitor}%</b>) del equipo <b>{visitorTeam}</b>.',
                 }
             }
         };
