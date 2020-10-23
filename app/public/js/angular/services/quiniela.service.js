@@ -224,7 +224,8 @@
                         },
                         MORE_VISITOR_WINS: {
                             MORE_LOCAL_WINS: 'En los enfrentamientos entre <b>{localTeam}</b> y <b>{visitorTeam}</b> en la fila <b>{row}</b> hay más victorias visitantes que victorias locales y más victorias locales que empates: <b>{numWinsLocal}</b>V (<b>{perWinsLocal}%</b>) del equipo <b>{localTeam}</b>, <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numWinsVisitor}</b>V (<b>{perWinsVisitor}%</b>) del equipo <b>{visitorTeam}</b>.',
-                            SAME: 'En los enfrentamientos entre <b>{localTeam}</b> y <b>{visitorTeam}</b> en la fila <b>{row}</b> hay más victorias visitantes que victorias locales y mismas victorias locales que empates: <b>{numWinsLocal}</b>V (<b>{perWinsLocal}%</b>) del equipo <b>{localTeam}</b>, <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numWinsVisitor}</b>V (<b>{perWinsVisitor}%</b>) del equipo <b>{visitorTeam}</b>.'
+                            SAME: 'En los enfrentamientos entre <b>{localTeam}</b> y <b>{visitorTeam}</b> en la fila <b>{row}</b> hay más victorias visitantes que victorias locales y mismas victorias locales que empates: <b>{numWinsLocal}</b>V (<b>{perWinsLocal}%</b>) del equipo <b>{localTeam}</b>, <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numWinsVisitor}</b>V (<b>{perWinsVisitor}%</b>) del equipo <b>{visitorTeam}</b>.',
+                            MORE_DRAWS: 'En los enfrentamientos entre <b>{localTeam}</b> y <b>{visitorTeam}</b> en la fila <b>{row}</b> hay más victorias visitantes que empates y más empates que victorias locales: <b>{numWinsLocal}</b>V (<b>{perWinsLocal}%</b>) del equipo <b>{localTeam}</b>, <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numWinsVisitor}</b>V (<b>{perWinsVisitor}%</b>) del equipo <b>{visitorTeam}</b>.'
                         }
                     }
                 }
