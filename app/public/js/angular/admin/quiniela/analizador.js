@@ -2844,21 +2844,21 @@ function Controller($scope, $q, $window, quiniela, $sce) {
             return row.fila === parseInt($scope.form.fila);
         }) || {};
 
-        var sumaDeVictoriasLocalesPartidoEnCompeticionYFila = fila.victoriasLocales;
-        var sumaDeEmpatesPartidoEnCompeticionYFila = fila.empates;
-        var sumaDeVictoriasVisitantesPartidoEnCompeticionYFila = fila.victoriasVisitantes;
+        var sumaDeVictoriasLocalesEnPartidoCompeticionYFila = fila.victoriasLocales;
+        var sumaDeEmpatesEnPartidoCompeticionYFila = fila.empates;
+        var sumaDeVictoriasVisitantesEnPartidoCompeticionYFila = fila.victoriasVisitantes;
 
         var totalPartidosEnCompeticionYFila =
-            sumaDeVictoriasLocalesPartidoEnCompeticionYFila + sumaDeEmpatesPartidoEnCompeticionYFila +
-            sumaDeVictoriasVisitantesPartidoEnCompeticionYFila;
+            sumaDeVictoriasLocalesEnPartidoCompeticionYFila + sumaDeEmpatesEnPartidoCompeticionYFila +
+            sumaDeVictoriasVisitantesEnPartidoCompeticionYFila;
 
-        var porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila = sumaDeVictoriasLocalesPartidoEnCompeticionYFila * 100 / totalPartidosEnCompeticionYFila;
-        var porcentajeDeEmpatesPartidoEnCompeticionYFila = sumaDeEmpatesPartidoEnCompeticionYFila * 100 / totalPartidosEnCompeticionYFila;
-        var porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila = sumaDeVictoriasVisitantesPartidoEnCompeticionYFila * 100 / totalPartidosEnCompeticionYFila;
+        var porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila = sumaDeVictoriasLocalesEnPartidoCompeticionYFila * 100 / totalPartidosEnCompeticionYFila;
+        var porcentajeDeEmpatesEnPartidoCompeticionYFila = sumaDeEmpatesEnPartidoCompeticionYFila * 100 / totalPartidosEnCompeticionYFila;
+        var porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila = sumaDeVictoriasVisitantesEnPartidoCompeticionYFila * 100 / totalPartidosEnCompeticionYFila;
 
-        porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila = Math.round(porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila * 100) / 100;
-        porcentajeDeEmpatesPartidoEnCompeticionYFila = Math.round(porcentajeDeEmpatesPartidoEnCompeticionYFila * 100) / 100;
-        porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila = Math.round(porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila * 100) / 100;
+        porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila = Math.round(porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila * 100) / 100;
+        porcentajeDeEmpatesEnPartidoCompeticionYFila = Math.round(porcentajeDeEmpatesEnPartidoCompeticionYFila * 100) / 100;
+        porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila = Math.round(porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila * 100) / 100;
 
         if (!fila.victoriasLocales && !fila.empates && !fila.victoriasVisitantes) {
             message = $scope.getCustomMessage(message, {
@@ -2879,12 +2879,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -2898,12 +2898,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -2917,12 +2917,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -2936,12 +2936,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -2955,18 +2955,18 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
         }
 
-        /* message = quiniela.ANALYZER_MESSAGES.MATCH.COMPETITION.ROW.LOCAL_WINS_AND_DRAWS_BUT_NO_VISITOR_WINS.MORE_DRAWS_THAN_LOCAL_WINS;
+        message = quiniela.ANALYZER_MESSAGES.MATCH.COMPETITION.ROW.LOCAL_WINS_AND_DRAWS_BUT_NO_VISITOR_WINS.MORE_DRAWS_THAN_LOCAL_WINS;
 
         if (fila.empates > fila.victoriasLocales && fila.victoriasLocales > 0 && fila.victoriasVisitantes === 0) {
             message = $scope.getCustomMessage(message, {
@@ -2974,18 +2974,18 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
         }
 
-        message = quiniela.ANALYZER_MESSAGES.MATCH.COMPETITION.ROW.LOCAL_WINS_AND_VISITOR_WINS_BUT_NO_DRAWS.MORE_LOCAL_WINS_THAN_VISITOR_WINS;
+        /* message = quiniela.ANALYZER_MESSAGES.MATCH.COMPETITION.ROW.LOCAL_WINS_AND_VISITOR_WINS_BUT_NO_DRAWS.MORE_LOCAL_WINS_THAN_VISITOR_WINS;
 
         if (fila.victoriasLocales > fila.victoriasVisitantes && fila.victoriasVisitantes > 0 && fila.empates === 0) {
             message = $scope.getCustomMessage(message, {
@@ -2993,12 +2993,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -3012,12 +3012,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -3031,12 +3031,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -3050,12 +3050,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -3069,12 +3069,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -3088,12 +3088,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -3107,12 +3107,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -3126,12 +3126,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -3145,12 +3145,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -3164,12 +3164,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -3183,12 +3183,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -3202,12 +3202,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -3221,12 +3221,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -3240,12 +3240,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -3259,12 +3259,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -3278,12 +3278,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -3297,12 +3297,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -3316,12 +3316,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
@@ -3335,12 +3335,12 @@ function Controller($scope, $q, $window, quiniela, $sce) {
                 "{visitorTeam}": $scope.form.equipoVisitante,
                 "{competition}": $scope.form.competicion,
                 '{row}': $scope.form.fila,
-                '{numWinsLocal}': sumaDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{numDraws}': sumaDeEmpatesPartidoEnCompeticionYFila,
-                '{numWinsVisitor}': sumaDeVictoriasVisitantesPartidoEnCompeticionYFila,
-                '{perWinsLocal}': porcentajeDeVictoriasLocalesPartidoEnCompeticionYFila,
-                '{perDraws}': porcentajeDeEmpatesPartidoEnCompeticionYFila,
-                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesPartidoEnCompeticionYFila,
+                '{numWinsLocal}': sumaDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{numDraws}': sumaDeEmpatesEnPartidoCompeticionYFila,
+                '{numWinsVisitor}': sumaDeVictoriasVisitantesEnPartidoCompeticionYFila,
+                '{perWinsLocal}': porcentajeDeVictoriasLocalesEnPartidoCompeticionYFila,
+                '{perDraws}': porcentajeDeEmpatesEnPartidoCompeticionYFila,
+                '{perWinsVisitor}': porcentajeDeVictoriasVisitantesEnPartidoCompeticionYFila,
             });
 
             $scope.matchMessages.push(message);
