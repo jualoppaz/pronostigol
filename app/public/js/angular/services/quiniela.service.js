@@ -235,6 +235,9 @@
                 },
                 COMPETITION: {
                     HISTORICAL: 'El histórico de partidos entre <b>{localTeam}</b> y <b>{visitorTeam}</b> en la competición <b>{competition}</b> cuenta con los siguientes datos: <b>{numWinsLocal}</b>V (<b>{perWinsLocal}%</b>) del equipo <b>{localTeam}</b>, <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numWinsVisitor}</b>V (<b>{perWinsVisitor}%</b>) del equipo <b>{visitorTeam}</b>.',
+                    ROW: {
+                        NO_DATA: 'No hay registros de partidos entre <b>{localTeam}</b> y <b>{visitorTeam}</b> en la competición <b>{competition}</b> y la fila <b>{row}</b>.',
+                    }
                 }
             }
         };
