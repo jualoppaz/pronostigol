@@ -3233,7 +3233,7 @@ function Controller($scope, $q, $window, quiniela, $sce) {
             $scope.matchMessages.push(message);
         }
 
-        /* message = quiniela.ANALYZER_MESSAGES.MATCH.COMPETITION.ROW.LOCAL_WINS_DRAWS_AND_VISITOR_WINS.MORE_VISITOR_WINS.SAME;
+        message = quiniela.ANALYZER_MESSAGES.MATCH.COMPETITION.ROW.LOCAL_WINS_DRAWS_AND_VISITOR_WINS.MORE_VISITOR_WINS.SAME;
 
         if (fila.victoriasVisitantes > fila.victoriasLocales && fila.victoriasLocales === fila.empates && fila.empates > 0) {
             message = $scope.getCustomMessage(message, {
@@ -3252,7 +3252,7 @@ function Controller($scope, $q, $window, quiniela, $sce) {
             $scope.matchMessages.push(message);
         }
 
-        message = quiniela.ANALYZER_MESSAGES.MATCH.COMPETITION.ROW.LOCAL_WINS_DRAWS_AND_VISITOR_WINS.MORE_VISITOR_WINS.MORE_DRAWS;
+        /* message = quiniela.ANALYZER_MESSAGES.MATCH.COMPETITION.ROW.LOCAL_WINS_DRAWS_AND_VISITOR_WINS.MORE_VISITOR_WINS.MORE_DRAWS;
 
         if (fila.victoriasVisitantes > fila.empates && fila.empates > fila.victoriasLocales && fila.victoriasLocales > 0) {
             message = $scope.getCustomMessage(message, {
