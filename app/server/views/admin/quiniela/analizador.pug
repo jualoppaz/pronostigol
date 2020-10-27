@@ -1,0 +1,61 @@
+extends ../partials/layout
+
+block head
+    title Analizador de partido
+
+block content
+    div(data-ng-app="dashboard")
+        div
+            include ../partials/navbar
+        div.container-fluid
+            div.row
+                include ../partials/sidebar
+                div.col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.col-xs-12.main(data-ng-controller="AnalizadorController")
+                    h1.page-header(style="padding-top: 0px;") Analizador de partido
+
+                    form.form-horizontal(style="margin-top: 15px")
+                        div.form-group
+                            label.col-sm-2.control-label Partido:
+
+                            div.col-md-4.col-md-offset-0.col-sm-4.col-sm-offset-0.hidden-xs
+                                input.form-control(data-ng-model="form.equipoLocal", placeholder="Equipo local", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
+                            div.hidden-lg.hidden-md.hidden-sm.col-xs-12(style="padding-bottom: 15px")
+                                input.form-control(data-ng-model="form.equipoLocal", placeholder="Equipo local", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
+
+                            div.col-md-4.col-md-offset-0.col-sm-4.col-sm-offset-0.hidden-xs
+                                input.form-control(data-ng-model="form.equipoVisitante", placeholder="Equipo visitante", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
+                            div.hidden-lg.hidden-md.hidden-sm.col-xs-12
+                                input.form-control(data-ng-model="form.equipoVisitante", placeholder="Equipo visitante", uib-typeahead="equipo.value as equipo.name for equipo in equipos | filter:{name:$viewValue} | orderBy:'name'")
+
+                        div.form-group
+                            label.col-sm-2.control-label Fila:
+                            div.col-sm-1
+                                input.form-control#row(type="text", placeholder="Fila", data-ng-model="form.fila")
+
+                        div.form-group
+                            label.col-sm-2.control-label Competición:
+                            div.col-sm-4
+                                input#competicion(type="text", placeholder="Todas", data-ng-model="form.competicion", uib-typeahead="competicion.value as competicion.name for competicion in competiciones | filter:{name:$viewValue}").form-control
+
+                        div.form-group
+                            div.col-sm-2(style="text-align:right")
+                                a.btn.btn-default.btn-primary(href="#", title="Aceptar", role="button", data-ng-click="analizar()") Analizar
+
+                    uib-tabset(active="active", data-ng-show="mostrar")
+                        uib-tab(index="0", heading="Local")
+                            ul.list-group(style="margin-top: 15px")
+                                li.list-group-item(data-ng-repeat="message in localTeamMessages track by $index", ng-bind-html="message")
+                        uib-tab(index="1", heading="Visitante")
+                            ul.list-group(style="margin-top: 15px")
+                                li.list-group-item(data-ng-repeat="message in visitorTeamMessages track by $index", ng-bind-html="message")
+                        uib-tab(index="2", heading="Partido")
+                            ul.list-group(style="margin-top: 15px")
+                                li.list-group-item(data-ng-repeat="message in matchMessages track by $index", ng-bind-html="message")
+
+block scripts
+    script(src='/js/angular/i18n/angular-locale_es-es.js')
+    script(src='/js/angular/admin/dashboard.js')
+    script(src="/js/angular/admin/quiniela/analizador.js")
+    script(src="/js/angular/admin/navbar.js")
+    script(src="/js/angular/admin/sidebar.js")
+    script(src='/js/angular/ui-bootstrap-tpls-1.3.3.js')
