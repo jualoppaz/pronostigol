@@ -10,7 +10,7 @@
 
         const ANALYZER_MESSAGES = {
             LOCAL: {
-                HISTORICAL: 'El histórico del equipo <b>{localTeam}</b> como local cuenta con los siguientes datos: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                HISTORICAL: 'El histórico del equipo <b>{localTeam}</b> como local en la quiniela cuenta con los siguientes datos: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
                 ROW: {
                     NO_DATA: 'No hay registros del equipo <b>{localTeam}</b> en la fila <b>{row}</b>.',
                     ONLY_WINS: 'Todos los partidos que ha disputado el equipo <b>{localTeam}</b> como local en la fila <b>{row}</b> han terminado en victoria local: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
@@ -100,7 +100,7 @@
                 }
             },
             VISITOR: {
-                HISTORICAL: 'El histórico del equipo <b>{visitorTeam}</b> como visitante cuenta con los siguientes datos: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
+                HISTORICAL: 'El histórico del equipo <b>{visitorTeam}</b> como visitante en la quiniela cuenta con los siguientes datos: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
                 ROW: {
                     NO_DATA: 'No hay registros del equipo <b>{visitorTeam}</b> en la fila <b>{row}</b>.',
                     ONLY_WINS: 'Todos los partidos que ha disputado el equipo <b>{visitorTeam}</b> como visitante en la fila <b>{row}</b> han terminado en victoria visitante: <b>{numWins}</b>V (<b>{perWins}%</b>), <b>{numDraws}</b>E (<b>{perDraws}%</b>) y <b>{numLoses}</b>D (<b>{perLoses}%</b>).',
