@@ -3376,14 +3376,6 @@ function Controller($scope, $q, $window, quiniela, $sce) {
             competicion: null,
         };
 
-        // TODO: ELIMINAR
-        $scope.form = {
-            equipoLocal: 'Sevilla',
-            equipoVisitante: 'Barcelona',
-            fila: 5,
-            competicion: 'Liga Española'
-        };
-
         $scope.reset();
     };
 
