@@ -93,7 +93,7 @@ const MongoClient = require('mongodb').MongoClient;
 MongoClient.connect(process.env.MONGODB_URI, function (err, db) {
     if (err) {
         console.log('Error al conectar la bbdd');
-        return;
+        return console.dir(err);
     }
     console.log('Connected to database');
 
