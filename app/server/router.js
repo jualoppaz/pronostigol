@@ -1,17 +1,6 @@
-var DBM = require("./modules/init-data-base-manager");
-
 const { HTTP_CODES } = require("./constants");
 
-DBM.setup(function(err, res) {
-    if (err) {
-        console.log("Error al abrir la conexión con la BBDD.");
-        return;
-    }
-
-    console.log("Conexión establecida con la BBDD correctamente.");
-});
-
-module.exports = function(app) {
+module.exports = function (app) {
     // Importacion de rutas de la API general
     require("./routes/general/api")(app);
 
@@ -54,11 +43,11 @@ module.exports = function(app) {
     // Importacion de rutas de Queries del Euromillones
     require("./routes/euromillones/queries")(app);
 
-    app.get("/api/*", function(req, res) {
+    app.get("/api/*", function (req, res) {
         return res.status(HTTP_CODES.NOT_FOUND).send("API Method Not Found");
     });
 
-    app.get("*", function(req, res) {
+    app.get("*", function (req, res) {
         res.status(HTTP_CODES.NOT_FOUND).render("404");
     });
 };
