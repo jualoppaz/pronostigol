@@ -17,6 +17,8 @@ const forceDomain = require("forcedomain");
 
 const { HTTP_CODES } = require("./app/server/constants");
 
+var DBM = require('./app/server/modules/init-data-base-manager');
+
 app.use(
     compression({
         threshold: 0
@@ -63,8 +65,6 @@ if (process.env.ACTIVATE_SSL) {
 
 app.use(forceDomain(forceDomainOpts));
 
-require("./app/server/router")(app);
-
 function clientErrorHandler(err, req, res, next) {
     console.log("Entramos en clientErrorHandler");
 
@@ -88,13 +88,27 @@ function errorHandler(err, req, res, next) {
     });
 }
 
-app.use(clientErrorHandler);
-app.use(errorHandler);
+const MongoClient = require('mongodb').MongoClient;
 
-var http = require("http");
+MongoClient.connect(process.env.MONGODB_URI, function (err, db) {
+    if (err) {
+        console.log('Error al conectar la bbdd');
+        return console.dir(err);
+    }
+    console.log('Connected to database');
 
-var httpServer = http.createServer(app);
+    DBM.setDatabaseInstance(db);
 
-httpServer.listen(port, function(err, res) {
-    console.log("Servidor HTTP corriendo en puerto: " + port);
+    require("./app/server/router")(app);
+
+    app.use(clientErrorHandler);
+    app.use(errorHandler);
+
+    var http = require("http");
+
+    var httpServer = http.createServer(app);
+
+    httpServer.listen(port, function (err, res) {
+        console.log("Servidor HTTP corriendo en puerto: " + port);
+    });
 });
