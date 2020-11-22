@@ -34,6 +34,32 @@ block content
                             label.col-sm-2.control-label Premio:
                             div.col-sm-4
                                 input(data-ng-model="ticket.premio").form-control
+                        div.form-group
+                            label.col-sm-2.control-label Formato:
+                            div.col-sm-4
+                                div.radio
+                                    label
+                                        input(
+                                            type="radio",
+                                            data-ng-model="ticket.apuestas.format"
+                                            data-ng-change="actualizarNumerosClave()"
+                                            name="formats",
+                                            id="new-format",
+                                            value="new",
+                                            checked
+                                        )
+                                        | Número clave por apuesta
+                                div.radio
+                                    label
+                                        input(
+                                            type="radio",
+                                            data-ng-model="ticket.apuestas.format"
+                                            data-ng-change="actualizarNumerosClave()"
+                                            name="formats",
+                                            id="old-format",
+                                            value="old"
+                                        )
+                                        | Número clave común
 
                         div.row
                             div.col-xs-12
@@ -60,17 +86,19 @@ block content
                                         td(data-ng-bind-template="{{$index + 1}}")
 
                                         td
-                                            input(type="number", placeholder="[1-49]", data-ng-model="combinacion[0].numero").form-control.text-center
+                                            input(type="number", placeholder="[1-54]", data-ng-model="combinacion[0].numero").form-control.text-center
                                         td
-                                            input(type="number", placeholder="[1-49]", data-ng-model="combinacion[1].numero").form-control.text-center
+                                            input(type="number", placeholder="[1-54]", data-ng-model="combinacion[1].numero").form-control.text-center
                                         td
-                                            input(type="number", placeholder="[1-49]", data-ng-model="combinacion[2].numero").form-control.text-center
+                                            input(type="number", placeholder="[1-54]", data-ng-model="combinacion[2].numero").form-control.text-center
                                         td
-                                            input(type="number", placeholder="[1-49]", data-ng-model="combinacion[3].numero").form-control.text-center
+                                            input(type="number", placeholder="[1-54]", data-ng-model="combinacion[3].numero").form-control.text-center
                                         td
-                                            input(type="number", placeholder="[1-49]", data-ng-model="combinacion[4].numero").form-control.text-center
-                                        td(data-ng-show="{{$index == 0}}", rowspan="{{ticket.apuestas.combinaciones.length}}")
+                                            input(type="number", placeholder="[1-54]", data-ng-model="combinacion[4].numero").form-control.text-center
+                                        td(data-ng-show="ticket.apuestas.format === 'old' && {{$index == 0}}", rowspan="{{ticket.apuestas.combinaciones.length}}")
                                             input(type="number", placeholder="[0-9]", data-ng-model="ticket.apuestas.numeroClave").form-control.text-center
+                                        td(data-ng-show="ticket.apuestas.format === 'new'")
+                                            input(type="number", placeholder="[0-9]", data-ng-model="ticket.apuestas.numerosClave[$index].numeroClave").form-control.text-center
 
                         h2.page-header Resultado
 

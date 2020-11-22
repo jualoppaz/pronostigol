@@ -79,11 +79,18 @@ block content
                                                 span.badge.badge-naranja(data-ng-show="bolaHaSidoAcertadaComoComplementario(bola)", data-ng-bind-template="{{bola.numero}}")
                                                 span.badge.badge-rojo(data-ng-show="!bolaHaSidoAcertada(bola) && !bolaHaSidoAcertadaComoComplementario(bola)", data-ng-bind-template="{{bola.numero}}")
 
-                                            td(data-ng-show="{{$index == 0}}", rowspan="{{ticket.apuestas.combinaciones.length}}").text-center
+                                            td(data-ng-show="ticket.apuestas.format === 'old' && {{$index == 0}}", rowspan="{{ticket.apuestas.combinaciones.length}}").text-center
                                                 span.badge.badge-verde(data-ng-show="ticket.apuestas.numeroClave == ticket.resultado.numeroClave", data-ng-bind-template="{{ticket.apuestas.numeroClave}}")
                                                 span.badge.badge-rojo(data-ng-show="ticket.apuestas.numeroClave != ticket.resultado.numeroClave", data-ng-bind-template="{{ticket.apuestas.numeroClave}}")
-                                            td(data-ng-bind-template="{{determinarNumeroAciertos(combinacion)}}")
-                                            td(data-ng-bind-template="{{determinarCategoriaPremio(combinacion)}}")
+                                            td(data-ng-show="ticket.apuestas.format === 'new'").text-center
+                                                span.badge.badge-verde(
+                                                    data-ng-show="ticket.apuestas.numerosClave[$index].numeroClave == ticket.resultado.numeroClave",
+                                                    data-ng-bind-template="{{ticket.apuestas.numerosClave[$index].numeroClave}}")
+                                                span.badge.badge-rojo(
+                                                    data-ng-show="ticket.apuestas.numerosClave[$index].numeroClave != ticket.resultado.numeroClave",
+                                                    data-ng-bind-template="{{ticket.apuestas.numerosClave[$index].numeroClave}}")
+                                            td(data-ng-bind-template="{{determinarNumeroAciertos(combinacion, $index)}}")
+                                            td(data-ng-bind-template="{{determinarCategoriaPremio(combinacion, $index)}}")
 
 
                         h2.col-xs-12(data-ng-hide="ticketEstaVacio()", data-ng-cloak, style="margin-top: 30px; margin-left: 15px; margin-right: 15px; padding-left: 15px").page-header Resultado
