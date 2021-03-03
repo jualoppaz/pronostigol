@@ -46,7 +46,7 @@
         "moment": "^2.24.0",
         "mongodb": "^2.2.33",
         "octonode": "^0.9.5",
-        "pug": "^2.0.3",
+        "pug": "^3.0.1",
         "request": ">=2.68.0",
         "request-json": "^0.6.4",
         "serve-favicon": "^2.1.6",
