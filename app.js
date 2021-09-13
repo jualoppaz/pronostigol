@@ -55,7 +55,7 @@ ev.options({
 });
 
 var forceDomainOpts = {
-    hostname: "www.pronostigol.es",
+    hostname: "old.pronostigol.es",
     excludeRule: /[a-zA-Z0-9][a-zA-Z0-9-]+\.herokuapp\.com/i
 };
 
